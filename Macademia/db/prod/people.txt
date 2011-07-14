@@ -1,0 +1,897 @@
+Shilad Sen	Math/CS	ssen@macalester.edu	online communities
+Shilad Sen	Math/CS	ssen@macalester.edu	social networking
+Shilad Sen	Math/CS	ssen@macalester.edu	data mining
+Shilad Sen	Math/CS	ssen@macalester.edu	machine learning
+Shilad Sen	Math/CS	ssen@macalester.edu	web2.0
+Shilad Sen	Math/CS	ssen@macalester.edu	politics
+Shilad Sen	Math/CS	ssen@macalester.edu	social psychology
+Shilad Sen	Math/CS	ssen@macalester.edu	group psychology
+Shilad Sen	Math/CS	ssen@macalester.edu	statistics
+Shilad Sen	Math/CS	ssen@macalester.edu	collaborative computing
+Shilad Sen	Math/CS	ssen@macalester.edu	moderation
+Shilad Sen	Math/CS	ssen@macalester.edu	online contributions
+Shilad Sen	Math/CS	ssen@macalester.edu	recommender systems
+Shilad Sen	Math/CS	ssen@macalester.edu	social networks
+Shilad Sen	Math/CS	ssen@macalester.edu	tagging
+Shilad Sen	Math/CS	ssen@macalester.edu	web20
+Jaine Strauss	Psychology	strauss@macalester.edu	body image
+Jaine Strauss	Psychology	strauss@macalester.edu	eating disorders
+Jaine Strauss	Psychology	strauss@macalester.edu	body objectification
+Jaine Strauss	Psychology	strauss@macalester.edu	childhood obesity
+Jaine Strauss	Psychology	strauss@macalester.edu	feminist identity
+Jaine Strauss	Psychology	strauss@macalester.edu	nutritional epidemiology
+Jaine Strauss	Psychology	strauss@macalester.edu	psychotherapy research
+Jaine Strauss	Psychology	strauss@macalester.edu	structural analysis of social behavior (SASB)
+Jaine Strauss	Psychology	strauss@macalester.edu	media
+Jaine Strauss	Psychology	strauss@macalester.edu	clinical psychology
+Jaine Strauss	Psychology	strauss@macalester.edu	feminist psychology
+Jaine Strauss	Psychology	strauss@macalester.edu	public health
+Jaine Strauss	Psychology	strauss@macalester.edu	community psychology
+Arjun Guneratne	anthropology	guneratne@macalester.edu	ethnicity
+Arjun Guneratne	anthropology	guneratne@macalester.edu	globalization
+Arjun Guneratne	anthropology	guneratne@macalester.edu	law
+Arjun Guneratne	anthropology	guneratne@macalester.edu	middle classes
+Arjun Guneratne	anthropology	guneratne@macalester.edu	nationalism
+Arjun Guneratne	anthropology	guneratne@macalester.edu	Nepal
+Arjun Guneratne	anthropology	guneratne@macalester.edu	NGOs
+Arjun Guneratne	anthropology	guneratne@macalester.edu	politics
+Arjun Guneratne	anthropology	guneratne@macalester.edu	South Asia
+Arjun Guneratne	anthropology	guneratne@macalester.edu	Sri Lanka
+Arjun Guneratne	anthropology	guneratne@macalester.edu	state formation
+Arjun Guneratne	anthropology	guneratne@macalester.edu	wildlife conservation
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	ethics of emerging technologies
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	European philosophy
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	existentialism
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	Heidegger
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	hermeneutics
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	information technology
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	liberal education
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	philosophy of technology
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	the good life
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	the right to privacy
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	Web 2.0
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	architecture
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	modernism
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	environmentalism
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	everyday material life
+Dianna Shandy	anthropology	shandy@macalester.edu	Africa
+Dianna Shandy	anthropology	shandy@macalester.edu	anthropology
+Dianna Shandy	anthropology	shandy@macalester.edu	citizenship
+Dianna Shandy	anthropology	shandy@macalester.edu	Darfur
+Dianna Shandy	anthropology	shandy@macalester.edu	forced migration
+Dianna Shandy	anthropology	shandy@macalester.edu	gender
+Dianna Shandy	anthropology	shandy@macalester.edu	human rights
+Dianna Shandy	anthropology	shandy@macalester.edu	humanitarianism
+Dianna Shandy	anthropology	shandy@macalester.edu	immigrants
+Dianna Shandy	anthropology	shandy@macalester.edu	Ireland
+Dianna Shandy	anthropology	shandy@macalester.edu	qualitative research methods
+Dianna Shandy	anthropology	shandy@macalester.edu	rapid social change
+Dianna Shandy	anthropology	shandy@macalester.edu	Sudan
+Dianna Shandy	anthropology	shandy@macalester.edu	Transnationalism
+Dianna Shandy	anthropology	shandy@macalester.edu	war
+Dianna Shandy	anthropology	shandy@macalester.edu	work-life choices
+Geoff Gorham	philosophy	ggorham@macalester.edu	time
+Geoff Gorham	philosophy	ggorham@macalester.edu	identity
+Geoff Gorham	philosophy	ggorham@macalester.edu	space
+Geoff Gorham	philosophy	ggorham@macalester.edu	realism
+Geoff Gorham	philosophy	ggorham@macalester.edu	progress
+Geoff Gorham	philosophy	ggorham@macalester.edu	early modern
+Geoff Gorham	philosophy	ggorham@macalester.edu	Descartes
+Geoff Gorham	philosophy	ggorham@macalester.edu	Newton
+Geoff Gorham	philosophy	ggorham@macalester.edu	Locke
+Geoff Gorham	philosophy	ggorham@macalester.edu	Hume
+Geoff Gorham	philosophy	ggorham@macalester.edu	causality
+Geoff Gorham	philosophy	ggorham@macalester.edu	cosmology
+Geoff Gorham	philosophy	ggorham@macalester.edu	quantum
+Geoff Gorham	philosophy	ggorham@macalester.edu	Aristotle
+Geoff Gorham	philosophy	ggorham@macalester.edu	Darwin
+Geoff Gorham	philosophy	ggorham@macalester.edu	Suarez
+Geoff Gorham	philosophy	ggorham@macalester.edu	eternity
+Geoff Gorham	philosophy	ggorham@macalester.edu	death
+Janet Folina	philosophy	folina@macalester.edu	numbers
+Janet Folina	philosophy	folina@macalester.edu	structure
+Janet Folina	philosophy	folina@macalester.edu	realism
+Janet Folina	philosophy	folina@macalester.edu	Poincare
+Janet Folina	philosophy	folina@macalester.edu	Kant
+Janet Folina	philosophy	folina@macalester.edu	Wittgenstein
+Janet Folina	philosophy	folina@macalester.edu	Weyl
+Janet Folina	philosophy	folina@macalester.edu	logicism
+Janet Folina	philosophy	folina@macalester.edu	intuition
+Janet Folina	philosophy	folina@macalester.edu	abstract
+Janet Folina	philosophy	folina@macalester.edu	naturalism
+Janet Folina	philosophy	folina@macalester.edu	fictionalism
+Janet Folina	philosophy	folina@macalester.edu	diagrams
+Janet Folina	philosophy	folina@macalester.edu	visual information
+Janet Folina	philosophy	folina@macalester.edu	proof
+Janet Folina	philosophy	folina@macalester.edu	objectivity
+Joy Laine	philosophy	lainej@macalester.edu	philosophy of mind
+Joy Laine	philosophy	lainej@macalester.edu	consciousness
+Joy Laine	philosophy	lainej@macalester.edu	embodiment
+Joy Laine	philosophy	lainej@macalester.edu	persons
+Joy Laine	philosophy	lainej@macalester.edu	personal identity
+Joy Laine	philosophy	lainej@macalester.edu	thought experimentation
+Joy Laine	philosophy	lainej@macalester.edu	narrativity
+Joy Laine	philosophy	lainej@macalester.edu	philosophy and literature
+Joy Laine	philosophy	lainej@macalester.edu	Parfit
+Joy Laine	philosophy	lainej@macalester.edu	Locke
+Joy Laine	philosophy	lainej@macalester.edu	Indian philosophies
+Joy Laine	philosophy	lainej@macalester.edu	Indian realism
+Joy Laine	philosophy	lainej@macalester.edu	Nyaya Darsana
+Joy Laine	philosophy	lainej@macalester.edu	Udayana
+Joy Laine	philosophy	lainej@macalester.edu	Nagarjuna
+Joy Laine	philosophy	lainej@macalester.edu	Wittgenstein
+Joy Laine	philosophy	lainej@macalester.edu	Davidson
+Joy Laine	philosophy	lainej@macalester.edu	metaphor
+Joy Laine	philosophy	lainej@macalester.edu	cross-cultural philosophy
+Karine Moe	economics	moe@macalester.edu	demography
+Karine Moe	economics	moe@macalester.edu	development
+Karine Moe	economics	moe@macalester.edu	economics
+Karine Moe	economics	moe@macalester.edu	education
+Karine Moe	economics	moe@macalester.edu	environment
+Karine Moe	economics	moe@macalester.edu	fertility
+Karine Moe	economics	moe@macalester.edu	gender
+Karine Moe	economics	moe@macalester.edu	girls
+Karine Moe	economics	moe@macalester.edu	human capital
+Karine Moe	economics	moe@macalester.edu	informal economy
+Karine Moe	economics	moe@macalester.edu	labor
+Karine Moe	economics	moe@macalester.edu	Mexico
+Karine Moe	economics	moe@macalester.edu	social movements
+Karine Moe	economics	moe@macalester.edu	time use
+Karine Moe	economics	moe@macalester.edu	women
+Karine Moe	economics	moe@macalester.edu	work
+Karine Moe	economics	moe@macalester.edu	work-life balance
+Kendrick Brown	psychology	brown@macalester.edu	african american psychology
+Kendrick Brown	psychology	brown@macalester.edu	discrimination
+Kendrick Brown	psychology	brown@macalester.edu	intergroup contact
+Kendrick Brown	psychology	brown@macalester.edu	interracial friendship
+Kendrick Brown	psychology	brown@macalester.edu	online surveys
+Kendrick Brown	psychology	brown@macalester.edu	perception of bias
+Kendrick Brown	psychology	brown@macalester.edu	prejudice
+Kendrick Brown	psychology	brown@macalester.edu	racism
+Kendrick Brown	psychology	brown@macalester.edu	skin tone bias
+Kendrick Brown	psychology	brown@macalester.edu	social psychology
+Kendrick Brown	psychology	brown@macalester.edu	stereotyping
+Kendrick Brown	psychology	brown@macalester.edu	survey methodology
+Martin Gunderson	philosophy	gunderson@macalester.edu	ethics
+Martin Gunderson	philosophy	gunderson@macalester.edu	Kantian ethics
+Martin Gunderson	philosophy	gunderson@macalester.edu	Kantian constructivism
+Martin Gunderson	philosophy	gunderson@macalester.edu	Rawls
+Martin Gunderson	philosophy	gunderson@macalester.edu	bioethics
+Martin Gunderson	philosophy	gunderson@macalester.edu	philosophy of law
+Martin Gunderson	philosophy	gunderson@macalester.edu	civil rights
+Martin Gunderson	philosophy	gunderson@macalester.edu	human rights
+Martin Gunderson	philosophy	gunderson@macalester.edu	right to die
+Martin Gunderson	philosophy	gunderson@macalester.edu	informed consent
+Martin Gunderson	philosophy	gunderson@macalester.edu	dignity
+Terry Boychuk	sociology	boychuk@macalester.edu	Affirmative Action Policy
+Terry Boychuk	sociology	boychuk@macalester.edu	American Social Policy
+Terry Boychuk	sociology	boychuk@macalester.edu	Comparative Health Systems
+Terry Boychuk	sociology	boychuk@macalester.edu	historical development of social policies
+Terry Boychuk	sociology	boychuk@macalester.edu	Medical Sociology
+Terry Boychuk	sociology	boychuk@macalester.edu	Non-Profits
+Terry Boychuk	sociology	boychuk@macalester.edu	Nonprofit Organizations
+Terry Boychuk	sociology	boychuk@macalester.edu	Philanthropy
+Terry Boychuk	sociology	boychuk@macalester.edu	Politics of Health Policy
+Erik Larson	Sociology	larsone@macalester.edu	sociology of law
+Erik Larson	Sociology	larsone@macalester.edu	political sociology
+Erik Larson	Sociology	larsone@macalester.edu	economic sociology
+Erik Larson	Sociology	larsone@macalester.edu	indigenous peoples' movements
+Erik Larson	Sociology	larsone@macalester.edu	market formation and operation
+Erik Larson	Sociology	larsone@macalester.edu	reconciliation
+Erik Larson	Sociology	larsone@macalester.edu	Fiji
+Erik Larson	Sociology	larsone@macalester.edu	globalization
+Erik Larson	Sociology	larsone@macalester.edu	anti-corruption
+Duchess Harris	American Studies	harris@macalester.edu	20th Century African American History
+Duchess Harris	American Studies	harris@macalester.edu	African American literature
+Duchess Harris	American Studies	harris@macalester.edu	feminist theory
+Duchess Harris	American Studies	harris@macalester.edu	legal studies
+Duchess Harris	American Studies	harris@macalester.edu	autobiography
+Duchess Harris	American Studies	harris@macalester.edu	political theory
+Eric Wiertelak	Psychology	wiertelak@macalester.edu	Pain
+Eric Wiertelak	Psychology	wiertelak@macalester.edu	nociception
+Eric Wiertelak	Psychology	wiertelak@macalester.edu	neuroscience
+Eric Wiertelak	Psychology	wiertelak@macalester.edu	neuroscience studies
+Eric Wiertelak	Psychology	wiertelak@macalester.edu	alternative medicine
+Eric Wiertelak	Psychology	wiertelak@macalester.edu	complementary medicine
+Eric Wiertelak	Psychology	wiertelak@macalester.edu	psychopharmacology
+Eric Wiertelak	Psychology	wiertelak@macalester.edu	neuroscience and dance
+Eric Wiertelak	Psychology	wiertelak@macalester.edu	consciousness
+Eric Wiertelak	Psychology	wiertelak@macalester.edu	animal behavior
+Eric Wiertelak	Psychology	wiertelak@macalester.edu	aromatherapy
+Eric Wiertelak	Psychology	wiertelak@macalester.edu	herbalism
+Eric Wiertelak	Psychology	wiertelak@macalester.edu	drug policy
+David Bressoud	Math/Stat/Comp Sci	bressoud@macalester.edu	number theory
+David Bressoud	Math/Stat/Comp Sci	bressoud@macalester.edu	combinatorics
+David Bressoud	Math/Stat/Comp Sci	bressoud@macalester.edu	special functions
+David Bressoud	Math/Stat/Comp Sci	bressoud@macalester.edu	history of mathematics
+David Bressoud	Math/Stat/Comp Sci	bressoud@macalester.edu	undergraduate mathematics education
+Susan Eileen Fox	Math/CS	fox@macalester.edu	artificial intelligence
+Susan Eileen Fox	Math/CS	fox@macalester.edu	robotics
+Susan Eileen Fox	Math/CS	fox@macalester.edu	cognitive science
+David Chioni Moore	International Studies and English	mooredc@macalester.edu	African literature
+David Chioni Moore	International Studies and English	mooredc@macalester.edu	African American literature
+David Chioni Moore	International Studies and English	mooredc@macalester.edu	the Black Atlantic
+David Chioni Moore	International Studies and English	mooredc@macalester.edu	globalization
+David Chioni Moore	International Studies and English	mooredc@macalester.edu	cultural theory
+David Chioni Moore	International Studies and English	mooredc@macalester.edu	literary theory
+David Chioni Moore	International Studies and English	mooredc@macalester.edu	history of world literature concept
+David Chioni Moore	International Studies and English	mooredc@macalester.edu	postcolonial studies
+David Chioni Moore	International Studies and English	mooredc@macalester.edu	cosmopolitanism
+David Chioni Moore	International Studies and English	mooredc@macalester.edu	Langston Hughes
+David Chioni Moore	International Studies and English	mooredc@macalester.edu	Derek Walcott
+David Chioni Moore	International Studies and English	mooredc@macalester.edu	genres and forms of discourse
+David Chioni Moore	International Studies and English	mooredc@macalester.edu	post-Soviet sphere
+Dan Flath	Math/CS	flath@macalester.edu	algebra
+Dan Flath	Math/CS	flath@macalester.edu	geometry
+Dan Flath	Math/CS	flath@macalester.edu	math modeling in any discipline
+Franklin Hugh Adler	Political Science	adler@macalester.edu	political theory
+Franklin Hugh Adler	Political Science	adler@macalester.edu	comparative politics
+Franklin Hugh Adler	Political Science	adler@macalester.edu	political sociology
+Franklin Hugh Adler	Political Science	adler@macalester.edu	contemporary European history
+Franklin Hugh Adler	Political Science	adler@macalester.edu	critical theory
+Franklin Hugh Adler	Political Science	adler@macalester.edu	Western Marxism
+Franklin Hugh Adler	Political Science	adler@macalester.edu	Fascism
+Franklin Hugh Adler	Political Science	adler@macalester.edu	Holocaust studies
+Franklin Hugh Adler	Political Science	adler@macalester.edu	comparative Jewish history
+Franklin Hugh Adler	Political Science	adler@macalester.edu	race and ethnicity
+Franklin Hugh Adler	Political Science	adler@macalester.edu	Kant for managers.
+Tonnis ter Veldhuis	Physics and Astronomy	terveldhuis@macalester.edu	elementary particle physics
+Tonnis ter Veldhuis	Physics and Astronomy	terveldhuis@macalester.edu	field theory
+Tonnis ter Veldhuis	Physics and Astronomy	terveldhuis@macalester.edu	cosmology
+Tonnis ter Veldhuis	Physics and Astronomy	terveldhuis@macalester.edu	phenomenology
+Tonnis ter Veldhuis	Physics and Astronomy	terveldhuis@macalester.edu	solitons
+Tonnis ter Veldhuis	Physics and Astronomy	terveldhuis@macalester.edu	supersymmetry
+Tonnis ter Veldhuis	Physics and Astronomy	terveldhuis@macalester.edu	symmetry breaking
+Tonnis ter Veldhuis	Physics and Astronomy	terveldhuis@macalester.edu	dark matter
+Tonnis ter Veldhuis	Physics and Astronomy	terveldhuis@macalester.edu	higgs boson
+Tonnis ter Veldhuis	Physics and Astronomy	terveldhuis@macalester.edu	inflation
+Tonnis ter Veldhuis	Physics and Astronomy	terveldhuis@macalester.edu	group theory
+Tonnis ter Veldhuis	Physics and Astronomy	terveldhuis@macalester.edu	parallel computing
+Tonnis ter Veldhuis	Physics and Astronomy	terveldhuis@macalester.edu	Beowulf cluster
+Tonnis ter Veldhuis	Physics and Astronomy	terveldhuis@macalester.edu	MPI
+Karl Wirth	Geology	wirth@grinnell.edu	geology
+Karl Wirth	Geology	wirth@grinnell.edu	petrology
+Karl Wirth	Geology	wirth@grinnell.edu	geochemistry
+Karl Wirth	Geology	wirth@grinnell.edu	isotopes
+Karl Wirth	Geology	wirth@grinnell.edu	environmental chemistry
+Karl Wirth	Geology	wirth@grinnell.edu	mantle evolution
+Karl Wirth	Geology	wirth@grinnell.edu	crustal evolution
+Karl Wirth	Geology	wirth@grinnell.edu	tectonics
+Karl Wirth	Geology	wirth@grinnell.edu	volcanism
+Karl Wirth	Geology	wirth@grinnell.edu	ophiolites
+Karl Wirth	Geology	wirth@grinnell.edu	rifting
+Karl Wirth	Geology	wirth@grinnell.edu	Precambrian geology
+Karl Wirth	Geology	wirth@grinnell.edu	planetary geology
+Karl Wirth	Geology	wirth@grinnell.edu	learning and teaching
+Karl Wirth	Geology	wirth@grinnell.edu	pedagogy
+Karl Wirth	Geology	wirth@grinnell.edu	assessment
+Karl Wirth	Geology	wirth@grinnell.edu	metacognition
+Karl Wirth	Geology	wirth@grinnell.edu	learning management systems
+Karl Wirth	Geology	wirth@grinnell.edu	Moodle
+Karl Wirth	Geology	wirth@grinnell.edu	learning abroad
+Karl Wirth	Geology	wirth@grinnell.edu	Africa
+Karl Wirth	Geology	wirth@grinnell.edu	faculty development
+Chad Topaz	Math/CS	ctopaz@grinnell.edu	applied mathematics
+Chad Topaz	Math/CS	ctopaz@grinnell.edu	mathematical modeling
+Chad Topaz	Math/CS	ctopaz@grinnell.edu	mathematical biology
+Chad Topaz	Math/CS	ctopaz@grinnell.edu	pattern formation
+Chad Topaz	Math/CS	ctopaz@grinnell.edu	swarming
+Chad Topaz	Math/CS	ctopaz@grinnell.edu	fluid dynamics
+Chad Topaz	Math/CS	ctopaz@grinnell.edu	reaction-diffusion
+Laura Smith	Geography	smithl@grinnell.edu	urban geography
+Laura Smith	Geography	smithl@grinnell.edu	housing markets
+Laura Smith	Geography	smithl@grinnell.edu	foreclosure
+Laura Smith	Geography	smithl@grinnell.edu	American Indian lands and economic development
+Laura Smith	Geography	smithl@grinnell.edu	Canada
+Laura Smith	Geography	smithl@grinnell.edu	quantitative methods
+Laura Smith	Geography	smithl@grinnell.edu	GIS (Geographic Information Systems)
+Laura Smith	Geography	smithl@grinnell.edu	U.S. regional geography
+Laura Smith	Geography	smithl@grinnell.edu	transportation
+Liang Ding	Economics	ding@grinnell.edu	International finance (foreign exchange market microstructure and exchange rate dynamics)
+Liang Ding	Economics	ding@grinnell.edu	Financial economics (general financial markets
+Liang Ding	Economics	ding@grinnell.edu	market efficiency and behavioral finance)
+Liang Ding	Economics	ding@grinnell.edu	Statistics of high frequency time series
+Liang Ding	Economics	ding@grinnell.edu	China's economic development
+Andrew Beveridge	Mathematics and Computer Science	abeverid@grinnell.edu	combinatorics
+Andrew Beveridge	Mathematics and Computer Science	abeverid@grinnell.edu	graph theory
+Andrew Beveridge	Mathematics and Computer Science	abeverid@grinnell.edu	networks
+Andrew Beveridge	Mathematics and Computer Science	abeverid@grinnell.edu	probability
+Andrew Beveridge	Mathematics and Computer Science	abeverid@grinnell.edu	random walks
+Andrew Beveridge	Mathematics and Computer Science	abeverid@grinnell.edu	optimization
+Andrew Beveridge	Mathematics and Computer Science	abeverid@grinnell.edu	algorithms
+Leola Johnon	Humanities and Media and Cultural Studies	johnsonl1@grinnell.edu	African American popular culture from WWII to the present
+Leola Johnon	Humanities and Media and Cultural Studies	johnsonl1@grinnell.edu	Representations of African Americans in news
+Leola Johnon	Humanities and Media and Cultural Studies	johnsonl1@grinnell.edu	advertising
+Leola Johnon	Humanities and Media and Cultural Studies	johnsonl1@grinnell.edu	entertainment
+Leola Johnon	Humanities and Media and Cultural Studies	johnsonl1@grinnell.edu	and politics
+James Heyman	Physics and Astronomy	heyman@grinnell.edu	experimental physics
+James Heyman	Physics and Astronomy	heyman@grinnell.edu	condensed matter
+James Heyman	Physics and Astronomy	heyman@grinnell.edu	ultrafast phenomena
+James Heyman	Physics and Astronomy	heyman@grinnell.edu	femtosecond infrared spectroscopy
+James Heyman	Physics and Astronomy	heyman@grinnell.edu	optics
+Beth Cleary	Theater and Dance	cleary@grinnell.edu	embodiment practices in rehearsal and performance
+Beth Cleary	Theater and Dance	cleary@grinnell.edu	directing
+Beth Cleary	Theater and Dance	cleary@grinnell.edu	history of directing
+Beth Cleary	Theater and Dance	cleary@grinnell.edu	political theater
+Beth Cleary	Theater and Dance	cleary@grinnell.edu	subaltern theater texts and practices
+Beth Cleary	Theater and Dance	cleary@grinnell.edu	playwrighting
+Beth Cleary	Theater and Dance	cleary@grinnell.edu	yoga
+Beth Cleary	Theater and Dance	cleary@grinnell.edu	somatics
+John M. Cannon	Physics & Astronomy	jcannon@grinnell.edu	observational astronomy
+John M. Cannon	Physics & Astronomy	jcannon@grinnell.edu	low-mass galaxies
+John M. Cannon	Physics & Astronomy	jcannon@grinnell.edu	galaxy evolution
+Margaret Olsen	Hispanic Studies	molsen@grinnell.edu	Hispanic literature
+Margaret Olsen	Hispanic Studies	molsen@grinnell.edu	Latin American culture
+Margaret Olsen	Hispanic Studies	molsen@grinnell.edu	literary theory
+Margaret Olsen	Hispanic Studies	molsen@grinnell.edu	cultural studies
+Margaret Olsen	Hispanic Studies	molsen@grinnell.edu	film studies
+Margaret Olsen	Hispanic Studies	molsen@grinnell.edu	African American history
+Margaret Olsen	Hispanic Studies	molsen@grinnell.edu	African American studies
+Margaret Olsen	Hispanic Studies	molsen@grinnell.edu	Afro-Hispanic studies
+Margaret Olsen	Hispanic Studies	molsen@grinnell.edu	history of diaspora
+Vittorio Addona	Mathematics and Computer Science	addona@grinnell.edu	survival analysis
+Vittorio Addona	Mathematics and Computer Science	addona@grinnell.edu	biostatistics
+Vittorio Addona	Mathematics and Computer Science	addona@grinnell.edu	election audits
+Vittorio Addona	Mathematics and Computer Science	addona@grinnell.edu	sports statistics.
+Erik W. Davis	Religious Studies	davise@grinnell.edu	religion
+Erik W. Davis	Religious Studies	davise@grinnell.edu	buddhism
+Erik W. Davis	Religious Studies	davise@grinnell.edu	cambodia
+Erik W. Davis	Religious Studies	davise@grinnell.edu	southeast asia
+Erik W. Davis	Religious Studies	davise@grinnell.edu	ritual
+Erik W. Davis	Religious Studies	davise@grinnell.edu	agriculture
+Erik W. Davis	Religious Studies	davise@grinnell.edu	foodgetting
+Erik W. Davis	Religious Studies	davise@grinnell.edu	labor
+Erik W. Davis	Religious Studies	davise@grinnell.edu	union
+Erik W. Davis	Religious Studies	davise@grinnell.edu	death
+Erik W. Davis	Religious Studies	davise@grinnell.edu	funeral
+Erik W. Davis	Religious Studies	davise@grinnell.edu	theravada
+Erik W. Davis	Religious Studies	davise@grinnell.edu	durkheim
+Erik W. Davis	Religious Studies	davise@grinnell.edu	asian anarchism
+Erik W. Davis	Religious Studies	davise@grinnell.edu	castoriadis
+Amy Damon	Economics	adamon@grinnell.edu	international development
+Amy Damon	Economics	adamon@grinnell.edu	human migration
+Amy Damon	Economics	adamon@grinnell.edu	remittances
+Amy Damon	Economics	adamon@grinnell.edu	rural development
+Amy Damon	Economics	adamon@grinnell.edu	agriculture
+Amy Damon	Economics	adamon@grinnell.edu	food security
+Amy Damon	Economics	adamon@grinnell.edu	poverty
+Amy Damon	Economics	adamon@grinnell.edu	education
+Amy Damon	Economics	adamon@grinnell.edu	rural labor markets
+Sun No	Psychology	sno@grinnell.edu	biculturalism
+Sun No	Psychology	sno@grinnell.edu	racial essentialism
+Sun No	Psychology	sno@grinnell.edu	cultural inauthenticity
+Sun No	Psychology	sno@grinnell.edu	multiple social identities
+Sun No	Psychology	sno@grinnell.edu	immigration
+Sun No	Psychology	sno@grinnell.edu	acculturation
+Sun No	Psychology	sno@grinnell.edu	intergroup relations
+Christina Esposito	Linguistics	esposito@grinnell.edu	phonetics
+Christina Esposito	Linguistics	esposito@grinnell.edu	the production and perception of voice quality
+Christina Esposito	Linguistics	esposito@grinnell.edu	tone
+Christina Esposito	Linguistics	esposito@grinnell.edu	indigenous languages (especially ones spoken in Mexico)
+Christina Esposito	Linguistics	esposito@grinnell.edu	Zapotec
+Christina Esposito	Linguistics	esposito@grinnell.edu	Hmong
+Paul Overvoorde	Biology	overvoorde@grinnell.edu	plant genetics
+Paul Overvoorde	Biology	overvoorde@grinnell.edu	genomics
+Paul Overvoorde	Biology	overvoorde@grinnell.edu	chemical biology
+Paul Overvoorde	Biology	overvoorde@grinnell.edu	plant hormone signaling
+Paul Overvoorde	Biology	overvoorde@grinnell.edu	root development
+Paul Overvoorde	Biology	overvoorde@grinnell.edu	undergraduate genomics education
+Paul Overvoorde	Biology	overvoorde@grinnell.edu	cell biology
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	Performance
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	Theater
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	acting
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	directing
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	community building
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	community based arts
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	cultural competency
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	interdisciplinary connections
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	african american theater
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	hip hop culture
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	dance (all kinds)
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	movies
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	films
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	hollywood intrigue
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	Meisner Acting Technique
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	Penumbra Theatre Company
+Harry Waters Jr.	theatre and Dance 	waters@grinnell.edu	In the Heart of the Beast Puppet and Mask Theater
+Paul Dosh	Political Science/Latin American Studies	dosh@carleton.edu	Latin America
+Paul Dosh	Political Science/Latin American Studies	dosh@carleton.edu	comparative politics
+Paul Dosh	Political Science/Latin American Studies	dosh@carleton.edu	social movements
+Paul Dosh	Political Science/Latin American Studies	dosh@carleton.edu	urban politics
+Paul Dosh	Political Science/Latin American Studies	dosh@carleton.edu	urban poverty
+Paul Dosh	Political Science/Latin American Studies	dosh@carleton.edu	Peru
+Paul Dosh	Political Science/Latin American Studies	dosh@carleton.edu	Ecuador
+Paul Dosh	Political Science/Latin American Studies	dosh@carleton.edu	Bolivia
+Paul Dosh	Political Science/Latin American Studies	dosh@carleton.edu	women and social movements
+Paul Dosh	Political Science/Latin American Studies	dosh@carleton.edu	privatization and social movements
+Paul Dosh	Political Science/Latin American Studies	dosh@carleton.edu	Montessori
+Paul Dosh	Political Science/Latin American Studies	dosh@carleton.edu	pedagogy
+Ernie Capello	History	ecapello@carleton.edu	Latin America
+Ernie Capello	History	ecapello@carleton.edu	cultural geography
+Ernie Capello	History	ecapello@carleton.edu	collective memory
+Ernie Capello	History	ecapello@carleton.edu	transnationalism
+Ernie Capello	History	ecapello@carleton.edu	urban history
+Ernie Capello	History	ecapello@carleton.edu	pan-Americanism
+Ernie Capello	History	ecapello@carleton.edu	art and society
+Ernie Capello	History	ecapello@carleton.edu	modernism
+Ernie Capello	History	ecapello@carleton.edu	architecture
+Ernie Capello	History	ecapello@carleton.edu	counter-cultures
+Ernie Capello	History	ecapello@carleton.edu	humor
+Sarah West	Economics	wests@carleton.edu	economics
+Sarah West	Economics	wests@carleton.edu	environmental economics
+Sarah West	Economics	wests@carleton.edu	public finance
+Sarah West	Economics	wests@carleton.edu	environmental policy
+Sarah West	Economics	wests@carleton.edu	public policy
+Sarah West	Economics	wests@carleton.edu	externalities
+Sarah West	Economics	wests@carleton.edu	market failure
+Sarah West	Economics	wests@carleton.edu	optimal tax policy
+Sarah West	Economics	wests@carleton.edu	climate change
+Sarah West	Economics	wests@carleton.edu	energy
+Sarah West	Economics	wests@carleton.edu	natural resources
+Sarah West	Economics	wests@carleton.edu	gasoline
+Sarah West	Economics	wests@carleton.edu	automobiles
+Sarah West	Economics	wests@carleton.edu	pollution control
+Sarah West	Economics	wests@carleton.edu	statistics
+Sarah West	Economics	wests@carleton.edu	econometrics
+Sarah West	Economics	wests@carleton.edu	mathematical modeling
+Ronald Brisbois	Chemistry	brisbois@carleton.edu	chemistry
+Ronald Brisbois	Chemistry	brisbois@carleton.edu	materials science
+Ronald Brisbois	Chemistry	brisbois@carleton.edu	history of science/chemistry
+Mark Davis	Biology	davis@carleton.edu	ecology
+Mark Davis	Biology	davis@carleton.edu	invasion biology
+Mark Davis	Biology	davis@carleton.edu	biodiversity
+Mark Davis	Biology	davis@carleton.edu	grasslands
+Mark Davis	Biology	davis@carleton.edu	savannas
+Mark Davis	Biology	davis@carleton.edu	plant ecology
+Mark Davis	Biology	davis@carleton.edu	animal behavior
+Keith Kuwata	Chemistry	kuwata@carleton.edu	atmospheric chemistry
+Keith Kuwata	Chemistry	kuwata@carleton.edu	quantum chemistry
+Keith Kuwata	Chemistry	kuwata@carleton.edu	computational kinetics
+Keith Kuwata	Chemistry	kuwata@carleton.edu	reaction mechanisms
+Keith Kuwata	Chemistry	kuwata@carleton.edu	RRKM theory
+Keith Kuwata	Chemistry	kuwata@carleton.edu	transition state theory
+Keith Kuwata	Chemistry	kuwata@carleton.edu	elemental analysis
+Raymond Robertson	Economics/Latin American Studies	robertson@carleton.edu	International Trade
+Raymond Robertson	Economics/Latin American Studies	robertson@carleton.edu	Globalization
+Raymond Robertson	Economics/Latin American Studies	robertson@carleton.edu	Labor
+Raymond Robertson	Economics/Latin American Studies	robertson@carleton.edu	Latin America
+Raymond Robertson	Economics/Latin American Studies	robertson@carleton.edu	Working Conditions
+Raymond Robertson	Economics/Latin American Studies	robertson@carleton.edu	Migration
+Raymond Robertson	Economics/Latin American Studies	robertson@carleton.edu	Debt
+Raymond Robertson	Economics/Latin American Studies	robertson@carleton.edu	Exchange Rates
+Raymond Robertson	Economics/Latin American Studies	robertson@carleton.edu	Mexico
+Raymond Robertson	Economics/Latin American Studies	robertson@carleton.edu	Cambodia
+Raymond Robertson	Economics/Latin American Studies	robertson@carleton.edu	Indonesia
+Raymond Robertson	Economics/Latin American Studies	robertson@carleton.edu	El Salvador
+Raymond Robertson	Economics/Latin American Studies	robertson@carleton.edu	Honduras
+Raymond Robertson	Economics/Latin American Studies	robertson@carleton.edu	Vietnam.
+Paul J. Fischer	Chemistry	fischer@beloit.edu	organometallic and inorganic chemistry
+Paul J. Fischer	Chemistry	fischer@beloit.edu	ligand design for inorganic complexes
+Ruthann Godollei	Art	godollei@beloit.edu	art
+Ruthann Godollei	Art	godollei@beloit.edu	printmaking
+Ruthann Godollei	Art	godollei@beloit.edu	(etching
+Ruthann Godollei	Art	godollei@beloit.edu	screenprint
+Ruthann Godollei	Art	godollei@beloit.edu	lithography
+Ruthann Godollei	Art	godollei@beloit.edu	typography
+Ruthann Godollei	Art	godollei@beloit.edu	hand set type
+Ruthann Godollei	Art	godollei@beloit.edu	relief printing)
+Ruthann Godollei	Art	godollei@beloit.edu	print history
+Ruthann Godollei	Art	godollei@beloit.edu	digital media
+Ruthann Godollei	Art	godollei@beloit.edu	political art
+Ruthann Godollei	Art	godollei@beloit.edu	art theory
+Ruthann Godollei	Art	godollei@beloit.edu	feminist theory
+Ruthann Godollei	Art	godollei@beloit.edu	women artists
+Ruthann Godollei	Art	godollei@beloit.edu	african american art
+Ruthann Godollei	Art	godollei@beloit.edu	mexican art
+Ruthann Godollei	Art	godollei@beloit.edu	chicano art
+Ruthann Godollei	Art	godollei@beloit.edu	latin american art
+Ruthann Godollei	Art	godollei@beloit.edu	central european art
+Ruthann Godollei	Art	godollei@beloit.edu	performance art
+Ruthann Godollei	Art	godollei@beloit.edu	animation
+Ruthann Godollei	Art	godollei@beloit.edu	texts and images
+Ruthann Godollei	Art	godollei@beloit.edu	art cars
+Ruthann Godollei	Art	godollei@beloit.edu	international car art
+Ruthann Godollei	Art	godollei@beloit.edu	history of decorated vehicles.
+Karen Saxe	Mathematics and Computer Science	saxe@beloit.edu	math
+Karen Saxe	Mathematics and Computer Science	saxe@beloit.edu	applied math
+Karen Saxe	Mathematics and Computer Science	saxe@beloit.edu	history of math
+Karen Saxe	Mathematics and Computer Science	saxe@beloit.edu	voting and elections
+Beth Severy-Hoven	Classics	severy@beloit.edu	ancient history
+Beth Severy-Hoven	Classics	severy@beloit.edu	history of women and gender
+Beth Severy-Hoven	Classics	severy@beloit.edu	mythology and storytelling
+Beth Severy-Hoven	Classics	severy@beloit.edu	theoretical approaches to myth
+Beth Severy-Hoven	Classics	severy@beloit.edu	textbook writing
+Beth Severy-Hoven	Classics	severy@beloit.edu	student writing
+Mark Mazullo	Music	mazullo@beloit.edu	History of Western art music
+Mark Mazullo	Music	mazullo@beloit.edu	theories of musical performance and interpretation
+Mark Mazullo	Music	mazullo@beloit.edu	music in literature
+Mark Mazullo	Music	mazullo@beloit.edu	Dmitri Shostakovich
+Mark Mazullo	Music	mazullo@beloit.edu	piano music
+Mark Mazullo	Music	mazullo@beloit.edu	Beethoven
+Mark Mazullo	Music	mazullo@beloit.edu	American popular music
+Mark Mazullo	Music	mazullo@beloit.edu	opera
+Mark Mazullo	Music	mazullo@beloit.edu	alienation/enstrangement
+Mark Mazullo	Music	mazullo@beloit.edu	music in film
+Mark Mazullo	Music	mazullo@beloit.edu	history of aesthetics
+Mark Mazullo	Music	mazullo@beloit.edu	music and morality
+Liz Jansen	Biology	jansen@beloit.edu	neuroscience
+Liz Jansen	Biology	jansen@beloit.edu	psychopharmacology
+Liz Jansen	Biology	jansen@beloit.edu	mental health
+Liz Jansen	Biology	jansen@beloit.edu	learning and human brain development
+Liz Jansen	Biology	jansen@beloit.edu	experience- and injury-induced neural plasticity
+Liz Jansen	Biology	jansen@beloit.edu	women’s health
+Liz Jansen	Biology	jansen@beloit.edu	reproductive health
+Liz Jansen	Biology	jansen@beloit.edu	reproductive technologies
+Liz Jansen	Biology	jansen@beloit.edu	public health
+Susanna Drake	Religious Studies	sdrake@beloit.edu	Early Christian and Jewish history
+Susanna Drake	Religious Studies	sdrake@beloit.edu	ancient history
+Susanna Drake	Religious Studies	sdrake@beloit.edu	religion and secularism
+Susanna Drake	Religious Studies	sdrake@beloit.edu	gender and sexuality studies
+Susanna Drake	Religious Studies	sdrake@beloit.edu	postcolonial theory
+Kelly MacGregor	Geology	macgregor@kzoo.edu	glaciology
+Kelly MacGregor	Geology	macgregor@kzoo.edu	sediment transport
+Kelly MacGregor	Geology	macgregor@kzoo.edu	fluvial processes
+Kelly MacGregor	Geology	macgregor@kzoo.edu	climate change
+Kelly MacGregor	Geology	macgregor@kzoo.edu	environmental hydrology
+Kelly MacGregor	Geology	macgregor@kzoo.edu	alpine environments
+Gitta Hammarberg	Russian Studies	hammarberg@kzoo.edu	Russian literature
+Gitta Hammarberg	Russian Studies	hammarberg@kzoo.edu	Sentimentalist culture
+Gitta Hammarberg	Russian Studies	hammarberg@kzoo.edu	18th-century minor writers and genres (album verse
+Gitta Hammarberg	Russian Studies	hammarberg@kzoo.edu	domestic performance literature
+Gitta Hammarberg	Russian Studies	hammarberg@kzoo.edu	early women's journals)
+Gitta Hammarberg	Russian Studies	hammarberg@kzoo.edu	the inception of literary criticism
+Gitta Hammarberg	Russian Studies	hammarberg@kzoo.edu	literary theory (esp. Bakhtin)
+Gitta Hammarberg	Russian Studies	hammarberg@kzoo.edu	dandyism
+Gitta Hammarberg	Russian Studies	hammarberg@kzoo.edu	epigonism
+Gitta Hammarberg	Russian Studies	hammarberg@kzoo.edu	spa culture
+Gitta Hammarberg	Russian Studies	hammarberg@kzoo.edu	Gogol'
+Adrienne Christiansen	Political Science	christiansen@kzoo.edu	rhetoric
+Adrienne Christiansen	Political Science	christiansen@kzoo.edu	the persuasive qualities of public space and political memorials
+Adrienne Christiansen	Political Science	christiansen@kzoo.edu	the rhetoric of social movements
+Adrienne Christiansen	Political Science	christiansen@kzoo.edu	campaign rhetoric
+Adrienne Christiansen	Political Science	christiansen@kzoo.edu	political speeches
+Adrienne Christiansen	Political Science	christiansen@kzoo.edu	women's rights
+Adrienne Christiansen	Political Science	christiansen@kzoo.edu	feminism
+Adrienne Christiansen	Political Science	christiansen@kzoo.edu	contemporary conservatism
+Adrienne Christiansen	Political Science	christiansen@kzoo.edu	political humor
+Adrienne Christiansen	Political Science	christiansen@kzoo.edu	cyberpolitics
+Adrienne Christiansen	Political Science	christiansen@kzoo.edu	e-democracy
+Ruthanne Kurth-Schai	Educational Studies	kurthschai@kzoo.edu	educational studies
+Ruthanne Kurth-Schai	Educational Studies	kurthschai@kzoo.edu	philosophy of education
+Ruthanne Kurth-Schai	Educational Studies	kurthschai@kzoo.edu	education policy
+Ruthanne Kurth-Schai	Educational Studies	kurthschai@kzoo.edu	public education reform
+Ruthanne Kurth-Schai	Educational Studies	kurthschai@kzoo.edu	education and social reform
+Ruthanne Kurth-Schai	Educational Studies	kurthschai@kzoo.edu	democracy and education
+Ruthanne Kurth-Schai	Educational Studies	kurthschai@kzoo.edu	social/cultural/spiritual issues in education
+Ruthanne Kurth-Schai	Educational Studies	kurthschai@kzoo.edu	civic education
+Ruthanne Kurth-Schai	Educational Studies	kurthschai@kzoo.edu	globalization and education
+Ruthanne Kurth-Schai	Educational Studies	kurthschai@kzoo.edu	environmental education
+Ruthanne Kurth-Schai	Educational Studies	kurthschai@kzoo.edu	teacher education
+Ruthanne Kurth-Schai	Educational Studies	kurthschai@kzoo.edu	qualitative research methodologies
+Ruthanne Kurth-Schai	Educational Studies	kurthschai@kzoo.edu	general systems/cultural futures theory and methodologies
+carleton Macy	music	macy@kzoo.edu	(formal research): Music Composition of all kinds
+carleton Macy	music	macy@kzoo.edu	(less formal research
+carleton Macy	music	macy@kzoo.edu	meaning fascination without publications): Chinese Music
+carleton Macy	music	macy@kzoo.edu	Javanese gamelan
+carleton Macy	music	macy@kzoo.edu	Jazz
+carleton Macy	music	macy@kzoo.edu	Faust in music
+Tom Halverson	Mathematics and Computer Science	halverson@kzoo.edu	linear and abstract algebra
+Tom Halverson	Mathematics and Computer Science	halverson@kzoo.edu	discrete mathematics and combinatorics
+Tom Halverson	Mathematics and Computer Science	halverson@kzoo.edu	symmetry
+Tom Varberg	Chemistry	varberg@kzoo.edu	chemical physics
+Tom Varberg	Chemistry	varberg@kzoo.edu	molecular spectroscopy
+Tom Varberg	Chemistry	varberg@kzoo.edu	free radicals
+Tom Varberg	Chemistry	varberg@kzoo.edu	hyperfine structure
+Tom Varberg	Chemistry	varberg@kzoo.edu	diatomic molecules
+Tom Varberg	Chemistry	varberg@kzoo.edu	chemical pedagogy
+James	Dawes	dawes@kzoo.edu	literature
+James	Dawes	dawes@kzoo.edu	ethics
+James	Dawes	dawes@kzoo.edu	aesthetics
+James	Dawes	dawes@kzoo.edu	philosophy
+James	Dawes	dawes@kzoo.edu	human rights
+James	Dawes	dawes@kzoo.edu	violence
+James	Dawes	dawes@kzoo.edu	theories of justice
+Cynthia Kauffeld	Hispanic Studies	kauffeld@kzoo.edu	Spanish dialectology
+Cynthia Kauffeld	Hispanic Studies	kauffeld@kzoo.edu	colonial Spanish
+Cynthia Kauffeld	Hispanic Studies	kauffeld@kzoo.edu	paleography
+Cynthia Kauffeld	Hispanic Studies	kauffeld@kzoo.edu	Andalusian Spanish
+Cynthia Kauffeld	Hispanic Studies	kauffeld@kzoo.edu	historical linguistics
+Cynthia Kauffeld	Hispanic Studies	kauffeld@kzoo.edu	Spanish in the US
+William Moseley	Geography	moseley@kzoo.edu	geography
+William Moseley	Geography	moseley@kzoo.edu	political ecology
+William Moseley	Geography	moseley@kzoo.edu	development
+William Moseley	Geography	moseley@kzoo.edu	agriculture
+William Moseley	Geography	moseley@kzoo.edu	Africa
+William Moseley	Geography	moseley@kzoo.edu	food security
+William Moseley	Geography	moseley@kzoo.edu	hunger
+William Moseley	Geography	moseley@kzoo.edu	environment
+William Moseley	Geography	moseley@kzoo.edu	public policy
+Paula Cooey	Religious Studies	Cooey@kzoo.edu	History of Christian traditions (especially the 16th century)
+Paula Cooey	Religious Studies	Cooey@kzoo.edu	theory & critique of religion
+Paula Cooey	Religious Studies	Cooey@kzoo.edu	religion & gender
+Paula Cooey	Religious Studies	Cooey@kzoo.edu	religious ethics & politics (particularly comparative religious views of martyrdom)
+Paula Cooey	Religious Studies	Cooey@kzoo.edu	post-colonial theory
+Paula Cooey	Religious Studies	Cooey@kzoo.edu	ethics of theory & method in religious studies
+Paula Cooey	Religious Studies	Cooey@kzoo.edu	history of Christian & Muslim relations
+Paula Cooey	Religious Studies	Cooey@kzoo.edu	religion & the environment
+Paula Cooey	Religious Studies	Cooey@kzoo.edu	religion & economics
+Kristi Curry Rogers	Biology and Geology 	rogersk@kzoo.edu	Dinosaur paleobiology & evolution
+Kristi Curry Rogers	Biology and Geology 	rogersk@kzoo.edu	bone histology and relationships to growth rates
+Kristi Curry Rogers	Biology and Geology 	rogersk@kzoo.edu	body size evolution
+Kristi Curry Rogers	Biology and Geology 	rogersk@kzoo.edu	& environment
+Nanette Goldman	Classics	goldman@kzoo.edu	ancient Mediterranean and Near Eastern crisis poetry
+Nanette Goldman	Classics	goldman@kzoo.edu	Roman archaeology of Israel
+Nanette Goldman	Classics	goldman@kzoo.edu	Greek
+Nanette Goldman	Classics	goldman@kzoo.edu	Hebrew and Aramaic texts of the 2nd temple period
+Julie Dolan	Political Science	dolan@kzoo.edu	political science
+Julie Dolan	Political Science	dolan@kzoo.edu	American politics
+Julie Dolan	Political Science	dolan@kzoo.edu	women and politics
+Julie Dolan	Political Science	dolan@kzoo.edu	public policy and government institutions
+Jerald Dosch	Biology and Environmental Studies	dosch@kzoo.edu	ecology
+Jerald Dosch	Biology and Environmental Studies	dosch@kzoo.edu	restoration ecology
+Jerald Dosch	Biology and Environmental Studies	dosch@kzoo.edu	ornithology
+Jerald Dosch	Biology and Environmental Studies	dosch@kzoo.edu	heavy metals and loons
+Jerald Dosch	Biology and Environmental Studies	dosch@kzoo.edu	Common Loons
+Jerald Dosch	Biology and Environmental Studies	dosch@kzoo.edu	winter ecology
+Joëlle Vitiello	French and Francophone Studies	vitiello@albion.edu	Contemporary French culture and literature
+Joëlle Vitiello	French and Francophone Studies	vitiello@albion.edu	French film
+Joëlle Vitiello	French and Francophone Studies	vitiello@albion.edu	Haitian culture and literature
+Joëlle Vitiello	French and Francophone Studies	vitiello@albion.edu	Human Rights in Haiti
+Joëlle Vitiello	French and Francophone Studies	vitiello@albion.edu	colonial/post-colonial France
+Joëlle Vitiello	French and Francophone Studies	vitiello@albion.edu	representations of the Algerian/French war and post-independence relations
+Joëlle Vitiello	French and Francophone Studies	vitiello@albion.edu	immigration literature and cinema
+Joëlle Vitiello	French and Francophone Studies	vitiello@albion.edu	North African literature and cinema African literature and film
+Joëlle Vitiello	French and Francophone Studies	vitiello@albion.edu	human rights and representations pertinent to human rights.
+Devavani Chatterjea	Biology	chatterjead@albion.edu	Vertebrate immunity
+Devavani Chatterjea	Biology	chatterjead@albion.edu	hematopoietic stem cells
+Devavani Chatterjea	Biology	chatterjead@albion.edu	T cell development
+Devavani Chatterjea	Biology	chatterjead@albion.edu	bone marrow stroma
+Devavani Chatterjea	Biology	chatterjead@albion.edu	mast cells
+Devavani Chatterjea	Biology	chatterjead@albion.edu	inflammatory pain
+Devavani Chatterjea	Biology	chatterjead@albion.edu	undergraduate public health studies
+Devavani Chatterjea	Biology	chatterjead@albion.edu	biology & civic engagement
+Devavani Chatterjea	Biology	chatterjead@albion.edu	metaphors of immunity
+Galo F. Gonzalez	Hispanic and Latin American Studies	gonzalez@albion.edu	Latin American literatures and cultures
+Galo F. Gonzalez	Hispanic and Latin American Studies	gonzalez@albion.edu	Hispanic literature and culture
+Galo F. Gonzalez	Hispanic and Latin American Studies	gonzalez@albion.edu	Latin American Indigenous literature and cultures
+Galo F. Gonzalez	Hispanic and Latin American Studies	gonzalez@albion.edu	social movements in Ecuador
+Galo F. Gonzalez	Hispanic and Latin American Studies	gonzalez@albion.edu	Peru
+Galo F. Gonzalez	Hispanic and Latin American Studies	gonzalez@albion.edu	Bolivia
+Galo F. Gonzalez	Hispanic and Latin American Studies	gonzalez@albion.edu	subaltern literature
+Galo F. Gonzalez	Hispanic and Latin American Studies	gonzalez@albion.edu	revolutions
+Galo F. Gonzalez	Hispanic and Latin American Studies	gonzalez@albion.edu	cultural theory
+Galo F. Gonzalez	Hispanic and Latin American Studies	gonzalez@albion.edu	literary theory
+Galo F. Gonzalez	Hispanic and Latin American Studies	gonzalez@albion.edu	creative writing
+Galo F. Gonzalez	Hispanic and Latin American Studies	gonzalez@albion.edu	U.S. Latin@ studies
+David Lanegran	Geography	lanegran@albion.edu	Geography
+David Lanegran	Geography	lanegran@albion.edu	Human Geography
+David Lanegran	Geography	lanegran@albion.edu	Urban Geography
+David Lanegran	Geography	lanegran@albion.edu	applied geography and community engagement
+David Lanegran	Geography	lanegran@albion.edu	Special interests in inner city neighborhoods and commercial streets
+David Lanegran	Geography	lanegran@albion.edu	historic preservation
+David Lanegran	Geography	lanegran@albion.edu	urban planning
+David Lanegran	Geography	lanegran@albion.edu	cities and rivers. Historical cartography of Minnesota
+David Lanegran	Geography	lanegran@albion.edu	Advanced placement geography
+David Lanegran	Geography	lanegran@albion.edu	world urbanization
+Kathleen Murray	Provost	kmurray@albion.edu	piano performance
+Kathleen Murray	Provost	kmurray@albion.edu	piano pedagogy
+Kathleen Murray	Provost	kmurray@albion.edu	20th and 21st century piano literature
+Kathleen Murray	Provost	kmurray@albion.edu	teaching contemporary piano techniques to elementary and intermediate level pianists
+Kathleen Murray	Provost	kmurray@albion.edu	faculty development
+Kathleen Murray	Provost	kmurray@albion.edu	leadership development
+Kathleen Murray	Provost	kmurray@albion.edu	liberal arts education
+Holly Barcus	Geography	barcus@albion.edu	population
+Holly Barcus	Geography	barcus@albion.edu	migration
+Holly Barcus	Geography	barcus@albion.edu	rural communities
+Holly Barcus	Geography	barcus@albion.edu	Mongolia
+Holly Barcus	Geography	barcus@albion.edu	Great Plains
+Holly Barcus	Geography	barcus@albion.edu	Appalachia
+Holly Barcus	Geography	barcus@albion.edu	GIS
+Brooke Lea	Psychology	lea@albion.edu	Cognition generally
+Brooke Lea	Psychology	lea@albion.edu	psycholinguistics and psychological models of reasoning specifically.
+Christopher Scott	Asian Languages and Cultures	scottcd@albion.edu	modern Japanese literature and film
+Christopher Scott	Asian Languages and Cultures	scottcd@albion.edu	Koreans in Japan (zainichi Koreans)
+Christopher Scott	Asian Languages and Cultures	scottcd@albion.edu	Japanese colonialism
+Christopher Scott	Asian Languages and Cultures	scottcd@albion.edu	race and ethnicity
+Christopher Scott	Asian Languages and Cultures	scottcd@albion.edu	gender studies and queer theory
+Christopher Scott	Asian Languages and Cultures	scottcd@albion.edu	translation studies
+Christopher Scott	Asian Languages and Cultures	scottcd@albion.edu	Asian American studies
+Raymond Rogers	Geology	rogers@albion.edu	sedimentary geology
+Raymond Rogers	Geology	rogers@albion.edu	paleoecology
+Raymond Rogers	Geology	rogers@albion.edu	taphonomy
+Raymond Rogers	Geology	rogers@albion.edu	patterns in the fossil record
+Dan Trudeau	Geography	trudeau@albion.edu	urban geography -  racial residential segregation in North American cities
+Dan Trudeau	Geography	trudeau@albion.edu	history of urban planning
+Dan Trudeau	Geography	trudeau@albion.edu	sustainable urban utopias
+Dan Trudeau	Geography	trudeau@albion.edu	cultural geography -  landscapes
+Dan Trudeau	Geography	trudeau@albion.edu	law and geography
+Dan Trudeau	Geography	trudeau@albion.edu	migration and assimilation
+Dan Trudeau	Geography	trudeau@albion.edu	political geography -  citizenship
+Dan Trudeau	Geography	trudeau@albion.edu	states and nationalism
+Dan Trudeau	Geography	trudeau@albion.edu	geopolitics
+Dan Trudeau	Geography	trudeau@albion.edu	welfare state restructuring
+Chris Calderone	Biology	ccalder2@albion.edu	Biochemistry
+Chris Calderone	Biology	ccalder2@albion.edu	chemical biology
+Chris Calderone	Biology	ccalder2@albion.edu	natural products
+Chris Calderone	Biology	ccalder2@albion.edu	enzymology
+Olga González	Anthropology	ogonzale@albion.edu	Violence and war
+Olga González	Anthropology	ogonzale@albion.edu	memory studies
+Olga González	Anthropology	ogonzale@albion.edu	politics of truth and reconciliation
+Olga González	Anthropology	ogonzale@albion.edu	trauma
+Olga González	Anthropology	ogonzale@albion.edu	subjectivity
+Olga González	Anthropology	ogonzale@albion.edu	visuality and representation
+Olga González	Anthropology	ogonzale@albion.edu	vernacular/popular art
+Olga González	Anthropology	ogonzale@albion.edu	Latin America
+Olga González	Anthropology	ogonzale@albion.edu	Peru.
+Lara Nielsen	Theatre and Dance	lnielsen@albion.edu	performance studies and critical theory
+Lara Nielsen	Theatre and Dance	lnielsen@albion.edu	globalization and cultural production
+Lara Nielsen	Theatre and Dance	lnielsen@albion.edu	international modernisms and the avant-garde (especially Latin American and Caribbean)
+Lara Nielsen	Theatre and Dance	lnielsen@albion.edu	US Latin@ performance and diaspora
+Lara Nielsen	Theatre and Dance	lnielsen@albion.edu	postcolonial and gender theories
+Lara Nielsen	Theatre and Dance	lnielsen@albion.edu	violence and the state
+Lara Nielsen	Theatre and Dance	lnielsen@albion.edu	deployments of oral history
+Lara Nielsen	Theatre and Dance	lnielsen@albion.edu	ethnography
+Lara Nielsen	Theatre and Dance	lnielsen@albion.edu	and documentary in the arts
+Roopali Phadke	Environmental Studies	phadke@albion.edu	South Asia
+Roopali Phadke	Environmental Studies	phadke@albion.edu	social movements
+Roopali Phadke	Environmental Studies	phadke@albion.edu	environmental politics
+Roopali Phadke	Environmental Studies	phadke@albion.edu	environmental law
+Roopali Phadke	Environmental Studies	phadke@albion.edu	development studies
+Roopali Phadke	Environmental Studies	phadke@albion.edu	water
+Roopali Phadke	Environmental Studies	phadke@albion.edu	renewable energy
+Roopali Phadke	Environmental Studies	phadke@albion.edu	science and technology studies
+Roopali Phadke	Environmental Studies	phadke@albion.edu	political ecology
+Roopali Phadke	Environmental Studies	phadke@albion.edu	climate change
+Roopali Phadke	Environmental Studies	phadke@albion.edu	participation and community development
+Roopali Phadke	Environmental Studies	phadke@albion.edu	international institutions
+Roopali Phadke	Environmental Studies	phadke@albion.edu	visualization
+Roopali Phadke	Environmental Studies	phadke@albion.edu	simulation
+Roopali Phadke	Environmental Studies	phadke@albion.edu	modeling
+Scott Legge	Anthropology	slegge@oberlin.edu	anthropology
+Scott Legge	Anthropology	slegge@oberlin.edu	archaeology
+Scott Legge	Anthropology	slegge@oberlin.edu	primate skeletal biology
+Scott Legge	Anthropology	slegge@oberlin.edu	evolutionary biology
+Scott Legge	Anthropology	slegge@oberlin.edu	bioarchaeology
+Scott Legge	Anthropology	slegge@oberlin.edu	paleoanthropology
+Scott Legge	Anthropology	slegge@oberlin.edu	paleopathology
+Peter Rachleff	History	rachleff@oberlin.edu	US working class -- past
+Peter Rachleff	History	rachleff@oberlin.edu	present
+Peter Rachleff	History	rachleff@oberlin.edu	future
+Peter Rachleff	History	rachleff@oberlin.edu	Immigration to US and global migration patterns
+Peter Rachleff	History	rachleff@oberlin.edu	Race
+Peter Rachleff	History	rachleff@oberlin.edu	racism
+Peter Rachleff	History	rachleff@oberlin.edu	racial formations
+Peter Rachleff	History	rachleff@oberlin.edu	racialized representations and popular culture
+Peter Rachleff	History	rachleff@oberlin.edu	African American history
+Peter Rachleff	History	rachleff@oberlin.edu	Mellon Mays Undergraduate Fellowship Program
+Peter Rachleff	History	rachleff@oberlin.edu	South Africa -- apartheid and anti-apartheid
+Clay Steinman	Humanities and Media and Cutural Studies	steinman@oberlin.edu	critical social theory and the media
+Clay Steinman	Humanities and Media and Cutural Studies	steinman@oberlin.edu	film and media analysis
+Clay Steinman	Humanities and Media and Cutural Studies	steinman@oberlin.edu	film history and theory
+Clay Steinman	Humanities and Media and Cutural Studies	steinman@oberlin.edu	gender/race/sexualities and film
+Clay Steinman	Humanities and Media and Cutural Studies	steinman@oberlin.edu	Hollywood and U.S. Communism
+Clay Steinman	Humanities and Media and Cutural Studies	steinman@oberlin.edu	Marxism and aesthetic and cultural analysis
+Clay Steinman	Humanities and Media and Cutural Studies	steinman@oberlin.edu	U.S. Jews and the media.
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	Public law
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	U.S. constitutional law
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	civil liberties & civil rights
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	the American Supreme Court
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	American political and legal development
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	Anglo-American legal traditions
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	the legal profession
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	lawyers
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	judicial behavior esp. appellate court judges
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	transparency
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	freedom of information
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	disclosure
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	government regulation
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	bureaucracy and administrative behavior
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	occupational safety and health
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	securities regulation
+Patrick Schmidt	Political Science	schmidtp@oberlin.edu	college architecture and design
+Christopher Wells	Environmental Studies	wells@oberlin.edu	Environmental history
+Christopher Wells	Environmental Studies	wells@oberlin.edu	United States history since 1877
+Christopher Wells	Environmental Studies	wells@oberlin.edu	U.S. cultural and intellectual history
+Christopher Wells	Environmental Studies	wells@oberlin.edu	history of technology
+Christopher Wells	Environmental Studies	wells@oberlin.edu	urban history
+Christopher Wells	Environmental Studies	wells@oberlin.edu	automobiles and the American environment
+Christopher Wells	Environmental Studies	wells@oberlin.edu	US influence on global environment
+Christopher Wells	Environmental Studies	wells@oberlin.edu	"green" architecture
+Christopher Wells	Environmental Studies	wells@oberlin.edu	sustainability
+Nadya Nedelsky	International Studies	nedelsky@oberlin.edu	comparative politics
+Nadya Nedelsky	International Studies	nedelsky@oberlin.edu	political theory
+Nadya Nedelsky	International Studies	nedelsky@oberlin.edu	nationalism
+Nadya Nedelsky	International Studies	nedelsky@oberlin.edu	ethnic conflict
+Nadya Nedelsky	International Studies	nedelsky@oberlin.edu	human rights
+Nadya Nedelsky	International Studies	nedelsky@oberlin.edu	minority rights
+Nadya Nedelsky	International Studies	nedelsky@oberlin.edu	East European politics
+Nadya Nedelsky	International Studies	nedelsky@oberlin.edu	citizenship
+Nadya Nedelsky	International Studies	nedelsky@oberlin.edu	transitional justice
+Rebecca C. Hoye	Chemisery	hoye@oberlin.edu	Natural products chemistry: synthesis
+Rebecca C. Hoye	Chemisery	hoye@oberlin.edu	development of synthetic methology
+Rebecca C. Hoye	Chemisery	hoye@oberlin.edu	use of the yeast three hybrid assay and other chemical genetics techniques
+Gary Krueger	Economics	krueger@oberlin.edu	Economics of institutions
+Gary Krueger	Economics	krueger@oberlin.edu	Corporate Governance
+Gary Krueger	Economics	krueger@oberlin.edu	Russia in Transition. Comparative Economic Systems.
+Satoko Suzuki	Asian Languages and Cultures	suzuki@oberlin.edu	Japanese linguistics
+Satoko Suzuki	Asian Languages and Cultures	suzuki@oberlin.edu	pragmatics
+Satoko Suzuki	Asian Languages and Cultures	suzuki@oberlin.edu	discourse analysis
+Satoko Suzuki	Asian Languages and Cultures	suzuki@oberlin.edu	stylistics
+Satoko Suzuki	Asian Languages and Cultures	suzuki@oberlin.edu	rhetoric
+Satoko Suzuki	Asian Languages and Cultures	suzuki@oberlin.edu	communication strategies
+Satoko Suzuki	Asian Languages and Cultures	suzuki@oberlin.edu	sociolinguistics
+Joan Ostrove	Psychology	ostrove@oberlin.edu	psychology and social structure
+Joan Ostrove	Psychology	ostrove@oberlin.edu	social identities
+Joan Ostrove	Psychology	ostrove@oberlin.edu	psychology of social class
+Joan Ostrove	Psychology	ostrove@oberlin.edu	psychology of gender
+Joan Ostrove	Psychology	ostrove@oberlin.edu	disability studies
+Joan Ostrove	Psychology	ostrove@oberlin.edu	deaf studies
+Joan Ostrove	Psychology	ostrove@oberlin.edu	friendships and alliances across differences of identity
+Joan Ostrove	Psychology	ostrove@oberlin.edu	feminist methodologies
+Joan Ostrove	Psychology	ostrove@oberlin.edu	feminist theories
+Henry R. West	Philosophy, Emeritus	west@oberlin.edu	John Stuart Mill
+Henry R. West	Philosophy, Emeritus	west@oberlin.edu	utilitarianism
+Henry R. West	Philosophy, Emeritus	west@oberlin.edu	ethics
+Henry R. West	Philosophy, Emeritus	west@oberlin.edu	political philosophy
+Henry R. West	Philosophy, Emeritus	west@oberlin.edu	philosophy and history of socialism
+Henry R. West	Philosophy, Emeritus	west@oberlin.edu	history of western philosophy
+Henry R. West	Philosophy, Emeritus	west@oberlin.edu	Plato
+Henry R. West	Philosophy, Emeritus	west@oberlin.edu	Aristotle
+Henry R. West	Philosophy, Emeritus	west@oberlin.edu	Bentham
+Henry R. West	Philosophy, Emeritus	west@oberlin.edu	Rawls
+Dan Hornbach	Environmental Studies	hornbach@oberlin.edu	freshwater ecology
+Dan Hornbach	Environmental Studies	hornbach@oberlin.edu	conservation biology
+Dan Hornbach	Environmental Studies	hornbach@oberlin.edu	endangered species
+Dan Hornbach	Environmental Studies	hornbach@oberlin.edu	freshwater mollusks
+Eugene Rogers	Music	erogers2@oberlin.edu	conducting and rehearsal techniques
+Eugene Rogers	Music	erogers2@oberlin.edu	choral music education
+Eugene Rogers	Music	erogers2@oberlin.edu	British and Italian Renaissance choral music
+Eugene Rogers	Music	erogers2@oberlin.edu	multicultural choral music (special emphasis on East Africa)
+Eugene Rogers	Music	erogers2@oberlin.edu	contemporary American composers
+Eugene Rogers	Music	erogers2@oberlin.edu	choral orchestral repertoire of the 17th
+Eugene Rogers	Music	erogers2@oberlin.edu	18th and 19th centuries
+Louisa Bradtmiller	Environmental Studies	lbradtmi@oberlin.edu	Climate change
+Louisa Bradtmiller	Environmental Studies	lbradtmi@oberlin.edu	paleoclimate
+Louisa Bradtmiller	Environmental Studies	lbradtmi@oberlin.edu	oceanography
+Louisa Bradtmiller	Environmental Studies	lbradtmi@oberlin.edu	geochemistry
+Ron Barrett	Anthropology	rbarrett@knox.edu	Medical anthropology
+Ron Barrett	Anthropology	rbarrett@knox.edu	medical sociology
+Ron Barrett	Anthropology	rbarrett@knox.edu	cultural anthropology
+Ron Barrett	Anthropology	rbarrett@knox.edu	psychological anthropology
+Ron Barrett	Anthropology	rbarrett@knox.edu	infectious disease
+Ron Barrett	Anthropology	rbarrett@knox.edu	stigma
+Ron Barrett	Anthropology	rbarrett@knox.edu	death and dying
+Ron Barrett	Anthropology	rbarrett@knox.edu	social epidemiology
+Ron Barrett	Anthropology	rbarrett@knox.edu	social inequalities
+Ron Barrett	Anthropology	rbarrett@knox.edu	public health
+Ron Barrett	Anthropology	rbarrett@knox.edu	religious healing
+Ron Barrett	Anthropology	rbarrett@knox.edu	traditional healing
+Ron Barrett	Anthropology	rbarrett@knox.edu	India
+Ron Barrett	Anthropology	rbarrett@knox.edu	South Asia
+Darcy Burgund	Psychology	dburgund@knox.edu	psychology
+Darcy Burgund	Psychology	dburgund@knox.edu	neuroscience
+Darcy Burgund	Psychology	dburgund@knox.edu	vision
+Darcy Burgund	Psychology	dburgund@knox.edu	memory
+Darcy Burgund	Psychology	dburgund@knox.edu	brain
+Darcy Burgund	Psychology	dburgund@knox.edu	functional magnetic resonance imaging
+Alicia Johnson	Mathematics, Statistics, and Computer Science	ajohns24@knox.edu	Markov chain Monte Carlo
+Alicia Johnson	Mathematics, Statistics, and Computer Science	ajohns24@knox.edu	statistics
+Alicia Johnson	Mathematics, Statistics, and Computer Science	ajohns24@knox.edu	applied statistics
+Alicia Johnson	Mathematics, Statistics, and Computer Science	ajohns24@knox.edu	probability
+Alicia Johnson	Mathematics, Statistics, and Computer Science	ajohns24@knox.edu	public health
+Neil Chudgar	English	nchudgar@knox.edu	18th-century British literature
+Neil Chudgar	English	nchudgar@knox.edu	early modern philosophy
+Neil Chudgar	English	nchudgar@knox.edu	history of philosophy
+Neil Chudgar	English	nchudgar@knox.edu	modernity
+Neil Chudgar	English	nchudgar@knox.edu	sensation and perception
+Neil Chudgar	English	nchudgar@knox.edu	the sense of touch
+Neil Chudgar	English	nchudgar@knox.edu	literature and embodiment
+Neil Chudgar	English	nchudgar@knox.edu	aesthetics
+Neil Chudgar	English	nchudgar@knox.edu	poetry and poetics
+Neil Chudgar	English	nchudgar@knox.edu	literary theory
+Neil Chudgar	English	nchudgar@knox.edu	literary criticism
+Neil Chudgar	English	nchudgar@knox.edu	bibliotherapy
+Neil Chudgar	English	nchudgar@knox.edu	psychoanalysis
+Neil Chudgar	English	nchudgar@knox.edu	object relations
+Neil Chudgar	English	nchudgar@knox.edu	subjectivity and objectivity
+Neil Chudgar	English	nchudgar@knox.edu	gender and sexuality in literature

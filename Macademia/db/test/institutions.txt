@@ -1,0 +1,14 @@
+Beloit College	beloit.edu	acm
+Carleton College	carleton.edu	acm
+Coe College	coe.edu	acm
+Colorado College	coloradocollege.edu	acm
+Cornell College	cornellcollege.edu	acm
+Grinnell College	grinnell.edu	acm
+Knox College	knox.edu	acm
+Lake Forest College	lakeforest.edu	acm
+Lawrence College	lawrence.edu	acm
+Luther College	luther.edu	acm
+Macalester College	macalester.edu	acm
+Monmouth College	monm.edu	acm
+Ripon College	ripon.edu	acm
+St. Olaf College	stolaf.edu	acm

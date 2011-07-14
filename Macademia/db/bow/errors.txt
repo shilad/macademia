@@ -1,0 +1,25 @@
+Babson / Olin errors:
+2011-05-12 00:43:35,843 [main] ERROR macademia.PopulateService  - missing email address for Toni Lester
+2011-05-12 00:43:40,070 [main] ERROR macademia.PopulateService  - unknown institution for verizon.net in /data/shilad/usr/macademia/grails2/stdin: Kimiko Abramoff		kimiko.abramoff@verizon.netLanguage and Literature,Japanese Language and Literature	Lecturer in Japanese
+2011-05-12 00:43:45,826 [main] ERROR macademia.PopulateService  - missing email address for Julie R. Levinson
+2011-05-12 00:44:14,139 [main] ERROR macademia.PopulateService  - unknown institution for caspegroup.com in /data/shilad/usr/macademia/grails2/stdin: Bob Caspe		bob@caspegroup.com	Entrepreneurship,Small Business	Adjunct Lecturer
+2011-05-12 00:44:15,833 [main] ERROR macademia.PopulateService  - missing email address for Caroline Daniels
+2011-05-12 00:44:21,641 [main] ERROR macademia.PopulateService  - unknown institution for blisshouse.com in /data/shilad/usr/macademia/grails2/stdin: Jerome L. Houle III		Jerry@blisshouse.coAdjunct Lecturer
+2011-05-12 00:44:26,826 [main] ERROR macademia.PopulateService  - missing email address for Spencer M. Adams
+2011-05-12 00:44:28,807 [main] ERROR macademia.PopulateService  - missing email address for Ed Chazen
+2011-05-12 00:44:30,040 [main] ERROR macademia.PopulateService  - missing email address for John C. Edmunds
+2011-05-12 00:44:40,472 [main] ERROR macademia.PopulateService  - missing email address for Susan Alvey
+2011-05-12 00:44:49,735 [main] ERROR macademia.PopulateService  - missing email address for Michael Cummings
+2011-05-12 00:44:49,735 [main] ERROR macademia.PopulateService  - missing email address for Gary DiCamillo
+2011-05-12 00:44:53,863 [main] ERROR macademia.PopulateService  - unknown institution for babson.edu; paul in /data/shilad/usr/macademia/grails2/stdin: Paul Horn		phorn@babson.edu; paul@paulhorn.com	Communications,Communication,Organizational Behavior,Interpersonal Skills	Adjunct Lecturer
+2011-05-12 00:44:59,076 [main] ERROR macademia.PopulateService  - missing email address for Tina Opie
+2011-05-12 00:45:00,625 [main] ERROR macademia.PopulateService  - missing email address for Stever Robbins
+2011-05-12 00:45:00,669 [main] ERROR macademia.PopulateService  - missing email address for Phyllis Schlesinger
+2011-05-12 00:45:02,218 [main] ERROR macademia.PopulateService  - missing email address for Robert Stringer
+2011-05-12 00:45:16,758 [main] ERROR macademia.PopulateService  - unknown institution for comcast.net in /data/shilad/usr/macademia/grails2/stdin: Bryan Manning		bryanmanning@comcast.net	Marketing,Business to Business Marketing,Global Marketing,High Technology Marketing,International Marketing,Sales and Marketing	Lecturer
+2011-05-12 00:45:38,048 [main] ERROR macademia.PopulateService  - missing email address for Caroline Daniels
+
+Wellesley errors:
+2011-05-12 00:46:29,738 [main] ERROR macademia.PopulateService  - unknown institution for wellesely.edu in /data/shilad/usr/macademia/grails2/stdin: Rogers, Christine 	Art	crogers@wellesely.edu	Art, Photography, Photography and culture	Visiting Lecturer
+2011-05-12 00:52:37,532 [main] ERROR macademia.PopulateService  - unknown institution for wellelsey.edu in /data/shilad/usr/macademia/grails2/stdin: Velenchik, Ann 	Writing Program	avelench@wellelsey.edu	Writing Program directorAssociate Professor
+2011-05-12 00:52:40,303 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: 

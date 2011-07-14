@@ -1,0 +1,3779 @@
+=online communities	online communities
+=online communities	Nonprofit Organizations
+=online communities	informal economy
+=online communities	counter-cultures
+=online communities	history of diaspora
+-online communities	print history
+=online communities	religion & the environment
+=online communities	community building
+=social networking	social networking
+=social networking	educational studies
+=social networking	social networks
+-social networking	food security
+=social networking	interdisciplinary connections
+=social networking	collaborative computing
+=social networking	entertainment
+=social networking	parallel computing
+=data mining	data mining
+=data mining	information technology
+-data mining	natural resources
+=data mining	digital media
+=data mining	visual information
+=data mining	online surveys
+=data mining	sports statistics.
+=data mining	collective memory
+=machine learning	machine learning
+=machine learning	mathematical modeling
+=machine learning	collective memory
+=machine learning	collaborative computing
+-machine learning	learning abroad
+=machine learning	artificial intelligence
+=machine learning	parallel computing
+-machine learning	reproductive technologies
+=web2.0	online communities
+=web2.0	digital media
+=politics	nationalism
+=politics	citizenship
+=politics	immigrants
+=politics	rhetoric
+=politics	feminism
+=politics	ethics
+=politics	politics
+=politics	religion
+=social psychology	cognitive science
+=social psychology	mental health
+=social psychology	political ecology
+=social psychology	liberal education
+=social psychology	religion & gender
+=social psychology	cultural geography
+=social psychology	political sociology
+=social psychology	social psychology
+=group psychology	group psychology
+=group psychology	psychotherapy research
+=group psychology	group theory
+=group psychology	philosophy of mind
+-group psychology	undergraduate genomics education
+-group psychology	history of mathematics
+=group psychology	philosophy of education
+-group psychology	music in literature
+=statistics	statistics
+=statistics	probability
+=statistics	economics
+=statistics	econometrics
+=statistics	combinatorics
+=statistics	sports statistics.
+=statistics	optimization
+=statistics	demography
+=collaborative computing	collaborative computing
+=collaborative computing	mathematical modeling
+=collaborative computing	learning management systems
+=collaborative computing	collective memory
+=collaborative computing	interdisciplinary connections
+=collaborative computing	social networking
+=collaborative computing	parallel computing
+=collaborative computing	algorithms
+=moderation	moderation
+=moderation	dignity
+=moderation	objectivity
+=online contributions	online contributions
+-online contributions	print history
+-online contributions	theories of justice
+=online contributions	online surveys
+-online contributions	textbook writing
+-online contributions	work-life choices
+-online contributions	field theory
+-online contributions	applied mathematics
+-recommender systems	fluvial processes
+=recommender systems	reaction mechanisms
+-recommender systems	reproductive technologies
+=recommender systems	social networks
+=recommender systems	networks
+-recommender systems	alpine environments
+=recommender systems	parallel computing
+=recommender systems	recommender systems
+=social networks	social networking
+=social networks	social networks
+=social networks	interdisciplinary connections
+-social networks	reproductive technologies
+=social networks	philosophy of technology
+=social networks	Nonprofit Organizations
+=social networks	informal economy
+=social networks	information technology
+=tagging	tagging
+-tagging	optimization
+=body image	body image
+=body image	digital media
+=body image	visual information
+=body image	body objectification
+=body image	body size evolution
+=body image	skin tone bias
+=body image	texts and images
+-body image	pattern formation
+=eating disorders	eating disorders
+=eating disorders	mental health
+=eating disorders	Working Conditions
+-eating disorders	reaction mechanisms
+-eating disorders	animal behavior
+=eating disorders	childhood obesity
+=eating disorders	Pain
+-eating disorders	market failure
+=body objectification	body objectification
+=body objectification	body image
+=body objectification	hollywood intrigue
+=body objectification	body size evolution
+=body objectification	skin tone bias
+=childhood obesity	childhood obesity
+=childhood obesity	eating disorders
+=childhood obesity	urban poverty
+=childhood obesity	the good life
+=childhood obesity	hunger
+=childhood obesity	market failure
+=childhood obesity	pollution control
+=childhood obesity	everyday material life
+=feminist identity	feminist identity
+=feminist identity	cultural inauthenticity
+=feminist identity	cultural studies
+=feminist identity	cultural competency
+=feminist identity	cultural theory
+=feminist identity	multiple social identities
+=feminist identity	feminist theory
+=feminist identity	literary theory
+=nutritional epidemiology	nutritional epidemiology
+=nutritional epidemiology	Medical Sociology
+=nutritional epidemiology	environmental economics
+=nutritional epidemiology	complementary medicine
+=nutritional epidemiology	reproductive health
+=nutritional epidemiology	social psychology
+=nutritional epidemiology	biostatistics
+=nutritional epidemiology	plant genetics
+=psychotherapy research	cognitive science
+=psychotherapy research	psychotherapy research
+=psychotherapy research	neuroscience
+=psychotherapy research	clinical psychology
+=psychotherapy research	feminist psychology
+=psychotherapy research	group psychology
+=psychotherapy research	community psychology
+-psychotherapy research	assessment
+=structural analysis of social behavior (SASB)	structural analysis of social behavior (SASB)
+=structural analysis of social behavior (SASB)	quantitative methods
+-structural analysis of social behavior (SASB)	market efficiency and behavioral finance)
+-structural analysis of social behavior (SASB)	gender and sexuality studies
+-structural analysis of social behavior (SASB)	theories of musical performance and interpretation
+-structural analysis of social behavior (SASB)	(less formal research
+-structural analysis of social behavior (SASB)	learning and human brain development
+-structural analysis of social behavior (SASB)	Comparative Health Systems
+=media	entertainment
+=media	media
+=media	advertising
+=media	politics
+=media	networks
+=media	political humor
+=media	sports statistics.
+-media	the inception of literary criticism
+=clinical psychology	mental health
+=clinical psychology	clinical psychology
+=clinical psychology	observational astronomy
+=clinical psychology	educational studies
+-clinical psychology	experimental physics
+=clinical psychology	alternative medicine
+=clinical psychology	psychotherapy research
+-clinical psychology	legal studies
+-feminist psychology	psychotherapy research
+=feminist psychology	liberal education
+=feminist psychology	feminist psychology
+=feminist psychology	political ecology
+-feminist psychology	cultural geography
+=feminist psychology	political sociology
+-feminist psychology	environmental chemistry
+-feminist psychology	postcolonial studies
+=public health	educational studies
+=public health	civic education
+=public health	public health
+=public health	informal economy
+=public health	personal identity
+=public health	public finance
+=public health	food security
+=public health	reproductive health
+=community psychology	psychotherapy research
+=community psychology	community psychology
+=community psychology	philosophy of mind
+=community psychology	comparative politics
+-community psychology	field theory
+-community psychology	history of mathematics
+-community psychology	philosophy of education
+-community psychology	philosophy of law
+=ethnicity	nationalism
+=ethnicity	immigrants
+=ethnicity	citizenship
+=ethnicity	ethnicity
+=ethnicity	identity
+=ethnicity	gender
+=ethnicity	religion & gender
+=ethnicity	religion
+=globalization	Fascism
+=globalization	globalization
+=globalization	environmentalism
+=globalization	immigration
+=globalization	acculturation
+=globalization	e-democracy
+=globalization	labor
+=globalization	naturalism
+=law	law
+=law	economics
+=law	philosophy of law
+=law	philosophy
+=law	politics
+=law	optimal tax policy
+=law	women's rights
+=law	union
+=middle classes	middle classes
+-middle classes	teacher education
+-middle classes	elementary particle physics
+-middle classes	special functions
+=middle classes	education policy
+=middle classes	education
+-middle classes	girls
+=nationalism	racism
+=nationalism	nationalism
+=nationalism	Fascism
+=nationalism	citizenship
+=nationalism	immigrants
+=nationalism	immigration
+=nationalism	ethnicity
+=nationalism	feminism
+=Nepal	rural development
+=Nepal	dance (all kinds)
+-NGOs	colonial Spanish
+-NGOs	MPI
+=South Asia	southeast asia
+=South Asia	South Asia
+-South Asia	Latin America
+-South Asia	Africa
+-South Asia	Western Marxism
+=South Asia	asian anarchism
+=South Asia	human capital
+-South Asia	Ireland
+=Sri Lanka	privatization and social movements
+=Sri Lanka	humanitarianism
+=state formation	state formation
+-state formation	reaction-diffusion
+-state formation	transition state theory
+-state formation	hyperfine structure
+=state formation	pattern formation
+=state formation	international development
+-state formation	faculty development
+=state formation	development
+=wildlife conservation	wildlife conservation
+=wildlife conservation	biodiversity
+=wildlife conservation	ecology
+=wildlife conservation	plant ecology
+=wildlife conservation	political ecology
+=wildlife conservation	natural resources
+=wildlife conservation	animal behavior
+=wildlife conservation	environmental education
+=ethics of emerging technologies	ethics of emerging technologies
+=ethics of emerging technologies	learning management systems
+=ethics of emerging technologies	ethics of theory & method in religious studies
+=ethics of emerging technologies	philosophy of technology
+=ethics of emerging technologies	qualitative research methodologies
+=ethics of emerging technologies	Comparative Health Systems
+=ethics of emerging technologies	philosophy and literature
+=ethics of emerging technologies	domestic performance literature
+=European philosophy	asian anarchism
+=European philosophy	European philosophy
+=European philosophy	theory & critique of religion
+=European philosophy	history of aesthetics
+=European philosophy	philosophy of law
+=European philosophy	history of mathematics
+=European philosophy	history of world literature concept
+=European philosophy	philosophy of mind
+=existentialism	naturalism
+=existentialism	existentialism
+=existentialism	phenomenology
+=existentialism	modernism
+=existentialism	hermeneutics
+=existentialism	feminism
+=existentialism	aesthetics
+=existentialism	realism
+-Heidegger	African American studies
+=Heidegger	Aristotle
+=hermeneutics	hermeneutics
+=hermeneutics	anthropology
+=hermeneutics	phenomenology
+=hermeneutics	paleography
+=hermeneutics	existentialism
+=hermeneutics	demography
+=hermeneutics	naturalism
+-hermeneutics	robotics
+=information technology	information technology
+=information technology	data mining
+=information technology	materials science
+=information technology	artificial intelligence
+=information technology	food security
+=information technology	algorithms
+=information technology	digital media
+=information technology	philosophy of technology
+=liberal education	liberal education
+=liberal education	educational studies
+=liberal education	feminist psychology
+=liberal education	political sociology
+=liberal education	cultural studies
+=liberal education	social psychology
+=liberal education	e-democracy
+=liberal education	teacher education
+=philosophy of technology	philosophy of technology
+-philosophy of technology	materials science
+-philosophy of technology	theory & critique of religion
+-philosophy of technology	architecture
+=philosophy of technology	social networks
+-philosophy of technology	teacher education
+=philosophy of technology	information technology
+-philosophy of technology	chemistry
+=the good life	the good life
+=the good life	personal identity
+=the good life	childhood obesity
+=the good life	work-life choices
+=the good life	work-life balance
+=the good life	everyday material life
+=the good life	human migration
+=the good life	human capital
+=the right to privacy	the right to privacy
+=the right to privacy	human rights
+=the right to privacy	civil rights
+-the right to privacy	right to die
+-the right to privacy	dignity
+-the right to privacy	women’s health
+=the right to privacy	women's rights
+-the right to privacy	causality
+=architecture	architecture
+-architecture	literature
+=architecture	philosophy
+=architecture	art
+-architecture	agriculture
+-architecture	philosophy of technology
+=architecture	structure
+=architecture	community building
+=modernism	modernism
+=modernism	naturalism
+=modernism	realism
+=modernism	existentialism
+=modernism	aesthetics
+=modernism	Fascism
+=modernism	feminism
+=modernism	phenomenology
+=environmentalism	environmentalism
+=environmentalism	feminism
+=environmentalism	racism
+=environmentalism	globalization
+=environmentalism	externalities
+=environmentalism	Fascism
+=environmentalism	asian anarchism
+=environmentalism	cosmopolitanism
+=everyday material life	everyday material life
+=everyday material life	work-life choices
+=everyday material life	work-life balance
+-everyday material life	dark matter
+-everyday material life	condensed matter
+=everyday material life	contemporary European history
+=everyday material life	multiple social identities
+=everyday material life	the good life
+=Africa	Africa
+-Africa	Ireland
+-Africa	South Asia
+=Africa	southeast asia
+-Africa	Mexico
+-Africa	asian anarchism
+=Africa	Latin America
+=anthropology	hermeneutics
+=anthropology	anthropology
+=anthropology	phenomenology
+=anthropology	demography
+=anthropology	cognitive science
+=anthropology	pedagogy
+=anthropology	aesthetics
+=anthropology	ecology
+=citizenship	nationalism
+=citizenship	citizenship
+=citizenship	immigration
+=citizenship	immigrants
+=citizenship	ethnicity
+=citizenship	politics
+=citizenship	dignity
+=citizenship	civil rights
+-Darfur	neuroscience studies
+=Darfur	cultural inauthenticity
+=forced migration	forced migration
+=forced migration	indigenous peoples' movements
+=forced migration	invasion biology
+=forced migration	human migration
+=forced migration	Migration
+=forced migration	market failure
+=forced migration	root development
+=forced migration	housing markets
+=gender	ethnicity
+=gender	feminism
+=gender	gender
+=gender	religion & gender
+=gender	religion
+=gender	identity
+=gender	racial essentialism
+=gender	multiple social identities
+=human rights	human rights
+=human rights	civil rights
+=human rights	reproductive health
+=human rights	animal behavior
+=human rights	natural resources
+=human rights	environmental policy
+=human rights	the right to privacy
+=human rights	collective memory
+=humanitarianism	humanitarianism
+=humanitarianism	metacognition
+=humanitarianism	remittances
+=humanitarianism	cosmopolitanism
+=immigrants	nationalism
+=immigrants	citizenship
+=immigrants	immigration
+=immigrants	immigrants
+=immigrants	ethnicity
+=immigrants	Migration
+=immigrants	politics
+=immigrants	persons
+=Ireland	Ireland
+-Ireland	Africa
+-Ireland	Latin America
+-Ireland	southeast asia
+-Ireland	South Asia
+=qualitative research methods	qualitative research methods
+=qualitative research methods	qualitative research methodologies
+=qualitative research methods	interdisciplinary connections
+-qualitative research methods	elemental analysis
+-qualitative research methods	materials science
+-qualitative research methods	Comparative Health Systems
+=qualitative research methods	cultural studies
+=qualitative research methods	(less formal research
+=rapid social change	rapid social change
+=rapid social change	China's economic development
+=rapid social change	public education reform
+=rapid social change	climate change
+=rapid social change	(less formal research
+=rapid social change	international development
+=rapid social change	progress
+-rapid social change	structural analysis of social behavior (SASB)
+=Sudan	general systems/cultural futures theory and methodologies
+=Sudan	women
+=Transnationalism	women
+=Transnationalism	metaphor
+=war	war
+=war	violence
+=war	campaign rhetoric
+=war	civil rights
+=war	invasion biology
+=war	death
+=war	union
+=war	intergroup relations
+=work-life choices	work-life choices
+=work-life choices	work-life balance
+-work-life choices	online contributions
+=work-life choices	Working Conditions
+=work-life choices	everyday material life
+=work-life choices	qualitative research methodologies
+=work-life choices	work
+=work-life choices	progress
+-time	African American studies
+=time	Aristotle
+=identity	nationalism
+=identity	ethnicity
+=identity	identity
+=identity	consciousness
+=identity	gender
+=identity	citizenship
+=identity	multiple social identities
+=identity	prejudice
+=space	geometry
+-space	algebra
+=space	space
+=space	structure
+=space	symmetry
+-space	numbers
+-space	special functions
+=space	environment
+=realism	naturalism
+=realism	objectivity
+=realism	modernism
+=realism	realism
+=realism	aesthetics
+=realism	humor
+=realism	philosophy
+=realism	intuition
+=progress	progress
+=progress	development
+=progress	reconciliation
+=progress	inflation
+-progress	proof
+=progress	online contributions
+=progress	thought experimentation
+=progress	Migration
+=early modern	early modern
+=early modern	ancient history
+=early modern	Western Marxism
+=early modern	contemporary conservatism
+=early modern	contemporary European history
+-early modern	human capital
+=early modern	urban history
+-Descartes	fertility
+-Descartes	African American studies
+=Newton	Newton
+-Newton	lithography
+-Locke	African American studies
+=Locke	Aristotle
+-Hume	MPI
+=Hume	rural development
+=causality	causality
+=causality	quantum
+=causality	symmetry
+=causality	naturalism
+=causality	consciousness
+=causality	metacognition
+=causality	intuition
+=causality	supersymmetry
+=cosmology	cosmology
+=cosmology	religion
+=cosmology	philosophy
+=cosmology	ethics
+=cosmology	geography
+=cosmology	optics
+=cosmology	quantum
+=cosmology	literature
+=quantum	energy
+=quantum	probability
+=quantum	symmetry
+=quantum	quantum
+=quantum	optics
+=quantum	quantum chemistry
+=quantum	causality
+=quantum	chemistry
+-Aristotle	privatization and social movements
+-Aristotle	humanitarianism
+-Darwin	general systems/cultural futures theory and methodologies
+-Darwin	women
+-Suarez	African American studies
+=Suarez	Aristotle
+=eternity	eternity
+-eternity	fertility
+=eternity	causality
+=eternity	embodiment
+=death	death
+=death	funeral
+=death	Pain
+-death	market failure
+=death	war
+=death	reconciliation
+=numbers	numbers
+=numbers	probability
+=numbers	algebra
+=numbers	number theory
+=numbers	proof
+=numbers	space
+=numbers	special functions
+=numbers	Debt
+=structure	geometry
+=structure	structure
+=structure	symmetry
+=structure	architecture
+=structure	environment
+=structure	community building
+=structure	pattern formation
+=structure	space
+=Poincare	metaphor
+-Poincare	fertility
+-Kant	dance (all kinds)
+-Kant	general systems/cultural futures theory and methodologies
+-Wittgenstein	privatization and social movements
+=Wittgenstein	humanitarianism
+-Weyl	neuroscience studies
+-Weyl	cultural inauthenticity
+=logicism	metaphor
+=logicism	fertility
+=intuition	intuition
+-intuition	realism
+=intuition	consciousness
+=intuition	perception of bias
+=intuition	philosophy of mind
+=intuition	proof
+=intuition	objectivity
+=intuition	causality
+=abstract	abstract
+=abstract	algebra
+-abstract	quantum
+=abstract	linear and abstract algebra
+-abstract	visual information
+=abstract	combinatorics
+=abstract	contemporary conservatism
+=abstract	discrete mathematics and combinatorics
+=naturalism	naturalism
+=naturalism	existentialism
+=naturalism	modernism
+=naturalism	realism
+=naturalism	objectivity
+=naturalism	phenomenology
+-naturalism	cosmopolitanism
+=naturalism	cosmology
+-fictionalism	colonial Spanish
+-fictionalism	MPI
+=diagrams	diagrams
+=diagrams	graph theory
+=diagrams	optimization
+=diagrams	statistics
+=visual information	visual information
+=visual information	digital media
+-visual information	artificial intelligence
+-visual information	natural resources
+=visual information	data mining
+=visual information	cultural studies
+-visual information	collective memory
+-visual information	proof
+=proof	proof
+=proof	geometry
+=proof	probability
+=proof	algebra
+=proof	combinatorics
+=proof	assessment
+=proof	visual information
+=proof	progress
+=objectivity	objectivity
+=objectivity	realism
+=objectivity	naturalism
+=objectivity	proof
+=objectivity	consciousness
+=objectivity	Indian realism
+=objectivity	moderation
+=objectivity	intuition
+=philosophy of mind	philosophy of mind
+=philosophy of mind	consciousness
+=philosophy of mind	theory & critique of religion
+=philosophy of mind	group psychology
+=philosophy of mind	community psychology
+=philosophy of mind	perception of bias
+=philosophy of mind	history of aesthetics
+=philosophy of mind	Indian realism
+=consciousness	consciousness
+=consciousness	identity
+=consciousness	philosophy of mind
+=consciousness	perception of bias
+-consciousness	dignity
+=consciousness	intuition
+=consciousness	religion
+=consciousness	objectivity
+=embodiment	embodiment
+=embodiment	metaphor
+=embodiment	objectivity
+=embodiment	eternity
+=embodiment	union
+=embodiment	causality
+=persons	persons
+=persons	women
+=persons	girls
+=persons	women artists
+=persons	immigrants
+=persons	women’s health
+=persons	numbers
+=personal identity	personal identity
+-personal identity	special functions
+=personal identity	collective memory
+-personal identity	public health
+=personal identity	cultural studies
+=personal identity	cultural competency
+=personal identity	cultural theory
+-personal identity	food security
+=thought experimentation	thought experimentation
+=thought experimentation	philosophy of education
+-thought experimentation	film studies
+-thought experimentation	postcolonial studies
+-thought experimentation	Holocaust studies
+=thought experimentation	Indian realism
+=thought experimentation	Indian philosophies
+=thought experimentation	progress
+-narrativity	MPI
+=narrativity	rural development
+=philosophy and literature	theory & critique of religion
+-philosophy and literature	undergraduate mathematics education
+-philosophy and literature	community based arts
+-philosophy and literature	architecture
+=philosophy and literature	theoretical approaches to myth
+-philosophy and literature	art and society
+-philosophy and literature	campaign rhetoric
+=philosophy and literature	mythology and storytelling
+-Parfit	African American studies
+=Parfit	Aristotle
+=Indian philosophies	Indian philosophies
+=Indian philosophies	Indian realism
+=Indian philosophies	theories of justice
+=Indian philosophies	counter-cultures
+-Indian philosophies	religion & the environment
+-Indian philosophies	thought experimentation
+=Indian philosophies	cosmology
+=Indian philosophies	philosophy of mind
+=Indian realism	Indian realism
+=Indian realism	Indian philosophies
+=Indian realism	philosophy of mind
+=Indian realism	thought experimentation
+=Indian realism	naturalism
+=Indian realism	objectivity
+=Indian realism	modernism
+=Indian realism	Kantian constructivism
+-Nyaya Darsana	dance (all kinds)
+-Nyaya Darsana	general systems/cultural futures theory and methodologies
+-Udayana	MPI
+=Udayana	rural development
+-Nagarjuna	MPI
+=Nagarjuna	rural development
+-Davidson	neuroscience studies
+-Davidson	cultural inauthenticity
+=metaphor	metaphor
+=metaphor	embodiment
+=metaphor	rhetoric
+=metaphor	hermeneutics
+=metaphor	intuition
+=metaphor	thought experimentation
+=metaphor	humor
+=cross-cultural philosophy	cross-cultural philosophy
+=cross-cultural philosophy	theory & critique of religion
+=cross-cultural philosophy	the rhetoric of social movements
+-cross-cultural philosophy	ethics of theory & method in religious studies
+=cross-cultural philosophy	religious ethics & politics (particularly comparative religious views of martyrdom)
+=cross-cultural philosophy	history of world literature concept
+-cross-cultural philosophy	community based arts
+=cross-cultural philosophy	theories of musical performance and interpretation
+=demography	demography
+=demography	anthropology
+=demography	geography
+=demography	geology
+=demography	biostatistics
+=demography	econometrics
+=demography	hermeneutics
+=demography	nutritional epidemiology
+=development	progress
+=development	development
+=development	assessment
+=development	Migration
+=development	education
+=development	environment
+=development	faculty development
+=development	root development
+=economics	econometrics
+=economics	agriculture
+=economics	ecology
+-economics	geology
+-economics	neuroscience
+=economics	rhetoric
+=economics	statistics
+-economics	aesthetics
+-education	entertainment
+-education	transportation
+=education	assessment
+=education	teacher education
+=education	education
+=education	faculty development
+=education	pedagogy
+=education	development
+=environment	environment
+=environment	ecology
+=environment	grasslands
+=environment	biodiversity
+=environment	climate change
+=environment	alpine environments
+-environment	learning management systems
+=environment	religion & the environment
+=fertility	fertility
+=fertility	inflation
+=fertility	biodiversity
+=fertility	reproductive health
+=fertility	survival analysis
+=fertility	poverty
+=fertility	reproductive technologies
+-fertility	eternity
+=girls	girls
+=girls	women
+=girls	persons
+=girls	women artists
+=girls	middle classes
+=girls	women’s health
+=human capital	human capital
+=human capital	reproductive health
+=human capital	collective memory
+=human capital	invasion biology
+=human capital	reproductive technologies
+=human capital	human migration
+=human capital	multiple social identities
+=human capital	the good life
+=informal economy	informal economy
+-informal economy	International Trade
+=informal economy	public health
+=informal economy	Politics of Health Policy
+=informal economy	international development
+=informal economy	urban politics
+=informal economy	rural labor markets
+=informal economy	online communities
+=labor	union
+=labor	labor
+=labor	immigration
+=labor	transportation
+=labor	agriculture
+=labor	energy
+=labor	rural labor markets
+=labor	hunger
+=Mexico	Mexico
+-Mexico	Africa
+=social movements	social movements
+=social movements	the rhetoric of social movements
+=social movements	Nonprofit Organizations
+=social movements	human migration
+=social movements	urban politics
+=social movements	international development
+=social movements	contemporary conservatism
+=social movements	public policy
+=time use	time use
+-time use	drug policy
+=women	girls
+=women	persons
+=women	women artists
+=work	work
+=work	literature
+=work	Working Conditions
+=work	films
+=work	autobiography
+=work	Performance
+=work	work-life choices
+=work	online contributions
+=work-life balance	work-life balance
+=work-life balance	work-life choices
+=work-life balance	survival analysis
+=work-life balance	Working Conditions
+=work-life balance	everyday material life
+=work-life balance	online contributions
+=work-life balance	the good life
+=work-life balance	Comparative Health Systems
+-african american psychology	undergraduate mathematics education
+-african american psychology	undergraduate genomics education
+=african american psychology	african american psychology
+=african american psychology	African American literature
+=african american psychology	African American studies
+=african american psychology	African American history
+=african american psychology	african american theater
+=african american psychology	ethics of theory & method in religious studies
+=discrimination	racism
+=discrimination	prejudice
+=discrimination	stereotyping
+=discrimination	violence
+=discrimination	discrimination
+=discrimination	poverty
+=discrimination	immigration
+=discrimination	hunger
+=intergroup contact	intergroup contact
+=intergroup contact	intergroup relations
+=intergroup contact	interracial friendship
+=intergroup contact	interdisciplinary connections
+=intergroup contact	pollution control
+=intergroup contact	social movements
+=intergroup contact	skin tone bias
+=intergroup contact	multiple social identities
+=interracial friendship	interracial friendship
+=interracial friendship	intergroup relations
+=interracial friendship	intergroup contact
+=interracial friendship	interdisciplinary connections
+=interracial friendship	reconciliation
+=interracial friendship	racial essentialism
+=online surveys	online surveys
+=online surveys	survey methodology
+=online surveys	data mining
+=online surveys	digital media
+=online surveys	print history
+=online surveys	online contributions
+=online surveys	sports statistics.
+=online surveys	qualitative research methodologies
+=perception of bias	perception of bias
+=perception of bias	discrimination
+=perception of bias	philosophy of mind
+=perception of bias	consciousness
+=perception of bias	group psychology
+=perception of bias	community psychology
+=perception of bias	animal behavior
+=perception of bias	visual information
+=prejudice	racism
+=prejudice	prejudice
+=prejudice	stereotyping
+=prejudice	violence
+=prejudice	discrimination
+=prejudice	poverty
+=prejudice	Fascism
+=prejudice	rhetoric
+=racism	racism
+=racism	nationalism
+=racism	Fascism
+=racism	prejudice
+=racism	violence
+=racism	discrimination
+=racism	stereotyping
+=racism	feminism
+=skin tone bias	skin tone bias
+=skin tone bias	dark matter
+=skin tone bias	perception of bias
+=skin tone bias	Pain
+=skin tone bias	the production and perception of voice quality
+=skin tone bias	body image
+=skin tone bias	political humor
+=skin tone bias	body size evolution
+=stereotyping	prejudice
+=stereotyping	stereotyping
+=stereotyping	discrimination
+=stereotyping	racism
+=stereotyping	violence
+=stereotyping	perception of bias
+=stereotyping	racial essentialism
+=survey methodology	survey methodology
+-survey methodology	elemental analysis
+=survey methodology	assessment
+=survey methodology	quantitative methods
+=survey methodology	online surveys
+=survey methodology	cultural studies
+-survey methodology	film studies
+-survey methodology	postcolonial studies
+=ethics	phenomenology
+=ethics	aesthetics
+=ethics	cosmology
+=ethics	economics
+=ethics	ethics
+=ethics	politics
+=ethics	religion
+=ethics	philosophy
+=Kantian ethics	religion & economics
+=Kantian ethics	theories of justice
+-Kantian ethics	religion & gender
+=Kantian ethics	philosophy of mind
+=Kantian ethics	thought experimentation
+=Kantian ethics	philosophy and literature
+=Kantian ethics	Kantian ethics
+-Kantian ethics	and politics
+=Kantian constructivism	neuroscience studies
+=Kantian constructivism	Kantian constructivism
+=Kantian constructivism	Indian realism
+=Kantian constructivism	pedagogy
+=Kantian constructivism	chemical pedagogy
+=Kantian constructivism	racial essentialism
+=Kantian constructivism	existentialism
+=Kantian constructivism	neuroscience and dance
+-Rawls	metaphor
+-Rawls	fertility
+=bioethics	bioethics
+=bioethics	genomics
+=bioethics	ethics
+=bioethics	robotics
+=bioethics	causality
+-bioethics	Kantian ethics
+=bioethics	globalization
+=bioethics	postcolonial studies
+=philosophy of law	sociology of law
+-philosophy of law	alternative medicine
+-philosophy of law	complementary medicine
+=philosophy of law	law
+=philosophy of law	philosophy of law
+=philosophy of law	theories of justice
+=philosophy of law	theory & critique of religion
+-philosophy of law	philosophy of education
+=civil rights	civil rights
+=civil rights	civic education
+=civil rights	human rights
+=civil rights	citizenship
+=civil rights	the right to privacy
+=civil rights	public health
+=civil rights	public education reform
+=civil rights	war
+=right to die	right to die
+=right to die	the right to privacy
+=informed consent	informed consent
+-informed consent	citizenship
+-informed consent	election audits
+-informed consent	political speeches
+=informed consent	women's rights
+=dignity	dignity
+=dignity	citizenship
+=dignity	moderation
+=dignity	consciousness
+=dignity	theories of justice
+=dignity	human rights
+=dignity	women's rights
+=dignity	prejudice
+=Affirmative Action Policy	Affirmative Action Policy
+-Affirmative Action Policy	Politics of Health Policy
+-Affirmative Action Policy	drug policy
+-Affirmative Action Policy	market formation and operation
+=Affirmative Action Policy	American Social Policy
+-Affirmative Action Policy	education policy
+-Affirmative Action Policy	education and social reform; democracy and education; social/cultural/spiritual issues in education
+=American Social Policy	American Social Policy
+=American Social Policy	Politics of Health Policy
+=American Social Policy	public education reform
+=American Social Policy	historical development of social policies
+=American Social Policy	optimal tax policy
+=American Social Policy	education and social reform; democracy and education; social/cultural/spiritual issues in education
+=American Social Policy	public policy
+=American Social Policy	rapid social change
+=Comparative Health Systems	Comparative Health Systems
+=Comparative Health Systems	qualitative research methods
+-Comparative Health Systems	learning management systems
+=Comparative Health Systems	Financial economics (general financial markets
+-Comparative Health Systems	public education reform
+=Comparative Health Systems	historical development of social policies
+=Comparative Health Systems	market efficiency and behavioral finance)
+=Comparative Health Systems	qualitative research methodologies
+=historical development of social policies	historical development of social policies
+=historical development of social policies	China's economic development
+=historical development of social policies	religious ethics & politics (particularly comparative religious views of martyrdom)
+=historical development of social policies	the rhetoric of social movements
+=historical development of social policies	(less formal research
+=historical development of social policies	contemporary conservatism
+=historical development of social policies	American Social Policy
+=historical development of social policies	environmental policy
+-Medical Sociology	cognitive science
+=Medical Sociology	mental health
+=Medical Sociology	alternative medicine
+=Medical Sociology	complementary medicine
+=Medical Sociology	clinical psychology
+=Medical Sociology	experimental physics
+=Medical Sociology	nutritional epidemiology
+=Medical Sociology	legal studies
+=Non-Profits	Non-Profits
+=Non-Profits	Nonprofit Organizations
+=Non-Profits	inflation
+=Non-Profits	Debt
+=Non-Profits	e-democracy
+=Non-Profits	Exchange Rates
+=Non-Profits	optimal tax policy
+=Non-Profits	pollution control
+=Non-Profits	numbers
+=Nonprofit Organizations	Non-Profits
+=Nonprofit Organizations	Nonprofit Organizations
+=Nonprofit Organizations	educational studies
+=Nonprofit Organizations	civic education
+=Nonprofit Organizations	online communities
+=Nonprofit Organizations	public education reform
+=Nonprofit Organizations	social movements
+=Nonprofit Organizations	social networks
+=Nonprofit Organizations	the rhetoric of social movements
+=Philanthropy	Philanthropy
+-Philanthropy	agriculture
+=Politics of Health Policy	economic sociology
+=Politics of Health Policy	Politics of Health Policy
+=Politics of Health Policy	informal economy
+=Politics of Health Policy	the rhetoric of social movements
+=Politics of Health Policy	public education reform
+=Politics of Health Policy	environmental policy
+=Politics of Health Policy	education policy
+=Politics of Health Policy	American Social Policy
+=sociology of law	sociology of law
+-sociology of law	alternative medicine
+-sociology of law	complementary medicine
+=sociology of law	religion & economics
+-sociology of law	environmental economics
+-sociology of law	economics
+-sociology of law	undergraduate genomics education
+=sociology of law	philosophy of law
+-political sociology	undergraduate genomics education
+-political sociology	undergraduate mathematics education
+-political sociology	religion & economics
+=political sociology	legal studies
+=political sociology	liberal education
+=political sociology	civic education
+=political sociology	feminist psychology
+=political sociology	political ecology
+=economic sociology	historical linguistics
+=economic sociology	Medical Sociology
+=economic sociology	legal studies
+=economic sociology	civic education
+=economic sociology	environmental economics
+=economic sociology	undergraduate genomics education
+=economic sociology	religion & economics
+=economic sociology	political ecology
+=indigenous peoples' movements	indigenous peoples' movements
+=indigenous peoples' movements	counter-cultures
+=indigenous peoples' movements	immigrants
+=indigenous peoples' movements	human migration
+=indigenous peoples' movements	forced migration
+=indigenous peoples' movements	art and society
+=indigenous peoples' movements	ancient history
+=indigenous peoples' movements	rural labor markets
+=market formation and operation	market formation and operation
+=market formation and operation	China's economic development
+=market formation and operation	market failure
+=market formation and operation	Affirmative Action Policy
+=reconciliation	reconciliation
+=reconciliation	progress
+=reconciliation	interracial friendship
+=reconciliation	union
+=reconciliation	dignity
+=reconciliation	death
+=reconciliation	objectivity
+=reconciliation	globalization
+-Fiji	neuroscience studies
+-Fiji	cultural inauthenticity
+=anti-corruption	anti-corruption
+=anti-corruption	perception of bias
+=anti-corruption	urban poverty
+=anti-corruption	drug policy
+=anti-corruption	racial essentialism
+=anti-corruption	pollution control
+=anti-corruption	hollywood intrigue
+-anti-corruption	skin tone bias
+=20th Century African American History	20th Century African American History
+=20th Century African American History	African American literature
+=20th Century African American History	History of Christian traditions (especially the 16th century)
+=20th Century African American History	African American history
+=20th Century African American History	african american art
+=African American literature	african american psychology
+=African American literature	African American literature
+=African American literature	African American studies
+=African American literature	african american art
+=African American literature	African American history
+=African American literature	Latin American culture
+=African American literature	african american theater
+=African American literature	latin american art
+=feminist theory	feminist psychology
+=feminist theory	feminist theory
+=feminist theory	literary theory
+=feminist theory	critical theory
+=feminist theory	postcolonial theory
+=feminist theory	cultural theory
+=feminist theory	political theory
+=feminist theory	social psychology
+=legal studies	historical linguistics
+=legal studies	Medical Sociology
+=legal studies	legal studies
+=legal studies	economic sociology
+=legal studies	political sociology
+=legal studies	civic education
+=legal studies	environmental education
+=legal studies	critical theory
+=autobiography	autobiography
+-autobiography	work
+-autobiography	opera
+-political theory	critical theory
+-political theory	environmental economics
+=political theory	public policy
+-political theory	feminist theory
+-political theory	literary theory
+=political theory	cultural theory
+=political theory	political theory
+=political theory	social psychology
+=Pain	hunger
+=Pain	Pain
+=Pain	poverty
+=Pain	violence
+=Pain	inflation
+=Pain	death
+=Pain	skin tone bias
+=Pain	eating disorders
+=nociception	nociception
+-nociception	rifting
+=nociception	externalities
+=nociception	acculturation
+-neuroscience	anthropology
+=neuroscience	robotics
+=neuroscience	genomics
+=neuroscience	psychotherapy research
+=neuroscience	ecology
+=neuroscience	neuroscience
+=neuroscience	geochemistry
+=neuroscience	econometrics
+=neuroscience	neuroscience studies	
+=neuroscience studies	neuroscience
+=neuroscience studies	historical linguistics
+=neuroscience studies	psychotherapy research
+=neuroscience studies	alternative medicine
+=neuroscience studies	complementary medicine
+=neuroscience studies	chemical biology
+=neuroscience studies	cell biology
+=neuroscience studies	invasion biology
+-neuroscience studies	materials science
+=alternative medicine	alternative medicine
+=alternative medicine	Medical Sociology
+=alternative medicine	mathematical biology
+=alternative medicine	experimental physics
+=alternative medicine	clinical psychology
+=alternative medicine	complementary medicine
+=alternative medicine	sociology of law
+=alternative medicine	philosophy of law
+=complementary medicine	complementary medicine
+=complementary medicine	Medical Sociology
+=complementary medicine	alternative medicine
+=complementary medicine	philosophy of law
+=complementary medicine	religion & economics
+=complementary medicine	quantitative methods
+=complementary medicine	history of science/chemistry
+=complementary medicine	nutritional epidemiology
+=psychopharmacology	psychopharmacology
+=psychopharmacology	neuroscience
+=psychopharmacology	biostatistics
+=neuroscience and dance	neuroscience and dance
+=neuroscience and dance	psychotherapy research
+=neuroscience and dance	piano music
+=neuroscience and dance	community based arts
+=neuroscience and dance	theoretical approaches to myth
+=neuroscience and dance	sports statistics.
+=neuroscience and dance	Penumbra Theatre Company
+=neuroscience and dance	European philosophy
+=animal behavior	animal behavior
+=animal behavior	plant ecology
+=animal behavior	wildlife conservation
+=animal behavior	plant genetics
+=animal behavior	human rights
+-animal behavior	eating disorders
+=animal behavior	human migration
+=animal behavior	Dinosaur paleobiology & evolution
+=aromatherapy	herbalism
+=aromatherapy	aromatherapy
+=aromatherapy	yoga
+=herbalism	herbalism
+=herbalism	aromatherapy
+=herbalism	glaciology
+=herbalism	typography
+=drug policy	drug policy
+=drug policy	Politics of Health Policy
+=drug policy	environmental policy
+=drug policy	anti-corruption
+=drug policy	optimal tax policy
+=drug policy	education policy
+=drug policy	chemical pedagogy
+=drug policy	public policy
+=number theory	number theory
+=number theory	graph theory
+=number theory	numbers
+=number theory	group theory
+-number theory	body size evolution
+=number theory	hyperfine structure
+=number theory	field theory
+=number theory	symmetry breaking
+=combinatorics	geometry
+=combinatorics	algebra
+=combinatorics	combinatorics
+=combinatorics	econometrics
+=combinatorics	proof
+=combinatorics	optimization
+=combinatorics	graph theory
+=combinatorics	algorithms
+=special functions	special functions
+-special functions	personal identity
+=special functions	random walks
+=special functions	survival analysis
+=special functions	social networks
+=special functions	hyperfine structure
+=special functions	structural analysis of social behavior (SASB)
+=special functions	numbers
+=history of mathematics	mathematical biology
+-history of mathematics	Medical Sociology
+-history of mathematics	cell biology
+-history of mathematics	geography
+-history of mathematics	cultural geography
+-history of mathematics	philosophy of education
+-history of mathematics	comparative politics
+=history of mathematics	applied mathematics
+=undergraduate mathematics education	learning and teaching
+=undergraduate mathematics education	community based arts
+=undergraduate mathematics education	elementary particle physics
+=undergraduate mathematics education	undergraduate mathematics education
+=undergraduate mathematics education	undergraduate genomics education
+-undergraduate mathematics education	materials science
+=undergraduate mathematics education	history of science/chemistry
+=undergraduate mathematics education	faculty development
+=artificial intelligence	artificial intelligence
+-artificial intelligence	natural resources
+-artificial intelligence	food security
+=artificial intelligence	visual information
+=artificial intelligence	information technology
+=artificial intelligence	digital media
+=artificial intelligence	animal behavior
+=artificial intelligence	learning management systems
+=robotics	robotics
+=robotics	neuroscience
+=robotics	optics
+=robotics	genomics
+=robotics	bioethics
+=robotics	optimization
+=robotics	hermeneutics
+=robotics	artificial intelligence
+=cognitive science	anthropology
+=cognitive science	Medical Sociology
+=cognitive science	cognitive science
+=cognitive science	experimental physics
+=cognitive science	psychotherapy research
+=cognitive science	clinical psychology
+=cognitive science	observational astronomy
+=cognitive science	mathematical modeling
+-African literature	religion & economics
+=African literature	history of diaspora
+-African literature	history of mathematics
+=African literature	African literature
+-African literature	history of aesthetics
+-African literature	textbook writing
+=African literature	film studies
+=African literature	History of Western art music
+=the Black Atlantic	the Black Atlantic
+-the Black Atlantic	dark matter
+=cultural theory	mental health
+=cultural theory	environmental economics
+=cultural theory	International Trade
+=cultural theory	personal identity
+=cultural theory	feminist theory
+=cultural theory	literary theory
+=cultural theory	feminist identity
+=cultural theory	cultural theory
+=literary theory	critical theory
+-literary theory	feminist psychology
+=literary theory	feminist theory
+=literary theory	literary theory
+=literary theory	cultural theory
+-literary theory	political theory
+-literary theory	social psychology
+=literary theory	political art
+=history of world literature concept	history of world literature concept
+-history of world literature concept	European philosophy
+=history of world literature concept	art and society
+=history of world literature concept	cross-cultural philosophy
+=history of world literature concept	counter-cultures
+=history of world literature concept	art theory
+=history of world literature concept	genres and forms of discourse
+-history of world literature concept	discrete mathematics and combinatorics
+=postcolonial studies	postcolonial studies
+=postcolonial studies	feminist psychology
+=postcolonial studies	postcolonial theory
+-postcolonial studies	survey methodology
+=postcolonial studies	feminist theory
+=postcolonial studies	Hispanic literature
+-postcolonial studies	thought experimentation
+-postcolonial studies	feminist identity
+=cosmopolitanism	cosmopolitanism
+=cosmopolitanism	nationalism
+=cosmopolitanism	naturalism
+=cosmopolitanism	environmentalism
+-Langston Hughes	privatization and social movements
+-Langston Hughes	humanitarianism
+=Derek Walcott	dance (all kinds)
+-Derek Walcott	general systems/cultural futures theory and methodologies
+=genres and forms of discourse	genres and forms of discourse
+=genres and forms of discourse	hip hop culture
+=genres and forms of discourse	history of world literature concept
+=genres and forms of discourse	counter-cultures
+=genres and forms of discourse	meaning fascination without publications): Chinese Music
+=genres and forms of discourse	ethics of emerging technologies
+-genres and forms of discourse	gender and sexuality studies
+=genres and forms of discourse	music and morality
+=post-Soviet sphere	post-Soviet sphere
+-post-Soviet sphere	work-life balance
+=algebra	algorithms
+=algebra	geometry
+=algebra	algebra
+=algebra	combinatorics
+=algebra	space
+=algebra	probability
+=algebra	graph theory
+=algebra	numbers
+=geometry	proof
+=geometry	geometry
+=geometry	symmetry
+=geometry	algebra
+=geometry	combinatorics
+=geometry	space
+=geometry	structure
+=geometry	probability
+=math modeling in any discipline	math modeling in any discipline
+=math modeling in any discipline	chemical biology
+=math modeling in any discipline	cell biology
+=math modeling in any discipline	invasion biology
+-math modeling in any discipline	african american psychology
+=math modeling in any discipline	discrete mathematics and combinatorics
+=math modeling in any discipline	learning and teaching
+=math modeling in any discipline	globalization and education
+=comparative politics	historical linguistics
+=comparative politics	mathematical biology
+=comparative politics	comparative politics
+=comparative politics	campaign rhetoric
+=comparative politics	community psychology
+-comparative politics	history of mathematics
+-comparative politics	applied mathematics
+=comparative politics	environmental policy
+=contemporary European history	contemporary European history
+=contemporary European history	central european art
+-contemporary European history	hip hop culture
+=contemporary European history	ancient history
+=contemporary European history	European philosophy
+=contemporary European history	History of Western art music
+=contemporary European history	ethics of emerging technologies
+=contemporary European history	everyday material life
+-critical theory	quantitative methods
+=critical theory	critical theory
+=critical theory	literary theory
+-critical theory	political theory
+=critical theory	feminist theory
+-critical theory	Financial economics (general financial markets
+=critical theory	the inception of literary criticism
+=critical theory	social psychology
+=Western Marxism	Western Marxism
+=Western Marxism	early modern
+=Western Marxism	southeast asia
+-Western Marxism	South Asia
+-Western Marxism	central european art
+-Western Marxism	ancient history
+=Fascism	racism
+=Fascism	nationalism
+=Fascism	feminism
+=Fascism	Fascism
+=Fascism	globalization
+=Fascism	modernism
+=Fascism	prejudice
+=Fascism	politics
+=Holocaust studies	Holocaust studies
+-Holocaust studies	survey methodology
+-Holocaust studies	thought experimentation
+-Holocaust studies	invasion biology
+-Holocaust studies	student writing
+-Holocaust studies	online surveys
+-Holocaust studies	assessment
+=Holocaust studies	European philosophy
+=comparative Jewish history	comparative Jewish history
+=comparative Jewish history	history of science/chemistry
+=comparative Jewish history	qualitative research methodologies
+=comparative Jewish history	Afro-Hispanic studies
+=comparative Jewish history	Early Christian and Jewish history
+=comparative Jewish history	history of Christian & Muslim relations
+=comparative Jewish history	contemporary European history
+=comparative Jewish history	theoretical approaches to myth
+=race and ethnicity	race and ethnicity
+=race and ethnicity	religion & gender
+=race and ethnicity	gender
+=race and ethnicity	indigenous peoples' movements
+=race and ethnicity	history of diaspora
+=race and ethnicity	religion and secularism
+=race and ethnicity	history of women and gender
+=race and ethnicity	gender and sexuality studies
+=Kant for managers.	learning management systems
+=Kant for managers.	Kant for managers.
+=elementary particle physics	elementary particle physics
+-elementary particle physics	undergraduate mathematics education
+=elementary particle physics	chemical physics
+-elementary particle physics	undergraduate genomics education
+=elementary particle physics	low-mass galaxies
+=elementary particle physics	femtosecond infrared spectroscopy
+=elementary particle physics	applied mathematics
+=elementary particle physics	cosmology
+=field theory	field theory
+=field theory	chemical physics
+=field theory	cell biology
+=field theory	community psychology
+=field theory	applied mathematics
+=field theory	feminist theory
+=field theory	cultural theory
+=field theory	art theory
+=phenomenology	hermeneutics
+=phenomenology	anthropology
+=phenomenology	existentialism
+=phenomenology	phenomenology
+=phenomenology	aesthetics
+=phenomenology	ethics
+=phenomenology	philosophy
+=phenomenology	modernism
+=solitons	solitons
+=solitons	externalities
+=solitons	supersymmetry
+=solitons	lithography
+=solitons	ultrafast phenomena
+=supersymmetry	supersymmetry
+=supersymmetry	symmetry
+=supersymmetry	quantum
+=supersymmetry	solitons
+=supersymmetry	symmetry breaking
+-supersymmetry	econometrics
+-supersymmetry	causality
+-supersymmetry	metacognition
+=symmetry breaking	symmetry breaking
+=symmetry breaking	symmetry
+=symmetry breaking	supersymmetry
+=symmetry breaking	higgs boson
+=symmetry breaking	hyperfine structure
+=symmetry breaking	structure
+=symmetry breaking	pattern formation
+=symmetry breaking	number theory
+=dark matter	dark matter
+=dark matter	condensed matter
+=dark matter	low-mass galaxies
+=dark matter	skin tone bias
+=dark matter	the Black Atlantic
+=dark matter	galaxy evolution
+=dark matter	everyday material life
+=dark matter	mantle evolution
+=higgs boson	higgs boson
+=higgs boson	symmetry breaking
+=higgs boson	symmetry
+=inflation	inflation
+=inflation	immigration
+=inflation	poverty
+=inflation	Debt
+=inflation	violence
+=inflation	hunger
+=inflation	biodiversity
+=inflation	Pain
+=group theory	group psychology
+=group theory	group theory
+-group theory	women artists
+=group theory	number theory
+-group theory	Nonprofit Organizations
+=group theory	graph theory
+=group theory	field theory
+-group theory	art theory
+=parallel computing	parallel computing
+=parallel computing	digital media
+=parallel computing	collaborative computing
+=parallel computing	social networking
+=parallel computing	algorithms
+-parallel computing	reproductive technologies
+=parallel computing	collective memory
+-parallel computing	alpine environments
+=Beowulf cluster	galaxy evolution
+=Beowulf cluster	Beowulf cluster
+=Beowulf cluster	low-mass galaxies
+-MPI	privatization and social movements
+-MPI	humanitarianism
+=geology	anthropology
+=geology	tectonics
+=geology	optics
+=geology	geochemistry
+=geology	glaciology
+=geology	ecology
+=geology	geology
+=geology	geography
+=petrology	petrology
+=petrology	geochemistry
+=petrology	glaciology
+=petrology	tectonics
+=geochemistry	petrology
+=geochemistry	geochemistry
+=geochemistry	geology
+=geochemistry	neuroscience
+=geochemistry	paleography
+=geochemistry	chemistry
+=geochemistry	glaciology
+=geochemistry	planetary geology
+=isotopes	isotopes
+=isotopes	diatomic molecules
+=environmental chemistry	computational kinetics
+-environmental chemistry	cognitive science
+=environmental chemistry	molecular spectroscopy
+=environmental chemistry	atmospheric chemistry
+=environmental chemistry	chemical biology
+=environmental chemistry	chemical pedagogy
+-environmental chemistry	political ecology
+=environmental chemistry	environmental chemistry
+=mantle evolution	mantle evolution
+=mantle evolution	crustal evolution
+=mantle evolution	fluid dynamics
+=mantle evolution	climate change
+=mantle evolution	galaxy evolution
+=mantle evolution	plant ecology
+-mantle evolution	body size evolution
+-mantle evolution	ultrafast phenomena
+=crustal evolution	crustal evolution
+=crustal evolution	mantle evolution
+=crustal evolution	fluid dynamics
+=crustal evolution	planetary geology
+=crustal evolution	galaxy evolution
+=crustal evolution	plant ecology
+=crustal evolution	rapid social change
+=crustal evolution	ultrafast phenomena
+=tectonics	tectonics
+=tectonics	glaciology
+=tectonics	rifting
+=tectonics	geology
+=tectonics	volcanism
+=tectonics	Precambrian geology
+=tectonics	planetary geology
+=tectonics	geochemistry
+=volcanism	volcanism
+=volcanism	rifting
+=volcanism	tectonics
+=volcanism	glaciology
+=volcanism	mantle evolution
+=ophiolites	rural development
+=ophiolites	dance (all kinds)
+=rifting	tectonics
+=rifting	volcanism
+=rifting	rifting
+=rifting	acculturation
+=rifting	nociception
+=rifting	crustal evolution
+=Precambrian geology	quantum chemistry
+=Precambrian geology	sociology of law
+=Precambrian geology	tectonics
+=Precambrian geology	geochemistry
+=Precambrian geology	glaciology
+=Precambrian geology	urban geography
+=Precambrian geology	Precambrian geology
+-Precambrian geology	urban history
+=planetary geology	planetary geology
+=planetary geology	atmospheric chemistry
+=planetary geology	observational astronomy
+=planetary geology	galaxy evolution
+=planetary geology	environmental hydrology
+-planetary geology	optics
+-planetary geology	social psychology
+=planetary geology	climate change
+=learning and teaching	undergraduate mathematics education
+=learning and teaching	learning and teaching
+=learning and teaching	student writing
+=learning and teaching	teacher education
+=learning and teaching	community based arts
+=learning and teaching	textbook writing
+=learning and teaching	learning management systems
+=learning and teaching	faculty development
+-pedagogy	anthropology
+=pedagogy	pedagogy
+=pedagogy	education
+=pedagogy	chemical pedagogy
+-pedagogy	Kantian constructivism
+=pedagogy	objectivity
+=pedagogy	assessment
+=assessment	pedagogy
+-pedagogy	demography
+-pedagogy	existentialism
+=assessment	assessment
+=assessment	survey methodology
+=assessment	psychotherapy research
+=assessment	quantitative methods
+=assessment	education
+=assessment	survival analysis
+=assessment	qualitative research methods
+-assessment	proof
+=metacognition	metacognition
+=metacognition	humanitarianism
+=metacognition	causality
+-metacognition	supersymmetry
+-metacognition	glaciology
+=learning management systems	learning management systems
+=learning management systems	collaborative computing
+-learning management systems	fluvial processes
+-learning management systems	Comparative Health Systems
+=learning management systems	ethics of emerging technologies
+=learning management systems	food security
+=learning management systems	information technology
+=learning management systems	learning and teaching
+-Moodle	colonial Spanish
+-Moodle	MPI
+=learning abroad	learning abroad
+-learning abroad	mathematical modeling
+=learning abroad	learning and teaching
+-learning abroad	machine learning
+-learning abroad	artificial intelligence
+=learning abroad	learning and human brain development
+=learning abroad	education policy
+=learning abroad	education
+=faculty development	faculty development
+=faculty development	teacher education
+=faculty development	student writing
+=faculty development	philosophy of education
+=faculty development	education policy
+=faculty development	education
+=faculty development	learning and teaching
+=faculty development	textbook writing
+=applied mathematics	applied mathematics
+=applied mathematics	mathematical biology
+=applied mathematics	history of science/chemistry
+=applied mathematics	philosophy of education
+=applied mathematics	history of mathematics
+-applied mathematics	philosophy of law
+=applied mathematics	field theory
+=applied mathematics	elementary particle physics
+=mathematical modeling	computational kinetics
+=mathematical modeling	observational astronomy
+=mathematical modeling	mathematical modeling
+=mathematical modeling	quantitative methods
+=mathematical modeling	quantum chemistry
+=mathematical modeling	experimental physics
+=mathematical modeling	chemical biology
+=mathematical modeling	collaborative computing
+=mathematical biology	observational astronomy
+=mathematical biology	computational kinetics
+=mathematical biology	alternative medicine
+=mathematical biology	experimental physics
+=mathematical biology	quantum chemistry
+=mathematical biology	clinical psychology
+=mathematical biology	chemical physics
+=mathematical biology	legal studies
+=pattern formation	pattern formation
+=pattern formation	hyperfine structure
+=pattern formation	reaction mechanisms
+=pattern formation	reaction-diffusion
+=pattern formation	fluvial processes
+=pattern formation	structure
+=pattern formation	state formation
+=pattern formation	root development
+=swarming	swarming
+=swarming	reproductive technologies
+=fluid dynamics	fluid dynamics
+=fluid dynamics	atmospheric chemistry
+=fluid dynamics	quantum chemistry
+=fluid dynamics	cell biology
+=fluid dynamics	mantle evolution
+=fluid dynamics	reaction mechanisms
+=fluid dynamics	reaction-diffusion
+=fluid dynamics	chemistry
+=reaction-diffusion	reaction-diffusion
+=reaction-diffusion	diatomic molecules
+=reaction-diffusion	chemical biology
+=reaction-diffusion	chemical pedagogy
+=reaction-diffusion	reaction mechanisms
+=reaction-diffusion	fluvial processes
+=reaction-diffusion	energy
+=reaction-diffusion	pattern formation
+=urban geography	urban geography
+=urban geography	economic sociology
+=urban geography	cultural geography
+=urban geography	urban politics
+=urban geography	urban history
+=urban geography	environmental hydrology
+=urban geography	cultural studies
+=urban geography	informal economy
+=housing markets	housing markets
+=housing markets	rural labor markets
+=housing markets	community building
+=housing markets	transportation
+=housing markets	market failure
+=housing markets	Exchange Rates
+-housing markets	art cars
+=housing markets	education policy
+=foreclosure	foreclosure
+=foreclosure	discrimination
+-foreclosure	printmaking
+=American Indian lands and economic development	American Indian lands and economic development
+-American Indian lands and economic development	Financial economics (general financial markets
+-American Indian lands and economic development	education and social reform; democracy and education; social/cultural/spiritual issues in education
+-American Indian lands and economic development	market efficiency and behavioral finance)
+-American Indian lands and economic development	learning and human brain development
+-American Indian lands and economic development	International finance (foreign exchange market microstructure and exchange rate dynamics)
+=American Indian lands and economic development	rapid social change
+=American Indian lands and economic development	American Social Policy
+=Canada	Canada
+-Canada	hyperfine structure
+=quantitative methods	quantitative methods
+=quantitative methods	mathematical modeling
+-quantitative methods	critical theory
+-quantitative methods	elemental analysis
+-quantitative methods	molecular spectroscopy
+-quantitative methods	complementary medicine
+=quantitative methods	survey methodology
+=quantitative methods	algorithms
+=GIS (Geographic Information Systems)	GIS (Geographic Information Systems)
+-GIS (Geographic Information Systems)	qualitative research methods
+-GIS (Geographic Information Systems)	structural analysis of social behavior (SASB)
+=GIS (Geographic Information Systems)	U.S. regional geography
+-GIS (Geographic Information Systems)	artificial intelligence
+=GIS (Geographic Information Systems)	multiple social identities
+=GIS (Geographic Information Systems)	ethics of emerging technologies
+-GIS (Geographic Information Systems)	everyday material life
+=U.S. regional geography	U.S. regional geography
+=U.S. regional geography	domestic performance literature
+=U.S. regional geography	urban geography
+=U.S. regional geography	urban history
+=U.S. regional geography	GIS (Geographic Information Systems)
+=U.S. regional geography	postcolonial theory
+-U.S. regional geography	sports statistics.
+=transportation	agriculture
+=transportation	entertainment
+=transportation	transportation
+-transportation	education
+=transportation	labor
+=transportation	automobiles
+=transportation	networks
+-transportation	advertising
+=International finance (foreign exchange market microstructure and exchange rate dynamics)	International finance (foreign exchange market microstructure and exchange rate dynamics)
+=International finance (foreign exchange market microstructure and exchange rate dynamics)	Financial economics (general financial markets
+=International finance (foreign exchange market microstructure and exchange rate dynamics)	Exchange Rates
+-International finance (foreign exchange market microstructure and exchange rate dynamics)	bone histology and relationships to growth rates
+-International finance (foreign exchange market microstructure and exchange rate dynamics)	American Indian lands and economic development
+=International finance (foreign exchange market microstructure and exchange rate dynamics)	housing markets
+-International finance (foreign exchange market microstructure and exchange rate dynamics)	international car art
+=Financial economics (general financial markets	Financial economics (general financial markets
+-Financial economics (general financial markets	domestic performance literature
+=Financial economics (general financial markets	China's economic development
+-Financial economics (general financial markets	critical theory
+-Financial economics (general financial markets	ethics of theory & method in religious studies
+-Financial economics (general financial markets	religious ethics & politics (particularly comparative religious views of martyrdom)
+-Financial economics (general financial markets	Comparative Health Systems
+-Financial economics (general financial markets	(less formal research
+=market efficiency and behavioral finance)	market efficiency and behavioral finance)
+-market efficiency and behavioral finance)	structural analysis of social behavior (SASB)
+-market efficiency and behavioral finance)	learning management systems
+=market efficiency and behavioral finance)	China's economic development
+-market efficiency and behavioral finance)	Comparative Health Systems
+-market efficiency and behavioral finance)	the production and perception of voice quality
+-market efficiency and behavioral finance)	American Indian lands and economic development
+=market efficiency and behavioral finance)	Exchange Rates
+=Statistics of high frequency time series	Statistics of high frequency time series
+=Statistics of high frequency time series	elementary particle physics
+=Statistics of high frequency time series	the production and perception of voice quality
+=Statistics of high frequency time series	discrete mathematics and combinatorics
+-Statistics of high frequency time series	Exchange Rates
+=Statistics of high frequency time series	linear and abstract algebra
+=Statistics of high frequency time series	low-mass galaxies
+=Statistics of high frequency time series	number theory
+=China's economic development	China's economic development
+=China's economic development	historical development of social policies
+=China's economic development	rapid social change
+=China's economic development	optimal tax policy
+=China's economic development	Financial economics (general financial markets
+=China's economic development	Politics of Health Policy
+=China's economic development	education and social reform; democracy and education; social/cultural/spiritual issues in education
+=China's economic development	rural labor markets
+=graph theory	algebra
+=graph theory	graph theory
+=graph theory	diagrams
+=graph theory	combinatorics
+=graph theory	linear and abstract algebra
+=graph theory	applied mathematics
+=graph theory	algorithms
+=graph theory	elemental analysis
+=networks	networks
+=networks	algorithms
+=networks	transportation
+=networks	Nonprofit Organizations
+=networks	social networking
+=networks	interdisciplinary connections
+=networks	social networks
+=networks	reproductive technologies
+=probability	probability
+=probability	proof
+=probability	quantum
+=probability	energy
+=probability	algebra
+=probability	numbers
+=probability	statistics
+=probability	symmetry
+=random walks	random walks
+=random walks	special functions
+=random walks	rapid social change
+=optimization	algorithms
+=optimization	optimization
+=optimization	combinatorics
+=optimization	probability
+=optimization	econometrics
+=optimization	survival analysis
+=optimization	animation
+=optimization	parallel computing
+=algorithms	algorithms
+=algorithms	optimization
+=algorithms	algebra
+=algorithms	networks
+=algorithms	quantitative methods
+=algorithms	graph theory
+=algorithms	information technology
+=algorithms	collaborative computing
+=African American popular culture from WWII to the present	African American popular culture from WWII to the present
+=African American popular culture from WWII to the present	religious ethics & politics (particularly comparative religious views of martyrdom)
+=Representations of African Americans in news	Representations of African Americans in news
+=Representations of African Americans in news	theories of musical performance and interpretation
+=Representations of African Americans in news	texts and images
+-Representations of African Americans in news	sports statistics.
+-Representations of African Americans in news	the production and perception of voice quality
+=advertising	advertising
+=advertising	entertainment
+=advertising	media
+=advertising	digital media
+=advertising	transportation
+=advertising	animation
+=advertising	movies
+=advertising	relief printing)
+=entertainment	advertising
+=entertainment	entertainment
+=entertainment	transportation
+=entertainment	media
+=entertainment	Theater
+=entertainment	movies
+=entertainment	education
+=entertainment	animation
+-and politics	religion & economics
+-and politics	sociology of law
+-and politics	history of aesthetics
+-and politics	history of diaspora
+-and politics	campaign rhetoric
+-and politics	the rhetoric of social movements
+-and politics	Nonprofit Organizations
+-and politics	philosophy and literature
+=experimental physics	computational kinetics
+=experimental physics	observational astronomy
+=experimental physics	experimental physics
+=experimental physics	molecular spectroscopy
+-experimental physics	clinical psychology
+=experimental physics	alternative medicine
+=experimental physics	mathematical modeling
+=experimental physics	field theory
+=condensed matter	condensed matter
+=condensed matter	dark matter
+=condensed matter	low-mass galaxies
+=condensed matter	galaxy evolution
+=condensed matter	everyday material life
+=condensed matter	organometallic and inorganic chemistry
+=ultrafast phenomena	ultrafast phenomena
+=ultrafast phenomena	optics
+=ultrafast phenomena	fluvial processes
+=ultrafast phenomena	Working Conditions
+=ultrafast phenomena	fluid dynamics
+=ultrafast phenomena	femtosecond infrared spectroscopy
+=ultrafast phenomena	consciousness
+=ultrafast phenomena	galaxy evolution
+=femtosecond infrared spectroscopy	femtosecond infrared spectroscopy
+=femtosecond infrared spectroscopy	elementary particle physics
+=femtosecond infrared spectroscopy	energy
+=femtosecond infrared spectroscopy	ultrafast phenomena
+=femtosecond infrared spectroscopy	low-mass galaxies
+=femtosecond infrared spectroscopy	organometallic and inorganic chemistry
+=femtosecond infrared spectroscopy	lithography
+=optics	optics
+=optics	geometry
+=optics	geology
+=optics	quantum
+=optics	quantum chemistry
+=optics	chemistry
+=optics	lithography
+=optics	robotics
+=embodiment practices in rehearsal and performance	embodiment practices in rehearsal and performance
+-embodiment practices in rehearsal and performance	ethics of theory & method in religious studies
+=embodiment practices in rehearsal and performance	subaltern theater texts and practices
+=embodiment practices in rehearsal and performance	the production and perception of voice quality
+=directing	directing
+=directing	acting
+=directing	animation
+=directing	Theater
+=directing	movies
+=directing	student writing
+=directing	history of directing
+=directing	film studies
+=history of directing	history of directing
+=history of directing	film studies
+=history of directing	textbook writing
+=history of directing	student writing
+=history of directing	acting
+=history of directing	directing
+=history of directing	and politics
+-history of directing	print history
+=political theater	political theater
+=political theater	public policy
+=political theater	literary theory
+=political theater	political art
+=political theater	public health
+=political theater	public finance
+=political theater	Jazz
+-political theater	feminist identity
+=subaltern theater texts and practices	subaltern theater texts and practices
+=subaltern theater texts and practices	theories of musical performance and interpretation
+=subaltern theater texts and practices	embodiment practices in rehearsal and performance
+=subaltern theater texts and practices	Indian philosophies
+=subaltern theater texts and practices	music and morality
+=subaltern theater texts and practices	theoretical approaches to myth
+=subaltern theater texts and practices	genres and forms of discourse
+=subaltern theater texts and practices	History of Christian traditions (especially the 16th century)
+=playwrighting	colonial Spanish
+=playwrighting	MPI
+=yoga	yoga
+=yoga	philosophy
+=yoga	ritual
+=yoga	consciousness
+=yoga	aromatherapy
+=yoga	buddhism
+=somatics	general systems/cultural futures theory and methodologies
+=somatics	women
+=observational astronomy	observational astronomy
+=observational astronomy	experimental physics
+=observational astronomy	mathematical biology
+=observational astronomy	mathematical modeling
+=observational astronomy	computational kinetics
+=observational astronomy	clinical psychology
+=observational astronomy	planetary geology
+=observational astronomy	quantum chemistry
+=low-mass galaxies	low-mass galaxies
+=low-mass galaxies	elementary particle physics
+=low-mass galaxies	energy
+=low-mass galaxies	dark matter
+=low-mass galaxies	condensed matter
+=low-mass galaxies	fluid dynamics
+=low-mass galaxies	galaxy evolution
+=low-mass galaxies	Beowulf cluster
+=galaxy evolution	galaxy evolution
+=galaxy evolution	planetary geology
+-galaxy evolution	Beowulf cluster
+=galaxy evolution	fluid dynamics
+=galaxy evolution	plant genetics
+=galaxy evolution	mantle evolution
+=galaxy evolution	low-mass galaxies
+=galaxy evolution	crustal evolution
+=Hispanic literature	Hispanic literature
+-Hispanic literature	religion & economics
+-Hispanic literature	history of diaspora
+-Hispanic literature	history of mathematics
+-Hispanic literature	history of aesthetics
+=Hispanic literature	postcolonial studies
+-Hispanic literature	textbook writing
+=Hispanic literature	Afro-Hispanic studies
+=Latin American culture	Latin American culture
+=Latin American culture	latin american art
+=Latin American culture	African American literature
+=Latin American culture	african american art
+=Latin American culture	African American history
+=Latin American culture	Latin America
+=Latin American culture	American popular music
+=Latin American culture	African literature
+-cultural studies	cognitive science
+-cultural studies	mathematical biology
+=cultural studies	liberal education
+=cultural studies	survey methodology
+=cultural studies	qualitative research methods
+=cultural studies	International Trade
+=cultural studies	environmental education
+=cultural studies	personal identity
+=film studies	film studies
+=film studies	survey methodology
+=film studies	history of directing
+=film studies	music in film
+=film studies	thought experimentation
+=film studies	African literature
+=film studies	movies
+=film studies	films
+=African American history	African American literature
+=African American history	african american psychology
+=African American history	African American history
+=African American history	african american art
+=African American history	Latin American culture
+=African American history	latin american art
+=African American history	african american theater
+=African American history	African literature
+=African American studies	african american psychology
+=African American studies	African American literature
+=African American studies	African American history
+=African American studies	african american art
+=African American studies	Latin American culture
+=African American studies	african american theater
+=African American studies	African literature
+=African American studies	latin american art
+=Afro-Hispanic studies	Afro-Hispanic studies
+-Afro-Hispanic studies	history of science/chemistry
+=Afro-Hispanic studies	Hispanic literature
+=Afro-Hispanic studies	history of Christian & Muslim relations
+=Afro-Hispanic studies	comparative Jewish history
+=Afro-Hispanic studies	postcolonial studies
+-Afro-Hispanic studies	thought experimentation
+-Afro-Hispanic studies	math modeling in any discipline
+=history of diaspora	history of diaspora
+-history of diaspora	Hispanic literature
+-history of diaspora	African literature
+=history of diaspora	invasion biology
+=history of diaspora	community psychology
+=history of diaspora	ethnicity
+=history of diaspora	online communities
+-history of diaspora	and politics
+=survival analysis	survival analysis
+=survival analysis	wildlife conservation
+-survival analysis	theories of justice
+=survival analysis	assessment
+-survival analysis	work-life balance
+=survival analysis	fluvial processes
+=survival analysis	optimization
+-survival analysis	nutritional epidemiology
+=biostatistics	biostatistics
+-biostatistics	demography
+=biostatistics	nutritional epidemiology
+=biostatistics	econometrics
+-biostatistics	geochemistry
+-biostatistics	glaciology
+=biostatistics	psychopharmacology
+=election audits	election audits
+=election audits	campaign rhetoric
+=election audits	informed consent
+-election audits	and politics
+=election audits	anti-corruption
+=sports statistics.	sports statistics.
+-sports statistics.	educational studies
+=sports statistics.	data mining
+=sports statistics.	online surveys
+-sports statistics.	information technology
+-sports statistics.	art cars
+=sports statistics.	statistics
+-sports statistics.	international development
+=religion	cosmology
+=religion	ritual
+=religion	ethnicity
+=religion	gender
+=religion	religion & gender
+=religion	ethics
+=religion	politics
+=religion	religion
+=buddhism	buddhism
+=buddhism	Fascism
+=buddhism	yoga
+-cambodia	neuroscience studies
+-cambodia	cultural inauthenticity
+=southeast asia	southeast asia
+=southeast asia	South Asia
+=southeast asia	Latin America
+=southeast asia	Africa
+-southeast asia	Western Marxism
+=southeast asia	asian anarchism
+-southeast asia	central european art
+-southeast asia	Ireland
+=ritual	ritual
+=ritual	religion
+=ritual	funeral
+=ritual	cosmology
+=ritual	yoga
+=ritual	special functions
+=ritual	subaltern theater texts and practices
+=ritual	social movements
+=agriculture	agriculture
+=agriculture	transportation
+=agriculture	economics
+=agriculture	environmental economics
+=agriculture	geography
+-agriculture	architecture
+=agriculture	plant genetics
+=agriculture	chemistry
+=foodgetting	metaphor
+=foodgetting	fertility
+=union	union
+=union	labor
+=union	intergroup relations
+=union	reconciliation
+=union	law
+=union	women's rights
+=union	war
+=union	sports statistics.
+=funeral	funeral
+=funeral	death
+=funeral	ritual
+-theravada	MPI
+=theravada	rural development
+-durkheim	African American studies
+=durkheim	Aristotle
+=asian anarchism	asian anarchism
+=asian anarchism	European philosophy
+=asian anarchism	contemporary conservatism
+=asian anarchism	environmentalism
+=asian anarchism	existentialism
+=asian anarchism	e-democracy
+=asian anarchism	South Asia
+=asian anarchism	southeast asia
+=castoriadis	general systems/cultural futures theory and methodologies
+=castoriadis	women
+=international development	international development
+=international development	International Trade
+=international development	informal economy
+=international development	public education reform
+=international development	public finance
+=international development	social networking
+=international development	social movements
+=international development	public policy
+=human migration	human migration
+=human migration	animal behavior
+=human migration	reproductive health
+=human migration	indigenous peoples' movements
+=human migration	social movements
+=human migration	human rights
+=human migration	invasion biology
+=human migration	collective memory
+=remittances	remittances
+=remittances	Debt
+=rural development	rural development
+=rural development	urban poverty
+=rural development	urban history
+=rural development	urban geography
+=rural development	alpine environments
+=rural development	urban politics
+=rural development	Western Marxism
+=rural development	rural labor markets
+=food security	food security
+-food security	artificial intelligence
+-food security	social networking
+=food security	natural resources
+=food security	optimal tax policy
+=food security	energy
+-food security	sediment transport
+=food security	personal identity
+=poverty	hunger
+=poverty	racism
+=poverty	Pain
+=poverty	inflation
+=poverty	violence
+=poverty	discrimination
+=poverty	prejudice
+=poverty	poverty
+=rural labor markets	rural labor markets
+=rural labor markets	International Trade
+=rural labor markets	housing markets
+=rural labor markets	informal economy
+=rural labor markets	labor
+=rural labor markets	China's economic development
+=rural labor markets	domestic performance literature
+=rural labor markets	optimal tax policy
+-biculturalism	fertility
+=biculturalism	African American studies
+=racial essentialism	racial essentialism
+=racial essentialism	religion & gender
+=racial essentialism	civil rights
+=racial essentialism	urban poverty
+=racial essentialism	gender
+=racial essentialism	environmentalism
+=racial essentialism	prejudice
+=racial essentialism	political art
+-cultural inauthenticity	mental health
+-cultural inauthenticity	International Trade
+=cultural inauthenticity	personal identity
+=cultural inauthenticity	feminist identity
+=cultural inauthenticity	political art
+-cultural inauthenticity	urban geography
+=cultural inauthenticity	urban politics
+-cultural inauthenticity	political theater
+=multiple social identities	multiple social identities
+=multiple social identities	feminist identity
+=multiple social identities	gender
+=multiple social identities	parallel computing
+=multiple social identities	human migration
+=multiple social identities	identity
+=multiple social identities	human capital
+-multiple social identities	contemporary European history
+=immigration	citizenship
+=immigration	immigration
+=immigration	immigrants
+=immigration	inflation
+=immigration	violence
+=immigration	Migration
+=immigration	discrimination
+=immigration	ethnicity
+=acculturation	acculturation
+-acculturation	rifting
+=acculturation	globalization
+=acculturation	Migration
+=acculturation	nociception
+-acculturation	supersymmetry
+=intergroup relations	intergroup contact
+=intergroup relations	intergroup relations
+=intergroup relations	interracial friendship
+=intergroup relations	interdisciplinary connections
+-intergroup relations	Working Conditions
+=intergroup relations	union
+=intergroup relations	social networks
+=intergroup relations	social movements
+=phonetics	phonetics
+=phonetics	ecology
+=phonetics	rhetoric
+=the production and perception of voice quality	the production and perception of voice quality
+-the production and perception of voice quality	skin tone bias
+-the production and perception of voice quality	market efficiency and behavioral finance)
+-the production and perception of voice quality	learning and human brain development
+=the production and perception of voice quality	Statistics of high frequency time series
+=the production and perception of voice quality	embodiment practices in rehearsal and performance
+-the production and perception of voice quality	perception of bias
+-the production and perception of voice quality	experience- and injury-induced neural plasticity
+=tone	tone
+=tone	humor
+=tone	environment
+=tone	structure
+=tone	political humor
+=tone	Performance
+=indigenous languages (especially ones spoken in Mexico)	indigenous languages (especially ones spoken in Mexico)
+=indigenous languages (especially ones spoken in Mexico)	counter-cultures
+-indigenous languages (especially ones spoken in Mexico)	History of Christian traditions (especially the 16th century)
+=indigenous languages (especially ones spoken in Mexico)	indigenous peoples' movements
+=indigenous languages (especially ones spoken in Mexico)	Hispanic literature
+-Zapotec	neuroscience studies
+-Zapotec	cultural inauthenticity
+=Hmong	privatization and social movements
+-Hmong	neuroscience studies
+=plant genetics	plant genetics
+=plant genetics	plant ecology
+=plant genetics	animal behavior
+=plant genetics	cell biology
+=plant genetics	agriculture
+=plant genetics	nutritional epidemiology
+=plant genetics	root development
+=plant genetics	comparative politics
+=genomics	genomics
+=genomics	neuroscience
+=genomics	bioethics
+=genomics	econometrics
+=genomics	chemistry
+=genomics	robotics
+=genomics	plant genetics
+=genomics	plant ecology
+=chemical biology	materials science
+=chemical biology	environmental hydrology
+=chemical biology	chemical physics
+=chemical biology	chemical biology
+=chemical biology	reaction-diffusion
+=chemical biology	environmental chemistry
+=chemical biology	atmospheric chemistry
+=chemical biology	elemental analysis
+=plant hormone signaling	plant hormone signaling
+=plant hormone signaling	cell biology
+=plant hormone signaling	eating disorders
+=plant hormone signaling	ligand design for inorganic complexes
+=plant hormone signaling	drug policy
+-plant hormone signaling	learning and human brain development
+=root development	root development
+=root development	plant genetics
+=root development	plant ecology
+=root development	progress
+=root development	pattern formation
+=root development	development
+-root development	machine learning
+-root development	learning abroad
+-undergraduate genomics education	Medical Sociology
+=undergraduate genomics education	undergraduate genomics education
+=undergraduate genomics education	undergraduate mathematics education
+-undergraduate genomics education	political sociology
+-undergraduate genomics education	elementary particle physics
+=undergraduate genomics education	history of science/chemistry
+-undergraduate genomics education	african american psychology
+=undergraduate genomics education	group psychology
+=cell biology	cell biology
+=cell biology	mathematical biology
+=cell biology	history of science/chemistry
+-cell biology	history of mathematics
+=cell biology	environmental hydrology
+=cell biology	plant hormone signaling
+-cell biology	field theory
+=cell biology	plant genetics
+=Performance	Performance
+=Performance	work
+=Performance	progress
+=Performance	performance art
+-Performance	Working Conditions
+=Performance	films
+=Performance	the production and perception of voice quality
+=Performance	opera
+=Theater	entertainment
+=Theater	opera
+=Theater	Jazz
+=Theater	acting
+=Theater	Theater
+=Theater	movies
+=Theater	directing
+=Theater	animation
+=acting	directing
+=acting	acting
+=acting	Theater
+=acting	student writing
+=acting	movies
+=acting	history of directing
+=acting	political theater
+=acting	Jazz
+=community building	community building
+=community building	architecture
+=community building	housing markets
+-community building	spa culture
+=community building	online communities
+=community building	hyperfine structure
+=community building	structure
+=community building	Nonprofit Organizations
+=community based arts	community based arts
+-community based arts	undergraduate mathematics education
+=community based arts	learning and teaching
+=community based arts	art and society
+=community based arts	cross-cultural philosophy
+=community based arts	philosophy and literature
+=community based arts	hip hop culture
+=community based arts	history of world literature concept
+=cultural competency	cultural competency
+-cultural competency	mental health
+=cultural competency	International Trade
+=cultural competency	personal identity
+=cultural competency	feminist identity
+-cultural competency	political art
+=cultural competency	urban geography
+=cultural competency	urban politics
+=interdisciplinary connections	interdisciplinary connections
+=interdisciplinary connections	social networks
+=interdisciplinary connections	qualitative research methods
+=interdisciplinary connections	collaborative computing
+=interdisciplinary connections	social networking
+=interdisciplinary connections	qualitative research methodologies
+=interdisciplinary connections	interracial friendship
+=interdisciplinary connections	comparative politics
+=african american theater	african american theater
+=african american theater	african american art
+=african american theater	African American literature
+=african american theater	african american psychology
+=african american theater	latin american art
+=african american theater	African American history
+=african american theater	American popular music
+=african american theater	Latin American culture
+=hip hop culture	hip hop culture
+=hip hop culture	dance (all kinds)
+=hip hop culture	Faust in music
+=hip hop culture	American popular music
+=hip hop culture	genres and forms of discourse
+=hip hop culture	contemporary European history
+=hip hop culture	History of Western art music
+=hip hop culture	community based arts
+=dance (all kinds)	hip hop culture
+=dance (all kinds)	dance (all kinds)
+=dance (all kinds)	piano music
+=dance (all kinds)	genres and forms of discourse
+=dance (all kinds)	History of Western art music
+=dance (all kinds)	hand set type
+=dance (all kinds)	Penumbra Theatre Company
+=dance (all kinds)	latin american art
+=movies	movies
+=movies	films
+=movies	animation
+=movies	entertainment
+=movies	Theater
+=movies	music in film
+=movies	directing
+=movies	literature
+=films	movies
+=films	films
+=films	animation
+=films	music in film
+=films	work
+=films	Theater
+=films	literature
+=films	film studies
+=hollywood intrigue	hollywood intrigue
+=hollywood intrigue	body objectification
+=hollywood intrigue	anti-corruption
+=Meisner Acting Technique	Meisner Acting Technique
+-Meisner Acting Technique	qualitative research methods
+=Meisner Acting Technique	Penumbra Theatre Company
+-Meisner Acting Technique	ethics of emerging technologies
+-Meisner Acting Technique	math modeling in any discipline
+-Meisner Acting Technique	reproductive technologies
+=Meisner Acting Technique	subaltern theater texts and practices
+=Meisner Acting Technique	acting
+=Penumbra Theatre Company	Penumbra Theatre Company
+=Penumbra Theatre Company	community based arts
+=Penumbra Theatre Company	african american theater
+=Penumbra Theatre Company	Meisner Acting Technique
+=Penumbra Theatre Company	art cars
+=Penumbra Theatre Company	opera
+=Penumbra Theatre Company	performance art
+=Penumbra Theatre Company	international car art
+=In the Heart of the Beast Puppet and Mask Theater	In the Heart of the Beast Puppet and Mask Theater
+-In the Heart of the Beast Puppet and Mask Theater	learning and human brain development
+=Latin America	Latin America
+=Latin America	South Asia
+=Latin America	latin american art
+=Latin America	southeast asia
+=Latin America	Latin American culture
+-Latin America	Ireland
+-Latin America	african american theater
+-Latin America	african american art
+=urban politics	economic sociology
+=urban politics	urban politics
+=urban politics	urban geography
+=urban politics	cultural geography
+=urban politics	urban history
+=urban politics	informal economy
+=urban politics	cultural competency
+=urban politics	cultural theory
+=urban poverty	urban poverty
+=urban poverty	rural development
+=urban poverty	pollution control
+=urban poverty	childhood obesity
+=urban poverty	anti-corruption
+-urban poverty	Pain
+=urban poverty	Debt
+=urban poverty	hunger
+-Peru	women
+-Peru	metaphor
+-Ecuador	general systems/cultural futures theory and methodologies
+-Ecuador	women
+-Bolivia	women
+-Bolivia	metaphor
+=women and social movements	women and social movements
+=women and social movements	historical development of social policies
+=women and social movements	gender and sexuality studies
+=women and social movements	history of women and gender
+=women and social movements	art and society
+=women and social movements	social movements
+=women and social movements	women’s health
+=women and social movements	the inception of literary criticism
+=privatization and social movements	privatization and social movements
+=privatization and social movements	historical development of social policies
+=privatization and social movements	international development
+=privatization and social movements	women and social movements
+=privatization and social movements	rapid social change
+=privatization and social movements	Affirmative Action Policy
+=privatization and social movements	American Social Policy
+=privatization and social movements	market efficiency and behavioral finance)
+=Montessori	privatization and social movements
+=Montessori	humanitarianism
+=cultural geography	historical linguistics
+-cultural geography	cognitive science
+=cultural geography	environmental hydrology
+=cultural geography	urban geography
+=cultural geography	feminist psychology
+=cultural geography	political ecology
+=cultural geography	history of science/chemistry
+=cultural geography	cultural geography
+=collective memory	collective memory
+=collective memory	personal identity
+=collective memory	collaborative computing
+=collective memory	machine learning
+=collective memory	visual information
+=collective memory	data mining
+=collective memory	human capital
+=collective memory	human rights
+=urban history	urban geography
+=urban history	economic sociology
+=urban history	cultural geography
+=urban history	urban politics
+=urban history	urban history
+=urban history	cultural studies
+=urban history	urban poverty
+=urban history	cultural competency
+=pan-Americanism	pan-Americanism
+=pan-Americanism	data mining
+=art and society	history of world literature concept
+=art and society	community based arts
+=art and society	art and society
+=art and society	indigenous peoples' movements
+=art and society	philosophy and literature
+=art and society	religion & the environment
+=art and society	music and morality
+=art and society	African literature
+=counter-cultures	counter-cultures
+=counter-cultures	indigenous peoples' movements
+=counter-cultures	religion & the environment
+=counter-cultures	religion & gender
+=counter-cultures	online communities
+=counter-cultures	history of world literature concept
+=counter-cultures	Indian philosophies
+=counter-cultures	indigenous languages (especially ones spoken in Mexico)
+=humor	humor
+=humor	tone
+-humor	realism
+=humor	political humor
+-humor	Indian realism
+=humor	skin tone bias
+-environmental economics	cognitive science
+-environmental economics	Medical Sociology
+=environmental economics	atmospheric chemistry
+=environmental economics	agriculture
+=environmental economics	nutritional epidemiology
+-environmental economics	chemical physics
+-environmental economics	chemical biology
+=environmental economics	legal studies
+=public finance	public finance
+=public finance	civic education
+=public finance	political sociology
+=public finance	International Trade
+=public finance	public health
+=public finance	Debt
+=public finance	international development
+=public finance	political speeches
+-environmental policy	mental health
+=environmental policy	wildlife conservation
+=environmental policy	environmental policy
+=environmental policy	reproductive health
+=environmental policy	Politics of Health Policy
+=environmental policy	human rights
+=environmental policy	optimal tax policy
+=environmental policy	natural resources
+=public policy	public policy
+=public policy	political speeches
+=public policy	political theater
+=public policy	political theory
+=public policy	political humor
+=public policy	political art
+=public policy	critical theory
+=public policy	education policy
+=externalities	externalities
+=externalities	solitons
+=externalities	environmentalism
+=externalities	nociception
+=externalities	assessment
+=externalities	globalization
+=externalities	optimization
+=market failure	market failure
+=market failure	International Trade
+=market failure	death
+=market failure	housing markets
+=market failure	Exchange Rates
+=market failure	eating disorders
+=market failure	rural labor markets
+=market failure	rapid social change
+=optimal tax policy	optimal tax policy
+=optimal tax policy	food security
+=optimal tax policy	China's economic development
+=optimal tax policy	environmental policy
+=optimal tax policy	American Social Policy
+=optimal tax policy	law
+=optimal tax policy	Exchange Rates
+=optimal tax policy	Debt
+=climate change	climate change
+=climate change	environmental hydrology
+=climate change	planetary geology
+=climate change	alpine environments
+=climate change	environment
+=climate change	environmental policy
+=climate change	Working Conditions
+=climate change	religion & the environment
+=energy	energy
+=energy	quantum
+=energy	probability
+=energy	natural resources
+=energy	biodiversity
+=energy	low-mass galaxies
+=energy	femtosecond infrared spectroscopy
+=energy	reaction-diffusion
+=natural resources	natural resources
+=natural resources	artificial intelligence
+=natural resources	wildlife conservation
+-natural resources	data mining
+=natural resources	visual information
+=natural resources	food security
+=natural resources	energy
+=natural resources	human rights
+=gasoline	gasoline
+=gasoline	automobiles
+=gasoline	art cars
+-gasoline	sediment transport
+=automobiles	automobiles
+=automobiles	gasoline
+=automobiles	transportation
+=automobiles	art cars
+=automobiles	history of decorated vehicles.
+=automobiles	international car art
+=automobiles	housing markets
+=pollution control	pollution control
+=pollution control	sediment transport
+=pollution control	biodiversity
+=pollution control	urban poverty
+=pollution control	intergroup contact
+=pollution control	Non-Profits
+=pollution control	Comparative Health Systems
+=pollution control	anti-corruption
+=econometrics	econometrics
+=econometrics	economics
+-econometrics	neuroscience
+=econometrics	combinatorics
+=econometrics	statistics
+=econometrics	phenomenology
+-econometrics	genomics
+=econometrics	optimization
+=chemistry	optics
+=chemistry	geometry
+=chemistry	molecular spectroscopy
+=chemistry	geochemistry
+=chemistry	geology
+=chemistry	geography
+=chemistry	quantum
+=chemistry	chemistry
+=materials science	materials science
+=materials science	chemical physics
+=materials science	chemical biology
+=materials science	philosophy of technology
+=materials science	environmental chemistry
+=materials science	chemistry
+=materials science	philosophy of education
+=materials science	chemical pedagogy
+-history of science/chemistry	historical linguistics
+-history of science/chemistry	undergraduate mathematics education
+=history of science/chemistry	history of science/chemistry
+-history of science/chemistry	complementary medicine
+=history of science/chemistry	cell biology
+-history of science/chemistry	geography
+-history of science/chemistry	cultural geography
+=history of science/chemistry	undergraduate genomics education
+=ecology	anthropology
+=ecology	biodiversity
+=ecology	wildlife conservation
+=ecology	ecology
+=ecology	geology
+=ecology	neuroscience
+=ecology	geography
+=ecology	economics
+=invasion biology	invasion biology
+=invasion biology	mathematical biology
+=invasion biology	campaign rhetoric
+-invasion biology	history of diaspora
+-invasion biology	math modeling in any discipline
+-invasion biology	comparative politics
+=invasion biology	philosophy of technology
+=invasion biology	nutritional epidemiology
+=biodiversity	wildlife conservation
+=biodiversity	biodiversity
+=biodiversity	ecology
+=biodiversity	inflation
+=biodiversity	poverty
+=biodiversity	energy
+=biodiversity	agriculture
+=biodiversity	environment
+=grasslands	savannas
+=grasslands	grasslands
+=grasslands	environment
+=grasslands	biodiversity
+=grasslands	climate change
+=grasslands	alpine environments
+=savannas	savannas
+=savannas	grasslands
+=savannas	alpine environments
+=plant ecology	wildlife conservation
+=plant ecology	plant genetics
+=plant ecology	animal behavior
+=plant ecology	plant ecology
+=plant ecology	cell biology
+=plant ecology	biodiversity
+=plant ecology	religion & the environment
+=plant ecology	fluid dynamics
+=atmospheric chemistry	diatomic molecules
+=atmospheric chemistry	planetary geology
+=atmospheric chemistry	molecular spectroscopy
+=atmospheric chemistry	atmospheric chemistry
+=atmospheric chemistry	fluid dynamics
+=atmospheric chemistry	environmental economics
+=atmospheric chemistry	environmental chemistry
+=atmospheric chemistry	chemical physics
+=quantum chemistry	molecular spectroscopy
+=quantum chemistry	geometry
+=quantum chemistry	computational kinetics
+=quantum chemistry	optics
+=quantum chemistry	mathematical modeling
+=quantum chemistry	observational astronomy
+=quantum chemistry	fluid dynamics
+=quantum chemistry	quantum chemistry
+=computational kinetics	computational kinetics
+=computational kinetics	experimental physics
+=computational kinetics	mathematical modeling
+=computational kinetics	observational astronomy
+=computational kinetics	mathematical biology
+=computational kinetics	quantum chemistry
+=computational kinetics	molecular spectroscopy
+=computational kinetics	environmental chemistry
+=reaction mechanisms	fluvial processes
+=reaction mechanisms	reaction mechanisms
+=reaction mechanisms	diatomic molecules
+=reaction mechanisms	reaction-diffusion
+=reaction mechanisms	pattern formation
+=reaction mechanisms	quantitative methods
+=reaction mechanisms	eating disorders
+=reaction mechanisms	chemical pedagogy
+-RRKM theory	theory & critique of religion
+-RRKM theory	theories of justice
+-RRKM theory	symmetry breaking
+=transition state theory	transition state theory
+=transition state theory	state formation
+=transition state theory	rapid social change
+=transition state theory	art and society
+=transition state theory	special functions
+=transition state theory	structure
+=transition state theory	symmetry breaking
+=transition state theory	group theory
+=elemental analysis	elemental analysis
+=elemental analysis	survey methodology
+=elemental analysis	quantitative methods
+=elemental analysis	chemical physics
+=elemental analysis	atmospheric chemistry
+=elemental analysis	qualitative research methods
+=elemental analysis	diatomic molecules
+=elemental analysis	graph theory
+=International Trade	informal economy
+=International Trade	International Trade
+=International Trade	public finance
+=International Trade	international development
+=International Trade	rural labor markets
+=International Trade	cultural studies
+=International Trade	cultural competency
+=International Trade	cultural theory
+=Working Conditions	Working Conditions
+=Working Conditions	eating disorders
+=Working Conditions	alpine environments
+=Working Conditions	work-life balance
+=Working Conditions	work
+=Working Conditions	climate change
+=Working Conditions	ultrafast phenomena
+=Working Conditions	work-life choices
+=Migration	immigration
+=Migration	immigrants
+=Migration	Migration
+=Migration	progress
+=Migration	development
+=Migration	acculturation
+=Migration	human migration
+=Migration	forced migration
+=Debt	Debt
+=Debt	poverty
+=Debt	inflation
+=Debt	Exchange Rates
+=Debt	public finance
+=Debt	Non-Profits
+=Debt	urban poverty
+=Debt	hunger
+=Exchange Rates	Exchange Rates
+=Exchange Rates	Debt
+=Exchange Rates	optimal tax policy
+=Exchange Rates	housing markets
+=Exchange Rates	market failure
+=Exchange Rates	Non-Profits
+=Exchange Rates	International finance (foreign exchange market microstructure and exchange rate dynamics)
+=Exchange Rates	market efficiency and behavioral finance)
+=Indonesia	neuroscience studies
+=Indonesia	cultural inauthenticity
+=El Salvador	El Salvador
+-El Salvador	e-democracy
+=Honduras	rural development
+-Honduras	dance (all kinds)
+-Vietnam.	metaphor
+-Vietnam.	fertility
+=organometallic and inorganic chemistry	organometallic and inorganic chemistry
+=organometallic and inorganic chemistry	molecular spectroscopy
+=organometallic and inorganic chemistry	chemical pedagogy
+=organometallic and inorganic chemistry	ligand design for inorganic complexes
+=organometallic and inorganic chemistry	chemistry
+=organometallic and inorganic chemistry	femtosecond infrared spectroscopy
+=organometallic and inorganic chemistry	condensed matter
+=organometallic and inorganic chemistry	theoretical approaches to myth
+=ligand design for inorganic complexes	ligand design for inorganic complexes
+=ligand design for inorganic complexes	diatomic molecules
+=ligand design for inorganic complexes	organometallic and inorganic chemistry
+=ligand design for inorganic complexes	plant hormone signaling
+=ligand design for inorganic complexes	hyperfine structure
+=art	architecture
+=art	music in literature
+=art	literature
+=art	art
+=art	Theater
+=art	history of aesthetics
+=art	rhetoric
+=art	Jazz
+=printmaking	(etching
+=printmaking	lithography
+=printmaking	printmaking
+=printmaking	relief printing)
+=printmaking	typography
+-printmaking	foreclosure
+=printmaking	advertising
+=printmaking	art
+=(etching	(etching
+=(etching	lithography
+=(etching	printmaking
+=(etching	relief printing)
+=screenprint	dance (all kinds)
+=screenprint	general systems/cultural futures theory and methodologies
+=lithography	(etching
+=lithography	lithography
+=lithography	printmaking
+=lithography	optics
+=lithography	relief printing)
+=lithography	solitons
+=lithography	typography
+=lithography	femtosecond infrared spectroscopy
+=typography	typography
+=typography	paleography
+=typography	animation
+=typography	printmaking
+=typography	lithography
+=typography	herbalism
+=typography	relief printing)
+=hand set type	hand set type
+=hand set type	dance (all kinds)
+=hand set type	number theory
+=relief printing)	relief printing)
+=relief printing)	print history
+=relief printing)	lithography
+=relief printing)	printmaking
+=relief printing)	Pain
+=relief printing)	advertising
+=relief printing)	(etching
+=relief printing)	parallel computing
+=print history	print history
+=print history	online contributions
+=print history	relief printing)
+=print history	online surveys
+=print history	online communities
+=print history	film studies
+=print history	history of directing
+-print history	work-life balance
+=digital media	digital media
+=digital media	visual information
+=digital media	data mining
+=digital media	parallel computing
+=digital media	advertising
+=digital media	information technology
+=digital media	online surveys
+=digital media	collaborative computing
+=political art	public policy
+=political art	political art
+-political art	literary theory
+=political art	political theater
+-political art	cultural competency
+=political art	cultural theory
+=political art	public finance
+=political art	feminist identity
+=art theory	music in literature
+=art theory	art theory
+=art theory	field theory
+=art theory	applied mathematics
+=art theory	literary theory
+=art theory	history of world literature concept
+=art theory	African literature
+-art theory	graph theory
+=women artists	women artists
+=women artists	persons
+=women artists	girls
+-women artists	Jazz
+-women artists	group theory
+=women artists	art cars
+=women artists	films
+=women artists	art and society
+=african american art	African American literature
+=african american art	african american art
+=african american art	african american theater
+=african american art	African American history
+=african american art	Latin American culture
+=african american art	latin american art
+=african american art	african american psychology
+=african american art	History of Western art music
+=mexican art	mexican art
+=mexican art	music in literature
+-mexican art	Indian realism
+-mexican art	Indian philosophies
+=mexican art	performance art
+-mexican art	spa culture
+=mexican art	art
+=mexican art	chicano art
+=chicano art	music in literature
+=chicano art	history of aesthetics
+-chicano art	History of Western art music
+=chicano art	performance art
+-chicano art	spa culture
+=chicano art	mexican art
+=chicano art	print history
+-chicano art	Russian literature
+=latin american art	Latin American culture
+=latin american art	latin american art
+=latin american art	African American literature
+=latin american art	african american art
+=latin american art	african american theater
+=latin american art	Latin America
+=latin american art	American popular music
+=latin american art	African American history
+=central european art	central european art
+=central european art	History of Western art music
+=central european art	contemporary European history
+=central european art	European philosophy
+=central european art	southeast asia
+=central european art	asian anarchism
+=central european art	Western Marxism
+=central european art	international car art
+=performance art	performance art
+=performance art	music in film
+=performance art	domestic performance literature
+=performance art	Faust in music
+=performance art	women artists
+=performance art	Performance
+=performance art	Penumbra Theatre Company
+=performance art	art
+=animation	animation
+=animation	movies
+=animation	films
+=animation	entertainment
+=animation	directing
+=animation	Theater
+=animation	advertising
+=animation	music in film
+=texts and images	texts and images
+-texts and images	data mining
+=texts and images	body image
+=texts and images	theoretical approaches to myth
+=texts and images	Representations of African Americans in news
+=texts and images	everyday material life
+=texts and images	mythology and storytelling
+=texts and images	early women's journals)
+=art cars	art cars
+=art cars	music in literature
+=art cars	international car art
+=art cars	history of decorated vehicles.
+=art cars	history of aesthetics
+=art cars	automobiles
+-art cars	sports statistics.
+-art cars	housing markets
+=international car art	international car art
+=international car art	domestic performance literature
+=international car art	art cars
+=international car art	history of decorated vehicles.
+=international car art	political art
+=international car art	political theater
+=international car art	American popular music
+=international car art	community based arts
+=history of decorated vehicles.	history of decorated vehicles.
+=history of decorated vehicles.	art cars
+=history of decorated vehicles.	international car art
+=history of decorated vehicles.	automobiles
+=history of decorated vehicles.	sediment transport
+=history of decorated vehicles.	ethics of emerging technologies
+=history of decorated vehicles.	work-life choices
+=math and applied math; history of math; voting and elections.	math and applied math; history of math; voting and elections.
+=math and applied math; history of math; voting and elections.	applied mathematics
+=math and applied math; history of math; voting and elections.	discrete mathematics and combinatorics
+=math and applied math; history of math; voting and elections.	education and social reform; democracy and education; social/cultural/spiritual issues in education
+=ancient history	historical linguistics
+=ancient history	ancient history
+-ancient history	contemporary conservatism
+-ancient history	contemporary European history
+-ancient history	early modern
+-ancient history	urban geography
+-ancient history	urban politics
+=ancient history	History of Western art music
+=history of women and gender	gender and sexuality studies
+=history of women and gender	history of women and gender
+=history of women and gender	women and social movements
+=history of women and gender	multiple social identities
+=history of women and gender	race and ethnicity
+=mythology and storytelling	mythology and storytelling
+=mythology and storytelling	philosophy and literature
+=mythology and storytelling	hip hop culture
+=mythology and storytelling	Latin American culture
+=mythology and storytelling	indigenous peoples' movements
+=mythology and storytelling	theoretical approaches to myth
+=mythology and storytelling	Hispanic literature
+=mythology and storytelling	texts and images
+=theoretical approaches to myth	theoretical approaches to myth
+=theoretical approaches to myth	religion & economics
+=theoretical approaches to myth	theories of musical performance and interpretation
+=theoretical approaches to myth	philosophy and literature
+-theoretical approaches to myth	african american psychology
+=theoretical approaches to myth	qualitative research methodologies
+-theoretical approaches to myth	online contributions
+=theoretical approaches to myth	literary theory (esp. Bakhtin)
+=textbook writing	textbook writing
+=textbook writing	student writing
+=textbook writing	teacher education
+-textbook writing	history of directing
+=textbook writing	learning and teaching
+=textbook writing	online contributions
+=textbook writing	early women's journals)
+=textbook writing	literature
+=student writing	student writing
+=student writing	teacher education
+=student writing	textbook writing
+=student writing	faculty development
+=student writing	learning and teaching
+-student writing	acting
+-student writing	history of directing
+-student writing	directing
+=History of Western art music	History of Western art music
+=History of Western art music	central european art
+=History of Western art music	hip hop culture
+=History of Western art music	domestic performance literature
+=History of Western art music	African American literature
+=History of Western art music	African literature
+=History of Western art music	Hispanic literature
+-History of Western art music	ancient history
+=theories of musical performance and interpretation	theories of musical performance and interpretation
+=theories of musical performance and interpretation	ethics of theory & method in religious studies
+=theories of musical performance and interpretation	subaltern theater texts and practices
+=theories of musical performance and interpretation	theoretical approaches to myth
+-theories of musical performance and interpretation	structural analysis of social behavior (SASB)
+-theories of musical performance and interpretation	the inception of literary criticism
+=theories of musical performance and interpretation	cross-cultural philosophy
+-theories of musical performance and interpretation	survival analysis
+=music in literature	religion & economics
+=music in literature	piano music
+=music in literature	music in literature
+=music in literature	group psychology
+=music in literature	literature
+=music in literature	music in film
+=music in literature	Hispanic literature
+=music in literature	Faust in music
+=Dmitri Shostakovich	neuroscience studies
+=Dmitri Shostakovich	cultural inauthenticity
+=piano music	Jazz
+=piano music	piano music
+=piano music	opera
+=piano music	music in literature
+=piano music	music in film
+=piano music	Faust in music
+=piano music	neuroscience and dance
+=piano music	music and morality
+-Beethoven	cultural inauthenticity
+-Beethoven	colonial Spanish
+=American popular music	American popular music
+=American popular music	hip hop culture
+=American popular music	latin american art
+=American popular music	Latin American culture
+=American popular music	african american theater
+=American popular music	piano music
+=American popular music	african american art
+=American popular music	domestic performance literature
+=opera	opera
+=opera	Jazz
+=opera	Theater
+=opera	piano music
+=opera	political theater
+=opera	autobiography
+=opera	Penumbra Theatre Company
+=opera	Faust in music
+=alienation/enstrangement	alienation/enstrangement
+=alienation/enstrangement	urban poverty
+=alienation/enstrangement	hunger
+=alienation/enstrangement	perception of bias
+=music in film	music in film
+=music in film	piano music
+=music in film	music in literature
+=music in film	film studies
+=music in film	movies
+=music in film	films
+=music in film	animation
+=music in film	Jazz
+=history of aesthetics	economic sociology
+=history of aesthetics	history of aesthetics
+=history of aesthetics	European philosophy
+=history of aesthetics	campaign rhetoric
+=history of aesthetics	group psychology
+=history of aesthetics	community psychology
+=history of aesthetics	architecture
+=history of aesthetics	Hispanic literature
+=music and morality	music and morality
+=music and morality	religion & gender
+=music and morality	religion and secularism
+=music and morality	art and society
+=music and morality	philosophy and literature
+=music and morality	piano music
+=music and morality	work-life choices
+=music and morality	hip hop culture
+-mental health	Medical Sociology
+=mental health	clinical psychology
+=mental health	reproductive health
+=mental health	economic sociology
+-mental health	legal studies
+-mental health	environmental education
+-mental health	environmental economics
+-mental health	environmental hydrology
+=learning and human brain development	learning and human brain development
+=learning and human brain development	cognitive science
+=learning and human brain development	structural analysis of social behavior (SASB)
+-learning and human brain development	China's economic development
+-learning and human brain development	human migration
+=learning and human brain development	learning abroad
+-learning and human brain development	the production and perception of voice quality
+-learning and human brain development	experience- and injury-induced neural plasticity
+=experience- and injury-induced neural plasticity	experience- and injury-induced neural plasticity
+=experience- and injury-induced neural plasticity	bone histology and relationships to growth rates
+=experience- and injury-induced neural plasticity	eating disorders
+=experience- and injury-induced neural plasticity	learning and human brain development
+=experience- and injury-induced neural plasticity	the production and perception of voice quality
+-experience- and injury-induced neural plasticity	artificial intelligence
+=women’s health	women’s health
+=women’s health	work-life balance
+=women’s health	persons
+=women’s health	women and social movements
+=women’s health	the right to privacy
+=women’s health	girls
+=women’s health	art and society
+=reproductive health	mental health
+=reproductive health	fertility
+=reproductive health	reproductive health
+=reproductive health	environmental education
+=reproductive health	environmental hydrology
+=reproductive health	environmental policy
+=reproductive health	human rights
+=reproductive health	nutritional epidemiology
+=reproductive technologies	reproductive technologies
+=reproductive technologies	social networks
+=reproductive technologies	reaction mechanisms
+=reproductive technologies	fluvial processes
+-reproductive technologies	social networking
+=reproductive technologies	information technology
+=reproductive technologies	survival analysis
+=reproductive technologies	philosophy of technology
+=Early Christian and Jewish history	Early Christian and Jewish history
+=Early Christian and Jewish history	comparative Jewish history
+=Early Christian and Jewish history	history of Christian & Muslim relations
+=Early Christian and Jewish history	History of Christian traditions (especially the 16th century)
+=religion and secularism	religion and secularism
+=religion and secularism	religious ethics & politics (particularly comparative religious views of martyrdom)
+=religion and secularism	Fascism
+=religion and secularism	e-democracy
+=religion and secularism	music and morality
+-religion and secularism	asian anarchism
+=religion and secularism	Indian philosophies
+=religion and secularism	existentialism
+=gender and sexuality studies	gender and sexuality studies
+=gender and sexuality studies	structural analysis of social behavior (SASB)
+=gender and sexuality studies	history of women and gender
+-gender and sexuality studies	african american psychology
+=gender and sexuality studies	gender
+=gender and sexuality studies	ethics of emerging technologies
+=gender and sexuality studies	women and social movements
+=gender and sexuality studies	genres and forms of discourse
+=postcolonial theory	postcolonial theory
+-postcolonial theory	feminist psychology
+=postcolonial theory	postcolonial studies
+-postcolonial theory	feminist theory
+-postcolonial theory	feminist identity
+=postcolonial theory	cross-cultural philosophy
+=postcolonial theory	civil rights
+=postcolonial theory	political theory
+=glaciology	tectonics
+=glaciology	glaciology
+=glaciology	geology
+=glaciology	geochemistry
+=glaciology	petrology
+-glaciology	herbalism
+=glaciology	volcanism
+=glaciology	planetary geology
+=sediment transport	sediment transport
+=sediment transport	pollution control
+-sediment transport	food security
+-sediment transport	transportation
+-sediment transport	social networking
+-sediment transport	parallel computing
+-sediment transport	history of decorated vehicles.
+-sediment transport	art cars
+=fluvial processes	fluvial processes
+=fluvial processes	reaction mechanisms
+=fluvial processes	reaction-diffusion
+=fluvial processes	learning management systems
+=fluvial processes	pattern formation
+=fluvial processes	alpine environments
+=fluvial processes	ultrafast phenomena
+=fluvial processes	survival analysis
+=environmental hydrology	environmental hydrology
+=environmental hydrology	chemical biology
+=environmental hydrology	political ecology
+=environmental hydrology	cultural geography
+=environmental hydrology	atmospheric chemistry
+=environmental hydrology	climate change
+=environmental hydrology	environmental chemistry
+=environmental hydrology	planetary geology
+=alpine environments	alpine environments
+=alpine environments	natural resources
+=alpine environments	climate change
+=alpine environments	fluvial processes
+=alpine environments	Working Conditions
+=alpine environments	environment
+=alpine environments	grasslands
+=alpine environments	religion & the environment
+=Russian literature	Russian literature
+-Russian literature	sociology of law
+-Russian literature	textbook writing
+-Russian literature	student writing
+=Russian literature	the inception of literary criticism
+-Russian literature	campaign rhetoric
+-Russian literature	spa culture
+-Russian literature	history of diaspora
+=Sentimentalist culture	women artists
+=Sentimentalist culture	counter-cultures
+=Sentimentalist culture	spa culture
+=Sentimentalist culture	Sentimentalist culture
+=Sentimentalist culture	community building
+=Sentimentalist culture	cultural competency
+-Sentimentalist culture	Russian literature
+=Sentimentalist culture	history of diaspora
+=18th-century minor writers and genres (album verse	18th-century minor writers and genres (album verse
+=18th-century minor writers and genres (album verse	religious ethics & politics (particularly comparative religious views of martyrdom)
+=18th-century minor writers and genres (album verse	meaning fascination without publications): Chinese Music
+=domestic performance literature	domestic performance literature
+-domestic performance literature	Financial economics (general financial markets
+=domestic performance literature	the rhetoric of social movements
+=domestic performance literature	international car art
+-domestic performance literature	rural labor markets
+=domestic performance literature	History of Western art music
+=domestic performance literature	political art
+=domestic performance literature	history of world literature concept
+=early women's journals)	early women's journals)
+=early women's journals)	online contributions
+=early women's journals)	textbook writing
+=early women's journals)	online surveys
+-early women's journals)	faculty development
+=early women's journals)	genres and forms of discourse
+=early women's journals)	women's rights
+=early women's journals)	texts and images
+=the inception of literary criticism	the inception of literary criticism
+=the inception of literary criticism	critical theory
+-the inception of literary criticism	the rhetoric of social movements
+=the inception of literary criticism	theories of musical performance and interpretation
+-the inception of literary criticism	contemporary conservatism
+=the inception of literary criticism	philosophy and literature
+-the inception of literary criticism	political speeches
+-the inception of literary criticism	political humor
+=literary theory (esp. Bakhtin)	literary theory (esp. Bakhtin)
+-literary theory (esp. Bakhtin)	theories of musical performance and interpretation
+-literary theory (esp. Bakhtin)	theoretical approaches to myth
+-literary theory (esp. Bakhtin)	structural analysis of social behavior (SASB)
+-literary theory (esp. Bakhtin)	political theory
+=literary theory (esp. Bakhtin)	the inception of literary criticism
+=dandyism	dandyism
+=dandyism	modernism
+=epigonism	privatization and social movements
+=epigonism	humanitarianism
+=spa culture	spa culture
+=spa culture	entertainment
+=spa culture	community building
+-spa culture	online communities
+-spa culture	urban politics
+=spa culture	counter-cultures
+=spa culture	cultural competency
+-spa culture	women artists
+-Gogol'	colonial Spanish
+-Gogol'	MPI
+=rhetoric	aesthetics
+=rhetoric	rhetoric
+=rhetoric	economics
+=rhetoric	politics
+=rhetoric	philosophy
+=rhetoric	literature
+=rhetoric	ethics
+=rhetoric	realism
+=the persuasive qualities of public space and political memorials	the persuasive qualities of public space and political memorials
+=the persuasive qualities of public space and political memorials	(formal research): Music Composition of all kinds
+-the persuasive qualities of public space and political memorials	special functions
+=the persuasive qualities of public space and political memorials	political speeches
+-the persuasive qualities of public space and political memorials	the production and perception of voice quality
+=the persuasive qualities of public space and political memorials	political theory
+=the persuasive qualities of public space and political memorials	political humor
+=the rhetoric of social movements	the rhetoric of social movements
+-the rhetoric of social movements	Politics of Health Policy
+=the rhetoric of social movements	historical development of social policies
+=the rhetoric of social movements	social movements
+=the rhetoric of social movements	cross-cultural philosophy
+=the rhetoric of social movements	domestic performance literature
+=the rhetoric of social movements	political speeches
+=the rhetoric of social movements	comparative politics
+=campaign rhetoric	campaign rhetoric
+-campaign rhetoric	invasion biology
+=campaign rhetoric	comparative politics
+=campaign rhetoric	history of aesthetics
+=campaign rhetoric	political speeches
+-campaign rhetoric	history of mathematics
+=campaign rhetoric	and politics
+=campaign rhetoric	war
+=political speeches	political speeches
+=political speeches	public policy
+=political speeches	campaign rhetoric
+=political speeches	the rhetoric of social movements
+=political speeches	public health
+=political speeches	literary theory
+=political speeches	public finance
+=political speeches	civil rights
+=women's rights	women's rights
+=women's rights	dignity
+=women's rights	law
+=women's rights	union
+=women's rights	early women's journals)
+=women's rights	informed consent
+=women's rights	the right to privacy
+=feminism	environmentalism
+=feminism	feminism
+=feminism	Fascism
+=feminism	racism
+=feminism	gender
+=feminism	existentialism
+=feminism	modernism
+=feminism	philosophy
+=contemporary conservatism	contemporary conservatism
+=contemporary conservatism	liberal education
+=contemporary conservatism	historical development of social policies
+=contemporary conservatism	ancient history
+=contemporary conservatism	asian anarchism
+=contemporary conservatism	feminist identity
+=contemporary conservatism	feminist theory
+=contemporary conservatism	e-democracy
+=political humor	political humor
+=political humor	public policy
+=political humor	public health
+=political humor	public finance
+=political humor	humor
+=political humor	political speeches
+=political humor	social movements
+=political humor	racial essentialism
+-cyberpolitics	privatization and social movements
+-cyberpolitics	humanitarianism
+=e-democracy	e-democracy
+-e-democracy	theories of justice
+=e-democracy	liberal education
+-e-democracy	religion and secularism
+=e-democracy	contemporary conservatism
+-e-democracy	asian anarchism
+-e-democracy	Non-Profits
+=e-democracy	globalization
+-educational studies	clinical psychology
+-educational studies	historical linguistics
+-educational studies	Nonprofit Organizations
+-educational studies	legal studies
+-educational studies	civic education
+=educational studies	environmental education
+-educational studies	public health
+=educational studies	liberal education
+-philosophy of education	theory & critique of religion
+-philosophy of education	sociology of law
+-philosophy of education	materials science
+-philosophy of education	applied mathematics
+-philosophy of education	history of mathematics
+-philosophy of education	philosophy of law
+-philosophy of education	group psychology
+-philosophy of education	community psychology
+=education policy	educational studies
+=education policy	sociology of law
+=education policy	teacher education
+=education policy	education policy
+=education policy	Politics of Health Policy
+=education policy	public education reform
+=education policy	faculty development
+=education policy	environmental policy
+=public education reform	public education reform
+=public education reform	educational studies
+=public education reform	Politics of Health Policy
+-public education reform	(less formal research
+-public education reform	international development
+=public education reform	rapid social change
+=public education reform	American Social Policy
+=public education reform	liberal education
+-education and social reform; democracy and education; social/cultural/spiritual issues in education	education and social reform; democracy and education; social/cultural/spiritual issues in education
+-education and social reform; democracy and education; social/cultural/spiritual issues in education	economic sociology
+-education and social reform; democracy and education; social/cultural/spiritual issues in education	American Indian lands and economic development
+-education and social reform; democracy and education; social/cultural/spiritual issues in education	China's economic development
+-education and social reform; democracy and education; social/cultural/spiritual issues in education	(formal research): Music Composition of all kinds
+-education and social reform; democracy and education; social/cultural/spiritual issues in education	(less formal research
+-education and social reform; democracy and education; social/cultural/spiritual issues in education	cross-cultural philosophy
+-education and social reform; democracy and education; social/cultural/spiritual issues in education	Comparative Health Systems
+-civic education	educational studies
+=civic education	civic education
+=civic education	public finance
+=civic education	civil rights
+-civic education	public health
+=civic education	Nonprofit Organizations
+=civic education	political sociology
+=civic education	environmental education
+=globalization and education	undergraduate mathematics education
+=globalization and education	undergraduate genomics education
+=globalization and education	globalization and education
+=globalization and education	e-democracy
+=globalization and education	math modeling in any discipline
+=globalization and education	housing markets
+=environmental education	educational studies
+=environmental education	mental health
+=environmental education	wildlife conservation
+=environmental education	civic education
+=environmental education	political sociology
+=environmental education	reproductive health
+=environmental education	environmental education
+=environmental education	cultural studies
+=teacher education	teacher education
+=teacher education	student writing
+=teacher education	faculty development
+=teacher education	environmental education
+=teacher education	liberal education
+=teacher education	philosophy of education
+=teacher education	education policy
+=teacher education	education
+=qualitative research methodologies	qualitative research methods
+=qualitative research methodologies	qualitative research methodologies
+=qualitative research methodologies	interdisciplinary connections
+=qualitative research methodologies	survey methodology
+=qualitative research methodologies	online surveys
+=qualitative research methodologies	assessment
+=qualitative research methodologies	(less formal research
+-qualitative research methodologies	plant genetics
+=general systems/cultural futures theory and methodologies	general systems/cultural futures theory and methodologies
+=general systems/cultural futures theory and methodologies	Financial economics (general financial markets
+=general systems/cultural futures theory and methodologies	International finance (foreign exchange market microstructure and exchange rate dynamics)
+=general systems/cultural futures theory and methodologies	ethics of emerging technologies
+=general systems/cultural futures theory and methodologies	market efficiency and behavioral finance)
+=general systems/cultural futures theory and methodologies	(formal research): Music Composition of all kinds
+=(formal research): Music Composition of all kinds	(formal research): Music Composition of all kinds
+-(formal research): Music Composition of all kinds	education and social reform; democracy and education; social/cultural/spiritual issues in education
+-(formal research): Music Composition of all kinds	structural analysis of social behavior (SASB)
+=(formal research): Music Composition of all kinds	the persuasive qualities of public space and political memorials
+-(formal research): Music Composition of all kinds	meaning fascination without publications): Chinese Music
+=(formal research): Music Composition of all kinds	genres and forms of discourse
+-(formal research): Music Composition of all kinds	linear and abstract algebra
+-(less formal research	(less formal research
+-(less formal research	public education reform
+-(less formal research	qualitative research methods
+-(less formal research	historical development of social policies
+-(less formal research	elementary particle physics
+-(less formal research	ethics of theory & method in religious studies
+-(less formal research	qualitative research methodologies
+-(less formal research	learning and teaching
+-meaning fascination without publications): Chinese Music	meaning fascination without publications): Chinese Music
+-meaning fascination without publications): Chinese Music	theories of musical performance and interpretation
+-meaning fascination without publications): Chinese Music	genres and forms of discourse
+-meaning fascination without publications): Chinese Music	gender and sexuality studies
+-meaning fascination without publications): Chinese Music	(formal research): Music Composition of all kinds
+-meaning fascination without publications): Chinese Music	18th-century minor writers and genres (album verse
+=Javanese gamelan	Javanese gamelan
+=Javanese gamelan	Jazz
+=Jazz	Jazz
+=Jazz	opera
+=Jazz	piano music
+=Jazz	Theater
+=Jazz	music in film
+=Jazz	women artists
+=Jazz	political theater
+=Jazz	contemporary conservatism
+=Faust in music	piano music
+=Faust in music	music in literature
+=Faust in music	hip hop culture
+=Faust in music	music in film
+=Faust in music	performance art
+=Faust in music	women artists
+=Faust in music	political theater
+=Faust in music	political art
+=linear and abstract algebra	linear and abstract algebra
+=linear and abstract algebra	computational kinetics
+=linear and abstract algebra	discrete mathematics and combinatorics
+=linear and abstract algebra	graph theory
+=linear and abstract algebra	abstract
+-linear and abstract algebra	(less formal research
+=linear and abstract algebra	multiple social identities
+=linear and abstract algebra	math modeling in any discipline
+=discrete mathematics and combinatorics	computational kinetics
+=discrete mathematics and combinatorics	discrete mathematics and combinatorics
+=discrete mathematics and combinatorics	linear and abstract algebra
+=discrete mathematics and combinatorics	combinatorics
+-discrete mathematics and combinatorics	ethics of theory & method in religious studies
+=discrete mathematics and combinatorics	math modeling in any discipline
+-discrete mathematics and combinatorics	history of world literature concept
+=discrete mathematics and combinatorics	abstract
+=symmetry	supersymmetry
+=symmetry	geometry
+=symmetry	symmetry
+=symmetry	quantum
+=symmetry	structure
+=symmetry	probability
+=symmetry	symmetry breaking
+=symmetry	causality
+=chemical physics	molecular spectroscopy
+=chemical physics	materials science
+=chemical physics	chemical physics
+=chemical physics	chemical biology
+=chemical physics	elementary particle physics
+=chemical physics	field theory
+=chemical physics	environmental economics
+=chemical physics	elemental analysis
+=molecular spectroscopy	molecular spectroscopy
+=molecular spectroscopy	experimental physics
+=molecular spectroscopy	quantum chemistry
+=molecular spectroscopy	atmospheric chemistry
+=molecular spectroscopy	chemical physics
+=molecular spectroscopy	computational kinetics
+=molecular spectroscopy	observational astronomy
+=molecular spectroscopy	environmental chemistry
+=free radicals	free radicals
+=free radicals	diatomic molecules
+=free radicals	group theory
+=hyperfine structure	hyperfine structure
+=hyperfine structure	pattern formation
+=hyperfine structure	diatomic molecules
+=hyperfine structure	fluid dynamics
+=hyperfine structure	survival analysis
+=hyperfine structure	community building
+=hyperfine structure	state formation
+=hyperfine structure	special functions
+=diatomic molecules	diatomic molecules
+=diatomic molecules	reaction mechanisms
+=diatomic molecules	reaction-diffusion
+=diatomic molecules	atmospheric chemistry
+=diatomic molecules	chemical pedagogy
+=diatomic molecules	elemental analysis
+=diatomic molecules	hyperfine structure
+=diatomic molecules	organometallic and inorganic chemistry
+=chemical pedagogy	chemical pedagogy
+=chemical pedagogy	reaction-diffusion
+=chemical pedagogy	environmental chemistry
+=chemical pedagogy	materials science
+=chemical pedagogy	diatomic molecules
+=chemical pedagogy	reaction mechanisms
+=chemical pedagogy	environmental education
+=chemical pedagogy	elemental analysis
+=literature	nationalism
+=literature	architecture
+=literature	rhetoric
+=literature	politics
+=literature	religion
+=literature	cosmology
+=literature	literature
+=literature	immigrants
+=aesthetics	anthropology
+=aesthetics	phenomenology
+=aesthetics	aesthetics
+=aesthetics	modernism
+=aesthetics	rhetoric
+=aesthetics	realism
+=aesthetics	ethics
+=aesthetics	economics
+=philosophy	phenomenology
+=philosophy	cosmology
+=philosophy	feminism
+=philosophy	architecture
+=philosophy	realism
+=philosophy	aesthetics
+=philosophy	rhetoric
+=philosophy	geography
+=violence	racism
+=violence	war
+=violence	prejudice
+=violence	violence
+=violence	discrimination
+=violence	poverty
+=violence	immigration
+=violence	Pain
+=theories of justice	theories of justice
+=theories of justice	sociology of law
+=theories of justice	philosophy of law
+=theories of justice	e-democracy
+=theories of justice	theory & critique of religion
+=theories of justice	Kantian ethics
+=theories of justice	ethics
+=theories of justice	social psychology
+=Spanish dialectology	Spanish dialectology
+=Spanish dialectology	colonial Spanish
+-Spanish dialectology	African literature
+=Spanish dialectology	Spanish in the US
+=Spanish dialectology	Andalusian Spanish
+-Spanish dialectology	Russian literature
+=colonial Spanish	colonial Spanish
+-colonial Spanish	civil rights
+-colonial Spanish	political theater
+=colonial Spanish	Andalusian Spanish
+=colonial Spanish	Spanish dialectology
+=colonial Spanish	Spanish in the US
+-colonial Spanish	state formation
+=colonial Spanish	cultural competency
+=paleography	paleography
+=paleography	hermeneutics
+=paleography	geochemistry
+=paleography	typography
+=paleography	lithography
+=Andalusian Spanish	colonial Spanish
+=Andalusian Spanish	Spanish in the US
+=Andalusian Spanish	Andalusian Spanish
+=Andalusian Spanish	Spanish dialectology
+=historical linguistics	historical linguistics
+=historical linguistics	mathematical biology
+=historical linguistics	economic sociology
+=historical linguistics	legal studies
+=historical linguistics	political ecology
+=historical linguistics	ancient history
+=historical linguistics	comparative politics
+=historical linguistics	history of science/chemistry
+=Spanish in the US	Spanish in the US
+=Spanish in the US	colonial Spanish
+=Spanish in the US	Andalusian Spanish
+=Spanish in the US	Spanish dialectology
+=Spanish in the US	Latin America
+=Spanish in the US	Russian literature
+=geography	demography
+=geography	ecology
+=geography	geology
+=geography	neuroscience
+=geography	geography
+=geography	economics
+=geography	agriculture
+=geography	cosmology
+=political ecology	wildlife conservation
+=political ecology	historical linguistics
+=political ecology	environmental hydrology
+=political ecology	feminist psychology
+=political ecology	political ecology
+=political ecology	cultural geography
+=political ecology	political sociology
+=political ecology	environmental chemistry
+=hunger	hunger
+=hunger	Pain
+=hunger	poverty
+-hunger	discrimination
+-hunger	inflation
+=hunger	urban poverty
+-hunger	Debt
+-hunger	labor
+=History of Christian traditions (especially the 16th century)	History of Christian traditions (especially the 16th century)
+=History of Christian traditions (especially the 16th century)	religious ethics & politics (particularly comparative religious views of martyrdom)
+=History of Christian traditions (especially the 16th century)	indigenous languages (especially ones spoken in Mexico)
+-History of Christian traditions (especially the 16th century)	indigenous peoples' movements
+=History of Christian traditions (especially the 16th century)	subaltern theater texts and practices
+-History of Christian traditions (especially the 16th century)	20th Century African American History
+=History of Christian traditions (especially the 16th century)	Early Christian and Jewish history
+=History of Christian traditions (especially the 16th century)	history of Christian & Muslim relations
+=theory & critique of religion	theory & critique of religion
+-theory & critique of religion	theories of justice
+-theory & critique of religion	philosophy of education
+-theory & critique of religion	philosophy of technology
+-theory & critique of religion	European philosophy
+-theory & critique of religion	philosophy
+-theory & critique of religion	philosophy and literature
+-theory & critique of religion	cross-cultural philosophy
+=religion & gender	ethnicity
+=religion & gender	gender
+=religion & gender	religion & gender
+=religion & gender	religion
+=religion & gender	social psychology
+=religion & gender	racial essentialism
+=religion & gender	group psychology
+=religion & gender	community psychology
+=religious ethics & politics (particularly comparative religious views of martyrdom)	religious ethics & politics (particularly comparative religious views of martyrdom)
+=religious ethics & politics (particularly comparative religious views of martyrdom)	historical development of social policies
+-religious ethics & politics (particularly comparative religious views of martyrdom)	Financial economics (general financial markets
+=religious ethics & politics (particularly comparative religious views of martyrdom)	History of Christian traditions (especially the 16th century)
+=religious ethics & politics (particularly comparative religious views of martyrdom)	cross-cultural philosophy
+=religious ethics & politics (particularly comparative religious views of martyrdom)	religion and secularism
+=religious ethics & politics (particularly comparative religious views of martyrdom)	ethics of theory & method in religious studies
+=religious ethics & politics (particularly comparative religious views of martyrdom)	religion & the environment
+=ethics of theory & method in religious studies	ethics of theory & method in religious studies
+=ethics of theory & method in religious studies	Financial economics (general financial markets
+=ethics of theory & method in religious studies	cross-cultural philosophy
+-ethics of theory & method in religious studies	elemental analysis
+-ethics of theory & method in religious studies	theories of musical performance and interpretation
+-ethics of theory & method in religious studies	ethics of emerging technologies
+=ethics of theory & method in religious studies	religious ethics & politics (particularly comparative religious views of martyrdom)
+-ethics of theory & method in religious studies	critical theory
+-history of Christian & Muslim relations	history of Christian & Muslim relations
+-history of Christian & Muslim relations	Afro-Hispanic studies
+-history of Christian & Muslim relations	Hispanic literature
+=history of Christian & Muslim relations	comparative Jewish history
+-history of Christian & Muslim relations	work-life balance
+=history of Christian & Muslim relations	Early Christian and Jewish history
+=history of Christian & Muslim relations	History of Christian traditions (especially the 16th century)
+-history of Christian & Muslim relations	work-life choices
+=religion & the environment	religion & the environment
+-religion & the environment	environmental economics
+=religion & the environment	counter-cultures
+-religion & the environment	philosophy of technology
+=religion & the environment	religious ethics & politics (particularly comparative religious views of martyrdom)
+=religion & the environment	climate change
+-religion & the environment	online communities
+=religion & the environment	plant ecology
+-religion & economics	sociology of law
+=religion & economics	economic sociology
+=religion & economics	political sociology
+-religion & economics	alternative medicine
+-religion & economics	complementary medicine
+-religion & economics	comparative politics
+-religion & economics	Kantian ethics
+=religion & economics	ethics
+=Dinosaur paleobiology & evolution	Dinosaur paleobiology & evolution
+=Dinosaur paleobiology & evolution	animal behavior
+=Dinosaur paleobiology & evolution	plant ecology
+=Dinosaur paleobiology & evolution	galaxy evolution
+=Dinosaur paleobiology & evolution	crustal evolution
+=Dinosaur paleobiology & evolution	body size evolution
+-Dinosaur paleobiology & evolution	comparative Jewish history
+=bone histology and relationships to growth rates	bone histology and relationships to growth rates
+-bone histology and relationships to growth rates	International finance (foreign exchange market microstructure and exchange rate dynamics)
+-bone histology and relationships to growth rates	experience- and injury-induced neural plasticity
+=bone histology and relationships to growth rates	learning and human brain development
+=bone histology and relationships to growth rates	body size evolution
+-bone histology and relationships to growth rates	education and social reform; democracy and education; social/cultural/spiritual issues in education
+=body size evolution	body size evolution
+-body size evolution	number theory
+-body size evolution	mantle evolution
+=body size evolution	body image
+-body size evolution	low-mass galaxies
+=body size evolution	skin tone bias
+=body size evolution	body objectification
+=body size evolution	learning and human brain development

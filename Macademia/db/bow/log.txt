@@ -1,0 +1,477 @@
+Resolving dependencies...
+Dependencies resolved in 570ms.
+Running script /opt/grails-1.3.6/scripts/RunScript.groovy
+Environment set to production
+  [groovyc] Compiling 1 source file to /home/shilad/.grails/1.3.6/projects/grails2/classes
+unique dbtoken is shilad
+  [groovyc] Compiling 1 source file to /home/shilad/.grails/1.3.6/projects/grails2/classes
+unique dbtoken is shilad
+Running script ./scripts/LoadPeople.groovy ... ...
+Invalid article title no ID found
+2011-05-12 00:43:31,353 [main] INFO  macademia.SimilarityService  - Interest <Business Law> has no related article
+Invalid article title no ID found
+2011-05-12 00:43:32,975 [main] INFO  macademia.SimilarityService  - Interest <Financial Reporting> has no related article
+Invalid article title no ID found
+2011-05-12 00:43:33,716 [main] INFO  macademia.SimilarityService  - Interest <College Teaching> has no related article
+2583120 does not have an articleSimilarities entry
+2011-05-12 00:43:35,843 [main] ERROR macademia.PopulateService  - missing email address for Toni Lester
+Invalid article title no ID found
+2011-05-12 00:43:39,412 [main] INFO  macademia.SimilarityService  - Interest <Financial Strategy> has no related article
+Invalid article title no ID found
+2011-05-12 00:43:39,562 [main] INFO  macademia.SimilarityService  - Interest <Global Strategy> has no related article
+2011-05-12 00:43:40,070 [main] ERROR macademia.PopulateService  - unknown institution for verizon.net in /data/shilad/usr/macademia/grails2/stdin: Kimiko Abramoff		kimiko.abramoff@verizon.netLanguage and Literature,Japanese Language and Literature	Lecturer in Japanese
+2772267 does not have an articleSimilarities entry
+2011-05-12 00:43:45,826 [main] ERROR macademia.PopulateService  - missing email address for Julie R. Levinson
+14786987 does not have an articleSimilarities entry
+3853048 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:43:55,229 [main] INFO  macademia.SimilarityService  - Interest <Middle East and North Africa> has no related article
+Invalid article title no ID found
+2011-05-12 00:43:57,050 [main] INFO  macademia.SimilarityService  - Interest <International Finance> has no related article
+Invalid article title no ID found
+2011-05-12 00:44:00,923 [main] INFO  macademia.SimilarityService  - Interest <Trade Policy> has no related article
+868933 does not have an articleSimilarities entry
+2011-05-12 00:44:14,139 [main] ERROR macademia.PopulateService  - unknown institution for caspegroup.com in /data/shilad/usr/macademia/grails2/stdin: Bob Caspe		bob@caspegroup.com	Entrepreneurship,Small Business	Adjunct Lecturer
+23265978 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:44:15,792 [main] INFO  macademia.SimilarityService  - Interest <Organizational Change> has no related article
+2011-05-12 00:44:15,833 [main] ERROR macademia.PopulateService  - missing email address for Caroline Daniels
+21578153 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:44:20,416 [main] INFO  macademia.SimilarityService  - Interest <Women and Business> has no related article
+2011-05-12 00:44:21,641 [main] ERROR macademia.PopulateService  - unknown institution for blisshouse.com in /data/shilad/usr/macademia/grails2/stdin: Jerome L. Houle III		Jerry@blisshouse.coAdjunct Lecturer
+8677038 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:44:23,903 [main] INFO  macademia.SimilarityService  - Interest <Management of Innovation> has no related article
+24304765 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:44:26,711 [main] INFO  macademia.SimilarityService  - Interest <Philanthropy & Volunteerism> has no related article
+2011-05-12 00:44:26,826 [main] ERROR macademia.PopulateService  - missing email address for Spencer M. Adams
+2011-05-12 00:44:28,807 [main] ERROR macademia.PopulateService  - missing email address for Ed Chazen
+Invalid article title no ID found
+2011-05-12 00:44:28,991 [main] INFO  macademia.SimilarityService  - Interest <Exchanges> has no related article
+2011-05-12 00:44:30,040 [main] ERROR macademia.PopulateService  - missing email address for John C. Edmunds
+Invalid article title no ID found
+2011-05-12 00:44:33,899 [main] INFO  macademia.SimilarityService  - Interest <Mutual Fund Governance> has no related article
+Invalid article title no ID found
+2011-05-12 00:44:34,017 [main] INFO  macademia.SimilarityService  - Interest <Portfolio Management> has no related article
+Invalid article title no ID found
+2011-05-12 00:44:34,278 [main] INFO  macademia.SimilarityService  - Interest <Real Options> has no related article
+Invalid article title no ID found
+2011-05-12 00:44:36,320 [main] INFO  macademia.SimilarityService  - Interest <Retail Banking> has no related article
+2011-05-12 00:44:40,472 [main] ERROR macademia.PopulateService  - missing email address for Susan Alvey
+Invalid article title no ID found
+2011-05-12 00:44:41,800 [main] INFO  macademia.SimilarityService  - Interest <Management Issues> has no related article
+22420424 does not have an articleSimilarities entry
+2011-05-12 00:44:49,735 [main] ERROR macademia.PopulateService  - missing email address for Michael Cummings
+2011-05-12 00:44:49,735 [main] ERROR macademia.PopulateService  - missing email address for Gary DiCamillo
+2011-05-12 00:44:53,863 [main] ERROR macademia.PopulateService  - unknown institution for babson.edu; paul in /data/shilad/usr/macademia/grails2/stdin: Paul Horn		phorn@babson.edu; paul@paulhorn.com	Communications,Communication,Organizational Behavior,Interpersonal Skills	Adjunct Lecturer
+Invalid article title no ID found
+2011-05-12 00:44:55,470 [main] INFO  macademia.SimilarityService  - Interest <Executive Coaching and Developmental Coaching> has no related article
+Invalid article title no ID found
+2011-05-12 00:44:55,829 [main] INFO  macademia.SimilarityService  - Interest <Organizations changes in> has no related article
+Invalid article title no ID found
+2011-05-12 00:44:56,594 [main] INFO  macademia.SimilarityService  - Interest <Management Training> has no related article
+Invalid article title no ID found
+2011-05-12 00:44:56,803 [main] INFO  macademia.SimilarityService  - Interest <Leadership and Managers> has no related article
+3998436 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:44:58,995 [main] INFO  macademia.SimilarityService  - Interest <Media Ecology> has no related article
+2011-05-12 00:44:59,076 [main] ERROR macademia.PopulateService  - missing email address for Tina Opie
+2011-05-12 00:45:00,625 [main] ERROR macademia.PopulateService  - missing email address for Stever Robbins
+2011-05-12 00:45:00,669 [main] ERROR macademia.PopulateService  - missing email address for Phyllis Schlesinger
+2011-05-12 00:45:02,218 [main] ERROR macademia.PopulateService  - missing email address for Robert Stringer
+8837930 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:45:09,665 [main] INFO  macademia.SimilarityService  - Interest <Project and Product Management> has no related article
+Invalid article title no ID found
+2011-05-12 00:45:11,781 [main] INFO  macademia.SimilarityService  - Interest <Value Based Strategies> has no related article
+Invalid article title no ID found
+2011-05-12 00:45:11,912 [main] INFO  macademia.SimilarityService  - Interest <e-Marketing> has no related article
+2011-05-12 00:45:16,758 [main] ERROR macademia.PopulateService  - unknown institution for comcast.net in /data/shilad/usr/macademia/grails2/stdin: Bryan Manning		bryanmanning@comcast.net	Marketing,Business to Business Marketing,Global Marketing,High Technology Marketing,International Marketing,Sales and Marketing	Lecturer
+Invalid article title no ID found
+2011-05-12 00:45:17,645 [main] INFO  macademia.SimilarityService  - Interest <Promotion/Trade Promotion> has no related article
+Invalid article title no ID found
+2011-05-12 00:45:17,825 [main] INFO  macademia.SimilarityService  - Interest <Service Quality> has no related article
+Invalid article title no ID found
+2011-05-12 00:45:22,396 [main] INFO  macademia.SimilarityService  - Interest <Total Quality Management> has no related article
+Invalid article title no ID found
+2011-05-12 00:45:28,953 [main] INFO  macademia.SimilarityService  - Interest <Production Processes> has no related article
+Invalid article title no ID found
+2011-05-12 00:45:32,034 [main] INFO  macademia.SimilarityService  - Interest <Technology-Based Math Education> has no related article
+21596697 does not have an articleSimilarities entry
+2011-05-12 00:45:38,048 [main] ERROR macademia.PopulateService  - missing email address for Caroline Daniels
+Invalid article title no ID found
+2011-05-12 00:45:41,081 [main] INFO  macademia.SimilarityService  - Interest <Information Technology Governance> has no related article
+15981093 does not have an articleSimilarities entry
+25008091 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:45:45,113 [main] INFO  macademia.SimilarityService  - Interest <Financial and Professional Services> has no related article
+Script ./scripts/LoadPeople.groovy complete! ...
+Application context shutting down...
+Application context shutdown.
+Welcome to Grails 1.3.6 - http://grails.org/
+Licensed under Apache Standard License 2.0
+Grails home is set to: /opt/grails-1.3.6
+
+Base Directory: /data/shilad/usr/macademia/grails2
+Resolving dependencies...
+Dependencies resolved in 583ms.
+Running script /opt/grails-1.3.6/scripts/RunScript.groovy
+Environment set to production
+  [groovyc] Compiling 1 source file to /home/shilad/.grails/1.3.6/projects/grails2/classes
+unique dbtoken is shilad
+  [groovyc] Compiling 1 source file to /home/shilad/.grails/1.3.6/projects/grails2/classes
+unique dbtoken is shilad
+Running script ./scripts/LoadPeople.groovy ... ...
+Invalid article title no ID found
+2011-05-12 00:46:03,588 [main] INFO  macademia.SimilarityService  - Interest <technology and computer uses in Africa> has no related article
+19456813 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:46:05,918 [main] INFO  macademia.SimilarityService  - Interest <International consulting> has no related article
+Invalid article title no ID found
+2011-05-12 00:46:07,639 [main] INFO  macademia.SimilarityService  - Interest <Internationalism> has no related article
+Invalid article title no ID found
+2011-05-12 00:46:13,553 [main] INFO  macademia.SimilarityService  - Interest <concept of race> has no related article
+Invalid article title no ID found
+2011-05-12 00:46:16,701 [main] INFO  macademia.SimilarityService  - Interest <Eighteenth- and Nineteenth-Century Art> has no related article
+314491 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:46:17,620 [main] INFO  macademia.SimilarityService  - Interest <Sculpture & 3D Design> has no related article
+Invalid article title no ID found
+2011-05-12 00:46:17,818 [main] INFO  macademia.SimilarityService  - Interest <paiting> has no related article
+Invalid article title no ID found
+2011-05-12 00:46:21,438 [main] INFO  macademia.SimilarityService  - Interest <Art and science> has no related article
+5058792 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:46:24,029 [main] INFO  macademia.SimilarityService  - Interest <and photography> has no related article
+Invalid article title no ID found
+2011-05-12 00:46:29,712 [main] INFO  macademia.SimilarityService  - Interest <Internet and the computer> has no related article
+2011-05-12 00:46:29,738 [main] ERROR macademia.PopulateService  - unknown institution for wellesely.edu in /data/shilad/usr/macademia/grails2/stdin: Rogers, Christine 	Art	crogers@wellesely.edu	Art, Photography, Photography and culture	Visiting Lecturer
+Invalid article title no ID found
+2011-05-12 00:46:31,773 [main] INFO  macademia.SimilarityService  - Interest <Astronomer focused on the Koronis family of asteroids> has no related article
+Invalid article title no ID found
+2011-05-12 00:46:33,467 [main] INFO  macademia.SimilarityService  - Interest <binary star system VV Cephei> has no related article
+Invalid article title no ID found
+2011-05-12 00:46:33,638 [main] INFO  macademia.SimilarityService  - Interest <and students> has no related article
+2011-05-12 00:46:40,385 [main] INFO  macademia.SimilarityService  - Interest <Nitrogen Trophodynamics> has no related article
+2011-05-12 00:46:42,080 [main] INFO  macademia.SimilarityService  - Interest <plant biologist who is interested in understanding the dynamics and the underlying mechanisms of chloroplast and mitochondrial movements in plant cells> has no related article
+Invalid article title no ID found
+2011-05-12 00:46:42,282 [main] INFO  macademia.SimilarityService  - Interest <Cell and Developmental Biology> has no related article
+19722189 does not have an articleSimilarities entry
+2098683 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:46:49,000 [main] INFO  macademia.SimilarityService  - Interest <cell biology education> has no related article
+1301158 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:46:53,844 [main] INFO  macademia.SimilarityService  - Interest <and geospacial analysis> has no related article
+12269001 does not have an articleSimilarities entry
+2011-05-12 00:46:55,689 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: 
+2011-05-12 00:46:55,689 [main] ERROR macademia.PopulateService  - 1
+2011-05-12 00:46:55,689 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: Assistant Professor
+2011-05-12 00:46:55,689 [main] ERROR macademia.PopulateService  - 1
+11266135 does not have an articleSimilarities entry
+15703283 does not have an articleSimilarities entry
+17572095 does not have an articleSimilarities entry
+264249 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:47:11,348 [main] INFO  macademia.SimilarityService  - Interest <teaching introductory chemistry> has no related article
+18375537 does not have an articleSimilarities entry
+13956743 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:47:15,745 [main] INFO  macademia.SimilarityService  - Interest <near-Infrared spectroscopy> has no related article
+2011-05-12 00:47:16,901 [main] INFO  macademia.SimilarityService  - Interest <medical and biological applications of magnetic resonance spectroscopy and imaging ranging from P-31 and Na-23 NMR spectroscopy studies of pH homeostasis in cyanobacteria to MR imaging and spectroscopy studies of a mouse model for Rett Syndrome> has no related article
+2011-05-12 00:47:17,860 [main] INFO  macademia.SimilarityService  - Interest <protein alpha synuclein. This aggregation is a key event in the neurodegeneration of Parkinson Disease. In my lab we are synthesizing fragments of synuclein and studying their conformations to learn more about the mechanism of aggregation of synuclein> has no related article
+12118220 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:47:18,496 [main] INFO  macademia.SimilarityService  - Interest <adaptation to stress and protein-DNA interactions> has no related article
+2303003 does not have an articleSimilarities entry
+15272963 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:47:22,046 [main] INFO  macademia.SimilarityService  - Interest <laboratory experiments for general> has no related article
+2011-05-12 00:47:22,065 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: and physical chemistry	Senior Instructor in Science Laboratory
+2011-05-12 00:47:22,065 [main] ERROR macademia.PopulateService  - 2
+Invalid article title no ID found
+2011-05-12 00:47:22,199 [main] INFO  macademia.SimilarityService  - Interest <biophysical chemist> has no related article
+Invalid article title no ID found
+2011-05-12 00:47:23,318 [main] INFO  macademia.SimilarityService  - Interest <UV-Vis> has no related article
+7693350 does not have an articleSimilarities entry
+20000731 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:47:26,387 [main] INFO  macademia.SimilarityService  - Interest <Cinema and Media Studies> has no related article
+917024 does not have an articleSimilarities entry
+16453220 does not have an articleSimilarities entry
+25142317 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:47:41,282 [main] INFO  macademia.SimilarityService  - Interest <Web Science> has no related article
+11486091 does not have an articleSimilarities entry
+14938066 does not have an articleSimilarities entry
+2011-05-12 00:47:44,623 [main] INFO  macademia.SimilarityService  - Interest <discrepancy of partial orders as a measure of fairness achievable under extension to weak or linear orders> has no related article
+Invalid article title no ID found
+2011-05-12 00:47:44,827 [main] INFO  macademia.SimilarityService  - Interest <computational biology> has no related article
+1226359 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:47:45,604 [main] INFO  macademia.SimilarityService  - Interest <modular programming> has no related article
+Invalid article title no ID found
+2011-05-12 00:47:49,330 [main] INFO  macademia.SimilarityService  - Interest <intermediate> has no related article
+Invalid article title no ID found
+2011-05-12 00:47:49,476 [main] INFO  macademia.SimilarityService  - Interest <and advanced Japanese> has no related article
+2435251 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:47:54,942 [main] INFO  macademia.SimilarityService  - Interest <also writing poems and short stories in Chinese> has no related article
+14256106 does not have an articleSimilarities entry
+2160376 does not have an articleSimilarities entry
+3573142 does not have an articleSimilarities entry
+18508132 does not have an articleSimilarities entry
+2011-05-12 00:48:00,279 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: Case, Karl	Economics	kcase@wellesley.edu
+2011-05-12 00:48:00,279 [main] ERROR macademia.PopulateService  - 3
+Invalid article title no ID found
+2011-05-12 00:48:03,471 [main] INFO  macademia.SimilarityService  - Interest <Advanced Econometrics> has no related article
+Invalid article title no ID found
+2011-05-12 00:48:05,309 [main] INFO  macademia.SimilarityService  - Interest <teaches courses in macroeconomics> has no related article
+17389479 does not have an articleSimilarities entry
+5740689 does not have an articleSimilarities entry
+3198118 does not have an articleSimilarities entry
+15673410 does not have an articleSimilarities entry
+5944849 does not have an articleSimilarities entry
+2011-05-12 00:48:11,573 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: 
+2011-05-12 00:48:11,573 [main] ERROR macademia.PopulateService  - 1
+2011-05-12 00:48:11,573 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: Assistant Professor
+2011-05-12 00:48:11,573 [main] ERROR macademia.PopulateService  - 1
+Invalid article title no ID found
+2011-05-12 00:48:13,395 [main] INFO  macademia.SimilarityService  - Interest <including coordination and information> has no related article
+1375022 does not have an articleSimilarities entry
+1832023 does not have an articleSimilarities entry
+29458 does not have an articleSimilarities entry
+25352315 does not have an articleSimilarities entry
+9048197 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:48:28,918 [main] INFO  macademia.SimilarityService  - Interest <modern poetry> has no related article
+10500066 does not have an articleSimilarities entry
+9406820 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:48:35,855 [main] INFO  macademia.SimilarityService  - Interest <and material culture> has no related article
+Invalid article title no ID found
+2011-05-12 00:48:37,741 [main] INFO  macademia.SimilarityService  - Interest <17th-century writers> has no related article
+Invalid article title no ID found
+2011-05-12 00:48:39,253 [main] INFO  macademia.SimilarityService  - Interest <Herbert> has no related article
+Invalid article title no ID found
+2011-05-12 00:48:41,048 [main] INFO  macademia.SimilarityService  - Interest <medieval dream vision> has no related article
+Invalid article title no ID found
+2011-05-12 00:48:42,327 [main] INFO  macademia.SimilarityService  - Interest <and Milton> has no related article
+2949199 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:48:44,721 [main] INFO  macademia.SimilarityService  - Interest <verse-writer> has no related article
+Invalid article title no ID found
+2011-05-12 00:48:47,196 [main] INFO  macademia.SimilarityService  - Interest <Renaissance literature> has no related article
+1831800 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:48:48,740 [main] INFO  macademia.SimilarityService  - Interest <and protection of the global commons> has no related article
+12881199 does not have an articleSimilarities entry
+21756482 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:48:57,525 [main] INFO  macademia.SimilarityService  - Interest <confessional writing> has no related article
+2011-05-12 00:49:01,212 [main] INFO  macademia.SimilarityService  - Interest <with a focus on film spectatorship and cinephilia in post-WWII France> has no related article
+8284509 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:49:03,940 [main] INFO  macademia.SimilarityService  - Interest <literature and medicine> has no related article
+19031547 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:49:09,735 [main] INFO  macademia.SimilarityService  - Interest <X-ray diffraction of complex mixtures> has no related article
+Invalid article title no ID found
+2011-05-12 00:49:10,478 [main] INFO  macademia.SimilarityService  - Interest <and medical geology> has no related article
+Invalid article title no ID found
+2011-05-12 00:49:12,187 [main] INFO  macademia.SimilarityService  - Interest <plutons> has no related article
+Invalid article title no ID found
+2011-05-12 00:49:16,120 [main] INFO  macademia.SimilarityService  - Interest <research on horror films from the 1920s> has no related article
+26009616 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:49:28,175 [main] INFO  macademia.SimilarityService  - Interest <study abroad programs> has no related article
+Invalid article title no ID found
+2011-05-12 00:49:28,339 [main] INFO  macademia.SimilarityService  - Interest <Italian Studies> has no related article
+2011-05-12 00:49:33,220 [main] INFO  macademia.SimilarityService  - Interest <founding member of Digital Heritage Mapping and Diarna project> has no related article
+2011-05-12 00:49:37,626 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: 
+2011-05-12 00:49:37,626 [main] ERROR macademia.PopulateService  - 1
+2011-05-12 00:49:37,627 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: Assistant Professor
+2011-05-12 00:49:37,627 [main] ERROR macademia.PopulateService  - 1
+2895304 does not have an articleSimilarities entry
+2011-05-12 00:49:38,516 [main] INFO  macademia.SimilarityService  - Interest <especially the interplay of curvature constraints in the context of large symmetry groups> has no related article
+455987 does not have an articleSimilarities entry
+1912857 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:49:52,753 [main] INFO  macademia.SimilarityService  - Interest <freelance music> has no related article
+2011-05-12 00:49:55,832 [main] INFO  macademia.SimilarityService  - Interest <Ravel's use of the arabesque as a rhythmic/metric and symbolic gesture> has no related article
+Invalid article title no ID found
+2011-05-12 00:49:58,775 [main] INFO  macademia.SimilarityService  - Interest <concert music> has no related article
+Invalid article title no ID found
+2011-05-12 00:49:58,891 [main] INFO  macademia.SimilarityService  - Interest <composing> has no related article
+Invalid article title no ID found
+2011-05-12 00:50:01,268 [main] INFO  macademia.SimilarityService  - Interest <ensemble listening> has no related article
+Invalid article title no ID found
+2011-05-12 00:50:07,183 [main] INFO  macademia.SimilarityService  - Interest <Choral Scholarship> has no related article
+4245535 does not have an articleSimilarities entry
+1996801 does not have an articleSimilarities entry
+743876 does not have an articleSimilarities entry
+19351271 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:50:13,075 [main] INFO  macademia.SimilarityService  - Interest <vielle> has no related article
+21464582 does not have an articleSimilarities entry
+6572156 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:50:15,218 [main] INFO  macademia.SimilarityService  - Interest <English horn> has no related article
+Invalid article title no ID found
+2011-05-12 00:50:15,367 [main] INFO  macademia.SimilarityService  - Interest <Boston Ballet oboist> has no related article
+Invalid article title no ID found
+2011-05-12 00:50:16,388 [main] INFO  macademia.SimilarityService  - Interest <Emmanuel Music and BMOP> has no related article
+16593893 does not have an articleSimilarities entry
+23819733 does not have an articleSimilarities entry
+1347901 does not have an articleSimilarities entry
+9713579 does not have an articleSimilarities entry
+14210456 does not have an articleSimilarities entry
+2011-05-12 00:50:24,372 [main] INFO  macademia.SimilarityService  - Interest <perform with my jazz quintet PZQ> has no related article
+25475940 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:50:25,224 [main] INFO  macademia.SimilarityService  - Interest <jazz violin and viola improvisation> has no related article
+Invalid article title no ID found
+2011-05-12 00:50:26,405 [main] INFO  macademia.SimilarityService  - Interest <neuroscience education> has no related article
+6572488 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:50:28,017 [main] INFO  macademia.SimilarityService  - Interest <visual neuroscience> has no related article
+2314904 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:50:33,605 [main] INFO  macademia.SimilarityService  - Interest <PERA Phys Ed> has no related article
+2011-05-12 00:50:36,079 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: 
+2011-05-12 00:50:36,079 [main] ERROR macademia.PopulateService  - 1
+2011-05-12 00:50:36,079 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: Assistant Professor
+2011-05-12 00:50:36,079 [main] ERROR macademia.PopulateService  - 1
+2011-05-12 00:50:37,909 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: 
+2011-05-12 00:50:37,909 [main] ERROR macademia.PopulateService  - 1
+2011-05-12 00:50:37,909 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: Associate Professor
+2011-05-12 00:50:37,909 [main] ERROR macademia.PopulateService  - 1
+7140337 does not have an articleSimilarities entry
+2011-05-12 00:50:42,273 [main] INFO  macademia.SimilarityService  - Interest <interested in understanding the mechanics and ubiquity of human stupidity> has no related article
+Invalid article title no ID found
+2011-05-12 00:50:42,454 [main] INFO  macademia.SimilarityService  - Interest <Physical Ed. Recreation & Athletics> has no related article
+14625587 does not have an articleSimilarities entry
+2011-05-12 00:50:43,189 [main] INFO  macademia.SimilarityService  - Interest <Physical Ed. Recreation & Athleticsics> has no related article
+Invalid article title no ID found
+2011-05-12 00:50:43,347 [main] INFO  macademia.SimilarityService  - Interest <predictive injury study> has no related article
+Invalid article title no ID found
+2011-05-12 00:50:45,669 [main] INFO  macademia.SimilarityService  - Interest <Head varsity squash> has no related article
+Invalid article title no ID found
+2011-05-12 00:50:45,936 [main] INFO  macademia.SimilarityService  - Interest <multimedia art> has no related article
+4006619 does not have an articleSimilarities entry
+2011-05-12 00:50:49,656 [main] INFO  macademia.SimilarityService  - Interest <Chhandika Institute of Kathak.> has no related article
+22027492 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:50:52,131 [main] INFO  macademia.SimilarityService  - Interest <including private coaching> has no related article
+Invalid article title no ID found
+2011-05-12 00:50:52,621 [main] INFO  macademia.SimilarityService  - Interest <teaching tennis for more than 17 years> has no related article
+3889973 does not have an articleSimilarities entry
+23402466 does not have an articleSimilarities entry
+18324463 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:50:54,882 [main] INFO  macademia.SimilarityService  - Interest <named 2009 NEWMAC Coach of the Year> has no related article
+Invalid article title no ID found
+2011-05-12 00:50:55,065 [main] INFO  macademia.SimilarityService  - Interest <Coaches soccer> has no related article
+2011-05-12 00:50:55,474 [main] INFO  macademia.SimilarityService  - Interest <with a career record of 24-20-8 at Wellesley (2009 NEWMAC season champions)> has no related article
+2011-05-12 00:50:56,265 [main] INFO  macademia.SimilarityService  - Interest <Teaches and practices yoga as taught by B.K.S. Iyengar. Classes are dynamic and challenging> has no related article
+Invalid article title no ID found
+2011-05-12 00:50:56,379 [main] INFO  macademia.SimilarityService  - Interest <yet respectful of students' abilities> has no related article
+3428169 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:50:59,929 [main] INFO  macademia.SimilarityService  - Interest <2007 NEWMAC Coach of the Year> has no related article
+17119327 does not have an articleSimilarities entry
+17433631 does not have an articleSimilarities entry
+18569026 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:51:05,752 [main] INFO  macademia.SimilarityService  - Interest <ultra-high vacuum> has no related article
+Invalid article title no ID found
+2011-05-12 00:51:08,206 [main] INFO  macademia.SimilarityService  - Interest <introductory and advanced physics laboratories> has no related article
+21138276 does not have an articleSimilarities entry
+24048765 does not have an articleSimilarities entry
+3569670 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:51:13,930 [main] INFO  macademia.SimilarityService  - Interest <physics laboratory> has no related article
+Invalid article title no ID found
+2011-05-12 00:51:14,101 [main] INFO  macademia.SimilarityService  - Interest <lab instrumentation> has no related article
+9933547 does not have an articleSimilarities entry
+2314050 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:51:23,421 [main] INFO  macademia.SimilarityService  - Interest <political dimensions of human development> has no related article
+22810492 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:51:24,506 [main] INFO  macademia.SimilarityService  - Interest <political participation> has no related article
+6156344 does not have an articleSimilarities entry
+9974923 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:51:37,281 [main] INFO  macademia.SimilarityService  - Interest <and neuropsychology> has no related article
+10562465 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:51:38,844 [main] INFO  macademia.SimilarityService  - Interest <relationships> has no related article
+Invalid article title no ID found
+2011-05-12 00:51:49,757 [main] INFO  macademia.SimilarityService  - Interest <gender differences in interaction and influence> has no related article
+Invalid article title no ID found
+2011-05-12 00:51:49,870 [main] INFO  macademia.SimilarityService  - Interest <and reactions to victimization> has no related article
+15383297 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:51:51,500 [main] INFO  macademia.SimilarityService  - Interest <teaching QR and economics of education> has no related article
+Invalid article title no ID found
+2011-05-12 00:51:53,616 [main] INFO  macademia.SimilarityService  - Interest <Liberation Theology of Latin America and Asian religions> has no related article
+Invalid article title no ID found
+2011-05-12 00:51:57,905 [main] INFO  macademia.SimilarityService  - Interest <Russian nature-writing> has no related article
+Invalid article title no ID found
+2011-05-12 00:51:58,876 [main] INFO  macademia.SimilarityService  - Interest <migrants> has no related article
+Invalid article title no ID found
+2011-05-12 00:51:59,939 [main] INFO  macademia.SimilarityService  - Interest <cultural economics> has no related article
+Invalid article title no ID found
+2011-05-12 00:52:04,198 [main] INFO  macademia.SimilarityService  - Interest <travel> has no related article
+Invalid article title no ID found
+2011-05-12 00:52:04,336 [main] INFO  macademia.SimilarityService  - Interest <and cultural institutions> has no related article
+2382358 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:52:13,253 [main] INFO  macademia.SimilarityService  - Interest <Spanish medieval and Golden Age Literaturee and feminist studies> has no related article
+Invalid article title no ID found
+2011-05-12 00:52:15,363 [main] INFO  macademia.SimilarityService  - Interest <nineteenth-century Latin American and Caribbean Literaturee and culture> has no related article
+6957968 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:52:16,612 [main] INFO  macademia.SimilarityService  - Interest <19th and 20th century Latin American and Caribbean literature with an emphasis on politics and history> has no related article
+2011-05-12 00:52:19,964 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: 
+2011-05-12 00:52:19,965 [main] ERROR macademia.PopulateService  - 1
+2011-05-12 00:52:19,965 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: Spanish, Spanish literature, hagiography, gender issues, study-abroad theory and practice.
+2011-05-12 00:52:19,965 [main] ERROR macademia.PopulateService  - 1
+2011-05-12 00:52:19,965 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: 
+2011-05-12 00:52:19,965 [main] ERROR macademia.PopulateService  - 1
+2011-05-12 00:52:19,965 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: 
+2011-05-12 00:52:19,965 [main] ERROR macademia.PopulateService  - 1
+7260179 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:52:23,406 [main] INFO  macademia.SimilarityService  - Interest <with plays produced at the Huntington Theatre> has no related article
+Invalid article title no ID found
+2011-05-12 00:52:23,535 [main] INFO  macademia.SimilarityService  - Interest <playwrights and performers> has no related article
+Invalid article title no ID found
+2011-05-12 00:52:23,700 [main] INFO  macademia.SimilarityService  - Interest <and off-Broadway> has no related article
+Invalid article title no ID found
+2011-05-12 00:52:23,857 [main] INFO  macademia.SimilarityService  - Interest <plays> has no related article
+2234139 does not have an articleSimilarities entry
+23959766 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:52:28,877 [main] INFO  macademia.SimilarityService  - Interest <Asian American visual histories in photography> has no related article
+1096607 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:52:36,345 [main] INFO  macademia.SimilarityService  - Interest <and legal history. In my teaching> has no related article
+Invalid article title no ID found
+2011-05-12 00:52:37,087 [main] INFO  macademia.SimilarityService  - Interest <and other new media. I'm a practicing attorney doing pro bono work on behalf of artists and art organizations in Massachusetts> has no related article
+22469323 does not have an articleSimilarities entry
+2011-05-12 00:52:37,532 [main] ERROR macademia.PopulateService  - unknown institution for wellelsey.edu in /data/shilad/usr/macademia/grails2/stdin: Velenchik, Ann 	Writing Program	avelench@wellelsey.edu	Writing Program directorAssociate Professor
+3084649 does not have an articleSimilarities entry
+Invalid article title no ID found
+2011-05-12 00:52:38,140 [main] INFO  macademia.SimilarityService  - Interest <electronic discourse> has no related article
+Invalid article title no ID found
+2011-05-12 00:52:39,809 [main] INFO  macademia.SimilarityService  - Interest <and interdisciplinarity> has no related article
+2011-05-12 00:52:40,303 [main] ERROR macademia.PopulateService  - illegal line in /data/shilad/usr/macademia/grails2/stdin: 
+2011-05-12 00:52:40,303 [main] ERROR macademia.PopulateService  - 1
+Script ./scripts/LoadPeople.groovy complete! ...
+Application context shutting down...
+Application context shutdown.
+[shilad@poliwiki bow]$ 

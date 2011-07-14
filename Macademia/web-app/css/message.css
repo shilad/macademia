@@ -1,0 +1,49 @@
+#main {
+    margin-top : 50px;
+    width : 600px;
+    margin-right : auto;
+    margin-left : auto;
+    text-align : center;
+}
+
+#main div,span,li,label,p,input,a {
+    font-size : 16px;
+}
+
+#main p {
+    margin : 10px 0px;
+}
+
+#main table {
+    margin : 20px 20px;
+}
+
+#main label {
+    text-align : right;
+    width : 100%;
+    margin : 10px 10px;
+}
+
+#main td {
+    padding-top : 10px;
+    text-align : right;
+}
+
+#main a {
+    color : #fff;
+    text-decoration : underline;
+}
+
+h2 {
+    font-size : 24px;
+    font-weight : bold;
+    margin-bottom : 20px;
+}
+
+.alert {
+    color : #c00;
+    font-weight : bold;
+}
+
+
+

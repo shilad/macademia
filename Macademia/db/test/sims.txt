@@ -1,0 +1,27 @@
+citizenship	politics	0.7
+law	citizenship	0.4
+law	eating disorders	0.3
+media	web20	0.8
+liberaleducation	feministidentity	0.3
+body image	eating disorders	0.7
+public health	feminist psychology	0.4
+nationalism	citizenship	0.9
+NGOs	public health	0.8
+social networks	web 2.0	0.5
+gender	feminist psychology	0.7
+modernism	nationalism	0.3
+the good life	middle classes	0.5
+human rights	nationalism	0.5
+human rights	citizenship	0.85
+globalization	nationalism	0.6
+existentialism	modernism	0.7
+existentialism	heidegger	0.8
+european philosophy	modernism	0.7
+human rights	citizenship	0.65
+war	sudan	0.71
+africa	sudan	0.93
+africa	human rights	0.92
+africa	darfur	0.94
+sudan	darfur	0.89
+africa	humanitarianism	0.935
+humanitarianism	human rights	0.95

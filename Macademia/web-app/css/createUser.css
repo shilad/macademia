@@ -1,0 +1,377 @@
+/**
+ * Reset
+ */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
+    font-size: 14px;
+	font-family: inherit;
+	vertical-align: baseline;
+}
+
+body {
+    background: #A2AB8E;
+    width: 95%;
+    padding: 0px;
+    margin: 0px auto;
+}
+
+.alert {
+    color: #c11;
+    font-size: 1.0em;
+}
+
+.instructions {
+    padding-bottom : 15px;
+    text-align: center;
+}
+.instructions p {
+    font-size: 1.2em;
+    text-align: center;
+}
+#center_wrapper {
+    width: 950px;
+    margin: 0px auto;
+    background: #ffe;
+    z-index: 30;
+    position: relative;
+}
+
+#sidebar {
+    width: 435px;
+    float: right;
+    margin: 0px auto;
+}
+
+#sidebar li {
+    margin-bottom: 5px;
+}
+
+#sidebar a {
+    color: #2F9599;
+}
+
+#profile_picture {
+    width: 90px;
+    margin: 0 auto;
+    text-align: center;
+    display: block;
+}
+
+#change_pf_picture {
+    margin-left: 75px;
+    margin-bottom: 10px;
+}
+
+#edit_profile_container {
+    width: 495px;
+    margin-right: 10px;
+    float: left;
+}
+
+.halfHeader1 {
+    width: 495;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.halfHeader2 {
+    width: 435;
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.left {
+    float: left;
+    padding: 10px;
+}
+
+.left1 {
+    width: 180px;
+}
+
+.left2 {
+    width: 120px;
+}
+
+.left label {
+    font-size: 1.2em;
+}
+
+.left label span {
+    font-size: 0.833em;
+    padding-top: 6px;
+    font-style: italic;
+    font-family: Arial;
+    display: block;
+    color: #4F6F6E;
+}
+
+.right {
+    /*background: none repeat scroll 0 0 #FFFFFF;*/
+    float: left;
+    padding: 20px 10px 13px 10px;
+    width: 260px;
+}
+
+.topBorder {
+     border-top: 1px solid #D7D7D7;
+}
+
+.right input {
+    padding: 3px;
+    width: 250px;
+    height: 30px;
+    font-size: 1.2em;
+}
+
+.right input, .right textarea {
+    border: thin 1px #ccc;
+
+}
+
+#editInterests {
+    padding: 3px;
+    width: 270px;
+    font-size: 1.0em;
+    height: 150px;
+    font-family: Helvetica;
+}
+
+.clear {
+    height: 0;
+    clear: both;
+}
+
+#submit_edits {
+    margin-top: 10px;
+    background-color: #FFFFEE;
+    text-align: center;
+    font-size: 1.4em;
+}
+
+#submit_edits input {
+    margin-bottom: 20px;
+    font-size: 1.0em;
+}
+
+#submit_edits a {
+    font-size: 1.0em;
+}
+
+#account_delete {
+    margin-top: 10px;
+    background-color: #FFFFEE;
+    text-align: center;
+    font-size: 1.4em;
+}
+
+
+/**
+ * Link editing.
+ */
+.customLinkTemplate {
+    display : none;
+}
+
+.customLink {
+    overflow : hidden;
+    width : 90%;
+    clear : both;
+    background-color : #fff;
+    border : solid 1px #d7d7d7;
+    padding : 5px;
+    margin-bottom : 5px;
+}
+
+
+.customLinkCaption {
+    overflow : hidden;
+    width : 100%;
+    clear : both;
+}
+
+.linkNumber, .institutionNumber{
+    text-align: center;
+    float: left;
+    margin: 0 6px 0 0;
+    vertical-align : bottom;
+    position :relative;
+    top : 3px;
+}
+
+.linkValue, .otherinstitutionURL {
+    width: 40%;
+    font-size: 1em;
+    text-align: center;
+    float: left;
+    margin: 0px 10px 0 0;
+}
+
+.linkField, .otherInstitutionField {
+    width: 40%;
+    font-size: 1em;
+    text-align: center;
+    float: left;
+    margin: 0px 20px 0 0;
+}
+
+.customLinkCaption .linkField, .customLinkCaption .linkValue, .customLinkCaption .otherInstitutionField, .customLinkCaption .otherInstitutionURL {
+    font-size: 1em;
+    font-family: Arial;
+    font-style: italic;
+    color:#4F6F6E;
+}
+
+.linkField input, .linkValue input , .otherInstitutionField input, .otherInstitutionURL input{
+    width: 100%;
+}
+
+.fieldLabel {
+    text-align: right;
+    background-color: #FFFFEE
+}
+
+.removeLink {
+    float: left;
+    text-decoration : none;
+    position : relative;
+    top : 3px;
+}
+
+.removeLink img {
+    height : 12px;
+    width : 12px;
+}
+
+
+.addItemDiv {
+    padding-top : 8px;
+    clear: both;
+}
+
+
+
+/**
+ * Image uploading.
+ */
+.editPicture {
+    font-size: 1em;
+    text-align: center;
+    line-height: 1.25em;
+}
+
+.editPicture .links {
+    position: relative;
+    font-size: 1.2em;
+}
+
+.editPicture .links a {
+    z-index: -1;
+}
+
+#imgUploaderUploader {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100px;
+    height: 25px;
+    z-index: 100;
+}
+
+
+.center {
+    text-align: center;
+    
+}
+
+h4 {
+    font-size : 1.2em;
+}
+
+h2 {
+    font-size: 1.6em;
+    font-weight: bold;
+}
+
+#tagContainer {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    min-width:950px;
+    text-align: center;
+    color: #d0d3b3;
+    z-index: -10;
+}
+
+#tagContainer a {
+    color: #ffe;
+    /*text-decoration:underline;*/
+}
+
+#tagline {
+    position: relative;
+    margin: auto;
+    text-align: center;
+    font-family: serif;
+    font-size: 1.0em;
+    width: auto;
+}
+
+#taglineLinks {
+    color: #ffe;
+    font-size: 1.0em;
+}
+#taglineLinks a {
+    padding : 10px;
+}
+
+#logoImage {
+    padding-bottom: 10px;
+    position: absolute;
+    left: 20px;
+    top: 10px;
+}
+
+#registerTitle {
+    margin-left:auto;
+    margin-right:auto;
+    width: 950px;
+    background: #FFFFEE;
+    z-index: -30;
+    font-size: 2.0em;
+    padding: 10px 0 10px 0;
+}
+.warning {
+    background:#FFDDDD;
+    color : #A44;
+    font-size:1.2em;
+    text-align: center;
+    display: none;
+}
+
+.progressBar {
+    display : none;
+    backbground-color : #FFDDDD;
+}
+.progressBar span { 
+    font-size : 1.2em;
+    margin : 3px;
+    position : absolute;
+}
+    
+

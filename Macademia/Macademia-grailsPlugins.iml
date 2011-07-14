@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="web" name="GrailsWeb">
+      <configuration>
+        <webroots>
+          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/jquery-1.4.2.2/web-app" relative="/" />
+          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/richui-0.6/web-app" relative="/" />
+          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/searchable-0.5.5/web-app" relative="/" />
+          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/ui-performance-1.2.2/web-app" relative="/" />
+          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/searchable-0.5.5/web-app" relative="/" />
+        </webroots>
+        <sourceRoots />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/hibernate-1.3.4" />
+    <content url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/jquery-1.4.2.2">
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/jquery-1.4.2.2/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/jquery-1.4.2.2/grails-app/services" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/jquery-1.4.2.2/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/mail-0.9">
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/mail-0.9/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/mail-0.9/grails-app/services" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/mail-0.9/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/richui-0.6">
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/richui-0.6/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/richui-0.6/grails-app/controllers" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/richui-0.6/grails-app/services" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/richui-0.6/grails-app/taglib" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/searchable-0.5.5">
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/searchable-0.5.5/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/searchable-0.5.5/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/searchable-0.5.5/grails-app/controllers" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/searchable-0.5.5/grails-app/services" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/tomcat-1.3.4">
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/tomcat-1.3.4/src/groovy" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/ui-performance-1.2.2">
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/ui-performance-1.2.2/src/java" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/ui-performance-1.2.2/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/ui-performance-1.2.2/grails-app/taglib" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="grails-1.3.4" level="application" />
+    <orderEntry type="module-library" exported="">
+      <library name="Grails User Library">
+        <CLASSES>
+          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/tomcat-1.3.4/lib" />
+          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/mail-0.9/lib" />
+          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/richui-0.6/lib" />
+          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/ui-performance-1.2.2/lib" />
+          <root url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/searchable-0.5.5/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/mail-0.9/lib" recursive="false" />
+        <jarDirectory url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/richui-0.6/lib" recursive="false" />
+        <jarDirectory url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/searchable-0.5.5/lib" recursive="false" />
+        <jarDirectory url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/tomcat-1.3.4/lib" recursive="false" />
+        <jarDirectory url="file://$USER_HOME_GRAILS$/1.3.4/projects/Macademia/plugins/ui-performance-1.2.2/lib" recursive="false" />
+      </library>
+    </orderEntry>
+  </component>
+</module>
+

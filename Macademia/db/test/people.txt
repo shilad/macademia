@@ -1,0 +1,71 @@
+Shilad Sen	Math/CS	ssen@macalester.edu	online communities
+Shilad Sen	Math/CS	ssen@macalester.edu	social networking
+Shilad Sen	Math/CS	ssen@macalester.edu	data mining
+Shilad Sen	Math/CS	ssen@macalester.edu	machine learning
+Shilad Sen	Math/CS	ssen@macalester.edu	web2.0
+Shilad Sen	Math/CS	ssen@macalester.edu	politics
+Shilad Sen	Math/CS	ssen@macalester.edu	social psychology
+Shilad Sen	Math/CS	ssen@macalester.edu	group psychology
+Shilad Sen	Math/CS	ssen@macalester.edu	statistics
+Shilad Sen	Math/CS	ssen@macalester.edu	collaborative computing
+Shilad Sen	Math/CS	ssen@macalester.edu	moderation
+Shilad Sen	Math/CS	ssen@macalester.edu	online contributions
+Shilad Sen	Math/CS	ssen@macalester.edu	recommender systems
+Shilad Sen	Math/CS	ssen@macalester.edu	social networks
+Shilad Sen	Math/CS	ssen@macalester.edu	tagging
+Jaine Strauss	Psychology	strauss@macalester.edu	body image
+Jaine Strauss	Psychology	strauss@macalester.edu	eating disorders
+Jaine Strauss	Psychology	strauss@macalester.edu	body objectification
+Jaine Strauss	Psychology	strauss@macalester.edu	childhood obesity
+Jaine Strauss	Psychology	strauss@macalester.edu	feminist identity
+Jaine Strauss	Psychology	strauss@macalester.edu	nutritional epidemiology
+Jaine Strauss	Psychology	strauss@macalester.edu	psychotherapy research
+Jaine Strauss	Psychology	strauss@macalester.edu	structural analysis of social behavior (SASB)
+Jaine Strauss	Psychology	strauss@macalester.edu	media
+Jaine Strauss	Psychology	strauss@macalester.edu	clinical psychology
+Jaine Strauss	Psychology	strauss@macalester.edu	feminist psychology
+Jaine Strauss	Psychology	strauss@macalester.edu	public health
+Jaine Strauss	Psychology	strauss@macalester.edu	community psychology
+Arjun Guneratne	anthropology	guneratne@macalester.edu	ethnicity
+Arjun Guneratne	anthropology	guneratne@macalester.edu	globalization
+Arjun Guneratne	anthropology	guneratne@macalester.edu	law
+Arjun Guneratne	anthropology	guneratne@macalester.edu	middle classes
+Arjun Guneratne	anthropology	guneratne@macalester.edu	nationalism
+Arjun Guneratne	anthropology	guneratne@macalester.edu	Nepal
+Arjun Guneratne	anthropology	guneratne@macalester.edu	NGOs
+Arjun Guneratne	anthropology	guneratne@macalester.edu	politics
+Arjun Guneratne	anthropology	guneratne@macalester.edu	South Asia
+Arjun Guneratne	anthropology	guneratne@macalester.edu	Sri Lanka
+Arjun Guneratne	anthropology	guneratne@macalester.edu	state formation
+Arjun Guneratne	anthropology	guneratne@macalester.edu	wildlife conservation
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	ethics of emerging technologies
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	European philosophy
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	existentialism
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	Heidegger
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	hermeneutics
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	information technology
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	liberal education
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	philosophy of technology
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	the good life
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	the right to privacy
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	Web 2.0
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	architecture
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	modernism
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	environmentalism
+Diane Michelfelder	philosophy	michelfelder@macalester.edu	everyday material life
+Dianna Shandy	anthropology	shandy@macalester.edu	Africa
+Dianna Shandy	anthropology	shandy@macalester.edu	anthropology
+Dianna Shandy	anthropology	shandy@macalester.edu	citizenship
+Dianna Shandy	anthropology	shandy@macalester.edu	Darfur
+Dianna Shandy	anthropology	shandy@macalester.edu	forced migration
+Dianna Shandy	anthropology	shandy@macalester.edu	gender
+Dianna Shandy	anthropology	shandy@macalester.edu	human rights
+Dianna Shandy	anthropology	shandy@macalester.edu	humanitarianism
+Dianna Shandy	anthropology	shandy@macalester.edu	immigrants
+Dianna Shandy	anthropology	shandy@macalester.edu	Ireland
+Dianna Shandy	anthropology	shandy@macalester.edu	qualitative research methods
+Dianna Shandy	anthropology	shandy@macalester.edu	rapid social change
+Dianna Shandy	anthropology	shandy@macalester.edu	Sudan
+Dianna Shandy	anthropology	shandy@macalester.edu	Transnationalism
+Dianna Shandy	anthropology	shandy@macalester.edu	war
+Dianna Shandy	anthropology	shandy@macalester.edu	work-life choices
