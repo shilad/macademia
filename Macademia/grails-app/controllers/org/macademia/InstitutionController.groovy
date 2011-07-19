@@ -43,7 +43,7 @@ class InstitutionController {
             return
         } else if (params.group) {
             InstitutionGroup g = institutionGroupService.findByAbbrev(params.group)
-            if (request.authenticated.memberOfAny(g.institutions)) {
+            if (request.authenticated.memberOfAny(g.institutions.id)) {
                 render (params.group)
                 return
             }

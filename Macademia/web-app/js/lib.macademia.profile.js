@@ -257,7 +257,11 @@ macademia.links.addNewInstitution = function(linkName, linkUrl) {
         newDiv.find('.otherInstitutionURL input').val(linkUrl);
     }
 
-    $(".otherInstitutions .customLinkCaption").before(newDiv);
+    if (linkUrl) {
+        $(".otherInstitutions .customLinkTemplate").after(newDiv);
+    } else {
+        $(".otherInstitutions .customLinkCaption").before(newDiv);
+    }
 
     newDiv.find("a.removeLink").click(
                 function () {

@@ -7707,7 +7707,7 @@ Layouts.Radial = new Class({
         // computes levelOneInfo, levelTwoInfo, and sum of angular widths, levelOneNodes, totalSubnodes
         graph.eachBFS(this.root,function(elem){
             // if the node is the root node
-            if (elem.id == root.id){
+            if (elem.id == root.id || elem._depth > 2){
                 return
             }
             // if the node is an interest or a person directly connected to the root
@@ -7754,26 +7754,25 @@ Layouts.Radial = new Class({
         while (macademia.size(levelTwoInfo) > 0) {
             // for each node in the first level
             for(var m = 0; m<levelOneNodes.length; m++){
-                var parentNode = levelOneNodes[m];
-                var parentInfo = levelOneInfo[parentNode.id];
+                var parentInfoReference = levelOneInfo[levelOneNodes[m].id];
+                var parentInfoSubnodes = parentInfoReference.subnodes;
                 // subnode is not yet placed
-                var placed = false;
                 // while subnode is not yet placed, and the parent node still has subnodes to place
-                while(!placed && parentInfo.subnodes.length>0){
-                    var node = parentInfo.subnodes[0];
+                while(parentInfoSubnodes.length>0){
+                    var node = parentInfoSubnodes[0];
                     // if this node is not yet placed (levelTwoInfo entry is false)
                     if(levelTwoInfo[node.id]){
                         // node is marked as placed
                         delete levelTwoInfo[node.id];
-                        // subnode is placed, goes onto next levelOneNode and places one subnode
-                        placed = true;
                         // node is added to individual list of actual subnodes to be placed under parent node
-                        parentInfo.actualSubnodes.push(node);
+                        parentInfoReference.actualSubnodes.push(node);
                         // node removed from parent's total subnode list
-                        parentInfo.subnodes.splice(0,1);
-                    }else{
+                        parentInfoSubnodes.splice(0,1);
+                        // subnode is placed, goes onto next levelOneNode and places one subnode
+                        break;
+                    } else{
                         //node is removed from parent's total subnode list to prevent it from being cycled through more than necessary
-                        parentInfo.subnodes.splice(0,1);
+                        parentInfoSubnodes.splice(0,1);
                     }
                 }
             }
@@ -7796,18 +7795,15 @@ Layouts.Radial = new Class({
         function levelOnePolarCoord(node){
                 var nodeInfo = levelOneInfo[node.id];
                 // determines angularWidths and angleSpans
-                var nodeAngularWidths = 0;
+                nodeInfo.angularWidths = 0;
                 // goes through each subnode to get total angular widths for each node
                 for (var x = 0; x < nodeInfo.actualSubnodes.length; x++){
                     var sib = nodeInfo.actualSubnodes[x];
-                    nodeAngularWidths += sib._treeAngularWidth;
+                    nodeInfo.angularWidths += sib._treeAngularWidth;
                 }
-                var nodeAngleSpan = node.angleSpan.end - node.angleSpan.begin;
-                var nodeAngleInit = node.angleSpan.begin;
                 //set values to be used in placing nodes in second level
-                nodeInfo.angleSpan = nodeAngleSpan;
-                nodeInfo.angleInit = nodeAngleInit;
-                nodeInfo.angularWidths = nodeAngularWidths;
+                nodeInfo.angleSpan = node.angleSpan.end - node.angleSpan.begin;
+                nodeInfo.angleInit = node.angleSpan.begin;
                 var len = config.levelDistance;
                 // if node is person or request, place in outer ring
                 if (node.data.type == 'person' || node.data.type == 'request'){
@@ -7838,12 +7834,10 @@ Layouts.Radial = new Class({
         }
         // loops through level one nodes to set their polar coords
         for(var j=0; j<levelOneNodes.length/2; j++){
-            var node1 = levelOneNodes[j];
-            levelOnePolarCoord(node1);
+            levelOnePolarCoord(levelOneNodes[j]);
             var g = levelOneNodes.length - j - 1;
             if (g != j){
-                var node2 = levelOneNodes[g];
-                levelOnePolarCoord(node2);
+                levelOnePolarCoord(levelOneNodes[g]);
             }
         }
 
@@ -7851,8 +7845,7 @@ Layouts.Radial = new Class({
 
         // sets polar coordinates for level two nodes
         for(var m = 0; m<levelOneNodes.length; m++){
-            var parentNode = levelOneNodes[m];
-            var parentNodeInfo = levelOneInfo[parentNode.id];
+            var parentNodeInfo = levelOneInfo[levelOneNodes[m].id];
             // for every actual subnode of the parent node
             for (var n = 0; n<parentNodeInfo.actualSubnodes.length; n++){
                 var node = parentNodeInfo.actualSubnodes[n];

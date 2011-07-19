@@ -153,9 +153,10 @@ The Macademia Team
         person.email = params.email.toLowerCase()
         println "person's email is ${person.email}"
         // Handle interest splitting
-        person.interests = []
         if (params.interests){
-            interestParse(person)
+            interestService.parseInterests(params.interests).each({
+                person.addToInterests(it)
+            })
         } else {
             person.invisible = true
         }
@@ -271,11 +272,11 @@ The Macademia Team
               view: 'createUser',
                 model: [
                       user : new Person(),
-                      interests : "",
+                      interests : params.interests ? params.interests : "",
                       allInstitutions : jsonService.makeJsonForInstitutions() as JSON,
                       otherInstitutions : [:] as JSON
               ]
-      )
+        )
     }
 
     def login = {
@@ -374,9 +375,10 @@ The Macademia Team
                 render("Updated details for user [$person.id] $person.email are invalid")
             } else {
                 def oldInterests = person.interests
-                person.interests = []
                 if (params.interests){
-                    interestParse(person)
+                    interestService.parseInterests(params.interests).each({
+                        person.addToInterests(it)
+                    })
                     person.invisible = false
                 } else {
                     person.invisible = true
@@ -400,25 +402,4 @@ The Macademia Team
 
     }
 
-    private void interestParse(Person person) {
-      //TODO: refactor with requests?
-        String[] tokens = tokenizer(params.interests)
-        for (i in tokens){
-            if (i.trim().length() != 0) {
-                Interest existingInterest = interestService.findByText(i)
-                if (existingInterest != null){
-                    person.addToInterests(existingInterest)
-                } else {
-                    Interest newInterest = new Interest(i)
-                    person.addToInterests(newInterest)
-
-                }
-            }
-        }
-    }
-
-
-    private String[] tokenizer(String allInterests){
-        return allInterests.trim().split(",")
-    }
 }

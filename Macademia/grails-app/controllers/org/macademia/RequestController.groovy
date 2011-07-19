@@ -63,9 +63,10 @@ class RequestController {
         }
         collaboratorRequest.creator = request.authenticated
         def oldKeywords = collaboratorRequest.keywords
-        collaboratorRequest.keywords = []
         if (params.keywords){
-            keywordParse(collaboratorRequest)
+            interestService.parseInterests(params.interests).each({
+                collaboratorRequest.addToKeywords(it)
+            })
         }
         interestService.deleteOld(oldKeywords, collaboratorRequest)
         collaboratorRequestService.save(collaboratorRequest)
@@ -193,30 +194,5 @@ class RequestController {
 
         [target: target, link: link, close: close, exact: exact, linkName: linkName]
     }
-
-
-    private void keywordParse(CollaboratorRequest request) {
-      // TODO: refactoring interestParse in account controller and this one into the same function.
-        String[] tokens = tokenizer(params.keywords)
-        for (i in tokens){
-            if (i.trim().length() != 0) {
-                Interest existingKeyword = interestService.findByText(i);
-                if (existingKeyword != null){
-                    request.addToKeywords(existingKeyword)
-                } else {
-                    Interest newKeyword = new Interest(i);
-                    request.addToKeywords(newKeyword)
-                    // onPostinsert doesn't work for newKeyword - i need to use interestService.save
-                    // For some reason, this is fine for account controller
-                    interestService.save(newKeyword)
-                }
-            }
-        }
-    }
-
-    private String[] tokenizer(String allInterests){
-        return allInterests.trim().split(",")
-    }
-
 
 }

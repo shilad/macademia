@@ -161,8 +161,7 @@
 
   <div id="account_delete">
     <g:if test="${user.id}">
-          <g:hiddenField name="personId" value="${user.id}"/>
-          <g:link url="[controller:'account',action:'delete', params: [group : params.group] ]" onclick="return confirm('Are you sure you want to delete this account?')">Delete Account</g:link>
+          <g:link base="/Macademia/${params.group}" controller='account' action='delete' params= "[personId: params.id]" onclick="return confirm('Are you sure you want to delete this account?')">Delete Account</g:link>
     </g:if>
   </div>
 

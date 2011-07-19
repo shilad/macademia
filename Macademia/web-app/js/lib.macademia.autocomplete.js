@@ -28,19 +28,20 @@
                             if (data[i][2] == "institution"){
                                 result.push({
                                     label : data[i][1],
-                                    data : data[i]
+                                    data : data[i],
+                                    desc: ""
                                 })
                             } else if(data[i][2] == "person"){
                                 result.push({
-
-                                    label : data[i][1] + " (" + data[i][3] + ")",
-                                    data : data[i]
+                                    label : data[i][1],
+                                    data : data[i],
+                                    desc: " (" + data[i][3] + ")"
                                 })
                             } else {
                                 result.push({
-
-                                    label : data[i][1] + " (" + data[i][2] + ")",
-                                    data : data[i]
+                                    label : data[i][1],
+                                    data : data[i],
+                                    desc: " (" + data[i][2] + ")"
                                 })
                             }
                         }
@@ -51,8 +52,13 @@
         };
 
         if (settings) $.extend(config, settings);
-        this.autocomplete(config);
-
+        this.autocomplete(config)
+            .data( "autocomplete")._renderItem = function( ul, item ) {
+            return $( "<li></li>" )
+                    .data( "item.autocomplete", item )
+                    .append( "<a>" + item.label + item.desc + "</a>" )
+                    .appendTo( ul );
+        };
         return this;
 
     };

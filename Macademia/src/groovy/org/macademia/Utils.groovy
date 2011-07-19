@@ -28,7 +28,12 @@ class Utils {
     }
 
     public static String makeUrl(String group, String controller, String action, Map params) {
-        String url = "/${group}/${controller}/${action}"
+        String url
+        if (group) {
+            url = "/${group}/${controller}/${action}"
+        } else {
+            url = "/${controller}/${action}"
+        }
         if (params.id) {
             url += "/${params.id}"
         }

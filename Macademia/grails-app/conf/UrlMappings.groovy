@@ -2,6 +2,12 @@ import org.macademia.MacademiaConstants
 
 class UrlMappings {
     static mappings = {
+      "/survey/$action?/$id?" {
+          controller = 'survey'
+          constraints {
+			 // apply constraints here
+		  }
+      }
       "/$group/$controller/$action?/$id?"{
 	      constraints {
 			 // apply constraints here
