@@ -11,7 +11,11 @@ class Json2Service {
  *              id:long
  *               name:string
  *               pic:string
- *               relevence:double
+ *               relevence:{
+ *                         overall:double,
+ *                         id1:double
+ *                         ...
+ *               }
  *               interests:[id1, id2 ...]
  *           }
  *  interests:{
@@ -64,7 +68,7 @@ class Json2Service {
                 id: p.id,
                 name: p.fullName,
                 pic: "http://s3.amazonaws.com/kym-assets/photos/images/original/000/000/169/leekspin.gif",
-                relevence: -1,
+                relevence: [:],
                 interests: interests
         ]
     }
@@ -85,7 +89,7 @@ class Json2Service {
         graph.clusterRootInterests()
         for (Person p: graph.getPeople()){
             personNodes[p.id] = makeJsonPerson(p)
-            personNodes[p.id]['relevence'] = graph.personScores[p.id].score[0]
+            personNodes[p.id]['relevence']['overall'] = graph.personScores[p.id].score[0]
             for (Edge e: graph.getAdjacentEdges(p)){
                 e.reify()
                 def iid = e.interest.id
@@ -104,16 +108,32 @@ class Json2Service {
 
 
     def buildQueryCentricGraph(Set<Long> qset, Graph graph){
-        HashSet<Long> queryIds = []
-        for (Long q: qset) {
-          queryIds.add(q)
+        def basejson = buildJsonForGraph(graph)
+        for (Person p : graph.getPeople()){
+            for (Edge e : graph.getAdjacentEdges(p)){
+                if (qset.contains(e.interestId)){
+                    basejson['people'][p.id]['relevence'][e.interestId] = e.sim
+                }
+            }
         }
-
-        return ['queries':queryIds] + buildJsonForGraph(graph)
+        return ['queries':qset] + basejson
     }
 
     def buildExplorationCentricGraph(Object root, Graph graph){
-        return ['root':root.id] + buildJsonForGraph(graph)
+        def basejson = buildJsonForGraph(graph)
+        def clusters=[:]
+        for(MapEntry e: graph.interestClusters.entrySet()){
+            if(!clusters[e.value]){
+                clusters[e.value] = []
+            }
+            clusters[e.value].add(e.key)
+        }
+        for (Person p : graph.getPeople()){
+            for (Integer cid : clusters.keySet()){
+                basejson['people'][p.id]['relevence'][cid] = graph.clusterSimilarity(p.interests.collect({ it.id }) as Collection<Long>, clusters[cid] as Collection<Long> )
+            }
+        }
+        return ['root':root.id] + basejson
     }
 
 }
