@@ -8,9 +8,14 @@ class Json2Service {
 /* buildJsonForGraph returns base json map in format
  *  {people:{
  *           id:{
- *              id:long
+ *               id:long
  *               name:string
  *               pic:string
+ *               fake:{
+ *                     id:long
+ *                     name:string
+ *                     pic:string
+ *                     }
  *               relevence:{
  *                         overall:double,
  *                         id1:double
@@ -48,6 +53,7 @@ class Json2Service {
     int DEFAULT_MAX_INTERESTS_INTEREST_CENTRIC = 25
     def similarity2Service
     def interestService
+    def pseudonymService
 
     boolean transactional = true
 
@@ -59,15 +65,17 @@ class Json2Service {
          ]
     }
 
-    def makeJsonPerson(Person p) {
+    def makeJsonPerson(Person p, Long sid) {
         def interests = []
         for (i in p.interests){
             interests.add(i.id)
         }
+        def fakedata = pseudonymService.getFakeData(sid, p.id)
         return [
                 id: p.id,
-                name: p.fullName,
-                pic: "http://s3.amazonaws.com/kym-assets/photos/images/original/000/000/169/leekspin.gif",
+                fid: fakedata.id,
+                name: fakedata.name,
+                pic: fakedata.pic,
                 relevence: [:],
                 interests: interests
         ]
@@ -83,12 +91,12 @@ class Json2Service {
 
 
 
-    def buildJsonForGraph(Graph graph){
+    def buildJsonForGraph(Graph graph, Long sid){
         Map<Long, Object> personNodes = [:]
         Map<Long, Object> interestNodes = [:]
         graph.clusterRootInterests()
         for (Person p: graph.getPeople()){
-            personNodes[p.id] = makeJsonPerson(p)
+            personNodes[p.id] = makeJsonPerson(p, sid)
             personNodes[p.id]['relevence']['overall'] = graph.personScores[p.id].score[0]
             for (Edge e: graph.getAdjacentEdges(p)){
                 e.reify()
@@ -107,8 +115,8 @@ class Json2Service {
     }
 
 
-    def buildQueryCentricGraph(Set<Long> qset, Graph graph){
-        def basejson = buildJsonForGraph(graph)
+    def buildQueryCentricGraph(Set<Long> qset, Graph graph, Long sid){
+        def basejson = buildJsonForGraph(graph, sid)
         for (Person p : graph.getPeople()){
             for (Edge e : graph.getAdjacentEdges(p)){
                 if (qset.contains(e.interestId)){
@@ -119,8 +127,8 @@ class Json2Service {
         return ['queries':qset] + basejson
     }
 
-    def buildExplorationCentricGraph(Object root, Graph graph){
-        def basejson = buildJsonForGraph(graph)
+    def buildExplorationCentricGraph(Object root, Graph graph, Long sid){
+        def basejson = buildJsonForGraph(graph, sid)
         def clusters=[:]
         for(MapEntry e: graph.interestClusters.entrySet()){
             if(!clusters[e.value]){
@@ -136,4 +144,11 @@ class Json2Service {
         return ['root':root.id] + basejson
     }
 
+    def buildExplorationCentricGraph(Object root, Graph graph){
+        buildExplorationCentricGraph(root,graph,0)
+    }
+
+    def buildQueryCentricGraph(Set<Long> qset, Graph graph){
+        buildQueryCentricGraph(qset, graph, 0)
+    }
 }
