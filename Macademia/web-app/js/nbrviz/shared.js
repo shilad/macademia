@@ -61,7 +61,7 @@ macademia.nbrviz.calculateRelatedInterestPositions  = function(relatedInterests,
         nodePositions=[],
         textPositions=[];
 
-    for (var i=0; i < relatedInterests.length; i++){
+    $.each(relatedInterests, function(i, related) {
         var angle = angleSlice*i;
 
         var nodePositionX = xPos + radius * Math.cos(startAngle + angleSlice / 2 + angle),
@@ -69,11 +69,10 @@ macademia.nbrviz.calculateRelatedInterestPositions  = function(relatedInterests,
 
         nodePositions.push([nodePositionX, nodePositionY]);
 
-
-        var textPositionX = Math.cos(startAngle + angleSlice / 2 + angle) * (4 * relatedInterests[i].name.length + textOffset),
+        var textPositionX = Math.cos(startAngle + angleSlice / 2 + angle) * (4 * related.name.length + textOffset),
             textPositionY = Math.sin(startAngle + angleSlice / 2 + angle) * textOffset;
 
         textPositions.push([nodePositionX + textPositionX, nodePositionY - textPositionY]);
-    }
+    });
     return [nodePositions, textPositions];
 }
