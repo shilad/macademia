@@ -13,7 +13,7 @@ function InterestCluster(params) {
     this.xPos = params.xPos,
     this.yPos = params.yPos,
     this.relatedInterests = params.relatedInterests,
-    this.color = params.color;
+    this.color = params.color || 0.1;
 
     if(params.name) {
         this.name = params.name,
@@ -235,3 +235,14 @@ InterestCluster.prototype.resetNodePositions = function(relatedInterestNodes, no
         textPositions[i][1] = relatedInterestNodes[i][3].attr("y");
     });
 };
+
+/**
+ * relatedInterest object constructor
+ * @ param color of the relatedInterest
+ * @ author Emi Lim
+ */
+function RelatedInterest(people, text, color){
+    this.people = people,
+    this.name = text,
+    this.color = color;
+}
