@@ -26,6 +26,13 @@ class QueryController {
       Set<Long> qset = params.qset.tokenize("c_").collect({ it.toLong() })
       Graph graph = similarity2Service.calculateQueryNeighbors(qset, max)
       def data = json2Service.buildQueryCentricGraph(qset, graph)
-      render(data as JSON)
+      return data as JSON
+  }
+
+  def show = {
+    render(view : 'show', model : [
+            qset: params.qset,
+            json: json()
+    ])
   }
 }
