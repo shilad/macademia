@@ -26,14 +26,14 @@ class Similarity2ServiceIntegrationTests extends GrailsUnitTestCase {
         def shilad = Person.findByEmail("ssen@macalester.edu")
         assertNotNull(shilad)
         Interest interest = interestService.findByText("web2.0")
-        Graph graph = similarity2Service.calculateExplorationNeighbors(interest, 10, 100)
+        Graph graph = similarity2Service.calculateExplorationNeighbors(interest)
         assertEquals(graph.getPeople().size(),3)
         assertEquals(graph.getInterests().size(),7)
     }
 
     void testCalculateExplorationNeighborsPeople() {
         Person p=Person.findByEmail("michelfelder@macalester.edu")
-        Graph graph= similarity2Service.calculateExplorationNeighbors(p,10)
+        Graph graph= similarity2Service.calculateExplorationNeighbors(p)
         assertEquals(graph.getAdjacentEdges(p).size(),15)
         Edge e = new Edge(person:Person.findByEmail("ssen@macalester.edu"),interest:interestService.findByText("existentialism"), relatedInterest:interestService.findByText("web2.0"))
         assertFalse(graph.getAdjacentEdges(Person.findByEmail("ssen@macalester.edu")).contains(e))
@@ -46,7 +46,7 @@ class Similarity2ServiceIntegrationTests extends GrailsUnitTestCase {
     void testCalculateQueryNeighbors(){
         Person p = Person.findByEmail("ssen@macalester.edu")
         def qset = p.interests.collect({it.id}) as Set
-        Graph graph = similarity2Service.calculateQueryNeighbors(qset,10)
+        Graph graph = similarity2Service.calculateQueryNeighbors(qset)
         Graph graph2 = similarityService.calculatePersonNeighbors(p,10)
         assertEquals(graph.people, graph2.people)
     }

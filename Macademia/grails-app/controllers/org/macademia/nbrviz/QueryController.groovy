@@ -16,15 +16,9 @@ class QueryController {
   def similarity2Service
 
   def json = {
-      def max
-      if(params.maxPerson){
-          max = params.maxPerson as int
-      }
-      else{
-          max = 25
-      }
+
       Set<Long> qset = params.qset.tokenize("c_").collect({ it.toLong() })
-      Graph graph = similarity2Service.calculateQueryNeighbors(qset, max)
+      Graph graph = similarity2Service.calculateQueryNeighbors(qset)
       def data = json2Service.buildQueryCentricGraph(qset, graph)
       return data as JSON
   }

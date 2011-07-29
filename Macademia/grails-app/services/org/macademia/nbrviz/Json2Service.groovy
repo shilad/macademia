@@ -92,7 +92,7 @@ class Json2Service {
     }
 
 
-    def buildJsonForGraph(Graph graph){
+    def buildJsonForGraph(Graph graph, Long sid){
         Map<Long, Object> personNodes = [:]
         Map<Long, Object> interestNodes = [:]
         graph.clusterRootInterests()

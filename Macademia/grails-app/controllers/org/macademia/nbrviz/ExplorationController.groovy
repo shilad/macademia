@@ -26,32 +26,15 @@ class ExplorationController {
   }
 
   def personJson = {
-    def max
-    if(params.maxPerson){
-      max = params.maxPerson as int
-    }
-    else{
-      max = 25
-    }
     def root = personService.get(params.id.toLong())
-    Graph graph = similarity2Service.calculateExplorationNeighbors(root, max)
+    Graph graph = similarity2Service.calculateExplorationNeighbors(root)
     def data = json2Service.buildExplorationCentricGraph(root, graph)
     return(data as JSON)
   }
 
   def interestJson = {
-      def max
-      def maxint
-      if(params.maxPerson){
-          max = params.maxPerson as int
-          maxint = 15
-      }
-      else{
-          max = 25
-          maxint = 15
-      }
       def root = interestService.get(params.id.toLong())
-      Graph graph = similarity2Service.calculateExplorationNeighbors(root, max, maxint)
+      Graph graph = similarity2Service.calculateExplorationNeighbors(root)
       def data = json2Service.buildExplorationCentricGraph(root, graph)
       return(data as JSON)
   }
