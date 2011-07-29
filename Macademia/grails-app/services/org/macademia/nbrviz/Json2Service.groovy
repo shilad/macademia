@@ -2,55 +2,57 @@ package org.macademia.nbrviz
 
 import org.macademia.*
 
-
+/**
+ * This Service supplies data in the JSON format for the construction
+ * of the new visualizations.  This data will be slightly different
+ * depending upon which graph type, query or exploration, is being
+ * constructed.
+ *
+ * The following JSON is common between the two visualizations, and
+ * is the return value of buildJsonForGraph:
+ *
+ * [
+ *      people: [
+ *          p_id1: [
+ *              id: long
+ *              name: string
+ *              pic: string
+ *              relevence: [
+ *                  overall: double,
+ *                  id1: double
+ *                  ...
+ *              ]
+ *              interests: [id1, id2 ...]
+ *          ],
+ *          p_id2: [ ... ], ...
+ *      ]
+ *      interests: [
+ *          i_id1: [
+ *              id: long
+ *              name: string
+ *              cluster: int
+ *          ],
+ *          i_id2: [ ... ], ...
+ *      ]
+ * ]
+ *
+ * The query visualization adds the following data to the common
+ * datastructure by calling buildQueryCentricGraph:
+ *
+ * [queries: [id1, id2...]] + jsonForGraph
+ *
+ *
+ * Meanwhile, the exploration visualization adds the following data
+ * by calling buildExplorationCentricGraph:
+ *
+ * [root: id] + jsonForGraph
+ *
+ */
 class Json2Service {
-
-/* buildJsonForGraph returns base json map in format
- *  {people:{
- *           id:{
- *               id:long
- *               name:string
- *               pic:string
- *               fake:{
- *                     id:long
- *                     name:string
- *                     pic:string
- *                     }
- *               relevence:{
- *                         overall:double,
- *                         id1:double
- *                         ...
- *               }
- *               interests:[id1, id2 ...]
- *           }
- *  interests:{
- *           id:{
- *               id:long
- *               name:string
- *               cluster:int
- *           }
- *  }
- * }
- */
-
-/* buildQueryCentricGraph returns json
- *
- *['queries':[id1,id2...]] +jsonforgraph
- *see above
- *
- */
-
-/*buildExplorationCentricGraph returns json
- *
- *['root':id]+jsonforgraph
- *see above
- *
- */
-
 
     def collaboratorRequestService
       //max number of interests per interest-centric graph
-    int DEFAULT_MAX_INTERESTS_INTEREST_CENTRIC = 25
+    static int DEFAULT_MAX_INTERESTS_INTEREST_CENTRIC = 25
     def similarity2Service
     def interestService
     def pseudonymService
@@ -61,7 +63,7 @@ class Json2Service {
          return [
                  id: i.id,
                  name: i.text,
-                 relatedInterestes:similarity2Service.similarityService.getSimilarInterests(i)
+                 relatedInterestes: similarity2Service.getSimilarInterests(i)
          ]
     }
 
@@ -90,8 +92,7 @@ class Json2Service {
     }
 
 
-
-    def buildJsonForGraph(Graph graph, Long sid){
+    def buildJsonForGraph(Graph graph){
         Map<Long, Object> personNodes = [:]
         Map<Long, Object> interestNodes = [:]
         graph.clusterRootInterests()

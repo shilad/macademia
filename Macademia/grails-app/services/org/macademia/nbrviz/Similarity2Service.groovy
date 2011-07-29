@@ -2,40 +2,52 @@ package org.macademia.nbrviz
 
 import org.macademia.*
 
-class Similarity2Service {
+/**
+ * An extension of SimilarityService, provides neighbor algorithms
+ * for the new query and exploration visualizations.
+ */
+class Similarity2Service extends SimilarityService {
 
-    def similarityService
     def interestService
 
-
-    public Graph calculateQueryNeighbors( Set<Long> qset, int maxPeople){
-        return calculateQueryNeighbors(qset, maxPeople, null)
-    }
-    public Graph calculateQueryNeighbors( Set<Long> qset, int maxPeople, Set<Long> institutionFilter){
+    /**
+     * Creates and returns a new Graph based upon the parameter set
+     * of query Interests for the query visualization.
+     * @param qset A Set<Long> of interests ids forming the query.
+     * @param maxPeople The max number of people to include in the Graph.
+     * @return A Graph
+     */
+    public Graph calculateQueryNeighbors(Set<Long> qset, int maxPeople) {
         Graph graph = new Graph()
         for (long q : qset){
             Interest qi = interestService.get(q)
-            graph = similarityService.calculateNeighbors(qi.id, graph, maxPeople, qset, institutionFilter)
+            graph = calculateNeighbors(qi.id, graph, maxPeople, qset, null)
         }
         graph.finalizeGraph(maxPeople)
         return graph
     }
 
-    public Graph calculateExplorationNeighbors( Person root, int maxPeople){
-        return calculateExplorationNeighbors(root, maxPeople, null)
+    /**
+     * Creates and returns a new Graph based upon the parameter Person for
+     * the exploration visualization.
+     * @param root The root Person of the exploration visualization.
+     * @param maxPeople The max number of people to include in the Graph.
+     * @return A Graph
+     */
+    public Graph calculateExplorationNeighbors(Person root, int maxPeople) {
+        return calculatePersonNeighbors(root, maxPeople)
     }
 
-    public Graph calculateExplorationNeighbors( Interest root, int maxPeople, int maxInterests){
-        return similarityService.calculateInterestNeighbors(root, maxPeople, maxInterests)
+    /**
+     * Creates and returns a new Graph based upon the parameter Interest for
+     * the exploration visualization.
+     * @param root The root Interest of the exploration visualization.
+     * @param maxPeople The max number of people to include in the Graph.
+     * @param maxInterests The max number of Interests to include in the Graph.
+     * @return A Graph
+     */
+    public Graph calculateExplorationNeighbors( Interest root, int maxPeople, int maxInterests) {
+        return calculateInterestNeighbors(root, maxPeople, maxInterests)
     }
-
-    public Graph calculateExplorationNeighbors( Person root, int maxPeople, Set<Long> institutionFilter){
-        return similarityService.calculatePersonNeighbors(root, maxPeople, institutionFilter)
-    }
-
-    public Graph calculateExporationNeighbors(Interest root, int maxPeople, int maxInterests, Set<Long> institutionFilter){
-        return similarityService.calculateInterestNeighbors(root, maxPeople, maxInterests, institutionFilter)
-    }
-
 
 }

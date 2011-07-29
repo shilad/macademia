@@ -1,20 +1,15 @@
 package org.macademia.nbrviz
 
 /**
- * Created by IntelliJ IDEA.
- * User: research
- * Date: 7/25/11
- * Time: 5:37 PM
- * To change this template use File | Settings | File Templates.
+ * Provides both a pseudonym and an anonymous avatar image to user. For current users uses a pairing
+ * function to assign a unique number to any given pair of subject id (token) and user id,
+ * see (http://szudzik.com/ElegantPairing.pdf).
+ *
+ * With 2000 first names and 3001 last names, there are approx 6 million possible combinations.
+ * This code (and number of names) should prevent repeats for up to approx 2449 sids and approx 2449 uids.
+ * At least one of the name files (in our case last names) must be prime.
  */
 class PseudonymService {
-
-    /* uses a pairing function to assign a unique number to any given pair of subject id (token) and user id
-     * see(http://szudzik.com/ElegantPairing.pdf)
-     * with 2000 first names and 3001 last names, there are approx 6 million possible combinations
-     * this code (and number of names) should prevent repeats for up to approx 2449 sids and approx 2449 uids
-     * at least one of the name files (in our case last names) must be prime
-     */
 
     def maleFirsts = new File("db/dist.male.first.top").readLines() as ArrayList
     def femaleFirsts = new File ("db/dist.female.first.top").readLines() as ArrayList
