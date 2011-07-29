@@ -46,7 +46,6 @@ function Person(params) {
 
     // initializing nodes
     this.interestNodes = this.initializeInterests();
-    console.log(this.interestNodes);
     this.positions = macademia.nbrviz.calculateRelatedInterestPositions(this.interests, this.strokeWidth+60, this.xPos, this.yPos, -Math.PI/3, Math.PI + Math.PI/3);
     this.nodePositions = this.positions[0];
     this.textPositions = this.positions[1];
@@ -68,7 +67,7 @@ function Person(params) {
     }
 
     //creating the name label
-    var nameText = this.paper.text().attr({text: name, x: this.xPos+3, y: this.yPos+innerCircle+this.strokeWidth+13, font: '20px Helvetica, Arial'});
+    var nameText = this.paper.text().attr({text: this.name, x: this.xPos+3, y: this.yPos+innerCircle+this.strokeWidth+13, font: '20px Helvetica, Arial'});
     triggerSet.push(nameText);
 
 
