@@ -3,8 +3,8 @@
   <head>
     <title>Raphael Play</title>
     <g:javascript library="jquery" plugin="jquery"/>
-    <g:javascript src="raphael-min.js"/>
-    <g:javascript src="lib.macademia.nbrviz.interest.js"/>
+    <g:javascript src="nbrviz/raphael-min.js"/>
+    <g:javascript src="nbrviz/interest.js"/>
     <style type="text/css">
       #holder {
         width: 1173px;
