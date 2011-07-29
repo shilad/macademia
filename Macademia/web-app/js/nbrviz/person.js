@@ -126,14 +126,16 @@ Person.prototype.sortAndColorInterests = function(interests, interestGroups){
 
 function Center(params){
     this.interestGroups = params.interestGroups || 0;
+    this.paper = params.paper || macademia.nbrviz.paper;
     var xPos = macademia.nbrviz.paper.width/2,
         yPos = macademia.nbrviz.paper.height/2;
     macademia.nbrviz.paper.circle(xPos, yPos, 40).attr({fill: "r#fff-#000"});
     macademia.nbrviz.paper.ball(xPos, yPos, 40, "#333", "shilad", 0, 20);
     //creating conjoining connectors to interestclusters
-    $.each(this.interestGroups, function(i){
-        macademia.nbrviz.paper.path("M"+ xPos+" "+yPos+"L"+this.interestGroups[i].xPos+ " "+this.interestGroups[i].yPos).attr({"stroke-width": 3, stroke: this.interestGroups[i].color}).toBack();
-    });
+    for (var i=0; i< this.interestGroups.length; i++){
+        var color= "hsb(" + this.interestGroups[i].color + ", 1, .6)";
+        this.paper.path("M"+ xPos+" "+yPos+"L"+this.interestGroups[i].xPos+ " "+this.interestGroups[i].yPos).attr({"stroke-width": 3, stroke: color}).toBack();
+    }
 }
 
 
