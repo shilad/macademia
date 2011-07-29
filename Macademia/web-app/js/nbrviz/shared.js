@@ -1,9 +1,26 @@
 var macademia = macademia || {};
 macademia.nbrviz = macademia.nbrviz || {};
 
-macademia.nbrviz.initPaper = function(name, width, height) {
-    macademia.nbrviz.paper = new Raphael(name, width, height);
-}
+macademia.nbrviz.initPaper = function(domId, width, height) {
+    macademia.nbrviz.paper = new Raphael(domId, width, height);
+
+    macademia.nbrviz.paper.customAttributes.personArc = function(xPos, yPos, strokeWidth, percentage, innerCircle){
+        var alpha = 360 / 60 * (percentage * 60),
+           radius = innerCircle+strokeWidth/2,
+                a = (90 - alpha) * Math.PI / 180,
+                x = xPos + radius * Math.cos(a),
+                y = yPos - radius * Math.sin(a),
+                path;
+        if (percentage != 1){
+            path = [["M", xPos, yPos-radius], ["A", radius, radius, 0, +(alpha > 180), 1, x, y]];
+        }else {
+            path = [["M", xPos, yPos-radius], ["A", radius, radius, 0, 1, 1, xPos - 1 + 0.9, yPos-radius]];
+        }
+        // what the path variables mean:
+        // ["M", x, y] - starting point of drawing path of the vector
+        return {path: path, "stroke-width": strokeWidth};
+    };
+};
 
 
 /**
