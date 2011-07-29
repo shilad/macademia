@@ -12,22 +12,23 @@ macademia.nbrviz.person = macademia.nbrviz.person || {};
  * @ param nonRelevantInterests greyed out interests that appear on mouseover that the person has but are not related to the center
  * @ param filepath to person's image
  * @ param name person's name
+ * @ param paper the Raphael object you'd like to us. default is macademia.nbrviz.paper
  * @ author Emi Lim
  */
 function Person(params) {
 
     // object properties
-    this.interestGroups = params.interestGroups;
+    this.interestGroups = params.interestGroups || [];
     this.interestGroups.sort(function(a,b){
             return b[1] - a[1]
     });
-    this.xPos = params.xPos;
-    this.yPos = params.yPos;
-    this.strokeWidth = params.strokeWidth;
-    this.interests = this.sortAndColorInterests(params.interests, params.interestGroups).concat(params.nonRelevantInterests);
-    this.paper = macademia.nbrviz.paper;
-    this.picture = params.picture;
-    this.name = params.name;
+    this.xPos = params.xPos || macademia.nbrviz.paper.width/4;
+    this.yPos = params.yPos || macademia.nbrviz.paper.height/4;
+    this.strokeWidth = params.strokeWidth || 1;
+    this.interests = this.sortAndColorInterests(params.interests, params.interestGroups).concat(params.nonRelevantInterests) || [];
+    this.paper = params.paper || macademia.nbrviz.paper;
+    this.picture = params.picture || "";
+    this.name = params.name || "nameless person";
 
     // variables
     var strokeBorderWidth = 1,
@@ -114,7 +115,7 @@ Person.prototype.sortAndColorInterests = function(interests, interestGroups){
     var sortedInterests = [];
     for (var i=0; i< interestGroups.length; i++){
         for (var j=0; j<interests.length; j++){
-            if ($.inArray(interests[j], interestGroups[i][0].subInterests)+1){
+            if ($.inArray(interests[j], interestGroups[i][0].relatedInterests)+1){
                 sortedInterests.push(interests[j]);
                 interests[j].color = interestGroups[i][0].color;
             }
@@ -124,11 +125,11 @@ Person.prototype.sortAndColorInterests = function(interests, interestGroups){
 };
 
 /**
- * SubInterest object constructor
- * @ param color of the SubInterest
+ * relatedInterest object constructor
+ * @ param color of the relatedInterest
  * @ author Emi Lim
  */
-function SubInterest(people, text, color){
+function RelatedInterest(people, text, color){
     this.people = people,
     this.name = text,
     this.color = color;
