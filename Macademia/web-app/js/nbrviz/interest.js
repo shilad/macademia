@@ -129,7 +129,7 @@ InterestCluster.prototype.listeners = function(relatedInterestNodes) {
     this.hiddenRing.mouseout(function() {
         self.cancelAnimations(relatedInterestNodes);
         self.hiddenRing.animate({
-            r: null,
+            r: 0,
             x: self.xPos - macademia.nbrviz.interest.centerRadius,
             y: self.yPos - macademia.nbrviz.interest.centerRadius,
             width: macademia.nbrviz.interest.centerRadius * 2,
