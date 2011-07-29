@@ -123,26 +123,16 @@ Person.prototype.sortAndColorInterests = function(interests, interestGroups){
     return sortedInterests;
 };
 
-/**
- * relatedInterest object constructor
- * @ param color of the relatedInterest
- * @ author Emi Lim
- */
-function RelatedInterest(people, text, color){
-    this.people = people,
-    this.name = text,
-    this.color = color;
-}
 
-
-function Center(interestGroups){
+function Center(params){
+    this.interestGroups = params.interestGroups || 0;
     var xPos = macademia.nbrviz.paper.width/2,
-        yPos = macademia.nbrviz.paper.height/2
+        yPos = macademia.nbrviz.paper.height/2;
     macademia.nbrviz.paper.circle(xPos, yPos, 40).attr({fill: "r#fff-#000"});
     macademia.nbrviz.paper.ball(xPos, yPos, 40, "#333", "shilad", 0, 20);
     //creating conjoining connectors to interestclusters
-    $.each(interestGroups, function(i){
-        macademia.nbrviz.paper.path("M"+ xPos+" "+yPos+"L"+interestGroups[i].xPos+ " "+interestGroups[i].yPos).attr({"stroke-width": 3, stroke: interestGroups[i].color}).toBack();
+    $.each(this.interestGroups, function(i){
+        macademia.nbrviz.paper.path("M"+ xPos+" "+yPos+"L"+this.interestGroups[i].xPos+ " "+this.interestGroups[i].yPos).attr({"stroke-width": 3, stroke: this.interestGroups[i].color}).toBack();
     });
 }
 
