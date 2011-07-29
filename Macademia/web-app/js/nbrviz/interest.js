@@ -122,16 +122,17 @@ InterestCluster.prototype.listeners = function(interest, relatedInterestNodes, n
     if(hasCenter) {
         this.dragInterest(interest, relatedInterestNodes, ring, nodePositions, textPositions);
     }
+    var self = this;
     interest[0].mouseover(function() {
         interest[0].toBack();
-        this.placeRelatedInterests(relatedInterestNodes, nodePositions, textPositions);
+        self.placeRelatedInterests(relatedInterestNodes, nodePositions, textPositions);
         ring.animate({r: macademia.interest.clusterRadius}, 800, "elastic");
         if(!hasCenter) {
             interest[3].hide();
         }
     });
     ring.mouseout(function() {
-        this.hideRelatedInterests(relatedInterestNodes, interest[1].attr("cx"), interest[1].attr("cy"));
+        self.hideRelatedInterests(relatedInterestNodes, interest[1].attr("cx"), interest[1].attr("cy"));
         ring.animate({r: 0}, 400, "backIn");
         if(!hasCenter) {
             $.each(interest, function(i) {
@@ -142,6 +143,7 @@ InterestCluster.prototype.listeners = function(interest, relatedInterestNodes, n
 }
 
 InterestCluster.prototype.dragInterest = function(interest, interestNodes, ring, nodePositions, textPositions) {
+    var self = this;
     var start = function () {
         // storing original coordinates
         var i = 0;
@@ -192,10 +194,10 @@ InterestCluster.prototype.dragInterest = function(interest, interestNodes, ring,
             }
         }
         ring.attr({cx: ring.ox + dx, cy: ring.oy + dy});
-        this.resetNodePositions(interestNodes, nodePositions, textPositions);
+        self.resetNodePositions(interestNodes, nodePositions, textPositions);
     },
     up = function () {
-        this.showText(interestNodes);
+        self.showText(interestNodes);
     };
 
     for(var i = 0; i < interest.length; i++) {
@@ -219,6 +221,7 @@ InterestCluster.prototype.placeRelatedInterests = function(relatedInterestNodes,
 }
 
 InterestCluster.prototype.hideRelatedInterests = function(relatedInterestNodes, xPos, yPos) {
+    var self = this;
     $.each(relatedInterestNodes, function(i){
         for(var j = 0; j < relatedInterestNodes[i].length - 1; j++) {
             relatedInterestNodes[i][j].animate({
@@ -228,7 +231,7 @@ InterestCluster.prototype.hideRelatedInterests = function(relatedInterestNodes, 
                 y: yPos - macademia.interest.nodeRadius
             }, 400, "backIn");
             relatedInterestNodes[i][relatedInterestNodes[i].length  - 1].animate({x: xPos, y: yPos}, 400, "backIn", function(){
-                this.hideText(relatedInterestNodes)
+                self.hideText(relatedInterestNodes)
             });
         }
     });
