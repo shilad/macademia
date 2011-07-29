@@ -40,10 +40,7 @@ class ExplorationController {
   }
 
   def show = {
-    def root = personService.get(params.id.toLong())
-
     render(view : 'show', model : [
-            root: root,
             json: json()
     ])
   }
