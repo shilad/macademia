@@ -479,7 +479,7 @@ class Graph {
 
     }
 
-    private double clusterSimilarity(Collection<Long> cluster1, Collection<Long> cluster2) {
+    public double clusterSimilarity(Collection<Long> cluster1, Collection<Long> cluster2) {
         if (cluster1.size() == 0 || cluster2.size() == 0) {
             return 0.0
         }
