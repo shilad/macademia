@@ -10,14 +10,15 @@ package org.macademia.nbrviz
  * At least one of the name files (in our case last names) must be prime.
  */
 class PseudonymService {
+    public static String DB_PATH = "db/nbrviz"
 
-    def maleFirsts = new File("db/dist.male.first.top").readLines() as ArrayList
-    def femaleFirsts = new File ("db/dist.female.first.top").readLines() as ArrayList
-    def allLasts = new File ("db/dist.all.last.top").readLines() as ArrayList
-    def malePicList = new File ("db/malepiclist").readLines() as ArrayList
-    def femalePicList = new File ("db/femalepiclist").readLines() as ArrayList
-    def malePicLocation = "db/malepics/"
-    def femalePicLocation = "db/femalepics/"
+    def maleFirsts = new File("${DB_PATH}/dist.male.first.top").readLines() as ArrayList
+    def femaleFirsts = new File ("${DB_PATH}/dist.female.first.top").readLines() as ArrayList
+    def allLasts = new File ("${DB_PATH}/dist.all.last.top").readLines() as ArrayList
+    def malePicList = new File ("${DB_PATH}/malepiclist").readLines() as ArrayList
+    def femalePicList = new File ("${DB_PATH}/femalepiclist").readLines() as ArrayList
+    def malePicLocation = "${DB_PATH}/malepics/"
+    def femalePicLocation = "${DB_PATH}/femalepics/"
 
     public Long pair(Long x, Long y){
         if (x < y){
