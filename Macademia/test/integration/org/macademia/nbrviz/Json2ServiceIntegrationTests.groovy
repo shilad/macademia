@@ -26,20 +26,25 @@ class Json2ServiceIntegrationTests extends GrailsUnitTestCase {
     }
 
     void testQueryCentricGraph() {
-        def qset = personService.findByEmail('ssen@macalester.edu').interests.collect({it.id}) as Set
-        println qset
+        def root = personService.findByEmail('ssen@macalester.edu')
+        def qset = root.interests.collect({it.id}) as Set
         Graph graph = similarity2Service.calculateQueryNeighbors(qset)
-        def jsonGraph = json2Service.buildQueryCentricGraph(qset, graph).toString()
-        println jsonGraph
-        assert(jsonGraph == json2Service.buildQueryCentricGraph(qset, graph).toString())
+        def jsonGraph = json2Service.buildQueryCentricGraph(qset, graph) as Map
+//        println jsonGraph.toString()
         assert(graph.interestClusters.values().size() >= 1)
+        assertNotNull(jsonGraph.people)
+        assertNotNull(jsonGraph.interests)
+        assert(jsonGraph.people.keySet().contains(root.id))
     }
 
     void testExplorationCentricGraph() {
         def root = personService.findByEmail('ssen@macalester.edu')
         Graph graph = similarity2Service.calculateExplorationNeighbors(root)
-        def jsonGraph = json2Service.buildExplorationCentricGraph(root, graph).toString()
-        println jsonGraph
+        def jsonGraph = json2Service.buildExplorationCentricGraph(root, graph) as Map
+//        println jsonGraph.toString()
         assert(graph.interestClusters.values().size() >= 1)
+        assertNotNull(jsonGraph.people)
+        assertNotNull(jsonGraph.interests)
+        assert(jsonGraph.people.keySet().contains(root.id))
     }
 }

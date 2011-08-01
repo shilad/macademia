@@ -68,7 +68,7 @@ class Json2Service {
         return [
                 id: p.id,
                 fid: fakedata.id,
-                name: fakedata.name,
+                name: p.fullName, // TODO: change this back to fakedata.name
                 pic: fakedata.pic,
                 relevence: [:],
                 interests: interests
@@ -115,8 +115,8 @@ class Json2Service {
 
 
     def buildQueryCentricGraph(Set<Long> queryIds, Graph graph, Long sid){
-        Map<Long, Object> personNodes = [:]
-        Map<Long, Object> interestNodes = [:]
+        Map<Long, Map> personNodes = [:]
+        Map<Long, Map> interestNodes = [:]
         for (Person p: graph.getPeople()){
             personNodes[p.id] = makeJsonPerson(p, sid)
             personNodes[p.id]['relevence']['overall'] = graph.personScores[p.id].score[0]
@@ -136,7 +136,7 @@ class Json2Service {
             for (Interest i : p.interests) {
                 if (!interestNodes[i.id]) {
                     interestNodes[i.id] = makeJsonInterest(i)
-                    interestNodes[i.id].cluster = -1
+//                    interestNodes[i.id].cluster = -1
                 }
             }
             for (Edge e : graph.getAdjacentEdges(p)){
@@ -154,7 +154,7 @@ class Json2Service {
 
     def buildExplorationCentricGraph(Object root, Graph graph, Long sid){
         def basejson = buildJsonForGraph(graph, sid)
-        def clusters=[:]
+        Map<Long, List> clusters= [:]
         for(MapEntry e: graph.interestClusters.entrySet()){
             if(!clusters[e.value]){
                 clusters[e.value] = []
@@ -163,17 +163,18 @@ class Json2Service {
         }
         for (Person p : graph.getPeople()){
             for (Integer cid : clusters.keySet()){
-                basejson['people'][p.id]['relevence'][cid] = graph.clusterSimilarity(p.interests.collect({ it.id }) as Collection<Long>, clusters[cid] as Collection<Long> )
+                def something = graph.clusterSimilarity(p.interests.collect({ it.id }) as Collection<Long>, clusters[cid] as Collection<Long> )
+                basejson['people'][p.id]['relevence'][cid] = something
             }
         }
         return ['root':root.id] + basejson
     }
 
     def buildExplorationCentricGraph(Object root, Graph graph){
-        buildExplorationCentricGraph(root,graph,0)
+        return buildExplorationCentricGraph(root,graph,0)
     }
 
     def buildQueryCentricGraph(Set<Long> qset, Graph graph){
-        buildQueryCentricGraph(qset, graph, 0)
+        return buildQueryCentricGraph(qset, graph, 0)
     }
 }

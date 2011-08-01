@@ -22,7 +22,7 @@ class Similarity2Service extends SimilarityService {
         NbrvizGraph graph = new NbrvizGraph()
         for (long q : qset){
             Interest qi = interestService.get(q)
-            graph = calculateNeighbors(qi.id, graph, maxPeople, qset, null)
+            graph = calculateNeighbors(qi.id, graph, maxPeople, qset, null) as NbrvizGraph
         }
         graph.finalizeGraph(20)
         return graph
@@ -41,7 +41,7 @@ class Similarity2Service extends SimilarityService {
         def interests = databaseService.getUserInterests(root.id)
         for(long i : interests){
             //For each interest owned by the central person, calculate neighbors
-            graph = calculateNeighbors(i, graph, maxPeople, (Set<Long>)root.interests.collect({it.id}), null)
+            graph = calculateNeighbors(i, graph, maxPeople, (Set<Long>)root.interests.collect({it.id}), null) as NbrvizGraph
         }
         graph.finalizeGraph(maxPeople)
         return graph
@@ -59,13 +59,44 @@ class Similarity2Service extends SimilarityService {
         int maxPeople = Integer.MAX_VALUE
         int maxInterests = Integer.MAX_VALUE
         NbrvizGraph graph = new NbrvizGraph()
-        graph = findPeopleAndRequests(graph, maxPeople, root.id, null, 1, null)
+        graph = findPeopleAndRequests(graph, maxPeople, root.id, null, 1, null) as NbrvizGraph
         for(SimilarInterest ir : getSimilarInterests(root.id, maxInterests, absoluteThreshold, null)){
             graph.addEdge(null, root.id, ir.interestId, null, ir.similarity)
-            graph = findPeopleAndRequests(graph, maxPeople, ir.interestId, null, ir.similarity, null)
+            graph = findPeopleAndRequests(graph, maxPeople, ir.interestId, null, ir.similarity, null) as NbrvizGraph
         }
         graph.finalizeGraph(maxPeople)
         return graph
     }
+
+    /**
+     * Finds the branches off of an interest node in a graph centered on a request or a person.
+     * @param i Id of the interest to calculate neighbors for
+     * @param graph The graph to add the resultant edges to
+     * @param maxPeople The maximum number of people who should be added to the graph
+     * @param inner the interests that should be on the inner ring
+     * @param institutionFilter
+     * @return The graph with all conections to Interest i added
+     */
+     public Graph calculateNeighbors(Long i, Graph graph, int maxPeople, Set<Long> inner, Set<Long> institutionFilter) {
+         if(i == null){
+             return graph
+         }
+         //Add all edges linked to Interest i
+         graph = findPeopleAndRequests(graph, maxPeople, i, null, 1, institutionFilter)
+         def simInterests = getSimilarInterests(i, maxSimsPerInterest, absoluteThreshold, institutionFilter)
+         for(SimilarInterest ir : simInterests){
+             if(ir.interestId!=null){
+                 if(inner.contains(ir.interestId)) {
+                     graph.addIntraInterestSim(i, ir.interestId, ir.similarity)
+                 } else {
+                     //Add all edges linked to SimilarInterest ir
+                     graph.addOtherInterestSim(i, ir.interestId, ir.similarity)
+                     graph = findPeopleAndRequests(graph, maxPeople, i, ir.interestId, ir.similarity, institutionFilter)
+                 }
+             }
+         }
+         return graph
+     }
+
 
 }

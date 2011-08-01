@@ -23,7 +23,7 @@ class Graph {
     Map<Long, Set<Edge>> personMap  = [:]
     Map<Long, Set<Edge>> requestMap  = [:]
 
-    Map<Long, IdAndScore> personScores  = [:]
+    Map<Long, List<IdAndScore>> personScores  = [:]
     Map<Long, Set<Edge>> potentialPersonEdges  = [:]
 
     /**
@@ -234,7 +234,7 @@ class Graph {
      * @param maxSim
      * @return
      */
-    private double scorePersonSimilarity(long pid, int numClusters, double maxSim, Map<Long, Integer>interestCounts) {
+    protected double scorePersonSimilarity(long pid, int numClusters, double maxSim, Map<Long, Integer>interestCounts) {
         double sim = 0.0
 //        println("calculating sim for ${Person.get(pid)}")
         Set<Long> used = new HashSet<Long>()
@@ -284,7 +284,7 @@ class Graph {
      * @param allSims A list populated with all similarities.
      * @return number of unique clusters
      */
-    private int ensureAllInterestsAreClustered(List<Double> allSims) {
+    protected int ensureAllInterestsAreClustered(List<Double> allSims) {
         int numClusters = interestClusters.isEmpty() ? 0 : (interestClusters.values().max() + 1)
         for (Long pid : personScores.keySet()) {
             for (IdAndScore interestAndSim : personScores[pid]) {

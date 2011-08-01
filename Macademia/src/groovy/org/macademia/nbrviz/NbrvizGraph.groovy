@@ -6,6 +6,9 @@ import org.macademia.Edge
 
 class NbrvizGraph extends Graph {
 
+    Map<Long, Map<Long, Double>> otherInterestSims = [:]
+
+
     public NbrvizGraph(Long rootPersonId) {
         this.rootPersonId = rootPersonId
         edges = 0
@@ -50,8 +53,37 @@ class NbrvizGraph extends Graph {
         }
         personMap.clear()
         for (IdAndScore personAndSim: finalPersonSims) {
-            personMap.put(personAndSim.id, potentialPersonEdges.get(personAndSim.id))
+            personMap.put(personAndSim.id as long, potentialPersonEdges.get(personAndSim.id))
         }
     }
+
+    public void addOtherInterestSim(Long i1, Long i2, double sim) {
+        if (!otherInterestSims.containsKey(i1)) {
+            otherInterestSims[i1] = [:]
+        }
+        if (!otherInterestSims.containsKey(i2)) {
+            otherInterestSims[i2] = [:]
+        }
+        otherInterestSims[i1][i2] = sim
+        otherInterestSims[i2][i1] = sim
+    }
+
+    public double clusterSimilarity(Collection<Long> cluster1, Collection<Long> cluster2) {
+        if (cluster1.size() == 0 || cluster2.size() == 0) {
+            return 0.0
+        }
+        double sim = 0.0
+        for (Long i1: cluster1) {
+            for (Long i2: cluster2) {
+                if (intraInterestSims.containsKey(i1) && intraInterestSims[i1].containsKey(i2)) {
+                    sim += intraInterestSims[i1][i2]
+                } else if (otherInterestSims.containsKey(i1) && otherInterestSims[i1].containsKey(i2)) {
+                    sim += otherInterestSims[i1][i2]
+                }
+            }
+        }
+        return sim / (cluster1.size() * cluster2.size())
+    }
+
 }
 
