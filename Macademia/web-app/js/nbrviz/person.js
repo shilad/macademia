@@ -52,7 +52,6 @@ Person.prototype.setPosition = function(x, y) {
 
     // Avatar for the person
     var img = this.paper.image(this.picture, this.xPos-imageSize/2, this.yPos-imageSize/2, imageSize, imageSize).toBack();
-    console.log(img);
 //    this.triggerSet.push(img);
 
     // initializing nodes
@@ -91,10 +90,8 @@ Person.prototype.setPosition = function(x, y) {
     this.triggerSet.push(this.growingTrigger);
 
     this.triggerSet.hover(function () {
-        console.log('here show');
         self.showInterests();
     }, function() {
-        console.log('here hide');
         self.hideInterests();
     });
 };
