@@ -17,7 +17,7 @@ import org.macademia.*
  *              id: long
  *              name: string
  *              pic: string
- *              relevence: [
+ *              relevance: [
  *                  overall: double,
  *                  id1: double
  *                  ...
@@ -70,7 +70,7 @@ class Json2Service {
                 fid: fakedata.id,
                 name: p.fullName, // TODO: change this back to fakedata.name
                 pic: fakedata.pic,
-                relevence: [:],
+                relevance: [:],
                 interests: interests
         ]
     }
@@ -95,7 +95,7 @@ class Json2Service {
         graph.clusterRootInterests()
         for (Person p: graph.getPeople()){
             personNodes[p.id] = makeJsonPerson(p, sid)
-            personNodes[p.id]['relevence']['overall'] = graph.personScores[p.id].score[0]
+            personNodes[p.id]['relevance']['overall'] = graph.personScores[p.id].score[0]
             for (Edge e: graph.getAdjacentEdges(p)){
                 e.reify()
                 [e.interest, e.relatedInterest].each({
@@ -119,7 +119,7 @@ class Json2Service {
         Map<Long, Map> interestNodes = [:]
         for (Person p: graph.getPeople()){
             personNodes[p.id] = makeJsonPerson(p, sid)
-            personNodes[p.id]['relevence']['overall'] = graph.personScores[p.id].score[0]
+            personNodes[p.id]['relevance']['overall'] = graph.personScores[p.id].score[0]
             for (Edge e: graph.getAdjacentEdges(p)){
                 e.reify()
                 [e.interest, e.relatedInterest].each({
@@ -141,7 +141,7 @@ class Json2Service {
             }
             for (Edge e : graph.getAdjacentEdges(p)){
                 if (queryIds.contains(e.interestId)){
-                    personNodes[p.id]['relevence'][e.interestId] = e.sim
+                    personNodes[p.id]['relevance'][e.interestId] = e.sim
                 }
             }
         }
@@ -164,7 +164,7 @@ class Json2Service {
         for (Person p : graph.getPeople()){
             for (Integer cid : clusters.keySet()){
                 def something = graph.clusterSimilarity(p.interests.collect({ it.id }) as Collection<Long>, clusters[cid] as Collection<Long> )
-                basejson['people'][p.id]['relevence'][cid] = something
+                basejson['people'][p.id]['relevance'][cid] = something
             }
         }
         return ['root':root.id] + basejson
