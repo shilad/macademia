@@ -35,7 +35,6 @@ class ImageController {
         }
 
         File path  = new File("db/nbrviz/${gender}pics/${img}")
-        println("path is ${path}")
         response.contentType = 'image/jpeg'
         response.outputStream << path.readBytes()
         response.outputStream.flush()
