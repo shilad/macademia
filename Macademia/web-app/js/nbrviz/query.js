@@ -61,7 +61,8 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
             name : pinfo.name,
             picture : pinfo.pic,
             paper : paper,
-            interests : pinterests
+            interests : pinterests ,
+            nonRelevantInterests : []
         });
         people.push(person);
     });
@@ -99,6 +100,10 @@ QueryViz.prototype.layoutPeople = function() {
     $.each(this.people, function(i, person) {
         var xRand = Math.floor( Math.random() * ($(document).width() - 120) ) + 60;
         var yRand = Math.floor( Math.random() * ($(document).height() - 120) ) + 60;
-        person.setPosition(xRand, yRand);
+
+        // TODO: fixme: why would this ever not be true?
+        if (person.interestGroups.length > 0) {
+            person.setPosition(xRand, yRand);
+        }
     });
 };

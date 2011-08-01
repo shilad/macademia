@@ -48,6 +48,8 @@ class PseudonymService {
         } else {
             firstName = femaleFirsts.get((int) ((pid%2000)/2))
         }
+        firstName = firstName[0] + firstName[1..-1].toLowerCase()
+        lastName = lastName[0] + lastName[1..-1].toLowerCase()
         return "$firstName $lastName"
     }
 
