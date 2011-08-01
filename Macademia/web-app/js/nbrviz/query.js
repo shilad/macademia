@@ -10,10 +10,10 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
     var relatedInterestsById = {};
     $.each(vizJson.queries, function (i, id) {relatedInterests[id] = [];});
     $.each(vizJson.interests, function (id, info) {
+        var ri = new RelatedInterest(id, info.name, Math.random());
+        relatedInterestsById[id] = ri;
         if (info.cluster && info.cluster >= 0) {
-            var ri = new RelatedInterest(id, info.name, Math.random());
             relatedInterests[info.cluster].push(ri);
-            relatedInterestsById[id] = ri;
         }
     });
 
@@ -36,14 +36,17 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
         var total = 0;
         var clusterRelevance = {};
         var pinterests = [];
+        var pnrinterests = [];
         $.each(vizJson.queries, function(i, id) {clusterRelevance[id] = 0.0;});
         $.each(pinfo.interests, function(i, id) {
             var iinfo = vizJson.interests[id];
             if (iinfo.cluster && iinfo.cluster >= 0) {
                 clusterRelevance[iinfo.cluster] += 1;
                 total += 1.0;
+                pinterests.push(relatedInterestsById[id]);
+            } else {
+                pnrinterests.push(relatedInterestsById[id]);
             }
-            pinterests.push(relatedInterestsById[id]);
         });
         var interestGroups = [];
         $.each(clusterRelevance, function(id, weight) {
@@ -60,7 +63,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
             picture : pinfo.pic,
             paper : paper,
             interests : pinterests ,
-            nonRelevantInterests : []
+            nonRelevantInterests : pnrinterests
         });
         people.push(person);
     });
