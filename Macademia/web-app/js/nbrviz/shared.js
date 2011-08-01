@@ -71,13 +71,13 @@ macademia.nbrviz.calculateRelatedInterestPositions  = function(relatedInterests,
 
         nodePositions.push([nodePositionX, nodePositionY]);
 
-        var textPositionX = Math.cos(startAngle + angleSlice / 2 + angle) * (4 * related.name.length + textOffset),
+        var textPositionX = Math.cos(startAngle + angleSlice / 2 + angle) * (3 * related.name.length + textOffset-6),
             textPositionY = Math.sin(startAngle + angleSlice / 2 + angle) * textOffset;
 
         textPositions.push([nodePositionX + textPositionX, nodePositionY - textPositionY]);
     });
     return [nodePositions, textPositions];
-}
+};
 
 macademia.nbrviz.makeHsb = function(h) {
     // treat it as brightness

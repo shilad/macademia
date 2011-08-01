@@ -39,90 +39,125 @@ function Person(params) {
 Person.prototype.setPosition = function(x, y) {
     this.xPos = x;
     this.yPos = y;
+    this.triggerSet = this.paper.set(),
+    this.innerCircle = 30;
 
     // variables
     var strokeBorderWidth = 1,
-        innerCircle = 30,
-        triggerSet = this.paper.set(),
         imageSize = 60;
 
     // strokes and borders
-    this.paper.circle(this.xPos, this.yPos, innerCircle+strokeBorderWidth/2+this.strokeWidth).attr({stroke: "#000", "stroke-width": strokeBorderWidth});
-    this.paper.circle(this.xPos, this.yPos, innerCircle-strokeBorderWidth/2).attr({stroke: "#000", "stroke-width": strokeBorderWidth});
+    this.paper.circle(this.xPos, this.yPos, this.innerCircle+strokeBorderWidth/2+this.strokeWidth).attr({stroke: "#000", "stroke-width": strokeBorderWidth});
+    this.paper.circle(this.xPos, this.yPos, this.innerCircle-strokeBorderWidth/2).attr({stroke: "#000", "stroke-width": strokeBorderWidth});
 
     // Avatar for the person
     var img = this.paper.image(this.picture, this.xPos-imageSize/2, this.yPos-imageSize/2, imageSize, imageSize).toBack();
-    triggerSet.push(img);
+    console.log(img);
+//    this.triggerSet.push(img);
 
     // initializing nodes
     this.interestNodes = this.initializeInterests();
     this.positions = macademia.nbrviz.calculateRelatedInterestPositions(this.interests, this.strokeWidth+60, this.xPos, this.yPos, -Math.PI/3, Math.PI + Math.PI/3);
     this.nodePositions = this.positions[0];
     this.textPositions = this.positions[1];
-    this.text = [];
+    this.textLabelTriggers = this.initializeInterestTextLabels();
+    this.text = this.paper.set();
 
 
     // creating the arc
     var color = macademia.nbrviz.makeHsb(this.interestGroups[0][0].color);
-    var base = this.paper.path().attr({personArc: [this.xPos, this.yPos, this.strokeWidth, 0.1, innerCircle], stroke: color, opacity: 0});
-    base.animate({personArc: [this.xPos, this.yPos, this.strokeWidth, 1, innerCircle], stroke: color, opacity: 1}, 500, "linear");
-    triggerSet.push(base);
+    var base = this.paper.path().attr({personArc: [this.xPos, this.yPos, this.strokeWidth, 0.1, this.innerCircle], stroke: color, opacity: 0});
+    base.animate({personArc: [this.xPos, this.yPos, this.strokeWidth, 1, this.innerCircle], stroke: color, opacity: 1}, 500, "linear");
+//    this.triggerSet.push(base);
     if (this.interestGroups.length > 1){
         var amount = 1;
         for (var j = 1; j < this.interestGroups.length; j++){
-            var color = macademia.nbrviz.makeHsb(this.interestGroups[j][0].color);
+            color = macademia.nbrviz.makeHsb(this.interestGroups[j][0].color);
             amount -= this.interestGroups[j-1][1];
-            var section = this.paper.path().attr({personArc: [this.xPos, this.yPos, this.strokeWidth, 0.1, innerCircle], stroke: color, opacity: 0});
-            section.animate({personArc: [this.xPos, this.yPos, this.strokeWidth, amount, innerCircle], stroke: color, opacity: 1}, 500 * amount, "linear");
-            triggerSet.push(section);
+            var section = this.paper.path().attr({personArc: [this.xPos, this.yPos, this.strokeWidth, 0.1, this.innerCircle], stroke: color, opacity: 0});
+            section.animate({personArc: [this.xPos, this.yPos, this.strokeWidth, amount, this.innerCircle], stroke: color, opacity: 1}, 500 * amount, "linear");
+//            this.triggerSet.push(section);
         }
     }
 
     //creating the name label
-    var nameText = this.paper.text().attr({text: this.name, x: this.xPos+3, y: this.yPos+innerCircle+this.strokeWidth+13, font: '20px Helvetica, Arial'});
-    triggerSet.push(nameText);
+    var nameText = this.paper.text().attr({text: this.name, x: this.xPos+3, y: this.yPos+this.innerCircle+this.strokeWidth+13, font: '20px Helvetica, Arial'});
+    this.triggerSet.push(nameText);
 
 
     //mouse actions
     var self = this;
-    triggerSet.mouseover(function () { self.showInterests(); });
-    triggerSet.mouseout(function() { self.hideInterests(); });
-}
+    this.growingTrigger = this.paper.circle(this.xPos, this.yPos, this.innerCircle+this.strokeWidth).attr({fill: "#fff", opacity: 0}).toFront();
+    this.triggerSet.push(this.growingTrigger);
+
+    this.triggerSet.hover(function () {
+        console.log('here show');
+        self.showInterests();
+    }, function() {
+        console.log('here hide');
+        self.hideInterests();
+    });
+};
 
 
 // function to show the interests
  Person.prototype.showInterests = function(){
      var self = this;
      $.each(self.interestNodes, function(i){
-//        console.log('animating interest to ' + self.nodePositions[i][0] + ', ' + self.nodePositions[i][1]);
-        self.interestNodes[i].animate({cx: self.nodePositions[i][0], cy:self.nodePositions[i][1], r:macademia.nbrviz.interest.nodeRadius},200,"elastic");
-        self.text.push(self.paper.text(self.textPositions[i][0], self.textPositions[i][1], self.interests[i].name).attr({font: '15px Helvetica, Arial', stroke: "#fff", "stroke-width": 1, fill: "#000", "stroke-opacity": 0.4}));
+         self.text.push(self.paper.text(self.textPositions[i][0], self.textPositions[i][1], self.interests[i].name).attr({font: '15px Helvetica, Arial', stroke: "#fff", "stroke-width": 1, fill: "#000", "stroke-opacity": 0.4}));
+         self.textLabelTriggers[i].animate({width:90},100,"linear").toFront();
+         self.interestNodes[i].animate({cx: self.nodePositions[i][0], cy:self.nodePositions[i][1], r:macademia.nbrviz.interest.nodeRadius},200,"elastic");
+//         self.interestNodes[i].animate({cx: self.nodePositions[i][0], cy:self.nodePositions[i][1], r:macademia.nbrviz.interest.nodeRadius},200,"elastic").toFront();
     });
+    self.growingTrigger.animate({r:this.strokeWidth+60}, 100, "linear");
 };
 
 // function to hide the interests
 Person.prototype.hideInterests = function(){
      var self = this;
     $.each(self.interestNodes, function(index, node){
-        node.animate({cx: self.xPos, cy:self.yPos, r:0},200,"<")
+        node.animate({cx: self.xPos, cy:self.yPos, r:0},200,"<");
     });
     $.each(self.text, function(index, t){
         t.remove();
     });
+    $.each(self.textLabelTriggers, function(index, label){
+        label.animate({width:0}, 100, "linear");
+    });
+    self.growingTrigger.animate({r:this.innerCircle+this.strokeWidth},100, "linear");
 };
 
+Person.prototype.hover = function(mouseOver, mouseOut){
+    this.growingTrigger.hover(mouseOver, mouseOut);
+};
+
+//Person.prototype.hoverInterest = function(mouseOver, mouseOut){
+//    this.interestNodes.hover(mouseOver, mouseOut);
+//    this.textLabelTriggers.hover(mouseOver, mouseOut)
+//};
 
 // function to intialize interests as 0 radius circles with a certain color
 Person.prototype.initializeInterests = function(){
-        var interestNodes = [];
+        var interestNodes = this.paper.set();
         for (var i = 0; i<this.interests.length; i++){
             var fill = macademia.nbrviz.makeHsb(this.interests[i].color);
-            interestNodes.push(
-                    macademia.nbrviz.paper.circle(this.xPos, this.yPos, 0)
+            var interestNode = macademia.nbrviz.paper.circle(this.xPos, this.yPos, 0)
                             .attr({fill: fill})
-                            .toBack());
+                            .toFront();
+            interestNodes.push(interestNode);
+            this.triggerSet.push(interestNode);
         }
         return interestNodes
+};
+
+Person.prototype.initializeInterestTextLabels = function(){
+    var labels = this.paper.set();
+    for (var i = 0; i < this.interests.length; i++){
+        var label = this.paper.rect(this.textPositions[i][0]-45, this.textPositions[i][1]-10, 0, 30).attr({fill: "#fff", opacity: 0, "stroke-width":0, r:10});
+        this.triggerSet.push(label);
+        labels.push(label);
+    }
+    return labels;
 };
 
 // This function takes the interests of the person and sorts them according to the order of

@@ -20,7 +20,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
         if (hasCluster) {
             color = clusterColors[info.cluster];
         }
-        var ri = new RelatedInterest(id, info.name, color);
+        var ri = new Interest({id:id, name:info.name, color:color});
         relatedInterestsById[id] = ri;
         if (hasCluster) {
             relatedInterests[info.cluster].push(ri);

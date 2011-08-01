@@ -292,8 +292,8 @@ InterestCluster.prototype.resetNodePositions = function(relatedInterestNodes, no
  * @ param color of the relatedInterest (a hue between 0 and 1)
  * @ author Emi Lim
  */
-function RelatedInterest(id, text, color){
-    this.id = id;
-    this.name = text,
-    this.color = color;
+function Interest(params){
+    this.id = params.id;
+    this.name = params.name,
+    this.color = params.color;
 };
