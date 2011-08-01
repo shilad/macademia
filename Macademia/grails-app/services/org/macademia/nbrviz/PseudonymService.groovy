@@ -31,8 +31,8 @@ class PseudonymService {
     }
 
     public List<Long> unpair(Long z){
-        double zf = Math.floor(Math.sqrt((double) pid))
-        double zf2 =z1*z1
+        double zf = Math.floor(Math.sqrt((double) z))
+        double zf2 =zf*zf
         if ((z -zf2) < zf){
             return [(long) z-zf2, (long) zf]
         } else {
