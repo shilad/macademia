@@ -63,15 +63,17 @@ Person.prototype.setPosition = function(x, y) {
 
 
     // creating the arc
-    var base = this.paper.path().attr({personArc: [this.xPos, this.yPos, this.strokeWidth, 0.1, innerCircle], stroke: this.interestGroups[0][0].color, opacity: 0});
-    base.animate({personArc: [this.xPos, this.yPos, this.strokeWidth, 1, innerCircle], stroke: this.interestGroups[0][0].color, opacity: 1}, 500, "linear");
+    var color = macademia.nbrviz.makeHsb(this.interestGroups[0][0].color);
+    var base = this.paper.path().attr({personArc: [this.xPos, this.yPos, this.strokeWidth, 0.1, innerCircle], stroke: color, opacity: 0});
+    base.animate({personArc: [this.xPos, this.yPos, this.strokeWidth, 1, innerCircle], stroke: color, opacity: 1}, 500, "linear");
     triggerSet.push(base);
     if (this.interestGroups.length > 1){
         var amount = 1;
         for (var j = 1; j < this.interestGroups.length; j++){
+            var color = macademia.nbrviz.makeHsb(this.interestGroups[j][0].color);
             amount -= this.interestGroups[j-1][1];
-            var section = this.paper.path().attr({personArc: [this.xPos, this.yPos, this.strokeWidth, 0.1, innerCircle], stroke: this.interestGroups[j][0].color, opacity: 0});
-            section.animate({personArc: [this.xPos, this.yPos, this.strokeWidth, amount, innerCircle], stroke: this.interestGroups[j][0].color, opacity: 1}, 500 * amount, "linear");
+            var section = this.paper.path().attr({personArc: [this.xPos, this.yPos, this.strokeWidth, 0.1, innerCircle], stroke: color, opacity: 0});
+            section.animate({personArc: [this.xPos, this.yPos, this.strokeWidth, amount, innerCircle], stroke: color, opacity: 1}, 500 * amount, "linear");
             triggerSet.push(section);
         }
     }
@@ -114,7 +116,11 @@ Person.prototype.hideInterests = function(){
 Person.prototype.initializeInterests = function(){
         var interestNodes = [];
         for (var i = 0; i<this.interests.length; i++){
-            interestNodes.push(macademia.nbrviz.paper.circle(this.xPos, this.yPos, 0).attr({fill: this.interests[i].color}).toBack());
+            var fill = macademia.nbrviz.makeHsb(this.interests[i].color);
+            interestNodes.push(
+                    macademia.nbrviz.paper.circle(this.xPos, this.yPos, 0)
+                            .attr({fill: fill})
+                            .toBack());
         }
         return interestNodes
 };
@@ -144,7 +150,7 @@ function Center(params){
     macademia.nbrviz.paper.ball(xPos, yPos, 40, "#333", "shilad", 0, 20);
     //creating conjoining connectors to interestclusters
     for (var i=0; i< this.interestGroups.length; i++){
-        var color= "hsb(" + this.interestGroups[i].color + ", 1, .6)";
+        var color= macademia.nbrviz.makeHsb(this.interestGroups[i].color);
         this.paper.path("M"+ xPos+" "+yPos+"L"+this.interestGroups[i].xPos+ " "+this.interestGroups[i].yPos).attr({"stroke-width": 3, stroke: color}).toBack();
     }
 }

@@ -78,3 +78,7 @@ macademia.nbrviz.calculateRelatedInterestPositions  = function(relatedInterests,
     });
     return [nodePositions, textPositions];
 }
+
+macademia.nbrviz.makeHsb = function(h) {
+    return 'hsb(' + h + ',1,.6)';
+};
