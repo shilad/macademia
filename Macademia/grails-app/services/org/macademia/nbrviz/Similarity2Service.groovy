@@ -24,7 +24,7 @@ class Similarity2Service extends SimilarityService {
             Interest qi = interestService.get(q)
             graph = calculateNeighbors(qi.id, graph, maxPeople, qset, null)
         }
-        graph.finalizeGraph(50)
+        graph.finalizeGraph(20)
         return graph
     }
 

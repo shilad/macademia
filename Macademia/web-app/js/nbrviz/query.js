@@ -63,7 +63,8 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
             picture : pinfo.pic,
             paper : paper,
             interests : pinterests ,
-            nonRelevantInterests : pnrinterests
+            nonRelevantInterests : pnrinterests,
+            strokeWidth : 30
         });
         people.push(person);
     });
