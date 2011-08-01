@@ -12,6 +12,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
     $.each(vizJson.queries, function (i, id) {
         clusterColors[id] = 1.0 * i / vizJson.queries.length + 1.0 / vizJson.queries.length / 2;
         relatedInterests[id] = [];
+        vizJson.interests[id].cluster = id;  // work around omission from json service...
     });
     $.each(vizJson.interests, function (id, info) {
         var hasCluster = (info.cluster && info.cluster >= 0);
@@ -42,27 +43,28 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
     // TODO: incorporate interest similarity scores
     var people = [];
     $.each(vizJson.people, function(id, pinfo) {
-        var total = 0;
-        var clusterRelevance = {};
         var pinterests = [];
         var pnrinterests = [];
-        $.each(vizJson.queries, function(i, id) {clusterRelevance[id] = 0.0;});
         $.each(pinfo.interests, function(i, id) {
             var iinfo = vizJson.interests[id];
-            if (iinfo.cluster && iinfo.cluster >= 0) {
-                clusterRelevance[iinfo.cluster] += 1;
-                total += 1.0;
+            if (id in queryInterests) {
+                pinterests.push(relatedInterestsById[id]);
+            } else if (iinfo.cluster && iinfo.cluster >= 0) {
                 pinterests.push(relatedInterestsById[id]);
             } else {
                 pnrinterests.push(relatedInterestsById[id]);
             }
         });
+        var totalRelevance = 0.0;
+        $.each(pinfo.relevance, function(id, weight) {
+            if (id != 'overall') {totalRelevance += weight;}
+        });
         var interestGroups = [];
-        $.each(clusterRelevance, function(id, weight) {
-            if (weight > 0) {
+        $.each(pinfo.relevance, function(id, weight) {
+            if (id != 'overall' && weight > 0) {
                 interestGroups.push([
                     queryInterests[id],
-                    1.0 * weight / total
+                    1.0 * weight / totalRelevance
                 ]);
             }
         });
@@ -73,7 +75,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
             paper : paper,
             interests : pinterests ,
             nonRelevantInterests : pnrinterests,
-            strokeWidth : 30
+            strokeWidth : pinfo.relevance.overall * 20 / .2
         });
         people.push(person);
     });
@@ -85,6 +87,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
     });
     qv.layoutInterests();
     qv.layoutPeople();
+//    qv.setupListeners();
 };
 
 /**
@@ -96,6 +99,29 @@ function QueryViz(params) {
     this.people = params.people;
     this.queryInterests = params.queryInterests;
     this.paper = params.paper;
+    this.focus = null;          // the current focus of the visualization
+
+    // Set up the transparency filter
+    this.fadeScreen = this.paper.rect(0, 0, this.paper.width, this.paper.height);
+    this.fadeScreen.attr({ fill : 'white' , opacity : 0.0, 'stroke-width' : 0});
+
+}
+
+QueryViz.prototype.setupListeners = function() {
+    // Set up the event listeners
+    var self = this;
+//    $.each(this.people, function (index, p) {
+//        p.hover(
+//                function () { self.handlePersonHover(p); },
+//                function () { self.handlePersonUnhover(p); }
+//            );
+//    });
+    $.each(this.queryInterests, function (index, i) {
+        i.hover(
+                function () { self.handleInterestHover(i); },
+                function () { self.handleInterestUnhover(i); }
+            );
+    });
 };
 
 QueryViz.prototype.layoutInterests = function() {
@@ -117,4 +143,34 @@ QueryViz.prototype.layoutPeople = function() {
             person.setPosition(xRand, yRand);
         }
     });
+};
+
+QueryViz.prototype.raiseScreen = function(focus) {
+    console.log('raising screen');
+    focus.insertAfter(this.fadeScreen);
+    this.fadeScreen.stop();
+    this.fadeScreen.animate({opacity : 0.9}, 500);
+};
+
+QueryViz.prototype.lowerScreen = function() {
+    this.fadeScreen.stop();
+    var self = this;
+    this.fadeScreen.animate({opacity : 0.0}, 500, function () {self.fadeScreen.toBack();});
+};
+
+QueryViz.prototype.handlePersonHover = function(person) {
+    this.raiseScreen();
+};
+
+QueryViz.prototype.handlePersonUnhover = function(person) {
+    this.lowerScreen();
+};
+
+QueryViz.prototype.handleInterestHover = function(interest) {
+    interest.toFront();
+//    this.raiseScreen(interest.getBottomLayer());
+};
+
+QueryViz.prototype.handleInterestUnhover = function(interest) {
+    this.lowerScreen();
 };
