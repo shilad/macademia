@@ -3,6 +3,8 @@
  * @param vizJson
  */
 macademia.nbrviz.initQueryViz = function(vizJson) {
+    var paper = macademia.nbrviz.initPaper("graph", $(document).width(), $(document).height());
+
     // create related interests
     var relatedInterests = {};
     $.each(vizJson.queries, function (i, id) {relatedInterests[id] = [];});
@@ -14,7 +16,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
     });
 
     // Create interest clusters
-    var queryInterests = [];
+    var queryInterests = {};
     $.each(vizJson.queries, function (i, id) {
         var info = vizJson.interests[id];
         var ic = new InterestCluster({
@@ -22,12 +24,55 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
             name : info.name,
             color : Math.random()
         });
-        queryInterests.push(ic);
+        queryInterests[id] = ic;
     });
 
-    var paper = macademia.nbrviz.initPaper("graph", $(document).width(), $(document).height());
-    var qv = new QueryViz({people : null, queryInterests : queryInterests, paper : paper});
+    // Create people
+    // TODO: incorporate interest similarity scores
+    var people = [];
+    $.each(vizJson.people, function(id, pinfo) {
+        var total = 0;
+        var clusterRelevance = {};
+        var pinterests = [];
+        $.each(vizJson.queries, function(i, id) {clusterRelevance[id] = 0.0;});
+        $.each(pinfo.interests, function(i, id) {
+            var iinfo = vizJson.interests[id];
+            if (iinfo.cluster && iinfo.cluster >= 0) {
+                clusterRelevance[iinfo.cluster] += 1;
+                total += 1.0;
+            }
+            pinterests.push({
+                id : id,
+                name : iinfo.name,
+                color : Math.random()
+            });
+        });
+        var interestGroups = [];
+        $.each(clusterRelevance, function(id, weight) {
+            if (weight > 0) {
+                interestGroups.push([
+                    queryInterests[id],
+                    1.0 * weight / total
+                ]);
+            }
+        });
+        var person = new Person({
+            interestGroups : interestGroups,
+            name : pinfo.name,
+            picture : pinfo.pic,
+            paper : paper,
+            interests : pinterests
+        });
+        people.push(person);
+    });
+
+    var qv = new QueryViz({
+        people : people,
+        queryInterests : $.map(queryInterests, function(v, k) {return v;}),
+        paper : paper
+    });
     qv.layoutInterests();
+    qv.layoutPeople();
 };
 
 /**
@@ -50,56 +95,10 @@ QueryViz.prototype.layoutInterests = function() {
 
 };
 
-function layoutPeople() {
-    $.each(aJSON.people, function(index, value) {
+QueryViz.prototype.layoutPeople = function() {
+    $.each(this.people, function(i, person) {
         var xRand = Math.floor( Math.random() * ($(document).width() - 120) ) + 60;
         var yRand = Math.floor( Math.random() * ($(document).height() - 120) ) + 60;
-        var parameters = {
-            "xPos": xRand,
-            "yPos": yRand,
-            "picture": value['pic'],
-            "name":value['name'],
-            "interests":aJSON['interests'],
-            /*"nonRelevantInterests": function() {
-                                        var otherInterests = {};
-                                        $.each(value['interests']), function(i, val) {
-                                            try{
-                                                console.log(aJSON['interests'][i]);
-                                                return true; //continue
-                                            } catch(ReferenceError) {
-                                                otherInterests[i] = val;
-                                            }
-                                        }
-                                        return otherInterests;
-                                    }.call(),*/
-            "interestGroups":   function() {
-                                    var iGroups = [];
-                                    $.each(value['relevence'], function(i,val) {
-                                        if(i == 'overall') {
-                                            return true;    // continue
-                                        }
-                                        iGroups.push([
-                                                {
-                                                    'name' : aJSON['interests'][i].name,
-                                                    'color' : '#'+Math.floor(Math.random()*16777215).toString(16)   // random color
-                                                },
-                                                val
-                                        ]);
-                                    });
-                                    return iGroups;
-                                }.call(),
-            "strokeWidth": value['relevence']['overall']
-        };
-        new Person( parameters );
+        person.setPosition(xRand, yRand);
     });
-}
-
-function layoutInterests() {
-}
-$(document).ready(function() {
-//    console.log(aJSON);
-//    macademia.nbrviz.initPaper("graph", $(document).width(), $(document).height() );
-//    layoutPeople();
-//    layoutInterests();
-});
-
+};

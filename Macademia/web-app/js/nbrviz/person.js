@@ -3,12 +3,10 @@ macademia.nbrviz.person = macademia.nbrviz.person || {};
 
 /**
  * Person object constructor. params should have the following properties:
- * @ param xPos x position of the Person
- * @ param yPos y position of the yPos
  * @ param strokeWidth the size of the person
  * @ param interestGroups 2D array that determines the color slices on the person's circle by taking the proportions of his/her interestGroups.
  *         eg: [[interestGroup1, 0.3],[interestGroup2, 0.4],[interestGroup3, 0.3]]
- * @ param interests the person's interests that are related to the center
+ * @ param interests the person's interests that are related to the center  (RelatedInterest class)
  * @ param nonRelevantInterests greyed out interests that appear on mouseover that the person has but are not related to the center
  * @ param filepath to person's image
  * @ param name person's name
@@ -16,19 +14,30 @@ macademia.nbrviz.person = macademia.nbrviz.person || {};
  * @ author Emi Lim
  */
 function Person(params) {
-
     // object properties
     this.interestGroups = params.interestGroups || [];
     this.interestGroups.sort(function(a,b){
             return b[1] - a[1]
     });
-    this.xPos = params.xPos || macademia.nbrviz.paper.width/4;
-    this.yPos = params.yPos || macademia.nbrviz.paper.height/4;
+    this.xPos = macademia.nbrviz.paper.width/4;
+    this.yPos = macademia.nbrviz.paper.height/4;
     this.strokeWidth = params.strokeWidth || 1;
     this.interests = this.sortAndColorInterests(params.interests, params.interestGroups).concat(params.nonRelevantInterests) || [];
     this.paper = params.paper || macademia.nbrviz.paper;
     this.picture = params.picture || "";
     this.name = params.name || "nameless person";
+
+}
+
+
+/**
+ * Must be called to complete initialization of the person.
+ * @param x
+ * @param y
+ */
+Person.prototype.setPosition = function(x, y) {
+    this.xPos = x;
+    this.yPos = y;
 
     // variables
     var strokeBorderWidth = 1,
@@ -137,15 +146,4 @@ function Center(params){
         this.paper.path("M"+ xPos+" "+yPos+"L"+this.interestGroups[i].xPos+ " "+this.interestGroups[i].yPos).attr({"stroke-width": 3, stroke: color}).toBack();
     }
 }
-
-
-/////////////////////////////////////******** HELPER FUNCTIONS **********************************
-
-
-
-/////////////////////////////////////********* THE DATAS *****************************************
-
-
-
-
 

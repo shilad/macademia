@@ -24,4 +24,20 @@ class ImageController {
         def path = imageService.constructPath("", imageId, false)
         render(path)
     }
+
+
+    def fake = {
+        def gender = params.gender
+        def img = params.img
+
+        if (!['male', 'female'].contains(gender)) {
+            throw new IllegalArgumentException("unknown gender: ${gender}")
+        }
+
+        File path  = new File("db/nbrviz/${gender}pics/${img}")
+        println("path is ${path}")
+        response.contentType = 'image/jpeg'
+        response.outputStream << path.readBytes()
+        response.outputStream.flush()
+    }
 }

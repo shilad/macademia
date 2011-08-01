@@ -17,8 +17,10 @@ class PseudonymService {
     def allLasts = new File ("${DB_PATH}/dist.all.last.top").readLines() as ArrayList
     def malePicList = new File ("${DB_PATH}/malepiclist").readLines() as ArrayList
     def femalePicList = new File ("${DB_PATH}/femalepiclist").readLines() as ArrayList
-    def malePicLocation = "${DB_PATH}/malepics/"
-    def femalePicLocation = "${DB_PATH}/femalepics/"
+
+    def URL_BASE = '/Macademia/all/image/fake?'
+    def malePicLocation = "${URL_BASE}gender=male&img="
+    def femalePicLocation = "${URL_BASE}gender=female&img="
 
     public Long pair(Long x, Long y){
         if (x < y){
@@ -65,10 +67,10 @@ class PseudonymService {
         String picName
         if (pid & 1){
             picName=malePicList.get(((int) ((pid-1)/2))%malePicList.size())
-            return "$malePicLocation$picName"
+            return "$malePicLocation${picName.encodeAsURL()}"
         } else {
             picName=femalePicList.get(((int) (pid/2))%femalePicList.size())
-            return "$femalePicLocation$picName"
+            return "$femalePicLocation${picName.encodeAsURL()}"
         }
 
     }

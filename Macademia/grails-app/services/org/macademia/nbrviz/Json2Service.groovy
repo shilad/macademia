@@ -59,14 +59,6 @@ class Json2Service {
 
     boolean transactional = true
 
-    def makeJsonQuery(Interest i){
-         return [
-                 id: i.id,
-                 name: i.text,
-                 relatedInterestes: similarity2Service.getSimilarInterests(i)
-         ]
-    }
-
     def makeJsonPerson(Person p, Long sid) {
         def interests = []
         for (i in p.interests){
@@ -141,6 +133,12 @@ class Json2Service {
             }
         }
         for (Person p : graph.getPeople()){
+            for (Interest i : p.interests) {
+                if (!interestNodes[i.id]) {
+                    interestNodes[i.id] = makeJsonInterest(i)
+                    interestNodes[i.id].cluster = -1
+                }
+            }
             for (Edge e : graph.getAdjacentEdges(p)){
                 if (queryIds.contains(e.interestId)){
                     personNodes[p.id]['relevence'][e.interestId] = e.sim
