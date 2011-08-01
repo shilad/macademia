@@ -15,6 +15,7 @@ macademia.nbrviz.interest.nodeRadius = 10;
 function InterestCluster(params) {
     this.relatedInterests = params.relatedInterests,
     this.color = params.color || 0.1;
+    this.paper = params.paper || macademia.nbrviz.paper;
 
     if(params.name) {
         this.name = params.name,
@@ -41,6 +42,9 @@ InterestCluster.prototype.setPosition = function(x, y) {
     this.interest = macademia.nbrviz.paper.ball(this.xPos, this.yPos, macademia.nbrviz.interest.centerRadius, this.color, this.name, textOffsetX, textOffsetY);
     this.hiddenRing = this.interest[0];
     this.hiddenRing.toFront();
+
+    this.triggerSet = this.paper.set();
+    this.triggerSet.push(this.interest, this.hiddenRing);
 
     var relatedInterestNodes = this.createRelatedInterestNodes();
     this.hideText(relatedInterestNodes);
@@ -90,10 +94,29 @@ InterestCluster.prototype.createRelatedInterestNodes = function() {
         var newInterestNode = macademia.nbrviz.paper.ball(self.xPos, self.yPos, macademia.nbrviz.interest.nodeRadius, self.color, self.relatedInterests[i].name, 0, 0);
         $.each(newInterestNode, function(j) {
            newInterestNode[j].toBack();
+           self.triggerSet.push(newInterestNode[j]);
         });
         relatedInterestNodes.push(newInterestNode);
     });
     return relatedInterestNodes;
+};
+
+/*
+InterestCluster.prototype.hoverInterest = function(relatedInterestNodes) {
+    var self = this;
+    $.each(relatedInterestNodes, function(i) {
+        $.each(relatedInterestNodes[i], function(j) {
+            relatedInterestNodes[i][j].toFront();
+            relatedInterestNodes[i][j].hover(function() {
+            }, function() {
+            });
+        });
+    });
+};
+*/
+
+InterestCluster.prototype.hover = function(mouseoverCallback, mouseoutCallback) {
+    this.hiddenRing.hover(mouseoverCallback, mouseoutCallback);
 };
 
 /**
@@ -118,34 +141,38 @@ InterestCluster.prototype.showText = function(relatedInterestNodes) {
 
 InterestCluster.prototype.listeners = function(relatedInterestNodes) {
     this.ring = macademia.nbrviz.paper.circle(this.interest[1].attr("cx"), this.interest[1].attr("cy"), 0).toBack().attr({opacity: .1, "stroke-width": 1, stroke: "black", fill: "hsb(" + this.color + ", 1, .75)"});
+    this.triggerSet.push(this.ring);
 
     if(this.hasCenter) {
         this.dragInterest(relatedInterestNodes);
     }
     var self = this;
-    this.hiddenRing.mouseover(function() {
+    this.triggerSet.mouseover(function() {
+        console.log("mousein");
         self.cancelAnimations(relatedInterestNodes);
         self.hiddenRing.animate({
-            r: macademia.nbrviz.interest.clusterRadius,
-            x: self.xPos - macademia.nbrviz.interest.clusterRadius,
-            y: self.yPos - macademia.nbrviz.interest.clusterRadius,
-            width: macademia.nbrviz.interest.clusterRadius * 2,
-            height: macademia.nbrviz.interest.clusterRadius * 2
+            r: macademia.nbrviz.interest.clusterRadius + macademia.nbrviz.interest.nodeRadius * 2,
+            x: self.xPos - macademia.nbrviz.interest.clusterRadius - macademia.nbrviz.interest.nodeRadius * 2,
+            y: self.yPos - macademia.nbrviz.interest.clusterRadius - macademia.nbrviz.interest.nodeRadius * 2,
+            width: macademia.nbrviz.interest.clusterRadius * 2 + macademia.nbrviz.interest.nodeRadius * 4,
+            height: macademia.nbrviz.interest.clusterRadius * 2 + macademia.nbrviz.interest.nodeRadius * 4
         }, 0, "linear");
         self.placeRelatedInterests(relatedInterestNodes);
         self.ring.animate({r: macademia.nbrviz.interest.clusterRadius}, 800, "elastic");
         if(!self.hasCenter) {
             self.interest[3].hide();
         }
+        self.hover(relatedInterestNodes);
     });
-    this.hiddenRing.mouseout(function() {
+    this.triggerSet.mouseout(function() {
+        console.log("mouseout");
         self.cancelAnimations(relatedInterestNodes);
         self.hiddenRing.animate({
             r: 0,
             x: self.xPos - macademia.nbrviz.interest.centerRadius,
             y: self.yPos - macademia.nbrviz.interest.centerRadius,
             width: macademia.nbrviz.interest.centerRadius * 2,
-            height: macademia.nbrviz.interest.centerRadius * 2
+            height: macademia.nbrviz.interest.centerRadius * 2 + 20
         });
         self.hideRelatedInterests(relatedInterestNodes);
         self.ring.animate({r: 0}, 400, "backIn");
