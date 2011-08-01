@@ -6,13 +6,22 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
     var paper = macademia.nbrviz.initPaper("graph", $(document).width(), $(document).height());
 
     // create related interests
+    var clusterColors = {};
     var relatedInterests = {};
     var relatedInterestsById = {};
-    $.each(vizJson.queries, function (i, id) {relatedInterests[id] = [];});
+    $.each(vizJson.queries, function (i, id) {
+        clusterColors[id] = 1.0 * i / vizJson.queries.length + 1.0 / vizJson.queries.length / 2;
+        relatedInterests[id] = [];
+    });
     $.each(vizJson.interests, function (id, info) {
-        var ri = new RelatedInterest(id, info.name, Math.random());
+        var hasCluster = (info.cluster && info.cluster >= 0);
+        var color = -0.7;
+        if (hasCluster) {
+            color = clusterColors[info.cluster];
+        }
+        var ri = new RelatedInterest(id, info.name, color);
         relatedInterestsById[id] = ri;
-        if (info.cluster && info.cluster >= 0) {
+        if (hasCluster) {
             relatedInterests[info.cluster].push(ri);
         }
     });

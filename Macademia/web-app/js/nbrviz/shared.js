@@ -80,5 +80,10 @@ macademia.nbrviz.calculateRelatedInterestPositions  = function(relatedInterests,
 }
 
 macademia.nbrviz.makeHsb = function(h) {
-    return 'hsb(' + h + ',1,.6)';
+    // treat it as brightness
+    if (h < 0) {
+        return 'hsb(0,0,' + -h + ')';
+    } else {
+        return 'hsb(' + h + ',1,.6)';
+    }
 };
