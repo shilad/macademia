@@ -23,6 +23,7 @@ function Person(params) {
     this.yPos = macademia.nbrviz.paper.height/4;
     this.strokeWidth = params.strokeWidth || 1;
     this.interests = this.sortAndColorInterests(params.interests, params.interestGroups).concat(params.nonRelevantInterests) || [];
+    console.log('params.interests ' + params.interests.length + ' ' + params.interestGroups.length + ' ' + this.interests.length);
     this.paper = params.paper || macademia.nbrviz.paper;
     this.picture = params.picture || "";
     this.name = params.name || "nameless person";
@@ -90,7 +91,8 @@ Person.prototype.setPosition = function(x, y) {
 // function to show the interests
  Person.prototype.showInterests = function(){
      var self = this;
-    $.each(self.interestNodes, function(i){
+     $.each(self.interestNodes, function(i){
+        console.log('animating interest to ' + self.nodePositions[i][0] + ', ' + self.nodePositions[i][1]);
         self.interestNodes[i].animate({cx: self.nodePositions[i][0], cy:self.nodePositions[i][1], r:macademia.nbrviz.interest.nodeRadius},200,"elastic");
         self.text.push(self.paper.text(self.textPositions[i][0], self.textPositions[i][1], self.interests[i].name).attr({font: '15px Helvetica, Arial', stroke: "#fff", "stroke-width": 1, fill: "#000", "stroke-opacity": 0.4}));
     });

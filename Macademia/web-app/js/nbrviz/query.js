@@ -7,11 +7,13 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
 
     // create related interests
     var relatedInterests = {};
+    var relatedInterestsById = {};
     $.each(vizJson.queries, function (i, id) {relatedInterests[id] = [];});
     $.each(vizJson.interests, function (id, info) {
         if (info.cluster && info.cluster >= 0) {
             var ri = new RelatedInterest(id, info.name, Math.random());
             relatedInterests[info.cluster].push(ri);
+            relatedInterestsById[id] = ri;
         }
     });
 
@@ -41,11 +43,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
                 clusterRelevance[iinfo.cluster] += 1;
                 total += 1.0;
             }
-            pinterests.push({
-                id : id,
-                name : iinfo.name,
-                color : Math.random()
-            });
+            pinterests.push(relatedInterestsById[id]);
         });
         var interestGroups = [];
         $.each(clusterRelevance, function(id, weight) {
