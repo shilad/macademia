@@ -3,30 +3,22 @@ package org.macademia.nbrviz
 import org.macademia.Graph
 import grails.converters.JSON
 
-/**
- * Created by IntelliJ IDEA.
- * User: research
- * Date: 7/26/11
- * Time: 1:45 PM
- * To change this template use File | Settings | File Templates.
- */
 class QueryController {
 
   def json2Service
   def similarity2Service
 
-  def json = {
-
-      Set<Long> qset = params.qset.tokenize("c_").collect({ it.toLong() })
-      Graph graph = similarity2Service.calculateQueryNeighbors(qset)
-      def data = json2Service.buildQueryCentricGraph(qset, graph)
+  def json = { Set<Long> queryIds ->
+      Graph graph = similarity2Service.calculateQueryNeighbors(queryIds)
+      def data = json2Service.buildQueryCentricGraph(queryIds, graph)
       return data as JSON
   }
 
   def show = {
-    render(view : 'show', model : [
-            qset: params.qset,
-            json: json()
-    ])
+     Set<Long> queryIds = params.queryIds.split("_").collect({ it.toLong() }) as HashSet<Long>
+     render(view : 'show', model : [
+        queryIds : queryIds,
+        jsonData: json(queryIds)
+     ])
   }
 }

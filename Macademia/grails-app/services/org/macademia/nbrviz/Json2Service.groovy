@@ -91,7 +91,12 @@ class Json2Service {
         ]
     }
 
-
+    /**
+     * Too much branching logic. This should be split up into three separate modes. Yuck
+     * @param graph
+     * @param sid
+     * @return
+     */
     def buildJsonForGraph(Graph graph, Long sid){
         Map<Long, Object> personNodes = [:]
         Map<Long, Object> interestNodes = [:]
@@ -101,10 +106,11 @@ class Json2Service {
             personNodes[p.id]['relevence']['overall'] = graph.personScores[p.id].score[0]
             for (Edge e: graph.getAdjacentEdges(p)){
                 e.reify()
-                def iid = e.interest.id
-                if(!interestNodes[iid]){
-                    interestNodes[iid] = makeJsonInterest(e.interest)
-                }
+                [e.interest, e.relatedInterest].each({
+                    if (it && !interestNodes[it.id]) {
+                        interestNodes[it.id] = makeJsonInterest(it)
+                    }
+                })
             }
         }
         for (Map.Entry<Long, Integer> entry : graph.interestClusters.entrySet()){
@@ -116,16 +122,36 @@ class Json2Service {
     }
 
 
-    def buildQueryCentricGraph(Set<Long> qset, Graph graph, Long sid){
-        def basejson = buildJsonForGraph(graph, sid)
-        for (Person p : graph.getPeople()){
-            for (Edge e : graph.getAdjacentEdges(p)){
-                if (qset.contains(e.interestId)){
-                    basejson['people'][p.id]['relevence'][e.interestId] = e.sim
+    def buildQueryCentricGraph(Set<Long> queryIds, Graph graph, Long sid){
+        Map<Long, Object> personNodes = [:]
+        Map<Long, Object> interestNodes = [:]
+        for (Person p: graph.getPeople()){
+            personNodes[p.id] = makeJsonPerson(p, sid)
+            personNodes[p.id]['relevence']['overall'] = graph.personScores[p.id].score[0]
+            for (Edge e: graph.getAdjacentEdges(p)){
+                e.reify()
+                [e.interest, e.relatedInterest].each({
+                    if (it && !interestNodes[it.id]) {
+                        interestNodes[it.id] = makeJsonInterest(it)
+                    }
+                })
+                if (e.relatedInterest && e.relatedInterestId != e.interestId) {
+                    interestNodes[e.relatedInterestId].cluster = e.interestId
                 }
             }
         }
-        return ['queries':qset] + basejson
+        for (Person p : graph.getPeople()){
+            for (Edge e : graph.getAdjacentEdges(p)){
+                if (queryIds.contains(e.interestId)){
+                    personNodes[p.id]['relevence'][e.interestId] = e.sim
+                }
+            }
+        }
+        return [
+                'people':personNodes,
+                'interests':interestNodes,
+                'queries' : queryIds
+        ]
     }
 
     def buildExplorationCentricGraph(Object root, Graph graph, Long sid){

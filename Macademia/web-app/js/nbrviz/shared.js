@@ -20,6 +20,8 @@ macademia.nbrviz.initPaper = function(domId, width, height) {
         // ["M", x, y] - starting point of drawing path of the vector
         return {path: path, "stroke-width": strokeWidth};
     };
+
+    return macademia.nbrviz.paper;
 };
 
 

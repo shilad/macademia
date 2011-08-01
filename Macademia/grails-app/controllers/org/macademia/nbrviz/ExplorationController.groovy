@@ -16,9 +16,9 @@ class ExplorationController {
   def json = {
       if (params.rootClass){
           if (params.rootClass == "Person") {
-              return personJson
+              return personJson()
           } else if (params.rootClass == "Interest") {
-              return interestJson
+              return interestJson()
           } else {
               return(['root':params.id] as JSON)
           }
@@ -41,7 +41,7 @@ class ExplorationController {
 
   def show = {
     render(view : 'show', model : [
-            json: json()
+            jsonData: json()
     ])
   }
 }

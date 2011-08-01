@@ -127,6 +127,10 @@ public class SimilarInterestList {
         }
     }
 
+    public List<SimilarInterest> getList() {
+        return this.list;
+    }
+
     public SimilarInterest removeLowest() {
         return list.remove(list.size() - 1);
     }

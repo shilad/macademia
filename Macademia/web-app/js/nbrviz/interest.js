@@ -7,11 +7,12 @@ macademia.nbrviz.interest.nodeRadius = 10;
 
 /**
  * Interest Cluster constructor.
- * @param params
+ * @param params A dictionary consisting of keys:
+ *  relatedInterests : a list of RelatedInterest objects.
+ *  color : An integer representing hue between 0 and 1
+ *  name : label for cluster or not?
  */
 function InterestCluster(params) {
-    this.xPos = params.xPos,
-    this.yPos = params.yPos,
     this.relatedInterests = params.relatedInterests,
     this.color = params.color || 0.1;
 
@@ -22,6 +23,17 @@ function InterestCluster(params) {
         this.name = this.retrieveClusterName(this.relatedInterests),
         this.hasCenter = false;
     }
+
+}
+
+/**
+ * Must be called to complete the setup of the interest cluster.
+ * @param x
+ * @param y
+ */
+InterestCluster.prototype.setPosition = function(x, y) {
+    this.xPos = x;
+    this.yPos = y;
 
     var textOffsetX = 0,
         textOffsetY = 40;
@@ -34,7 +46,7 @@ function InterestCluster(params) {
     this.hideText(relatedInterestNodes);
 
     this.listeners(relatedInterestNodes);
-}
+};
 
 
 /**
@@ -250,11 +262,11 @@ InterestCluster.prototype.resetNodePositions = function(relatedInterestNodes, no
 
 /**
  * relatedInterest object constructor
- * @ param color of the relatedInterest
+ * @ param color of the relatedInterest (a hue between 0 and 1)
  * @ author Emi Lim
  */
-function RelatedInterest(people, text, color){
-    this.people = people,
+function RelatedInterest(id, text, color){
+    this.id = id;
     this.name = text,
     this.color = color;
-}
+};

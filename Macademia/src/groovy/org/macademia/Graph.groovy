@@ -494,6 +494,10 @@ class Graph {
         return sim / (cluster1.size() * cluster2.size())
     }
 
+    public boolean isPersonCenteredGraph() {
+        return rootPersonId != null
+    }
+
     /*
     public boolean containsEdge(Person person, Interest interest){
         Edge edge=new Edge(person:person, interest:interest)

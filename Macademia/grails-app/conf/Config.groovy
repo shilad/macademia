@@ -167,7 +167,14 @@ uiperformance.bundles = [
             'lib.macademia.collegefilter',
             'lib.macademia.autocomplete',
             'lib.macademia.profile',
-            'lib.macademia.slider'
+            'lib.macademia.slider',
+            'nbrviz/raphael',
+            'nbrviz/shared',
+            'nbrviz/interest',
+            'nbrviz/person',
+            'nbrviz/graph',
+            'nbrviz/exploration',
+            'nbrviz/query'
     ]],
 ]
 

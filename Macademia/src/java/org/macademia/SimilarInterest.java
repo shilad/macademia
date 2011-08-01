@@ -34,6 +34,10 @@ public class SimilarInterest implements Comparable {
         return -1;
     }
 
+    public long getInterestId() {
+        return this.interestId;
+    }
+
     public String toString() {
         String res = "";
         res = res + interestId + "," + similarity + "|";
