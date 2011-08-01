@@ -33,7 +33,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
         var ic = new InterestCluster({
             relatedInterests : relatedInterests[id],
             name : info.name,
-            color : Math.random()
+            color : clusterColors[id]
         });
         queryInterests[id] = ic;
     });
