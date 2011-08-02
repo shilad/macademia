@@ -9,7 +9,7 @@ function HoverSet() {
     this.mousein = [];
     this.mouseout = [];
     this.timeoutId = null;
-    this.timeoutPeriod = 10;
+    this.timeoutPeriod = 100;
 }
 
 HoverSet.prototype.add = function(e) {

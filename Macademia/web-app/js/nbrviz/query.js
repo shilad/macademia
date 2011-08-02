@@ -3,7 +3,7 @@
  * @param vizJson
  */
 macademia.nbrviz.initQueryViz = function(vizJson) {
-    var paper = macademia.nbrviz.initPaper("graph", $(document).width(), $(document).height());
+    var paper = macademia.nbrviz.initPaper("graph", $("#graph").width(), $("#graph").height());
 
     // create related interests
     var clusterColors = {};
@@ -121,6 +121,10 @@ QueryViz.prototype.setupListeners = function() {
                 function () { self.handleInterestHover(i); },
                 function () { self.handleInterestUnhover(i); }
             );
+//        i.hoverInterest(
+//                function () { console.log('mouse in.'); },
+//                function () { console.log('mouse out.'); }
+//            );
     });
 };
 

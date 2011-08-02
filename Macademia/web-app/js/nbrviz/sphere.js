@@ -20,14 +20,6 @@ function Sphere(params) {
     this.paper = params.paper;
     this.font = params.font || macademia.nbrviz.mainFont;
 
-    // invisible layer (useful for event handling)
-    this.invisible =  this.paper.rect(
-            this.x - this.r,
-            this.y - this.r,
-            this.r * 2,
-            this.r * 2 + this.yOffset / 2)
-            .attr({fill: '#000', stroke: 'none', opacity: 0});
-
     this.elements = [
 
             // gradient 1
@@ -44,6 +36,14 @@ function Sphere(params) {
             this.paper.text(this.x + this.xOffset, this.y + this.yOffset, this.name)
                 .attr({fill: '#000', 'font': this.font})
     ];
+
+    // invisible layer (useful for event handling)
+    this.invisible =  this.paper.rect(
+            this.x - this.r,
+            this.y - this.r,
+            this.r * 2,
+            this.r * 2 + this.yOffset / 2)
+            .attr({fill: '#000', stroke: 'none', opacity: 0.1});
 }
 
 Sphere.prototype.getInvisible = function( ){
@@ -58,11 +58,12 @@ Sphere.prototype.getY = function( ){
     return this.elements[0].attr('cy');
 };
 
-Sphere.prototype.toFront = function() {
-};
-
 Sphere.prototype.getVisibleElements = function() {
     return this.elements; // returns a copy
+};
+
+Sphere.prototype.hover = function(mouseIn, mouseOut) {
+    this.invisible.hover(mouseIn, mouseOut);
 };
 
 Sphere.prototype.drag = function(move, start, up) {
