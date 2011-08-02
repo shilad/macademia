@@ -19,14 +19,15 @@ function Sphere(params) {
     this.yOffset = params.yOffset;
     this.name = params.name;
 
-    this.elements = [
-            // invisible layer
-            this.rect(this.x - this.r,
-                    this.y - this.r,
-                    this.r * 2,
-                    this.r * 2 + 20)
-                .attr({fill: '#000', stroke: 'none', opacity: 0}),
+    // invisible layer (useful for event handling)
+    this.invisible =  this.rect(
+            this.x - this.r,
+            this.y - this.r,
+            this.r * 2,
+            this.r * 2 + 20)
+            .attr({fill: '#000', stroke: 'none', opacity: 0});
 
+    this.elements = [
             // gradient 1
             this.ellipse(
                     this.x, this.y, this.r, this.r)
@@ -44,12 +45,12 @@ function Sphere(params) {
 };
 
 Sphere.prototype.getInvisible = function( ){
-    return this.elements[0];
+    return this.invisible;
 };
 
 Sphere.prototype.toFront = function() {
 };
 
-Sphere.prototype.getElements = function() {
+Sphere.prototype.getVisibleElements = function() {
     return this.elements;
 };

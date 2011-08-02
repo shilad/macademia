@@ -43,6 +43,18 @@ InterestCluster.prototype.setPosition = function(x, y) {
     this.hiddenRing = this.interest[0];
     this.hiddenRing.toFront();
 
+//    this.interest = new Sphere({
+//                x : this.xPos, y : this.yPos,
+//                r : macademia.nbrviz.interest.centerRadius,
+//                hue : this.color, name : this.name,
+//                offsetX : textOffsetX, offsetY : textOffsetY
+//            });
+//    this.hiddenRing = this.interest.getInvisible();
+
+    this.hiddenRing.toFront();
+    this.layers = [];
+    this.layers.push()
+
     this.triggerSet = this.paper.set();
     this.triggerSet.push(this.interest, this.hiddenRing);
 

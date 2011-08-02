@@ -93,7 +93,7 @@ macademia.nbrviz.makeHsb = function(h) {
  * @param l1 Array to be updated.
  * @param l2 To be added to l1.
  */
-macademia.nbrviz.concat = function(dest, extra) {
-    dest.push.apply(dest, extra);
-    return dest;
+Array.prototype.concatInPlace = function(extra) {
+    this.push.apply(this, extra);
+    return this;
 };
