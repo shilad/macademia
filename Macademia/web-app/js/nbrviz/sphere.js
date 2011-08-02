@@ -62,6 +62,31 @@ Sphere.prototype.getVisibleElements = function() {
     return this.elements; // returns a copy
 };
 
+Sphere.prototype.toFront = function() {
+    var layers = this.getLayers();
+    layers[0].toFront();
+    for (var i = 1; i < layers.length; i++) {
+        layers[i].insertBefore(layers[i-1]);
+    }
+};
+
+Sphere.prototype.toBack = function() {
+//    var layers = this.getLayers();
+//    for (var i = 0; i < layers.length; i++) {
+//        layers[i].toBack();
+//    }
+//    console.log('toback');
+    var layers = this.getLayers().reverse();
+    layers[0].toBack();
+    for (var i = 1; i < layers.length; i++) {
+        layers[i].insertAfter(layers[i-1]);
+    }
+}
+
+Sphere.prototype.getBottomLayer = function() {
+    return this.elements[0];
+};
+
 Sphere.prototype.hover = function(mouseIn, mouseOut) {
     this.invisible.hover(mouseIn, mouseOut);
 };

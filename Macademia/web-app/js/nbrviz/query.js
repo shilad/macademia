@@ -99,7 +99,7 @@ function QueryViz(params) {
     this.people = params.people;
     this.queryInterests = params.queryInterests;
     this.paper = params.paper;
-    this.focus = null;          // the current focus of the visualization
+    this.edges = [];
 
     // Set up the transparency filter
     this.fadeScreen = this.paper.rect(0, 0, this.paper.width, this.paper.height);
@@ -118,13 +118,13 @@ QueryViz.prototype.setupListeners = function() {
     });
     $.each(this.queryInterests, function (index, i) {
         i.hover(
-                function () { self.handleInterestHover(i); },
-                function () { self.handleInterestUnhover(i); }
+                function () { self.handleInterestClusterHover(i); },
+                function () { self.handleInterestClusterUnhover(i); }
             );
-//        i.hoverInterest(
-//                function () { console.log('mouse in.'); },
-//                function () { console.log('mouse out.'); }
-//            );
+        i.hoverInterest(
+                function (i2, n) { self.handleInterestHover(i2, n); },
+                function (i2, n) { self.handleInterestUnhover(i2, n); }
+            );
     });
 };
 
@@ -170,11 +170,30 @@ QueryViz.prototype.handlePersonUnhover = function(person) {
     this.lowerScreen();
 };
 
-QueryViz.prototype.handleInterestHover = function(interest) {
+QueryViz.prototype.handleInterestClusterHover = function(interest) {
     interest.toFront();
     this.raiseScreen(interest.getBottomLayer());
 };
 
-QueryViz.prototype.handleInterestUnhover = function(interest) {
+QueryViz.prototype.handleInterestClusterUnhover = function(interest) {
     this.lowerScreen();
+};
+
+QueryViz.prototype.handleInterestHover = function(interest, interestNode) {
+    $.each(this.edges, function (i, e) { e.remove(); });
+    this.edges = [];
+    var self = this;
+    $.each(this.people, function (i, p) {
+        console.log('M' + interestNode.getX() + ' ' + interestNode.getY() + 'L' + p.xPos + ' ' + p.yPos);
+        var path = self.paper.path('M' + interestNode.getX() + ' ' + interestNode.getY() + 'L' + p.xPos + ' ' + p.yPos);
+        path.insertBefore(interestNode.getBottomLayer());
+        path.attr({stroke : '#f00'});
+        self.edges.push(path);
+    });
+    console.log('in : ' + interest.name + ' ' + interestNode.getX() + ', ' + interestNode.getY());
+};
+
+QueryViz.prototype.handleInterestUnhover = function(interest, interestNode) {
+    $.each(this.edges, function (i, e) { e.remove(); });
+    console.log('out : ' + interest.name + ' ' + interestNode.getX() + ', ' + interestNode.getY());
 };
