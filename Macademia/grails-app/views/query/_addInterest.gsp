@@ -58,24 +58,37 @@
             $("#queryIdForm").submit();
          });
 
+        $("#hideWidget").click(function(){
+            $(".addedInterests").hide("fast");
+            $("#showWidget").show();
+        });
+
+        $("#showWidget").click(function(){
+            $(".addedInterests").show("fast");
+            $("#showWidget").hide();
+        })
     });
 </g:javascript>
 <div>
-    <label for="interestQuery">Query Interests</label>
-
+    <a id="showWidget" href="#">show widget</a>
     <div class="addedInterests">
+        <label for="interestQuery"><div>Query Interests</div></label>
+        <ol>
         <g:each var="interest" in="${interests}">
-            <div class="addedInterestDiv">
-                <div class="addedInterest">${interest[1]}</div>
+            <li class="addedInterestDiv">
+                <div class="addedInterest">${interest[1]}&nbsp;&nbsp;&nbsp;
                 <input class="addedInterestId" value="${interest[0]}" type="hidden"/>
-                <a href="#" class='removeInterest'>(remove)</a>
-            </div>
+                [<a href="#" class='removeInterest'>X</a>]
+                </div>
+            </li>
         </g:each>
+        </ol>
         <g:form id="queryIdForm" url="../../${group}/query/show" method="get">
             <input id="queryIds" type="hidden" value="${queryIdsString}" name="queryIds"/>
         </g:form>
 
-    <input id="interestQuery" type="search" name="interestQuery" placeholder="Add new interest"/>
+    <input id="interestQuery" type="search" name="interestQuery" placeholder="Add new interest to query"/>
+    <a id="hideWidget" href="#">hide widget</a>
     </div>
 </div>
 

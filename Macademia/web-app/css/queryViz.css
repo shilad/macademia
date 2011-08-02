@@ -1,14 +1,14 @@
 html,body { height:100%; }
 #graph { width : 100%; height : 100%; }
 #interestQuery {
-    width: 200px;
+    width: 250px;
 }
-.removeInterest {
-    float:right;
-}
+/*.removeInterest {*/
+    /*float:right;*/
+/*}*/
 .addedInterests{
     width: auto;
-    background-color: rgba(90,90,220,0.2);
+    background-color: rgba(210,210,240,0.7);
     max-width: 100%;
 }
 .addedInterest{
@@ -24,12 +24,22 @@ html,body { height:100%; }
 }
 label{
     font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+#hideWidget{
+    color: #44f;
+    margin-left: 5px;
+}
+#showWidget{
+    color: #44f;
+    display: none;
 }
 #queryWidget{
     background-color: rgba(100,100,220,0.1);
     padding: 10px;
     position:absolute;
-    width: 380px;
+    width: 420px;
     /*float:right;*/
 }
 
