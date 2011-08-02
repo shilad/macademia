@@ -88,7 +88,7 @@ Person.prototype.setPosition = function(x, y) {
     macademia.concatInPlace(this.layers, this.wedges);
 
     //creating the name label
-    this.nameText = this.paper.text().attr({text: this.name, x: this.xPos+3, y: this.yPos+this.innerCircle+this.strokeWidth+13, font: '20px Helvetica, Arial'});
+    this.nameText = this.paper.text().attr({text: this.name, x: this.xPos+3, y: this.yPos+this.innerCircle+this.strokeWidth+13, font: macademia.nbrviz.mainFont});
     this.triggerSet.push(this.nameText);
     this.layers.push(this.nameText);
 
@@ -124,7 +124,7 @@ Person.prototype.getBottomLayer = function() {
      var self = this;
      $.each(self.interestNodes, function(i){
          var label = self.paper.text(self.textPositions[i][0], self.textPositions[i][1], self.interests[i].name)
-                 .attr({font: '15px Helvetica, Arial', stroke: "#fff", "stroke-width": 1, fill: "#000", "stroke-opacity": 0.4});
+                 .attr({font: macademia.nbrviz.subFont, stroke: "#fff", "stroke-width": 1, fill: "#000", "stroke-opacity": 0.4});
          self.text.push(label);
          self.textLabelTriggers[i].animate({width:90},100,"linear").toFront();
          self.interestNodes[i].animate({cx: self.nodePositions[i][0], cy:self.nodePositions[i][1], r:macademia.nbrviz.interest.nodeRadius},200,"elastic");

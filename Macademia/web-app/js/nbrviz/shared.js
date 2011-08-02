@@ -1,6 +1,9 @@
 var macademia = macademia || {};
 macademia.nbrviz = macademia.nbrviz || {};
 
+macademia.nbrviz.mainFont = '19px Helvetica, Arial';
+macademia.nbrviz.subFont = '15px Helvetica, Arial';
+
 macademia.nbrviz.initPaper = function(domId, width, height) {
     macademia.nbrviz.paper = new Raphael(domId, width - 30, height - 30);
 

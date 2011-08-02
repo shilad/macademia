@@ -41,9 +41,9 @@ function Sphere(params) {
 
             // label
             this.paper.text(this.x + this.xOffset, this.y + this.yOffset, this.name)
-                .attr({fill: '#000', 'font-size': 14})
+                .attr({fill: '#000', 'font': macademia.nbrviz.mainFont})
     ];
-};
+}
 
 Sphere.prototype.getInvisible = function( ){
     return this.invisible;
