@@ -15,6 +15,7 @@
   });
 </g:javascript>
 <body>
-<div id="graph"></div>
+    <g:include view="/query/_addInterest.gsp"/>
+    <div id="graph"></div>
 </body>
 </html>
