@@ -19,7 +19,7 @@
                     $("#queryIds").val($("#queryIds").val() +"_"+ id);
                 }
             }
-            return false;
+            $("#queryIdForms").submit();
         };
 
         $("#interestQuery").editAutocomplete({
@@ -38,8 +38,6 @@
               select: function(event, ui) {
                   this.value = "";
                   addNewInterest(ui.item.value, ui.item.data[0]);
-                  $("#queryIdForms").submit();
-                  return false;
               }
             },  macademia.makeActionUrlWithGroup(macademia.retrieveGroup(),'autocomplete', 'index') + "?klass=interest");
 
@@ -50,10 +48,6 @@
                 $(".addedInterestId").each(function(i){
                     ids.push($(this).parent().find(".addedInterestId").val());
                 });
-                submitQuery(ids);
-             });
-
-            function submitQuery(ids){
                 var idString = ids[0];
                 if (ids.length > 1){
                     for (var i=1; i < ids.length; i++){
@@ -62,8 +56,7 @@
                 }
                 $("#queryIds").val(idString);
                 $("#queryIdForms").submit();
-            }
-
+             });
 
     });
 </g:javascript>
@@ -94,12 +87,12 @@
         <g:each var="interest" in="${interests}">
             <div>
                 <div class="addedInterest">${interest[1]}</div>
-                <input class="addedInterestId" value="${interest[0]}" type="text"/>
+                <input class="addedInterestId" value="${interest[0]}" type="hidden"/>
                 <a href="#" class='removeInterest'>remove</a>
             </div>
         </g:each>
         <g:form id="queryIdForms" url="../../${group}/query/show" method="get">
-            <input id="queryIds" type="text" value="${queryIdsString}" name="queryIds"/>
+            <input id="queryIds" type="hidden" value="${queryIdsString}" name="queryIds"/>
         </g:form>
     </div>
 </div>
