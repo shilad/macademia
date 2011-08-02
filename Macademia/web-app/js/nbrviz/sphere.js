@@ -18,6 +18,7 @@ function Sphere(params) {
     this.yOffset = params.yOffset;
     this.name = params.name;
     this.paper = params.paper;
+    this.font = params.font || macademia.nbrviz.mainFont;
 
     // invisible layer (useful for event handling)
     this.invisible =  this.paper.rect(
@@ -41,7 +42,7 @@ function Sphere(params) {
 
             // label
             this.paper.text(this.x + this.xOffset, this.y + this.yOffset, this.name)
-                .attr({fill: '#000', 'font': macademia.nbrviz.mainFont})
+                .attr({fill: '#000', 'font': this.font})
     ];
 }
 

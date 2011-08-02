@@ -123,7 +123,8 @@ InterestCluster.prototype.createRelatedInterestNodes = function() {
             name: self.relatedInterests[i].name,
             xOffset: 0,
             yOffset: 0,
-            paper: self.paper
+            paper: self.paper,
+            font : macademia.nbrviz.subFont
         });
         newInterestNode.invisible.toBack();
         self.triggerSet.push(newInterestNode.invisible);
