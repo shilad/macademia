@@ -43,7 +43,7 @@ function Sphere(params) {
             this.y - this.r,
             this.r * 2,
             this.r * 2 + this.yOffset / 2)
-            .attr({fill: '#000', stroke: 'none', opacity: 0.1});
+            .attr({fill: '#000', stroke: 'none', opacity: 0.0});
 }
 
 Sphere.prototype.getInvisible = function( ){
