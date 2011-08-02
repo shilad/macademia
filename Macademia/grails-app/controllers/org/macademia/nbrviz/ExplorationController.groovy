@@ -28,14 +28,24 @@ class ExplorationController {
   def personJson = {
     def root = personService.get(params.id.toLong())
     Graph graph = similarity2Service.calculateExplorationNeighbors(root)
-    def data = json2Service.buildExplorationCentricGraph(root, graph)
+    def data
+    if (params.subToken){
+        data = json2Service.buildExplorationCentricGraph(root, graph, params.subToken.toLong())
+    } else{
+        data = json2Service.buildExplorationCentricGraph(root, graph)
+    }
     return(data as JSON)
   }
 
   def interestJson = {
       def root = interestService.get(params.id.toLong())
       Graph graph = similarity2Service.calculateExplorationNeighbors(root)
-      def data = json2Service.buildExplorationCentricGraph(root, graph)
+      def data
+      if (params.subToken){
+          data = json2Service.buildExplorationCentricGraph(root, graph, params.subToken.toLong())
+      } else {
+          data = json2Service.buildExplorationCentricGraph(root, graph)
+      }
       return(data as JSON)
   }
 

@@ -11,7 +11,12 @@ class QueryController {
 
   def json = { Set<Long> queryIds ->
       Graph graph = similarity2Service.calculateQueryNeighbors(queryIds)
-      def data = json2Service.buildQueryCentricGraph(queryIds, graph)
+      def data
+      if (params.subToken){
+          data = json2Service.buildQueryCentricGraph(queryIds, graph, params.subToken.toLong())
+      } else {
+          data = json2Service.buildQueryCentricGraph(queryIds, graph)
+      }
       return data as JSON
   }
 
