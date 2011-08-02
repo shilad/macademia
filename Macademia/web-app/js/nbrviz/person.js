@@ -67,8 +67,8 @@ Person.prototype.setPosition = function(x, y) {
     this.textPositions = this.positions[1];
     this.textLabelTriggers = this.initializeInterestTextLabels();
     this.text = this.paper.set();
-    this.layers.concatInPlace(this.interestNodes.items);
-    this.layers.concatInPlace(this.textLabelTriggers.items);
+    macademia.concatInPlace(this.layers, this.interestNodes.items);
+    macademia.concatInPlace(this.layers, this.textLabelTriggers.items);
 
     // creating the arc
     var color = this.fillHsb(this.interestGroups[0][0].color);
@@ -88,7 +88,7 @@ Person.prototype.setPosition = function(x, y) {
             this.wedges.push(section);
         }
     }
-    this.layers.concatInPlace(this.wedges);
+    macademia.concatInPlace(this.layers, this.wedges);
 
     //creating the name label
     this.nameText = this.paper.text().attr({text: this.name, x: this.xPos+3, y: this.yPos+this.innerCircle+this.strokeWidth+13, font: '20px Helvetica, Arial'});

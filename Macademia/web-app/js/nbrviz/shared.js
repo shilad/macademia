@@ -90,10 +90,17 @@ macademia.nbrviz.makeHsb = function(h) {
 
 /**
  * In place version of array concatenation
- * @param l1 Array to be updated.
- * @param l2 To be added to l1.
+ * @param dest Array to be updated.
+ * @param extra To be added to dest.
  */
-Array.prototype.concatInPlace = function(extra) {
-    this.push.apply(this, extra);
-    return this;
+macademia.concatInPlace = function(dest, extra) {
+    for (var i = 0; i < extra.length; i++) {
+        dest.push(extra[i]);
+    }
+    return dest;
+};
+
+
+macademia.reverseCopy = function(l) {
+    return l.splice(0).reverse();
 };

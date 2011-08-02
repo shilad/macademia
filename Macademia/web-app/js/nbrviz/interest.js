@@ -52,17 +52,18 @@ InterestCluster.prototype.setPosition = function(x, y) {
 
     this.layers = [];
     this.layers.push(this.hiddenRing);
-    this.layers.concatInPlace(this.interest.getVisibleElements());
+    macademia.concatInPlace(this.layers, this.interest.getVisibleElements());
     this.triggerSet = this.paper.set();
     this.triggerSet.push(this.interest.getVisibleElements(), this.hiddenRing);
 
     this.relatedInterestNodes = this.createRelatedInterestNodes();
-    $.each(this.relatedInterestNodes, function(i, ri) {self.layers.concatInPlace(ri);});
+    $.each(this.relatedInterestNodes,
+            function(i, ri) {macademia.concatInPlace(self.layers, ri);}
+    );
 
     this.hideText();
     this.listeners();
     this.layers.push(this.ring);
-//    this.layers.reverse();
 };
 
 InterestCluster.prototype.toFront = function() {

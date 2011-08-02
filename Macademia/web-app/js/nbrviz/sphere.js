@@ -29,15 +29,15 @@ function Sphere(params) {
 
     this.elements = [
 
+            // gradient 1
+            this.paper.ellipse(
+                    this.x, this.y, this.r, this.r)
+                .attr({fill: "r(.5,.9)hsb(" + this.hue + ", 1, .85)-hsb(" + this.hue + ", 1, .7)", stroke: '#ccc'}),
+
             // gradient 2
             this.paper.ellipse(
                     this.x, this.y, this.r - this.r / 5, this.r - this.r / 20)
                 .attr({stroke: "none", fill: "r(.5,.1)#ccc-#ccc", opacity: 0}),
-
-            // gradient 1
-            this.paper.ellipse(
-                    this.x, this.y, this.r, this.r)
-                .attr({fill: "r(.5,.9)hsb(" + this.hue + ", 1, .9)-hsb(" + this.hue + ", 1, .7)", stroke: '#ccc'}),
 
             // label
             this.paper.text(this.x + this.xOffset, this.y + this.yOffset, this.name)
