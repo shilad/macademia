@@ -37,7 +37,8 @@ InterestCluster.prototype.setPosition = function(x, y) {
     this.yPos = y;
 
     var textOffsetX = 0,
-        textOffsetY = 40;
+        textOffsetY = 40,
+        self = this;
 
     this.interest = new Sphere({
                 x : this.xPos, y : this.yPos,
@@ -52,32 +53,23 @@ InterestCluster.prototype.setPosition = function(x, y) {
     this.layers = [];
     this.layers.push(this.hiddenRing);
     this.layers.concatInPlace(this.interest.getVisibleElements());
-
     this.triggerSet = this.paper.set();
     this.triggerSet.push(this.interest.getVisibleElements(), this.hiddenRing);
 
     this.relatedInterestNodes = this.createRelatedInterestNodes();
+    $.each(this.relatedInterestNodes, function(i, ri) {self.layers.concatInPlace(ri);});
+
     this.hideText();
     this.listeners();
+    this.layers.push(this.ring);
+//    this.layers.reverse();
 };
 
 InterestCluster.prototype.toFront = function() {
-    this.hiddenRing.toFront();
-    var bottom = this.hiddenRing;
-    // skip hidden ring
-    $.each(this.interest.getVisibleElements().reverse(), function (index, i) {
-        i.insertBefore(bottom);
-        bottom = i;
-    });
-    $.each(this.relatedInterestNodes.slice(0).reverse(),
-            function (index, ri) {
-                $.each(ri.slice(0).reverse(), function (index2, elem) {
-                    elem.insertBefore(bottom);
-                    bottom = elem;
-                });
-            }
-    );
-    this.ring.insertBefore(bottom);
+    this.layers[0].toFront();
+    for (var i = 1; i < this.layers.length; i++) {
+        this.layers[i].insertBefore(this.layers[i-1]);
+    }
 };
 
 InterestCluster.prototype.getBottomLayer = function() {
@@ -221,35 +213,14 @@ InterestCluster.prototype.dragInterest = function(interestNodes) {
            }
         });
         self.ring.hide();
-
-        for(var j = 0; j < self.interest.length; j++) {
-            if(self.interest[j].attr("text")) {
-                self.interest[j].ox = self.interest[j].attr("x");
-                self.interest[j].oy = self.interest[j].attr("y");
-            } else if(self.interest[j].attr("width")) {
-                self.interest[j].ox = self.interest[j].attr("x") + macademia.nbrviz.interest.centerRadius;
-                self.interest[j].oy = self.interest[j].attr("y") + macademia.nbrviz.interest.centerRadius;
-            } else {
-                self.interest[j].ox = self.interest[j].attr("cx");
-                self.interest[j].oy = self.interest[j].attr("cy");
-            }
-        }
+        self.interest.savePosition();
     },
     move = function (dx, dy) {
-        // move will be called with dx and dy
-        for(var l = 0; l < self.interest.length; l++) {
-            if(self.interest[l].attr("text")) {
-                self.interest[l].attr({x: self.interest[l].ox + dx, y: self.interest[l].oy + dy});
-            } else if (self.interest[l].attr("width")) {
-                self.interest[l].attr({x: self.interest[l].ox + dx - macademia.nbrviz.interest.centerRadius, y: self.interest[l].oy + dy - macademia.nbrviz.interest.centerRadius});
-            }else {
-                self.interest[l].attr({cx: self.interest[l].ox + dx, cy: self.interest[l].oy + dy});
-            }
-        }
+        self.interest.updatePosition(dx, dy);
     },
     up = function () {
-        self.xPos = self.interest[1].attr("cx");
-        self.yPos = self.interest[1].attr("cy");
+        self.xPos = self.interest.getX();
+        self.yPos = self.interest.getY();
         self.placeRelatedInterests(interestNodes);
         self.ring.attr({cx: self.xPos, cy: self.yPos});
         self.ring.show();
