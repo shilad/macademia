@@ -68,7 +68,7 @@ class Json2Service {
         return [
                 id: p.id,
                 fid: fakedata.id,
-                name: p.fullName, // TODO: change this back to fakedata.name
+                name: fakedata.name,
                 pic: fakedata.pic,
                 relevance: [:],
                 interests: interests
