@@ -169,6 +169,7 @@ uiperformance.bundles = [
             'lib.macademia.profile',
             'lib.macademia.slider',
             'nbrviz/raphael',
+            'nbrviz/hoverset',
             'nbrviz/shared',
             'nbrviz/sphere',
             'nbrviz/interest',
