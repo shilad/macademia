@@ -59,7 +59,7 @@ macademia.nbrviz.calculateRelatedInterestPositions  = function(relatedInterests,
     endAngle = endAngle || 2 * Math.PI;
 
     var angleSlice = (endAngle - startAngle)/relatedInterests.length,
-        textOffset = 18,
+        textOffset = 30,
         nodePositions=[],
         textPositions=[];
 
@@ -86,4 +86,14 @@ macademia.nbrviz.makeHsb = function(h) {
     } else {
         return 'hsb(' + h + ',.5,1)';
     }
+};
+
+/**
+ * In place version of array concatenation
+ * @param l1 Array to be updated.
+ * @param l2 To be added to l1.
+ */
+macademia.nbrviz.concat = function(dest, extra) {
+    dest.push.apply(dest, extra);
+    return dest;
 };

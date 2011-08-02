@@ -110,12 +110,12 @@ function QueryViz(params) {
 QueryViz.prototype.setupListeners = function() {
     // Set up the event listeners
     var self = this;
-//    $.each(this.people, function (index, p) {
-//        p.hover(
-//                function () { self.handlePersonHover(p); },
-//                function () { self.handlePersonUnhover(p); }
-//            );
-//    });
+    $.each(this.people, function (index, p) {
+        p.hover(
+                function () { self.handlePersonHover(p); },
+                function () { self.handlePersonUnhover(p); }
+            );
+    });
     $.each(this.queryInterests, function (index, i) {
         i.hover(
                 function () { self.handleInterestHover(i); },
@@ -158,7 +158,8 @@ QueryViz.prototype.lowerScreen = function() {
 };
 
 QueryViz.prototype.handlePersonHover = function(person) {
-    this.raiseScreen();
+    person.toFront();
+    this.raiseScreen(person.getBottomLayer());
 };
 
 QueryViz.prototype.handlePersonUnhover = function(person) {
