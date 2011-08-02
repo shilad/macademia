@@ -173,7 +173,6 @@ InterestCluster.prototype.listeners = function() {
     var self = this;
     this.hoverSet.hover(
         function() {
-            console.log('in');
             self.cancelAnimations();
             self.hiddenRing.animate({
                 r: macademia.nbrviz.interest.clusterRadius + macademia.nbrviz.interest.nodeRadius * 2,
@@ -189,7 +188,6 @@ InterestCluster.prototype.listeners = function() {
             }
         },
         function() {
-            console.log('out');
             self.cancelAnimations();
             self.hideRelatedInterests();
             self.hiddenRing.animate({
