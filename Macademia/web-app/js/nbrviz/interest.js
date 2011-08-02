@@ -52,14 +52,17 @@ InterestCluster.prototype.setPosition = function(x, y) {
 
     this.layers = [];
     this.layers.push(this.hiddenRing);
-    macademia.concatInPlace(this.layers, this.interest.getVisibleElements());
+    macademia.concatInPlace(
+            this.layers,
+            macademia.reverseCopy(this.interest.getVisibleElements())
+    );
     this.triggerSet = this.paper.set();
     this.triggerSet.push(this.interest.getVisibleElements(), this.hiddenRing);
 
     this.relatedInterestNodes = this.createRelatedInterestNodes();
-    $.each(this.relatedInterestNodes,
-            function(i, ri) {macademia.concatInPlace(self.layers, ri);}
-    );
+    $.each(this.relatedInterestNodes, function(i, ri) {
+                macademia.concatInPlace(self.layers, macademia.reverseCopy(ri));
+            });
 
     this.hideText();
     this.listeners();

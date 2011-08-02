@@ -102,5 +102,5 @@ macademia.concatInPlace = function(dest, extra) {
 
 
 macademia.reverseCopy = function(l) {
-    return l.splice(0).reverse();
+    return l.slice(0).reverse();
 };

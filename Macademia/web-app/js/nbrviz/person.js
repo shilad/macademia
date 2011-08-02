@@ -27,7 +27,6 @@ function Person(params) {
     this.paper = params.paper || macademia.nbrviz.paper;
     this.picture = params.picture || "";
     this.name = params.name || "nameless person";
-
 }
 
 
@@ -57,8 +56,6 @@ Person.prototype.setPosition = function(x, y) {
     this.outerStroke = this.paper.circle(this.xPos, this.yPos, this.innerCircle+strokeBorderWidth/2+this.strokeWidth).attr({stroke: "#aaa", "stroke-width": strokeBorderWidth});
     this.innerStroke = this.paper.circle(this.xPos, this.yPos, this.innerCircle-strokeBorderWidth/2).attr({stroke: "#000", "stroke-width": strokeBorderWidth});
     this.layers.push(this.outerStroke, this.innerStroke);
-
-//    this.triggerSet.push(img);
 
     // initializing nodes
     this.interestNodes = this.initializeInterests();
