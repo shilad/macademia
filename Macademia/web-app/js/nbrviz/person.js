@@ -10,7 +10,7 @@ macademia.nbrviz.person = macademia.nbrviz.person || {};
  * @ param nonRelevantInterests greyed out interests that appear on mouseover that the person has but are not related to the center
  * @ param filepath to person's image
  * @ param name person's name
- * @ param paper the Raphael object you'd like to us. default is macademia.nbrviz.paper
+ * @ param paper the Raphael object you'd like to use. default is macademia.nbrviz.paper
  * @ author Emi Lim
  */
 function Person(params) {
@@ -44,24 +44,20 @@ Person.prototype.setPosition = function(x, y) {
 
     // variables
     var strokeBorderWidth = 1,
-        innerCircle = 30,
-        triggerSet = this.paper.set(),
         imageSize = 60;
 
     // Avatar for the person
-    this.img = this.paper.image(this.picture, this.xPos-imageSize/2, this.yPos-imageSize/2, imageSize, imageSize);
-    this.layers.push(this.img);
+    this.layers.push(this.paper.image(this.picture, this.xPos-imageSize/2, this.yPos-imageSize/2, imageSize, imageSize));
 
     // strokes and borders
-    this.outerStroke = this.paper.circle(this.xPos, this.yPos, this.innerCircle+strokeBorderWidth/2+this.strokeWidth).attr({stroke: "#aaa", "stroke-width": strokeBorderWidth});
-    this.innerStroke = this.paper.circle(this.xPos, this.yPos, this.innerCircle-strokeBorderWidth/2).attr({stroke: "#000", "stroke-width": strokeBorderWidth});
-    this.layers.push(this.outerStroke, this.innerStroke);
+    this.paper.circle(this.xPos, this.yPos, this.innerCircle+strokeBorderWidth/2+this.strokeWidth).attr({stroke: "#aaa", "stroke-width": strokeBorderWidth});
+    this.paper.circle(this.xPos, this.yPos, this.innerCircle-strokeBorderWidth/2).attr({stroke: "#000", "stroke-width": strokeBorderWidth});
 
     // initializing nodes
     this.interestNodes = this.initializeInterests();
-    this.positions = macademia.nbrviz.calculateRelatedInterestPositions(this.interests, this.strokeWidth+100, this.xPos, this.yPos, -Math.PI/3, Math.PI + Math.PI/3);
-    this.nodePositions = this.positions[0];
-    this.textPositions = this.positions[1];
+    var positions = macademia.nbrviz.calculateRelatedInterestPositions(this.interests, this.strokeWidth+100, this.xPos, this.yPos, -Math.PI/3, Math.PI + Math.PI/3);
+    this.nodePositions = positions[0];
+    this.textPositions = positions[1];
     this.textLabelTriggers = this.initializeInterestTextLabels();
     this.text = this.paper.set();
     macademia.concatInPlace(this.layers, this.interestNodes.items);
@@ -71,8 +67,8 @@ Person.prototype.setPosition = function(x, y) {
     var color = this.fillHsb(this.interestGroups[0][0].color);
     var base = this.paper.path().attr({personArc: [this.xPos, this.yPos, this.strokeWidth, 0.1, this.innerCircle], stroke: color, opacity: 0});
     base.animate({personArc: [this.xPos, this.yPos, this.strokeWidth, 1, this.innerCircle], stroke: color, opacity: 1}, 500, "linear");
-    this.wedges = [];
-    this.wedges.push(base);
+    var wedges = [];
+    wedges.push(base);
 //    this.triggerSet.push(base);
     if (this.interestGroups.length > 1){
         var amount = 1;
@@ -82,10 +78,10 @@ Person.prototype.setPosition = function(x, y) {
             var section = this.paper.path().attr({personArc: [this.xPos, this.yPos, this.strokeWidth, 0.1, this.innerCircle], stroke: color, opacity: 0});
             section.animate({personArc: [this.xPos, this.yPos, this.strokeWidth, amount, this.innerCircle], stroke: color, opacity: 1}, 500 * amount, "linear");
 //            this.triggerSet.push(section);
-            this.wedges.push(section);
+            wedges.push(section);
         }
     }
-    macademia.concatInPlace(this.layers, this.wedges);
+    macademia.concatInPlace(this.layers, wedges);
 
     //creating the name label
     this.nameText = this.paper.text().attr({text: this.name, x: this.xPos+3, y: this.yPos+this.innerCircle+this.strokeWidth+13, font: macademia.nbrviz.mainFont});

@@ -17,7 +17,7 @@ macademia.nbrviz.initPaper = function(domId, width, height) {
         if (percentage != 1){
             path = [["M", xPos, yPos-radius], ["A", radius, radius, 0, +(alpha > 180), 1, x, y]];
         }else {
-            path = [["M", xPos, yPos-radius], ["A", radius, radius, 0, 1, 1, xPos - 1 + 0.9, yPos-radius]];
+            path = [["M", xPos, yPos-radius], ["A", radius, radius, 0, 1, 1, xPos - 1 + 0.99, yPos-radius]];
         }
         // what the path variables mean:
         // ["M", x, y] - starting point of drawing path of the vector
