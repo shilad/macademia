@@ -51,18 +51,14 @@ InterestCluster.prototype.setPosition = function(x, y) {
     this.hiddenRing.toFront();
 
     this.layers = [];
-    this.layers.push(this.hiddenRing);
-    macademia.concatInPlace(
-            this.layers,
-            macademia.reverseCopy(this.interest.getVisibleElements())
-    );
+    macademia.concatInPlace(this.layers, this.interest.getLayers());
     this.triggerSet = this.paper.set();
     this.triggerSet.push(this.interest.getVisibleElements(), this.hiddenRing);
 
     this.relatedInterestNodes = this.createRelatedInterestNodes();
-    $.each(this.relatedInterestNodes, function(i, ri) {
-                macademia.concatInPlace(self.layers, macademia.reverseCopy(ri));
-            });
+    $.each(this.relatedInterestNodes,
+            function(i, ri) {macademia.concatInPlace(self.layers, ri.getLayers()); }
+        );
 
     this.hideText();
     this.listeners();
@@ -82,13 +78,14 @@ InterestCluster.prototype.getBottomLayer = function() {
 
 
 /**
- * Finds the related interests with the two shortest names and returns a short string
- * depending on the number of related interests. Ex: "interest1, interest2, ..."
+ * Takes an array of the names of related interests, finds the two shortest names and returns
+ * a short string depending on the number of related interests. Ex: "interest1, interest2, ..."
  */
 InterestCluster.prototype.retrieveClusterName = function() {
     var clusterName = "";
     var shortOne = "";
     var shortTwo = "";
+    var self = this;
 
     if(this.relatedInterests.length == 1) {
         return this.relatedInterests[0].name;
@@ -97,11 +94,11 @@ InterestCluster.prototype.retrieveClusterName = function() {
         shortTwo = this.relatedInterests[1].name;
     } else {
         for(var i in this.relatedInterests) {
-            if(this.relatedInterests[i].name.length < shortOne.length || shortOne == "") {
+            if((self.relatedInterests[i].name.length < shortOne.length || shortOne == "") && self.relatedInterests[i].name != "") {
                 shortTwo = shortOne;
-                shortOne = this.relatedInterests[i].name;
-            } else if(this.relatedInterests[i].name.length < shortTwo.length || shortTwo == "") {
-                shortTwo = this.relatedInterests[i].name;
+                shortOne = self.relatedInterests[i].name;
+            } else if((self.relatedInterests[i].name.length < shortTwo.length || shortTwo == "") && self.relatedInterests[i].name != "") {
+                shortTwo = self.relatedInterests[i].name;
             }
         }
     }
@@ -118,10 +115,21 @@ InterestCluster.prototype.createRelatedInterestNodes = function() {
     var relatedInterestNodes = [];
 
     $.each(self.relatedInterests, function(i) {
-        var newInterestNode = macademia.nbrviz.paper.ball(self.xPos, self.yPos, macademia.nbrviz.interest.nodeRadius, self.color, self.relatedInterests[i].name, 0, 0);
-        $.each(newInterestNode, function(j) {
-           newInterestNode[j].toBack();
-           self.triggerSet.push(newInterestNode[j]);
+        var newInterestNode = new Sphere({
+            x: self.xPos,
+            y: self.yPos,
+            r: macademia.nbrviz.interest.nodeRadius,
+            hue: self.color,
+            name: self.relatedInterests[i].name,
+            xOffset: 0,
+            yOffset: 0,
+            paper: self.paper
+        });
+        newInterestNode.invisible.toBack();
+        self.triggerSet.push(newInterestNode.invisible);
+        $.each(newInterestNode.elements, function(j) {
+           newInterestNode.elements[j].toBack();
+           self.triggerSet.push(newInterestNode.elements[j]);
         });
         relatedInterestNodes.push(newInterestNode);
     });
@@ -148,21 +156,19 @@ InterestCluster.prototype.hover = function(mouseoverCallback, mouseoutCallback) 
 
 /**
  * Hides the text element of each related interest node
- * @param relatedInterestNodes
  */
 InterestCluster.prototype.hideText = function() {
     $.each(this.relatedInterestNodes, function(i, node) {
-        node[3].hide();
+        node.elements[2].hide();
     });
 };
 
 /**
  * Shows the text element of each related interest node
- * @param relatedInterestNodes
  */
 InterestCluster.prototype.showText = function() {
     $.each(this.relatedInterestNodes, function(i, node) {
-        node[3].show();
+        node.elements[2].show();
     });
 };
 
@@ -174,7 +180,7 @@ InterestCluster.prototype.listeners = function() {
         this.dragInterest();
     }
     var self = this;
-    this.triggerSet.mouseover(function() {
+    this.hiddenRing.mouseover(function() {
         self.cancelAnimations();
         self.hiddenRing.animate({
             r: macademia.nbrviz.interest.clusterRadius + macademia.nbrviz.interest.nodeRadius * 2,
@@ -186,10 +192,10 @@ InterestCluster.prototype.listeners = function() {
         self.placeRelatedInterests();
         self.ring.animate({r: macademia.nbrviz.interest.clusterRadius}, 800, "elastic");
         if(!self.hasCenter) {
-            self.interest[3].hide();
+            self.interest.elements[2].hide();
         }
     });
-    this.triggerSet.mouseout(function() {
+    this.hiddenRing.mouseout(function() {
         self.cancelAnimations();
         self.hiddenRing.animate({
             r: 0,
@@ -201,7 +207,7 @@ InterestCluster.prototype.listeners = function() {
         self.hideRelatedInterests();
         self.ring.animate({r: 0}, 400, "backIn");
         if(!self.hasCenter) {
-            self.interest[3].show();
+            self.interest.elements[2].show();
         }
     });
 };
@@ -211,11 +217,17 @@ InterestCluster.prototype.dragInterest = function() {
     var start = function () {
         // storing original coordinates
         $.each(self.relatedInterestNodes, function(i) {
-           for(var k = 0; k < self.relatedInterestNodes[i].length; k++) {
+            for(var k = 0; k < self.relatedInterestNodes[i].length; k++) {
                 self.relatedInterestNodes[i][k].hide();
-           }
+            }
         });
         self.ring.hide();
+        $.each(self.relatedInterestNodes, function(i, ri) {
+            ri.invisible.hide();
+            $.each(ri.elements, function(i, elem) {
+                elem.hide();
+            });
+        });
         self.interest.savePosition();
     },
     move = function (dx, dy) {
@@ -224,6 +236,12 @@ InterestCluster.prototype.dragInterest = function() {
     up = function () {
         self.xPos = self.interest.getX();
         self.yPos = self.interest.getY();
+        $.each(self.relatedInterestNodes, function(i, ri) {
+            ri.invisible.show();
+            $.each(ri.elements, function(i, elem) {
+                elem.show();
+            });
+        });
         self.placeRelatedInterests();
         self.ring.attr({cx: self.xPos, cy: self.yPos});
         self.ring.show();
@@ -238,19 +256,20 @@ InterestCluster.prototype.placeRelatedInterests = function() {
     var textPositions = positions[1];
 
     var self = this;
-//    alert("placeRelatedInterests");
-    $.each(this.relatedInterestNodes, function(i, ri){
-        for(var j = 0; j < ri.length - 1; j++) {
-            ri[j].show();
-            ri[j].animate({
+    $.each(this.relatedInterestNodes, function(i){
+        self.relatedInterestNodes[i].invisible.animate({
+            x: nodePositions[i][0] - macademia.nbrviz.interest.nodeRadius,
+            y: nodePositions[i][1] - macademia.nbrviz.interest.nodeRadius
+        });
+        for(var j = 0; j <= 1; j++) {
+            self.relatedInterestNodes[i].elements[j].show();
+            self.relatedInterestNodes[i].elements[j].animate({
                 cx: nodePositions[i][0],
-                cy: nodePositions[i][1],
-                x: nodePositions[i][0] - macademia.nbrviz.interest.nodeRadius,
-                y: nodePositions[i][1] - macademia.nbrviz.interest.nodeRadius
+                cy: nodePositions[i][1]
             }, 800, "elastic");
         }
-        ri[ri.length - 1].show();
-        ri[ri.length - 1].animate({x: textPositions[i][0], y: textPositions[i][1]}, 800, "elastic");
+        self.relatedInterestNodes[i].elements[2].show();
+        self.relatedInterestNodes[i].elements[2].animate({x: textPositions[i][0], y: textPositions[i][1]}, 800, "elastic");
     });
 };
 
@@ -268,14 +287,16 @@ InterestCluster.prototype.cancelAnimations = function() {
 InterestCluster.prototype.hideRelatedInterests = function() {
     var self = this;
     $.each(this.relatedInterestNodes, function(i, ri){
-        for(var j = 0; j < ri.length - 1; j++) {
-            ri[j].animate({
+        ri.invisible.animate({
+            x: self.xPos - macademia.nbrviz.interest.nodeRadius,
+            y: self.yPos - macademia.nbrviz.interest.nodeRadius
+        });
+        for(var j = 0; j <=1; j++) {
+            ri.elements[j].animate({
                 cx: self.xPos,
-                cy: self.yPos,
-                x: self.xPos - macademia.nbrviz.interest.nodeRadius,
-                y: self.yPos - macademia.nbrviz.interest.nodeRadius
+                cy: self.yPos
             }, 400, "backIn");
-           ri[ri.length  - 1].animate({x: self.xPos, y: self.yPos}, 400, "backIn", function(){
+            ri.elements[ri.elements.length  - 1].animate({x: self.xPos, y: self.yPos}, 400, "backIn", function(){
                 self.hideText(self.relatedInterestNodes)
             });
         }

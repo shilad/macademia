@@ -24,8 +24,8 @@ function Sphere(params) {
             this.x - this.r,
             this.y - this.r,
             this.r * 2,
-            this.r * 2 + 20)
-            .attr({fill: '#000', stroke: 'none', opacity: 0.0});
+            this.r * 2 + this.yOffset / 2)
+            .attr({fill: '#000', stroke: 'none', opacity: 0});
 
     this.elements = [
 
@@ -86,4 +86,8 @@ Sphere.prototype.updatePosition = function(dx, dy) {
         this.elements[l].attr({cx: this.elements[l].ox + dx, cy: this.elements[l].oy + dy});
     }
     this.elements[2].attr({x: this.elements[2].ox + dx, y: this.elements[2].oy + dy});
+};
+
+Sphere.prototype.getLayers = function() {
+    return [this.invisible].concat(macademia.reverseCopy(this.elements));
 };

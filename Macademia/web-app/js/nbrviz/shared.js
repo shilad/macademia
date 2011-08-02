@@ -1,7 +1,7 @@
 var macademia = macademia || {};
 macademia.nbrviz = macademia.nbrviz || {};
 
-macademia.nbrviz.mainFont = '19px Helvetica, Arial';
+macademia.nbrviz.mainFont = '17px Helvetica, Arial';
 macademia.nbrviz.subFont = '15px Helvetica, Arial';
 
 macademia.nbrviz.initPaper = function(domId, width, height) {
