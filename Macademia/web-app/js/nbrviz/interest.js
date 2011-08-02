@@ -239,18 +239,18 @@ InterestCluster.prototype.placeRelatedInterests = function() {
 
     var self = this;
 //    alert("placeRelatedInterests");
-    $.each(this.relatedInterestNodes, function(i){
-        for(var j = 0; j < self.relatedInterestNodes[i].length - 1; j++) {
-            self.relatedInterestNodes[i][j].show();
-            self.relatedInterestNodes[i][j].animate({
+    $.each(this.relatedInterestNodes, function(i, ri){
+        for(var j = 0; j < ri.length - 1; j++) {
+            ri[j].show();
+            ri[j].animate({
                 cx: nodePositions[i][0],
                 cy: nodePositions[i][1],
                 x: nodePositions[i][0] - macademia.nbrviz.interest.nodeRadius,
                 y: nodePositions[i][1] - macademia.nbrviz.interest.nodeRadius
             }, 800, "elastic");
         }
-        self.relatedInterestNodes[i][self.relatedInterestNodes[i].length - 1].show();
-        self.relatedInterestNodes[i][self.relatedInterestNodes[i].length - 1].animate({x: textPositions[i][0], y: textPositions[i][1]}, 800, "elastic");
+        ri[ri.length - 1].show();
+        ri[ri.length - 1].animate({x: textPositions[i][0], y: textPositions[i][1]}, 800, "elastic");
     });
 };
 
@@ -258,24 +258,24 @@ InterestCluster.prototype.cancelAnimations = function() {
     this.ring.stop();
     this.hiddenRing.stop();
     var self = this;
-    $.each(this.relatedInterestNodes, function(i){
-        for(var j = 0; j < self.relatedInterestNodes[i].length - 1; j++) {
-            self.relatedInterestNodes[i][j].stop();
+    $.each(this.relatedInterestNodes, function(i, ri){
+        for(var j = 0; j < ri.length; j++) {
+            ri[j].stop();
         }
     });
 };
 
 InterestCluster.prototype.hideRelatedInterests = function() {
     var self = this;
-    $.each(this.relatedInterestNodes, function(i){
-        for(var j = 0; j < self.relatedInterestNodes[i].length - 1; j++) {
-            self.relatedInterestNodes[i][j].animate({
+    $.each(this.relatedInterestNodes, function(i, ri){
+        for(var j = 0; j < ri.length - 1; j++) {
+            ri[j].animate({
                 cx: self.xPos,
                 cy: self.yPos,
                 x: self.xPos - macademia.nbrviz.interest.nodeRadius,
                 y: self.yPos - macademia.nbrviz.interest.nodeRadius
             }, 400, "backIn");
-            self.relatedInterestNodes[i][self.relatedInterestNodes[i].length  - 1].animate({x: self.xPos, y: self.yPos}, 400, "backIn", function(){
+           ri[ri.length  - 1].animate({x: self.xPos, y: self.yPos}, 400, "backIn", function(){
                 self.hideText(self.relatedInterestNodes)
             });
         }
