@@ -39,24 +39,22 @@ InterestCluster.prototype.setPosition = function(x, y) {
     var textOffsetX = 0,
         textOffsetY = 40;
 
-    this.interest = macademia.nbrviz.paper.ball(this.xPos, this.yPos, macademia.nbrviz.interest.centerRadius, this.color, this.name, textOffsetX, textOffsetY);
-    this.hiddenRing = this.interest[0];
+    this.interest = new Sphere({
+                x : this.xPos, y : this.yPos,
+                r : macademia.nbrviz.interest.centerRadius,
+                hue : this.color, name : this.name,
+                xOffset : textOffsetX, yOffset : textOffsetY,
+                paper : this.paper
+            });
+    this.hiddenRing = this.interest.getInvisible();
     this.hiddenRing.toFront();
 
-//    this.interest = new Sphere({
-//                x : this.xPos, y : this.yPos,
-//                r : macademia.nbrviz.interest.centerRadius,
-//                hue : this.color, name : this.name,
-//                offsetX : textOffsetX, offsetY : textOffsetY
-//            });
-//    this.hiddenRing = this.interest.getInvisible();
-
-    this.hiddenRing.toFront();
     this.layers = [];
-    this.layers.push()
+    this.layers.push(this.hiddenRing);
+    this.layers.concatInPlace(this.interest.getVisibleElements());
 
     this.triggerSet = this.paper.set();
-    this.triggerSet.push(this.interest, this.hiddenRing);
+    this.triggerSet.push(this.interest.getVisibleElements(), this.hiddenRing);
 
     this.relatedInterestNodes = this.createRelatedInterestNodes();
     this.hideText();
@@ -67,7 +65,7 @@ InterestCluster.prototype.toFront = function() {
     this.hiddenRing.toFront();
     var bottom = this.hiddenRing;
     // skip hidden ring
-    $.each(this.interest.slice(1).reverse(), function (index, i) {
+    $.each(this.interest.getVisibleElements().reverse(), function (index, i) {
         i.insertBefore(bottom);
         bottom = i;
     });
@@ -174,7 +172,7 @@ InterestCluster.prototype.showText = function() {
 };
 
 InterestCluster.prototype.listeners = function() {
-    this.ring = macademia.nbrviz.paper.circle(this.interest[1].attr("cx"), this.interest[1].attr("cy"), 0).toBack().attr({opacity: .1, "stroke-width": 1, stroke: "black", fill: "hsb(" + this.color + ", 1, .75)"});
+    this.ring = macademia.nbrviz.paper.circle(this.interest.getX(), this.interest.getY(), 0).toBack().attr({opacity: .1, "stroke-width": 1, stroke: "black", fill: "hsb(" + this.color + ", 1, .75)"});
     this.triggerSet.push(this.ring);
 
     if(this.hasCenter) {
@@ -257,9 +255,7 @@ InterestCluster.prototype.dragInterest = function(interestNodes) {
         self.ring.show();
     };
 
-    for(var i = 0; i < self.interest.length; i++) {
-        this.interest[i].drag(move, start, up);
-    }
+    this.interest.drag(move, start, up);
 };
 
 InterestCluster.prototype.placeRelatedInterests = function(relatedInterestNodes) {
