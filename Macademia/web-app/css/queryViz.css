@@ -1,0 +1,38 @@
+html,body { height:100%; }
+#graph { width : 100%; height : 100%; }
+#interestQuery {
+    width: 200px;
+}
+.removeInterest {
+    float:right;
+}
+.addedInterests{
+    width: auto;
+    background-color: rgba(90,90,220,0.2);
+    max-width: 100%;
+}
+.addedInterest{
+    display: inline;
+    padding: 5px;
+}
+.addedInterestDiv{
+    padding: 5px;
+    opacity: 1.0;
+}
+#interestQuery{
+    margin: 20px;
+}
+label{
+    font-size: 20px;
+}
+#queryWidget{
+    background-color: rgba(100,100,220,0.1);
+    padding: 10px;
+    position:absolute;
+    width: 380px;
+    /*float:right;*/
+}
+
+#graph{
+    float:left
+}

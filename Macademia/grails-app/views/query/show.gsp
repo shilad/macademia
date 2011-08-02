@@ -7,12 +7,7 @@
     var vizJson = ${jsonData};
   </g:javascript>
   <g:include view="/layouts/headers.gsp"/>
-
-<style type="text/css">
-html,body { height:100%; }
-#graph { width : 100%; height : 100%; }
-</style>
-
+  <link rel="stylesheet" type="text/css" href="../../css/queryViz.css" />
 </head>
 <g:javascript>
   $().ready(function() {
@@ -21,7 +16,7 @@ html,body { height:100%; }
   });
 </g:javascript>
 <body>
-    <g:include view="/query/_addInterest.gsp"/>
     <div id="graph">&nbsp;</div>
+    <div id="queryWidget"><g:include view="/query/_addInterest.gsp"/></div>
 </body>
 </html>
