@@ -46,10 +46,32 @@ InterestCluster.prototype.setPosition = function(x, y) {
     this.triggerSet = this.paper.set();
     this.triggerSet.push(this.interest, this.hiddenRing);
 
-    var relatedInterestNodes = this.createRelatedInterestNodes();
-    this.hideText(relatedInterestNodes);
+    this.relatedInterestNodes = this.createRelatedInterestNodes();
+    this.hideText();
+    this.listeners();
+};
 
-    this.listeners(relatedInterestNodes);
+InterestCluster.prototype.toFront = function() {
+    this.hiddenRing.toFront();
+    var bottom = this.hiddenRing;
+    // skip hidden ring
+    $.each(this.interest.slice(1).reverse(), function (index, i) {
+        i.insertBefore(bottom);
+        bottom = i;
+    });
+    $.each(this.relatedInterestNodes.slice(0).reverse(),
+            function (index, ri) {
+                $.each(ri.slice(0).reverse(), function (index2, elem) {
+                    elem.insertBefore(bottom);
+                    bottom = elem;
+                });
+            }
+    );
+    this.ring.insertBefore(bottom);
+};
+
+InterestCluster.prototype.getBottomLayer = function() {
+    return this.ring;
 };
 
 
@@ -123,9 +145,9 @@ InterestCluster.prototype.hover = function(mouseoverCallback, mouseoutCallback) 
  * Hides the text element of each related interest node
  * @param relatedInterestNodes
  */
-InterestCluster.prototype.hideText = function(relatedInterestNodes) {
-    $.each(relatedInterestNodes, function(i) {
-        relatedInterestNodes[i][3].hide();
+InterestCluster.prototype.hideText = function() {
+    $.each(this.relatedInterestNodes, function(i, node) {
+        node[3].hide();
     });
 };
 
@@ -133,23 +155,22 @@ InterestCluster.prototype.hideText = function(relatedInterestNodes) {
  * Shows the text element of each related interest node
  * @param relatedInterestNodes
  */
-InterestCluster.prototype.showText = function(relatedInterestNodes) {
-    $.each(relatedInterestNodes, function(i) {
-        relatedInterestNodes[i][3].show();
+InterestCluster.prototype.showText = function() {
+    $.each(this.relatedInterestNodes, function(i, node) {
+        node[3].show();
     });
 };
 
-InterestCluster.prototype.listeners = function(relatedInterestNodes) {
+InterestCluster.prototype.listeners = function() {
     this.ring = macademia.nbrviz.paper.circle(this.interest[1].attr("cx"), this.interest[1].attr("cy"), 0).toBack().attr({opacity: .1, "stroke-width": 1, stroke: "black", fill: "hsb(" + this.color + ", 1, .75)"});
     this.triggerSet.push(this.ring);
 
     if(this.hasCenter) {
-        this.dragInterest(relatedInterestNodes);
+        this.dragInterest(this.relatedInterestNodes);
     }
     var self = this;
     this.triggerSet.mouseover(function() {
-        console.log("mousein");
-        self.cancelAnimations(relatedInterestNodes);
+        self.cancelAnimations(self.relatedInterestNodes);
         self.hiddenRing.animate({
             r: macademia.nbrviz.interest.clusterRadius + macademia.nbrviz.interest.nodeRadius * 2,
             x: self.xPos - macademia.nbrviz.interest.clusterRadius - macademia.nbrviz.interest.nodeRadius * 2,
@@ -157,16 +178,14 @@ InterestCluster.prototype.listeners = function(relatedInterestNodes) {
             width: macademia.nbrviz.interest.clusterRadius * 2 + macademia.nbrviz.interest.nodeRadius * 4,
             height: macademia.nbrviz.interest.clusterRadius * 2 + macademia.nbrviz.interest.nodeRadius * 4
         }, 0, "linear");
-        self.placeRelatedInterests(relatedInterestNodes);
+        self.placeRelatedInterests(self.relatedInterestNodes);
         self.ring.animate({r: macademia.nbrviz.interest.clusterRadius}, 800, "elastic");
         if(!self.hasCenter) {
             self.interest[3].hide();
         }
-        self.hover(relatedInterestNodes);
     });
     this.triggerSet.mouseout(function() {
-        console.log("mouseout");
-        self.cancelAnimations(relatedInterestNodes);
+        self.cancelAnimations(self.relatedInterestNodes);
         self.hiddenRing.animate({
             r: 0,
             x: self.xPos - macademia.nbrviz.interest.centerRadius,
@@ -174,7 +193,7 @@ InterestCluster.prototype.listeners = function(relatedInterestNodes) {
             width: macademia.nbrviz.interest.centerRadius * 2,
             height: macademia.nbrviz.interest.centerRadius * 2 + 20
         });
-        self.hideRelatedInterests(relatedInterestNodes);
+        self.hideRelatedInterests(self.relatedInterestNodes);
         self.ring.animate({r: 0}, 400, "backIn");
         if(!self.hasCenter) {
             self.interest[3].show();

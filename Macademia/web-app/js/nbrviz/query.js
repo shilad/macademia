@@ -87,7 +87,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
     });
     qv.layoutInterests();
     qv.layoutPeople();
-//    qv.setupListeners();
+    qv.setupListeners();
 };
 
 /**
@@ -146,16 +146,15 @@ QueryViz.prototype.layoutPeople = function() {
 };
 
 QueryViz.prototype.raiseScreen = function(focus) {
-    console.log('raising screen');
-    focus.insertAfter(this.fadeScreen);
     this.fadeScreen.stop();
-    this.fadeScreen.animate({opacity : 0.9}, 500);
+    this.fadeScreen.insertBefore(focus);
+    this.fadeScreen.animate({opacity : 0.85}, 400);
 };
 
 QueryViz.prototype.lowerScreen = function() {
     this.fadeScreen.stop();
     var self = this;
-    this.fadeScreen.animate({opacity : 0.0}, 500, function () {self.fadeScreen.toBack();});
+    this.fadeScreen.animate({opacity : 0.0}, 200, function () {self.fadeScreen.toBack();});
 };
 
 QueryViz.prototype.handlePersonHover = function(person) {
@@ -168,7 +167,7 @@ QueryViz.prototype.handlePersonUnhover = function(person) {
 
 QueryViz.prototype.handleInterestHover = function(interest) {
     interest.toFront();
-//    this.raiseScreen(interest.getBottomLayer());
+    this.raiseScreen(interest.getBottomLayer());
 };
 
 QueryViz.prototype.handleInterestUnhover = function(interest) {

@@ -44,10 +44,12 @@ Person.prototype.setPosition = function(x, y) {
 
     // variables
     var strokeBorderWidth = 1,
+        innerCircle = 30,
+        triggerSet = this.paper.set(),
         imageSize = 60;
 
     // strokes and borders
-    this.paper.circle(this.xPos, this.yPos, this.innerCircle+strokeBorderWidth/2+this.strokeWidth).attr({stroke: "#000", "stroke-width": strokeBorderWidth});
+    this.paper.circle(this.xPos, this.yPos, this.innerCircle+strokeBorderWidth/2+this.strokeWidth).attr({stroke: "#aaa", "stroke-width": strokeBorderWidth});
     this.paper.circle(this.xPos, this.yPos, this.innerCircle-strokeBorderWidth/2).attr({stroke: "#000", "stroke-width": strokeBorderWidth});
 
     // Avatar for the person
@@ -64,14 +66,14 @@ Person.prototype.setPosition = function(x, y) {
 
 
     // creating the arc
-    var color = macademia.nbrviz.makeHsb(this.interestGroups[0][0].color);
+    var color = this.fillHsb(this.interestGroups[0][0].color);
     var base = this.paper.path().attr({personArc: [this.xPos, this.yPos, this.strokeWidth, 0.1, this.innerCircle], stroke: color, opacity: 0});
     base.animate({personArc: [this.xPos, this.yPos, this.strokeWidth, 1, this.innerCircle], stroke: color, opacity: 1}, 500, "linear");
 //    this.triggerSet.push(base);
     if (this.interestGroups.length > 1){
         var amount = 1;
         for (var j = 1; j < this.interestGroups.length; j++){
-            color = macademia.nbrviz.makeHsb(this.interestGroups[j][0].color);
+            color = this.fillHsb(this.interestGroups[j][0].color);
             amount -= this.interestGroups[j-1][1];
             var section = this.paper.path().attr({personArc: [this.xPos, this.yPos, this.strokeWidth, 0.1, this.innerCircle], stroke: color, opacity: 0});
             section.animate({personArc: [this.xPos, this.yPos, this.strokeWidth, amount, this.innerCircle], stroke: color, opacity: 1}, 500 * amount, "linear");
@@ -137,7 +139,7 @@ Person.prototype.hover = function(mouseOver, mouseOut){
 Person.prototype.initializeInterests = function(){
         var interestNodes = this.paper.set();
         for (var i = 0; i<this.interests.length; i++){
-            var fill = macademia.nbrviz.makeHsb(this.interests[i].color);
+            var fill = this.fillHsb(this.interests[i].color);
             var interestNode = macademia.nbrviz.paper.circle(this.xPos, this.yPos, 0)
                             .attr({fill: fill})
                             .toFront();
@@ -170,6 +172,10 @@ Person.prototype.sortAndColorInterests = function(interests, interestGroups){
         }
     }
     return sortedInterests;
+};
+
+Person.prototype.fillHsb = function(h) {
+    return 'hsb(' + h + ',0.4,1)';
 };
 
 

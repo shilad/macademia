@@ -2,7 +2,7 @@ var macademia = macademia || {};
 macademia.nbrviz = macademia.nbrviz || {};
 
 macademia.nbrviz.initPaper = function(domId, width, height) {
-    macademia.nbrviz.paper = new Raphael(domId, width, height);
+    macademia.nbrviz.paper = new Raphael(domId, width - 30, height - 30);
 
     macademia.nbrviz.paper.customAttributes.personArc = function(xPos, yPos, strokeWidth, percentage, innerCircle){
         var alpha = 360 / 60 * (percentage * 60),
@@ -39,10 +39,10 @@ Raphael.fn.ball = function (x, y, r, hue, name, xOffset, yOffset) {
     hue = hue || 0;
     return [
             this.rect(x - r, y - r, r * 2, r * 2 + 20).attr({fill: '#000', stroke: 'none', opacity: 0}),
-            this.ellipse(x, y, r, r).attr({fill: "r(.5,.9)hsb(" + hue + ", 1, .75)-hsb(" + hue + ", 1, .4)", stroke: '#ccc'}),
+            this.ellipse(x, y, r, r).attr({fill: "r(.5,.9)hsb(" + hue + ", 1, .9)-hsb(" + hue + ", 1, .7)", stroke: '#ccc'}),
             this.ellipse(x, y, r - r / 5, r - r / 20).attr({stroke: "none", fill: "r(.5,.1)#ccc-#ccc", opacity: 0}),
             this.text(x + xOffset, y + yOffset, name).attr({fill: '#000', 'font-size': 14})
-    ]
+    ];
 };
 
 /**
@@ -84,6 +84,6 @@ macademia.nbrviz.makeHsb = function(h) {
     if (h < 0) {
         return 'hsb(0,0,' + -h + ')';
     } else {
-        return 'hsb(' + h + ',1,.6)';
+        return 'hsb(' + h + ',.5,1)';
     }
 };
