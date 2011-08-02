@@ -50,8 +50,9 @@ Person.prototype.setPosition = function(x, y) {
     this.layers.push(this.paper.image(this.picture, this.xPos-imageSize/2, this.yPos-imageSize/2, imageSize, imageSize));
 
     // strokes and borders
-    this.paper.circle(this.xPos, this.yPos, this.innerCircle+strokeBorderWidth/2+this.strokeWidth).attr({stroke: "#aaa", "stroke-width": strokeBorderWidth});
-    this.paper.circle(this.xPos, this.yPos, this.innerCircle-strokeBorderWidth/2).attr({stroke: "#000", "stroke-width": strokeBorderWidth});
+    this.outerStroke = this.paper.circle(this.xPos, this.yPos, this.innerCircle+strokeBorderWidth/2+this.strokeWidth).attr({stroke: "#aaa", "stroke-width": strokeBorderWidth});
+    this.innerStroke = this.paper.circle(this.xPos, this.yPos, this.innerCircle-strokeBorderWidth/2).attr({stroke: "#000", "stroke-width": strokeBorderWidth});
+    this.layers.push(this.outerStroke, this.innerStroke);
 
     // initializing nodes
     this.interestNodes = this.initializeInterests();
@@ -96,11 +97,12 @@ Person.prototype.setPosition = function(x, y) {
     this.layers.push(this.growingTrigger);
     this.layers.reverse();
 
-    this.triggerSet.hover(function () {
-        self.showInterests();
-    }, function() {
-        self.hideInterests();
-    });
+    var hoverSet = new HoverSet();
+    hoverSet.addAll(this.triggerSet);
+    hoverSet.hover(
+        function () { self.showInterests(); },
+        function () { self.hideInterests(); }
+    );
 };
 
 Person.prototype.toFront = function() {
@@ -127,7 +129,7 @@ Person.prototype.getBottomLayer = function() {
 //         self.interestNodes[i].animate({cx: self.nodePositions[i][0], cy:self.nodePositions[i][1], r:macademia.nbrviz.interest.nodeRadius},200,"elastic").toFront();
          self.layers.push(label);
     });
-    self.growingTrigger.animate({r:this.strokeWidth+60}, 100, "linear");
+    self.growingTrigger.animate({r:this.strokeWidth+100}, 100, "linear");
 };
 
 // function to hide the interests

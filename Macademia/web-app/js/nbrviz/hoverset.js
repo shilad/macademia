@@ -1,9 +1,16 @@
+/**
+ * This class provides support for handling hover events across a set of elements.
+ * The mousein callback will be called when any of the objects in the set are
+ * moused into, and the mouseout event will be called only when none of the
+ * objects in the set are moused over.
+ */
 function HoverSet() {
     this.elements = [];
-    this.mousein = null;    // support multiple subscribers
-    this.mouseout = null;
+    this.mousein = [];
+    this.mouseout = [];
     this.timeoutId = null;
-};
+    this.timeoutPeriod = 10;
+}
 
 HoverSet.prototype.add = function(e) {
     this.elements.push(e);
@@ -15,12 +22,19 @@ HoverSet.prototype.add = function(e) {
 };
 
 HoverSet.prototype.addAll = function(l) {
-    // implement this.
+    var self = this;
+    $.each(l, function() {
+        self.elements.push(this);
+        this.hover(
+            function () { self.elementIn(); },
+            function () { self.elementOut(); }
+        )
+    });
 };
 
 HoverSet.prototype.hover = function(mousein, mouseout) {
-    this.mousein = mousein;
-    this.mouseout = mouseout;
+    this.mousein.push(mousein);
+    this.mouseout.push(mouseout);
 };
 
 HoverSet.prototype.elementIn = function() {
@@ -28,7 +42,9 @@ HoverSet.prototype.elementIn = function() {
         window.clearTimeout(this.timeoutId);
         this.timeoutId = null;
     } else {
-        this.mousein();
+        for (var i = 0; i < this.mousein.length; i++) {
+            this.mousein[i]();
+        }
     }
 };
 
@@ -36,8 +52,10 @@ HoverSet.prototype.elementIn = function() {
 HoverSet.prototype.elementOut = function() {
     var self = this;
     this.timeoutId = window.setTimeout(function() {
-        self.mouseout();
+        for (var i = 0; i < self.mouseout.length; i++) {
+            self.mouseout[i]();
+        }
         self.timeoutId = null;
-    }, 10);
+    }, this.timeoutPeriod);
 
 };
