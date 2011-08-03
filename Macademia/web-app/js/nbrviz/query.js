@@ -84,6 +84,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
                 ]);
             }
         });
+        console.log('relevance is ' + pinfo.relevance.overall);
         var person = new Person({
             relevance : pinfo.relevance,
             interestGroups : interestGroups,
@@ -92,7 +93,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
             paper : paper,
             interests : pinterests ,
             nonRelevantInterests : pnrinterests,
-            strokeWidth : (screenArea() /60000 * pinfo.relevance.overall/overallRelevance) + 10
+            strokeWidth : (screenArea() /20000 * pinfo.relevance.overall/overallRelevance) + 10
         });
         people.push(person);
         var limit = 0;
@@ -279,7 +280,7 @@ QueryViz.prototype.handleInterestHover = function(interest, interestNode) {
             }
         });
     });
-    console.log('in : ' + interest.name + ' ' + interestNode.getX() + ', ' + interestNode.getY());
+//    console.log('in : ' + interest.name + ' ' + interestNode.getX() + ', ' + interestNode.getY());
 };
 
 QueryViz.prototype.handleInterestUnhover = function(interest, interestNode) {
