@@ -61,3 +61,7 @@ input:-moz-placeholder, textarea::-moz-placeholder {
 #graph{
     float:left
 }
+
+.ui-corner-all {
+    font-size : 14px;
+}

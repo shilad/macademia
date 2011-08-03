@@ -39,7 +39,7 @@
                   this.value = "";
                   addNewInterest(ui.item.value, ui.item.data[0]);
               }
-            },  macademia.makeActionUrlWithGroup(macademia.retrieveGroup(),'autocomplete', 'index') + "?klass=interest");
+            },  macademia.makeActionUrlWithGroup(macademia.retrieveGroup(),'autocomplete', 'index') + "?klass=interest&max=20");
 
 
         $("a.removeInterest").click(function(){
