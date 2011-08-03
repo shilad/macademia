@@ -13,6 +13,7 @@ macademia.nbrviz.interest.nodeRadius = 10;
  *  name : label for cluster or not?
  */
 function InterestCluster(params) {
+    this.id = params.id || null;
     this.relatedInterests = params.relatedInterests;
     this.color = params.color || 0.1;
     this.paper = params.paper || macademia.nbrviz.paper;

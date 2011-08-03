@@ -27,6 +27,7 @@ function Person(params) {
     this.paper = params.paper || macademia.nbrviz.paper;
     this.picture = params.picture || "";
     this.name = params.name || "nameless person";
+    this.relevance = params.relevance || null;
 }
 
 

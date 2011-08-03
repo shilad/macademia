@@ -174,6 +174,8 @@ uiperformance.bundles = [
             'nbrviz/sphere',
             'nbrviz/interest',
             'nbrviz/person',
+            'nbrviz/magnet',
+            'nbrviz/vector',
             'nbrviz/graph',
             'nbrviz/exploration',
             'nbrviz/query'

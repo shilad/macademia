@@ -5,6 +5,9 @@
 macademia.nbrviz.initQueryViz = function(vizJson) {
     var paper = macademia.nbrviz.initPaper("graph", $("#graph").width(), $("#graph").height());
 
+    width = $(document).width()-50;
+    height = $(document).height()-50;
+
     // create related interests
     var clusterColors = {};
     var relatedInterests = {};
@@ -34,6 +37,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
     $.each(vizJson.queries, function (i, id) {
         var info = vizJson.interests[id];
         var ic = new InterestCluster({
+            id : id,
             relatedInterests : relatedInterests[id],
             name : info.name,
             color : clusterColors[id]
@@ -44,6 +48,16 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
     // Create people
     // TODO: incorporate interest similarity scores
     var people = [];
+
+    // Normalize 'overall' relevances to modulate person ring size
+    // TODO: implement this in JSON service and remove from js
+    var overallRelevance = 0.0;
+    $.each(vizJson.people, function(id, pinfo) {
+        if (pinfo.relevance.overall > overallRelevance) {
+            overallRelevance = pinfo.relevance.overall;
+        }
+    });
+
     $.each(vizJson.people, function(id, pinfo) {
         var pinterests = [];
         var pnrinterests = [];
@@ -71,15 +85,25 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
             }
         });
         var person = new Person({
+            relevance : pinfo.relevance,
             interestGroups : interestGroups,
             name : pinfo.name,
             picture : pinfo.pic,
             paper : paper,
             interests : pinterests ,
             nonRelevantInterests : pnrinterests,
-            strokeWidth : Math.max(pinfo.relevance.overall * 60 / .2, 15)
+            strokeWidth : (screenArea() /60000 * pinfo.relevance.overall/overallRelevance) + 10
         });
         people.push(person);
+        var limit = 0;
+        if ( screenArea() < 650000 ) {
+            limit = 6;
+        } else {
+            limit = 10;
+        }
+        if( people.length >= limit ) {
+            return false; // break
+        }
     });
 
     var qv = new QueryViz({
@@ -131,26 +155,87 @@ QueryViz.prototype.setupListeners = function() {
     });
 };
 
-QueryViz.prototype.layoutInterests = function() {
-    $.each(this.queryInterests, function(index, interestCluster) {
-        var xRand = Math.floor( Math.random() * ($(document).width() - 120) ) + 60;
-        var yRand = Math.floor( Math.random() * ($(document).height() - 120) ) + 60;
-        interestCluster.setPosition(xRand, yRand);
-    });
+function distributePeople( coords ) {
+    var val = null;
+    for( var i = 0; i < coords.length - 1; i++ ) {
+        if( posEquals( coords[i], coords[coords.length -1] ) ){
+            coords[coords.length-1]['x'] = Math.floor( Math.random() * ($(document).width() - 190) ) + 95;
+            coords[coords.length-1]['y'] = Math.floor( Math.random() * ($(document).height() - 190) ) + 95;
+            i=0;
+            val = coords[coords.length-1];
+        }
+    }
+    return val;
+}
 
+
+
+QueryViz.prototype.layoutInterests = function() {
+    var a = ($(document).width() - 600)/2;
+    var b = ($(document).height()-360)/2;
+    var cx = $(document).width()/2;
+    var cy = $(document).height()/2;
+
+    $.each(this.queryInterests, function(index, interestCluster) {
+        var th = index * (360/vizJson.queries.length) * (Math.PI/180);
+        var r = function( th ) {
+                    return (a * b)/
+                    Math.sqrt(
+                        Math.pow( b * Math.cos(th), 2 ) +
+                        Math.pow( a * Math.sin(th), 2 )
+                    );
+                }(th);
+
+        var xDisp = Math.round( r * Math.cos(th) ) + cx;
+        var yDisp = Math.round( r * Math.sin(th) ) + cy;
+
+        interestCluster.setPosition(xDisp, yDisp);
+
+        var mag = new Magnet( new Vector( xDisp, yDisp), interestCluster.id ); //TODO: make sure this index matches up with the index for the relevance table
+    });
 };
 
-QueryViz.prototype.layoutPeople = function() {
+QueryViz.prototype.layoutPeople = function( /*coords*/ ) {
+    var self = this;
     $.each(this.people, function(i, person) {
-        var xRand = Math.floor( Math.random() * ($(document).width() - 120) ) + 60;
-        var yRand = Math.floor( Math.random() * ($(document).height() - 120) ) + 60;
+        //var xRand = Math.floor( Math.random() * ($(document).width() - 190) ) + 95;
+        //var yRand = Math.floor( Math.random() * ($(document).height() - 190) ) + 95;
 
         // TODO: fixme: why would this ever not be true?
         if (person.interestGroups.length > 0) {
-            person.setPosition(xRand, yRand);
+            //coords.push({'x':xRand, 'y':yRand});
+            /*var val;
+            if( (val = distributePeople( coords )) != null ) {
+                xRand = val['x'];
+                yRand = val['y'];
+            }*/
+
+            var p = new Point(new Vector( Math.random(), Math.random() ));
+            p.setStuff( i, person.relevance );  //TODO: this doenst exist in person yet
+
+            //person.setPosition(xRand, yRand);
         }
     });
+    startLayout();
+    $.each(Point.points, function(index, p) {
+        self.people[p.id].setPosition( p.screenX(), p.screenY()); //TODO screenx
+    });
 };
+
+
+
+
+
+
+// TODO: make this number relative to stroke width
+function posEquals( coord1, coord2 ) {
+    if( (coord1['x'] + 150) > coord2['x'] && (coord1['x'] - 150) < coord2['x'] ) {
+        if( (coord1['y'] + 150) > coord2['y'] && (coord1['y'] - 150) < coord2['y'] ) {
+            return true;
+        }
+    }
+    return false;
+}
 
 QueryViz.prototype.raiseScreen = function(focus) {
     this.fadeScreen.stop();
@@ -215,3 +300,10 @@ QueryViz.prototype.hideEdges = function() {
     $.each(this.highlighted, function (i, e) { e.toBack(); });
     this.highlighted = [];
 };
+
+// TODO group related pie slices on person node (matching colors adjacent to each other)
+// TODO arrange in order of increasing rgb hex code?
+
+function screenArea() {
+    return $(document).width() * $(document).height();
+}
