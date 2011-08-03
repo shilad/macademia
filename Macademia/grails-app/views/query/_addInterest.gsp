@@ -70,9 +70,9 @@
     });
 </g:javascript>
 <div>
-    <a id="showWidget" href="#">show widget</a>
+    <a id="showWidget" href="#">show search box</a>
     <div class="addedInterests">
-        <label for="interestQuery"><div>Query Interests</div></label>
+        <label for="interestQuery"><div>Search for interests:</div></label>
         <ol>
         <g:each var="interest" in="${interests}">
             <li class="addedInterestDiv">
@@ -88,7 +88,7 @@
         </g:form>
 
     <input id="interestQuery" type="search" name="interestQuery" placeholder="Add new interest to query"/>
-    <a id="hideWidget" href="#">hide widget</a>
+    <a id="hideWidget" href="#">hide search box</a>
     </div>
 </div>
 

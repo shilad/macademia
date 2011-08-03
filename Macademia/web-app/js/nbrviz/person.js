@@ -41,6 +41,7 @@ Person.prototype.setPosition = function(x, y) {
     this.triggerSet = this.paper.set(),
     this.innerCircle = 30;
     this.layers = [];
+    this.text = [];
 
     // variables
     var strokeBorderWidth = 1,
@@ -48,6 +49,7 @@ Person.prototype.setPosition = function(x, y) {
 
     // Avatar for the person
     this.layers.push(this.paper.image(this.picture, this.xPos-imageSize/2, this.yPos-imageSize/2, imageSize, imageSize));
+    this.layers.clip
 
     // strokes and borders
     this.outerStroke = this.paper.circle(this.xPos, this.yPos, this.innerCircle+strokeBorderWidth/2+this.strokeWidth).attr({stroke: "#aaa", "stroke-width": strokeBorderWidth});
@@ -59,10 +61,12 @@ Person.prototype.setPosition = function(x, y) {
     var positions = macademia.nbrviz.calculateRelatedInterestPositions(this.interests, this.strokeWidth+100, this.xPos, this.yPos, -Math.PI/3, Math.PI + Math.PI/3);
     this.nodePositions = positions[0];
     this.textPositions = positions[1];
+
     this.textLabelTriggers = this.initializeInterestTextLabels();
-    this.text = this.paper.set();
+
     macademia.concatInPlace(this.layers, this.interestNodes.items);
     macademia.concatInPlace(this.layers, this.textLabelTriggers.items);
+    macademia.concatInPlace(this.layers, this.text);
 
     // creating the arc
     var color = this.fillHsb(this.interestGroups[0][0].color);
@@ -112,22 +116,33 @@ Person.prototype.toFront = function() {
     }
 };
 
+Person.prototype.toBack = function() {
+    var l = macademia.reverseCopy(this.layers);
+    this.layers[0].toBack();
+    for (var i = 1; i < this.layers.length; i++) {
+        this.layers[i].insertAfter(this.layers[i-1]);
+    }
+};
+
 Person.prototype.getBottomLayer = function() {
     return this.layers[this.layers.length - 1];
 };
 
 
+Person.prototype.createInterestLabels = function() {
+    var self = this;
+};
+
 // function to show the interests
  Person.prototype.showInterests = function(){
      var self = this;
      $.each(self.interestNodes, function(i){
-         var label = self.paper.text(self.textPositions[i][0], self.textPositions[i][1], self.interests[i].name)
-                 .attr({font: macademia.nbrviz.subFont, stroke: "#fff", "stroke-width": 1, fill: "#000", "stroke-opacity": 0.4});
-         self.text.push(label);
+         self.text[i].show();
+         self.text[i].toFront();
          self.textLabelTriggers[i].animate({width:90},100,"linear").toFront();
          self.interestNodes[i].animate({cx: self.nodePositions[i][0], cy:self.nodePositions[i][1], r:macademia.nbrviz.interest.nodeRadius},200,"elastic");
 //         self.interestNodes[i].animate({cx: self.nodePositions[i][0], cy:self.nodePositions[i][1], r:macademia.nbrviz.interest.nodeRadius},200,"elastic").toFront();
-         self.layers.push(label);
+//         self.layers.push(label);
     });
     self.growingTrigger.animate({r:this.strokeWidth+100}, 100, "linear");
 };
@@ -139,7 +154,8 @@ Person.prototype.hideInterests = function(){
         node.animate({cx: self.xPos, cy:self.yPos, r:0},200,"<");
     });
     $.each(self.text, function(index, t){
-        t.remove();
+        t.hide();
+        t.toBack();
     });
     $.each(self.textLabelTriggers, function(index, label){
         label.animate({width:0}, 100, "linear");
@@ -172,10 +188,16 @@ Person.prototype.initializeInterests = function(){
 
 Person.prototype.initializeInterestTextLabels = function(){
     var labels = this.paper.set();
+
     for (var i = 0; i < this.interests.length; i++){
         var label = this.paper.rect(this.textPositions[i][0]-45, this.textPositions[i][1]-10, 0, 30).attr({fill: "#fff", opacity: 0, "stroke-width":0, r:10});
         this.triggerSet.push(label);
         labels.push(label);
+
+        var t = this.paper.text(this.textPositions[i][0], this.textPositions[i][1], this.interests[i].name)
+                .attr({font: macademia.nbrviz.subFont, stroke: "#fff", "stroke-width": 1, fill: "#000", "stroke-opacity": 0.4});
+        t.hide();
+        this.text.push(t);
     }
     return labels;
 };

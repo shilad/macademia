@@ -8,28 +8,38 @@ html,body { height:100%; }
 /*}*/
 .addedInterests{
     width: auto;
-    background-color: rgba(210,210,240,0.7);
+    background-color: rgba(210,210,240,0.9);
     max-width: 100%;
+    position: relative;
 }
 .addedInterest{
     display: inline;
-    padding: 5px;
+    padding: 1px;
 }
 .addedInterestDiv{
-    padding: 5px;
+    padding: 3px;
     opacity: 1.0;
 }
 #interestQuery{
-    margin: 20px;
+    margin: 0 20px 20px 20px;
+    font-size : 16px;
 }
 label{
     font-size: 20px;
     font-weight: bold;
-    text-align: center;
+    text-align: left;
+    padding : 0;
+    margin : 0;
+}
+label div {
+    padding-top : 10px;
+    margin-left : 20px;
 }
 #hideWidget{
     color: #44f;
-    margin-left: 5px;
+    position : absolute;
+    top : 10px;
+    right : 20px;
 }
 #showWidget{
     color: #44f;
@@ -42,7 +52,12 @@ label{
     width: 420px;
     /*float:right;*/
 }
-
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: #636363;
+}
+input:-moz-placeholder, textarea::-moz-placeholder {
+  color: #636363;
+}
 #graph{
     float:left
 }

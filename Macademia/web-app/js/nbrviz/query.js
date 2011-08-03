@@ -9,11 +9,13 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
     var clusterColors = {};
     var relatedInterests = {};
     var relatedInterestsById = {};
+
     $.each(vizJson.queries, function (i, id) {
         clusterColors[id] = 1.0 * i / vizJson.queries.length + 1.0 / vizJson.queries.length / 2;
         relatedInterests[id] = [];
         vizJson.interests[id].cluster = id;  // work around omission from json service...
     });
+
     $.each(vizJson.interests, function (id, info) {
         var hasCluster = (info.cluster && info.cluster >= 0);
         var color = -0.7;
@@ -75,7 +77,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
             paper : paper,
             interests : pinterests ,
             nonRelevantInterests : pnrinterests,
-            strokeWidth : pinfo.relevance.overall * 20 / .2
+            strokeWidth : Math.max(pinfo.relevance.overall * 60 / .2, 15)
         });
         people.push(person);
     });
@@ -100,6 +102,7 @@ function QueryViz(params) {
     this.queryInterests = params.queryInterests;
     this.paper = params.paper;
     this.edges = [];
+    this.highlighted = [];
 
     // Set up the transparency filter
     this.fadeScreen = this.paper.rect(0, 0, this.paper.width, this.paper.height);
@@ -180,20 +183,35 @@ QueryViz.prototype.handleInterestClusterUnhover = function(interest) {
 };
 
 QueryViz.prototype.handleInterestHover = function(interest, interestNode) {
-    $.each(this.edges, function (i, e) { e.remove(); });
-    this.edges = [];
+    this.hideEdges();
     var self = this;
     $.each(this.people, function (i, p) {
-        console.log('M' + interestNode.getX() + ' ' + interestNode.getY() + 'L' + p.xPos + ' ' + p.yPos);
-        var path = self.paper.path('M' + interestNode.getX() + ' ' + interestNode.getY() + 'L' + p.xPos + ' ' + p.yPos);
-        path.insertBefore(interestNode.getBottomLayer());
-        path.attr({stroke : '#f00'});
-        self.edges.push(path);
+        $.each(p.interests, function(index, interest2) {
+            if (interest.id == interest2.id) {
+                self.drawEdge(p, interestNode);
+                p.toFront();
+                self.highlighted.push(p);
+            }
+        });
     });
     console.log('in : ' + interest.name + ' ' + interestNode.getX() + ', ' + interestNode.getY());
 };
 
 QueryViz.prototype.handleInterestUnhover = function(interest, interestNode) {
+    this.hideEdges();
+};
+
+QueryViz.prototype.drawEdge = function(person, interestNode) {
+    var svgStr = 'M' + interestNode.getX() + ' ' + interestNode.getY() + 'L' + person.xPos + ' ' + person.yPos + 'Z';
+    var path = this.paper.path(svgStr);
+    path.insertBefore(interestNode.getBottomLayer());
+    path.attr({stroke : '#f00', 'stroke-width' : 2, 'stroke-dasharray' : '- ', 'stroke-opacity' : 0.4});
+    this.edges.push(path);
+};
+
+QueryViz.prototype.hideEdges = function() {
     $.each(this.edges, function (i, e) { e.remove(); });
-    console.log('out : ' + interest.name + ' ' + interestNode.getX() + ', ' + interestNode.getY());
+    this.edges = [];
+    $.each(this.highlighted, function (i, e) { e.toBack(); });
+    this.highlighted = [];
 };
