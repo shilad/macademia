@@ -5,8 +5,7 @@ zoom = 30;
 GRAVITATIONAL_CONSTANT = 500000.0;
 q = 25000.0;
 
-function Point(position)
-{
+function Point(position) {
 	this.p = position; // position
 	//this.m = 10.0; // mass
 	this.v = new Vector(0, 0); // velocity
@@ -21,14 +20,12 @@ Point.prototype.setStuff= function( id, relevance ) {
 	this.id = id;
 };
 
-Point.prototype.applyForce = function(force)
-{
-	this.f = this.f.add(force.divide(this.m));
+Point.prototype.applyForce = function(force) {
+	this.f = this.f.add(force);
 };
 
 // points are slightly repulsed by other points
-Point.applyCoulombsLaw = function()
-{
+Point.applyCoulombsLaw = function() {
 	var ke = 100.0; // repulsion constant
 
 	Point.points.forEach(function(point1) {
@@ -47,8 +44,7 @@ Point.applyCoulombsLaw = function()
 	});
 };
 
-Point.updateVelocity = function(timestep)
-{
+Point.updateVelocity = function(timestep) {
 	var damping = 0.5; // damping constant, points lose velocity over time
 	Point.points.forEach(function(p) {
 		p.v = p.v.add(p.f.multiply(timestep)).multiply(damping);
@@ -56,8 +52,7 @@ Point.updateVelocity = function(timestep)
 	});
 };
 
-Point.updatePosition = function(timestep)
-{
+Point.updatePosition = function(timestep) {
 	Point.points.forEach(function(p) {
 		p.p = p.p.add(p.v.multiply(timestep));
 	});
@@ -117,7 +112,7 @@ Magnet.prototype.attractPeople = function() {
         }*/
 
         var gForce = self.forceDirection(p).multiply(
-			( self.relevances[p.id] * (-1.0) * GRAVITATIONAL_CONSTANT )
+			(/* self.relevances[p.id] * */(-1.0) * GRAVITATIONAL_CONSTANT )
 		).add(
 			self.forceDirection(p).multiply(
 				( q / Math.pow((radius/15.0),4) )
@@ -141,17 +136,16 @@ Magnet.prototype.normalizeRelevances = function() {
 	});
 };
 
-function startLayout()
-{
+function startLayout() {
     Magnet.magnets.forEach(function(mag){
         mag.normalizeRelevances();
     });
-var count =0;
+    var count =0;
 	while (true) {
         Magnet.magnets.forEach(function(mag){
 			mag.attractPeople();
 		});
-count++;
+        count++;
 		Point.applyCoulombsLaw();
 		Point.updateVelocity(0.05);
 		Point.updatePosition(0.05);
