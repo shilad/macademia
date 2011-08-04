@@ -2,8 +2,8 @@
 //var height = $(document).height()-50;
 zoom = 30;
 
-GRAVITATIONAL_CONSTANT = 10000.0;
-q = 100.0;
+GRAVITATIONAL_CONSTANT = 600.0;
+q = 15000.0;
 
 function Point(position) {
 	this.p = position; // position
@@ -27,7 +27,7 @@ Point.prototype.applyForce = function(force)
 // points are slightly repulsed by other points
 Point.applyCoulombsLaw = function()
 {
-	var ke = 50.0; // repulsion constant
+	var ke = 100.0; // repulsion constant
 
 	Point.points.forEach(function(point1) {
 		Point.points.forEach(function(point2) {
@@ -70,7 +70,7 @@ Point.prototype.screenY = function() {
 
 Magnet.prototype.constructor = Magnet;
 function Magnet(position, id) {
-	this.point = new Point(position);
+	this.position = position;
 	this.id = id;
 	this.relevances = {};
 	
@@ -83,11 +83,11 @@ Magnet.prototype.computeDistance = function(pnt) {
 	//console.log("value 1: "+Math.sqrt( Math.pow((this.point.p.x - pnt.screenX() ),2) + Math.pow((this.point.p.y - pnt.screenY() ),2) ));
     //console.log("value2: "+this.point.p.subtract(pnt.p).magnitude());
     //return this.point.p.subtract(pnt.p).magnitude();
-    return Math.sqrt( Math.pow((this.point.p.x - pnt.screenX() ),2) + Math.pow((this.point.p.y - pnt.screenY() ),2) );
+    return Math.sqrt( Math.pow((this.position.x - pnt.screenX() ),2) + Math.pow((this.position.y - pnt.screenY() ),2) );
 };
 
 Magnet.prototype.forceDirection = function(pnt) {
-	return (new Vector( (-this.point.p.x + pnt.screenX()), (-this.point.p.y + pnt.screenY() ) )).normalise();
+	return (new Vector( (-this.position.x + pnt.screenX()), (-this.position.y + pnt.screenY() ) )).normalise();
 };
 
 Magnet.prototype.attractPeople = function() {
@@ -95,7 +95,7 @@ Magnet.prototype.attractPeople = function() {
 	$.each(Point.points, function(i, p){
 		var radius = self.computeDistance(p);
 
-		if( (radius == 0) || (self.relevances[p.id] == null) || isNaN(self.relevances[p.id]) ) {
+		if( (self.relevances[p.id] == null) || isNaN(self.relevances[p.id]) ) {
             return true; // continue;
 		}
 
@@ -103,7 +103,7 @@ Magnet.prototype.attractPeople = function() {
 			( self.relevances[p.id] * (-1.0) * GRAVITATIONAL_CONSTANT )
 		).add(
 			self.forceDirection(p).multiply(
-				( q / Math.pow((radius/15.0),4) )
+				( q / Math.pow(((radius+15.0)/30.0),4) )
 			)
 		);
 		p.applyForce( gForce );
@@ -125,16 +125,16 @@ Magnet.prototype.normalizeRelevances = function() {
 };
 
 function startLayout() {
-    Magnet.magnets.forEach(function(mag){
-        mag.normalizeRelevances();
-    });
-    var count =0;
+	Magnet.magnets.forEach(function(mag){
+		mag.normalizeRelevances();
+	});
+	var count =0;
 	while (true) {
-        Magnet.magnets.forEach(function(mag){
+		Magnet.magnets.forEach(function(mag){
 			mag.attractPeople();
 		});
-        count++;
-		//Point.applyCoulombsLaw();
+		count++;
+		Point.applyCoulombsLaw();
 		Point.updateVelocity(0.05);
 		Point.updatePosition(0.05);
 
@@ -151,6 +151,29 @@ function startLayout() {
 				console.log(p.id+", "+p.screenX()+", "+p.screenY());
 			});
 			console.log("done");
+			break;
+		}
+	}
+}
+
+function magDrag( mag ) {
+	var count =0;
+	while (true) {
+		mag.attractPeople();
+		count++;
+		Point.applyCoulombsLaw();
+		Point.updateVelocity(0.05);
+		Point.updatePosition(0.05);
+
+		// calculate kinetic energy of system
+		var k = 0.0;
+		Point.points.forEach(function(p){
+			var speed = p.v.magnitude();
+			k += speed * speed;
+		});
+
+		// stop simulation when
+		if ( k < 0.01 || count == 1000) {
 			break;
 		}
 	}
