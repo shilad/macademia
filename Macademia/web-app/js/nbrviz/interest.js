@@ -17,6 +17,7 @@ function InterestCluster(params) {
     this.relatedInterests = params.relatedInterests;
     this.color = params.color || 0.1;
     this.paper = params.paper || macademia.nbrviz.paper;
+    this.callback = params.callback || function(){};
 
     if(params.name) {
         this.name = params.name;
@@ -238,6 +239,7 @@ InterestCluster.prototype.dragInterest = function() {
         self.placeRelatedInterests();
         self.ring.attr({cx: self.xPos, cy: self.yPos});
         self.ring.show();
+        self.callback();
     };
 
     this.interest.drag(move, start, up);
