@@ -19,20 +19,17 @@ Point.prototype.setStuff= function( id, relevance ) {
     Point.points.push(this);
 };
 
-Point.prototype.applyForce = function(force)
-{
+Point.prototype.applyForce = function(force) {
 	this.f = this.f.add(force);
 };
 
 // points are slightly repulsed by other points
-Point.applyCoulombsLaw = function()
-{
-	var ke = 100.0; // repulsion constant
+Point.applyCoulombsLaw = function() {
+	var ke = 50.0; // repulsion constant
 
 	Point.points.forEach(function(point1) {
 		Point.points.forEach(function(point2) {
-			if (point1 !== point2)
-			{
+			if (point1 !== point2) {
 				var d = point1.p.subtract(point2.p);
 				var distance = d.magnitude() + 1.0;
 				var direction = d.normalise();

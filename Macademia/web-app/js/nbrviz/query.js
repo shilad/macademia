@@ -38,7 +38,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
         var info = vizJson.interests[id];
         var ic = new InterestCluster({
             id : id,
-            relatedInterests : relatedInterests[id],
+            relatedInterests : [], // interests will be added here as people are added to the viz
             name : info.name,
             color : clusterColors[id]
         });
@@ -58,15 +58,29 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
         }
     });
 
+    var limit = 0;
+    if ( screenArea() < 650000 ) {
+        limit = 6;
+    } else {
+        limit = 10;
+    }
+
     $.each(vizJson.people, function(id, pinfo) {
+        if( people.length >= limit ) {
+            return false; // break
+        }
+
         var pinterests = [];
         var pnrinterests = [];
         $.each(pinfo.interests, function(i, id) {
             var iinfo = vizJson.interests[id];
-            if (id in queryInterests) {
+            if (id in queryInterests || (iinfo.cluster && iinfo.cluster >= 0)) {
                 pinterests.push(relatedInterestsById[id]);
-            } else if (iinfo.cluster && iinfo.cluster >= 0) {
-                pinterests.push(relatedInterestsById[id]);
+                var clusterId = vizJson.interests[id].cluster;
+                if ($.inArray(relatedInterestsById[id], queryInterests[clusterId].relatedInterests) == -1) {
+                    // add the interest to the appropriate cluster
+                    queryInterests[clusterId].relatedInterests.push(relatedInterestsById[id]);
+                }
             } else {
                 pnrinterests.push(relatedInterestsById[id]);
             }
@@ -96,15 +110,6 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
             strokeWidth : (screenArea() /20000 * pinfo.relevance.overall/overallRelevance) + 10
         });
         people.push(person);
-        var limit = 0;
-        if ( screenArea() < 650000 ) {
-            limit = 6;
-        } else {
-            limit = 10;
-        }
-        if( people.length >= limit ) {
-            return false; // break
-        }
     });
 
     var qv = new QueryViz({
