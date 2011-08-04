@@ -121,7 +121,7 @@ Person.prototype.toBack = function() {
     var l = macademia.reverseCopy(this.layers);
     this.layers[0].toBack();
     for (var i = 1; i < this.layers.length; i++) {
-        this.layers[i].insertAfter(this.layers[i-1]);
+        this.layers[i].insertBefore(this.layers[i-1]);
     }
 };
 
