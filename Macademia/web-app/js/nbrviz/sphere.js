@@ -20,12 +20,19 @@ function Sphere(params) {
     this.paper = params.paper;
     this.font = params.font || macademia.nbrviz.mainFont;
 
+    var fill;
+    if(this.hue == -1) {
+        fill = "r(.5,.9)hsb(0, 0, .75)-hsb(0, 0, .2)";
+    } else {
+        fill = "r(.5,.9)hsb(" + this.hue + ", 1, .85)-hsb(" + this.hue + ", 1, .7)";
+    }
+
     this.elements = [
 
             // gradient 1
             this.paper.ellipse(
                     this.x, this.y, this.r, this.r)
-                .attr({fill: "r(.5,.9)hsb(" + this.hue + ", 1, .85)-hsb(" + this.hue + ", 1, .7)", stroke: '#ccc'}),
+                .attr({fill: fill, stroke: '#ccc'}),
 
             // gradient 2
             this.paper.ellipse(
@@ -43,7 +50,7 @@ function Sphere(params) {
             this.y - this.r,
             this.r * 2,
             this.r * 2 + this.yOffset / 2)
-            .attr({fill: '#000', stroke: 'none', opacity: 0.0});
+            .attr({fill: '#000', stroke: 'none', opacity: 0});
 }
 
 Sphere.prototype.getInvisible = function( ){

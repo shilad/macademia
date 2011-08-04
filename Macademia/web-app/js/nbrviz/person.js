@@ -39,7 +39,7 @@ function Person(params) {
 Person.prototype.setPosition = function(x, y) {
     this.xPos = x;
     this.yPos = y;
-    this.triggerSet = this.paper.set(),
+    this.triggerSet = [],
     this.innerCircle = 30;
     this.layers = [];
     this.text = [];
@@ -50,7 +50,7 @@ Person.prototype.setPosition = function(x, y) {
 
     // Avatar for the person
     this.layers.push(this.paper.image(this.picture, this.xPos-imageSize/2, this.yPos-imageSize/2, imageSize, imageSize));
-    this.layers.clip
+    //this.layers.clip();
 
     // strokes and borders
     this.outerStroke = this.paper.circle(this.xPos, this.yPos, this.innerCircle+strokeBorderWidth/2+this.strokeWidth).attr({stroke: "#aaa", "stroke-width": strokeBorderWidth});
@@ -62,12 +62,13 @@ Person.prototype.setPosition = function(x, y) {
     var positions = macademia.nbrviz.calculateRelatedInterestPositions(this.interests, this.strokeWidth+100, this.xPos, this.yPos, -Math.PI/3, Math.PI + Math.PI/3);
     this.nodePositions = positions[0];
     this.textPositions = positions[1];
-
     this.textLabelTriggers = this.initializeInterestTextLabels();
 
-    macademia.concatInPlace(this.layers, this.interestNodes.items);
-    macademia.concatInPlace(this.layers, this.textLabelTriggers.items);
-    macademia.concatInPlace(this.layers, this.text);
+    var self = this;
+    $.each(this.interestNodes, function(i, node) {
+        macademia.concatInPlace(self.layers, node.invisible);
+        macademia.concatInPlace(self.layers, node.elements);
+    });
 
     // creating the arc
     var color = this.fillHsb(this.interestGroups[0][0].color);
@@ -96,7 +97,6 @@ Person.prototype.setPosition = function(x, y) {
 
 
     //mouse actions
-    var self = this;
     this.growingTrigger = this.paper.circle(this.xPos, this.yPos, this.innerCircle+this.strokeWidth).attr({fill: "#fff", opacity: 0}).toFront();
     this.triggerSet.push(this.growingTrigger);
     this.layers.push(this.growingTrigger);
@@ -135,33 +135,57 @@ Person.prototype.createInterestLabels = function() {
 };
 
 // function to show the interests
- Person.prototype.showInterests = function(){
-     var self = this;
-     $.each(self.interestNodes, function(i){
-         self.text[i].show();
-         self.text[i].toFront();
-         self.textLabelTriggers[i].animate({width:90},100,"linear").toFront();
-         self.interestNodes[i].animate({cx: self.nodePositions[i][0], cy:self.nodePositions[i][1], r:macademia.nbrviz.interest.nodeRadius},200,"elastic");
-//         self.interestNodes[i].animate({cx: self.nodePositions[i][0], cy:self.nodePositions[i][1], r:macademia.nbrviz.interest.nodeRadius},200,"elastic").toFront();
-//         self.layers.push(label);
+Person.prototype.showInterests = function(){
+    var self = this;
+    $.each(self.interestNodes, function(i, node){
+        node.invisible.animate({
+            x: self.nodePositions[i][0] - macademia.nbrviz.interest.nodeRadius,
+            y: self.nodePositions[i][1] - macademia.nbrviz.interest.nodeRadius
+        });
+
+        for(var j = 0; j <= 1; j++) {
+            node.elements[j].show();
+            node.elements[j].animate({
+                cx: self.nodePositions[i][0],
+                cy: self.nodePositions[i][1]
+            }, 200, "elastic");
+        }
+
+        node.elements[2].animate({x: self.textPositions[i][0], y: self.textPositions[i][1]}, 200, "elastic", function() {
+            node.elements[2].show();
+        });
+
+        self.textLabelTriggers[i].animate({width: 90}, 100, "linear").toFront();
+        self.growingTrigger.animate({r: self.strokeWidth + 100}, 100, "linear");
     });
     self.growingTrigger.animate({r:this.strokeWidth+100}, 100, "linear");
 };
 
 // function to hide the interests
 Person.prototype.hideInterests = function(){
-     var self = this;
-    $.each(self.interestNodes, function(index, node){
-        node.animate({cx: self.xPos, cy:self.yPos, r:0},200,"<");
+    var self = this;
+
+    $.each(self.interestNodes, function(i, node){
+        node.elements[2].hide();
+        node.invisible.animate({
+            x: self.xPos - macademia.nbrviz.interest.nodeRadius,
+            y: self.yPos - macademia.nbrviz.interest.nodeRadius
+        });
+        node.toBack();
+        for(var j = 0; j <= 1; j++) {
+            node.elements[j].animate({
+                cx: self.xPos,
+                cy: self.yPos
+            }, 400, "backIn");
+            node.elements[node.elements.length  - 1].animate({x: self.xPos, y: self.yPos}, 400, "backIn");
+        }
     });
-    $.each(self.text, function(index, t){
-        t.hide();
-        t.toBack();
-    });
+
     $.each(self.textLabelTriggers, function(index, label){
-        label.animate({width:0}, 100, "linear");
+        label.animate({width: 0}, 100, "linear");
     });
-    self.growingTrigger.animate({r:this.innerCircle+this.strokeWidth},100, "linear");
+
+    self.growingTrigger.animate({r: this.innerCircle + this.strokeWidth},100, "linear");
 };
 
 Person.prototype.hover = function(mouseOver, mouseOut){
@@ -175,14 +199,26 @@ Person.prototype.hover = function(mouseOver, mouseOut){
 
 // function to intialize interests as 0 radius circles with a certain color
 Person.prototype.initializeInterests = function(){
-        var interestNodes = this.paper.set();
-        for (var i = 0; i<this.interests.length; i++){
-            var fill = this.fillHsb(this.interests[i].color);
-            var interestNode = macademia.nbrviz.paper.circle(this.xPos, this.yPos, 0)
-                            .attr({fill: fill})
-                            .toFront();
+        var interestNodes = [];
+        for (var i = 0; i < this.interests.length; i++){
+            var fill = this.interests[i].color;
+
+            var interestNode = new Sphere({
+                x : this.xPos, y : this.yPos,
+                r: macademia.nbrviz.interest.nodeRadius,
+                hue : fill, name : this.interests[i].name,
+                xOffset : 0, yOffset : 0,
+                paper : this.paper
+            });
+            this.triggerSet.push(interestNode.invisible);
+            var self = this;
+            $.each(interestNode.elements, function(i, elem) {
+               self.triggerSet.push(elem);
+            });
+
+            interestNode.elements[2].hide();
+            interestNode.toBack();
             interestNodes.push(interestNode);
-            this.triggerSet.push(interestNode);
         }
         return interestNodes
 };

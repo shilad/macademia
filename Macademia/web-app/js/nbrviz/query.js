@@ -21,7 +21,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
 
     $.each(vizJson.interests, function (id, info) {
         var hasCluster = (info.cluster && info.cluster >= 0);
-        var color = -0.7;
+        var color = -1;
         if (hasCluster) {
             color = clusterColors[info.cluster];
         }
@@ -84,7 +84,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
                 ]);
             }
         });
-        console.log('relevance is ' + pinfo.relevance.overall);
+        //console.log('relevance is ' + pinfo.relevance.overall);
         var person = new Person({
             relevance : pinfo.relevance,
             interestGroups : interestGroups,
