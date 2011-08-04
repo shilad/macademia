@@ -211,7 +211,7 @@ QueryViz.prototype.layoutPeople = function( /*coords*/ ) {
                 yRand = val['y'];
             }*/
 
-            var p = new Point(new Vector( Math.random(), Math.random() ));
+            var p = new Point( Vector.random() );
             p.setStuff( i, person.relevance );  //TODO: this doenst exist in person yet
 
             //person.setPosition(xRand, yRand);
