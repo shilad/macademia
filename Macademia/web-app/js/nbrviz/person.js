@@ -49,7 +49,8 @@ Person.prototype.setPosition = function(x, y) {
         imageSize = 60;
 
     // Avatar for the person
-    this.image = this.paper.image(this.picture, this.xPos-imageSize/2, this.yPos-imageSize/2, imageSize, imageSize);
+    this.layers.push(this.paper.circle(this.xPos, this.yPos, imageSize/2).attr({fill: "white"}));
+    this.image = this.paper.image(this.picture, this.xPos-imageSize/2*130/194, this.yPos-imageSize/2, imageSize*130/194, imageSize);
     this.layers.push(this.image);
 
     // strokes and borders
