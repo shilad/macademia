@@ -49,7 +49,8 @@ Person.prototype.setPosition = function(x, y) {
         imageSize = 60;
 
     // Avatar for the person
-    this.layers.push(this.paper.circle(this.xPos, this.yPos, imageSize/2).attr({fill: "white"}));
+    this.imageBg = this.paper.circle(this.xPos, this.yPos, imageSize/2).attr({fill: "white"});
+    this.layers.push(this.imageBg);
     this.image = this.paper.image(this.picture, this.xPos-imageSize/2*130/194, this.yPos-imageSize/2, imageSize*130/194, imageSize);
     this.layers.push(this.image);
 
@@ -113,6 +114,7 @@ Person.prototype.updatePosition = function(x, y) {
     var dx = x - this.xPos;
     var dy = y - this.xPos;
     this.image.translate(dx, dy);
+    this.imageBg.translate(dx, dy);
     this.outerStroke.translate(dx, dy);
     this.innerStroke.translate(dx, dy);
     this.growingTrigger.translate(dx, dy);
