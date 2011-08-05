@@ -70,7 +70,7 @@ environments {
 		dataSource {
 			dbCreate = "update"
             pooled = false
-            url = "jdbc:postgresql://localhost:5432/macademia_prod"
+            url = "jdbc:postgresql://poliwiki.macalester.edu:5432/macademia_prod"
             driverClassName = "org.postgresql.Driver"
             username = "grails"
             password = "grails"
