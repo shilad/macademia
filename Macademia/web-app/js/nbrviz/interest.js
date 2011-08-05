@@ -4,6 +4,7 @@ macademia.nbrviz.interest = macademia.nbrviz.interest || {};
 macademia.nbrviz.interest.centerRadius = 30;
 macademia.nbrviz.interest.clusterRadius = 150;
 macademia.nbrviz.interest.nodeRadius = 10;
+macademia.nbrviz.interest.POS_NOTIFY_THRESHOLD = 50;
 
 /**
  * Interest Cluster constructor.
@@ -37,6 +38,8 @@ function InterestCluster(params) {
 InterestCluster.prototype.setPosition = function(x, y) {
     this.xPos = x;
     this.yPos = y;
+    this.lastNotifyX = x;
+    this.lastNotifyY = y;
 
     var textOffsetX = 0,
         textOffsetY = 40,
@@ -226,6 +229,7 @@ InterestCluster.prototype.dragInterest = function() {
     },
     move = function (dx, dy) {
         self.interest.updatePosition(dx, dy);
+        self.notifyMoveListeners();
     },
     up = function () {
         self.xPos = self.interest.getX();
@@ -239,12 +243,22 @@ InterestCluster.prototype.dragInterest = function() {
         self.placeRelatedInterests();
         self.ring.attr({cx: self.xPos, cy: self.yPos});
         self.ring.show();
-        for (var i = 0; i < self.moveListeners.length; i++) {
-            self.moveListeners[i](self, self.xPos, self.yPos);
-        }
+        self.notifyMoveListeners();
     };
 
     this.interest.drag(move, start, up);
+};
+
+InterestCluster.prototype.notifyMoveListeners = function() {
+    var x = this.interest.getX();
+    var y = this.interest.getY();
+    if (Math.abs(this.lastNotifyX - x) + Math.abs(this.lastNotifyY - y) >= macademia.nbrviz.interest.POS_NOTIFY_THRESHOLD) {
+        this.lastNotifyX = x;
+        this.lastNotifyY = y;
+        for (var i = 0; i < this.moveListeners.length; i++) {
+            this.moveListeners[i](this, x, y);
+        }
+    }
 };
 
 /**

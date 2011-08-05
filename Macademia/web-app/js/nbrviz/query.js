@@ -228,7 +228,7 @@ QueryViz.prototype.layoutPeople = function( /*coords*/ ) {
     $.each(Point.points, function(index, p) {
         console.log('person id is ' + p.id);
     });
-    startLayout();
+    startLayout(.1);
     $.each(Point.points, function(index, p) {
         self.people[p.id].setPosition( p.screenX(), p.screenY()); //TODO screenx
     });
@@ -238,15 +238,19 @@ QueryViz.prototype.layoutPeople = function( /*coords*/ ) {
  * Re-layout people after a particular interest cluster is moved to a new location.
  */
 QueryViz.prototype.relayoutPeople = function(interestCluster, x, y) {
+    var start = Date.now();
     console.log('on move ' + interestCluster.name + ' to ' + x + ', ' + y);
     var mag = Magnet.findById(interestCluster.id);
     mag.setPosition(x, y);
-    startLayout();
+    startLayout(1);
+    var step1 = Date.now();
     var self = this;
     $.each(Point.points, function(index, p) {
         console.log('new person: ' + p.id+", "+p.screenX()+", "+p.screenY());
         self.people[p.id].updatePosition(p.screenX(), p.screenY()); //TODO screenx
     });
+    var step2 = Date.now();
+    console.log('step 1 took ' + (step1 - start) + ' and step 2 ' + (step2 - step1));
 };
 
 

@@ -135,7 +135,7 @@ Magnet.prototype.normalizeRelevances = function() {
 	});
 };
 
-function startLayout() {
+function startLayout(threshold) {
 	Magnet.magnets.forEach(function(mag){
 		mag.normalizeRelevances();
 	});
@@ -157,7 +157,8 @@ function startLayout() {
 		});
 
 		// stop simulation when
-		if ( k < 0.01 || count == 1000) {
+		if ( k < threshold || count == 1000) {
+            console.log('k = ' + k + ', count = ' + count);
 			Point.points.forEach(function(p){
 				console.log(p.id+", "+p.screenX()+", "+p.screenY());
 			});

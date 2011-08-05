@@ -112,7 +112,7 @@ Person.prototype.setPosition = function(x, y) {
 
 Person.prototype.updatePosition = function(x, y) {
     var dx = x - this.xPos;
-    var dy = y - this.xPos;
+    var dy = y - this.yPos;
     this.image.translate(dx, dy);
     this.imageBg.translate(dx, dy);
     this.outerStroke.translate(dx, dy);
