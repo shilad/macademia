@@ -17,7 +17,7 @@ function InterestCluster(params) {
     this.relatedInterests = params.relatedInterests;
     this.color = params.color || 0.1;
     this.paper = params.paper || macademia.nbrviz.paper;
-    this.callback = params.callback || function(){};
+    this.moveListeners = [];
 
     if(params.name) {
         this.name = params.name;
@@ -239,10 +239,21 @@ InterestCluster.prototype.dragInterest = function() {
         self.placeRelatedInterests();
         self.ring.attr({cx: self.xPos, cy: self.yPos});
         self.ring.show();
-        self.callback();
+        for (var i = 0; i < self.moveListeners.length; i++) {
+            self.moveListeners[i](self, self.xPos, self.yPos);
+        }
     };
 
     this.interest.drag(move, start, up);
+};
+
+/**
+ * Add an event handler that is called after the interest is moved.
+ * The handler will be called with three arguments: interestCluster, x, y
+ * @param onMove
+ */
+InterestCluster.prototype.onMove = function(onMove) {
+    this.moveListeners.push(onMove);
 };
 
 InterestCluster.prototype.placeRelatedInterests = function() {

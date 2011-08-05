@@ -158,6 +158,9 @@ QueryViz.prototype.setupListeners = function() {
                 function (i2, n) { self.handleInterestHover(i2, n); },
                 function (i2, n) { self.handleInterestUnhover(i2, n); }
             );
+        i.onMove(function (interestCluster, x, y) {
+            self.relayoutPeople(interestCluster, x, y);
+        });
     });
 };
 
@@ -222,14 +225,29 @@ QueryViz.prototype.layoutPeople = function( /*coords*/ ) {
             //person.setPosition(xRand, yRand);
         }
     });
+    $.each(Point.points, function(index, p) {
+        console.log('person id is ' + p.id);
+    });
     startLayout();
     $.each(Point.points, function(index, p) {
         self.people[p.id].setPosition( p.screenX(), p.screenY()); //TODO screenx
     });
 };
 
-
-
+/**
+ * Re-layout people after a particular interest cluster is moved to a new location.
+ */
+QueryViz.prototype.relayoutPeople = function(interestCluster, x, y) {
+    console.log('on move ' + interestCluster.name + ' to ' + x + ', ' + y);
+    var mag = Magnet.findById(interestCluster.id);
+    mag.setPosition(x, y);
+    startLayout();
+    var self = this;
+    $.each(Point.points, function(index, p) {
+        console.log('new person: ' + p.id+", "+p.screenX()+", "+p.screenY());
+        self.people[p.id].updatePosition(p.screenX(), p.screenY()); //TODO screenx
+    });
+};
 
 
 

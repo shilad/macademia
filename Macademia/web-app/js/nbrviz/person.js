@@ -49,8 +49,8 @@ Person.prototype.setPosition = function(x, y) {
         imageSize = 60;
 
     // Avatar for the person
-    this.layers.push(this.paper.image(this.picture, this.xPos-imageSize/2, this.yPos-imageSize/2, imageSize, imageSize));
-    //this.layers.clip();
+    this.image = this.paper.image(this.picture, this.xPos-imageSize/2, this.yPos-imageSize/2, imageSize, imageSize);
+    this.layers.push(this.image);
 
     // strokes and borders
     this.outerStroke = this.paper.circle(this.xPos, this.yPos, this.innerCircle+strokeBorderWidth/2+this.strokeWidth).attr({stroke: "#aaa", "stroke-width": strokeBorderWidth});
@@ -74,9 +74,8 @@ Person.prototype.setPosition = function(x, y) {
     var color = this.fillHsb(this.interestGroups[0][0].color);
     var base = this.paper.path().attr({personArc: [this.xPos, this.yPos, this.strokeWidth, 0.1, this.innerCircle], stroke: color, opacity: 0});
     base.animate({personArc: [this.xPos, this.yPos, this.strokeWidth, 1, this.innerCircle], stroke: color, opacity: 1}, 500, "linear");
-    var wedges = [];
-    wedges.push(base);
-//    this.triggerSet.push(base);
+    this.wedges = [];
+    this.wedges.push(base);
     if (this.interestGroups.length > 1){
         var amount = 1;
         for (var j = 1; j < this.interestGroups.length; j++){
@@ -84,11 +83,10 @@ Person.prototype.setPosition = function(x, y) {
             amount -= this.interestGroups[j-1][1];
             var section = this.paper.path().attr({personArc: [this.xPos, this.yPos, this.strokeWidth, 0.1, this.innerCircle], stroke: color, opacity: 0});
             section.animate({personArc: [this.xPos, this.yPos, this.strokeWidth, amount, this.innerCircle], stroke: color, opacity: 1}, 500 * amount, "linear");
-//            this.triggerSet.push(section);
-            wedges.push(section);
+            this.wedges.push(section);
         }
     }
-    macademia.concatInPlace(this.layers, wedges);
+    macademia.concatInPlace(this.layers, this.wedges);
 
     //creating the name label
     this.nameText = this.paper.text().attr({text: this.name, x: this.xPos+3, y: this.yPos+this.innerCircle+this.strokeWidth+13, font: macademia.nbrviz.mainFont});
@@ -108,6 +106,30 @@ Person.prototype.setPosition = function(x, y) {
         function () { self.showInterests(); },
         function () { self.hideInterests(); }
     );
+};
+
+Person.prototype.updatePosition = function(x, y) {
+    var dx = x - this.xPos;
+    var dy = y - this.xPos;
+    this.image.translate(dx, dy);
+    this.outerStroke.translate(dx, dy);
+    this.innerStroke.translate(dx, dy);
+    this.growingTrigger.translate(dx, dy);
+    this.nameText.translate(dx, dy);
+    for (var i = 0; i < this.wedges.length; i++) {
+        this.wedges[i].translate(dx, dy);
+    }
+    for (var i = 0; i < this.nodePositions.length; i++) {
+        this.nodePositions[i][0] += dx;
+        this.nodePositions[i][1] += dy;
+    }
+    for (var i = 0; i < this.textPositions.length; i++) {
+        this.textPositions[i][0] += dx;
+        this.textPositions[i][1] += dy;
+    }
+    for (var i = 0; i < this.interestNodes.length; i++) {
+        this.interestNodes[i].updatePosition(dx, dy);
+    }
 };
 
 Person.prototype.toFront = function() {

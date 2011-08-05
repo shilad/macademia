@@ -76,6 +76,20 @@ function Magnet(position, id) {
 
 Magnet.magnets = [];
 
+Magnet.findById = function(id) {
+    for (var i = 0; i < Magnet.magnets.length; i++) {
+        if (Magnet.magnets[i].id == id) {
+            return Magnet.magnets[i];
+        }
+    }
+    alert('Error: no magnet found with id ' + id);
+};
+
+Magnet.prototype.setPosition = function(x, y) {
+    this.position.x = x;
+    this.position.y = y;
+};
+
 Magnet.prototype.computeDistance = function(pnt) {
 	//console.log("value 1: "+Math.sqrt( Math.pow((this.point.p.x - pnt.screenX() ),2) + Math.pow((this.point.p.y - pnt.screenY() ),2) ));
     //console.log("value2: "+this.point.p.subtract(pnt.p).magnitude());
@@ -147,7 +161,6 @@ function startLayout() {
 			Point.points.forEach(function(p){
 				console.log(p.id+", "+p.screenX()+", "+p.screenY());
 			});
-			console.log("done");
 			break;
 		}
 	}
