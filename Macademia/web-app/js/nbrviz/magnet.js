@@ -114,7 +114,7 @@ Magnet.prototype.attractPeople = function() {
 			( self.relevances[p.id] * (-1.0) * GRAVITATIONAL_CONSTANT )
 		).add(
 			self.forceDirection(p).multiply(
-				( q / Math.pow(((radius+15.0)/30.0),4) )
+				( q / Math.pow((Math.abs(radius-(60)+10)/30.0),4) )
 			)
 		);
 		p.applyForce( gForce );
@@ -162,29 +162,6 @@ function startLayout(threshold) {
 			Point.points.forEach(function(p){
 				console.log(p.id+", "+p.screenX()+", "+p.screenY());
 			});
-			break;
-		}
-	}
-}
-
-function magDrag( mag ) {
-	var count =0;
-	while (true) {
-		mag.attractPeople();
-		count++;
-		Point.applyCoulombsLaw();
-		Point.updateVelocity(0.05);
-		Point.updatePosition(0.05);
-
-		// calculate kinetic energy of system
-		var k = 0.0;
-		Point.points.forEach(function(p){
-			var speed = p.v.magnitude();
-			k += speed * speed;
-		});
-
-		// stop simulation when
-		if ( k < 0.01 || count == 1000) {
 			break;
 		}
 	}

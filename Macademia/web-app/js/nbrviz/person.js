@@ -113,6 +113,8 @@ Person.prototype.setPosition = function(x, y) {
 Person.prototype.updatePosition = function(x, y) {
     var dx = x - this.xPos;
     var dy = y - this.yPos;
+    this.xPos = x;
+    this.yPos = y;
     this.image.translate(dx, dy);
     this.imageBg.translate(dx, dy);
     this.outerStroke.translate(dx, dy);
@@ -235,12 +237,14 @@ Person.prototype.initializeInterests = function(){
                 xOffset : 0, yOffset : 0,
                 paper : this.paper
             });
+            interestNode.savePosition()
             this.triggerSet.push(interestNode.invisible);
             var self = this;
             $.each(interestNode.elements, function(i, elem) {
                self.triggerSet.push(elem);
             });
-
+            interestNode.elements[0].hide();
+            interestNode.elements[1].hide();
             interestNode.elements[2].hide();
             interestNode.toBack();
             interestNodes.push(interestNode);

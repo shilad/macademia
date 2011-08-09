@@ -107,7 +107,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
             paper : paper,
             interests : pinterests ,
             nonRelevantInterests : pnrinterests,
-            strokeWidth : (screenArea() /20000 * pinfo.relevance.overall/overallRelevance) + 10
+            strokeWidth : (50 * pinfo.relevance.overall/overallRelevance) + 10
         });
         people.push(person);
     });
