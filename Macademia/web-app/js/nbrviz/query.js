@@ -316,7 +316,8 @@ QueryViz.prototype.handleInterestUnhover = function(parentNode, interest, intere
 };
 
 QueryViz.prototype.drawEdge = function(parentNode, person, interestNode) {
-    var svgStr = 'M' + interestNode.getX() + ' ' + interestNode.getY() + 'L' + person.xPos + ' ' + person.yPos + 'Z';
+    console.log('drawing edge...');
+    var svgStr = 'M' + interestNode.getX() + ' ' + interestNode.getY() + 'L' + person.x + ' ' + person.y + 'Z';
     var path = this.paper.path(svgStr);
     path.insertBefore(parentNode.getBottomLayer());
     path.attr({stroke : '#f00', 'stroke-width' : 2, 'stroke-dasharray' : '- ', 'stroke-opacity' : 0.2});
