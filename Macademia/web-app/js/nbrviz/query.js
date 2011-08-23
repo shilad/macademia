@@ -40,7 +40,8 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
             id : id,
             relatedInterests : [], // interests will be added here as people are added to the viz
             name : info.name,
-            color : clusterColors[id]
+            color : clusterColors[id],
+            paper : paper
         });
         queryInterests[id] = ic;
     });
@@ -51,10 +52,14 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
 
     // Normalize 'overall' relevances to modulate person ring size
     // TODO: implement this in JSON service and remove from js
-    var overallRelevance = 0.0;
+    var maxRelevance = 0.0;
+    var minRelevance = 1000000000000.0;
     $.each(vizJson.people, function(id, pinfo) {
-        if (pinfo.relevance.overall > overallRelevance) {
-            overallRelevance = pinfo.relevance.overall;
+        if (pinfo.relevance.overall > maxRelevance) {
+            maxRelevance = pinfo.relevance.overall;
+        }
+        if (pinfo.relevance.overall < minRelevance) {
+            minRelevance = pinfo.relevance.overall;
         }
     });
 
@@ -62,7 +67,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
     if ( screenArea() < 650000 ) {
         limit = 6;
     } else {
-        limit = 10;
+        limit = 20;
     }
 
     $.each(vizJson.people, function(id, pinfo) {
@@ -98,7 +103,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
                 ]);
             }
         });
-        //console.log('relevance is ' + pinfo.relevance.overall);
+        var r = 20 * (pinfo.relevance.overall - minRelevance) / (maxRelevance - minRelevance) + 10;
         var person = new Person({
             relevance : pinfo.relevance,
             interestGroups : interestGroups,
@@ -107,7 +112,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
             paper : paper,
             interests : pinterests ,
             nonRelevantInterests : pnrinterests,
-            strokeWidth : (50 * pinfo.relevance.overall/overallRelevance) + 10
+            collapsedRadius : r
         });
         people.push(person);
     });
@@ -155,10 +160,10 @@ QueryViz.prototype.setupListeners = function() {
                 function () { self.handleInterestClusterUnhover(i); }
             );
         i.hoverInterest(
-                function (i2, n) { self.handleInterestHover(i2, n); },
-                function (i2, n) { self.handleInterestUnhover(i2, n); }
+                function (p, i2, n) { self.handleInterestHover(p, i2, n); },
+                function (p, i2, n) { self.handleInterestUnhover(p, i2, n); }
             );
-        i.onMove(function (interestCluster, x, y) {
+        i.move(function (interestCluster, x, y) {
             self.relayoutPeople(interestCluster, x, y);
         });
     });
@@ -225,9 +230,6 @@ QueryViz.prototype.layoutPeople = function( /*coords*/ ) {
             //person.setPosition(xRand, yRand);
         }
     });
-    $.each(Point.points, function(index, p) {
-        console.log('person id is ' + p.id);
-    });
     startLayout(.1);
     $.each(Point.points, function(index, p) {
         self.people[p.id].setPosition( p.screenX(), p.screenY()); //TODO screenx
@@ -239,18 +241,18 @@ QueryViz.prototype.layoutPeople = function( /*coords*/ ) {
  */
 QueryViz.prototype.relayoutPeople = function(interestCluster, x, y) {
     var start = Date.now();
-    console.log('on move ' + interestCluster.name + ' to ' + x + ', ' + y);
+//    console.log('on move ' + interestCluster.name + ' to ' + x + ', ' + y);
     var mag = Magnet.findById(interestCluster.id);
     mag.setPosition(x, y);
     startLayout(1);
     var step1 = Date.now();
     var self = this;
     $.each(Point.points, function(index, p) {
-        console.log('new person: ' + p.id+", "+p.screenX()+", "+p.screenY());
-        self.people[p.id].updatePosition(p.screenX(), p.screenY()); //TODO screenx
+//        console.log('new person: ' + p.id+", "+p.screenX()+", "+p.screenY());
+        self.people[p.id].setPosition(p.screenX(), p.screenY()); //TODO screenx
     });
     var step2 = Date.now();
-    console.log('step 1 took ' + (step1 - start) + ' and step 2 ' + (step2 - step1));
+//    console.log('step 1 took ' + (step1 - start) + ' and step 2 ' + (step2 - step1));
 };
 
 
@@ -295,30 +297,29 @@ QueryViz.prototype.handleInterestClusterUnhover = function(interest) {
     this.lowerScreen();
 };
 
-QueryViz.prototype.handleInterestHover = function(interest, interestNode) {
+QueryViz.prototype.handleInterestHover = function(parentNode, interest, interestNode) {
     this.hideEdges();
     var self = this;
     $.each(this.people, function (i, p) {
         $.each(p.interests, function(index, interest2) {
             if (interest.id == interest2.id) {
-                self.drawEdge(p, interestNode);
-                p.toFront();
+                self.drawEdge(parentNode, p, interestNode);
+                p.toFront(parentNode.getBottomLayer());
                 self.highlighted.push(p);
             }
         });
     });
-//    console.log('in : ' + interest.name + ' ' + interestNode.getX() + ', ' + interestNode.getY());
 };
 
-QueryViz.prototype.handleInterestUnhover = function(interest, interestNode) {
+QueryViz.prototype.handleInterestUnhover = function(parentNode, interest, interestNode) {
     this.hideEdges();
 };
 
-QueryViz.prototype.drawEdge = function(person, interestNode) {
+QueryViz.prototype.drawEdge = function(parentNode, person, interestNode) {
     var svgStr = 'M' + interestNode.getX() + ' ' + interestNode.getY() + 'L' + person.xPos + ' ' + person.yPos + 'Z';
     var path = this.paper.path(svgStr);
-    path.insertBefore(interestNode.getBottomLayer());
-    path.attr({stroke : '#f00', 'stroke-width' : 2, 'stroke-dasharray' : '- ', 'stroke-opacity' : 0.4});
+    path.insertBefore(parentNode.getBottomLayer());
+    path.attr({stroke : '#f00', 'stroke-width' : 2, 'stroke-dasharray' : '- ', 'stroke-opacity' : 0.2});
     this.edges.push(path);
 };
 

@@ -1,8 +1,15 @@
 var macademia = macademia || {};
 macademia.nbrviz = macademia.nbrviz || {};
 
-macademia.nbrviz.mainFont = '16px Palatino Linotype, Book Antiqua, Palatino, Arial';
-macademia.nbrviz.subFont = '16px Times New Roman, Arial';
+macademia.nbrviz.mainFont = '14px Palatino Linotype, Book Antiqua, Palatino, Arial';
+macademia.nbrviz.mainFontBold = '14px Palatino Linotype Bold, Book Antiqua Bold, Palatino Bold, Arial Bold';
+macademia.nbrviz.subFont = '14px Times New Roman, Arial';
+macademia.nbrviz.subFontBold = '14px Times New Roman Bold, Arial Bold';
+
+macademia.nbrviz.distance = function(x, y) {
+        var dx = event.x - x, dy = event.y - y;
+        return Math.sqrt(dx*dx + dy*dy);
+    };
 
 macademia.nbrviz.initPaper = function(domId, width, height) {
     macademia.nbrviz.paper = new Raphael(domId, width - 30, height - 30);

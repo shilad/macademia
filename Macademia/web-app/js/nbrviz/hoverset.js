@@ -4,8 +4,8 @@
  * moused into, and the mouseout event will be called only when none of the
  * objects in the set are moused over.
  */
-function HoverSet() {
-    this.elements = [];
+function HoverSet(elems) {
+    this.elements = elems || [];
     this.mousein = [];
     this.mouseout = [];
     this.timeoutId = null;

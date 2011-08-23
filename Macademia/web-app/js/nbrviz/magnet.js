@@ -159,9 +159,6 @@ function startLayout(threshold) {
 		// stop simulation when
 		if ( k < threshold || count == 1000) {
             console.log('k = ' + k + ', count = ' + count);
-			Point.points.forEach(function(p){
-				console.log(p.id+", "+p.screenX()+", "+p.screenY());
-			});
 			break;
 		}
 	}

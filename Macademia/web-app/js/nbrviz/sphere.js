@@ -9,119 +9,216 @@
  *          - xOffset x offset of the text from the center of the sphere
  *          - yOffset y offset of the text from the center of the sphere
  */
-function Sphere(params) {
-    this.x = params.x;
-    this.y = params.y;
-    this.r = params.r;
-    this.hue = params.hue || 0;
-    this.xOffset = params.xOffset;
-    this.yOffset = params.yOffset;
-    this.name = params.name;
-    this.paper = params.paper;
-    this.font = params.font || macademia.nbrviz.mainFont;
+var Sphere = RaphaelComponent.extend({
+    init : function(params) {
+        this._super(params);
+        this.r = params.r;
+        this.hue = params.hue || 0;
+        this.xOffset = params.xOffset;
+        this.yOffset = params.yOffset;
+        this.name = params.name;
+        this.paper = params.paper;
+        this.font = params.font || macademia.nbrviz.mainFont;
+        this.boldFont = params.boldFont || macademia.nbrviz.mainFontBold;
+        this.labelBgOpacity = params.labelBgOpacity || 0.6;
 
-    var fill;
-    if(this.hue == -1) {
-        fill = "r(.5,.9)hsb(0, 0, .75)-hsb(0, 0, .2)";
-    } else {
-        fill = "r(.5,.9)hsb(" + this.hue + ", 1, .85)-hsb(" + this.hue + ", 1, .7)";
+        var x = params.x, y = params.y;
+
+        var fill;
+        if(this.hue == -1) {
+            fill = "r(.5,.9)hsb(0, 0, .75)-hsb(0, 0, .2)";
+        } else {
+            fill = "r(.5,.9)hsb(" + this.hue + ", 1, .85)-hsb(" + this.hue + ", 1, .7)";
+        }
+
+        this.gradient1 = this.paper.ellipse(x, y, this.r, this.r)
+                    .attr({fill: fill, stroke: '#ccc'});
+
+                // gradient 2
+        this.gradient2 = this.paper.ellipse(
+                        x, y, this.r - this.r / 5, this.r - this.r / 20)
+                    .attr({stroke: "none", fill: "r(.5,.1)#ccc-#ccc", opacity: 0});
+
+                // label
+        this.label = this.paper.text(x + this.xOffset, y + this.yOffset, this.name)
+                    .attr({fill: '#000', 'font': this.font});
+
+        var bbox = this.label.getBBox();
+        this.labelBg = this.paper.rect(
+                            x + this.xOffset - 1.2*bbox.width / 2,
+                            y + this.yOffset - 1.2*bbox.height/2,
+                            bbox.width*1.2,
+                            bbox.height*1.2
+                        );
+        this.labelBg.attr({ 'fill' : '#fff', 'fill-opacity' : this.labelBgOpacity, 'stroke-width' : 0});
+        this.labelBg.insertBefore(this.gradient1);
+        this.labelBg.hide();
+
+        // invisible layer (useful for event handling)
+        this.handle =  this.paper.rect(
+                x - this.r,
+                y - this.r,
+                this.r * 2,
+                this.r * 2 + this.yOffset / 2)
+                .attr({fill: '#000', stroke: 'none', opacity: 0});
+
+        // the highlighting ring
+        this.highlightRing = this.paper.ellipse(
+                    x, y, this.r, this.r)
+                    .attr({stroke: '#f00'});
+        this.highlightRing.hide();
+
+        this.installListeners();
+    },
+
+    highlight : function() {
+        this.label.attr({fill: '#000', 'font': this.boldFont, 'font-weight' : 'bold'});
+        this.highlightRing.show();
+        this.labelBg.show();
+        this.toFront();
+    },
+
+    fadeout : function() {
+        this.label.attr({fill: '#666', 'font': this.font, 'font-weight' : 'normal'});
+        this.highlightRing.hide();
+        this.labelBg.hide();
+    },
+
+    normal : function() {
+        this.label.attr({fill: '#000', 'font': this.font, 'font-weight' : 'normal'});
+        this.highlightRing.hide();
+        this.labelBg.hide();
+    },
+
+    show : function() {
+        this._super();
+        this.highlightRing.hide();
+    },
+
+    showText : function() {
+        this.label.show();
+    },
+
+    hideText : function() {
+        this.label.hide();
+    },
+
+    getHandle : function( ){
+        return this.handle;
+    },
+
+    getX : function( ){
+        return this.gradient1.attr('cx');
+    },
+
+    getY : function(){
+        return this.gradient1.attr('cy');
+    },
+
+    getRects : function() {
+        return [this.handle, this.labelBg, this.label];
+    },
+
+    getCircles : function() {
+        return [this.gradient1, this.gradient2, this.highlightRing];
+    },
+
+    installListeners : function() {
+        this.handle.drag(
+            $.proxy(this.onDragMove, this),
+            $.proxy(this.onDragStart, this),
+            $.proxy(this.onDragUp, this)
+        );
+    },
+
+    onDragStart : function() {
+        $.each(this.getRects(),
+                function () {
+                    this.ox = this.attr('x');
+                    this.oy = this.attr('y');
+                });
+        $.each(this.getCircles(),
+                function () {
+                    this.ox = this.attr('cx');
+                    this.oy = this.attr('cy');
+                });
+    },
+    onDragMove : function(dx, dy) {
+        $.each(this.getRects(), function () {
+                    this.attr({x : this.ox + dx, y : this.oy + dy});
+                });
+        $.each(this.getCircles(),function () {
+                    this.attr({cx : this.ox + dx, cy : this.oy + dy});
+                });
+
+    },
+    onDragUp : function() {
+    },
+    getLayers : function() {
+        return [
+            this.handle,
+            this.highlightRing,
+            this.label,
+            this.gradient2,
+            this.gradient1,
+            this.labelBg
+        ];
+    },
+
+
+    /**
+     * Same parameters as raphael's animate.
+     * @param attrs
+     * @param millis
+     * @param arg1
+     * @param arg2
+     */
+    animate : function(attrs, millis, arg1, arg2) {
+        // handle rectangles (position is upper left)
+        var self = this;
+        $.each(this.getRects(), function(i) {
+            var a = attrs;
+            if (a.x) {
+                var a = $.extend({}, a);
+                a.x = a.x - this.attr('width') / 2;
+                a.y = a.y - this.attr('height') / 2;
+                // label offset
+                if (this != self.handle) {
+                    a.x += self.xOffset;
+                    a.y += self.yOffset;
+                }
+            }
+            this.animate(a, millis, arg1, arg2);
+        });
+
+        // handle ellipses (position is center)
+        var newAttrs = $.extend({}, attrs);
+        if (attrs.x) {
+            delete newAttrs.x;
+            delete newAttrs.y;
+            newAttrs.cx = attrs.x;
+            newAttrs.cy = attrs.y;
+        }
+        $.each(this.getCircles(), function(i) {
+            this.animate(newAttrs, millis, arg1, arg2);
+        });
+    },
+
+    setPosition : function(x, y) {
+        // handle rectangles (position is upper left)
+        var self = this;
+        $.each(this.getRects(), function() {
+            var rx = x - this.attr('width') / 2;
+            var ry = y - this.attr('height') / 2;
+            if (this != self.handle) {
+                rx.x += self.xOffset;
+                rx.y += self.yOffset;
+            }
+            this.attr({'x' : rx, 'y' : ry});
+        });
+
+        $.each(this.getCircles(), function(i) {
+            this.attr({'cx' : x, 'cy' : y});
+        });
     }
-
-    this.elements = [
-
-            // gradient 1
-            this.paper.ellipse(
-                    this.x, this.y, this.r, this.r)
-                .attr({fill: fill, stroke: '#ccc'}),
-
-            // gradient 2
-            this.paper.ellipse(
-                    this.x, this.y, this.r - this.r / 5, this.r - this.r / 20)
-                .attr({stroke: "none", fill: "r(.5,.1)#ccc-#ccc", opacity: 0}),
-
-            // label
-            this.paper.text(this.x + this.xOffset, this.y + this.yOffset, this.name)
-                .attr({fill: '#000', 'font': this.font})
-    ];
-
-    // invisible layer (useful for event handling)
-    this.invisible =  this.paper.rect(
-            this.x - this.r,
-            this.y - this.r,
-            this.r * 2,
-            this.r * 2 + this.yOffset / 2)
-            .attr({fill: '#000', stroke: 'none', opacity: 0});
-}
-
-Sphere.prototype.getInvisible = function( ){
-    return this.invisible;
-};
-
-Sphere.prototype.getX = function( ){
-    return this.elements[0].attr('cx');
-};
-
-Sphere.prototype.getY = function( ){
-    return this.elements[0].attr('cy');
-};
-
-Sphere.prototype.getVisibleElements = function() {
-    return this.elements; // returns a copy
-};
-
-Sphere.prototype.toFront = function() {
-    var layers = this.getLayers();
-    layers[0].toFront();
-    for (var i = 1; i < layers.length; i++) {
-        layers[i].insertBefore(layers[i-1]);
-    }
-};
-
-Sphere.prototype.toBack = function() {
-//    var layers = this.getLayers();
-//    for (var i = 0; i < layers.length; i++) {
-//        layers[i].toBack();
-//    }
-//    console.log('toback');
-    var layers = this.getLayers().reverse();
-    layers[0].toBack();
-    for (var i = 1; i < layers.length; i++) {
-        layers[i].insertAfter(layers[i-1]);
-    }
-}
-
-Sphere.prototype.getBottomLayer = function() {
-    return this.elements[0];
-};
-
-Sphere.prototype.hover = function(mouseIn, mouseOut) {
-    this.invisible.hover(mouseIn, mouseOut);
-};
-
-Sphere.prototype.drag = function(move, start, up) {
-    this.invisible.drag(move, start, up);
-    $.each(this.elements, function (i, e) {e.drag(move, start, up);});
-};
-
-Sphere.prototype.savePosition = function() {
-    this.invisible.ox = this.invisible.attr('x');
-    this.invisible.oy = this.invisible.attr('y');
-    for (var i = 0; i <= 1; i++) {
-        this.elements[i].ox = this.elements[i].attr('cx');
-        this.elements[i].oy = this.elements[i].attr('cy');
-    }
-    this.elements[2].ox = this.elements[2].attr("x");
-    this.elements[2].oy = this.elements[2].attr("y");
-};
-
-Sphere.prototype.updatePosition = function(dx, dy) {
-    this.invisible.attr({x: this.invisible.ox + dx, y: this.invisible.oy + dy});
-    for(var l = 0; l <= 1; l++) {
-        this.elements[l].attr({cx: this.elements[l].ox + dx, cy: this.elements[l].oy + dy});
-    }
-    this.elements[2].attr({x: this.elements[2].ox + dx, y: this.elements[2].oy + dy});
-};
-
-Sphere.prototype.getLayers = function() {
-    return [this.invisible].concat(macademia.reverseCopy(this.elements));
-};
+});
