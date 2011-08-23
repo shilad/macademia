@@ -136,7 +136,6 @@ var Person = MNode.extend({
                 if ($.inArray(interests[j], interestGroups[i][0].relatedInterests)+1){
                     interests[j].color = interestGroups[i][0].color;
                     sortedInterests.push(interests[j]);
-                    console.log('color is ' + interests[j].color);
                 }
             }
         }
