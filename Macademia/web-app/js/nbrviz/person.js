@@ -6,8 +6,10 @@ macademia.nbrviz.person.INTEREST_INCR = 100;
 /**
  * The center for a person node (image + wedges).
  */
-var PersonCenter = Class.extend({
+var PersonCenter = RaphaelComponent.extend({
     init : function(params) {
+        this._super(params);
+
         // constants
         this.IMAGE_WIDTH = 20;
         this.IMAGE_HEIGHT = this.IMAGE_WIDTH * 194 / 130;
@@ -20,7 +22,6 @@ var PersonCenter = Class.extend({
         this.imageHeight = params.imageHeight || this.IMAGE_HEIGHT;
         this.innerRadius = params.innerRadius || this.imageHeight * .6;
         this.outerRadius = params.outerRadius || this.innerRadius + 10;
-        this.paper = params.paper || macademia.nbrviz.paper;
         this.picture = params.picture || "";
         this.name = params.name || "nameless person";
 
@@ -68,41 +69,13 @@ var PersonCenter = Class.extend({
         layers.push(this.handle);
         return layers.reverse();
     },
-    getLayerSet : function() {
-        return this.paper.set(this.getLayers());
-    },
     fillHsb : function(h) {
             return 'hsb(' + h + ',0.4,1)';
-    },
-    hover : function(mouseIn, mouseOut) {
-        this.hoverSet.hover(mouseIn, mouseOut);
     },
     getHandle : function() { return this.handle; },
     getX : function() { return this.handle.attr('cx'); },
     getY : function() { return this.handle.attr('cy'); },
     normal : function() {},
-    toFront : function(behind) {
-        var layers = this.getLayers();
-        if (behind) {
-            layers[0].insertBefore(behind);
-        } else {
-            layers[0].toFront();
-        }
-        for (var i = 1; i < layers.length; i++) {
-            layers[i].insertBefore(layers[i-1]);
-        }
-    },
-    toBack : function(inFrontOf) {
-        var revLayers = macademia.reverseCopy(this.getLayers());
-        if (inFrontOf) {
-            revLayers[0].insertAfter(inFrontOf);
-        } else {
-            revLayers[0].toBack();
-        }
-        for (var i = 1; i < revLayers.length; i++) {
-            revLayers[i].insertAfter(revLayers[i-1]);
-        }
-    },
     setPosition : function(x, y) {
         var circles = [this.handle, this.innerStroke, this.outerStroke, this.imageBg];
         $.each(circles, function() { this.attr({cx : x, cy : y}); });
@@ -176,7 +149,8 @@ var Person = MNode.extend({
             picture : this.picture,
             x : this.x,
             y : this.y,
-            outerRadius : this.collapsedRadius
+            outerRadius : this.collapsedRadius,
+            paper : this.paper
         });
     },
     setPosition : function(x, y) {
