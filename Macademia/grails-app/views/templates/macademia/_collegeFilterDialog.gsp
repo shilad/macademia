@@ -9,7 +9,6 @@
 <div class="padded medium btxt" id="filterModal">
   <div id="consortiaFilter">
     <h3>Select Consortia:</h3>
-    <div id="consortiaForm">
       <form name="consortiaForm">
         <select id="consortia" name="consortia">
           <g:each in="${igList}" var="ig">
@@ -17,7 +16,6 @@
           </g:each>
         </select>
       </form>
-    </div>
   </div>
   <div id="closeCollegeFilter">
     <a href ="#"><p:image src="close_icon.gif"/></a>
@@ -25,14 +23,13 @@
 
     <div id="editColleges">
       <div id="collegeFilterEditButtons" class="padded2">
-        <input id="addAllColleges" type="submit" value="add all"/>
-        <input id="clearAllColleges" type="submit" value="remove all"/>
+        <input id="addAllColleges" type="submit" value="Add all"/>
+        <input id="clearAllColleges" type="submit" value="Remove all"/>
 
         <input id="collegeSearchAuto" type="text" prompt="Type college name" class="clearDefault"/>
-        <input id="addCollege" type="submit" value="add"/>
+        <input id="addCollege" type="submit" value="Add"/>
       </div>
       <div id="selectedColleges" class="medium">
-          %{--<div id = "clearMessage" class = "center" style = "display:none"> Visualization cannot display a filter of 0 colleges </div>--}%
           <ul>
             <g:each in="${institutions}" var="c">
               <div class="collegeDiv" id="c_${c.id}">
@@ -45,11 +42,11 @@
           </ul>
       </div>
       <div id="submitColleges">
-          <input id ="selectColleges" type="submit" value = "save schools and close"/>
+          <input id ="selectColleges" type="submit" value = "Save schools and close"/>
       </div>
     </div>
+
+    <g:javascript>
+        macademia.initCollegeFilter();
+    </g:javascript>
 </div>
-
-<g:javascript>
-
-</g:javascript>

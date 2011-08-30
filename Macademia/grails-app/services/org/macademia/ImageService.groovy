@@ -30,11 +30,6 @@ class ImageService {
     public static final String ORIG_IMAGES_PATH = DB_IMAGES_PATH + "/orig"
     private static final String TEMP_IMAGES_PREFIX = "img"
 
-    // web url paths
-    // these aren't used any more.
-    public static final String BASE_URL = "/Macademia/images/db"
-    public static final String SMALL_URL = BASE_URL + "/small"
-    public static final String LARGE_URL = BASE_URL + "/large"
     public static final Random random = new Random()
 
     /**

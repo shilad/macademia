@@ -60,4 +60,39 @@ class MacademiaTagLib {
         }
     }
 
+    def personImage = {
+        attrs, body ->
+        Person person = attrs.person
+        if (person == null) {
+            throw new IllegalStateException("missing person parameter to m:personImage")
+        }
+        String group = attrs.group ? attrs.group : params.group
+        String uri = null
+        if (person.imageSubpath) {
+            uri = Utils.makeUrl(group, 'image', 'retrieve', ['subPath' : person.imageSubpath])
+        } else if (person.email == 'ssen@macalester.edu') {
+            uri = g.resource(dir : 'images', file : 'shilad.jpg')
+        }
+        if (uri == null) {
+            throw new IllegalStateException("m:personImage no img for person ${person}")
+        }
+
+        out <<  '<img src=\"'
+        out << createLink(['uri' : uri])
+        out << '" alt=\"'
+        out << person.fullName.encodeAsHTML()
+        out << '"'
+        if (attrs.id) {
+            out << " id=\""
+            out << attrs.id
+            out << "\""
+        }
+        if (attrs['class']) {
+            out << " class=\""
+            out << attrs['class']
+            out << "\""
+        }
+        out << '/>'
+    }
+
 }

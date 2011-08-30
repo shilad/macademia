@@ -5,6 +5,9 @@ import grails.converters.JSON
 class JsonService {
 
     def collaboratorRequestService
+    def personService
+    def springcacheService
+
       //max number of interests per interest-centric graph
     int DEFAULT_MAX_INTERESTS_INTEREST_CENTRIC = 25
 
@@ -247,7 +250,7 @@ class JsonService {
         for (String pid in personNodes.keySet()) {
             String fullName = personNodes[pid]['name']
 
-            def inst = personNodes[pid]['institutions']
+            def inst = personNodes[pid]['data']['institution']
             if (collegeColors != null && collegeColors.containsKey(inst.toString())) {
               personAndRequestColors[pid] = collegeColors.(inst.toString())
             }
@@ -259,7 +262,7 @@ class JsonService {
         }
 
         for (String rid in collaboratorRequestNodes.keySet()) {
-            personAndRequestColors[rid] = "#F00"
+            personAndRequestColors[rid] = MacademiaConstants.REQUEST_COLOR
         }
 
         for (String pid in personNodes.keySet()) {
@@ -268,7 +271,7 @@ class JsonService {
             for (Object adj in node['adjacencies']) {
                 if(adj['nodeTo'].contains('r_')){
                     //makes the edges between root person and own collaborator requests red
-                    adj['data'].putAt("\$color", "#F00")
+                    adj['data'].putAt("\$color", MacademiaConstants.REQUEST_COLOR)
                 } else {
                     adj['data'].putAt("\$color", c)
                 }
@@ -311,10 +314,10 @@ class JsonService {
                 name: p.fullName,
                 data: [
                         unmodifiedId: p.id,
-                        type: 'person'
+                        type: 'person',
+                        institution: p.retrievePrimaryInstitution().id
                 ],
-                adjacencies: [],
-                institutions: p.memberships.institution.id
+                adjacencies: []
         ]
     }
 
@@ -343,15 +346,29 @@ class JsonService {
     }
 
     def makeJsonForIgMap() {
-        def igMap = [:]
-        for (ig in InstitutionGroup.list()) {
-            igMap[ig.id] = [
-                    info: [name: ig.name, abbrev: ig.abbrev],
-                    institutions: ig.institutions.collect({makeJsonForInstitution(it)})
-                ]
-        }
-        return igMap
+        return springcacheService.doWithBlockingCache("institutionCache", "igmap", {
+            def igMap = [:]
+            for (ig in InstitutionGroup.list().sort({it.name.toLowerCase()})) {
+                Set<Institution> insts
+                if (ig.crossCutting) {
+                    insts = new HashSet<Institution>()
+                    for (Institution i : ig.institutions) {
+                        for (Person p : personService.findAllInInstitution(i)) {
+                            insts.addAll(p.memberships.institution)
+                        }
+                    }
+                } else {
+                    insts = ig.institutions
+                }
+                igMap[ig.id] = [
+                        info: [name: ig.name, abbrev: ig.abbrev],
+                        institutions: insts.sort({it.name.toLowerCase()}).collect({makeJsonForInstitution(it)})
+                    ]
+            }
+            return igMap
+        })
     }
+
     def makeJsonForInstitutions() {
         return Institution.all.collect({makeJsonForInstitution(it)})
     }

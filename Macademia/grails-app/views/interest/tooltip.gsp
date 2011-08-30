@@ -1,6 +1,6 @@
 <div>
-  <div class="ttName medium">${interest.text}</div>
-  <div class="ttDesc medium aside">
+  <div class="ttName">${interest.text}</div>
+  <div class="ttDesc">
     shared by ${people.size()} faculty
     <g:if test="${people.size() == 1}">
       member.
@@ -12,7 +12,7 @@
   </div>
 
   <g:if test="${related}">
-  <div class="ttRel medium">
+  <div class="ttRel">
     <b>related interests:</b>
     ${related.join(', ')}
     </div>

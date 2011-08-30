@@ -1,0 +1,232 @@
+/* jqModal base Styling courtesy of;
+	Brice Burgess <bhb@iceburg.net> */
+
+/* The Window's CSS z-index value is respected (takes priority). If none is supplied,
+	the Window's z-index value will be set to 3000 by default (via jqModal.js). */
+
+//-----------------------------------------------
+// General settings
+//-----------------------------------------------
+
+.jqmWindow {
+    display: none;
+
+    position: fixed;
+    top: 5%;
+    left: 40%;
+
+    margin-left: -200px;
+    width: 600px;
+
+    background-color: $background-color;;
+    color: #333;
+    padding:12px;
+    border: 1px solid black;
+
+    .jqmOverlay {
+        background-color: #000;
+    }
+}
+
+//-----------------------------------------------
+// Collaborator request list
+//-----------------------------------------------
+
+#listRequestContainer {
+    #closeListRequests {
+        padding: 0px;
+        margin: 0px;
+        position: absolute;
+        top: 8px;
+        right: 8px;
+    }
+    th {
+        font-weight: bold;
+    }
+    p {
+        margin-bottom: 10px;
+    }
+    table {
+        padding: 0 5px 0 5px;
+    }
+
+    tbody {
+        td {
+            padding: 7px 5px;
+        }
+        tr {
+            border-top: 1px solid gray;
+            border-bottom: 1px solid gray;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            background-color: white;
+            &:hover {
+                background-color: #cdf;
+                cursor: pointer;
+            }
+            .title {
+                color: #577;
+                width: 25%;
+            }
+            .expires {
+                width: 15%;
+            }
+            .creator {
+                width: 20%;
+            }
+            .description {
+                width: 40%;
+            }
+        }
+    }
+    h1 {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+}
+
+//-----------------------------------------------
+// Collaborator request creation
+//-----------------------------------------------
+
+#createRequestContainer {
+    #dialogTitle {
+        padding-top: 5px;
+        text-align: center;
+        z-index: -30;
+    }
+
+
+    .section {
+        border-bottom: 1px solid black;
+
+        .registerLeft {
+            position: relative;
+            display: inline-block;
+            padding: 0 10px;
+            width: 200px;
+            float: left;
+
+            label {
+                font-size: 15px;
+                span {
+                    font-size: 14px;
+                    padding-top: 6px;
+                    font-style: italic;
+                    display: block;
+                    color: #008f8f;
+                }
+            }
+        }
+        .registerRight {
+            margin: 10px;
+            width: 600px;
+
+            &.datePicker {
+                margin-bottom: 50px;
+            }
+            input {
+                height: 30px;
+            }
+            input, textarea {
+                border: 1px thin #ccc;
+                width: 370px;
+            }
+        }
+    }
+    #submitRequest {
+        margin-top: 7px;
+        text-align: center;
+
+        input {
+            font-size: 18px;
+        }
+    }
+}
+
+//-----------------------------------------------
+// College filter
+//-----------------------------------------------
+
+#filterDialog {
+    margin: auto;
+    width: 425px;
+    
+    #consortiaFilter {
+        margin-left: 5px;
+        h3 {
+            display: inline-block;
+        }
+        form {
+            display: inline-block;
+            margin-left : 5px;
+            select {
+                width : 250px;
+            }
+        }
+    }
+    input[type="submit"] {
+        display: inline-block;
+        font-size: 13px;
+        margin: 2px;
+    }
+    #collegeSearchAuto {
+        margin: 0 3px 0 27px;
+        border: 1px solid black;
+        border-radius: 5px 5px 5px 5px;
+        margin-left: 15px;
+        padding: 5px 3px;
+        width: 160px;
+    }
+    #closeCollegeFilter {
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        right: 8px;
+        top: 8px;
+    }
+    #collegeFilterEditButtons {
+        margin: 10px 0;
+        overflow: hidden;
+        width: 100%;
+    }
+    #editColleges {
+        clear: both;
+        height: 430px;
+    }
+    #selectedColleges {
+        background-color: white;
+        border: 1px solid gray;
+        clear: both;
+        height: 350px;
+        margin: 5px;
+        overflow: auto;
+        padding: 5px;
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            .collegeDiv {
+                display: none;
+                li {
+                    list-style-type: none;
+                    display: block;
+                    padding: 3px 0;
+                    border-top: 1px solid #EFEFEF;
+                    img {
+                        width: 15px;
+                    }
+                    &:hover {
+                        background-color: #c3d6e4;
+                    }
+                }
+            }
+        }
+    }
+    #submitColleges {
+        margin: 5px;
+        text-align: center;
+    }
+}

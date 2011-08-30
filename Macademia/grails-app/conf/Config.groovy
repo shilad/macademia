@@ -130,6 +130,20 @@ macademia {
     profileImagePath = "web-app/images/db"
 }
 
+springcache {
+    defaults {
+        eternal = false
+        diskPersistent = false
+    }
+    caches {
+        homeCache {
+           timeToLive = 300
+        }
+        institutionCache {
+           timeToLive = 86400
+        }
+    }
+}
 
 
 grails {
@@ -167,7 +181,7 @@ uiperformance.bundles = [
             'lib.macademia.collegefilter',
             'lib.macademia.autocomplete',
             'lib.macademia.profile',
-            'lib.macademia.slider',
+            'lib.macademia.density',
             'nbrviz/inherit',
             'nbrviz/raphael',
             'nbrviz/raphael-component',

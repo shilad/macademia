@@ -1,0 +1,25 @@
+#message {
+
+    background: $background-color;
+    
+    #main {
+        background: white;
+        padding-top: 75px;
+        padding-bottom: 50px;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        width: 100%;
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+
+        div,span,li,label,p,input {
+            font-family: Arial;
+            font-size: 18px;
+        }
+        p {
+            margin : 10px 0px;
+        }
+    }
+}
+

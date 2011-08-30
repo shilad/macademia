@@ -1,0 +1,84 @@
+//-----------------------------------------------
+// Base element styles shared across pages
+//-----------------------------------------------
+
+body, select, input, textarea {
+  color: $font-color;
+  font-size: $base-font-size;
+  // Set your base font here, to apply evenly
+  // font-family: Georgia, serif;
+}
+
+//Headers (h1, h2, etc) have no default font-size or margin; define those yourself
+h1, h2, h3, h4, h5, h6 {
+    // Bold might not be the best choice if you are
+    // embedding a @font-face that's already bold
+    font-weight: bold;
+}
+h1 {
+    font-size: 26px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 16px;
+}
+
+a, a:active, a:visited {
+    color: $link-color;
+    text-decoration: none;
+}
+a:hover { color: $link-hover-color; }
+
+strong, th, b {
+  font-weight: bold;
+}
+
+.alert {
+    color: #c11;
+}
+
+.flash {
+    font-weight : bold;
+    color : #f00;
+    display: none;
+}
+
+.warning {
+    background:#FFDDDD;
+    color : #A44;
+    text-align: center;
+    display: none;
+}
+
+body {
+	min-width:1024px;
+}
+
+.customButton {
+    display: inline;
+    padding: 5px 10px 3px;
+    @include border-radius(5px);
+    background-color: gray;
+    border: 1px solid #666;
+    text-decoration: none;
+    a { color: white; }
+    a:visited { color: white; }
+    a:hover { color: $font-color-light; }
+}
+
+button, input[type="submit"], input[type="button"] {
+    padding: 5px 10px 3px;
+    @include border-radius(5px);
+    background-color: gray;
+    color: white;
+    border: 1px solid #666;
+    text-decoration: none;
+}
+
+
+select {
+    font-size: 14px;
+    padding: 2px;
+}

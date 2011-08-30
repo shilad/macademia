@@ -34,11 +34,7 @@ class SimilarityService {
    public void buildInterestRelations() {
         for (Interest interest : Interest.findAll()) {
 //            log.info("interest Id is $interest.id related article is $interest.articleId and relations Built is $relationsBuilt")
-            if(!(interest.articleId==null || interest.articleId<0)){
-                databaseService.buildInterestRelations(interest.normalizedText, interest.id, interest.articleId, relationsBuilt)
-            }  else{
-                log.info("Interest $interest has no related article")
-            }
+            buildInterestRelations(interest)
         }
         relationsBuilt = true
     }
@@ -54,7 +50,7 @@ class SimilarityService {
     * @param i
     */
     public void buildInterestRelations(Interest interest){
-        if ((interest.articleId != null) && (interest.articleId > 0)) {
+        if (interest.articleId) {
             databaseService.buildInterestRelations(interest.normalizedText, interest.id, interest.articleId, relationsBuilt)
         } else {
             log.info("Interest $interest has no related article")
@@ -83,7 +79,7 @@ class SimilarityService {
      * @param institutionFilter
      * @return The completed graph
      */
-    public Graph calculateInterestNeighbors(Interest interest, int maxPeople, int maxInterests, Set<Long> institutionFilter){
+    public Graph calculateInterestNeighbors(Interest interest, int maxPeople, int maxInterests, InstitutionFilter institutionFilter){
         Graph graph = new Graph()
         //interestCache = new HashMap<Long, Interest>()
         graph = findPeopleAndRequests(graph, maxPeople, interest.id, null, 1, institutionFilter)
@@ -121,7 +117,7 @@ class SimilarityService {
       * @return The completed graph
       */
     TimingAnalysis timing = new TimingAnalysis("calc-person-neighbors")
-    public Graph calculatePersonNeighbors( Person person, int maxPeople, Set<Long> institutionFilter){
+    public Graph calculatePersonNeighbors( Person person, int maxPeople, InstitutionFilter institutionFilter){
 //        timing = new TimingAnalysis()
         timing.recordTime("calc neighbors 1")
         Graph graph= new Graph(person.id)
@@ -172,7 +168,7 @@ class SimilarityService {
      * @param institutionFilter
      * @return The completed graph
      */
-    public Graph calculateRequestNeighbors(CollaboratorRequest request, int maxPeople, Set<Long> institutionFilter) {
+    public Graph calculateRequestNeighbors(CollaboratorRequest request, int maxPeople, InstitutionFilter institutionFilter) {
         Graph graph = new Graph()
         for (long i : databaseService.getRequestKeywords(request.id)) {
 
@@ -194,7 +190,7 @@ class SimilarityService {
     * @return The graph with all conections to Interest i added
     */
     TimingAnalysis timing2 = new TimingAnalysis("calc neighbors")
-    public Graph calculateNeighbors(Long i, Graph graph, int maxPeople, Set<Long> inner, Set<Long> institutionFilter) {
+    public Graph calculateNeighbors(Long i, Graph graph, int maxPeople, Set<Long> inner, InstitutionFilter institutionFilter) {
         if(i == null){
             return graph
         }
@@ -232,7 +228,7 @@ class SimilarityService {
      * @return The graph with all appropriate edges added.
      */
     public static TimingAnalysis timing3 = new TimingAnalysis("find people and requests")
-    public Graph findPeopleAndRequests(Graph graph, int maxPeople, Long i, Long ir, Double sim, Set<Long> institutionFilter) {
+    public Graph findPeopleAndRequests(Graph graph, int maxPeople, Long i, Long ir, Double sim, InstitutionFilter institutionFilter) {
 //        timing3.startTime()
         Long interestId
         if (ir == null) {
@@ -249,14 +245,9 @@ class SimilarityService {
             if (institutionFilter == null) {
                 graph.incrementPersonScore(p, i, interestId, sim)
                 graph.addEdge(p, i, ir, null, sim)
-            } else {
-                for (Long perInst : databaseService.getUserInstitutions(p)) {
-                    if (institutionFilter.contains(perInst)) {
-                        graph.incrementPersonScore(p, i, interestId, sim)
-                        graph.addEdge(p, i, ir, null, sim)
-                        break
-                    }
-                }
+            } else if (institutionFilter.matches(databaseService.getUserInstitutions(p))) {
+                graph.incrementPersonScore(p, i, interestId, sim)
+                graph.addEdge(p, i, ir, null, sim)
             }
         }
 //        timing3.recordTime("2")
@@ -266,13 +257,8 @@ class SimilarityService {
             //For each CollaboratorRequest with the Interest or SimilarInterest
             if (institutionFilter == null) {
                 graph.addEdge(null, i, ir, cr, sim)
-            } else {
-                for (Long crInst : databaseService.getCollaboratorRequestInstitutions(cr)) {
-                    if (institutionFilter.contains(crInst)) {
-                        graph.addEdge(null, i, ir, cr, sim)
-                        break
-                    }
-                }
+            } else if (institutionFilter.matches(databaseService.getCollaboratorRequestInstitutions(cr))) {
+                graph.addEdge(null, i, ir, cr, sim)
             }
         }
 //        timing3.recordTime("4")
@@ -295,7 +281,7 @@ class SimilarityService {
         return getSimilarInterests(i.id, maxSimsPerInterest, absoluteThreshold, null);
     }
 
-    public SimilarInterestList getSimilarInterests(Interest i, Set<Long> institutionFilter) {
+    public SimilarInterestList getSimilarInterests(Interest i, InstitutionFilter institutionFilter) {
         return getSimilarInterests(i.id, maxSimsPerInterest, absoluteThreshold, institutionFilter)
     }
 
@@ -307,7 +293,7 @@ class SimilarityService {
         return getSimilarInterests(i, max, similarityThreshold, null)
     }
 
-    public SimilarInterestList getSimilarInterests(Long i , int max , double similarityThreshold, Set<Long> institutionFilter) {
+    public SimilarInterestList getSimilarInterests(Long i , int max , double similarityThreshold, InstitutionFilter institutionFilter) {
         SimilarInterestList sims
         if (institutionFilter == null) {
             sims=databaseService.getSimilarInterests(i)

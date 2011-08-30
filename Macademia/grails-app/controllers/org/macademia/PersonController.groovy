@@ -35,16 +35,23 @@ class  PersonController{
 
     def index = {
         List<Long> ids = new ArrayList<Long>()
-        Set<Long> institutions =  institutionGroupService.getInstitutionIdsFromParams(params)
+        InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
         if (institutions == null) {
             ids.addAll(Person.findAll().collect({it.id}))
+        } else if (institutions.requiredInstitutionId) {
+            Institution req = institutionService.get(institutions.requiredInstitutionId)
+            Set<Person> people = personService.findAllInInstitution(req)
+            ids.addAll(people.findAll({it.isMatch(institutions)}).collect({it.id}))
         } else {
-            for (Institution i : institutions.collect {Institution.get(it)}) {
+            for (Institution i : institutions.institutionIds.collect {Institution.get(it)}) {
                 ids.addAll(personService.findAllInInstitution(i).collect({it.id}))
             }
         }
         Random r = new Random()
-        long id = ids[r.nextInt(ids.size())]
+        def id = 'empty'
+        if (ids) {
+            id = ids[r.nextInt(ids.size())]
+        }
         redirect(uri: "/${params.group}/person/jit/#/?nodeId=p_${id}&navVisibility=true&navFunction=person&institutions=all&personId=${id}")
     }
 
@@ -78,7 +85,7 @@ class  PersonController{
                 linkName = link.title
             }
 
-            Set<Long> institutions =  institutionGroupService.getInstitutionIdsFromParams(params)
+            InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
             for(Interest i: allInterests) {
                 if(target.interests.contains(i)){
                     exact.add(i.text)
@@ -122,7 +129,7 @@ class  PersonController{
             max = 25
         }
         def root = personService.get((params.id as long))
-        Set<Long> institutions =  institutionGroupService.getInstitutionIdsFromParams(params)
+        InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
         Graph graph = similarityService.calculatePersonNeighbors(root, max, institutions)
         def data = jsonService.buildUserCentricGraph(root, graph)
         render(data as JSON)

@@ -15,6 +15,20 @@ import javax.servlet.http.Cookie
 class Utils {
     private final static Logger log = Logger.getLogger(Utils.class)
 
+    public static boolean collectionsOverlap(Collection c1, Collection c2) {
+        // swap so that c1 is smaller
+        if (c1.size() > c2.size()) {
+            Collection ct = c1
+            c1 = c2
+            c2 = ct
+        }
+        for (Object elem : c1) {
+            if (c2.contains(elem)) {
+                return true
+            }
+        }
+        return false
+    }
 
     public static String makeUrl(String group, String type, long id) {
         return makeUrl(group, type, id, false)
@@ -49,6 +63,10 @@ class Utils {
             }
         }
         return url
+    }
+
+    public static String getGroupFromUrl(String url) {
+        return url.split("/")[2]
     }
     
     public static void safeSave(Object o) {

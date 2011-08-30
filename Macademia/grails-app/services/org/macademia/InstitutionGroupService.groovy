@@ -35,7 +35,16 @@ class InstitutionGroupService {
         return findByAbbrev(MacademiaConstants.DEFAULT_GROUP)
     }
 
-    Set<Long> getInstitutionIdsFromParams(params) {
+    Institution findDefaultInstitutionForGroup(InstitutionGroup ig) {
+        // What should we do here in the general case?
+        if (ig.abbrev == 'biologyscholars') {
+            return Institution.findByName('Biology Scholars')
+        } else {
+            return null
+        }
+    }
+
+    InstitutionFilter getInstitutionFilterFromParams(params) {
         if (params.institutions == null || params.institutions == 'null') {
             params.institutions = 'all'
         }
@@ -46,15 +55,21 @@ class InstitutionGroupService {
             return null // everything
         } else if (params.institutions == 'all') {
             InstitutionGroup ig = findByAbbrev(params.group)
-            return new HashSet<Long>(ig.institutions.collect{it.id})
+            return new InstitutionFilter(new HashSet<Long>(ig.institutions.collect{it.id}))
         } else {
+            InstitutionGroup ig = findByAbbrev(params.group)
             def splitInstitutions = ("+" + params.institutions).tokenize("//+c_")
             Set<Long> institutions = new HashSet<Long>()
             for(String id: splitInstitutions) {
                 def institutionId = id.toLong()
                 institutions.add(institutionId)
             }
-            return institutions
+            if (ig.crossCutting) {
+                def required = findDefaultInstitutionForGroup(ig)
+                return new InstitutionFilter(institutions, required.id)
+            } else {
+                return new InstitutionFilter(institutions)
+            }
         }
     }
 
@@ -66,4 +81,5 @@ class InstitutionGroupService {
     def retrieveInstitutions(InstitutionGroup group){
         return group.institutions
     }
+
 }

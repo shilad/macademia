@@ -1,0 +1,280 @@
+#editProfile {
+
+    background: $background-color;
+    padding: 0px;
+    margin: 0px auto;
+
+    #center_wrapper {
+        width: 950px;
+        margin: 0px auto;
+        padding: 30px 0 15px 0;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        background: white;
+        z-index: 30;
+        position: relative;
+
+        .instructions {
+            padding-bottom : 15px;
+            text-align: center;
+            p {
+                text-align: center;
+            }
+        }
+
+        #profile_picture {
+            width: 90px;
+            margin: 0 auto;
+            text-align: center;
+            display: block;
+        }
+
+        #change_pf_picture {
+            margin-left: 75px;
+            margin-bottom: 10px;
+        }
+
+        #edit_profile_container {
+            width: 495px;
+            margin-right: 10px;
+            float: left;
+        }
+        
+        .columnHeader {
+            text-align: center;
+        }
+
+        .topBorder {
+             border-top: 1px solid #D7D7D7;
+        }
+
+        #left_column {
+            width: 495px;
+            margin-right: 10px;
+            float: left;
+        }
+
+        #right_column {
+            width: 435px;
+            float: right;
+            margin: 0px auto;
+
+            li {
+                margin-bottom: 5px;
+            }
+            
+            a {
+                color: #2F9599;
+            }
+        }
+
+        .subcolumn_left {
+            float: left;
+            padding: 10px;
+
+            label {
+                font-size: 15px;
+                span {
+                    font-size: 14px;
+                    padding-top: 6px;
+                    font-style: italic;
+                    display: block;
+                    color: #008f8f;
+                }
+            }
+        }
+        .left1 {
+            width: 180px;
+        }
+        .left2 {
+            width: 120px;
+        }
+        .subcolumn_right {
+            float: left;
+            padding: 20px 10px 13px 10px;
+            width: 260px;
+
+            input {
+                padding: 3px;
+                width: 250px;
+                height: 30px;
+            }
+            input, textarea {
+                border: 1px solid gray;
+            }
+        }
+
+        .otherInstitutions, .personLinks {
+            margin-bottom: 5px;
+        }
+
+        #editInterests {
+            padding: 3px;
+            width: 270px;
+            height: 150px;
+        }
+
+        .clear {
+            height: 0;
+            clear: both;
+        }
+
+        #submit_edits {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 18px;
+            
+            input, #cancel {
+                margin: 0 15px;
+                font-size: 18px;
+            }
+        }
+
+        #account_delete {
+            margin-top: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        //-----------------------------------------------
+        // Link editing.
+        //-----------------------------------------------
+
+        .customLinkTemplate {
+            display : none;
+        }
+
+        .customLink {
+            overflow : hidden;
+            width : 90%;
+            clear : both;
+            border : solid 1px #d7d7d7;
+            padding : 5px;
+            margin-bottom : 5px;
+        }
+
+
+        .customLinkCaption {
+            overflow : hidden;
+            width : 100%;
+            clear : both;
+        }
+
+        .linkNumber, .institutionNumber{
+            text-align: center;
+            float: left;
+            margin: 0 6px 0 0;
+            vertical-align : bottom;
+            position :relative;
+            top : 3px;
+        }
+
+        .linkValue, .otherInstitutionURL {
+            width: 40%;
+            text-align: center;
+            float: left;
+            margin: 0px 10px 0 0;
+        }
+
+        .linkField, .otherInstitutionField {
+            width: 40%;
+            text-align: center;
+            float: left;
+            margin: 0px 20px 0 0;
+        }
+
+        .customLinkCaption .linkField, .customLinkCaption .linkValue, .customLinkCaption .otherInstitutionField, .customLinkCaption .otherInstitutionURL {
+            font-style: italic;
+            color:#008f8f;
+        }
+
+        .linkField input, .linkValue input , .otherInstitutionField input, .otherInstitutionURL input{
+            width: 100%;
+        }
+
+        .fieldLabel {
+            text-align: right;
+        }
+
+        .removeLink {
+            float: left;
+            text-decoration : none;
+            position : relative;
+            top : 3px;
+        }
+
+        .removeLink img {
+            height : 12px;
+            width : 12px;
+        }
+
+
+        .addItemDiv {
+            padding-top : 8px;
+            clear: both;
+        }
+
+        //-----------------------------------------------
+        // Image uploading.
+        //-----------------------------------------------
+        
+        .editPicture {
+            text-align: center;
+            line-height: 1.25em;
+            float : left;
+
+            .links {
+                position: relative;
+                a {
+                    z-index: -1;
+                }
+            }
+        }
+
+        #imgUploaderUploader {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100px;
+            height: 25px;
+            z-index: 100;
+        }
+
+        .center {
+            text-align: center;
+
+        }
+
+        #tagContainer {
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            left: 0px;
+            min-width:950px;
+            text-align: center;
+            color: #d0d3b3;
+            z-index: -10;
+            a {
+                color: #ffe;
+            }
+        }
+
+        #registerTitle {
+            margin-left:auto;
+            margin-right:auto;
+            width: 950px;
+            z-index: -30;
+            padding: 10px 0 10px 0;
+        }
+
+        .progressBar {
+            display : none;
+            backbground-color : #FFDDDD;
+            span {
+                margin : 3px;
+                position : absolute;
+            }
+        }
+    }
+}

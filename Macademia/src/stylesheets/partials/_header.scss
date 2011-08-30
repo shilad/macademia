@@ -1,0 +1,29 @@
+header {
+	background: url("../images/headerBackground.png");
+	height:37px;
+	@include box-shadow();
+	color: $font-color-light;
+
+	#logo {
+		position: absolute;
+		background: url(../images/macademiaLogo.png) no-repeat;
+		height: 124px;
+		width: 159px;
+		left: 16px;
+		cursor: pointer;
+		z-index: 9999;
+	}
+
+    a {
+        color: $font-color-light;
+        font-weight:normal;
+        &:visited { color: $font-color-light; }
+        &:hover { color: #ccc; }
+    }
+    #asteroids {
+        position: absolute;
+        top: 31px;
+        left: 266px;
+        padding: 2px;
+    }
+}

@@ -1,151 +1,105 @@
- <%--
-  Created by IntelliJ IDEA.
-  User: isparling
-  Date: Aug 21, 2009
-  Time: 4:14:16 PM
-  To change this template use File | Settings | File Templates.
---%>
-
-
 <%@ page import="grails.converters.JSON" contentType="text/html;charset=UTF-8" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
-  "http://www.w3.org/TR/REC-html40/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
+    <link rel="shortcut icon" type="image/x-icon" href="/myfavicon.ico"/>
+    <title>Macademia - Connecting colleagues who share research interests.</title>
+    <g:render template="/layouts/headers"/>
 
-  <p:css name="macademiaJit"/>
-  <g:include view="/layouts/headers.gsp"/>
-  <p:css name="jqModal"/>
-
-  <g:javascript>
-    $().ready(function() {
-        macademia.pageLoad();
-    });
-  </g:javascript>
+    <g:javascript>
+        macademia.igMap = ${igMap as JSON};
+        $(document).ready(function() {
+            macademia.pageLoad();
+            macademia.serverLog('nav', 'initial', {'url' : location.href });
+            var params = {
+                'page' : 'jit'
+            };
+            macademia.serverLog('page', 'load', params);
+        });
+    </g:javascript>
 
 </head>
 <body>
+    <div id='container'>
+      <header>
+        <div id="logo"></div>
+        <span id="asteroids"></span>
+        <nav>
+            <ul>
+                <m:ifNotLoggedIn>
+                    <li><a class="listRequestLink" href="#">Collaboration Requests</a></li>
+                    <li><g:link params="[group : params.group]" controller="account" action="createuser">Create Account</g:link></li>
+                    <li><a id="login_link" href="#">Login</a></li>
+                    <li><a href="/Macademia"><p:image alt="home" src="home.png" height="20"/></a></li>
+                </m:ifNotLoggedIn>
+                <m:ifLoggedIn>
+                  <li>
+                    <a href="#">Collaboration Requests</a>
+                    <ul>
+                      <li><a href="#" class="listRequestLink">View All Requests</a></li>
+                      <li><a href="#" class="makeRequestLink">Create New Request</a></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#">${request.authenticated.fullName.encodeAsHTML()}</a>
+                    <ul>
+                      <li><m:personLink person="${request.authenticated}">View</m:personLink></li>
+                      <li><g:link params="[group : params.group]" controller="account" action="edit">Edit Profile</g:link></li>
+                      <li><g:link params="[group : params.group]" controller="account" action="changepassword">Change Password</g:link></li>
+                      <li><g:link params="[group : params.group]" controller="account" action="logout" class="icon_cross">Logout</g:link></li>
+                    </ul>
+                  </li>
+                  <li><a href="/Macademia"><p:image alt="home" src="home.png" height="20"/></a></li>
+                </m:ifLoggedIn>
+            </ul>
+        </nav>
+      </header>
 
-<div id="mainContent">
+      <div id='main' role='main'>
+        <div id="wrapper">
+            <div id="centerCol">
+                <!-- Center Column -->
+                <div id="content">
+                    <div id="filters">
+                        %{--<gif test="${params.density}">Hello World! params = ${params}</gif>--}%
+                        <div id="density">
+                            <div id="less"><a href="#">Fewer Results</a></div>
+                            <div id="densitySlider">
+                              <g:each in="${[1,2,3,4,5]}" var="i">
+                                <g:if test="${i == 5}">
+                                    <span id="density${i}" class="density densityLast"></span>
+                                </g:if>
+                                <g:else>
+                                  <span id="density${i}" class="density"></span>
+                                </g:else>
+                              </g:each>
+                            </div>
+                            <div id="more"><a href="#">More Results</a></div>
+                        </div>
+                        <div id="collegeFilter" class="collegeFilterTrigger"><a id="collegeFilterLink" class="change" href="#"></a></div>
+                    </div>
+                    <div id="infovis">
+                        <div id="empty">
+                        Nobody has created a profile from the institution you selected.  Create your own by following the "register" link in the top right.
+                        </div>
+                    </div>
+                    <div id="institutionKey">
+                        <p>Edge color shows a person's primary institution:</p>
+                        <div id="keyInstitutions"></div>
+                    </div>
+                    <span id="instKeyEntryTemplate"><span class='instColorTemplate'></span></span>
+                </div>
+            </div>
 
-  
-  <div id="acknowledgements2">
-    <div>generously supported by:</div>
-    <div class="logo acm">
-      <a href="http://acm.edu"><p:image src="acm_logo.png" alt="The Associated Colleges of the Midwest"/></a>
-     </div>
-    <div class="logo"><a href="http://mellon.org">The Andrew W.<br/>Mellon Foundation</a> </div>
-    <div class="logo nsf">
-      <a href="http://nsf.gov"><p:image src="NSF_Logo.png" alt="The National Science Foundation"/></a>
-      </div>
-    %{--<div class="logo"><span>The National Science Foundation</span></div>--}%
-    %{--<div class="logo"><span>Macalester College</span></div>--}%
-    %{--<div id="macLogo"><img src="${createLinkTo(dir: 'images', file: 'mac_crest.png')}"/>Macalester College</div>--}%
-  </div>
-
-
-  <div id="collegeFilterButton2" class="collegeFilterTrigger" >
-  </div>
-  <div id="slider">
-    <div class="less"><a href="#">show less</a></div>
-    <div class="mid">
-      <div class="widget">&nbsp;</div>
-      <div>
-        <g:each in="${[1,2,3,4,5]}" var="i">
-        <div class="tick">
-          <a href="#">
-            <p:image src="slider_tick.png"/>
-          </a>
+            <g:render template="/layouts/rightNav" />
         </div>
-        </g:each>
       </div>
+
+      <g:render template="/layouts/footer" />
+
     </div>
-    <div class="more"><a href="#">show more</a></div>
-  </div>
-  
-
-  <div id="infovis">
-
-    
-    &nbsp;
-  </div>
-  <g:render template="../templates/macademia/tagline"/>
-</div>
-
-  <g:render template="../templates/macademia/logo"/>
-  <g:render template="../templates/macademia/glca_logo" />
-<div id="extendedInfo">
-  <g:render template="../layouts/rightNav"/>
-</div>
-
-  <g:javascript>
-    $().ready(function() {
-        macademia.serverLog('nav', 'initial', {'url' : location.href });  
-    });
-  </g:javascript>
-
-<div id="aboutJqm" class="jqmWindow padded2 medium btxt">
-  <a href="#" class="closeImg"><p:image src="close_icon.gif"/></a>
-  <div class="logo">
-    <p:image src="macademia-logo-black.png"/>
-    <span class="tagline">Connecting colleagues who share research interests.</span>
-  </div>
-  <div class="topBorder instructions">Macademia visualizes faculty research interests.  You can:
-        <ul class="styledList">
-          <li>
-            <b>Click</b> on a name or interest to recenter the visualization.
-          </li>
-          <li>
-            <b>Hover</b> over a name or interest to show more information.
-          </li>
-          <li>
-            <b>Search</b> in the upper right for a person or interest.
-          </li>
-          <li>
-            <b>Filter</b> the search results by school.
-          </li>
-          <li>
-            <b>Add</b> your own profile by signing up in the upper right.
-          </li>
-          <li>
-            <b>Collaborate</b> by creating or viewing a collaboration request.
-          </li>
-        </ul>
-    </div>
-  %{--<div id="acknowledgements" class="topBorder">--}%
-    %{--<div>Macademia is generously supported by:</div>--}%
-    %{--<div class="acmLogo"><a href="http://acm.edu">The Associated Colleges of the Midwest &nbsp;<img src="${createLinkTo(dir: 'images', file: 'acm_logo.png')}"/></a></div>--}%
-    %{--<div class="mellonLogo"><a href="http://mellon.org">The Andrew M. Mellon Foundation</a></div>--}%
-    %{--<div id="macLogo"><img src="${createLinkTo(dir: 'images', file: 'mac_crest.png')}"/>Macalester College</div>--}%
-  %{--</div>--}%
-  <div id="team" class="topBorder">
-    Macademia is developed by current and past students at Macalester College:&nbsp;
-    Henry Charlton,
-    Ryan Kerwin,
-    Jeremy Lim,
-    Brandon Maus,
-    Nathaniel Miller,
-    Meg Naminski,
-    Ernesto Nunes,
-    Alex Schneeman,
-    Isaac Sparling,
-    Anthony Tran,
-    under the direction of Prof. Shilad Sen
-  </div> 
-  <div class="close">
-    <a href="#"><div>Go to Macademia!</div></a>
-  </div>
-</div>
 </body>
-  <g:javascript >
-      macademia.igMap = ${igMap as JSON};
-      $().ready(function() {
-          var params = {
-              'page' : 'jit'
-          };
-          macademia.serverLog('page', 'load', params);
-
-      });
-
-    </g:javascript>
 </html>

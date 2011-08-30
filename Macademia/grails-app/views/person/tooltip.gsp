@@ -1,6 +1,6 @@
 <div>
-  <div class="ttName medium">${target.fullName}</div>
-  <div class="ttDesc medium aside">
+  <div class="ttName">${target.fullName}</div>
+  <div class="ttDesc">
     <b>affiliation${target.memberships.size() > 1 ? 's' : ''}:</b> ${target.retrievePrimaryInstitution().name}<br/>
     <b>dept:</b> ${target.department}<br/>
     <b>email:</b> <a href="mailto:${target.email}">${target.email}</a><br/>
@@ -9,18 +9,22 @@
   </div>
 
   <g:if test="${exact || close}">
-  <div class="ttRel medium">
+  <div class="ttRel">
     <b>related to ${linkName} by:</b>
-    <g:if test="${exact}">
-      <g:each in="${exact}" var="i">
-        <li><i>${i}</i></li>
-      </g:each>
-    </g:if>
+    <ul>
+        <g:if test="${exact}">
+          <g:each in="${exact}" var="i">
+            <li><i>${i}</i></li>
+          </g:each>
+        </g:if>
+    </ul>
     <g:if test="${close}">
-      <g:each in="${close.keySet()}" var="i">
-        <li><i>${i.text}</i>
-        (similar to ${close[i]})</li>
-      </g:each>
+      <ul>
+        <g:each in="${close.keySet()}" var="i">
+            <li><i>${i.text}</i>
+            (similar to ${close[i]})</li>
+        </g:each>
+      </ul>
     </g:if>
     </div>
   </g:if>

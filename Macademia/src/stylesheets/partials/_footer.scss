@@ -1,0 +1,41 @@
+footer {
+	background:url(../images/footerBackground.png) repeat-x;
+	padding: 20px 0;
+
+	#footerWrapper {
+		width: 980px;
+		margin: 0 auto;
+		@include clearfix();
+
+		.footerBlock {
+            float: left;
+            width: 220px;
+            padding: 0 10px;
+
+            b {
+                display: block;
+                text-transform: uppercase;
+                color: #666;
+                font-size: 11px;
+                border-bottom: 1px solid #CCC;
+                padding-bottom: 5px;
+                margin-bottom: 5px;
+            }
+
+            ul {
+                list-style-type: none;
+                margin-left: 0;
+                padding-top: 5px;
+
+                li {
+                    padding-bottom: 5px;
+
+                    a {
+                        color: #444;
+                        &:hover {color:#0160a0;}
+                    }
+                }
+            }
+        }
+	}
+}

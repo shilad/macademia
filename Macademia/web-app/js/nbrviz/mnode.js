@@ -251,7 +251,7 @@ var MNode = RaphaelComponent.extend(
         }
         this.state = this.STATE_COLLAPSING;
         this.stop();
-        var r = this.expandedRadius + this.relatedNodeRadius * 2;
+        var r = this.collapsedRadius;
         this.getHandle().animate({
                 r: r,
                 x: this.x - this.collapsedRadius,
@@ -359,7 +359,7 @@ var MNode = RaphaelComponent.extend(
         var closestDistance = 1000000000000000;
         $.each(this.relatedInterestNodes,
             function(i, node) {
-                var d =  macademia.nbrviz.distance(node.getX(), node.getY());
+                var d =  macademia.nbrviz.distance(node.getX(), node.getY(), e.x, e.y);
                 if (closestIndex < 0 || d < closestDistance) {
                     closestIndex = i;
                     closestDistance = d;

@@ -3,6 +3,7 @@ package org.macademia
 class InstitutionGroup {
     String name
     String abbrev
+    Boolean crossCutting = false
 
     static hasMany = [ institutions : Institution ]
     static mapping = {

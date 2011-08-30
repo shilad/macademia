@@ -1,0 +1,646 @@
+@charset "UTF-8";
+/** HTML5 ✰ Boilerplate  style.css contains a reset, font normalization and some base styles.  Credit is left where credit is due. Much inspiration was taken from these projects: - yui.yahooapis.com/2.8.1/build/base/base.css - camendesign.com/design/ - praegnanz.de/weblog/htmlcssjs-kickstart */
+/** html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline) v1.6.1 2010-09-17 | Authors: Eric Meyer & Richard Clark html5doctor.com/html-5-reset-stylesheet/ */
+/* line 28, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
+
+/* line 38, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+
+/* line 42, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+blockquote, q { quotes: none; }
+
+/* line 45, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+
+/* line 47, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+ins { background-color: #ff9; color: #000; text-decoration: none; }
+
+/* line 49, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+mark { background-color: #ff9; color: #000; font-style: italic; font-weight: bold; }
+
+/* line 51, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+del { text-decoration: line-through; }
+
+/* line 53, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+abbr[title], dfn[title] { border-bottom: 1px dotted; cursor: help; }
+
+/* line 55, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+table { border-collapse: collapse; border-spacing: 0; }
+
+/* line 57, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
+
+/* line 59, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+input, select { vertical-align: middle; }
+
+/** Font normalization inspired by YUI Library's fonts.css: developer.yahoo.com/yui/ */
+/* line 66, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+body { font: 13px/1.231 sans-serif; *font-size: small; }
+
+/* Hack retained to preserve specificity */
+@-moz-document url-prefix() { /* line 68, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+  select, input, textarea, button { font: 100% sans-serif; } }
+
+/* Normalize monospace sizing: en.wikipedia.org/wiki/MediaWiki_talk:Common.css/Archive_11#Teletype_style_fix_for_Chrome */
+/* line 73, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+pre, code, kbd, samp { font-family: monospace, sans-serif; }
+
+/** Minimal base styles. */
+/* Always force a scrollbar in non-IE */
+/* line 81, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+html { overflow-y: scroll; }
+
+/* Accessible focus treatment: people.opera.com/patrickl/experiments/keyboard/test */
+/* line 84, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+a:hover, a:active { outline: none; }
+
+/* line 86, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+ul, ol { margin-left: 2em; }
+
+/* line 87, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+ol { list-style-type: decimal; }
+
+/* Remove margins for navigation lists */
+/* line 90, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+nav ul, nav li { margin: 0; list-style: none; list-style-image: none; }
+
+/* line 92, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+small { font-size: 85%; }
+
+/* line 93, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+strong, th { font-weight: bold; }
+
+/* line 95, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+td { vertical-align: top; }
+
+/* Set sub, sup without affecting line-height: gist.github.com/413930 */
+/* line 98, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+sub, sup { font-size: 75%; line-height: 0; position: relative; }
+
+/* line 99, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+sup { top: -0.5em; }
+
+/* line 100, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+sub { bottom: -0.25em; }
+
+/* line 102, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+pre { /* www.pathf.com/blogs/2008/05/formatting-quoted-code-in-blog-posts-css21-white-space-pre-wrap/ */ white-space: pre; white-space: pre-wrap; word-wrap: break-word; padding: 15px; }
+
+/* line 108, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+textarea { overflow: auto; }
+
+/* www.sitepoint.com/blogs/2010/08/20/ie-remove-textarea-scrollbars/ */
+/* Align checkboxes, radios, text inputs with their label by: Thierry Koblentz tjkdesign.com/ez-css/css/base.css ; */
+/* line 111, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+input[type="radio"] { vertical-align: text-bottom; }
+
+/* line 112, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+input[type="checkbox"] { vertical-align: bottom; }
+
+/* Hand cursor on clickable input elements */
+/* line 115, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+label, input[type="button"], input[type="submit"], input[type="image"], button { cursor: pointer; }
+
+/* Webkit browsers add a 2px margin outside the chrome of form elements */
+/* line 118, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+button, input, select, textarea { margin: 0; }
+
+/* Colors for form validity */
+/* line 122, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+input:invalid, textarea:invalid { /*border-radius: 1px; -moz-box-shadow: 0px 0px 5px red; -webkit-box-shadow: 0px 0px 5px red; box-shadow: 0px 0px 5px red;*/ }
+
+/* line 125, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+.no-boxshadow input:invalid, .no-boxshadow textarea:invalid { background-color: #f0dddd; }
+
+/* These selection declarations have to be separate No text-shadow: twitter.com/miketaylr/status/12228805301 */
+/* line 129, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+::-moz-selection { background: #a8d1ff; color: auto; text-shadow: none; }
+
+/* j.mp/webkit-tap-highlight-color */
+/* line 132, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_reset.scss */
+a:link { -webkit-tap-highlight-color: #a8d1ff; }
+
+/* line 5, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+body, select, input, textarea { color: #444444; font-size: 13px; }
+
+/* line 13, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+h1, h2, h3, h4, h5, h6 { font-weight: bold; }
+
+/* line 18, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+h1 { font-size: 26px; }
+
+/* line 21, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+h2 { font-size: 24px; }
+
+/* line 24, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+h3 { font-size: 16px; }
+
+/* line 28, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+a, a:active, a:visited { color: #607890; text-decoration: none; }
+
+/* line 32, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+a:hover { color: #003366; }
+
+/* line 34, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+strong, th, b { font-weight: bold; }
+
+/* line 38, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+.alert { color: #c11; }
+
+/* line 42, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+.flash { font-weight: bold; color: #f00; display: none; }
+
+/* line 48, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+.warning { background: #FFDDDD; color: #A44; text-align: center; display: none; }
+
+/* line 55, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+body { min-width: 1024px; }
+
+/* line 59, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+.customButton { display: inline; padding: 5px 10px 3px; -moz-border-radius: 5px; -webkit-border-radius: 5px; -o-border-radius: 5px; -ms-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; background-color: gray; border: 1px solid #666; text-decoration: none; }
+/* line 66, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+.customButton a { color: white; }
+/* line 67, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+.customButton a:visited { color: white; }
+/* line 68, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+.customButton a:hover { color: #eeeeee; }
+
+/* line 71, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+button, input[type="submit"], input[type="button"] { padding: 5px 10px 3px; -moz-border-radius: 5px; -webkit-border-radius: 5px; -o-border-radius: 5px; -ms-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; background-color: gray; color: white; border: 1px solid #666; text-decoration: none; }
+
+/* line 81, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_base.scss */
+select { font-size: 14px; padding: 2px; }
+
+/* line 6, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_nav.scss */
+nav ul { margin: 0; padding: 0; border: 0; overflow: hidden; *zoom: 1; float: right; padding-top: 8px; margin-right: 20px; cursor: pointer; overflow: visible; }
+/* line 60, C:/Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+nav ul li { list-style-image: none; list-style-type: none; margin-left: 0px; white-space: nowrap; display: inline; float: left; padding-left: 4px; padding-right: 4px; }
+/* line 48, C:/Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+nav ul li:first-child, nav ul li.first { padding-left: 0; }
+/* line 49, C:/Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+nav ul li:last-child { padding-right: 0; }
+/* line 50, C:/Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+nav ul li.last { padding-right: 0; }
+/* line 13, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_nav.scss */
+nav ul li { list-style-image: none; list-style-type: none; margin-left: 0px; white-space: nowrap; display: inline; float: left; padding-left: 4px; padding-right: 4px; margin-left: 35px; position: relative; }
+/* line 48, C:/Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+nav ul li:first-child, nav ul li.first { padding-left: 0; }
+/* line 49, C:/Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+nav ul li:last-child { padding-right: 0; }
+/* line 50, C:/Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+nav ul li.last { padding-right: 0; }
+/* line 17, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_nav.scss */
+nav ul li img { position: relative; bottom: 3px; }
+/* line 21, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_nav.scss */
+nav ul li.dropdown { background: url(../images/dropdown/dropdown_white.png) no-repeat right center; padding-right: 15px; }
+/* line 25, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_nav.scss */
+nav ul li ul { display: none; list-style: none; position: absolute; left: 0; top: 18px; margin: 0; padding: 0; width: 170px; overflow: visible; border: 1px solid #111; background-color: #222; z-index: 5; }
+/* line 36, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_nav.scss */
+nav ul li ul li { margin: 0; padding: 0; border-top: 1px solid #252525; border-bottom: 1px solid #444; clear: both; width: 170px; background-color: #222; }
+/* line 43, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_nav.scss */
+nav ul li ul li a { display: block; width: 145px; background: #333333 url(../images/dropdown/dropdown_linkbg.gif) no-repeat 10px center; padding: 5px 0 5px 25px; }
+/* line 48, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_nav.scss */
+nav ul li ul li a:hover { background: #777777 url(../images/dropdown/dropdown_linkbg.gif) no-repeat 10px center; }
+
+/* line 3, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage header { background: url("../images/headerBackgroundHome.png"); height: 147px; -moz-box-shadow: 0px 0px 5px #333333; -webkit-box-shadow: 0px 0px 5px #333333; -o-box-shadow: 0px 0px 5px #333333; box-shadow: 0px 0px 5px #333333; }
+/* line 8, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage header #headerWrapper { width: 960px; margin-left: auto; margin-right: auto; position: relative; }
+/* line 14, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage header #headerWrapper #logo { position: absolute; background: url(../images/macademiaRibbon.png) no-repeat; height: 214px; width: 163px; left: -16px; text-indent: -9999px; z-index: 1; }
+/* line 24, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage header #headerWrapper h1 { text-indent: -9999px; background: url(../images/macademiaLogotype.png) no-repeat; height: 57px; width: 280px; position: absolute; left: 166px; top: 35px; }
+/* line 34, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage header #headerWrapper h2 { text-shadow: black 0 2px 3px; color: #eeeeee; position: absolute; left: 172px; top: 98px; font-family: 'Helvetica Neue', sans-serif; font-size: 19px; font-weight: normal; }
+/* line 44, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage header #headerWrapper #login { float: right; position: relative; top: 30px; left: 170px; }
+/* line 49, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage header #headerWrapper #login .login_input { border: 1px solid gray; border-radius: 5px 5px 5px 5px; display: block; float: right; margin-bottom: 7px; margin-top: 2px; min-height: 15px; padding: 5px 2px; width: 167px; }
+/* line 60, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage header #headerWrapper #login .login_submit { clear: both; display: block; float: left; margin-bottom: 5px; margin-left: 80px; }
+/* line 67, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage header #headerWrapper #login .forgot_password { display: block; float: left; margin-left: 10px; margin-top: 5px; }
+/* line 73, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage header #headerWrapper #login label { color: #eeeeee; clear: both; display: block; float: left; margin: 3px; padding-top: 9px; text-align: right; width: 67px; }
+/* line 87, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main { width: 980px; margin-left: auto; margin-right: auto; padding-top: 20px; padding-left: 0px; }
+/* line 94, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #mainSearchBox { padding: 13px 0 13px 182px; margin-bottom: 25px; border-bottom: 1px solid #CCC; position: relative; }
+/* line 103, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #mainSearchBox #searchBox { font-size: 18px; padding: 14px 10px 12px 10px; width: 600px; -moz-border-radius: 8px; -webkit-border-radius: 8px; -o-border-radius: 8px; -ms-border-radius: 8px; -khtml-border-radius: 8px; border-radius: 8px; -moz-box-shadow: inset 0px 2px 2px 1px #acacac; -webkit-box-shadow: inset 0px 2px 2px 1px #acacac; -o-box-shadow: inset 0px 2px 2px 1px #acacac; box-shadow: inset 0px 2px 2px 1px #acacac; border: 1px solid #999; }
+/* line 112, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #mainSearchBox #searchSubmit { position: absolute; top: 23px; left: 718px; font-size: 14px; padding: 7px 14px 5px; }
+/* line 119, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #mainSearchBox #consortia { font-size: 14px; margin-top: 15px; margin-left: -180px; }
+/* line 125, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #mainSearchBox #consortia ul { list-style-type: none; width: 960px; margin: 0 auto; text-align: center; }
+/* line 131, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #mainSearchBox #consortia ul div.more { display: none; text-align: center; }
+/* line 136, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #mainSearchBox #consortia ul li { display: -moz-inline-box; -moz-box-orient: vertical; display: inline-block; vertical-align: middle; *vertical-align: auto; vertical-align: bottom; margin: 3px 20px; white-space: nowrap; }
+/* line 7, C:/Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
+#homePage #main #mainSearchBox #consortia ul li { *display: inline; }
+/* line 141, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #mainSearchBox #consortia ul li a { color: blue; }
+/* line 143, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #mainSearchBox #consortia ul li a:hover { text-decoration: underline; }
+/* line 152, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #slideshow { overflow: hidden; *zoom: 1; width: 980px; border-bottom: 1px solid #CCC; padding-bottom: 45px; margin-bottom: 25px; }
+/* line 159, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #slideshow .slide { width: 920px; padding-right: 60px; }
+/* line 163, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #slideshow .slide #graphThumb { float: left; margin-right: 40px; }
+/* line 168, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #slideshow .slide h3 { padding-top: 15px; font-size: 20px; font-weight: normal; color: #000; margin-bottom: 10px; }
+/* line 176, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #slideshow .slide p { font-size: 16px; font-weight: normal; color: #666; }
+/* line 181, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #slideshow .slide #entrancePortal { /*text-align: center;*/ font-size: 24px; margin-top: 25px; margin-bottom: 10px; }
+/* line 187, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #slideshow .slide #entrancePortal li { display: -moz-inline-box; -moz-box-orient: vertical; display: inline-block; vertical-align: middle; *vertical-align: auto; margin: 3px; padding: 0; border: 0; width: 30px; height: 30px; overflow: hidden; background-color: black; }
+/* line 7, C:/Ruby192/lib/ruby/gems/1.9.1/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
+#homePage #main #slideshow .slide #entrancePortal li { *display: inline; }
+/* line 196, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #slideshow .slide #entrancePortal li img { max-width: 30px; }
+/* line 206, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #sponsors { text-align: center; margin-bottom: 10px; padding-bottom: 20px; }
+/* line 211, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #sponsors h3 { font-size: 16px; font-weight: normal; margin-bottom: 10px; }
+/* line 218, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #sponsors ul { list-style-type: none; width: 960px; margin: 0 auto; }
+/* line 223, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #sponsors ul li { display: inline; vertical-align: bottom; margin: 0 20px; }
+/* line 227, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_home.scss */
+#homePage #main #sponsors ul li img { max-width: 150px; max-height: 125px; }
+
+/* line 1, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_header.scss */
+header { background: url("../images/headerBackground.png"); height: 37px; -moz-box-shadow: 0px 0px 5px #333333; -webkit-box-shadow: 0px 0px 5px #333333; -o-box-shadow: 0px 0px 5px #333333; box-shadow: 0px 0px 5px #333333; color: #eeeeee; }
+/* line 7, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_header.scss */
+header #logo { position: absolute; background: url(../images/macademiaLogo.png) no-repeat; height: 124px; width: 159px; left: 16px; cursor: pointer; z-index: 9999; }
+/* line 17, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_header.scss */
+header a { color: #eeeeee; font-weight: normal; }
+/* line 20, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_header.scss */
+header a:visited { color: #eeeeee; }
+/* line 21, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_header.scss */
+header a:hover { color: #ccc; }
+/* line 23, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_header.scss */
+header #asteroids { position: absolute; top: 31px; left: 266px; padding: 2px; }
+
+/* line 1, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_footer.scss */
+footer { background: url(../images/footerBackground.png) repeat-x; padding: 20px 0; }
+/* line 5, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_footer.scss */
+footer #footerWrapper { width: 980px; margin: 0 auto; overflow: hidden; *zoom: 1; }
+/* line 10, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_footer.scss */
+footer #footerWrapper .footerBlock { float: left; width: 220px; padding: 0 10px; }
+/* line 15, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_footer.scss */
+footer #footerWrapper .footerBlock b { display: block; text-transform: uppercase; color: #666; font-size: 11px; border-bottom: 1px solid #CCC; padding-bottom: 5px; margin-bottom: 5px; }
+/* line 25, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_footer.scss */
+footer #footerWrapper .footerBlock ul { list-style-type: none; margin-left: 0; padding-top: 5px; }
+/* line 30, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_footer.scss */
+footer #footerWrapper .footerBlock ul li { padding-bottom: 5px; }
+/* line 33, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_footer.scss */
+footer #footerWrapper .footerBlock ul li a { color: #444; }
+/* line 35, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_footer.scss */
+footer #footerWrapper .footerBlock ul li a:hover { color: #0160a0; }
+
+/* line 2, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#filters { padding-top: 7px; margin-right: 10px; z-index: 1; position: relative; top: 15px; height: 30px; }
+/* line 10, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#filters #density { display: inline; width: 50%; }
+/* line 14, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#filters #density #less, #filters #density #more { display: inline; text-decoration: none; padding: 0 7px; color: #666; }
+/* line 21, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#filters #density #densitySlider { background: url(../images/sliderBackground.png); display: inline; position: relative; bottom: 4px; }
+/* line 26, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#filters #density #densitySlider span { position: relative; right: 5px; top: 2px; padding: 2px 9px; margin-right: 15px; cursor: pointer; }
+/* line 33, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#filters #density #densitySlider span.density { background: url(../images/sliderDefault.png) no-repeat; }
+/* line 36, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#filters #density #densitySlider span.densityCur { background: url(../images/sliderSelection.png) no-repeat; }
+/* line 39, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#filters #density #densitySlider span.densityLast { padding: 2px 10px; margin-right: -12px; }
+/* line 47, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#filters #collegeFilter { -moz-box-shadow: 0 2px 2px 0 #cccccc; -webkit-box-shadow: 0 2px 2px 0 #cccccc; -o-box-shadow: 0 2px 2px 0 #cccccc; box-shadow: 0 2px 2px 0 #cccccc; background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjUwJSIgeTE9IjAlIiB4Mj0iNTAlIiB5Mj0iMTAwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y1ZjVmNSIvPjxzdG9wIG9mZnNldD0iNTElIiBzdG9wLWNvbG9yPSIjZTZlNmU2Ii8+PHN0b3Agb2Zmc2V0PSI1MiUiIHN0b3AtY29sb3I9IiNkZmRmZGYiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkZmRmZGYiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA='); background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f5f5f5), color-stop(51%, #e6e6e6), color-stop(52%, #dfdfdf), color-stop(100%, #dfdfdf)); background: -webkit-linear-gradient(top, #f5f5f5, #e6e6e6 51%, #dfdfdf 52%, #dfdfdf); background: -moz-linear-gradient(top, #f5f5f5, #e6e6e6 51%, #dfdfdf 52%, #dfdfdf); background: -o-linear-gradient(top, #f5f5f5, #e6e6e6 51%, #dfdfdf 52%, #dfdfdf); background: -ms-linear-gradient(top, #f5f5f5, #e6e6e6 51%, #dfdfdf 52%, #dfdfdf); background: linear-gradient(top, #f5f5f5, #e6e6e6 51%, #dfdfdf 52%, #dfdfdf); position: absolute; top: 0; right: 0; border: 1px solid #999; padding: 6px 8px; margin-right: 5px; z-index: 999; }
+/* line 59, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#filters #collegeFilter a { color: #666; display: block; padding-top: 0; background: url(../images/menuIcon.png) no-repeat transparent; background-position: right 0px; padding-right: 15px; }
+
+/* line 72, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main { overflow: hidden; *zoom: 1; width: 100%; position: relative; background-color: transparent; }
+/* line 78, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper { float: left; margin-left: -300px; position: relative; right: 100%; width: 200%; position: relative; -moz-box-shadow: 0 2px 6px #333333; -webkit-box-shadow: 0 2px 6px #333333; -o-box-shadow: 0 2px 6px #333333; box-shadow: 0 2px 6px #333333; }
+/* line 87, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #centerCol { float: left; width: 50%; position: relative; left: 50%; }
+/* line 93, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #centerCol #content { margin: 0 0 0 280px; text-align: center; }
+/* line 97, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #centerCol #content #instKeyEntryTemplate { display: none; }
+/* line 101, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #centerCol #content #institutionKey { margin: 7px 7px 7px 25px; line-height: 150%; }
+/* line 104, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #centerCol #content #institutionKey span { display: inline-block; cursor: default; padding-left: 3px; }
+/* line 108, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #centerCol #content #institutionKey span:hover { background-color: #c3d6e4; }
+/* line 111, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #centerCol #content #institutionKey span .instColor { position: relative; top: 3px; height: 16px; width: 16px; border-radius: 10px; margin: 0 4px 0 2px; padding: 0; border: 1px solid black; }
+/* line 125, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #centerCol .node { color: #000; cursor: pointer; text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white; }
+/* line 132, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #empty { display: none; margin-left: auto; margin-right: auto; width: 300px; text-align: center; line-height: 1.2em; margin-top: 200px; font-size: 26px; font-weight: bold; color: white; }
+/* line 145, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar { float: right; width: 262px; position: relative; left: 280px; min-height: 500px; padding-top: 20px; }
+/* line 153, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #login { float: right; position: relative; margin-bottom: 5px; }
+/* line 157, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #login .login_input { border: 1px solid #666; border-radius: 5px 5px 5px 5px; display: block; float: right; margin-bottom: 7px; margin-top: 2px; min-height: 15px; padding: 5px 2px; width: 175px; }
+/* line 168, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #login .login_submit { clear: both; display: block; float: left; margin-bottom: 5px; margin-left: 80px; }
+/* line 175, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #login .forgot_password { display: block; float: left; margin-left: 10px; margin-top: 5px; }
+/* line 181, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #login label { clear: both; display: block; float: left; margin: 3px 0px 3px 3px; padding-right: 7px; padding-top: 9px; text-align: right; width: 70px; }
+/* line 193, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #searchBox { width: 233px; font-size: 12px; padding: 8px 6px 7px 22px !important; background: url(../images/searchIcon.png) no-repeat white; background-position: 5px 7px; border: 1px solid #999; -webkit-appearance: textfield; -webkit-padding-bottom: 3px; margin-bottom: 7px; }
+/* line 205, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #currentFocus { font-size: 16px; font-weight: bold; color: #000; }
+/* line 211, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #pf_email { margin-top: 5px; padding-top: 5px; border-top: 1px solid #666; }
+/* line 217, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #editRequestButton { display: block; margin-bottom: 7px; }
+/* line 223, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #searchWrapper .searchHeader .searchTitle, #main #wrapper #sidebar #deepSearchWrapper .searchHeader .searchTitle { font-size: 13px; font-weight: normal; display: inline; margin-top: 15px; }
+/* line 229, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #searchWrapper .searchHeader .searchTitle .searchAttention, #main #wrapper #sidebar #deepSearchWrapper .searchHeader .searchTitle .searchAttention { text-decoration: none; font-weight: bold; }
+/* line 235, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #searchWrapper .searchTitle .searchAttention, #main #wrapper #sidebar #deepSearchWrapper .searchTitle .searchAttention { text-decoration: underline; }
+/* line 239, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #searchWrapper .moreSearchResults, #main #wrapper #sidebar #deepSearchWrapper .moreSearchResults { margin: 10px 0; }
+/* line 243, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #searchWrapper #pageNav, #main #wrapper #sidebar #deepSearchWrapper #pageNav { text-align: center; padding-top: 15px; height: 30px; }
+/* line 248, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #searchWrapper .personSearchInst, #main #wrapper #sidebar #deepSearchWrapper .personSearchInst { color: #000; margin-left: 25px; }
+/* line 253, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #searchWrapper .personSearchDept, #main #wrapper #sidebar #deepSearchWrapper .personSearchDept { color: #555; margin-left: 25px; }
+/* line 257, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #searchWrapper .requestTitle, #main #wrapper #sidebar #deepSearchWrapper .requestTitle { font-weight: 600; }
+/* line 262, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #searchWrapper .requestCreationInfo a, #main #wrapper #sidebar #deepSearchWrapper .requestCreationInfo a { border-top: none !important; display: inline !important; }
+/* line 268, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar #searchWrapper .requestDescription, #main #wrapper #sidebar #deepSearchWrapper .requestDescription { margin-left: 15px; }
+/* line 273, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar .sidebarSection { border-top: 1px solid #666; padding-top: 10px; margin-top: 7px; margin-bottom: 7px; }
+/* line 279, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar .sidebarSection h2 { letter-spacing: .5px; text-transform: uppercase; color: #666; font-size: 11px; padding-bottom: 5px; }
+/* line 286, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar .sidebarSection ul { list-style-type: none; padding: 0; margin: 0; }
+/* line 291, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar .sidebarSection ul a { display: block; padding: 3px 0; border-top: 1px solid #EFEFEF; color: #0160a0; }
+/* line 296, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar .sidebarSection ul a:hover { background-color: #c3d6e4; }
+/* line 301, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#main #wrapper #sidebar .sidebarSection ul div.more { display: none; }
+
+/* line 310, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#schoolSelectBox { -moz-box-shadow: 0 2px 4px 0 #999999; -webkit-box-shadow: 0 2px 4px 0 #999999; -o-box-shadow: 0 2px 4px 0 #999999; box-shadow: 0 2px 4px 0 #999999; position: absolute; width: 260px; max-height: 500px; background-color: #FFF; padding: 6px; border: 4px solid #666; z-index: 100; display: none; }
+/* line 322, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#schoolSelectBox .consortiaList { list-style-type: none; padding: 0; margin: 0 0 5px 0; }
+/* line 327, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#schoolSelectBox .consortiaList li { overflow: hidden; *zoom: 1; padding-left: 20px; }
+/* line 332, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#schoolSelectBox .consortiaList li.consortia { padding-left: 0; }
+/* line 336, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#schoolSelectBox .consortiaList input { float: left; width: 20px; padding: 0; }
+/* line 342, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_page.scss */
+#schoolSelectBox .consortiaList label { display: table-cell; width: 1000px; }
+
+/* line 1, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile { background: #eeeeee; padding: 0px; margin: 0px auto; }
+/* line 7, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper { width: 950px; margin: 0px auto; padding: 30px 0 15px 0; border-left: 1px solid black; border-right: 1px solid black; background: white; z-index: 30; position: relative; }
+/* line 17, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .instructions { padding-bottom: 15px; text-align: center; }
+/* line 20, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .instructions p { text-align: center; }
+/* line 25, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper #profile_picture { width: 90px; margin: 0 auto; text-align: center; display: block; }
+/* line 32, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper #change_pf_picture { margin-left: 75px; margin-bottom: 10px; }
+/* line 37, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper #edit_profile_container { width: 495px; margin-right: 10px; float: left; }
+/* line 43, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .columnHeader { text-align: center; }
+/* line 47, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .topBorder { border-top: 1px solid #D7D7D7; }
+/* line 51, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper #left_column { width: 495px; margin-right: 10px; float: left; }
+/* line 57, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper #right_column { width: 435px; float: right; margin: 0px auto; }
+/* line 62, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper #right_column li { margin-bottom: 5px; }
+/* line 66, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper #right_column a { color: #2F9599; }
+/* line 71, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .subcolumn_left { float: left; padding: 10px; }
+/* line 75, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .subcolumn_left label { font-size: 15px; }
+/* line 77, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .subcolumn_left label span { font-size: 14px; padding-top: 6px; font-style: italic; display: block; color: #008f8f; }
+/* line 86, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .left1 { width: 180px; }
+/* line 89, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .left2 { width: 120px; }
+/* line 92, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .subcolumn_right { float: left; padding: 20px 10px 13px 10px; width: 260px; }
+/* line 97, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .subcolumn_right input { padding: 3px; width: 250px; height: 30px; }
+/* line 102, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .subcolumn_right input, #editProfile #center_wrapper .subcolumn_right textarea { border: 1px solid gray; }
+/* line 107, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .otherInstitutions, #editProfile #center_wrapper .personLinks { margin-bottom: 5px; }
+/* line 111, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper #editInterests { padding: 3px; width: 270px; height: 150px; }
+/* line 117, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .clear { height: 0; clear: both; }
+/* line 122, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper #submit_edits { margin-top: 15px; text-align: center; font-size: 18px; }
+/* line 127, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper #submit_edits input, #editProfile #center_wrapper #submit_edits #cancel { margin: 0 15px; font-size: 18px; }
+/* line 133, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper #account_delete { margin-top: 15px; margin-bottom: 20px; text-align: center; font-size: 16px; }
+/* line 144, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .customLinkTemplate { display: none; }
+/* line 148, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .customLink { overflow: hidden; width: 90%; clear: both; border: solid 1px #d7d7d7; padding: 5px; margin-bottom: 5px; }
+/* line 158, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .customLinkCaption { overflow: hidden; width: 100%; clear: both; }
+/* line 164, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .linkNumber, #editProfile #center_wrapper .institutionNumber { text-align: center; float: left; margin: 0 6px 0 0; vertical-align: bottom; position: relative; top: 3px; }
+/* line 173, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .linkValue, #editProfile #center_wrapper .otherInstitutionURL { width: 40%; text-align: center; float: left; margin: 0px 10px 0 0; }
+/* line 180, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .linkField, #editProfile #center_wrapper .otherInstitutionField { width: 40%; text-align: center; float: left; margin: 0px 20px 0 0; }
+/* line 187, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .customLinkCaption .linkField, #editProfile #center_wrapper .customLinkCaption .linkValue, #editProfile #center_wrapper .customLinkCaption .otherInstitutionField, #editProfile #center_wrapper .customLinkCaption .otherInstitutionURL { font-style: italic; color: #008f8f; }
+/* line 192, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .linkField input, #editProfile #center_wrapper .linkValue input, #editProfile #center_wrapper .otherInstitutionField input, #editProfile #center_wrapper .otherInstitutionURL input { width: 100%; }
+/* line 196, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .fieldLabel { text-align: right; }
+/* line 200, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .removeLink { float: left; text-decoration: none; position: relative; top: 3px; }
+/* line 207, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .removeLink img { height: 12px; width: 12px; }
+/* line 213, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .addItemDiv { padding-top: 8px; clear: both; }
+/* line 222, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .editPicture { text-align: center; line-height: 1.25em; float: left; }
+/* line 227, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .editPicture .links { position: relative; }
+/* line 229, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .editPicture .links a { z-index: -1; }
+/* line 235, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper #imgUploaderUploader { position: absolute; top: 0px; left: 0px; width: 100px; height: 25px; z-index: 100; }
+/* line 244, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .center { text-align: center; }
+/* line 249, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper #tagContainer { position: absolute; bottom: 0px; right: 0px; left: 0px; min-width: 950px; text-align: center; color: #d0d3b3; z-index: -10; }
+/* line 258, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper #tagContainer a { color: #ffe; }
+/* line 263, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper #registerTitle { margin-left: auto; margin-right: auto; width: 950px; z-index: -30; padding: 10px 0 10px 0; }
+/* line 271, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .progressBar { display: none; backbground-color: #FFDDDD; }
+/* line 274, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_profile.scss */
+#editProfile #center_wrapper .progressBar span { margin: 3px; position: absolute; }
+
+/* line 1, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_password.scss */
+#passwordEdit, #passwordForgot { background: #eeeeee; }
+/* line 5, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_password.scss */
+#passwordEdit #main, #passwordForgot #main { background: white; padding-top: 75px; padding-bottom: 50px; border-right: 1px solid black; border-left: 1px solid black; width: 55%; margin-right: auto; margin-left: auto; text-align: center; }
+/* line 16, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_password.scss */
+#passwordEdit #main div, #passwordEdit #main span, #passwordEdit #main li, #passwordEdit #main label, #passwordEdit #main p, #passwordEdit #main input, #passwordForgot #main div, #passwordForgot #main span, #passwordForgot #main li, #passwordForgot #main label, #passwordForgot #main p, #passwordForgot #main input { font-family: Arial; font-size: 18px; }
+/* line 20, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_password.scss */
+#passwordEdit #main p, #passwordForgot #main p { margin: 10px 0px; }
+/* line 23, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_password.scss */
+#passwordEdit #main table, #passwordForgot #main table { width: 100%; }
+/* line 26, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_password.scss */
+#passwordEdit #main table#resetPass, #passwordForgot #main table#resetPass { margin-left: 30px; }
+/* line 29, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_password.scss */
+#passwordEdit #main table label, #passwordForgot #main table label { text-align: right; margin: 10px; }
+/* line 33, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_password.scss */
+#passwordEdit #main table td, #passwordForgot #main table td { padding-top: 10px; }
+/* line 37, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_password.scss */
+#passwordEdit #main table tr td:nth-child(1), #passwordForgot #main table tr td:nth-child(1) { text-align: right; }
+/* line 40, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_password.scss */
+#passwordEdit #main table tr td:nth-child(2), #passwordForgot #main table tr td:nth-child(2) { text-align: left; }
+/* line 44, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_password.scss */
+#passwordEdit #main table h2, #passwordForgot #main table h2 { font-size: 28px; font-weight: bold; margin-bottom: 20px; color: #003333; }
+
+/* jqModal base Styling courtesy of;
+	Brice Burgess <bhb@iceburg.net> */
+/* The Window's CSS z-index value is respected (takes priority). If none is supplied,
+	the Window's z-index value will be set to 3000 by default (via jqModal.js). */
+/* line 11, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+.jqmWindow { display: none; position: fixed; top: 5%; left: 40%; margin-left: -200px; width: 600px; background-color: #eeeeee; color: #333; padding: 12px; border: 1px solid black; }
+/* line 26, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+.jqmWindow .jqmOverlay { background-color: #000; }
+
+/* line 36, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#listRequestContainer #closeListRequests { padding: 0px; margin: 0px; position: absolute; top: 8px; right: 8px; }
+/* line 43, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#listRequestContainer th { font-weight: bold; }
+/* line 46, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#listRequestContainer p { margin-bottom: 10px; }
+/* line 49, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#listRequestContainer table { padding: 0 5px 0 5px; }
+/* line 54, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#listRequestContainer tbody td { padding: 7px 5px; }
+/* line 57, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#listRequestContainer tbody tr { border-top: 1px solid gray; border-bottom: 1px solid gray; border-left: 1px solid black; border-right: 1px solid black; background-color: white; }
+/* line 63, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#listRequestContainer tbody tr:hover { background-color: #cdf; cursor: pointer; }
+/* line 67, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#listRequestContainer tbody tr .title { color: #577; width: 25%; }
+/* line 71, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#listRequestContainer tbody tr .expires { width: 15%; }
+/* line 74, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#listRequestContainer tbody tr .creator { width: 20%; }
+/* line 77, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#listRequestContainer tbody tr .description { width: 40%; }
+/* line 82, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#listRequestContainer h1 { font-size: 16px; font-weight: bold; margin-bottom: 10px; }
+
+/* line 95, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#createRequestContainer #dialogTitle { padding-top: 5px; text-align: center; z-index: -30; }
+/* line 102, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#createRequestContainer .section { border-bottom: 1px solid black; }
+/* line 105, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#createRequestContainer .section .registerLeft { position: relative; display: inline-block; padding: 0 10px; width: 200px; float: left; }
+/* line 112, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#createRequestContainer .section .registerLeft label { font-size: 15px; }
+/* line 114, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#createRequestContainer .section .registerLeft label span { font-size: 14px; padding-top: 6px; font-style: italic; display: block; color: #008f8f; }
+/* line 123, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#createRequestContainer .section .registerRight { margin: 10px; width: 600px; }
+/* line 127, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#createRequestContainer .section .registerRight.datePicker { margin-bottom: 50px; }
+/* line 130, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#createRequestContainer .section .registerRight input { height: 30px; }
+/* line 133, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#createRequestContainer .section .registerRight input, #createRequestContainer .section .registerRight textarea { border: 1px thin #ccc; width: 370px; }
+/* line 139, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#createRequestContainer #submitRequest { margin-top: 7px; text-align: center; }
+/* line 143, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#createRequestContainer #submitRequest input { font-size: 18px; }
+
+/* line 153, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog { margin: auto; width: 425px; }
+/* line 157, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog #consortiaFilter { margin-left: 5px; }
+/* line 159, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog #consortiaFilter h3 { display: inline-block; }
+/* line 162, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog #consortiaFilter form { display: inline-block; margin-left: 5px; }
+/* line 165, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog #consortiaFilter form select { width: 250px; }
+/* line 170, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog input[type="submit"] { display: inline-block; font-size: 13px; margin: 2px; }
+/* line 175, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog #collegeSearchAuto { margin: 0 3px 0 27px; border: 1px solid black; border-radius: 5px 5px 5px 5px; margin-left: 15px; padding: 5px 3px; width: 160px; }
+/* line 183, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog #closeCollegeFilter { margin: 0; padding: 0; position: absolute; right: 8px; top: 8px; }
+/* line 190, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog #collegeFilterEditButtons { margin: 10px 0; overflow: hidden; width: 100%; }
+/* line 195, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog #editColleges { clear: both; height: 430px; }
+/* line 199, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog #selectedColleges { background-color: white; border: 1px solid gray; clear: both; height: 350px; margin: 5px; overflow: auto; padding: 5px; }
+/* line 207, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog #selectedColleges ul { list-style-type: none; padding: 0; margin: 0; }
+/* line 211, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog #selectedColleges ul .collegeDiv { display: none; }
+/* line 213, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog #selectedColleges ul .collegeDiv li { list-style-type: none; display: block; padding: 3px 0; border-top: 1px solid #EFEFEF; }
+/* line 218, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog #selectedColleges ul .collegeDiv li img { width: 15px; }
+/* line 221, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog #selectedColleges ul .collegeDiv li:hover { background-color: #c3d6e4; }
+/* line 228, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_modal.scss */
+#filterDialog #submitColleges { margin: 5px; text-align: center; }
+
+/* line 1, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_message.scss */
+#message { background: #eeeeee; }
+/* line 5, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_message.scss */
+#message #main { background: white; padding-top: 75px; padding-bottom: 50px; border-left: 1px solid black; border-right: 1px solid black; width: 100%; margin-right: auto; margin-left: auto; text-align: center; }
+/* line 16, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_message.scss */
+#message #main div, #message #main span, #message #main li, #message #main label, #message #main p, #message #main input { font-family: Arial; font-size: 18px; }
+/* line 20, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_message.scss */
+#message #main p { margin: 10px 0px; }
+
+/* line 1, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_tooltip.scss */
+.ttName { font-weight: bold; margin-bottom: 7px; }
+
+/* line 6, C:/Users/Brandon/idea/Macademia/src/stylesheets/partials/_tooltip.scss */
+.ttDesc { margin-bottom: 7px; }
+
+/*/mediaquery*/
+/*/mediaquery*/

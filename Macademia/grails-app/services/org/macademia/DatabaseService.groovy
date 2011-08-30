@@ -59,7 +59,7 @@ class DatabaseService {
             if(interest.id ==null){
                 throw new RuntimeException("User has an interest with out an ID")
             }
-            interestIds.add(+interest.id)
+            interestIds.add(interest.id)
             //log.info("Interest ID: "+ interest + "for User ID: " + id)
         }
         List<Long> institutionIds = user.memberships.institution.id
@@ -85,6 +85,14 @@ class DatabaseService {
 
     public Set<Long> getInterestUsers(long id) {
         return wrapper.getInterestUsers(id)
+    }
+
+    public void updateInterestUsage(long id) {
+        wrapper.updateInterestUsage(id)
+    }
+
+    public int getInterestUsage(long id) {
+        return wrapper.getInterestUsage(id)
     }
 
     public Set<Long> getInterestRequests(long id) {
@@ -179,7 +187,7 @@ class DatabaseService {
         return wrapper.getSimilarInterests((long)interest.id)
     }
 
-    public SimilarInterestList getSimilarInterests(Interest interest, Set<Long> institutionFilter) {
+    public SimilarInterestList getSimilarInterests(Interest interest, InstitutionFilter institutionFilter) {
         return wrapper.getSimilarInterests(interest.id, institutionFilter)
     }
 
@@ -187,7 +195,7 @@ class DatabaseService {
         return wrapper.getSimilarInterests(id)
     }
 
-    public SimilarInterestList getSimilarInterests(Long id, Set<Long> institutionFilter) {
+    public SimilarInterestList getSimilarInterests(Long id, InstitutionFilter institutionFilter) {
         return wrapper.getSimilarInterests(id, institutionFilter)
     }
 

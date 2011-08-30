@@ -30,7 +30,7 @@ class InterestServiceIntegrationTests extends GrailsUnitTestCase {
     void testSave() {
         //There is some problem with normalize text for the space character
         interestService.initBuildDocuments("db/test/")
-        Interest interest = new Interest("web 4.0")
+        Interest interest = interestService.analyze("web 4.0")
         Person p = Person.findByEmail("guneratne@macalester.edu")
         interest.addToPeople(p)
         p.addToInterests(interest)

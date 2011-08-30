@@ -24,7 +24,7 @@ macademia.queryString = {
     density:null
 };
 
-//sets the sidebar's visibility according to original status.  Initializes jit visualization
+// Initializes interactive page elements
 macademia.pageLoad = function() {
     $(window).resize(function() {
         if (macademia.rgraph) {
@@ -35,8 +35,9 @@ macademia.pageLoad = function() {
     // address only updates manually when a link/node is clicked
     $.address.autoUpdate(false);
     $.address.change(macademia.onAddressChange);
+    macademia.initLogoLink();
     macademia.initialSettings();
-    macademia.showHide();
+    macademia.initializeTopNav();
     macademia.initializeLogin();
     macademia.nav();
     macademia.updateNav();
@@ -44,27 +45,39 @@ macademia.pageLoad = function() {
     macademia.autocomplete.initSearch();
     macademia.toggleAccountControls();
     macademia.setupRequestCreation();
-    macademia.initializeAbout();
-    macademia.slider.initSlider();
+    macademia.density.initDensity();
     macademia.initLogging();
     macademia.changeDisplayedColleges();
+    macademia.initAsteroids();
 };
 
-macademia.initializeAbout = function() {
-    $("#aboutJqm").jqm({modal : true, overlay : 45});
-    $("#aboutJqm").jqmAddClose($("#aboutJqm .close a"));
-    $("#aboutJqm").jqmAddClose($("#aboutJqm .closeImg"));
-    $("#logo .about a").click(macademia.showAbout);
-    $("#taglineLinks .about").click(macademia.showAbout);
-    if (!macademia.getCookie('about')) {
-        window.setTimeout(macademia.showAbout, 500);
-        macademia.setCookie('about', "seen", 1);
-    }
+macademia.homePageLoad = function() {
+    macademia.initLogoLink();
+    macademia.initializeTopNav();
+    macademia.initializeLogin();
+    macademia.autocomplete.initSearch();
+    macademia.initHomeSearchSubmit();
+    macademia.initInstitutionGroups();
 };
 
-macademia.showAbout = function() {
-    $("#aboutJqm").jqmShow();
-    macademia.serverLog('dialog', 'show', {'name' : 'about'});
+macademia.initLogoLink = function() {
+    $("#logo").click(function() {
+        location.href = "/Macademia";
+    });
+};
+
+macademia.initInstitutionGroups = function() {
+    $('#consortia ul>li:first-child input').attr('checked', 'checked');
+    $('#consortia a').click(
+            function() {
+                $("#consortia .more").fadeIn();
+                $("#consortia a").hide();
+            }
+    )
+};
+
+macademia.getSelectedInstitutionGroup = function() {
+    return $('#consortia ul li input:checked').val();
 };
 
 //sets macademia.queryString values and initial page settings
@@ -140,12 +153,16 @@ macademia.logEmailClick = function(email) {
 
 // determines the type according to the node's id (eg p_4)
 macademia.getType = function(nodeId) {
-    if (nodeId.indexOf('p') >= 0) {
+    if (nodeId.indexOf('empty') >= 0) {
+        return'empty';
+    } else if (nodeId.indexOf('p') >= 0) {
         return'person';
     } else if (nodeId.indexOf('i') >= 0) {
         return 'interest';
     } else if (nodeId.indexOf('r') >= 0) {
         return 'request';
+    } else {
+        alert('unknown node id: ' + nodeId);
     }
 };
 //canvas background circles
@@ -210,7 +227,6 @@ macademia.logCurrentFragment = function() {
 
 macademia.onAddressChange = function() {
     try {
-        macademia.showHide();
         macademia.updateNav();
         macademia.changeGraph();
         macademia.changeDisplayedColleges();
@@ -255,44 +271,13 @@ macademia.nav = function() {
     });
 
     $(".clearDefault").clearDefault();
+
+    $(".sidebarSection li.more").live('click', function () {
+        $(this).hide();
+        $(".sidebarSection div.more").slideDown('medium');
+    });
 };
 
-// controls the show and hide options
-macademia.showHide = function() {
-    if ($.address.parameter('navVisibility') != macademia.queryString.navVisibility) {
-        var navVisibility = $.address.parameter('navVisibility');
-        if (navVisibility == 'true' && !$("#wrapper").is(":visible")) {
-            $("#sidebar").animate({width: "320"}, "slow", function() {
-                  $("#sidebar > *").show();
-            });
-            $("#tagContainer").animate({right: "0px"}, "slow");
-//            $("#infovis").animate({right: "320"}, "slow", function() {
-
-//            });
-            // resize visual
-            if (macademia.rgraph) {
-                macademia.resizeCanvas($("body").width() - 320);
-            }
-        } else if (navVisibility == 'false' && $("#wrapper").is(":visible")) {
-            $("#sidebar > *").hide();
-            if (macademia.rgraph) {
-                $("#sidebar").animate({width: "0"}, "slow");
-                $("#tagContainer").animate({right: "0px"}, "slow");
-                $("#infovis").animate({right: "0"}, "slow");
-            } else {
-                // on page load rightDiv will not slide over
-                $("#sidebar").css('width', '0');
-                $("#infovis").css('right', '0');
-            }
-            $("#show").show();
-            // resize visual
-            if (macademia.rgraph) {
-                macademia.resizeCanvas($("body").width());
-            }
-        }
-        macademia.queryString.navVisibility = navVisibility;
-    }
-};
 // Changes the visualization to new root node
 macademia.changeGraph = function(nodeId){
     if ($.address.parameter('nodeId') != macademia.queryString.nodeId && $.address.parameter('institutions') == macademia.queryString.institutions) {
@@ -315,24 +300,23 @@ macademia.changeGraph = function(nodeId){
 };
 // resizes canvas according to original dimensions
 macademia.resizeCanvas = function(currentWidth) {
+    $("#infovis").height('');
     var originalWidth = 680;
     var originalHeight = 660;
-    var originalDistance = 150;
-    currentWidth = currentWidth - 150;
-    var currentHeight = $("#infovis").height() - 30;
-    if (Math.min(currentWidth, currentHeight) == currentWidth) {
+    var currentHeight = $(window).height() - 125;
+    if (currentWidth <= currentHeight) {
         var newWidth = 0.95 * currentWidth;
         var newHeight = originalHeight * newWidth / originalWidth;
     } else {
         var newHeight = 0.95 * currentHeight;
         var newWidth = originalWidth * newHeight / originalHeight;
     }
-    if (newWidth != $("#infovis-canvaswidget").css("width")) {
+    if (newWidth !== $("#infovis-canvaswidget").css("width") && macademia.rgraph) {
         $("#infovis-canvaswidget").css({"width":newWidth, "height": newHeight});
         macademia.rgraph.canvas.resize(currentWidth, currentHeight);
-        macademia.rgraph.canvas.scale(newHeight/originalHeight,newWidth/originalWidth);
-        macademia.rgraph.canvas.translate(0, 25);
+        macademia.rgraph.canvas.scale(newWidth/originalWidth, newHeight/originalHeight);
     }
+    $("#infovis").height($("#infovis").height());
 };
 
 // changes the Query string according link's href
@@ -350,21 +334,22 @@ macademia.changeQueryString = function(query) {
 macademia.updateNav = function(){
      var navFunction = $.address.parameter('navFunction');
      macademia.showDivs(navFunction);
-     macademia.clearInstructions();
      if (navFunction == 'search'){
             macademia.submitSearch();
             macademia.queryString.searchPage = $.address.parameter('searchPage');
          // go to search page
      }else if (navFunction == 'person' && $.address.parameter('personId') != macademia.queryString.personId){
          var rootId = $.address.parameter('nodeId');
-         $('#personIdDiv').load(macademia.makeActionUrl('person', 'show') + '/' + rootId.slice(2));
+         if (rootId != 'p_empty') {
+            $('#rightContent').load(macademia.makeActionUrl('person', 'show') + '/' + rootId.slice(2));
+         }
      }else if (navFunction == 'request'){
          var rootId = $.address.parameter('nodeId');
-         $('#requestIdDiv').load(macademia.makeActionUrl('request', 'show') + '/' + rootId.slice(2));
+         $('#rightContent').load(macademia.makeActionUrl('request', 'show') + '/' + rootId.slice(2));
          macademia.queryString.requestId = $.address.parameter('requestId');
      }else if (navFunction == 'interest'){
          var rootId = $.address.parameter('nodeId');
-         $('#interestIdDiv').load(macademia.makeActionUrl('interest', 'show') + '/' + rootId.slice(2));
+         $('#rightContent').load(macademia.makeActionUrl('interest', 'show') + '/' + rootId.slice(2));
      }//else if etc...
      macademia.queryString.navFunction = navFunction;
 };
@@ -405,12 +390,6 @@ macademia.showDivs = function(type){
         }
     }
 };
-// clears the instructions after the page has been changed by user (or if user enters exact url)
-macademia.clearInstructions = function(){
-    if($.address.parameter('searchBox') || $.address.parameter('personId') || $.address.parameter('interestId') || $.address.parameter('requestId')){
-        $("#instruct_list").hide();
-    }
-};
 // submits the search query from the url
 macademia.submitSearch = function(){
     $("#searchBox").autocomplete("close");
@@ -426,7 +405,7 @@ macademia.submitSearch = function(){
             if(type != 'all'){
                 url = macademia.makeActionUrl('search', 'deepsearch');
             }
-            $('#searchBoxDiv').load(
+            $('#rightContent').load(
                 url,
                 {searchBox:search,
                 institutions: institutions,
@@ -441,9 +420,18 @@ macademia.submitSearch = function(){
 };
 
 macademia.retrieveGroup = function() {
+    // first check the home page radio buttons.
+    var group = macademia.getSelectedInstitutionGroup();
+    if (group) {
+        return group;
+    }
+
+    // next check the url
     var marker = '/Macademia/';     // string appearing before group
     var url = window.location.href;
     var i = url.indexOf(marker, 0);
+
+    // finally, give up
     if (i < 0) {
         return 'all';    // default group
     }
@@ -459,8 +447,12 @@ macademia.makeActionUrl = function(controller, action) {
     return macademia.makeActionUrlWithGroup(macademia.retrieveGroup(), controller, action);
 };
 
-
 macademia.makeActionUrlWithGroup = function(group, controller, action) {
+    // This is a work around of the jquery address plugin's behavior on
+    // the home page, where it sets the url to be /Macademia/#
+    if (group == "#") {
+        group = "all";
+    }
     if (action) {
         return "/Macademia/" + group + '/' + controller + "/" + action;
     } else {
@@ -468,31 +460,9 @@ macademia.makeActionUrlWithGroup = function(group, controller, action) {
     }
 };
 
-
-macademia.setupModal = function(modalDialog, trigger, url, depModule, fnString) {
-//    if (!$(modalDialog).hasClass("jqmWindow")) {
-        $(modalDialog).jqm({modal: true});
-//    }
-    $(trigger).click(function(){
-        $(modalDialog).load(
-                "/Macademia/" + macademia.retrieveGroup() + '/' + url,
-                    function(responseText, textStatus, xmlHttpRequest) {
-                        $.deps.load(depModule, function() {
-                            try {
-                                eval(fnString);
-                            } catch (error) {
-                                alert('evaluation of ' + fnString + ' failed: ' + error);
-                            }
-                         });
-                    }
-                );
-        $(modalDialog).jqmShow();
-    });
-};
-
 macademia.serverLog = function(category, event, params, onSuccess) {
     if (onSuccess == null) {
-        //Optional funciton called when logging succeeds.
+        //Optional function called when logging succeeds.
         //Not passed in every serverLog call
         onSuccess = function() {};
     }
@@ -509,7 +479,11 @@ macademia.serverLog = function(category, event, params, onSuccess) {
                 onSuccess();
             },
             error : function(req, textStatus, error) {
-                alert('logging failed: ' + textStatus + ', ' + error);
+                // Changing pages can cause logs to fail, set this variable in params
+                // if the log is getting through the controller but failing anyway.
+                if (!params.ignoreLogFail) {
+                    alert('logging failed: ' + textStatus + ', ' + error);
+                }
             }
         });
 };
@@ -536,8 +510,31 @@ macademia.toggleAccountControls = function() {
 };
 
 macademia.setupRequestCreation = function() {
-    $("#makeRequestDialog").jqm({ajax: macademia.makeActionUrl('request', 'create'), trigger: '.makeRequestLink2',  modal: false});
+    $("#makeRequestDialog").jqm({ajax: macademia.makeActionUrl('request', 'create'), trigger: '.makeRequestLink',  modal: false});
     $("#listRequestDialog").jqm({ajax: macademia.makeActionUrl('request', 'list'), trigger: '.listRequestLink', modal: false});
+};
+
+macademia.initializeTopNav = function() {
+    $("nav ul ul").parent().addClass("dropdown");
+    $("nav li.dropdown").hover(
+        function() {
+            $(this).data('hideId', null);
+            $(this).find("ul").slideDown('fast').show();
+            var hideId = null;
+            $(this).hover(
+                function() {;
+                    if (hideId != null) {
+                        window.clearTimeout(hideId);
+                    }
+                },
+                function() {
+                    var d = $(this);
+                    hideId = window.setTimeout(function() {
+                        d.find("ul").slideUp('fast');
+                    }, 100);
+                }
+            );
+    });
 };
 
 macademia.initializeLogin = function() {
@@ -562,6 +559,7 @@ macademia.initializeLogin = function() {
         });
 
         if (result.substr(0, 4) == 'okay') {
+//            alert("result: " + result);
             macademia.reloadToPerson(result.substring(5));
         } else {
             $("#login .flash").html(result).show();
@@ -569,6 +567,29 @@ macademia.initializeLogin = function() {
         return false;
     });
 
+};
+
+macademia.initHomeSearchSubmit = function() {
+    $("#searchSubmit").click(function() {
+        var query = $("#searchBox").val();
+        $.ajax({
+            // TODO: manage group
+            url: "/Macademia/all/search/searchExistence",
+            dataType: "json",
+            data: "query="+query,
+            success: function( data ) {
+                if (data.res) {
+                    var type = data.res['class'].split(".")[2];
+                    type = type.toLowerCase();
+                    $.address.parameter('nodeId', type.substring(0, 1) + "_" + data.res.id);
+                    $.address.parameter('navFunction', type);
+                    macademia.sortParameters(type, data.res.id);
+                    location.href = '/Macademia/acm/person/jit/#'+$.address.value();
+                    $.address.update();
+                }
+            }
+        });
+    });
 };
 
 macademia.reloadToRequest = function(rid) {
@@ -612,6 +633,16 @@ macademia.reloadToPerson = function(pid) {
 
 };
 
+macademia.initAsteroids = function() {
+    $("#asteroids").click(function() {
+        var s = document.createElement('script');
+        s.type='text/javascript';
+        document.body.appendChild(s);
+        s.src='http://erkie.github.com/asteroids.min.js';
+        void(0);
+    });
+};
+
 
 macademia.getCookie = function (c_name) {
     if (document.cookie.length > 0) {
@@ -632,6 +663,7 @@ macademia.setCookie = function (c_name, value, expiredays) {
     document.cookie = c_name + "=" + escape(value) +
             ((expiredays == null) ? "" : ";expires=" + exdate.toUTCString());
 };
+
 macademia.endsWith = function(str, suffix) {
     return str.indexOf(suffix, str.length - suffix.length) !== -1;
 };

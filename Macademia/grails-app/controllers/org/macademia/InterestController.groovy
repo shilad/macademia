@@ -32,7 +32,7 @@ class InterestController {
             maxInterests = 15
         }
         def root = interestService.get((params.id as long))
-        Set<Long> institutions =  institutionGroupService.getInstitutionIdsFromParams(params)
+        InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
         Graph graph = similarityService.calculateInterestNeighbors(root, maxPeople, maxInterests, institutions)
         def data = jsonService.buildInterestCentricGraph(root, graph)
         render(data as JSON)
@@ -48,7 +48,7 @@ class InterestController {
 
     def tooltip = {
         def interest = interestService.get((params.id as long))
-        Set<Long> institutions =  institutionGroupService.getInstitutionIdsFromParams(params)
+        InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
         def simInts = similarityService.getSimilarInterests(interest, institutions).collect({Interest.get(it.interestId)})
         def related = new ArrayList<String>()
         for(Interest i: simInts){
@@ -68,10 +68,10 @@ class InterestController {
 
     def show = {
         def interest = Interest.get(params.id)
-        Set<Long> institutions =  institutionGroupService.getInstitutionIdsFromParams(params)
+        InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
         def peopleWithInterest = interest.people
         if (institutions) {
-            peopleWithInterest = peopleWithInterest.findAll({it.memberOfAny(institutions)})
+            peopleWithInterest = peopleWithInterest.findAll({it.isMatch(institutions)})
         }
 //        println("institutions are " + institutions)
         def interests = similarityService.getSimilarInterests(interest.id, 50, similarityService.absoluteThreshold, institutions)
@@ -91,18 +91,9 @@ class InterestController {
         if (!params.interest || !params.interest.trim()) {
             render('unknown')
         } else {
-          Interest interest = interestService.findByText(params.interest)
-            if (interest == null) {
-                interest = new Interest(params.interest)
-                interestService.save(interest)
-            }
+            Interest interest = interestService.analyze(params.interest)
             render(interest.articleName)
         }
-    }
-
-    def reapOrphans = {
-        interestService.reapOrphans()
-        redirect(uri: '/')
     }
 
 }

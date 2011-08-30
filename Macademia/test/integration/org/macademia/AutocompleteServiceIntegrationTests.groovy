@@ -38,7 +38,7 @@ class AutocompleteServiceIntegrationTests extends GrailsUnitTestCase {
 
         //There is some problem with normalize text for the space character
         Person p = Person.findByEmail("ssen@macalester.edu")
-        Interest interest = new Interest("web 3.0")
+        Interest interest = interestService.analyze("web 3.0")
         interest.addToPeople(p)
         p.addToInterests(interest)
         personService.save(p)

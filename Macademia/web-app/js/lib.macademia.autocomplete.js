@@ -48,7 +48,8 @@
                         cache[request.term] = result;
 						response(result);
 					}
-				})}
+				})
+            }
         };
 
         if (settings) $.extend(config, settings);
@@ -119,23 +120,25 @@ macademia.autocomplete.initSearch = function() {
                 var id = ui.item.data[0];
                 var name = ui.item.data[1];
                 var type = ui.item.data[2];
+                var group = macademia.retrieveGroup();
 
                 $.address.parameter('nodeId', type.substring(0, 1) + "_" + id);
                 $.address.parameter('navFunction', type);
                 macademia.sortParameters(type, id);
+                location.href = '/Macademia/' + group + '/person/jit/#' + $.address.value();
                 $.address.update();
                 $("#searchBox").val("");
                 window.setTimeout(function () {
                         $("#searchBox").blur();
                     }, 100);
                 if (type=="person"){
-                    macademia.serverLog('nav', 'fragment', {"nodeId":"p_"+id, "navFunction":"search", "group":macademia.retrieveGroup()});
+                    macademia.serverLog('nav', 'fragment', {"nodeId":"p_"+id, "navFunction":"search", "group": group, ignoreLogFail: true});
                 } else if (type=="interest"){
-                    macademia.serverLog('nav', 'fragment', {"nodeId":"i_"+id, "navFunction":"search", "group":macademia.retrieveGroup()});
+                    macademia.serverLog('nav', 'fragment', {"nodeId":"i_"+id, "navFunction":"search", "group": group, ignoreLogFail: true});
                 } else if (type="request") {
-                    macademia.serverLog('nav', 'fragment', {"nodeId":"r_"+id, "navFunction":"search", "group":macademia.retrieveGroup()});
+                    macademia.serverLog('nav', 'fragment', {"nodeId":"r_"+id, "navFunction":"search", "group": group, ignoreLogFail: true});
                 }
-                return false;
+              return false;
             }
         }, macademia.makeActionUrl('autocomplete'));
 };

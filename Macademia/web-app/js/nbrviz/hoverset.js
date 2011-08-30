@@ -5,16 +5,31 @@
  * objects in the set are moused over.
  */
 function HoverSet(elems) {
-    this.elements = elems || [];
+    this.STATE_OUT = 0;
+    this.STATE_IN_DELAY = 1;
+    this.STATE_IN = 2;
+    this.STATE_OUT_DELAY = 3;
+
+    this.setCursor = true;
+    this.elements = [];
     this.mousein = [];
     this.mouseout = [];
     this.timeoutId = null;
-    this.timeoutPeriod = 100;
+    this.inDelay = 300;
+    this.triggerId = null;
+    this.outDelay = 100;
+    this.state = this.STATE_OUT;
+    if (elems) {
+        this.addAll(elems);
+    }
 }
 
 HoverSet.prototype.add = function(e) {
     this.elements.push(e);
     var self = this;
+    if (this.setCursor) {
+        e.attr({ 'cursor' : 'pointer'});
+    }
     e.hover(
             function () { self.elementIn(); },
             function () { self.elementOut(); }
@@ -23,13 +38,7 @@ HoverSet.prototype.add = function(e) {
 
 HoverSet.prototype.addAll = function(l) {
     var self = this;
-    $.each(l, function() {
-        self.elements.push(this);
-        this.hover(
-            function () { self.elementIn(); },
-            function () { self.elementOut(); }
-        )
-    });
+    $.each(l, function() { self.add(this); });
 };
 
 HoverSet.prototype.hover = function(mousein, mouseout) {
@@ -38,24 +47,38 @@ HoverSet.prototype.hover = function(mousein, mouseout) {
 };
 
 HoverSet.prototype.elementIn = function() {
-    if (this.timeoutId) {
-        window.clearTimeout(this.timeoutId);
-        this.timeoutId = null;
-    } else {
-        for (var i = 0; i < this.mousein.length; i++) {
-            this.mousein[i]();
+    if (this.state != this.STATE_IN && this.state != this.STATE_IN_DELAY) {
+        this.state = this.STATE_IN_DELAY;
+        if (this.timeoutId) {
+            window.clearTimeout(this.timeoutId);
+            this.timeoutId = null;
         }
+        var self = this;
+        this.triggerId = window.setTimeout(function() {
+            for (var i = 0; i < self.mousein.length; i++) {
+                self.mousein[i]();
+            }
+            self.triggerId = null;
+            this.state = this.STATE_IN;
+        }, this.inDelay);
     }
 };
 
 
 HoverSet.prototype.elementOut = function() {
-    var self = this;
-    this.timeoutId = window.setTimeout(function() {
-        for (var i = 0; i < self.mouseout.length; i++) {
-            self.mouseout[i]();
+    if (this.state != this.STATE_OUT && this.state != this.STATE_OUT_DELAY) {
+        this.state = this.STATE_OUT_DELAY;
+        if (this.triggerId) {
+            window.clearTimeout(this.triggerId);
+            this.triggerId = null;
         }
-        self.timeoutId = null;
-    }, this.timeoutPeriod);
-
+        var self = this;
+        this.timeoutId = window.setTimeout(function() {
+            for (var i = 0; i < self.mouseout.length; i++) {
+                self.mouseout[i]();
+            }
+            self.timeoutId = null;
+            this.state = this.STATE_OUT;
+        }, this.outDelay);
+    }
 };

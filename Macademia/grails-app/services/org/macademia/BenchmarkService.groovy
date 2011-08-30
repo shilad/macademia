@@ -241,10 +241,11 @@ class BenchmarkService {
             long randStart = Calendar.getInstance().getTimeInMillis()
             Person person = people.get(rand.nextInt(NUM_PEOPLE))
             int maxFilter = rand.nextInt(institutions.size())
-            Set<Long> filter = new HashSet<Long>()
-            while (filter.size() < maxFilter) {
-                filter.add(institutions.get(rand.nextInt(institutions.size())).id)
+            Set<Long> filterSet = new HashSet<Long>()
+            while (filterSet.size() < maxFilter) {
+                filterSet.add(institutions.get(rand.nextInt(institutions.size())).id)
             }
+            InstitutionFilter filter = new InstitutionFilter(filterSet)
             long randEnd = Calendar.getInstance().getTimeInMillis()
             log.info("RandTime: " + (randEnd - randStart))
             randTime = randTime + randEnd - randStart

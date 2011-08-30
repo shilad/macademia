@@ -108,9 +108,9 @@ class DatabaseServiceIntegrationTests extends GrailsUnitTestCase {
         Person three = new Person(fullName: "Three Institutions", department: "Testing", email: "testThree@testing.edu", passwdHash: "lkjfdsa", token: '543216789')
         CollaboratorRequest threeMatch = new CollaboratorRequest(title: "Shares iThree", description: "testing", creator: two, expiration: new Date())
 
-        Interest iOne = new Interest("testing one")
-        Interest iTwo = new Interest("testing two")
-        Interest iThree = new Interest("testing three")
+        Interest iOne = interestService.analyze("testing one")
+        Interest iTwo = interestService.analyze("testing two")
+        Interest iThree = interestService.analyze("testing three")
 
         one.addToInterests(iOne)
         two.addToInterests(iTwo)

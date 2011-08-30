@@ -1,5 +1,6 @@
 import org.macademia.*
 
+
 InstitutionGroup.withTransaction {
     println('')
     while ( true ) {
@@ -33,6 +34,8 @@ Enter number of selection:
 }
 
 void createInstitution() {
+    InstitutionService institutionService = ctx.getBean("institutionService")
+
     def iText
     while(true) {
         iText = readText("""
@@ -53,6 +56,7 @@ And type can be 'school' or 'group'.
         println("Error in input format.")
     }
     def (iName, iWebUrl, iType, iAbbrev, iEmailDomain) = iText
+    iWebUrl = institutionService.normalizeWebUrl(iWebUrl)
     if (iType == 'school') {
         iType = Institution.TYPE_SCHOOL
     } else if (iType == 'group') {

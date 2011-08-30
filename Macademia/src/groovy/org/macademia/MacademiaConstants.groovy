@@ -13,23 +13,23 @@ public class MacademiaConstants {
 
     public static final int MAX_DEPTH = 1
     public static final COLORS = [
-            "#99F",
-            "#F99",
-            "#9F9",
-            "#FF9",
-            "#9FF",
-            "#7BF",
-            "#B7F",
-            "#F7B",
-            "#FB7",
-            "#7FB",
-            "#BF7",
+            "#BBF",
+            "#FBB",
+            "#BFB",
+            "#BFF",
+            "#9DF",
+            "#D9F",
+            "#F9D",
+            "#FD9",
+            "#9FD",
+            "#DF9",
     ]
-
+    public static final REQUEST_COLOR = "#00F"
 
     static int MAX_COOKIE_AGE =  60 * 60 * 24 * 30 * 3 // three months
 
     static final String LOCAL_CONFIG = "grails-app/conf/MacademiaConfig.groovy"
 
     static final String DEFAULT_GROUP = "acm"
+    public static final String DEFAULT_IMG = 'no_avatar.jpg'
 }

@@ -34,17 +34,17 @@ class InterestService implements ApplicationContextAware {
     }
 
     public void initBuildDocuments(String fileDirectory) {
-        wikipediaService.setCache(new File(fileDirectory + "wikipedia_cache.txt"))
+        wikipediaService.setCache(new File(fileDirectory+"wikipedia_cache.txt"))
     }
 
-    /**
-     * Finds the most relevant document(s) for the interest
-     * @param interest : an interest in the interest list
-     */
+   /**
+    * Finds the most relevant document(s) for the interest
+    * @param interest : an interest in the interest list
+    */
     public void buildDocuments(Interest interest) {
 //        log.info("doing interest ${interest}")
         double weight = 1.0
-        for (String url: wikipediaService.query(interest.text, 1)) {
+        for (String url : wikipediaService.query(interest.text, 1)) {
             weight *= 0.5;
             String articleName = wikipediaService.decodeWikiUrl(url)
             interest.articleId = databaseService.articleToId(articleName)
@@ -70,66 +70,45 @@ class InterestService implements ApplicationContextAware {
         }
     }
 
-    public void delete(person, interestId) {
-        autocompleteService.removeInterest(person, interestId)
-        Interest.get(interestId).delete()
-    }
+  public void delete(person,  interestId){
+      autocompleteService.removeInterest(person, interestId)
+      Interest.get(interestId).delete()
+  }
 
-    public void reapOrphans() {
-        List<Long> theReaped = databaseService.reapOrphans()
-        for (reaped in theReaped) {
-            if (Interest.get(reaped) != null) {
-                Interest.get(reaped).delete()
-            }
-        }
+  public void reapOrphans(){
+      List<Long> theReaped = databaseService.reapOrphans()
+      for (reaped in theReaped){
+          if (Interest.get(reaped) != null){
+            Interest.get(reaped).delete()
+          }
+      }
 
-    }
+  }
 
-    public void deleteOld(oldInterests, Person person) {
-        for (interest in oldInterests) {
-            if (!person.interests.contains(interest)) {
+  public void deleteOld(oldInterests, Person person){
+      for (interest in oldInterests){
+            if (!person.interests.contains(interest)){
                 if (interestRemove(interest, person))
                     delete(person, interest.id)
-            }
+                }
         }
-    }
+  }
 
-    public void deleteOld(oldKeywords, CollaboratorRequest request) {
-        for (interest in oldKeywords) {
-            if (!request.keywords.contains(interest)) {
+  public void deleteOld(oldKeywords, CollaboratorRequest request){
+      for (interest in oldKeywords){
+            if (!request.keywords.contains(interest)){
                 if (keywordRemove(interest, request))
                     delete(request.creator, interest.id)
-            }
-        }
-    }
-
-    public interestRemove(Interest interest, Person person) {
-        return databaseService.removeInterestFromUser(interest.id, person.id)
-    }
-
-    public keywordRemove(Interest keyword, CollaboratorRequest request) {
-        return databaseService.removeKeywordFromRequest(keyword.id, request.id)
-    }
-
-    public List<Interest> parseInterests(String interests) {
-        String[] tokens = tokenizer(interests)
-        List<Interest> interestList = []
-        for (i in tokens){
-            if (i.trim().length() != 0) {
-                Interest existingInterest = findByText(i)
-                if (existingInterest != null){
-                    interestList.add(existingInterest)
-                } else {
-                    Interest newInterest = new Interest(i)
-                    interestList.add(newInterest)
                 }
-            }
         }
-        return interestList
-    }
+  }
 
-    public String[] tokenizer(String interests){
-        return interests.trim().split(",")
-    }
+  public interestRemove(Interest interest, Person person){
+        return databaseService.removeInterestFromUser(interest.id, person.id)
+  }
+
+  public keywordRemove(Interest keyword, CollaboratorRequest request){
+        return databaseService.removeKeywordFromRequest(keyword.id, request.id)
+  }
 
 }

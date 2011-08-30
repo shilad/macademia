@@ -6,15 +6,24 @@ import org.json.JSONObject
 class InstitutionController {
     def institutionService
     def institutionGroupService
+    def springcacheService
+
     def jsonService
 
     def index = { }
 
     def filter = {
-        def institutions = Institution.list()
-        def igList = InstitutionGroup.list()
-        def igMap = jsonService.makeJsonForIgMap()
-        render(view: "/templates/macademia/_collegeFilterDialog", model: [institutions: institutions, igMap: igMap as JSON, igList: igList])
+        def model = springcacheService.doWithCache(
+                'institutionCache',
+                'filterModel',
+                {
+                    def institutions = Institution.list().sort({it.name.toLowerCase()})
+                    def igList = InstitutionGroup.list().sort({it.name.toLowerCase()})
+                    def igMap = jsonService.makeJsonForIgMap()
+                    return [institutions: institutions, igMap: igMap as JSON, igList: igList]
+                }
+            )
+        render(view: "/templates/macademia/_collegeFilterDialog", model: model)
     }
 
 

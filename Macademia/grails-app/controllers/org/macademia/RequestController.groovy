@@ -12,7 +12,7 @@ class RequestController {
     def autocompleteService
     def institutionGroupService
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+    static allowedMethods = [save: "POST"]
 
     def index = {
         redirect(action: "manage", params: params)
@@ -20,10 +20,10 @@ class RequestController {
 
     def list = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        Set<Long> institutions =  institutionGroupService.getInstitutionIdsFromParams(params)
+        InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
         def list = CollaboratorRequest.list()
         if (institutions) {
-            list = list.findAll({it.creator.memberOfAny(institutions)})
+            list = list.findAll({it.creator.isMatch(institutions)})
         }
         [collaboratorRequestList: list, collaboratorRequestInstanceTotal: list.size()]
     }
@@ -105,20 +105,24 @@ class RequestController {
 
     def delete = {
         def collaboratorRequest = CollaboratorRequest.get(params.requestId)
+        def group = Utils.getGroupFromUrl(request.forwardURI)
         if (collaboratorRequest) {
+            if (!request.authenticated.canEdit(collaboratorRequest.creator)) {
+                throw new IllegalArgumentException("not authorized")
+            }
             try {
+                collaboratorRequest = collaboratorRequest.merge()
                 collaboratorRequestService.delete(collaboratorRequest)
                 flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'collaboratorRequest.label', default: 'CollaboratorRequest'), params.id])}"
-                redirect(uri: "/")
+                redirect(uri: "/$group")
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
                 flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'collaboratorRequest.label', default: 'CollaboratorRequest'), params.id])}"
                 redirect(action: "show", id: params.id)
             }
-        }
-        else {
+        } else {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'collaboratorRequest.label', default: 'CollaboratorRequest'), params.id])}"
-            redirect(uri: "/")
+            redirect(uri: "/$group")
         }
     }
 
@@ -132,7 +136,7 @@ class RequestController {
         }
         def root = collaboratorRequestService.get((params.id as long))
         Graph graph
-        Set<Long> institutions =  institutionGroupService.getInstitutionIdsFromParams(params)
+        InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
         graph = similarityService.calculateRequestNeighbors(root, max, institutions)
         def data = jsonService.buildCollaboratorRequestCentricGraph(root, graph)
         render(data as JSON)

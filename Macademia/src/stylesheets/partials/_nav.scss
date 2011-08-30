@@ -1,0 +1,56 @@
+//------------------------------------------------------
+// Styling for the top-right nav entries in the header
+//------------------------------------------------------
+
+nav {
+    ul {
+        @include horizontal-list;
+        float:right;
+        padding-top:8px;
+        margin-right: 20px;
+        cursor: pointer;
+        overflow : visible;
+        li {
+            @include horizontal-list-item;
+            margin-left: 35px;
+            position: relative;
+            img {
+                position: relative;
+                bottom: 3px;
+            }
+            &.dropdown {
+                background: url(../images/dropdown/dropdown_white.png) no-repeat right center;
+                padding-right: 15px;
+            }
+            ul {
+                display : none;
+                list-style: none;
+                position: absolute;
+                left: 0; top: 18px;
+                margin: 0; padding: 0;
+                width: 170px;
+                overflow : visible;
+                border: 1px solid #111;
+                background-color : #222;
+                z-index : 5;
+                li {
+                    margin: 0; padding: 0;
+                    border-top: 1px solid #252525;
+                    border-bottom: 1px solid #444;
+                    clear: both;
+                    width: 170px;
+                    background-color : #222;
+                    a {
+                        display : block;
+                        width: 145px;
+                        background: #333 url(../images/dropdown/dropdown_linkbg.gif) no-repeat 10px center;
+                        padding : 5px 0 5px 25px;
+                        &:hover {
+                            background: #777 url(../images/dropdown/dropdown_linkbg.gif) no-repeat 10px center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

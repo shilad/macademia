@@ -112,3 +112,6 @@
 ["GIS (Geographic Information System)",["http://en.wikipedia.org/wiki/Geographic_information_system"]]
 ["e-democracy",["http://en.wikipedia.org/wiki/E-democracy"]]
 ["web 4.0",["http://en.wikipedia.org/wiki/Windows_NT_4.0"]]
+["applied statistics",["http://en.wikipedia.org/wiki/Statistics"]]
+["probability",["http://en.wikipedia.org/wiki/Probability"]]
+["Markov chain Monte Carlo",["http://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo"]]

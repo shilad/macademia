@@ -35,26 +35,26 @@ class SearchService {
         return Interest.search(query, [reload: true]).total
     }
 
-    Collection<Person> filterSearchPeople(String query, int offset, int max, int pTotal, Set<Long> institutions){
+    Collection<Person> filterSearchPeople(String query, int offset, int max, int pTotal, InstitutionFilter institutions){
         Collection<Person> allPeople = searchPeople(query, 0, pTotal)
         return filterPeopleByInstitution(allPeople, institutions, offset, max)
     }
 
-    Collection<Interest> filterSearchInterests(String query, int offset, int max, int iTotal, Set<Long> institutions){
+    Collection<Interest> filterSearchInterests(String query, int offset, int max, int iTotal, InstitutionFilter institutions){
         Collection<Interest> allInterests = searchInterests(query, 0, iTotal)
         return filterInterestsByInstitution(allInterests, institutions, offset, max)
     }
 
-    Collection<CollaboratorRequest> filterSearchCollaboratorRequests(String query, int offset, int rTotal, int max, Set<Long> institutions){
+    Collection<CollaboratorRequest> filterSearchCollaboratorRequests(String query, int offset, int rTotal, int max, InstitutionFilter institutions){
         Collection<CollaboratorRequest> allRequests = searchCollaboratorRequests(query, 0, rTotal)
         return filterRequestsByInstitution(allRequests, institutions, offset, max)
     }
 
-    Collection<Person> filterPeopleByInstitution(Collection<Person> pResults, Set<Long> institutionFilter, int offset, int max) {
+    Collection<Person> filterPeopleByInstitution(Collection<Person> pResults, InstitutionFilter institutionFilter, int offset, int max) {
         Collection<Person> filteredPeople = new ArrayList<Person>()
         int index = 0
         for(Person p: pResults){
-            if(p.memberOfAny(institutionFilter)){
+            if(p.isMatch(institutionFilter)){
                 if(index >= offset){
                     filteredPeople.add(p)
                 }
@@ -67,12 +67,12 @@ class SearchService {
         return filteredPeople
     }
 
-    Collection<Interest> filterInterestsByInstitution(Collection<Interest> iResults, Set<Long> institutionFilter, int offset, int max) {
+    Collection<Interest> filterInterestsByInstitution(Collection<Interest> iResults, InstitutionFilter institutionFilter, int offset, int max) {
         Collection<Interest> filteredInterests = new ArrayList<Interest>()
         int index = 0
         for(Interest i: iResults){
             for(Person p: i.people){
-                if(p.memberOfAny(institutionFilter)){
+                if(p.isMatch(institutionFilter)){
                     if (index >= offset){
                         filteredInterests.add(i)
                     }
@@ -87,11 +87,11 @@ class SearchService {
         return filteredInterests
     }
 
-    Collection<CollaboratorRequest> filterRequestsByInstitution(Collection<CollaboratorRequest> rResults, Set<Long> institutionFilter, int offset, int max) {
+    Collection<CollaboratorRequest> filterRequestsByInstitution(Collection<CollaboratorRequest> rResults, InstitutionFilter institutionFilter, int offset, int max) {
         Collection<CollaboratorRequest> filteredRequests = new ArrayList<CollaboratorRequest>()
         int index = 0
         for(CollaboratorRequest r: rResults){
-            if(r.creator.memberOfAny(institutionFilter)){
+            if(r.creator.isMatch(institutionFilter)){
                 if (index >= offset){
                     filteredRequests.add(r)
                 }
@@ -103,4 +103,5 @@ class SearchService {
         }
         return filteredRequests
     }
+
 }

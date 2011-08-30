@@ -1,16 +1,32 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html lang="en" class="no-js ie6"> <![endif]-->
+<!--[if IE 7]>    <html lang="en" class="no-js ie7"> <![endif]-->
+<!--[if IE 8]>    <html lang="en" class="no-js ie8"> <![endif]-->
+<!--[if gt IE 8]><!-->
 <html>
 
 <head>
     <title>Change password</title>
 
-  <p:css name="macademiaJit"/>
-  <g:include view="/layouts/headers.gsp"/>
-  <p:css name="changePasswd"/>
+  <g:render template="/layouts/headers"/>
+  <g:javascript>
+      $(document).ready(function() {
+          macademia.initLogoLink();
+          var params = {
+              'page' : 'changepassword',
+              fromEmail : '${currentPassword != null}'
+          };
+          macademia.serverLog('page', 'load', params);
+      });
+  </g:javascript>
 </head>
 
 <body>
 
-    <a href="/Macademia/${params.group}"><p:image id="logoImage" src='macademia-logo.png'/></a>
+    <header><div id="logo"></div></header>
+
+    <div id="passwordEdit">
     <div id="main">
       <h2>Change your password</h2>
 
@@ -47,7 +63,7 @@
             <tr>
               <td><label for="password">New password:</label></td>
               <td>
-                <input type="password" size="30" id="password" name="password" class="password easyinput"/></a>
+                <input type="password" size="30" id="password" name="password" class="password easyinput"/>
               </td>
             </tr>
 
@@ -61,6 +77,7 @@
               <td>&nbsp;</td>
               <td>
                 <input type="submit" name="submit" value="Change password"/>
+                <input type="button" value="Cancel" onclick="location.href = '/Macademia/${params.group}'" />
               </td>
             </tr>
           </tbody>
@@ -76,16 +93,10 @@
         </div>
       </g:form>
     </div>
-    <g:render template="/templates/macademia/tagline"/>
-    <g:javascript >
-      $().ready(function() {
-          var params = {
-              'page' : 'changepassword',
-              fromEmail : '${currentPassword != null}'
-          };
-          macademia.serverLog('page', 'load', params);
-      });
-    </g:javascript>
+    </div>
+
+    <g:render template="../layouts/footer"/>
+
 </body>
 
 </html>

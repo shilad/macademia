@@ -6,8 +6,8 @@ macademia.nbrviz.mainFontBold = '14px Palatino Linotype Bold, Book Antiqua Bold,
 macademia.nbrviz.subFont = '14px Times New Roman, Arial';
 macademia.nbrviz.subFontBold = '14px Times New Roman Bold, Arial Bold';
 
-macademia.nbrviz.distance = function(x, y) {
-        var dx = event.x - x, dy = event.y - y;
+macademia.nbrviz.distance = function(x1, y1, x2, y2) {
+        var dx = x1 - x2, dy = y1 - y2;
         return Math.sqrt(dx*dx + dy*dy);
     };
 

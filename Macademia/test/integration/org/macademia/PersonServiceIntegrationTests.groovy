@@ -12,6 +12,7 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder
  */
 class PersonServiceIntegrationTests extends GrailsUnitTestCase {
     def personService
+    def interestService
     def databaseService
     def institutionService
     
@@ -32,12 +33,12 @@ class PersonServiceIntegrationTests extends GrailsUnitTestCase {
         Institution mac = new Institution(name: "Macalester", emailDomain: "@macalester.edu", webUrl: "www.macalestertest.edu", institutionGroups: [acm])
         institutionService.save(mac)
         Person p = new Person(fullName:"Alicia Johnson",email:"ajohns24@macalester.edu",department:"Mathematics, Statistics, and Computer Science")
-        Interest i1 = new Interest("statistics")
-        Interest i2 = new Interest("applied statistics")
-        Interest i3 = new Interest("probability")
-        Interest i4 = new Interest("Markov chain Monte Carlo")
-        Interest i5 = new Interest("public health")
-        assertEquals(Interest.findAllByText("Markov chain Monte Carlo").size(),0)
+        assertEquals(Interest.findAllByText("Markov chain Monte Carlo").size(), 0)
+        Interest i1 = interestService.analyze("statistics")
+        Interest i2 = interestService.analyze("applied statistics")
+        Interest i3 = interestService.analyze("probability")
+        Interest i4 = interestService.analyze("Markov chain Monte Carlo")
+        Interest i5 = interestService.analyze("public health")
         p.addToInterests(i1)
         p.addToInterests(i2)
         p.addToInterests(i3)
@@ -57,9 +58,9 @@ class PersonServiceIntegrationTests extends GrailsUnitTestCase {
         institutionService.save(mac)
         institutionService.save(carl)
         institutionService.save(tom)
-        Interest i1 = new Interest("statistics")
-        Interest i2 = new Interest("applied statistics")
-        Interest i3 = new Interest("probability")
+        Interest i1 = interestService.analyze("statistics")
+        Interest i2 = interestService.analyze("applied statistics")
+        Interest i3 = interestService.analyze("probability")
         Person p = new Person(fullName:"Alicia Johnson",email:"ajohns24@macalester.edu",department:"Mathematics, Statistics, and Computer Science")
 
         // test create

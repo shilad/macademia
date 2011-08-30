@@ -22,6 +22,11 @@ import org.macademia.*
  *                  id1: double
  *                  ...
  *              ]
+ *              count: [
+ *                  overall : int,
+ *                  id1: int,
+ *                  ...
+ *              ]
  *              interests: [id1, id2 ...]
  *          ],
  *          p_id2: [ ... ], ...
@@ -31,6 +36,7 @@ import org.macademia.*
  *              id: long
  *              name: string
  *              cluster: int
+ *              relevance : double
  *          ],
  *          i_id2: [ ... ], ...
  *      ]
@@ -71,6 +77,7 @@ class Json2Service {
                 name: fakedata.name,
                 pic: fakedata.pic,
                 relevance: [:],
+                count: [],
                 interests: interests
         ]
     }
@@ -95,7 +102,7 @@ class Json2Service {
         graph.clusterRootInterests()
         for (Person p: graph.getPeople()){
             personNodes[p.id] = makeJsonPerson(p, sid)
-            personNodes[p.id]['relevance']['overall'] = graph.personScores[p.id].score[0]
+            personNodes[p.id]['relevance']['overall'] = graph.personScores[p.id].score.sum()
             for (Edge e: graph.getAdjacentEdges(p)){
                 e.reify()
                 [e.interest, e.relatedInterest].each({
@@ -108,6 +115,7 @@ class Json2Service {
         for (Map.Entry<Long, Integer> entry : graph.interestClusters.entrySet()){
             if (interestNodes.containsKey(entry.key)){
                 interestNodes[entry.key]['cluster'] = entry.value
+                interestNodes[entry.key]['relevance'] = graph.otherInterestSims[entry.key][entry.value]
             }
         }
         return ['people':personNodes] + ['interests':interestNodes]
@@ -141,7 +149,11 @@ class Json2Service {
             }
             for (Edge e : graph.getAdjacentEdges(p)){
                 if (queryIds.contains(e.interestId)){
-                    personNodes[p.id]['relevance'][e.interestId] = e.sim
+                    if (!personNodes[p.id]['relevance'].containsKey(e.interestId)) {
+                        personNodes[p.id]['relevance'][e.interestId] = 0
+                    }
+                    personNodes[p.id]['relevance'][e.interestId] += e.sim
+//                    personNodes[p.id]['relevance'][e.interestId] = e.sim
                 }
             }
         }

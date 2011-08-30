@@ -13,6 +13,7 @@ class AccountController {
     def institutionService
     def institutionGroupService
     def jsonService
+    def springcacheService
 
 
     def forgottenpassword = {
@@ -151,7 +152,6 @@ The Macademia Team
         Person person = new Person()
         person.properties[grailsApplication.config.macademia.creatableFields] = params
         person.email = params.email.toLowerCase()
-        println "person's email is ${person.email}"
         // Handle interest splitting
         if (params.interests){
             interestService.parseInterests(params.interests).each({
@@ -254,6 +254,7 @@ The Macademia Team
                 institutionGroupService.addToInstitutions(allGroup, institution)
                 Utils.safeSave(allGroup)
                 autocompleteService.addInstitution(institution)
+                springcacheService.flush('institutionCache')
             }
 
             if (!institutionList.contains(institution)) institutionList.add(institution);
@@ -271,6 +272,7 @@ The Macademia Team
         return render(
               view: 'createUser',
                 model: [
+                      defaultImageUrl : getDefaultImageUrl(),
                       user : new Person(),
                       interests : params.interests ? params.interests : "",
                       allInstitutions : jsonService.makeJsonForInstitutions() as JSON,
@@ -320,6 +322,7 @@ The Macademia Team
             return render(
                     view: 'createUser',
                     model: [
+                            defaultImageUrl : getDefaultImageUrl(),
                             user: person,
                             interests : allInterests,
                             primaryInstitution: person.retrievePrimaryInstitution(),
@@ -327,6 +330,18 @@ The Macademia Team
                             allInstitutions : jsonService.makeJsonForInstitutions() as JSON
                     ])
 	    }
+    }
+
+    def getDefaultImageUrl() {
+        String l = p.imageLink(src : MacademiaConstants.DEFAULT_IMG)
+        if (l[0] == "'") {
+            l = l[1..-1]
+        }
+        if (l[-1] == "'") {
+            l = l[0..-2]
+        }
+        return l
+
     }
 
     def delete = {
@@ -352,7 +367,8 @@ The Macademia Team
                cookie.path = "/"
                response.addCookie(cookie)
             }
-            redirect(uri: "/")
+            def group = Utils.getGroupFromUrl(request.forwardURI)
+            redirect(uri: "/$group")
         }
     }
 
@@ -390,7 +406,6 @@ The Macademia Team
                     return
                 }
                 def otherInstitutions = params.otherInstitutions
-                println("otherInstiuttions is ${otherInstitutions}")
                 List institutionList = institutionParse(params.institution, webUrl, extractEmailDomain(person.email), otherInstitutions)
 	            personService.save(person, institutionList)
                 userLoggingService.logEvent(request, 'profile', 'update', person.toMap())

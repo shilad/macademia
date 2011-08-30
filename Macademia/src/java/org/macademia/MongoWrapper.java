@@ -162,6 +162,7 @@ public class MongoWrapper {
 
 
         for (long i : userInterests) {
+            updateInterestUsage(i);
             interestUserCache.remove(i);
         }
         userInstitutionCache.remove(userId);
@@ -196,6 +197,7 @@ public class MongoWrapper {
             iUsers.remove(userId);
             interestUsers.put(i, iUsers);
             interestRequests.put(i, getInterestRequests(i));
+            setInterestUsage(i, getInterestUsage(i)-1);
         }
         for (long instId : getUserInstitutions(userId)) {
              deletedInterests.addAll(handleDisconnects(interests, interestUsers, interestRequests, instId));
@@ -290,6 +292,50 @@ public class MongoWrapper {
         return res;
     }
 
+    /**
+     * Updates the parameter interests usage to be the number of Users
+     * with the interest plus the number of Requests with the interest.
+     * @param id The long id of the interest whose usage is being set.
+     */
+    public void updateInterestUsage(long id) {
+        int usage = getInterestUsers(id).size() + getInterestRequests(id).size();
+        setInterestUsage(id, usage);
+    }
+
+    /**
+     * Sets the number of Users and Requests who possess the
+     * interest specified by the parameter id.
+     * @param id The long id of the interest whose usage is being set.
+     * @param usage The number of Users and Requests who possess
+     * the interest.
+     */
+    private void setInterestUsage(long id, int usage) {
+        DBCollection interests = getDb().getCollection(INTERESTS);
+        DBObject interest = safeFindById(INTERESTS, id, false);
+        if (interest == null) { // FIXME: what should we do if interest is null? Create one? It's an error!
+            LOG.error("setInterestUsage: no interest with id " + id);
+        } else {
+            interest.put("usage", usage);
+            interests.update(safeFindById(INTERESTS, id, false), interest);
+        }
+    }
+
+    /**
+     * Returns the number of Users and Requests who possess the
+     * interest specified by the parameter id.
+     * @param id The long id of the interest whose usage is to be returned.
+     * @return The int number of Users and Requests who possess the
+     * interest.
+     */
+    public int getInterestUsage(long id) {
+        DBObject interest = safeFindById(INTERESTS, id, false);
+        if (interest != null && interest.containsField("usage")) {
+            return (Integer)interest.get("usage");
+        } else {
+            return 0;
+        }
+    }
+
     public Set<Long> getInterestRequests(long id) {
         Set<Long> res = interestRequestCache.get(id);
         if (res != null) {
@@ -339,11 +385,13 @@ public class MongoWrapper {
         newRFC.put("institutions", institutionIds);
         DBCollection collaboratorRequests = getDb().getCollection(COLLABORATOR_REQUESTS);
         DBObject searchById = safeFindById(COLLABORATOR_REQUESTS, rfcId, false);
-        if(searchById !=null){
+        if (searchById != null) {
             collaboratorRequests.update(searchById, newRFC);
-        }
-        else{
+        } else {
             collaboratorRequests.insert(newRFC);
+        }
+        for (long i : interests) {
+            updateInterestUsage(i);
         }
     }
 
@@ -472,6 +520,10 @@ public class MongoWrapper {
         if (user == null) {
             return false;
         }
+        List<Long> interests = (List<Long>)user.get("interests");
+        if (!interests.contains(interestId)) {
+            return false;
+        }
         Set<Long> institutions = getInterestInstitutions(interestId);
         Set<Long> interestUsers = getInterestUsers(interestId);
         Set<Long> interestRequests = getInterestRequests(interestId);
@@ -485,11 +537,12 @@ public class MongoWrapper {
         for (Long institution : institutions) {
             removeInterestFromInstitution(interestId, institution);
         }
-        List<Long> interests = (List<Long>)user.get("interests");
+
         interests.remove(interestId);
         user.put("interests", interests);
         DBCollection users = getDb().getCollection(USERS);
         users.update(safeFindById(USERS, userId, false), user);
+        setInterestUsage(interestId, getInterestUsage(interestId)-1);
         if (interestIsDisconnected(interestId)) {
             removeInterest(interestId);
             return true;
@@ -509,6 +562,10 @@ public class MongoWrapper {
         if (request == null) {
             return false;
         }
+        List<Object> keywords = (List<Object>)request.get("keywords");
+        if (!keywords.contains(keywordId)) {
+            return false;
+        }
         Set<Long> institutions = getInterestInstitutions(keywordId);
         Set<Long> interestUsers = getInterestUsers(keywordId);
         Set<Long> interestRequests = getInterestRequests(keywordId);
@@ -522,11 +579,12 @@ public class MongoWrapper {
         for (Long institution : institutions) {
             removeInterestFromInstitution(keywordId, institution);
         }
-        List<Object> keywords = (List<Object>)request.get("keywords");
+
         keywords.remove(keywordId);
         request.put("keywords", keywords);
         DBCollection requests = getDb().getCollection(COLLABORATOR_REQUESTS);
         requests.update(safeFindById(COLLABORATOR_REQUESTS, requestId, false), request);
+        setInterestUsage(keywordId, getInterestUsage(keywordId)-1);
         if (interestIsDisconnected(keywordId)) {
             removeInterest(keywordId);
             return true;
@@ -615,21 +673,24 @@ public class MongoWrapper {
         SimilarInterestList list = new SimilarInterestList();
         int i = 0;
         Map<Long, Double> ids = new HashMap<Long, Double>();
-        while (list.size() < 200 && i < articles.size()) {
-            SimilarInterest check = articles.get(i);
-            DBObject articleToInterests = safeFindById(ARTICLES_TO_INTERESTS, check.interestId, false);
-            if (articleToInterests != null) {
-                Set<Long> similarInterests = interestStringToSet((String)articleToInterests.get("interests"));
-                for (long id : similarInterests) {
-                    if (relationsBuilt && id!=interest) {
-                        ids.put(id, check.similarity);
-                    }
-                    if(id!=interest){
-                        list.add(new SimilarInterest(id, check.similarity));
+        if (article != -1) {
+            // don't give interests mapped to unknown articles similar interests
+            while (list.size() < 200 && i < articles.size()) {
+                SimilarInterest check = articles.get(i);
+                DBObject articleToInterests = safeFindById(ARTICLES_TO_INTERESTS, check.interestId, false);
+                if (articleToInterests != null) {
+                    Set<Long> similarInterests = interestStringToSet((String)articleToInterests.get("interests"));
+                    for (long id : similarInterests) {
+                        if (relationsBuilt && id!=interest) {
+                            ids.put(id, check.similarity);
+                        }
+                        if(id!=interest){
+                            list.add(new SimilarInterest(id, check.similarity));
+                        }
                     }
                 }
+                i++;
             }
-            i++;
         }
 
         // Create a stub record with the text
@@ -637,12 +698,12 @@ public class MongoWrapper {
         if(dbo == null) {
             dbo =  new BasicDBObject("_id", interest);
             dbo.put("similar", "");
+            dbo.put("usage", 0);
         }
         if (dbo.get("text") == null || dbo.get("text") != text) {
             dbo.put("text", text);
             getDb().getCollection(INTERESTS).save(dbo);
         }
-
 
         addInterestRelations(interest, list, false);
         if (relationsBuilt) {
@@ -724,15 +785,18 @@ public class MongoWrapper {
         return new SimilarInterestList(res);
     }
 
-    public SimilarInterestList getSimilarInterests(Long interest, Set<Long> institutionFilter) {
+    public SimilarInterestList getSimilarInterests(Long interest, InstitutionFilter institutionFilter) {
         DBObject i = safeFindById(INTERESTS, interest, false);
         if (i == null) {
             return new SimilarInterestList();
         }
         //log.info(similar +" getSimilarInterests get")
         Set<Long> institutionInterests = new HashSet<Long>();
-        for (long id : institutionFilter) {
+        for (long id : institutionFilter.institutionIds) {
             institutionInterests.addAll(getInstitutionInterests(id));
+        }
+        if (institutionFilter.requiredInstitutionId != null) {
+            institutionInterests.retainAll(getInstitutionInterests(institutionFilter.requiredInstitutionId));
         }
         return new SimilarInterestList((String)i.get("similar"), institutionInterests);
     }

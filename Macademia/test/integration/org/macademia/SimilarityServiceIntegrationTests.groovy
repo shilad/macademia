@@ -13,6 +13,7 @@ class SimilarityServiceIntegrationTests extends GrailsUnitTestCase {
         super.setUp()
         databaseService.switchToCopyDB((String)ConfigurationHolder.config.dataSource.mongoDbName)
         databaseService.clearCache()
+        interestService.initBuildDocuments("db/test/")
          // similarityService.refinedThreshold = 0.8
         //similarityService.minSimsPerInterest = 1
         //similarityService.numSimsPerInterest = 2
@@ -100,7 +101,7 @@ class SimilarityServiceIntegrationTests extends GrailsUnitTestCase {
         assertEquals(graph.getRequests().size(),1)
         assertEquals(graph.getAdjacentEdges(cr).size(),4)
         assertEquals(graph.getAdjacentEdges(Person.findByEmail("michelfelder@macalester.edu")).size(),3) //was 3
-        assertEquals(graph.getAdjacentEdges(interestService.findByText("online communities")).size(),2)
+        assertEquals(graph.getAdjacentEdges(interestService.findByText("online communities")).size(),10)
         assertEquals(graph.getAdjacentEdges(interestService.findByText("data mining")).size(),9)//was 10
         assertEquals(graph.getAdjacentEdges(interestService.findByText("social networking")).size(),2)
         Edge e1 = new Edge(person:Person.findByEmail("ssen@macalester.edu"),interest:interestService.findByText("data mining"),relatedInterest:interestService.findByText("statistics"))
@@ -112,25 +113,15 @@ class SimilarityServiceIntegrationTests extends GrailsUnitTestCase {
     }
 
     void testBuildInterestRelations () {
-        Interest i = new Interest("GIS")
-        Interest i2= new Interest("GIS (Geographic Information System)")
-        Interest i3= new Interest("e-democracy")
-        i.save()
-        i2.save()
-        i3.save()
         Interest interest= interestService.findByText("web2.0")
         SimilarInterestList list= similarityService.getSimilarInterests(interest, similarityService.maxSimsPerInterest, 0)
-        assertEquals(list.size(),6)
-        interestService.initBuildDocuments("db/test/")
-        interestService.buildDocuments(i)
-        interestService.buildDocuments(i2)
-        interestService.buildDocuments(i3)
-        similarityService.buildInterestRelations(i)
-        similarityService.buildInterestRelations(i2)
-        similarityService.buildInterestRelations(i3)
+        assertEquals(list.size(),7)
+        Interest i = interestService.analyze("GIS")
+        Interest i2= interestService.analyze("GIS (Geographic Information System)")
+        Interest i3= interestService.analyze("e-democracy")
         SimilarInterestList nlist= similarityService.getSimilarInterests(interest, 100,0)
         // I believe this should now be 11, since we have added 3 interests and got similar interests for web2.0 with a threshold for 0
-        assertEquals(nlist.size(),9)
+        assertEquals(nlist.size(),10)
         SimilarInterestList nlist2= similarityService.getSimilarInterests(i, 100,0)
         assertEquals(nlist2.size(),9)
         assertTrue(nlist2.contains(new SimilarInterest(i2.id, 0)))

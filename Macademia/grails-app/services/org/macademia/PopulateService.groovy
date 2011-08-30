@@ -107,10 +107,7 @@ class PopulateService {
             person.department = dept
             person.title = title
         }
-        Interest interest = interestService.findByText(interestStr)
-        if (interest == null) {
-            interest = new Interest(interestStr)
-        }
+        Interest interest = interestService.analyze(interestStr)
         person.addToInterests(interest)
         if (person.id) {
             personService.save(person, [institution])
@@ -160,10 +157,7 @@ class PopulateService {
         for (String i : interestStr.split(",")) {
             i = i.trim()
             if (i != "") {
-                Interest interest = interestService.findByText(i)
-                if (interest == null) {
-                    interest = new Interest(i)
-                }
+                Interest interest = interestService.analyze(i)
                 person.addToInterests(interest)
             }
         }

@@ -125,6 +125,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
     qv.layoutInterests();
     qv.layoutPeople();
     qv.setupListeners();
+    macademia.nbrviz.qv = qv;
 };
 
 /**
@@ -295,6 +296,7 @@ QueryViz.prototype.handleInterestClusterHover = function(interest) {
 
 QueryViz.prototype.handleInterestClusterUnhover = function(interest) {
     this.lowerScreen();
+    this.hideEdges();
 };
 
 QueryViz.prototype.handleInterestHover = function(parentNode, interest, interestNode) {
@@ -316,7 +318,6 @@ QueryViz.prototype.handleInterestUnhover = function(parentNode, interest, intere
 };
 
 QueryViz.prototype.drawEdge = function(parentNode, person, interestNode) {
-    console.log('drawing edge...');
     var svgStr = 'M' + interestNode.getX() + ' ' + interestNode.getY() + 'L' + person.x + ' ' + person.y + 'Z';
     var path = this.paper.path(svgStr);
     path.insertBefore(parentNode.getBottomLayer());

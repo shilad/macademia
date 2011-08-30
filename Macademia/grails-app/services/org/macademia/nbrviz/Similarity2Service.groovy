@@ -84,6 +84,7 @@ class Similarity2Service extends SimilarityService {
          //Add all edges linked to Interest i
          graph = findPeopleAndRequests(graph, maxPeople, i, null, 1, institutionFilter)
          def simInterests = getSimilarInterests(i, 1000, 0, institutionFilter)
+         println("found ${simInterests.size()} similar to ${Interest.get(i)}")
          for(SimilarInterest ir : simInterests){
              if(ir.interestId!=null){
                  if(inner.contains(ir.interestId)) {

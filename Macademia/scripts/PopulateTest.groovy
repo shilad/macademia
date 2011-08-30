@@ -31,7 +31,7 @@ target ('main': "Load the Grails interactive shell") {
     TransactionSynchronizationManager.bindResource(sessionFactory, new SessionHolder(session))
     def tx = session.beginTransaction();
 
-    boolean necessary = true
+    boolean necessary = false
     def databaseService = appCtx.getBean('databaseService')
     if (necessary) {
         def similarityService = appCtx.getBean('similarityService')

@@ -23,6 +23,7 @@ class AutocompleteService{
     Map<String, GroupTree> groupTrees = [:]
     SessionFactory sessionFactory
     InstitutionGroupService institutionGroupService
+    DatabaseService databaseService
 
     def init() {
 
@@ -83,7 +84,7 @@ class AutocompleteService{
         }
     }
 
-    def addInterest(Interest interest, GroupTree gt){
+    def addInterest(Interest interest, GroupTree gt) {
         def entity = new AutocompleteEntity(interest.id, interest.text, Interest.class)
         if (!gt.overallTree.contains("i" + interest.id)) {
             gt.overallTree.add("i" + interest.id, entity)
@@ -91,6 +92,9 @@ class AutocompleteService{
         if (!gt.interestTree.contains("i" + interest.id)) {
             gt.interestTree.add("i" + interest.id, entity)
         }
+        int usage = databaseService.getInterestUsage(interest.id)
+        gt.overallTree.get("i" + interest.id).setScore(usage)
+        gt.interestTree.get("i" + interest.id).setScore(usage)
     }
 
     def addInstitution(Institution institution) {

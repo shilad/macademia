@@ -157,8 +157,7 @@ var Person = MNode.extend({
         // change the color of the ring.
         this.ring.attr('fill', 'hsb(0,0,.8)');
         this.centerNode.setPosition(x, y);
-    },
-    foo : false
+    }
 });
 
 

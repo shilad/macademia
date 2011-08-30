@@ -9,14 +9,26 @@
  * If you change other files, you may get SVN conflicts when others change them.
  */
 
-
 /**
  * This is the unique token that's appended onto all db names.
  * It defaults to the username on your system.
+ * Uncomment this line to change the default value on your system.
  */
-macademia.uniqueDbToken = 'asdfasdfaasf'
+//macademia.uniqueDbToken = 'shilad'
 
 /**
- * If you wanted to change a single value, you would do something like this.
+ * Uncomment this line to use a local mongo database server.
  */
-dataSource.mongoDbUrl = '127.0.0.1'
+//dataSource.mongoDbUrl = '127.0.0.1'
+
+/**
+ * Uncomment these to bring up a local snapshot of the production db.
+ */
+//dataSource.mongoDbUrl = '127.0.0.1'
+//dataSource.url = "jdbc:postgresql://localhost:5432/macademia_prod"
+//dataSource.mongoDbName = "macademia_prod"
+//dataSource.driverClassName = "org.postgresql.Driver"
+//dataSource.username = "grails"
+//dataSource.password = "grails"
+//dataSource.dialect = net.sf.hibernate.dialect.PostgreSQLDialect
+//dataSource.mongoDbName = "macademia_prod"

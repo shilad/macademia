@@ -434,13 +434,13 @@ class Graph {
         }
 
         // create a string representation of clusters
-//        def f = {
-//            cs ->
-//            cs.collect({
-//                ids ->
-//                "[" + ids.collect({Interest.get(it).normalizedText}).join(", ") + "]"
-//            }).join("         ")
-//        }
+        def f = {
+            cs ->
+            cs.collect({
+                ids ->
+                "[" + ids.collect({Interest.get(it).normalizedText}).join(", ") + "]"
+            }).join("         ")
+        }
 
         // find closest pair of clusters and merge
         while (clusters.size() > 1) {
@@ -475,7 +475,7 @@ class Graph {
             }
         }
 
-//        println("clusters are ${clusters} with names ${f(clusters)}")
+        println("clusters are ${clusters} with names ${f(clusters)}")
 
     }
 

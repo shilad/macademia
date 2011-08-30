@@ -4,7 +4,7 @@
     <g:if test= "${request.authenticated}">
 
     Click a request to view more information or
-      <a id="makeRequestLink" class="makeRequestLink" href="#">create a new request.</a>
+      <a class="makeRequestLink" href="#">create a new request.</a>
     </g:if>
     <g:else>
       Click a request to view more information.

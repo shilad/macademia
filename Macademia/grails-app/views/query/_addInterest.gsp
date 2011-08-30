@@ -66,6 +66,30 @@
         $("#showWidget").click(function(){
             $(".addedInterests").show("fast");
             $("#showWidget").hide();
+        });
+
+        $(".interestKey").each(function(){
+            var id = $(this).attr('interest');
+            var qi = null;
+            $.each(macademia.nbrviz.qv.queryInterests, function(idx, interest) {
+              if (interest.id == id) {
+                qi = interest;
+                return false;
+              } else {
+                return true;
+              }
+            });
+            if (qi == null) {
+              alert('couldnt find interest with id ' + id);
+            } else {
+              var w = $(this).width(), h = $(this).height();
+              var p = new Raphael(this, w, h);
+              var s = new Sphere({
+                r : Math.min(w / 2, h/2), x : w / 2, y : h/2,
+                hue : qi.color, paper : p,
+                xOffset : 0, yOffset : 0, name : ''
+              });
+            }
         })
     });
 </g:javascript>
@@ -75,12 +99,13 @@
         <label for="interestQuery"><div>Search for interests:</div></label>
         <ol>
         <g:each var="interest" in="${interests}">
-            <li class="addedInterestDiv">
+            <div class="addedInterestDiv">
+                <div class="interestKey" interest="${interest[0]}"></div>
                 <div class="addedInterest">${interest[1]}&nbsp;&nbsp;&nbsp;
                 <input class="addedInterestId" value="${interest[0]}" type="hidden"/>
                 [<a href="#" class='removeInterest'>X</a>]
                 </div>
-            </li>
+            </div>
         </g:each>
         </ol>
         <g:form id="queryIdForm" url="../../${group}/query/show" method="get">

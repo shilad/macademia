@@ -7,8 +7,8 @@
 --%>
 
 <div>
-  <div class="ttName medium">${target.title}</div>
-  <div class="ttDesc medium aside">
+  <div class="ttName">${target.title}</div>
+  <div class="ttDesc">
     <b>creator:</b> ${target.creator.fullName}<br/>
     <b>email:</b> <a href="mailto:${target.creator.email}">${target.creator.email}</a><br/>
     <b>description:</b> ${target.description}<br/>
@@ -17,7 +17,7 @@
   </div>
 
   <g:if test="${exact || close}">
-  <div class="ttRel medium">
+  <div class="ttRel">
     <b>related to ${linkName} by:</b>
     <g:if test="${exact}">
       <g:each in="${exact}" var="i">
@@ -25,10 +25,12 @@
       </g:each>
     </g:if>
     <g:if test="${close}">
-      <g:each in="${close.keySet()}" var="i">
-        <li><i>${close[i]}</i>
-        (similar to ${i.text})</li>
-      </g:each>
+      <ul>
+        <g:each in="${close.keySet()}" var="i">
+            <li><i>${close[i]}</i>
+            (similar to ${i.text})</li>
+        </g:each>
+      </ul>
     </g:if>
     </div>
   </g:if>

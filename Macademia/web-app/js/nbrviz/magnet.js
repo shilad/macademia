@@ -1,9 +1,9 @@
 //var width = $(document).width()-50;
 //var height = $(document).height()-50;
-zoom = 30;
-
+ZOOM_CONSTANT = 30;
 GRAVITATIONAL_CONSTANT = 600.0;
-q = 15000.0;
+DECAY_CONSTANT = 15000.0;
+PADDING = 20;
 
 function Point(position) {
 	this.p = position; // position
@@ -53,17 +53,41 @@ Point.updateVelocity = function(timestep) {
 Point.updatePosition = function(timestep) {
 	Point.points.forEach(function(p) {
 		p.p = p.p.add(p.v.multiply(timestep));
+        var sx = p.screenX();
+        var sy = p.screenY();
+        if (sx < PADDING) {
+            p.setScreenX(PADDING);
+        } else if (sx > width - PADDING) {
+            p.setScreenX(width - PADDING);
+        }
+        if (sy < PADDING) {
+            p.setScreenY(PADDING);
+        } else if (sy > height - PADDING) {
+            p.setScreenY(height - PADDING);
+        }
 	});
 };
 
 // convert point to screen coordinates
 Point.prototype.screenX = function() {
-	return this.p.x * zoom + width/2.0;
+	return this.p.x * ZOOM_CONSTANT + width/2.0;
+};
+
+// convert point to screen coordinates
+Point.prototype.setScreenX = function(x) {
+    this.p.x = (x - width/2.0) / ZOOM_CONSTANT;
 };
 
 Point.prototype.screenY = function() {
-	return this.p.y * zoom + height/2.0;
+	return this.p.y * ZOOM_CONSTANT + height/2.0;
 };
+
+
+// convert point to screen coordinates
+Point.prototype.setScreenY = function(y) {
+    this.p.y = (y - height/2.0) / ZOOM_CONSTANT;
+};
+
 
 Magnet.prototype.constructor = Magnet;
 function Magnet(position, id) {
@@ -114,7 +138,7 @@ Magnet.prototype.attractPeople = function() {
 			( self.relevances[p.id] * (-1.0) * GRAVITATIONAL_CONSTANT )
 		).add(
 			self.forceDirection(p).multiply(
-				( q / Math.pow((Math.abs(radius-(60)+10)/30.0),4) )
+				( DECAY_CONSTANT / Math.pow((Math.abs(radius-(60)+10)/30.0),4) )
 			)
 		);
 		p.applyForce( gForce );
