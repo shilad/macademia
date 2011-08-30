@@ -3,7 +3,8 @@
 <html>
 <head>
   <title>Query Based Visualization</title>
-  <g:include view="/layouts/headers.gsp"/>
+  <g:render template="/layouts/headers"/>
+  <p:javascript src='macademia.js.nbrviz'/>
   <link rel="stylesheet" type="text/css" href="../css/queryViz.css" />
 </head>
 <g:javascript>

@@ -1,65 +1,13 @@
-html,body { height:100%; }
-#graph { width : 100%; height : 100%; }
-#interestQuery {
-    width: 250px;
+/* viz canvas */
+#graph {
+    width : 100%;
+    height : 100%;
+    float:left;
 }
-/*.removeInterest {*/
-    /*float:right;*/
-/*}*/
-.interestKey {
-    clear : both;
-    float : left;
-    width : 20px;
-    height : 20px;
-    margin-right : 5px;
-}
-.addedInterests{
-    width: auto;
-    float : left;
-    background-color: rgba(210,210,240,0.9);
-    max-width: 100%;
-    position: relative;
-}
-.addedInterest{
-    display: inline;
-    padding: 1px;
-}
-.addedInterestDiv{
-    padding: 3px;
-    opacity: 1.0;
-    width : 400px;
-}
-#interestQuery{
-    margin: 0 20px 20px 20px;
-    font-size : 16px;
-}
-label{
-    font-size: 20px;
-    font-weight: bold;
-    text-align: left;
-    padding : 0;
-    margin : 0;
-}
-label div {
-    padding-top : 10px;
-    margin-left : 20px;
-}
-#hideWidget{
-    color: #44f;
-    position : absolute;
-    top : 10px;
-    right : 20px;
-}
-#showWidget{
-    color: #44f;
-    display: none;
-}
-#queryWidget{
-    background-color: rgba(100,100,220,0.1);
-    padding: 10px;
-    position:absolute;
-    width: 420px;
-    /*float:right;*/
+
+/* Auotocomplete */
+.ui-corner-all {
+    font-size : 14px;
 }
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
   color: #636363;
@@ -67,10 +15,71 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
 input:-moz-placeholder, textarea::-moz-placeholder {
   color: #636363;
 }
-#graph{
-    float:left
-}
 
-.ui-corner-all {
-    font-size : 14px;
+/* Query manipulation */
+#queryWidget {
+    background-color: rgba(100,100,220,0.1);
+    padding: 10px;
+    position:absolute;
+    width: 420px;
+    font-size : 16px;
+
+    #showWidget{
+        color: #44f;
+        display: none;
+    }
+    #currentInterests {
+        width: auto;
+        float : left;
+        background-color: rgba(210,210,240,0.9);
+        max-width: 100%;
+        position: relative;
+        margin-top : 3px;
+
+        label{
+            font-size: 20px;
+            font-weight: bold;
+            text-align: left;
+            padding : 0;
+            margin : 0;
+
+            div {
+                padding-top : 10px;
+                margin-left : 20px;
+            }
+        }
+        .addedInterestDiv{
+            padding: 6px;
+            opacity: 1.0;
+            width : 400px;
+
+            .interestKey {
+                clear : both;
+                float : left;
+                width : 20px;
+                height : 20px;
+                margin-right : 5px;
+            }
+            .addedInterest{
+                display: inline;
+                padding: 1px;
+            }
+        }
+
+        // add new interests field
+        #interestQuery{
+            margin: 6px 20px 20px 20px;
+            clear : both;
+            width : 350px;
+            font-size : 20px;
+        }
+
+        // hide search box link
+        #hideWidget{
+            color: #44f;
+            position : absolute;
+            top : 10px;
+            right : 20px;
+        }
+    }
 }

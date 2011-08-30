@@ -59,12 +59,12 @@
          });
 
         $("#hideWidget").click(function(){
-            $(".addedInterests").hide("fast");
+            $("#currentInterests").hide("fast");
             $("#showWidget").show();
         });
 
         $("#showWidget").click(function(){
-            $(".addedInterests").show("fast");
+            $("#currentInterests").show("fast");
             $("#showWidget").hide();
         });
 
@@ -95,7 +95,7 @@
 </g:javascript>
 <div>
     <a id="showWidget" href="#">show search box</a>
-    <div class="addedInterests">
+    <div id="currentInterests">
         <label for="interestQuery"><div>Search for interests:</div></label>
         <ol>
         <g:each var="interest" in="${interests}">

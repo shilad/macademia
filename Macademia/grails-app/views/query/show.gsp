@@ -6,8 +6,9 @@
   <g:javascript >
     var vizJson = ${jsonData};
   </g:javascript>
-  <g:include view="/layouts/headers.gsp"/>
-  <link rel="stylesheet" type="text/css" href="../../css/queryViz.css" />
+  <p:javascript src='macademia.js.all'/>
+  <p:javascript src='macademia.js.nbrviz'/>
+  <p:css name="queryViz" media="all"/>
 </head>
 <g:javascript>
   $().ready(function() {
