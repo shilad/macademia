@@ -96,7 +96,7 @@
 <div>
     <a id="showWidget" href="#">show search box</a>
     <div id="currentInterests">
-        <label for="interestQuery"><div>Search for interests:</div></label>
+        <h1>Search for interests:</h1>
         <ol>
         <g:each var="interest" in="${interests}">
             <div class="addedInterestDiv">

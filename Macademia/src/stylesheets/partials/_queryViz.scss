@@ -36,17 +36,13 @@ input:-moz-placeholder, textarea::-moz-placeholder {
         position: relative;
         margin-top : 3px;
 
-        label{
+        h1{
             font-size: 20px;
             font-weight: bold;
             text-align: left;
-            padding : 0;
-            margin : 0;
-
-            div {
-                padding-top : 10px;
-                margin-left : 20px;
-            }
+            padding-top : 10px;
+            padding-bottom : 6px;
+            margin-left : 20px;
         }
         .addedInterestDiv{
             padding: 6px;
@@ -68,7 +64,7 @@ input:-moz-placeholder, textarea::-moz-placeholder {
 
         // add new interests field
         #interestQuery{
-            margin: 6px 20px 20px 20px;
+            margin: 10px 20px 20px 20px;
             clear : both;
             width : 350px;
             font-size : 20px;
