@@ -19,7 +19,6 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
         vizJson.interests[id].cluster = id;  // work around omission from json service...
     });
 
-    alert('here 0');
     $.each(vizJson.interests, function (id, info) {
         var hasCluster = (info.cluster && info.cluster >= 0);
         var color = -1;
@@ -33,7 +32,6 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
         }
     });
 
-        alert('here 1');
     // Create interest clusters
     var queryInterests = {};
     $.each(vizJson.queries, function (i, id) {
@@ -47,7 +45,6 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
         });
         queryInterests[id] = ic;
     });
-        alert('here 2');
 
     // Create people
     // TODO: incorporate interest similarity scores
@@ -119,7 +116,6 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
         });
         people.push(person);
     });
-        alert('here 4');
 
     var qv = new QueryViz({
         people : people,
