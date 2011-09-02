@@ -38,7 +38,7 @@ var Sphere = RaphaelComponent.extend({
                 // gradient 2
         this.gradient2 = this.paper.ellipse(
                         x, y, this.r - this.r / 5, this.r - this.r / 20)
-                    .attr({stroke: "none", fill: "r(.5,.1)#ccc-#ccc", opacity: 0});
+                    .attr({stroke: "none", fill: "r(.5,.1)#ddd-#ddd", opacity: 0});
 
                 // label
         this.label = this.paper.text(x + this.xOffset, y + this.yOffset, this.name)
