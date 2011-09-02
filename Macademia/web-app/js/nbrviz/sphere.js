@@ -13,7 +13,6 @@ var Sphere = RaphaelComponent.extend({
     init : function(params) {
         this._super(params);
         this.r = params.r;
-        this.hue = params.hue || 0;
         this.xOffset = params.xOffset;
         this.yOffset = params.yOffset;
         this.name = params.name;
@@ -25,10 +24,12 @@ var Sphere = RaphaelComponent.extend({
         var x = params.x, y = params.y;
 
         var fill;
-        if(this.hue == -1) {
-            fill = "r(.5,.9)hsb(0, 0, .75)-hsb(0, 0, .2)";
+        var sat = params.sat || 1.0;
+        var hue = params.hue || 0.0;
+        if(hue == -1) {
+            fill = "r(.5,.9)hsb(0, 0, .9)-hsb(0, 0, .80)";
         } else {
-            fill = "r(.5,.9)hsb(" + this.hue + ", 1, .85)-hsb(" + this.hue + ", 1, .7)";
+            fill = "r(.5,.9)hsb(" + hue + "," + sat + " , .9)-hsb(" + hue + ", " + sat + ", .8)";
         }
 
         this.gradient1 = this.paper.ellipse(x, y, this.r, this.r)

@@ -6,9 +6,11 @@ import org.macademia.*
  * An extension of SimilarityService, provides neighbor algorithms
  * for the new query and exploration visualizations.
  */
-class Similarity2Service extends SimilarityService {
+class Similarity2Service {
 
+    def similarityService
     def interestService
+    def databaseService
 
     /**
      * Creates and returns a new Graph based upon the parameter set
@@ -17,14 +19,15 @@ class Similarity2Service extends SimilarityService {
      * @param maxPeople The max number of people to include in the Graph.
      * @return A Graph
      */
-    public NbrvizGraph calculateQueryNeighbors(Set<Long> qset) {
+    public NbrvizGraph calculateQueryNeighbors(Set<Long> qset, int maxNeighbors) {
         int maxPeople = Integer.MAX_VALUE
         NbrvizGraph graph = new NbrvizGraph()
         for (long q : qset){
             Interest qi = interestService.get(q)
-            graph = calculateNeighbors(qi.id, graph, maxPeople, qset, null) as NbrvizGraph
+            graph = calculateNeighbors(qi.id, graph, maxPeople, qset)
         }
-        graph.finalizeGraph(20)
+        graph.clusterQueryInterests(qset)
+        graph.finalizeGraph(maxNeighbors)
         return graph
     }
 
@@ -77,14 +80,15 @@ class Similarity2Service extends SimilarityService {
      * @param institutionFilter
      * @return The graph with all conections to Interest i added
      */
-     public Graph calculateNeighbors(Long i, Graph graph, int maxPeople, Set<Long> inner, Set<Long> institutionFilter) {
+     public NbrvizGraph calculateNeighbors(Long i, NbrvizGraph graph, int maxPeople, Set<Long> inner) {
          if(i == null){
              return graph
          }
          //Add all edges linked to Interest i
-         graph = findPeopleAndRequests(graph, maxPeople, i, null, 1, institutionFilter)
-         def simInterests = getSimilarInterests(i, 1000, 0, institutionFilter)
-         println("found ${simInterests.size()} similar to ${Interest.get(i)}")
+         graph = findPeople(graph, maxPeople, i, null, 1)
+         def simInterests = similarityService.getSimilarInterests(i, 1000, 0)
+         simInterests.normalize()
+//         println("found ${simInterests.size()} similar to ${Interest.get(i)}")
          for(SimilarInterest ir : simInterests){
              if(ir.interestId!=null){
                  if(inner.contains(ir.interestId)) {
@@ -92,7 +96,7 @@ class Similarity2Service extends SimilarityService {
                  } else {
                      //Add all edges linked to SimilarInterest ir
                      graph.addOtherInterestSim(i, ir.interestId, ir.similarity)
-                     graph = findPeopleAndRequests(graph, maxPeople, i, ir.interestId, ir.similarity, institutionFilter)
+                     graph = findPeople(graph, maxPeople, i, ir.interestId, ir.similarity)
                  }
              }
          }
@@ -100,4 +104,23 @@ class Similarity2Service extends SimilarityService {
      }
 
 
+    /**
+     * Adds edges to the parameter graph between an Interest or SimilarInterest and all people who own
+     * that Interest or SimilarInterest.
+     * @param graph The graph to be modified
+     * @param maxPeople The maximum number of people to add to the graph
+     * @param i Id number of an Interest whose connections need to be added to the graph
+     * @param ir Id number of a SimilarInterest whose connections need to added to the graph
+     * @param sim The similarity score between i and ir. If ir is null, sim should be 1
+     * @return The graph with all appropriate edges added.
+     */
+    public NbrvizGraph findPeople(NbrvizGraph graph, int maxPeople, Long i, Long ir, Double sim) {
+        Long interestId = (ir == null) ? i : ir
+        def userIds = databaseService.getInterestUsers(interestId)
+        for(long p : userIds){
+            graph.incrementPersonScore(p, i, interestId, sim)
+            graph.addEdge(p, i, ir, null, sim)
+        }
+        return graph
+    }
 }

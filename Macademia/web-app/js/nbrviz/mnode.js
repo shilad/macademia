@@ -117,7 +117,7 @@ var MNode = RaphaelComponent.extend(
     createRing : function() {
         this.ring = this.paper.circle(this.x, this.y, 0)
                 .toBack()
-                .attr({opacity: 0.3, "stroke-width": 1, stroke: "#555", fill: "hsb(" + this.color + ", 1, .75)"});
+                .attr({opacity: 0.2, "stroke-width": 1, stroke: "#555", fill: "hsb(" + this.color + ", 1, .75)"});
     },
 
     /**
@@ -147,12 +147,15 @@ var MNode = RaphaelComponent.extend(
      * @param textPos [x, y] for center of label.
      */
     createOneRelatedInterestNode : function(interest, pos, textPos) {
+        var sat = Math.max(Math.min(1.0, interest.relevance * interest.relevance * 2), .2);
+        console.log('relatedness for ' + interest.name + ' is ' + sat);
         var node = new Sphere({
             x: this.x,
             y: this.y,
             r: this.relatedNodeRadius,
             hue: interest.color,
             name: interest.name,
+            sat : sat,
             xOffset: textPos[0] - pos[0],
             yOffset: textPos[1] - pos[1],
             paper: this.paper,

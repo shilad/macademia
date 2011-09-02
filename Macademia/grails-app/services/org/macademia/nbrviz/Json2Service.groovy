@@ -59,7 +59,6 @@ class Json2Service {
     def collaboratorRequestService
       //max number of interests per interest-centric graph
     static int DEFAULT_MAX_INTERESTS_INTEREST_CENTRIC = 25
-    def similarity2Service
     def interestService
     def pseudonymService
 
@@ -77,7 +76,7 @@ class Json2Service {
                 name: fakedata.name,
                 pic: fakedata.pic,
                 relevance: [:],
-                count: [],
+                count: [:],
                 interests: interests
         ]
     }
@@ -122,12 +121,12 @@ class Json2Service {
     }
 
 
-    def buildQueryCentricGraph(Set<Long> queryIds, Graph graph, Long sid){
+    def buildQueryCentricGraph(Set<Long> queryIds, NbrvizGraph graph, Long sid){
         Map<Long, Map> personNodes = [:]
         Map<Long, Map> interestNodes = [:]
         for (Person p: graph.getPeople()){
             personNodes[p.id] = makeJsonPerson(p, sid)
-            personNodes[p.id]['relevance']['overall'] = graph.personScores[p.id].score[0]
+            personNodes[p.id]['relevance']['overall'] = graph.finalPersonScores[p.id]
             for (Edge e: graph.getAdjacentEdges(p)){
                 e.reify()
                 [e.interest, e.relatedInterest].each({
@@ -135,8 +134,16 @@ class Json2Service {
                         interestNodes[it.id] = makeJsonInterest(it)
                     }
                 })
-                if (e.relatedInterest && e.relatedInterestId != e.interestId) {
-                    interestNodes[e.relatedInterestId].cluster = e.interestId
+                def iid = e.interestId
+                def rid = e.relatedInterestId
+                if (rid == null) {
+                    interestNodes[iid].cluster = iid
+                    interestNodes[iid].relevance = 0.8 /// hack
+                } else if (rid >= 0) {
+                    if (graph.interestClusters.containsKey(rid)) {
+                        interestNodes[rid].cluster = iid
+                        interestNodes[rid].relevance = graph.otherInterestSims[rid][iid]
+                    }
                 }
             }
         }
@@ -144,16 +151,14 @@ class Json2Service {
             for (Interest i : p.interests) {
                 if (!interestNodes[i.id]) {
                     interestNodes[i.id] = makeJsonInterest(i)
-//                    interestNodes[i.id].cluster = -1
                 }
             }
-            for (Edge e : graph.getAdjacentEdges(p)){
-                if (queryIds.contains(e.interestId)){
-                    if (!personNodes[p.id]['relevance'].containsKey(e.interestId)) {
-                        personNodes[p.id]['relevance'][e.interestId] = 0
-                    }
-                    personNodes[p.id]['relevance'][e.interestId] += e.sim
-//                    personNodes[p.id]['relevance'][e.interestId] = e.sim
+            if (graph.personClusterCounts.containsKey(p.id)) {
+                Map<Long, Integer> counts = graph.personClusterCounts[p.id]
+                Map<Long, Double> rels = graph.personClusterRelevances[p.id]
+                for (Long c : counts.keySet()) {
+                    personNodes[p.id]['relevance'][c] = rels[c]
+                    personNodes[p.id]['count'][c] = counts[c]
                 }
             }
         }

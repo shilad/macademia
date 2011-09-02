@@ -42,7 +42,9 @@ var PersonCenter = RaphaelComponent.extend({
         this.wedges = [];
         $.each(this.interestGroups, function() {
             var ig = this[0];
-            var color = self.fillHsb(ig.color);
+            var sat = Math.max(0.25, Math.min(this[1] * this[1] * this[1] / 6, 0.8));
+            console.log(self.name + ': ' + ig.name + ' ' + sat);
+            var color = self.fillHsb(ig.color, sat);
             var section = self.paper.path().attr({stroke: color, opacity: 0});
             self.wedges.push(section);
         });
@@ -69,8 +71,12 @@ var PersonCenter = RaphaelComponent.extend({
         layers.push(this.handle);
         return layers.reverse();
     },
-    fillHsb : function(h) {
+    fillHsb : function(h, s) {
+        if (s) {
+            return 'hsb(' + h + ',' + s + ',1)';
+        } else {
             return 'hsb(' + h + ',0.4,1)';
+        }
     },
     getHandle : function() { return this.handle; },
     getX : function() { return this.handle.attr('cx'); },
@@ -96,7 +102,7 @@ var PersonCenter = RaphaelComponent.extend({
             var ig = this[0];
             var w = self.wedges[i];
             w.attr({personArc: [x, y, self.outerRadius, amount, self.innerRadius], opacity: 1});
-            amount -= this[1];
+            amount -= this[2];
         });
 
     },

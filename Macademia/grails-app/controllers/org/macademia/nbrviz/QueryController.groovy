@@ -10,7 +10,7 @@ class QueryController {
   def interestService
 
   def json = { Set<Long> queryIds ->
-      Graph graph = similarity2Service.calculateQueryNeighbors(queryIds)
+      Graph graph = similarity2Service.calculateQueryNeighbors(queryIds, 20)
       def data
       if (params.subToken){
           data = json2Service.buildQueryCentricGraph(queryIds, graph, params.subToken.toLong())

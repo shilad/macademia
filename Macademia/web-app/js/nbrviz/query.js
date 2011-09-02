@@ -25,9 +25,9 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
         if (hasCluster) {
             color = clusterColors[info.cluster];
         }
-        var ri = new Interest({id:id, name:info.name, color:color});
+        var ri = new Interest({id:id, name:info.name, color:color, relevance : info.relevance});
         relatedInterestsById[id] = ri;
-        if (hasCluster) {
+        if (hasCluster && info.cluster != info.id) {
             relatedInterests[info.cluster].push(ri);
         }
     });
@@ -72,14 +72,14 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
 
     $.each(vizJson.people, function(id, pinfo) {
         if( people.length >= limit ) {
-            return false; // break
+//            return false; // break
         }
 
         var pinterests = [];
         var pnrinterests = [];
         $.each(pinfo.interests, function(i, id) {
             var iinfo = vizJson.interests[id];
-            if (id in queryInterests || (iinfo.cluster && iinfo.cluster >= 0)) {
+            if (iinfo.cluster && iinfo.cluster >= 0 && iinfo.cluster != iinfo.id) {
                 pinterests.push(relatedInterestsById[id]);
                 var clusterId = vizJson.interests[id].cluster;
                 if ($.inArray(relatedInterestsById[id], queryInterests[clusterId].relatedInterests) == -1) {
@@ -94,12 +94,17 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
         $.each(pinfo.relevance, function(id, weight) {
             if (id != 'overall') {totalRelevance += weight;}
         });
+        var totalCount = 0.0;
+        $.each(pinfo.count, function(id, n) {
+            if (id != 'overall') {totalCount += n;}
+        });
         var interestGroups = [];
         $.each(pinfo.relevance, function(id, weight) {
             if (id != 'overall' && weight > 0) {
                 interestGroups.push([
                     queryInterests[id],
-                    1.0 * weight / totalRelevance
+                    pinfo.relevance[id],
+                    pinfo.count[id] / totalCount
                 ]);
             }
         });
@@ -114,7 +119,17 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
             nonRelevantInterests : pnrinterests,
             collapsedRadius : r
         });
+        if (person.interests.length > 12) {
+            person.expandedRadius *= Math.sqrt(person.interests.length / 12);
+        }
         people.push(person);
+    });
+
+    // resize the query interests
+    $.each(queryInterests, function(id, qi) {
+        if (qi.relatedInterests.length > 12) {
+            qi.expandedRadius *= Math.sqrt(qi.relatedInterests.length / 12);
+        }
     });
 
     var qv = new QueryViz({

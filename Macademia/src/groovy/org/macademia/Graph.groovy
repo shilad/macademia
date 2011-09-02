@@ -49,11 +49,12 @@ class Graph {
      * The penalty increases geometrically with the number of interests in
      * the same cluster.
      */
-    private static final double CLUSTER_PENALTY = 0.6
+    public static double CLUSTER_PENALTY = 0.6
 
 
     static TimingAnalysis timer = new TimingAnalysis("graph")
 
+    double clusterPenalty = CLUSTER_PENALTY
     int edges //needed for some unit tests
 
     /**
@@ -267,7 +268,7 @@ class Graph {
             s *= clusterCoefficient[c]
             sim += s
 //            println("\tinterest ${Interest.get(interestAndSim.id)}  ${Interest.get(interestAndSim.id2)}  ${interestAndSim.score} contributing ${s}")
-            clusterCoefficient[c] *= CLUSTER_PENALTY
+            clusterCoefficient[c] *= clusterPenalty
 
             used.add(interestAndSim.id)
             if (interestAndSim.id2 != null) {

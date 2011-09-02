@@ -167,4 +167,14 @@ public class SimilarInterestList {
         return list.iterator();  //To change body of implemented methods use File | Settings | File Templates.
     }
 
+    private static final double sigmoid(double x) {
+        return 1.0 / (1.0 + Math.exp(-x));
+    }
+
+    public void normalize() {
+        for (SimilarInterest si : list) {
+            // TODO: do something reasonable here.
+            si.similarity = sigmoid((si.similarity - 0.15) * 4);
+        }
+    }
 }

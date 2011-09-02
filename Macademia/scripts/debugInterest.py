@@ -16,7 +16,7 @@ def getInterestName(db, id):
         return record.get('text')
 
 record = db.interests.find_one({'text' : interest})
-print record['similar'][:100]
+print 'raw:', record['similar'][:100]
 scores = []
 for pair in record['similar'].split('|'):
     if not pair:

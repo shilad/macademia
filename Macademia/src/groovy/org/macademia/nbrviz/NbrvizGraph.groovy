@@ -5,11 +5,14 @@ import org.macademia.IdAndScore
 import org.macademia.Edge
 
 class NbrvizGraph extends Graph {
-
     Map<Long, Map<Long, Double>> otherInterestSims = [:]
+    Map<Long, Map<Long, Double>> personClusterRelevances = [:]
+    Map<Long, Map<Long, Integer>> personClusterCounts = [:]
+    Map<Long, Double> finalPersonScores = [:]
 
 
     public NbrvizGraph(Long rootPersonId) {
+        this.clusterPenalty = 0.7
         this.rootPersonId = rootPersonId
         edges = 0
     }
@@ -18,42 +21,25 @@ class NbrvizGraph extends Graph {
         this(null)
     }
 
-    //maxPeople does nothing, just there for compatability
     public void finalizeGraph(int maxPeople) {
-        clusterRootInterests()
-        def interestCounts = [:]
-        for (Set<Edge> edges: potentialPersonEdges.values()) {
-            for (Edge e: edges) {
-                Long i = (e.relatedInterestId != null) ? e.relatedInterestId : e.interestId
-                if (!interestCounts.containsKey(i)) {
-                    interestCounts[i] = 0
-                }
-                interestCounts[i]++
-            }
-        }
-        List<Double> allSims = []
-        int numClusters = ensureAllInterestsAreClustered(allSims)
-        allSims = allSims.findAll { it < 1.0 }
-        Collections.sort(allSims)
-        double maxSim = allSims[(int) ((allSims.size() - 1) * 0.95)]
-        maxSim = (maxSim == null) ? 1.0 : maxSim
+        int numClusters = interestClusters.values().max() + 1
+
         List<IdAndScore> finalPersonSims = []
-        if (rootPersonId != null) {
-            finalPersonSims.add(new IdAndScore(rootPersonId, Double.MAX_VALUE))
-        }
         for (Long pid: personScores.keySet()) {
-            double sim = scorePersonSimilarity(pid, numClusters, maxSim, interestCounts)
+            double sim = scorePersonSimilarity(pid, numClusters)
             finalPersonSims.add(new IdAndScore(pid, sim))
         }
         Collections.sort(finalPersonSims)
 
-        // Shilad: I added this back in.  Not sure why it was taken out.
         if (finalPersonSims.size() > maxPeople) {
             finalPersonSims = finalPersonSims[0..maxPeople]
         }
         personMap.clear()
         for (IdAndScore personAndSim: finalPersonSims) {
-            personMap.put(personAndSim.id as long, potentialPersonEdges.get(personAndSim.id))
+            finalPersonScores[personAndSim.id] = personAndSim.score
+            personMap.put(
+                    personAndSim.id as long,
+                    potentialPersonEdges.get(personAndSim.id) )
         }
     }
 
@@ -68,21 +54,65 @@ class NbrvizGraph extends Graph {
         otherInterestSims[i2][i1] = sim
     }
 
-    public double clusterSimilarity(Collection<Long> cluster1, Collection<Long> cluster2) {
-        if (cluster1.size() == 0 || cluster2.size() == 0) {
-            return 0.0
+
+    public void clusterQueryInterests(Set<Long> queryIds) {
+        interestClusters.clear()
+        int c = 0
+        for (Long id1 : queryIds) {
+            interestClusters[id1] = c++
         }
-        double sim = 0.0
-        for (Long i1: cluster1) {
-            for (Long i2: cluster2) {
-                if (intraInterestSims.containsKey(i1) && intraInterestSims[i1].containsKey(i2)) {
-                    sim += intraInterestSims[i1][i2]
-                } else if (otherInterestSims.containsKey(i1) && otherInterestSims[i1].containsKey(i2)) {
-                    sim += otherInterestSims[i1][i2]
+        for (Long id1 : otherInterestSims.keySet()) {
+            if (queryIds.contains(id1)) {
+                continue
+            }
+            double maxSim = -1.0
+            Long closestId = null
+            for (Long id2 : otherInterestSims[id1].keySet()) {
+                def s = otherInterestSims[id1][id2]
+                if (s > maxSim) {
+                    maxSim = s
+                    closestId = id2
                 }
             }
+            if (closestId != null) {
+                interestClusters[id1] = interestClusters[closestId]
+            }
         }
-        return sim / (cluster1.size() * cluster2.size())
+        c++
+    }
+
+    /**
+     * Returns the overall similarity score for a particular person.
+     * @param pid
+     * @param clusterCoefficient
+     * @param maxSim
+     * @return
+     */
+    protected double scorePersonSimilarity(long pid, int numClusters) {
+        double sim = 0.0
+        Set<Long> used = new HashSet<Long>()
+        double[] clusterCoefficient = new double[numClusters];
+        Collections.sort(personScores[pid])
+        Arrays.fill(clusterCoefficient, 1.0)
+        def clusterScores = [:]
+        def clusterCounts = [:]
+        for (IdAndScore interestAndSim: personScores[pid]) {
+            if (used.contains(interestAndSim.id2)) {
+                continue
+            }
+            used.add(interestAndSim.id2)
+            int c = interestClusters[interestAndSim.id2]
+            double s = interestAndSim.score
+            s *= clusterCoefficient[c]
+            clusterScores[interestAndSim.id] = clusterScores.get(interestAndSim.id, 0.0) + s
+            clusterCounts[interestAndSim.id] = clusterCounts.get(interestAndSim.id, 0) + 1
+            sim += s
+            clusterCoefficient[c] *= clusterPenalty
+        }
+        personClusterRelevances[pid] = clusterScores
+        personClusterCounts[pid] = clusterCounts
+
+        return sim
     }
 
 }
