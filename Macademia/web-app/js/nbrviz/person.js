@@ -10,9 +10,10 @@ var PersonCenter = RaphaelComponent.extend({
     init : function(params) {
         this._super(params);
 
+        this.IMAGE_ASPECT = 130.0 / 194.0;
         // constants
-        this.IMAGE_WIDTH = 20;
-        this.IMAGE_HEIGHT = this.IMAGE_WIDTH * 194 / 130;
+        this.IMAGE_WIDTH = 28;
+        this.IMAGE_HEIGHT = this.IMAGE_WIDTH / this.IMAGE_ASPECT;
         this.LABEL_VERT_OFFSET = 13;
         this.LABEL_HORIZ_OFFSET = 13;
 
@@ -20,7 +21,7 @@ var PersonCenter = RaphaelComponent.extend({
         this.interestGroups = params.interestGroups;
         this.imageWidth = params.imageWidth || this.IMAGE_WIDTH;
         this.imageHeight = params.imageHeight || this.IMAGE_HEIGHT;
-        this.innerRadius = params.innerRadius || this.imageHeight * .6;
+        this.innerRadius = params.innerRadius || this.imageHeight * .5;
         this.outerRadius = params.outerRadius || this.innerRadius + 10;
         this.picture = params.picture || "";
         this.name = params.name || "nameless person";
@@ -106,7 +107,38 @@ var PersonCenter = RaphaelComponent.extend({
         });
 
     },
-    foo : false
+    rescale : function(scalingFactor) {
+        var x = this.getX();
+        var y = this.getY();
+        var self = this;
+        $.each(this.getLayers(), function(i, l) {
+            if (l != self.handle) { l.stop(); }
+        });
+        var ms = 200;
+        this.image.animate({
+            width : this.imageWidth * scalingFactor,
+            height : this.imageHeight * scalingFactor,
+            x : x - this.imageWidth * scalingFactor / 2,
+            y : y - this.imageHeight * scalingFactor / 2
+        }, ms);
+        this.innerStroke.animate({ r : this.innerRadius * scalingFactor }, ms);
+        var newOuterRadius = Math.sqrt(scalingFactor) * this.outerRadius;
+        this.outerStroke.animate({ r : (this.innerRadius * scalingFactor + newOuterRadius)}, ms);
+
+        var self = this;
+        var amount = 1.0;
+        $.each(this.interestGroups, function(i) {
+            var ig = this[0];
+            var w = self.wedges[i];
+            w.animate({
+                personArc: [x, y, newOuterRadius, amount, self.innerRadius * scalingFactor]
+            }, ms);
+            amount -= this[2];
+        });
+        this.nameText.animate({
+            y: y+this.innerRadius * scalingFactor +newOuterRadius +this.LABEL_HORIZ_OFFSET
+        }, ms);
+    }
 });
 
 /**
@@ -157,6 +189,14 @@ var Person = MNode.extend({
             outerRadius : this.collapsedRadius,
             paper : this.paper
         });
+    },
+    onHoverIn : function() {
+        this._super();
+        this.centerNode.rescale(2.6);
+    },
+    onHoverOut : function() {
+        this._super();
+        this.centerNode.rescale(1.0);
     },
     setPosition : function(x, y) {
         this._super(x, y);

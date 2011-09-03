@@ -159,6 +159,7 @@ var MNode = RaphaelComponent.extend(
             xOffset: textPos[0] - pos[0],
             yOffset: textPos[1] - pos[1],
             paper: this.paper,
+            hoverDelay : 50,
             font : macademia.nbrviz.subFont,
             boldFont : macademia.nbrviz.subFontBold
         });
@@ -236,7 +237,7 @@ var MNode = RaphaelComponent.extend(
         $.each(this.relatedInterestNodes, function(i, ri) {
             ri.show();
             ri.showText();
-            ri.normal();
+            ri.highlightNone();
             ri.animate(
                     { x: nodePositions[i][0], y: nodePositions[i][1] },
                     800,
@@ -278,6 +279,11 @@ var MNode = RaphaelComponent.extend(
                 {r: 0}, 400, "backIn",
                 function () {  self.state = self.STATE_COLLAPSED;}
         );
+        var li = this.lastInterestHoverIndex;
+        if (li != this.HOVER_NONE) {
+            this.lastInterestHoverIndex = this.HOVER_NONE;
+            this.onInterestHoverOut(this.relatedInterests[li], this.relatedInterestNodes[li]);
+        }
     },
 
     /**
@@ -291,14 +297,14 @@ var MNode = RaphaelComponent.extend(
         }
         $.each(this.relatedInterestNodes,
                 function (i, n) {
-                    (n == relatedInterestNode) ? n.highlight() : n.fadeout();
+                    (n == relatedInterestNode) ? n.highlightOn() : n.highlightOff();
                 });
         for (var i = 0; i < this.hoverInterestListeners.length; i++) {
             this.hoverInterestListeners[i]['in'](this, relatedInterest, relatedInterestNode);
         }
     },
     onInterestHoverOut : function(relatedInterest, relatedInterestNode) {
-        $.each(this.relatedInterestNodes, function (i, n) { n.normal(); });
+        $.each(this.relatedInterestNodes, function (i, n) { n.highlightNone(); });
         for (var i = 0; i < this.hoverInterestListeners.length; i++) {
             this.hoverInterestListeners[i]['out'](this, relatedInterest, relatedInterestNode);
         }
@@ -310,11 +316,11 @@ var MNode = RaphaelComponent.extend(
     onDragStart : function() {
         this.state = this.STATE_DRAGGING;
         this.ring.hide();
-        this.centerNode.normal();
+        this.centerNode.highlightNone();
         $.each(this.relatedInterestNodes, function(i, ri) {
             ri.onDragStart();
             ri.hide();
-            ri.normal();
+            ri.highlightNone();
         });
     },
     onDragMove : function(dx, dy) {
@@ -323,7 +329,7 @@ var MNode = RaphaelComponent.extend(
         this.centerNode.normal();
         $.each(this.relatedInterestNodes, function(i, ri) {
             ri.onDragMove(dx, dy);
-            ri.normal();
+            ri.highlightNone();
         });
         this.notifyMoveListeners();
     },
@@ -358,6 +364,7 @@ var MNode = RaphaelComponent.extend(
         if (this.state != this.STATE_EXPANDED) {
             return;
         }
+        var ms = Date.now();
         var closestIndex = this.HOVER_NONE;
         var closestDistance = 1000000000000000;
         $.each(this.relatedInterestNodes,

@@ -12,6 +12,10 @@
 var Sphere = RaphaelComponent.extend({
     init : function(params) {
         this._super(params);
+        this.HIGHLIGHT_NONE = 0;
+        this.HIGHLIGHT_ON = 1;
+        this.HIGHLIGHT_OFF = 2;
+
         this.r = params.r;
         this.xOffset = params.xOffset;
         this.yOffset = params.yOffset;
@@ -20,6 +24,8 @@ var Sphere = RaphaelComponent.extend({
         this.font = params.font || macademia.nbrviz.mainFont;
         this.boldFont = params.boldFont || macademia.nbrviz.mainFontBold;
         this.labelBgOpacity = params.labelBgOpacity || 0.6;
+        this.highlightMode = this.HIGHLIGHT_NONE;
+        this.glow = null;
 
         var x = params.x, y = params.y;
 
@@ -72,24 +78,45 @@ var Sphere = RaphaelComponent.extend({
         this.installListeners();
     },
 
-    highlight : function() {
-        this.label.attr({fill: '#000', 'font': this.boldFont, 'font-weight' : 'bold'});
-        this.highlightRing.show();
-        this.labelBg.show();
-        this.toFront();
+    highlightNone : function() { this.setHighlightMode(this.HIGHLIGHT_NONE); },
+    highlightOn : function() { this.setHighlightMode(this.HIGHLIGHT_ON); },
+    highlightOff : function() { this.setHighlightMode(this.HIGHLIGHT_OFF); },
+    setHighlightMode : function(mode) {
+        var lastMode = this.highlightMode;
+        if (mode == lastMode) {
+            return;
+        }
+        var attrs = {};
+
+        // change from highlight to normal and vice-versa
+        if (mode == this.HIGHLIGHT_ON) {
+            attrs['font'] = this.boldFont;
+            attrs['font-weight'] = 'bold';
+            if (this.glow == null) {
+                this.glow = this.gradient1.glow();
+            }
+        } else if (lastMode == this.HIGHLIGHT_ON) {
+            attrs['font'] = this.font;
+            attrs['font-weight'] = 'normal';
+            if (this.glow != null) {
+                this.glow.hide();
+                this.glow.remove();
+                this.glow = null;
+            }
+        }
+
+        // set color
+        if (mode == this.HIGHLIGHT_ON) {
+            attrs['fill'] = '#000';
+        } else if (mode == this.HIGHLIGHT_NONE) {
+            attrs['fill'] = '#666';
+        } else if (mode == this.HIGHLIGHT_OFF) {
+            attrs['fill'] = '#999';
+        }
+        this.label.attr(attrs);
+        this.highlightMode = mode;
     },
 
-    fadeout : function() {
-        this.label.attr({fill: '#666', 'font': this.font, 'font-weight' : 'normal'});
-        this.highlightRing.hide();
-        this.labelBg.hide();
-    },
-
-    normal : function() {
-        this.label.attr({fill: '#000', 'font': this.font, 'font-weight' : 'normal'});
-        this.highlightRing.hide();
-        this.labelBg.hide();
-    },
 
     show : function() {
         this._super();

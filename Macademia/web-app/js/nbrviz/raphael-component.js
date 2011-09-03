@@ -5,10 +5,14 @@ var RaphaelComponent = Class.extend({
         }
         this.hoverSet = null;
         this.paper = params.paper;
+        this.hoverDelay = params.hoverDelay || null;
     },
     hover : function(mouseoverCallback, mouseoutCallback) {
         if (this.hoverSet == null) {
             this.hoverSet = new HoverSet(this.getLayers());
+            if (this.hoverDelay != null) {
+                this.hoverSet.inDelay = this.hoverDelay;
+            }
         }
         this.hoverSet.hover(mouseoverCallback, mouseoutCallback);
     },

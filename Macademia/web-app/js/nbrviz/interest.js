@@ -73,7 +73,7 @@ var InterestCluster = MNode.extend({
             var last = this.lastInterestHoverIndex;
             if (this.lastInterestHoverIndex != this.HOVER_CENTER) {
                 this.lastInterestHoverIndex = this.HOVER_CENTER;
-                this.centerNode.highlight();
+                this.centerNode.highlightOn();
                 this.onInterestHoverIn(this.interest, this.centerNode);
                 if (last > 0) {
                     this.onInterestHoverOut(
@@ -82,11 +82,14 @@ var InterestCluster = MNode.extend({
                 }
             }
         } else {
-            this.centerNode.fadeout();
+            this.centerNode.highlightOff();
             this._super(e);
         }
     },
-    foo : false
+    onHoverOut : function() {
+        this._super();
+        this.centerNode.highlightNone();
+    }
 });
 
 
