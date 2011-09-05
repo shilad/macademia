@@ -3,6 +3,7 @@
  * @param vizJson
  */
 macademia.nbrviz.initQueryViz = function(vizJson) {
+//    console.profile();
     var paper = macademia.nbrviz.initPaper("graph", $("#graph").width(), $("#graph").height());
 
     width = $(document).width()-50;
@@ -141,6 +142,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
     qv.layoutPeople();
     qv.setupListeners();
     macademia.nbrviz.qv = qv;
+//    console.profileEnd();
 };
 
 /**

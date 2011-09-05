@@ -44,7 +44,7 @@ var PersonCenter = RaphaelComponent.extend({
         $.each(this.interestGroups, function() {
             var ig = this[0];
             var sat = Math.max(0.25, Math.min(this[1] * this[1] * this[1] / 6, 0.8));
-            console.log(self.name + ': ' + ig.name + ' ' + sat);
+//            console.log(self.name + ': ' + ig.name + ' ' + sat);
             var color = self.fillHsb(ig.color, sat);
             var section = self.paper.path().attr({stroke: color, opacity: 0});
             self.wedges.push(section);
@@ -82,7 +82,9 @@ var PersonCenter = RaphaelComponent.extend({
     getHandle : function() { return this.handle; },
     getX : function() { return this.handle.attr('cx'); },
     getY : function() { return this.handle.attr('cy'); },
-    normal : function() {},
+    highlightOn : function() {},
+    highlightNone : function() {},
+    highlightOff : function() {},
     setPosition : function(x, y) {
         var circles = [this.handle, this.innerStroke, this.outerStroke, this.imageBg];
         $.each(circles, function() { this.attr({cx : x, cy : y}); });

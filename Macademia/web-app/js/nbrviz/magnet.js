@@ -50,8 +50,16 @@ Point.updateVelocity = function(timestep) {
 	});
 };
 
+var POSITIONS = [];
+var INDEX = 0;
+
 Point.updatePosition = function(timestep) {
+//    var maxD = 0;
+//    var meanD = 0;
+
 	Point.points.forEach(function(p) {
+//        var sx0 = p.screenX();
+//        var sy0 = p.screenY();
 		p.p = p.p.add(p.v.multiply(timestep));
         var sx = p.screenX();
         var sy = p.screenY();
@@ -65,7 +73,44 @@ Point.updatePosition = function(timestep) {
         } else if (sy > height - PADDING) {
             p.setScreenY(height - PADDING);
         }
+//        var d = Math.sqrt((sx0 - sx) * (sx0 - sx) + (sy0 - sy) * (sy0 - sy));
+//        meanD += d;
+//        if (d > maxD) {
+//            maxD = d;
+//        }
 	});
+//    if (INDEX++ % 100 == 0) {
+//        var ps = [];
+//        $.each(Point.points, function() {
+//            ps.push({x : this.screenX(), y : this.screenY()});
+//        });
+//        POSITIONS.push(ps);
+//    }
+
+//    console.log('meanD: ' + meanD + ', maxD: ' + maxD);
+};
+
+Point.printDeltas = function() {
+    for (var i = 0; i < POSITIONS.length; i++) {
+        var maxD = 0;
+        var meanD = 0;
+
+        for (var j = 0; j < Point.points.length; j++) {
+            var p0 = POSITIONS[i][j];
+            var p1 = Point.points[j];
+            var sx0 = p0.x;
+            var sy0 = p0.y;
+            var sx1 = p1.screenX();
+            var sy1 = p1.screenY();
+            var d = Math.sqrt((sx0 - sx1) * (sx0 - sx1) + (sy0 - sy1) * (sy0 - sy1));
+            meanD += d;
+            if (d > maxD) {
+                maxD = d;
+            }
+        }
+        console.log('i: ' + i + 'n: ' + Point.points.length +
+                ' meanD: ' + meanD / Point.points.length + ', maxD: ' + maxD);
+    }
 };
 
 // convert point to screen coordinates
@@ -186,4 +231,5 @@ function startLayout(threshold) {
 			break;
 		}
 	}
+//    Point.printDeltas();
 }

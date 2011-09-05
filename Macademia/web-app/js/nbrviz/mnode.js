@@ -86,7 +86,7 @@ var MNode = RaphaelComponent.extend(
         } else {
             this.centerNode.setPosition(x, y);
             this.ring.attr({cx : x, cy : y});
-            $.each(this.relatedInterestNodes, function() {this.setPosition(x, y);});
+//            $.each(this.relatedInterestNodes, function() {this.setPosition(x, y);});
         }
     },
 
@@ -136,6 +136,7 @@ var MNode = RaphaelComponent.extend(
             var pos = positions[0][i];
             var textPos = positions[1][i];
             var node = self.createOneRelatedInterestNode(this, pos, textPos);
+            node.hide();
             self.relatedInterestNodes.push(node);
         });
     },
@@ -148,7 +149,7 @@ var MNode = RaphaelComponent.extend(
      */
     createOneRelatedInterestNode : function(interest, pos, textPos) {
         var sat = Math.max(Math.min(1.0, interest.relevance * interest.relevance * 2), .2);
-        console.log('relatedness for ' + interest.name + ' is ' + sat);
+//        console.log('relatedness for ' + interest.name + ' is ' + sat);
         var node = new Sphere({
             x: this.x,
             y: this.y,
@@ -235,6 +236,7 @@ var MNode = RaphaelComponent.extend(
 
         var self = this;
         $.each(this.relatedInterestNodes, function(i, ri) {
+            ri.setPosition(self.x, self.y);
             ri.show();
             ri.showText();
             ri.highlightNone();
@@ -326,7 +328,7 @@ var MNode = RaphaelComponent.extend(
     onDragMove : function(dx, dy) {
         this.x = this.centerNode.getX();
         this.y = this.centerNode.getY();
-        this.centerNode.normal();
+        this.centerNode.highlightNone();
         $.each(this.relatedInterestNodes, function(i, ri) {
             ri.onDragMove(dx, dy);
             ri.highlightNone();

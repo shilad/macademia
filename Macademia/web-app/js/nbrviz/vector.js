@@ -25,6 +25,8 @@ OTHER DEALINGS IN THE SOFTWARE.
 adapted from source: dhotson.github.com/springy.html
 */
 
+var VECTOR_DEBUG = false;
+
 function Vector(x, y)
 {
 	this.x = x;
@@ -38,28 +40,28 @@ Vector.random = function()
 
 Vector.prototype.add = function(v2)
 {
-    if(v2 == NaN)
+    if(VECTOR_DEBUG && v2 == NaN)
         alert("adding NaN");
 	return new Vector(this.x + v2.x, this.y + v2.y);
 };
 
 Vector.prototype.subtract = function(v2)
 {
-    if(v2 == NaN)
+    if(VECTOR_DEBUG && v2 == NaN)
         alert("minus NaN");
 	return new Vector(this.x - v2.x, this.y - v2.y);
 };
 
 Vector.prototype.multiply = function(n)
 {
-    if(n == NaN)
+    if(VECTOR_DEBUG && n == NaN)
         alert("times NaN");
 	return new Vector(this.x * n, this.y * n);
 };
 
 Vector.prototype.divide = function(n)
 {
-	if(n==0 || n==NaN) {
+	if(VECTOR_DEBUG &&  (n==0 || n==NaN)) {
 		alert("about to divide by zer0/NaN");
 	}
 	return new Vector(this.x / n, this.y / n);
@@ -68,14 +70,14 @@ Vector.prototype.divide = function(n)
 Vector.prototype.magnitude = function()
 {
 	var a = Math.sqrt(this.x*this.x + this.y*this.y);
-    if(a == NaN)
+    if(VECTOR_DEBUG && a == NaN)
         alert("magnitude is NaN");
     return a
 };
 
 Vector.prototype.normalise = function()
 {
-	if(this.magnitude==0 || this.magnitude()==NaN) {
+	if(VECTOR_DEBUG && (this.magnitude==0 || this.magnitude()==NaN)) {
 		alert("zero vector has no direction!");
 	}
 	return this.divide(this.magnitude());
