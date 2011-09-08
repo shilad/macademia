@@ -19,6 +19,13 @@ public class TimingAnalysis {
         startTime();
     }
 
+    public void clear() {
+        labelOrder.clear();
+        totalTime.clear();
+        calls.clear();
+        startTime();
+    }
+
     public TimingAnalysis() {
         this(null);
     }

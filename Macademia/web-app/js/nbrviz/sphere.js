@@ -38,15 +38,7 @@ var Sphere = RaphaelComponent.extend({
             fill = "r(.5,.9)hsb(" + hue + "," + sat + " , .9)-hsb(" + hue + ", " + sat + ", .8)";
         }
 
-        this.gradient1 = this.paper.ellipse(x, y, this.r, this.r)
-                    .attr({fill: fill, stroke: '#ccc'});
-
-                // gradient 2
-        this.gradient2 = this.paper.ellipse(
-                        x, y, this.r - this.r / 5, this.r - this.r / 20)
-                    .attr({stroke: "none", fill: "r(.5,.1)#ddd-#ddd", opacity: 0});
-
-                // label
+        // label
         this.label = this.paper.text(x + this.xOffset, y + this.yOffset, this.name)
                     .attr({fill: '#000', 'font': this.font});
 
@@ -58,8 +50,14 @@ var Sphere = RaphaelComponent.extend({
                             bbox.height*1.2
                         );
         this.labelBg.attr({ 'fill' : '#fff', 'fill-opacity' : this.labelBgOpacity, 'stroke-width' : 0});
-        this.labelBg.insertBefore(this.gradient1);
         this.labelBg.hide();
+        this.label.toFront();
+
+        this.gradient1 = this.paper.ellipse(x, y, this.r, this.r)
+                    .attr({fill: fill, stroke: '#ccc'});
+        this.gradient2 = this.paper.ellipse(
+                        x, y, this.r - this.r / 5, this.r - this.r / 20)
+                    .attr({stroke: "none", fill: "r(.5,.1)#ddd-#ddd", opacity: 0});
 
         // invisible layer (useful for event handling)
         this.handle =  this.paper.rect(
@@ -90,12 +88,14 @@ var Sphere = RaphaelComponent.extend({
 
         // change from highlight to normal and vice-versa
         if (mode == this.HIGHLIGHT_ON) {
+            this.labelBg.show();
             attrs['font'] = this.boldFont;
             attrs['font-weight'] = 'bold';
             if (this.glow == null) {
                 this.glow = this.gradient1.glow();
             }
         } else if (lastMode == this.HIGHLIGHT_ON) {
+            this.labelBg.hide();
             attrs['font'] = this.font;
             attrs['font-weight'] = 'normal';
             if (this.glow != null) {

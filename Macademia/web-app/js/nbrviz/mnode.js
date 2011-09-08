@@ -297,9 +297,15 @@ var MNode = RaphaelComponent.extend(
         if (this.state != this.STATE_EXPANDED) {
             return;
         }
+        var self = this;
         $.each(this.relatedInterestNodes,
                 function (i, n) {
-                    (n == relatedInterestNode) ? n.highlightOn() : n.highlightOff();
+                    if (n == relatedInterestNode) {
+                        n.toFront(self.centerNode.getBottomLayer());
+                        n.highlightOn();
+                    } else {
+                        n.highlightOff();
+                    }
                 });
         for (var i = 0; i < this.hoverInterestListeners.length; i++) {
             this.hoverInterestListeners[i]['in'](this, relatedInterest, relatedInterestNode);

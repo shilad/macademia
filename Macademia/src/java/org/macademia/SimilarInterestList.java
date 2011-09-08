@@ -110,14 +110,8 @@ public class SimilarInterestList {
     public ListIterator listIterator(int index) {
         return list.listIterator(index);  //To change body of implemented methods use File | Settings | File Templates.
     }
-
-    public SimilarInterestList subList(int fromIndex, int toIndex) {
-        return new SimilarInterestList((ArrayList<SimilarInterest>)list.subList(fromIndex, toIndex));  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
     public SimilarInterestList getSublistTo(int i) {
-        ArrayList<SimilarInterest> res = new ArrayList<SimilarInterest>(list.subList(0, i));
-        return new SimilarInterestList(res);
+        return new SimilarInterestList(new ArrayList<SimilarInterest>(list.subList(0, i)));
     }
 
     public void remove(SimilarInterest remove) {
@@ -172,9 +166,12 @@ public class SimilarInterestList {
     }
 
     public void normalize() {
-        for (SimilarInterest si : list) {
-            // TODO: do something reasonable here.
-            si.similarity = sigmoid((si.similarity - 0.15) * 4);
+        if (!list.isEmpty()) {
+            for (SimilarInterest si : list) {
+                // TODO: do something reasonable here.
+                si.similarity = sigmoid((si.similarity - 0.15) * 4);
+            }
+            double secondBiggest = 0.0;
         }
     }
 }

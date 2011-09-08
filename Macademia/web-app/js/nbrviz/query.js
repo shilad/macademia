@@ -15,13 +15,12 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
     var relatedInterestsById = {};
 
     $.each(vizJson.queries, function (i, id) {
-        clusterColors[id] = 1.0 * i / vizJson.queries.length + 1.0 / vizJson.queries.length / 2;
-        relatedInterests[id] = [];
-        vizJson.interests[id].cluster = id;  // work around omission from json service...
+        clusterColors[i] = 1.0 * i / vizJson.queries.length + 1.0 / vizJson.queries.length / 2;
+        relatedInterests[i] = [];
     });
 
     $.each(vizJson.interests, function (id, info) {
-        var hasCluster = (info.cluster && info.cluster >= 0);
+        var hasCluster = (info && info.cluster >= 0);
         var color = -1;
         if (hasCluster) {
             color = clusterColors[info.cluster];
@@ -39,12 +38,13 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
         var info = vizJson.interests[id];
         var ic = new InterestCluster({
             id : id,
+            clusterId : i,
             relatedInterests : [], // interests will be added here as people are added to the viz
             name : info.name,
-            color : clusterColors[id],
+            color : clusterColors[i],
             paper : paper
         });
-        queryInterests[id] = ic;
+        queryInterests[i] = ic;
     });
 
     // Create people
@@ -80,7 +80,7 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
         var pnrinterests = [];
         $.each(pinfo.interests, function(i, id) {
             var iinfo = vizJson.interests[id];
-            if (iinfo.cluster && iinfo.cluster >= 0 && iinfo.cluster != iinfo.id) {
+            if (iinfo && iinfo.cluster >= 0) {
                 pinterests.push(relatedInterestsById[id]);
                 var clusterId = vizJson.interests[id].cluster;
                 if ($.inArray(relatedInterestsById[id], queryInterests[clusterId].relatedInterests) == -1) {
@@ -222,34 +222,19 @@ QueryViz.prototype.layoutInterests = function() {
 
         interestCluster.setPosition(xDisp, yDisp);
 
-        var mag = new Magnet( new Vector( xDisp, yDisp), interestCluster.id ); //TODO: make sure this index matches up with the index for the relevance table
+        var mag = new Magnet( new Vector( xDisp, yDisp), interestCluster.clusterId );
     });
 };
 
 QueryViz.prototype.layoutPeople = function( /*coords*/ ) {
     var self = this;
     $.each(this.people, function(i, person) {
-        //var xRand = Math.floor( Math.random() * ($(document).width() - 190) ) + 95;
-        //var yRand = Math.floor( Math.random() * ($(document).height() - 190) ) + 95;
-
-        // TODO: fixme: why would this ever not be true?
-        if (person.interestGroups.length > 0) {
-            //coords.push({'x':xRand, 'y':yRand});
-            /*var val;
-            if( (val = distributePeople( coords )) != null ) {
-                xRand = val['x'];
-                yRand = val['y'];
-            }*/
-
-            var p = new Point( Vector.random() );
-            p.setStuff( i, person.relevance );  //TODO: this doenst exist in person yet
-
-            //person.setPosition(xRand, yRand);
-        }
+        var p = new Point( Vector.random() );
+        p.setStuff( i, person.relevance );
     });
     startLayout(.1);
     $.each(Point.points, function(index, p) {
-        self.people[p.id].setPosition( p.screenX(), p.screenY()); //TODO screenx
+        self.people[p.id].setPosition( p.screenX(), p.screenY());
     });
 };
 
@@ -259,7 +244,7 @@ QueryViz.prototype.layoutPeople = function( /*coords*/ ) {
 QueryViz.prototype.relayoutPeople = function(interestCluster, x, y) {
     var start = Date.now();
 //    console.log('on move ' + interestCluster.name + ' to ' + x + ', ' + y);
-    var mag = Magnet.findById(interestCluster.id);
+    var mag = Magnet.findById(interestCluster.clusterId);
     mag.setPosition(x, y);
     startLayout(1);
     var step1 = Date.now();

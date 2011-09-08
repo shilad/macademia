@@ -62,16 +62,15 @@ class Json2Service {
     def interestService
     def pseudonymService
 
-    boolean transactional = true
+    boolean transactional = false
 
-    def makeJsonPerson(Person p, Long sid) {
+    def makeJsonPerson(Long pid, QueryVizGraph graph, Long sid) {
         def interests = []
-        for (i in p.interests){
-            interests.add(i.id)
-        }
-        def fakedata = pseudonymService.getFakeData(sid, p.id)
-        return [
-                id: p.id,
+        def pedges = graph.personClusterEdges[pid]
+        pedges.each({interests.addAll(it.relevantInterestIds)})
+        def fakedata = pseudonymService.getFakeData(sid, pid)
+        def json = [
+                id: pid,
                 fid: fakedata.id,
                 name: fakedata.name,
                 pic: fakedata.pic,
@@ -79,119 +78,46 @@ class Json2Service {
                 count: [:],
                 interests: interests
         ]
+        def overallCount = 0
+        pedges.each({
+            json.relevance[it.clusterId] = it.relevance
+            json.count[it.clusterId] = it.relevantInterestIds.size()
+            if (it.clusterId >= 0) {
+                overallCount += it.relevantInterestIds.size()
+            }
+        })
+        json.relevance.overall = graph.personScores[pid]
+        json.count.overall = overallCount
+        return json
     }
 
-    def makeJsonInterest(Interest i){
+    def makeJsonInterest(Long iid, QueryVizGraph graph) {
+        Interest i = Interest.get(iid)
         return [
-                id: i.id,
-                name: i.text,
-                cluster:-1
+                id : iid,
+                name : i.text,
+                cluster : graph.interestClusters[iid].id,
+                relevance : graph.interestClusters[iid].score,
         ]
     }
 
-    /**
-     * Too much branching logic. This should be split up into three separate modes. Yuck
-     * @param graph
-     * @param sid
-     * @return
-     */
-    def buildJsonForGraph(Graph graph, Long sid){
-        Map<Long, Object> personNodes = [:]
-        Map<Long, Object> interestNodes = [:]
-        graph.clusterRootInterests()
-        for (Person p: graph.getPeople()){
-            personNodes[p.id] = makeJsonPerson(p, sid)
-            personNodes[p.id]['relevance']['overall'] = graph.personScores[p.id].score.sum()
-            for (Edge e: graph.getAdjacentEdges(p)){
-                e.reify()
-                [e.interest, e.relatedInterest].each({
-                    if (it && !interestNodes[it.id]) {
-                        interestNodes[it.id] = makeJsonInterest(it)
-                    }
-                })
-            }
-        }
-        for (Map.Entry<Long, Integer> entry : graph.interestClusters.entrySet()){
-            if (interestNodes.containsKey(entry.key)){
-                interestNodes[entry.key]['cluster'] = entry.value
-                interestNodes[entry.key]['relevance'] = graph.otherInterestSims[entry.key][entry.value]
-            }
-        }
-        return ['people':personNodes] + ['interests':interestNodes]
-    }
 
-
-    def buildQueryCentricGraph(Set<Long> queryIds, NbrvizGraph graph, Long sid){
+    def buildQueryCentricGraph(QueryVizGraph graph, Long sid){
         Map<Long, Map> personNodes = [:]
         Map<Long, Map> interestNodes = [:]
-        for (Person p: graph.getPeople()){
-            personNodes[p.id] = makeJsonPerson(p, sid)
-            personNodes[p.id]['relevance']['overall'] = graph.finalPersonScores[p.id]
-            for (Edge e: graph.getAdjacentEdges(p)){
-                e.reify()
-                [e.interest, e.relatedInterest].each({
-                    if (it && !interestNodes[it.id]) {
-                        interestNodes[it.id] = makeJsonInterest(it)
-                    }
-                })
-                def iid = e.interestId
-                def rid = e.relatedInterestId
-                if (rid == null) {
-                    interestNodes[iid].cluster = iid
-                    interestNodes[iid].relevance = 0.8 /// hack
-                } else if (rid >= 0) {
-                    if (graph.interestClusters.containsKey(rid)) {
-                        interestNodes[rid].cluster = iid
-                        interestNodes[rid].relevance = graph.otherInterestSims[rid][iid]
-                    }
-                }
-            }
+
+        for (Long pid: graph.getPersonIds()){
+            personNodes[pid] = makeJsonPerson(pid, graph, sid)
         }
-        for (Person p : graph.getPeople()){
-            for (Interest i : p.interests) {
-                if (!interestNodes[i.id]) {
-                    interestNodes[i.id] = makeJsonInterest(i)
-                }
-            }
-            if (graph.personClusterCounts.containsKey(p.id)) {
-                Map<Long, Integer> counts = graph.personClusterCounts[p.id]
-                Map<Long, Double> rels = graph.personClusterRelevances[p.id]
-                for (Long c : counts.keySet()) {
-                    personNodes[p.id]['relevance'][c] = rels[c]
-                    personNodes[p.id]['count'][c] = counts[c]
-                }
-            }
+
+        for (Long iid : graph.interestClusters.keySet()) {
+            interestNodes[iid] = makeJsonInterest(iid, graph)
         }
+
         return [
                 'people':personNodes,
                 'interests':interestNodes,
-                'queries' : queryIds
+                'queries' : graph.queryIds
         ]
-    }
-
-    def buildExplorationCentricGraph(Object root, Graph graph, Long sid){
-        def basejson = buildJsonForGraph(graph, sid)
-        Map<Long, List> clusters= [:]
-        for(MapEntry e: graph.interestClusters.entrySet()){
-            if(!clusters[e.value]){
-                clusters[e.value] = []
-            }
-            clusters[e.value].add(e.key)
-        }
-        for (Person p : graph.getPeople()){
-            for (Integer cid : clusters.keySet()){
-                def something = graph.clusterSimilarity(p.interests.collect({ it.id }) as Collection<Long>, clusters[cid] as Collection<Long> )
-                basejson['people'][p.id]['relevance'][cid] = something
-            }
-        }
-        return ['root':root.id] + basejson
-    }
-
-    def buildExplorationCentricGraph(Object root, Graph graph){
-        return buildExplorationCentricGraph(root,graph,0)
-    }
-
-    def buildQueryCentricGraph(Set<Long> qset, Graph graph){
-        return buildQueryCentricGraph(qset, graph, 0)
     }
 }

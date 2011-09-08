@@ -2,8 +2,8 @@ package org.macademia;
 
 //public class IdAndScore<K extends Comparable> implements Comparable<IdAndScore<K>> {
 public class IdAndScore implements Comparable {
-    public final Comparable id;
-    public final Comparable id2;
+    public Comparable id;
+    public Comparable id2;
     public Double score;
 
     public IdAndScore(Comparable id, Comparable id2, Double score) {

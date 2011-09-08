@@ -51,3 +51,8 @@ mongorestore -d $MONGO_DB --drop $MONGO_BACKUP/$MONGO_DB && \
 mongorestore -d $MONGO_DB_WP_TEST --drop $MONGO_WP_BACKUP_TEST/$MONGO_DB_WP_TEST && \
 mongorestore -d $MONGO_DB_WP_DEST --drop $MONGO_WP_BACKUP/$MONGO_DB_WP_DEST ||
     { echo "importing of dbs failed" >&2; exit 1; }
+
+mongo --eval 'db.users.ensureIndex({'interests' : 1});' $MONGO_DB && \
+mongo --eval 'db.articlesToIds.ensureIndex({'wpId' : 1});' $MONGO_DB_WP_DEST ||
+    { echo "mongodb index creation failed" >&2; exit 1; }
+

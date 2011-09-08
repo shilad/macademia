@@ -11,6 +11,7 @@ class Similarity2Service {
     def similarityService
     def interestService
     def databaseService
+    static double IDENTITY_SIM = 0.7
 
     /**
      * Creates and returns a new Graph based upon the parameter set
@@ -19,15 +20,50 @@ class Similarity2Service {
      * @param maxPeople The max number of people to include in the Graph.
      * @return A Graph
      */
-    public NbrvizGraph calculateQueryNeighbors(Set<Long> qset, int maxNeighbors) {
-        int maxPeople = Integer.MAX_VALUE
-        NbrvizGraph graph = new NbrvizGraph()
+    public QueryVizGraph calculateQueryNeighbors(Set<Long> qset, int maxNeighbors) {
+        TimingAnalysis ANALYSIS = new TimingAnalysis()
+        QueryVizGraph graph = new QueryVizGraph(qset)
+
+        // Calculate interest clusters
+        ANALYSIS.startTime()
         for (long q : qset){
-            Interest qi = interestService.get(q)
-            graph = calculateNeighbors(qi.id, graph, maxPeople, qset)
+            def c = graph.queryIdsToClusters[q]
+            graph.addRelatedInterest(q, c, IDENTITY_SIM);
+            def simInterests = similarityService.getSimilarInterests(q, 500, 0)
+            simInterests.normalize()
+            for (SimilarInterest ir : simInterests){
+                graph.addRelatedInterest(ir.interestId, c, ir.similarity)
+            }
         }
-        graph.clusterQueryInterests(qset)
+        ANALYSIS.recordTime("interest clusters")
+
+        // find people with those clusters
+        Map<Long, Set<Long>> personInterests = [:]
+        for (Long iid : graph.interestClusters.keySet()) {
+            for (Long pid : databaseService.getInterestUsers(iid)) {
+                if (!personInterests.containsKey(pid)) {
+                    personInterests[pid] = new HashSet<Long>()
+                }
+                personInterests[pid].add(iid)
+            }
+        }
+        ANALYSIS.recordTime("people1")
+
+        // Add people to the graph
+        for (Long pid : personInterests.keySet()) {
+            graph.addPerson(pid, personInterests[pid])
+        }
+        ANALYSIS.recordTime("people2")
+
+        // Calculate scores, prune graph, etc
         graph.finalizeGraph(maxNeighbors)
+        ANALYSIS.recordTime("finalize")
+        for (Long pid : graph.personClusterEdges.keySet()) {
+            graph.ensureAllInterestsExist(pid, databaseService.getUserInterests(pid))
+        }
+        ANALYSIS.recordTime("ensure")
+        ANALYSIS.analyze()
+
         return graph
     }
 

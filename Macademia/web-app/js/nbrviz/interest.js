@@ -12,6 +12,7 @@ macademia.nbrviz.interest = macademia.nbrviz.interest || {};
 var InterestCluster = MNode.extend({
     init : function(params) {
         this._super(params);
+        this.clusterId = params.clusterId;
         this.interest = new Interest(params);
 
         if(params.name) {
