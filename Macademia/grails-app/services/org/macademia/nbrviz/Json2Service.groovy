@@ -1,6 +1,7 @@
 package org.macademia.nbrviz
 
 import org.macademia.*
+import org.macademia.nbrviz.QueryVizGraph.InterestInfo
 
 /**
  * This Service supplies data in the JSON format for the construction
@@ -14,7 +15,7 @@ import org.macademia.*
  * [
  *      people: [
  *          p_id1: [
- *              id: long
+ *              id: int
  *              name: string
  *              pic: string
  *              relevance: [
@@ -33,10 +34,11 @@ import org.macademia.*
  *      ]
  *      interests: [
  *          i_id1: [
- *              id: long
+ *              id: int
  *              name: string
- *              cluster: int
- *              relevance : double
+ *              cluster: id of related query interest
+ *              subcluster: int of sub-interest related to query
+ *              relevance : double relevance to query
  *          ],
  *          i_id2: [ ... ], ...
  *      ]
@@ -47,11 +49,6 @@ import org.macademia.*
  *
  * [queries: [id1, id2...]] + jsonForGraph
  *
- *
- * Meanwhile, the exploration visualization adds the following data
- * by calling buildExplorationCentricGraph:
- *
- * [root: id] + jsonForGraph
  *
  */
 class Json2Service {
@@ -72,7 +69,8 @@ class Json2Service {
         def json = [
                 id: pid,
                 fid: fakedata.id,
-                name: fakedata.name,
+                name : Person.get(pid).fullName,
+//                name: fakedata.name,
                 pic: fakedata.pic,
                 relevance: [:],
                 count: [:],
@@ -93,11 +91,13 @@ class Json2Service {
 
     def makeJsonInterest(Long iid, QueryVizGraph graph) {
         Interest i = Interest.get(iid)
+        InterestInfo ii = graph.interestInfo[iid]
         return [
                 id : iid,
                 name : i.text,
-                cluster : graph.interestClusters[iid].id,
-                relevance : graph.interestClusters[iid].score,
+                cluster : ii.queryInterestId,
+                subcluster : ii.clusterInterestId,
+                relevance : ii.queryRelevance,
         ]
     }
 
@@ -110,7 +110,7 @@ class Json2Service {
             personNodes[pid] = makeJsonPerson(pid, graph, sid)
         }
 
-        for (Long iid : graph.interestClusters.keySet()) {
+        for (Long iid : graph.interestInfo.keySet()) {
             interestNodes[iid] = makeJsonInterest(iid, graph)
         }
 

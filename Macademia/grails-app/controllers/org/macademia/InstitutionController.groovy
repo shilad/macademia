@@ -1,7 +1,6 @@
 package org.macademia
 
 import grails.converters.JSON
-import org.json.JSONObject
 
 class InstitutionController {
     def institutionService
@@ -48,7 +47,7 @@ class InstitutionController {
 
     def primaryGroup = {
         if (!request.authenticated) {
-            render(MacademiaConstants.DEFAULT_GROUP)
+            render(MacademiaConstants.GROUP_DEFAULT)
             return
         } else if (params.group) {
             InstitutionGroup g = institutionGroupService.findByAbbrev(params.group)

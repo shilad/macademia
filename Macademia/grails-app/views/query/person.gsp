@@ -12,8 +12,8 @@
                                             $("#graph").width(),
                                             $("#graph").height());
     var interestGroups = [
-            [new Interest({name : 'boxing', id : 3424, 'color' : .4}), .7],
-            [new Interest({name : 'boxing', id : 3425, 'color' : .7}), .3]
+            [new Interest({name : 'boxing', id : 3424, 'color' : .4}), .7, 3],
+            [new Interest({name : 'boxing', id : 3425, 'color' : .7}), .3, 2]
     ];
     var s = new PersonCenter({
             innerRadius : 50,

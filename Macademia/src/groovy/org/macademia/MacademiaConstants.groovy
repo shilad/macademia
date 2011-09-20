@@ -30,6 +30,8 @@ public class MacademiaConstants {
 
     static final String LOCAL_CONFIG = "grails-app/conf/MacademiaConfig.groovy"
 
-    static final String DEFAULT_GROUP = "acm"
+    static final String GROUP_DEFAULT = "acm"
+    static final String GROUP_ALL = "all"
+
     public static final String DEFAULT_IMG = 'no_avatar.jpg'
 }

@@ -15,7 +15,7 @@ class UrlMappings {
 	  }
       "/" {
           controller = 'home'
-          group = MacademiaConstants.DEFAULT_GROUP
+          group = MacademiaConstants.GROUP_DEFAULT
           action = 'index'
       }
 

@@ -171,7 +171,21 @@ public class SimilarInterestList {
                 // TODO: do something reasonable here.
                 si.similarity = sigmoid((si.similarity - 0.15) * 4);
             }
-            double secondBiggest = 0.0;
+            double biggest = list.get(0).similarity;
+            double secondBiggest = biggest;
+            for (SimilarInterest si : list) {
+                if (si.similarity < biggest) {
+                    secondBiggest = si.similarity;
+                    break;
+                }
+            }
+            if (biggest != secondBiggest) {
+                double k = 0.8 / secondBiggest;
+                k = 0.5 * k + 0.5 * 1.0;
+                for (SimilarInterest si : list) {
+                    si.similarity = Math.min(1.0, k * si.similarity);
+                }
+            }
         }
     }
 }

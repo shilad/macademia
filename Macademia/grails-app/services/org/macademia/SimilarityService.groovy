@@ -50,7 +50,7 @@ class SimilarityService {
     * @param i
     */
     public void buildInterestRelations(Interest interest){
-        if (interest.articleId) {
+        if (interest.articleId && interest.articleId >= 0) {
             databaseService.buildInterestRelations(interest.normalizedText, interest.id, interest.articleId, relationsBuilt)
         } else {
             log.info("Interest $interest has no related article")

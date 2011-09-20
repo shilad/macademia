@@ -37,6 +37,20 @@ class InterestService implements ApplicationContextAware {
         wikipediaService.setCache(new File(fileDirectory+"wikipedia_cache.txt"))
     }
 
+    public void updateArticlesToInterests() {
+        Map<Long, Set<Long>> articlesToInterests = [:]
+        Interest.list().each({
+            if (it.articleId < 0) {
+                return
+            }
+            if (!articlesToInterests.containsKey(it.articleId)) {
+                articlesToInterests[it.articleId] = new HashSet<Long>()
+            }
+            articlesToInterests[it.articleId].add(it.id)
+        })
+        databaseService.updateArticlesToInterests(articlesToInterests)
+    }
+
    /**
     * Finds the most relevant document(s) for the interest
     * @param interest : an interest in the interest list
@@ -109,6 +123,14 @@ class InterestService implements ApplicationContextAware {
 
   public keywordRemove(Interest keyword, CollaboratorRequest request){
         return databaseService.removeKeywordFromRequest(keyword.id, request.id)
+  }
+
+  public int getInterestCount(Interest interest) {
+      return getInterestCount(interest.id)
+  }
+
+  public int getInterestCount(Long interestId) {
+      autocompleteService.getInterestCount(interestId)
   }
 
 }

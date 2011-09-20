@@ -11,9 +11,19 @@ macademia.nbrviz.interest = macademia.nbrviz.interest || {};
  */
 var InterestCluster = MNode.extend({
     init : function(params) {
+        if (params.subclusters) {
+            params.relatedInterests = $.map(
+                    params.subclusters,
+                    function(sc) {
+                        return params.interests[sc.id];
+                    }
+            );
+        }
+        this.subclusters = params.subclusters;
         this._super(params);
         this.clusterId = params.clusterId;
         this.interest = new Interest(params);
+        this.fadeLayer = null;
 
         if(params.name) {
             this.name = params.name;
@@ -22,8 +32,31 @@ var InterestCluster = MNode.extend({
             this.name = this.retrieveClusterName();
             this.hasCenter = false;
         }
-
+        if (this.isSubcluster()) {
+            this.expandedHandleRadius = params.expandedHandleRadius || this.expandedRadius;
+        } else {
+            var self = this;
+            // set up event handling...
+            $.each(this.subclusters, function(i, sc) {
+                    sc.setPosition(0, 0);
+                    self.hoverSet.addAll(sc.getLayers());
+                    sc.hide();
+                    sc.hover(
+                        function() { self.onSubclusterHoverIn(sc); },
+                        function() { self.onSubclusterHoverOut(sc); }
+                    );
+            });
+//            for (var i = 0; i < params.subclusters.length; i++) {
+//                var sc = this.subclusters[i];
+//                var i = this.relatedInterests[i];
+//            }
+        }
     },
+
+    isSubcluster : function() {
+        return !this.subclusters || !this.subclusters.length;
+    },
+
     /**
      * Takes an array of the names of related interests, finds the
      * two shortest names and returns a short string depending on
@@ -87,9 +120,87 @@ var InterestCluster = MNode.extend({
             this._super(e);
         }
     },
+
+    onInterestHoverIn : function(relatedInterest, relatedInterestNode) {
+        if (this.subclusters && relatedInterest.id != this.id) {
+            var sc = null;
+            for (var i = 0; i < this.subclusters.length; i++) {
+                if (this.subclusters[i].id == relatedInterest.id) {
+                    sc = this.subclusters[i];
+                    break;
+                }
+            }
+            if (sc == null) {
+                alert('did not find subcluster for ' + relatedInterest.name);
+                return;
+            }
+            if (sc.relatedInterests.length == 0) {
+                return;
+            }
+            // push the position out by 20% to leave more room for mousing out
+            var x = this.x + 1.4*(relatedInterestNode.getX() - this.x);
+            var y = this.y + 1.4*(relatedInterestNode.getY() - this.y);
+            sc.setPosition(x, y);
+            sc.show();
+            sc.toFront();
+            sc.expand();
+            this.raiseFadeLayer(sc.getBottomLayer());
+        } else if (this.subclusters) {
+            this._super(relatedInterest, relatedInterestNode);
+        }
+    },
+    onInterestHoverOut : function(relatedInterest, relatedInterestNode) {
+//        console.log('on interest hover out ' + relatedInterest.name);
+        if (this.subclusters) {
+        } else {
+            this._super(relatedInterest, relatedInterestNode);
+        }
+    },
+    raiseFadeLayer : function(inBackOf) {
+        if (this.fadeLayer != null) {
+            this.fadeLayer.remove();
+        }
+        var bbox = this.getLayerSet().getBBox();
+        this.fadeLayer = this.paper.rect(bbox.x, bbox.y, bbox.width, bbox.height)
+        this.fadeLayer.attr({'fill' : '#fff', 'fill-opacity' : 0.7, 'stroke-width' : 0});
+        this.fadeLayer.insertBefore(inBackOf);
+        this.hoverSet.add(this.fadeLayer);
+    },
+    lowerFadeLayer : function() {
+        if (this.fadeLayer != null) {
+            this.fadeLayer.remove();
+            this.fadeLayer = null;
+        }
+    },
+    createOneRelatedInterestNode : function(interest, pos, textPos) {
+        var node = this._super(interest, pos, textPos);
+        if (this.subclusters) {
+            var i = $.inArray(interest, this.relatedInterests);
+            var n = this.subclusters[i].relatedInterests.length;
+            node.addOrbit(n);
+        }
+        return node;
+    },
+    onHoverIn : function() {
+//        console.log('on hover in ' + this.name);
+        this._super();
+    },
     onHoverOut : function() {
+//        console.log('on hover out ' + this.name);
+        this.lowerFadeLayer();
         this._super();
         this.centerNode.highlightNone();
+        if (!this.isSubcluster()) {
+            $.each(this.subclusters, function(i, sc) {sc.hide();});
+        }
+    },
+    onSubclusterHoverIn : function(sc) {
+//        console.log('on subcluster hover in ' + this.name);
+    },
+    onSubclusterHoverOut : function(sc) {
+//        console.log('on subcluster hover out ' + this.name);
+        sc.hide();
+        this.lowerFadeLayer();
     }
 });
 
@@ -105,4 +216,5 @@ function Interest(params) {
     this.name = params.name;
     this.color = params.color;
     this.relevance = params.relevance || 1.0;
+    this.relatedQueryId = params.relatedQueryId || -1;
 }

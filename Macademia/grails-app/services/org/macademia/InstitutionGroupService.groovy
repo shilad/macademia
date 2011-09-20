@@ -32,7 +32,7 @@ class InstitutionGroupService {
     }
 
     InstitutionGroup getDefaultGroup() {
-        return findByAbbrev(MacademiaConstants.DEFAULT_GROUP)
+        return findByAbbrev(MacademiaConstants.GROUP_DEFAULT)
     }
 
     Institution findDefaultInstitutionForGroup(InstitutionGroup ig) {

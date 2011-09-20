@@ -47,8 +47,9 @@ var MNode = RaphaelComponent.extend(
         this.collapsedRadius = params.collapsedRadius || this.COLLAPSED_RADIUS;
         this.expandedRadius = params.expandedRadius || this.EXPANDED_RADIUS;
         this.relatedNodeRadius = params.relatedNodeRadius || this.RELATED_RADIUS;
+        this.expandedHandleRadius = params.expandedHandleRadius || (this.expandedRadius + 2 * this.relatedNodeRadius);
 
-        this.relatedInterests = params.relatedInterests || [];
+        this.relatedInterests = this.relatedInterests || params.relatedInterests || [];
         this.relatedInterestNodes = [];
 
         this.color = params.color || 0.1;
@@ -61,8 +62,19 @@ var MNode = RaphaelComponent.extend(
         this.lastNotifyX = null;
         this.lastNotifyY = null;
 
+        this.x = params.x || 0;
+        this.y = params.y || 0;
+
         // -2 means no hover, -1 means center interest hover
         this.lastInterestHoverIndex = this.HOVER_NONE;
+
+        this.createCenterNode();
+        if (this.centerNode == null) { alert('no center node created!'); }
+        this.createRelatedInterestNodes();
+        this.createRing();
+        this.getHandle().toFront();
+
+        this.installListeners();
     },
 
     /**
@@ -76,18 +88,8 @@ var MNode = RaphaelComponent.extend(
         this.lastNotifyX = x;
         this.lastNotifyY = y;
         // Initial positioning, or update?
-        if (this.centerNode == null) {
-            this.createCenterNode();
-            if (this.centerNode == null) { alert('no center node created!'); }
-            this.createRelatedInterestNodes();
-            this.createRing();
-            this.getHandle().toFront();
-            this.installListeners();
-        } else {
-            this.centerNode.setPosition(x, y);
-            this.ring.attr({cx : x, cy : y});
-//            $.each(this.relatedInterestNodes, function() {this.setPosition(x, y);});
-        }
+        this.centerNode.setPosition(x, y);
+        this.ring.attr({cx : x, cy : y});
     },
 
     getLayers : function() {
@@ -211,16 +213,21 @@ var MNode = RaphaelComponent.extend(
             );
     },
 
+    expand : function() {
+        this.onHoverIn(0);
+    },
+
     /**
      * Overall hover handlers
      */
-    onHoverIn : function() {
+    onHoverIn : function(millis) {
         if (this.state != this.STATE_COLLAPSED && this.state != this.STATE_COLLAPSING) {
             return;
         }
+        var millis = millis || 800;
         this.state = this.STATE_EXPANDING;
         this.stop();
-        var r = this.expandedRadius + this.relatedNodeRadius * 2;
+        var r = this.expandedHandleRadius;
         this.getHandle().animate({
                 r: r,
                 x: this.x - r,
@@ -232,7 +239,6 @@ var MNode = RaphaelComponent.extend(
         var positions = macademia.nbrviz.calculateRelatedInterestPositions(
                             this.relatedInterests, this.expandedRadius, this.x, this.y);
         var nodePositions = positions[0];
-        var textPositions = positions[1];
 
         var self = this;
         $.each(this.relatedInterestNodes, function(i, ri) {
@@ -242,12 +248,12 @@ var MNode = RaphaelComponent.extend(
             ri.highlightNone();
             ri.animate(
                     { x: nodePositions[i][0], y: nodePositions[i][1] },
-                    800,
+                    millis,
                     "elastic");
         })
         self.lastInterestHoverIndex = self.HOVER_NONE;
         this.ring.animate(
-                {r: this.expandedRadius}, 800, "elastic",
+                {r: this.expandedRadius}, millis, "elastic",
                 function () { self.state = self.STATE_EXPANDED; }
         );
     },

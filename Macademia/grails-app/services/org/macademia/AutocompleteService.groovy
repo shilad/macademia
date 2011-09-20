@@ -15,6 +15,7 @@ class AutocompleteService{
         AutocompleteTree<Long, AutocompleteEntity> institutionTree = new AutocompleteTree<Long, AutocompleteEntity>()
         AutocompleteTree<String, AutocompleteEntity> interestTree = new AutocompleteTree<String, AutocompleteEntity>()
         AutocompleteTree<String, AutocompleteEntity> overallTree = new AutocompleteTree<String, AutocompleteEntity>()
+        AutocompleteTree<String, AutocompleteEntity> relatedInterests = new AutocompleteTree<String, AutocompleteEntity>()
     }
 
     //this is the maximum number of autocomplete results
@@ -49,6 +50,10 @@ class AutocompleteService{
             groupTrees[abbrev] = t
         }
         return t
+    }
+
+    GroupTree getTree() {
+        return getTree(MacademiaConstants.GROUP_ALL)
     }
 
     def updatePerson(Person person) {
@@ -95,6 +100,14 @@ class AutocompleteService{
         int usage = databaseService.getInterestUsage(interest.id)
         gt.overallTree.get("i" + interest.id).setScore(usage)
         gt.interestTree.get("i" + interest.id).setScore(usage)
+        if (databaseService.getSimilarInterests(interest).size() > 5) {
+            gt.relatedInterests.add("i" + interest.id, entity)
+        }
+    }
+
+    public int getInterestCount(Long interestId) {
+        AutocompleteEntry ae = getTree().interestTree.get("i" + interestId)
+        return (ae == null) ? 0 : ae.scoreAsInt
     }
 
     def addInstitution(Institution institution) {
@@ -139,6 +152,15 @@ class AutocompleteService{
             institutions.add(entry.getValue() as AutocompleteEntity)
         }
         return institutions
+    }
+
+    Collection<AutocompleteEntity> getRelatedInterestAutocomplete(String group, String query, int maxResults) {
+        List<AutocompleteEntity> interests = new ArrayList<AutocompleteEntity>()
+        SortedSet<AutocompleteEntry<String, AutocompleteEntity>> results = getTree(group).relatedInterests.autocomplete(query, maxResults)
+        for (AutocompleteEntry<String, AutocompleteEntity> entry: results) {
+            interests.add(entry.getValue() as AutocompleteEntity)
+        }
+        return interests
     }
 
     Collection<AutocompleteEntity> getInterestAutocomplete(String group, String query, int maxResults) {

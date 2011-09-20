@@ -199,6 +199,10 @@ class DatabaseService {
         return wrapper.getSimilarInterests(id, institutionFilter)
     }
 
+    public Map<Long, Map<Long, Double>> getIntraInterestSims(Set<Long> interestIds, boolean normalize) {
+        return wrapper.getIntraInterestSims(interestIds, normalize)
+    }
+
     public void removeLowestSimilarity(Interest interest) {
         wrapper.removeLowestSimilarity(interest.id)
     }
@@ -241,6 +245,10 @@ class DatabaseService {
 
     public void buildInterestRelations(String text, long interest, long article, boolean relationsBuilt) {
         wrapper.buildInterestRelations(text, interest, article, relationsBuilt)
+    }
+
+    public void updateArticlesToInterests(Map<Long, Set<Long>> newMapping) {
+        wrapper.updateArticlesToInterests(newMapping)
     }
 
     public void extractSmallWpDb(String destDb) {

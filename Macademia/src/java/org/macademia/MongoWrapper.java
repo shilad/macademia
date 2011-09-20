@@ -254,6 +254,27 @@ public class MongoWrapper {
         return interests;
     }
 
+    public Map<Long, Map<Long, Double>> getIntraInterestSims(Set<Long> interestIds, boolean normalize) {
+        Map<Long, Map<Long, Double>> sims = new HashMap<Long, Map<Long, Double>>();
+        for (Long iid : interestIds) {
+            if (!sims.containsKey(iid)) {
+                sims.put(iid, new HashMap<Long, Double>());
+            }
+            SimilarInterestList sil = getSimilarInterests(iid);
+            if (normalize) sil.normalize();
+            for (SimilarInterest si : sil.list) {
+                if (interestIds.contains(si.interestId)) {
+                    if (!sims.containsKey(si.interestId)) {
+                        sims.put(si.interestId, new HashMap<Long, Double>());
+                    }
+                    sims.get(iid).put(si.interestId, si.similarity);
+                    sims.get(si.interestId).put(iid, si.similarity);
+                }
+            }
+        }
+        return sims;
+    }
+
     /**
      * Constructs and returns a list of the ids of all
      * collaborator requests owned by the person with
@@ -666,6 +687,29 @@ public class MongoWrapper {
         } else {
             throw new IllegalStateException("invalid article id: '" + wpId + "'");
         }
+    }
+
+
+    public void updateArticlesToInterests(Map<Long, Set<Long>> newMapping) {
+        DBCollection articlesToInterests = getDb().getCollection(ARTICLES_TO_INTERESTS);
+        // Load all ids before we delete them one by one
+        List<Long> articleIds = new ArrayList<Long>();
+        for (DBObject entry : articlesToInterests.find()) {
+            Long aid = new Long(entry.get("_id").toString());
+            articleIds.add(aid);
+        }
+
+        for (Long aid : articleIds) {
+            articlesToInterests.remove(new BasicDBObject("_id", aid));  // remove, then rebuild
+            if (newMapping.containsKey((aid))) {
+                for (Long iid : newMapping.get(aid)) {
+                    addInterestToArticle(iid, aid);
+                }
+            } else {
+                LOG.warn("removed articlesToInterest record for article id " + aid);
+            }
+        }
+
     }
 
     public void buildInterestRelations (String text, long interest, long article, boolean relationsBuilt) {

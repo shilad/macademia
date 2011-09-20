@@ -11,57 +11,76 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
 
     // create related interests
     var clusterColors = {};
-    var relatedInterests = {};
-    var relatedInterestsById = {};
+    var clusterMap = {};
+    var interests = {};
 
     $.each(vizJson.queries, function (i, id) {
-        clusterColors[i] = 1.0 * i / vizJson.queries.length + 1.0 / vizJson.queries.length / 2;
-        relatedInterests[i] = [];
+        clusterColors[id] = 1.0 * i / vizJson.queries.length + 1.0 / vizJson.queries.length / 2;
+        clusterMap[id] = {};
     });
 
+    // build up nested map of clusters
     $.each(vizJson.interests, function (id, info) {
         var hasCluster = (info && info.cluster >= 0);
-        var color = -1;
-        if (hasCluster) {
-            color = clusterColors[info.cluster];
-        }
-        var ri = new Interest({id:id, name:info.name, color:color, relevance : info.relevance});
-        relatedInterestsById[id] = ri;
-        if (hasCluster && info.cluster != info.id) {
-            relatedInterests[info.cluster].push(ri);
+        var hasSubCluster = (info && info.subcluster >= 0);
+        var color = hasCluster ? clusterColors[info.cluster] : -1;
+        interests[id] = new Interest({
+            id:id,
+            name:info.name,
+            color:color,
+            relevance : info.relevance,
+            relatedQueryId : hasCluster ? info.cluster : -1
+        });
+        if (hasCluster && hasSubCluster) {
+            if (!(info.subcluster in clusterMap[info.cluster])) {
+                clusterMap[info.cluster][info.subcluster] = [];
+            }
+            if (id != info.cluster && id != info.subcluster) {
+                clusterMap[info.cluster][info.subcluster].push(id);
+            }
         }
     });
 
     // Create interest clusters
     var queryInterests = {};
-    $.each(vizJson.queries, function (i, id) {
-        var info = vizJson.interests[id];
+    $.each(vizJson.queries, function (i, qid) {
+        var subclusters = [];
+        var related = [];   // remove....
+        $.each(clusterMap[qid], function(cid, relatedInterests) {
+            var info = vizJson.interests[cid];
+            var ris = $.map(relatedInterests, function(ri) { return interests[ri]; });
+            subclusters.push(
+                    new InterestCluster({
+                        id : cid,
+                        relatedInterests : ris,
+                        name : info.name,
+                        color : clusterColors[qid],
+                        paper : paper
+                    }));
+            related.push(interests[cid]);
+        });
+        var info = vizJson.interests[qid];
         var ic = new InterestCluster({
-            id : id,
-            clusterId : i,
-            relatedInterests : [], // interests will be added here as people are added to the viz
+            id : qid,
+            interests : interests,
+            subclusters : subclusters,
+//            relatedInterests : related, // interests will be added here as people are added to the viz
             name : info.name,
-            color : clusterColors[i],
+            color : clusterColors[qid],
             paper : paper
         });
-        queryInterests[i] = ic;
+        queryInterests[qid] = ic;
     });
 
     // Create people
-    // TODO: incorporate interest similarity scores
     var people = [];
 
     // Normalize 'overall' relevances to modulate person ring size
-    // TODO: implement this in JSON service and remove from js
     var maxRelevance = 0.0;
     var minRelevance = 1000000000000.0;
     $.each(vizJson.people, function(id, pinfo) {
-        if (pinfo.relevance.overall > maxRelevance) {
-            maxRelevance = pinfo.relevance.overall;
-        }
-        if (pinfo.relevance.overall < minRelevance) {
-            minRelevance = pinfo.relevance.overall;
-        }
+        maxRelevance = Math.max(pinfo.relevance.overall, maxRelevance);
+        minRelevance = Math.min(pinfo.relevance.overall, minRelevance);
     });
 
     var limit = 0;
@@ -76,28 +95,14 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
 //            return false; // break
         }
 
-        var pinterests = [];
-        var pnrinterests = [];
-        $.each(pinfo.interests, function(i, id) {
-            var iinfo = vizJson.interests[id];
-            if (iinfo && iinfo.cluster >= 0) {
-                pinterests.push(relatedInterestsById[id]);
-                var clusterId = vizJson.interests[id].cluster;
-                if ($.inArray(relatedInterestsById[id], queryInterests[clusterId].relatedInterests) == -1) {
-                    // add the interest to the appropriate cluster
-                    queryInterests[clusterId].relatedInterests.push(relatedInterestsById[id]);
-                }
-            } else {
-                pnrinterests.push(relatedInterestsById[id]);
-            }
-        });
+        var pinterests = $.map(pinfo.interests, function(i) { return interests[i]; });
         var totalRelevance = 0.0;
         $.each(pinfo.relevance, function(id, weight) {
             if (id != 'overall') {totalRelevance += weight;}
         });
         var totalCount = 0.0;
         $.each(pinfo.count, function(id, n) {
-            if (id != 'overall') {totalCount += n;}
+            if (id != 'overall' && id != '-1') {totalCount += n;}
         });
         var interestGroups = [];
         $.each(pinfo.relevance, function(id, weight) {
@@ -116,8 +121,8 @@ macademia.nbrviz.initQueryViz = function(vizJson) {
             name : pinfo.name,
             picture : pinfo.pic,
             paper : paper,
-            interests : pinterests ,
-            nonRelevantInterests : pnrinterests,
+            interests : $.grep(pinterests, function(i) {return (i.relatedQueryId >= 0);}),
+            nonRelevantInterests : $.grep(pinterests, function(i) {return (i.relatedQueryId < 0);}),
             collapsedRadius : r
         });
         if (person.interests.length > 12) {
@@ -159,6 +164,7 @@ function QueryViz(params) {
 
     this.fadeScreen = this.paper.rect(0, 0, this.paper.width, this.paper.height);
     this.fadeScreen.attr({ fill : 'white' , opacity : 0.0, 'stroke-width' : 0});
+    this.fadeScreen.toBack();
 
 }
 
@@ -222,7 +228,7 @@ QueryViz.prototype.layoutInterests = function() {
 
         interestCluster.setPosition(xDisp, yDisp);
 
-        var mag = new Magnet( new Vector( xDisp, yDisp), interestCluster.clusterId );
+        var mag = new Magnet( new Vector( xDisp, yDisp), interestCluster.id );
     });
 };
 
@@ -291,16 +297,19 @@ QueryViz.prototype.handlePersonUnhover = function(person) {
 };
 
 QueryViz.prototype.handleInterestClusterHover = function(interest) {
+//    console.log("handle interest cluster hover: " + interest.name);
     interest.toFront();
     this.raiseScreen(interest.getBottomLayer());
 };
 
 QueryViz.prototype.handleInterestClusterUnhover = function(interest) {
+//    console.log("handle interest cluster unhover" + interest.name);
     this.lowerScreen();
     this.hideEdges();
 };
 
 QueryViz.prototype.handleInterestHover = function(parentNode, interest, interestNode) {
+//    console.log("handle interest hover" + interest.name);
     this.hideEdges();
     var self = this;
     $.each(this.people, function (i, p) {
@@ -315,6 +324,7 @@ QueryViz.prototype.handleInterestHover = function(parentNode, interest, interest
 };
 
 QueryViz.prototype.handleInterestUnhover = function(parentNode, interest, interestNode) {
+//    console.log("handle interest unhover" + interest.name);
     this.hideEdges();
 };
 

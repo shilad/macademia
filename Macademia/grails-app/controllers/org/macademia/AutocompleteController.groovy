@@ -14,6 +14,8 @@ class AutocompleteController {
         if (params.klass) {
             if (params.klass == 'interest') {
                 results = autocompleteService.getInterestAutocomplete(params.group, params.term, max)
+            } else if (params.klass == 'relatedInterest') {
+                results = autocompleteService.getRelatedInterestAutocomplete(params.group, params.term, max)
             } else if (params.klass == 'institution') {
                 results = autocompleteService.getInstitutionAutocomplete(params.group, params.term, max)
             } else {

@@ -43,7 +43,7 @@ var PersonCenter = RaphaelComponent.extend({
         this.wedges = [];
         $.each(this.interestGroups, function() {
             var ig = this[0];
-            var sat = Math.max(0.25, Math.min(this[1] * this[1] * this[1] / 6, 0.8));
+            var sat = Math.max(0.25, Math.min(this[1] * this[1] * this[1] / 2, 0.8));
 //            console.log(self.name + ': ' + ig.name + ' ' + sat);
             var color = self.fillHsb(ig.color, sat);
             var section = self.paper.path().attr({stroke: color, opacity: 0});
@@ -157,7 +157,6 @@ var PersonCenter = RaphaelComponent.extend({
  */
 var Person = MNode.extend({
     init : function(params) {
-        this._super(params);
         this.picture = params.picture || "";
         this.name = params.name || "nameless person";
         this.relevance = params.relevance || null;
@@ -168,16 +167,18 @@ var Person = MNode.extend({
         this.interests = this.sortAndColorInterests(params.interests, params.interestGroups);
         macademia.concatInPlace(this.interests, params.nonRelevantInterests || []);
         this.relatedInterests = this.interests;
+        this._super(params);
     },
     sortAndColorInterests : function(interests, interestGroups){
         var sortedInterests = [];
-        for (var i=0; i< interestGroups.length; i++){
-            for (var j=0; j<interests.length; j++){
-                if ($.inArray(interests[j], interestGroups[i][0].relatedInterests)+1){
-                    interests[j].color = interestGroups[i][0].color;
-                    sortedInterests.push(interests[j]);
+        for (var i=0; i< interestGroups.length; i++) {
+            var qi = interestGroups[i][0];
+            $.each(interests, function() {
+                if (this.relatedQueryId == qi.id) {
+                    this.color = qi.color;
+                    sortedInterests.push(this);
                 }
-            }
+            });
         }
         return sortedInterests;
     },

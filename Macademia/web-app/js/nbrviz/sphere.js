@@ -23,35 +23,46 @@ var Sphere = RaphaelComponent.extend({
         this.paper = params.paper;
         this.font = params.font || macademia.nbrviz.mainFont;
         this.boldFont = params.boldFont || macademia.nbrviz.mainFontBold;
+        this.orbitRadius = this.r / 5;
         this.labelBgOpacity = params.labelBgOpacity || 0.6;
         this.highlightMode = this.HIGHLIGHT_NONE;
         this.glow = null;
+        this.orbit = [];    // spheres in orbit
 
         var x = params.x, y = params.y;
 
         var fill;
-        var sat = params.sat || 1.0;
-        var hue = params.hue || 0.0;
-        if(hue == -1) {
+        this.sat = params.sat || 1.0;
+        this.hue = params.hue || 0.0;
+        this.brightness = params.brightness || 0.9;
+
+        if (this.hue == -1) {
             fill = "r(.5,.9)hsb(0, 0, .9)-hsb(0, 0, .80)";
         } else {
-            fill = "r(.5,.9)hsb(" + hue + "," + sat + " , .9)-hsb(" + hue + ", " + sat + ", .8)";
+            fill = ("r(.5,.9)" +
+                    "hsb(" + this.hue + "," + this.sat + "," + this.brightness + ")-" +
+                    "hsb(" + this.hue + ", " + this.sat + "," + (0.89 * this.brightness) + ")");
         }
 
         // label
-        this.label = this.paper.text(x + this.xOffset, y + this.yOffset, this.name)
-                    .attr({fill: '#000', 'font': this.font});
+        if (this.name) {
+            this.label = this.paper.text(x + this.xOffset, y + this.yOffset, this.name)
+                        .attr({fill: '#000', 'font': this.font});
 
-        var bbox = this.label.getBBox();
-        this.labelBg = this.paper.rect(
-                            x + this.xOffset - 1.2*bbox.width / 2,
-                            y + this.yOffset - 1.2*bbox.height/2,
-                            bbox.width*1.2,
-                            bbox.height*1.2
-                        );
-        this.labelBg.attr({ 'fill' : '#fff', 'fill-opacity' : this.labelBgOpacity, 'stroke-width' : 0});
-        this.labelBg.hide();
-        this.label.toFront();
+            var bbox = this.label.getBBox();
+            this.labelBg = this.paper.rect(
+                                x + this.xOffset - 1.2*bbox.width / 2,
+                                y + this.yOffset - 1.2*bbox.height/2,
+                                bbox.width*1.2,
+                                bbox.height*1.2
+                            );
+            this.labelBg.attr({ 'fill' : '#fff', 'fill-opacity' : this.labelBgOpacity, 'stroke-width' : 0});
+            this.labelBg.hide();
+            this.label.toFront();
+        } else {
+            this.label = null;
+            this.labelBg = null;
+        }
 
         this.gradient1 = this.paper.ellipse(x, y, this.r, this.r)
                     .attr({fill: fill, stroke: '#ccc'});
@@ -66,12 +77,6 @@ var Sphere = RaphaelComponent.extend({
                 this.r * 2,
                 this.r * 2 + this.yOffset / 2)
                 .attr({fill: '#000', stroke: 'none', opacity: 0});
-
-        // the highlighting ring
-        this.highlightRing = this.paper.ellipse(
-                    x, y, this.r, this.r)
-                    .attr({stroke: '#f00'});
-        this.highlightRing.hide();
 
         this.installListeners();
     },
@@ -88,14 +93,14 @@ var Sphere = RaphaelComponent.extend({
 
         // change from highlight to normal and vice-versa
         if (mode == this.HIGHLIGHT_ON) {
-            this.labelBg.show();
+            if (this.labelBg) { this.labelBg.show(); }
             attrs['font'] = this.boldFont;
             attrs['font-weight'] = 'bold';
             if (this.glow == null) {
                 this.glow = this.gradient1.glow();
             }
         } else if (lastMode == this.HIGHLIGHT_ON) {
-            this.labelBg.hide();
+            if (this.labelBg) { this.labelBg.hide(); }
             attrs['font'] = this.font;
             attrs['font-weight'] = 'normal';
             if (this.glow != null) {
@@ -113,22 +118,29 @@ var Sphere = RaphaelComponent.extend({
         } else if (mode == this.HIGHLIGHT_OFF) {
             attrs['fill'] = '#999';
         }
-        this.label.attr(attrs);
+        if (this.labelBg) { this.label.attr(attrs); }
         this.highlightMode = mode;
     },
 
+    hide : function() {
+        if (this.glow) {
+            this.glow.hide();
+            this.glow.remove();
+            this.glow = null;
+        }
+        this._super();
+    },
 
     show : function() {
         this._super();
-        this.highlightRing.hide();
     },
 
     showText : function() {
-        this.label.show();
+        if (this.labelBg) { this.label.show(); }
     },
 
     hideText : function() {
-        this.label.hide();
+        if (this.labelBg) { this.label.hide(); }
     },
 
     getHandle : function( ){
@@ -144,11 +156,15 @@ var Sphere = RaphaelComponent.extend({
     },
 
     getRects : function() {
-        return [this.handle, this.labelBg, this.label];
+        if (this.label) {
+            return [this.handle, this.labelBg, this.label];
+        } else {
+            return [this.handle];
+        }
     },
 
     getCircles : function() {
-        return [this.gradient1, this.gradient2, this.highlightRing];
+        return [this.gradient1, this.gradient2];
     },
 
     installListeners : function() {
@@ -160,6 +176,8 @@ var Sphere = RaphaelComponent.extend({
     },
 
     onDragStart : function() {
+        this.ox = this.x;
+        this.oy = this.y;
         $.each(this.getRects(),
                 function () {
                     this.ox = this.attr('x');
@@ -178,19 +196,21 @@ var Sphere = RaphaelComponent.extend({
         $.each(this.getCircles(),function () {
                     this.attr({cx : this.ox + dx, cy : this.oy + dy});
                 });
+        this.positionOrbit(this.ox + dx, this.oy + dy);
 
     },
     onDragUp : function() {
     },
+
     getLayers : function() {
-        return [
-            this.handle,
-            this.highlightRing,
-            this.label,
-            this.gradient2,
-            this.gradient1,
-            this.labelBg
-        ];
+        var layers = [];
+        $.each(this.orbit, function(i, o) { macademia.concatInPlace(layers, o.getLayers()); });
+        layers.push(this.handle);
+        if (this.label) { layers.push(this.label); }
+        layers.push(this.gradient2);
+        layers.push(this.gradient1);
+        if (this.labelBg) { layers.push(this.labelBg); }
+        return layers;
     },
 
 
@@ -226,10 +246,21 @@ var Sphere = RaphaelComponent.extend({
             delete newAttrs.y;
             newAttrs.cx = attrs.x;
             newAttrs.cy = attrs.y;
+
         }
         $.each(this.getCircles(), function(i) {
             this.animate(newAttrs, millis, arg1, arg2);
         });
+
+        var d = 2 * Math.PI / this.orbit.length;
+        for (var i = 0; i < this.orbit.length; i++) {
+            newAttrs = $.extend({}, attrs);
+            if (attrs.x) {
+                newAttrs.x = attrs.x + this.r * Math.cos(i * d);
+                newAttrs.y = attrs.y + this.r * Math.sin(i * d);
+            }
+            this.orbit[i].animate(newAttrs, millis, arg1, arg2);
+        }
     },
 
     setPosition : function(x, y) {
@@ -248,5 +279,31 @@ var Sphere = RaphaelComponent.extend({
         $.each(this.getCircles(), function(i) {
             this.attr({'cx' : x, 'cy' : y});
         });
+
+        this.positionOrbit(x, y);
+    },
+
+    addOrbit : function(numPlanets) {
+        for (var i = 0; i < numPlanets; i++) {
+            this.orbit.push(new Sphere({
+                r : this.orbitRadius,
+                paper : this.paper,
+                x : 0,
+                y : 0,
+                hue : this.hue,
+                brightness : this.brightness * 0.3,
+                sat : this.sat
+            }));
+        }
+        this.positionOrbit(this.getX(), this.getY());
+    },
+
+    positionOrbit : function(x, y) {
+        var d = 2 * Math.PI / this.orbit.length;
+        for (var i = 0; i < this.orbit.length; i++) {
+            var x2 = x + this.r * Math.cos(i * d);
+            var y2 = y + this.r * Math.sin(i * d);
+            this.orbit[i].setPosition(x2, y2);
+        }
     }
 });
