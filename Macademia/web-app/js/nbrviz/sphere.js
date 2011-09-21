@@ -114,9 +114,9 @@ var Sphere = RaphaelComponent.extend({
         if (mode == this.HIGHLIGHT_ON) {
             attrs['fill'] = '#000';
         } else if (mode == this.HIGHLIGHT_NONE) {
-            attrs['fill'] = '#666';
+            attrs['fill'] = '#444';
         } else if (mode == this.HIGHLIGHT_OFF) {
-            attrs['fill'] = '#999';
+            attrs['fill'] = '#666';
         }
         if (this.labelBg) { this.label.attr(attrs); }
         this.highlightMode = mode;

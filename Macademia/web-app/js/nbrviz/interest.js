@@ -135,6 +135,7 @@ var InterestCluster = MNode.extend({
                 return;
             }
             if (sc.relatedInterests.length == 0) {
+                this._super(relatedInterest, relatedInterestNode);
                 return;
             }
             // push the position out by 20% to leave more room for mousing out
@@ -145,7 +146,7 @@ var InterestCluster = MNode.extend({
             sc.toFront();
             sc.expand();
             this.raiseFadeLayer(sc.getBottomLayer());
-        } else if (this.subclusters) {
+        } else {
             this._super(relatedInterest, relatedInterestNode);
         }
     },
