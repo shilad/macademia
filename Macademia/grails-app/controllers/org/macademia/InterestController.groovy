@@ -17,6 +17,11 @@ class InterestController {
         [interestList: Interest.list()]
     }
 
+    def name = {
+        Interest i = Interest.get(params.id)
+        render(i.text)
+    }
+
     def json = {
         def maxPeople
         def maxInterests

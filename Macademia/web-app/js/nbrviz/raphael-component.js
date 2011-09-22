@@ -8,15 +8,18 @@ var RaphaelComponent = Class.extend({
         this.hoverDelay = params.hoverDelay || null;
     },
     hover : function(mouseoverCallback, mouseoutCallback) {
+        this.getHoverSet().hover(mouseoverCallback, mouseoutCallback);
+    },
+    getLayers : function() { alert('children must override getLayers()'); },
+    getHoverSet : function() {
         if (this.hoverSet == null) {
             this.hoverSet = new HoverSet(this.getLayers());
             if (this.hoverDelay != null) {
                 this.hoverSet.inDelay = this.hoverDelay;
             }
         }
-        this.hoverSet.hover(mouseoverCallback, mouseoutCallback);
+        return this.hoverSet;
     },
-    getLayers : function() { alert('children must override getLayers()'); },
     getLayerSet : function() {
         return this.paper.set(this.getLayers());
     },

@@ -3,9 +3,6 @@
 <html>
 <head>
   <title>Query Based Visualization</title>
-  <g:javascript >
-    var vizJson = ${jsonData};
-  </g:javascript>
   <p:javascript src='macademia.js.all'/>
   <p:css name="ui-lightness/jquery-ui-1.8.2.custom"/>
   <p:javascript src='macademia.js.nbrviz'/>
@@ -14,11 +11,11 @@
 <g:javascript>
   $().ready(function() {
     macademia.serverLog('nav', 'initial', {'url' : location.href });
-    macademia.nbrviz.initQueryViz(vizJson);
+    macademia.nbrviz.initQueryViz();
   });
 </g:javascript>
 <body>
     <div id="graph">&nbsp;</div>
-    <div id="queryWidget"><g:include view="/query/_addInterest.gsp"/></div>
+    <div id="queryWidget"><g:render template="addInterest"/></div>
 </body>
 </html>

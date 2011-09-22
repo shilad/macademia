@@ -190,6 +190,7 @@ uiperformance.bundles = [
             'nbrviz/hoverset',
             'nbrviz/shared',
             'nbrviz/sphere',
+            'nbrviz/interest-sphere',
             'nbrviz/mnode',
             'nbrviz/interest',
             'nbrviz/person',
@@ -197,7 +198,8 @@ uiperformance.bundles = [
             'nbrviz/vector',
             'nbrviz/graph',
             'nbrviz/exploration',
-            'nbrviz/query'
+            'nbrviz/query',
+            'nbrviz/query-init'
     ]],
 ]
 

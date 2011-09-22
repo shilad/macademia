@@ -11,6 +11,7 @@ public class TimingAnalysis {
     HashMap<String, Long> calls = new HashMap<String, Long>();
     HashMap<String, Long> totalTime = new HashMap<String, Long>();
     List<String> labelOrder = new ArrayList<String>();
+    Long overallStartTime;
     Long lastTime;
     String prefix;
 
@@ -27,11 +28,15 @@ public class TimingAnalysis {
     }
 
     public TimingAnalysis() {
-        this(null);
+        this(
+            new Exception().getStackTrace()[1].getClassName() + "." +
+            new Exception().getStackTrace()[1].getMethodName()
+        );
     }
 
     public void startTime() {
         lastTime = System.currentTimeMillis();
+        overallStartTime = lastTime;
     }
 
     public String recordTime(String label) {
@@ -51,7 +56,12 @@ public class TimingAnalysis {
     }
 
     public void analyze() {
+        if (prefix != null) {
+            System.out.print(prefix + ": ");
+        }
+        System.out.println("overall time : " + (System.currentTimeMillis() - overallStartTime));
         for (String label : labelOrder) {
+            System.out.print("\t");
             if (prefix != null) {
                 System.out.print(prefix + ": ");
             }

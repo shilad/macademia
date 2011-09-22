@@ -36,6 +36,10 @@ input:-moz-placeholder, textarea::-moz-placeholder {
         position: relative;
         margin-top : 3px;
 
+        #queryInterestTemplate {
+            display : none;
+        }
+
         h1{
             font-size: 20px;
             font-weight: bold;

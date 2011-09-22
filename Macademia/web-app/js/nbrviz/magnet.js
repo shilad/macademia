@@ -143,6 +143,12 @@ function Magnet(position, id) {
 	Magnet.magnets.push(this);
 }
 
+Magnet.clear = function() {
+    Point.points = [];
+    Magnet.magnets  = [];
+};
+
+
 Magnet.magnets = [];
 
 Magnet.findById = function(id) {

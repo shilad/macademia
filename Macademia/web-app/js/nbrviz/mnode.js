@@ -152,13 +152,14 @@ var MNode = RaphaelComponent.extend(
     createOneRelatedInterestNode : function(interest, pos, textPos) {
         var sat = Math.max(Math.min(1.0, interest.relevance * interest.relevance * 2), .2);
 //        console.log('relatedness for ' + interest.name + ' is ' + sat);
-        var node = new Sphere({
+        var node = new InterestSphere({
             x: this.x,
             y: this.y,
             r: this.relatedNodeRadius,
             hue: interest.color,
             name: interest.name,
             sat : sat,
+            interest : interest,
             xOffset: textPos[0] - pos[0],
             yOffset: textPos[1] - pos[1],
             paper: this.paper,
@@ -215,6 +216,17 @@ var MNode = RaphaelComponent.extend(
 
     expand : function() {
         this.onHoverIn(0);
+    },
+
+    addClicked : function(callback) {
+        $.each(this.relatedInterestNodes, function(i, n) {
+            n.addClicked(callback);
+        });
+        if (this.subclusters && this.subclusters.length) {
+            $.each(this.subclusters, function(i, sc) {
+                sc.addClicked(callback);
+            });
+        }
     },
 
     /**

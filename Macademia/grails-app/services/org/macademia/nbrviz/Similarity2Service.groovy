@@ -1,6 +1,7 @@
 package org.macademia.nbrviz
 
 import org.macademia.*
+import grails.plugin.springcache.annotations.Cacheable
 
 /**
  * An extension of SimilarityService, provides neighbor algorithms
@@ -26,7 +27,7 @@ class Similarity2Service {
      * @return A Graph
      */
     public QueryVizGraph calculateQueryNeighbors(Set<Long> qset, int maxNeighbors) {
-        TimingAnalysis ANALYSIS = new TimingAnalysis()
+        TimingAnalysis ANALYSIS = new TimingAnalysis('calculateQueryNeighbors')
         QueryVizGraph graph = new QueryVizGraph(qset)
 
         // Calculate interest clusters
@@ -166,6 +167,7 @@ class Similarity2Service {
     }
 
 
+    @Cacheable('simServiceCache')
     public Set<Long> chooseTopRelatedInterests(Long interestId, int numResults) {
         // Subset of related interests
         SimilarInterestList sil = databaseService.getSimilarInterests(interestId)
@@ -226,6 +228,9 @@ class Similarity2Service {
                     bestScore = score
                     bestId = iid
                 }
+            }
+            if (bestId == null) {
+                break;
             }
             remaining.remove(bestId)
             centers.add(bestId)

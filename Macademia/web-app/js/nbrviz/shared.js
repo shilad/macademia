@@ -114,3 +114,10 @@ macademia.concatInPlace = function(dest, extra) {
 macademia.reverseCopy = function(l) {
     return l.slice(0).reverse();
 };
+
+macademia.getInterestName = function(id) {
+    return $.ajax({
+          url: macademia.makeActionUrlWithGroup('all', 'interest', 'name') + "?id="+id,
+          async: false
+     }).responseText;
+};

@@ -19,8 +19,13 @@ var InterestCluster = MNode.extend({
                     }
             );
         }
+        this.interest = params.interest;
         this.subclusters = params.subclusters;
+        this.inQuery = params.inQuery;
+
+        // Invoke superclass constructor
         this._super(params);
+
         this.clusterId = params.clusterId;
         this.interest = new Interest(params);
         this.fadeLayer = null;
@@ -87,14 +92,16 @@ var InterestCluster = MNode.extend({
     },
 
     createCenterNode : function() {
-        this.centerNode = new Sphere({
+        this.centerNode = new InterestSphere({
                 x : this.x, y : this.y,
                 r : this.collapsedRadius,
                 hue : this.color,
                 name : this.name,
                 xOffset : 0,
+                interest : this.interest,
                 yOffset : this.collapsedRadius + 10,
                 labelBgOpacity : 0.2,
+                inQuery : this.inQuery,
                 paper : this.paper
             });
     },

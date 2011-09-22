@@ -44,7 +44,7 @@ HoverSet.prototype.add = function(e) {
 
 // Same as add, but checks to make sure an element doesn't already exist
 HoverSet.prototype.safeAdd = function(e) {
-    if (!$.inArray(e, this.elements)) {
+    if ($.inArray(e, this.elements) < 0) {
         this.add(e);
     }
 };
