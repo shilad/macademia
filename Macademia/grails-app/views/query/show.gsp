@@ -3,8 +3,7 @@
 <html>
 <head>
   <title>Query Based Visualization</title>
-  <p:javascript src='macademia.js.all'/>
-  <p:css name="ui-lightness/jquery-ui-1.8.2.custom"/>
+  <p:css name="nbrviz/jquery-ui-1.8.16.custom"/>
   <p:javascript src='macademia.js.nbrviz'/>
   <p:css name="queryViz" media="all"/>
 </head>
@@ -17,5 +16,6 @@
 <body>
     <div id="graph">&nbsp;</div>
     <div id="queryWidget"><g:render template="addInterest"/></div>
+  <g:render template="/layouts/loading"/>
 </body>
 </html>

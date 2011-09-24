@@ -48,13 +48,35 @@ input:-moz-placeholder, textarea::-moz-placeholder {
             padding-bottom : 6px;
             margin-left : 20px;
         }
+        #sliderKey {
+            width : 140px;
+            font-size : 12px;
+            .lessLabel {
+                float : left;
+            }
+            .moreLabel {
+                float : right;
+            }
+        }
+
         .addedInterestDiv{
+            margin-left : 15px;
+            clear : both;
             padding: 6px;
             opacity: 1.0;
             width : 400px;
 
-            .interestKey {
+            .interestSlider {
                 clear : both;
+                float : left;
+                width : 100px;
+                position : relative;
+                height : 8px;
+                margin-right : 10px;
+                top : 5px;
+            }
+
+            .interestKey {
                 float : left;
                 width : 20px;
                 height : 20px;

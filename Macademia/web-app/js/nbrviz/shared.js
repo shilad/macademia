@@ -121,3 +121,13 @@ macademia.getInterestName = function(id) {
           async: false
      }).responseText;
 };
+
+macademia.startTimer = function() {
+    macademia.beginTime = Date.now();
+};
+
+macademia.endTimer = function(label) {
+    var elapsed = Date.now() - macademia.beginTime;
+    console.log(label + ' required ' + elapsed + ' milliseconds');
+    macademia.beginTime = Date.now();
+};

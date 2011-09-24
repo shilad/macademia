@@ -34,6 +34,9 @@ macademia.nbrviz.initQueryKey = function() {
         html = html.replace(/INTEREST_NAME/g, ""+name);
         elem.html(html);
         $("#queryInterestTemplate").before(elem);
+        elem.find('.interestSlider').slider(
+                { min : 1, max : 5, value : 3 }
+        );
         elem.find('a.removeInterest').click(function() {
             macademia.nbrviz.removeInterestFromQuery(id);
             return false;
@@ -150,6 +153,7 @@ macademia.nbrviz.initQueryViz = function() {
         console.log("refreshing viz..." + queryIds);
         macademia.nbrviz.refreshQueryViz(queryIds);
     });
+
 };
 
 /**
@@ -166,11 +170,16 @@ macademia.nbrviz.refreshQueryViz = function(queryIds) {
     $.ajax({
         url: url,
         dataType : 'json',
-        async: false,
-        success : function(data) { vizJson = data;}
+        success : macademia.nbrviz.loadNewData
     });
+    macademia.startTimer();
 
-//    console.profile();
+    $('#loadingDiv').show();
+};
+
+macademia.nbrviz.loadNewData = function(vizJson) {
+    macademia.endTimer('ajax call');
+
     var paper = macademia.nbrviz.paper;
     if (paper) {
         paper.clear();
@@ -201,6 +210,7 @@ macademia.nbrviz.refreshQueryViz = function(queryIds) {
         queryInterests[qid] = macademia.nbrviz.initQueryCluster(
                                 qid, vizJson, clusterColors, clusterMap, interests);
     });
+    macademia.endTimer('up to queries');
 
     // Create people
     var people = [];
@@ -220,9 +230,12 @@ macademia.nbrviz.refreshQueryViz = function(queryIds) {
         limit = 20;
     }
 
+    var numPeople = 0;
+//    console.profile();
+
     $.each(vizJson.people, function(id, pinfo) {
-        if( people.length >= limit ) {
-//            return false; // break
+        if( numPeople++ >= limit ) {
+            return false; // break
         }
 
         var pinterests = $.map(pinfo.interests, function(i) { return interests[i]; });
@@ -261,6 +274,10 @@ macademia.nbrviz.refreshQueryViz = function(queryIds) {
         people[id] = person;
     });
     macademia.nbrviz.people = people;
+//    console.profileEnd();
+
+    macademia.endTimer('loadNewData object creation');
+    macademia.startTimer();
 
     var qv = new QueryViz({
         people : $.map(people, function(v, k) {return v;}),
@@ -271,5 +288,7 @@ macademia.nbrviz.refreshQueryViz = function(queryIds) {
     qv.layoutPeople();
     qv.setupListeners();
     macademia.nbrviz.qv = qv;
-//    console.profileEnd();
+
+    $('#loadingDiv').hide();
+    macademia.endTimer('layout');
 };

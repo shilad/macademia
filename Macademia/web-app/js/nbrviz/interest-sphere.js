@@ -32,13 +32,12 @@ var InterestSphere = Sphere.extend({
             'text-decoration' : 'underline',
             'cursor' : 'pointer'
         });
-        var bbox2 = this.addLink.getBBox();
 
         // x and y relative to center
         this.addLinkXOffset = this.xOffset;
         this.addLinkYOffset = this.yOffset + bbox1.height + this.VERTICAL_LABEL_SPACING;
-        var w = Math.max(bbox1.width, bbox2.width) * 1.2;
-        var h = (bbox1.height + bbox2.height + this.VERTICAL_LABEL_SPACING) * 1.2;
+        var w = bbox1.width;
+        var h = (bbox1.height*2 + this.VERTICAL_LABEL_SPACING) * 1.2;
         this.addLink.hide();
 
         this.labelBg = this.paper.rect(x + this.xOffset - w / 2, y + this.yOffset - h / 2, w, h);

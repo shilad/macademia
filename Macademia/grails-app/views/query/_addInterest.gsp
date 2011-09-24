@@ -46,7 +46,12 @@
     <div id="currentInterests">
         <h1>Search for interests:</h1>
         <ol>
+          <div id="sliderKey">
+            <div class="lessLabel">show more</div>
+            <div class="moreLabel">show less</div>
+          </div>
           <div id="queryInterestTemplate" class="addedInterestDiv">
+              <div class="interestSlider" interest="INTEREST_ID"></div>
               <div class="interestKey" interest="INTEREST_ID"></div>
               <div class="addedInterest">INTEREST_NAME&nbsp;&nbsp;&nbsp;
               <input class="addedInterestId" value="INTEREST_ID" type="hidden"/>
