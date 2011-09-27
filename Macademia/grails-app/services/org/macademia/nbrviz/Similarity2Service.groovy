@@ -15,7 +15,7 @@ class Similarity2Service {
     static double IDENTITY_SIM = 0.7
     private static final double MAX_UNCLUSTERED_SIM = 0.1
     private static final double MIN_CLUSTER_SIM = 0.005
-    private static final int IDEAL_NUM_CLUSTERS = 5
+    private static final int IDEAL_NUM_CLUSTERS = 7
     private static final int MAX_SIM_INTERESTS = IDEAL_NUM_CLUSTERS * 4
     private static final int MAX_CLUSTER_SIZE = 6
 
@@ -26,7 +26,7 @@ class Similarity2Service {
      * @param maxPeople The max number of people to include in the Graph.
      * @return A Graph
      */
-    public QueryVizGraph calculateQueryNeighbors(Set<Long> qset, int maxNeighbors) {
+    public QueryVizGraph calculateQueryNeighbors(Set<Long> qset, Map<Long, Double> weights, int maxNeighbors) {
         TimingAnalysis ANALYSIS = new TimingAnalysis('calculateQueryNeighbors')
         QueryVizGraph graph = new QueryVizGraph(qset)
 
@@ -35,7 +35,7 @@ class Similarity2Service {
         for (long q : qset){
             def simInterests = similarityService.getSimilarInterests(q, 500, 0)
             simInterests.normalize()
-            graph.incorporateQuerySimilarities(q, simInterests)
+            graph.incorporateQuerySimilarities(q, weights[q], simInterests)
         }
         ANALYSIS.recordTime("interest clusters")
 
@@ -58,8 +58,9 @@ class Similarity2Service {
 
         for (Long q : qset){
             for (Long iid : chooseTopRelatedInterests(q, IDEAL_NUM_CLUSTERS)) {
-                def simInterests = similarityService.getSimilarInterests(iid, 500, 0)
-                simInterests.normalize()
+                def simInterests = new SimilarInterestList()
+//                def simInterests = similarityService.getSimilarInterests(iid, 500, 0)
+//                simInterests.normalize()
                 graph.addQuerySubCluster(q, iid, simInterests)
             }
         }

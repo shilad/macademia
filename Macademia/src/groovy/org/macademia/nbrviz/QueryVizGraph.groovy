@@ -18,6 +18,7 @@ class QueryVizGraph {
     public static final double HIGH_RELEVANCE = 0.6
 
     Set<Long> queryIds
+    Map<Long, Double> queryWeights = [:]
     Map<Long, InterestInfo> interestInfo = [:]
     Map<Long, Collection<PersonClusterEdge>> personClusterEdges = [:]
     Map<Long, Double> personScores = [:]
@@ -35,7 +36,8 @@ class QueryVizGraph {
      * @param queryInterestId
      * @param sil
      */
-    public void incorporateQuerySimilarities(Long queryInterestId, SimilarInterestList sil) {
+    public void incorporateQuerySimilarities(Long queryInterestId, Double weight, SimilarInterestList sil) {
+        queryWeights[queryInterestId] = weight
         for (SimilarInterest si : sil.list) {
             if (queryIds.contains(si.interestId)) {
                 continue
@@ -139,7 +141,7 @@ class QueryVizGraph {
                 e.relevance += interestInfo[iid].queryRelevance * weight
                 weight *= CLUSTER_PENALTY
             }
-            sim += e.relevance
+            sim += e.relevance * queryWeights[e.clusterId] * queryWeights[e.clusterId]
         }
         return sim
     }

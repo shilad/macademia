@@ -1,11 +1,14 @@
 macademia.nbrviz.getQueryIds = function() {
     return $.address.parameter('queryIds').split('_');
 };
+macademia.nbrviz.queryWeights = {};
+macademia.nbrviz.loadingMessage = null;
 
 macademia.nbrviz.addInterestToQuery = function(id, name) {
     if (name == null) {
         name = macademia.getInterestName(id);
     }
+    macademia.nbrviz.loadingMessage = 'adding "' + name + '"...';
     var ids = macademia.nbrviz.getQueryIds();
     if ($.inArray(''+id, ids) < 0) {
         ids.push(id);
@@ -16,6 +19,8 @@ macademia.nbrviz.addInterestToQuery = function(id, name) {
 };
 
 macademia.nbrviz.removeInterestFromQuery = function(id) {
+    var name = macademia.nbrviz.interests[id].name;
+    macademia.nbrviz.loadingMessage = 'removing "' + name + '"...';
     var ids = macademia.nbrviz.getQueryIds();
     var i = $.inArray(''+id, ids);
     ids.splice(i, 1);
@@ -24,21 +29,25 @@ macademia.nbrviz.removeInterestFromQuery = function(id) {
 
 macademia.nbrviz.initQueryKey = function() {
     $(".addedInterestDiv:visible").remove();
-    $.each(macademia.nbrviz.getQueryIds(), function(i, id) {
+    $.each(macademia.nbrviz.getQueryIds(), function(i, qid) {
         // TODO: replace with non-ajax lookup into datastructure
-        var name = macademia.getInterestName(id);
+        var name = macademia.getInterestName(qid);
         var elem = $("#queryInterestTemplate").clone();
-        elem.attr('id', 'queryInterestKey' + id);
+        elem.attr('id', 'queryInterestKey' + qid);
         var html = elem.html();
-        html = html.replace(/INTEREST_ID/g, ""+id);
-        html = html.replace(/INTEREST_NAME/g, ""+name);
+        html = html.replace(/INTEREST_ID/g, ""+qid);
+        html = html.replace(/INTEREST_NAME/g, ""+name.toLowerCase());
         elem.html(html);
         $("#queryInterestTemplate").before(elem);
         elem.find('.interestSlider').slider(
-                { min : 1, max : 5, value : 3 }
+                {
+                    min : 1, max : 5,
+                    value : macademia.nbrviz.queryWeights[qid] || 3,
+                    change : function() {$.address.update();}
+                }
         );
         elem.find('a.removeInterest').click(function() {
-            macademia.nbrviz.removeInterestFromQuery(id);
+            macademia.nbrviz.removeInterestFromQuery(qid);
             return false;
         });
     });
@@ -150,6 +159,17 @@ macademia.nbrviz.initQueryCluster = function(qid, vizJson, clusterColors, cluste
 macademia.nbrviz.initQueryViz = function() {
     $.address.change(function(event) {
         var queryIds = event.parameters.queryIds.split('_');
+        $.each(queryIds, function(i, qid) {
+            var weight = 3;
+            var slider = $(".interestSlider[interest=" + qid + "]");
+            if (slider.length) {
+                weight = slider.slider( "option", "value" );
+            } else if (qid in macademia.nbrviz.queryWeights) {
+                weight = macademia.nbrviz.queryWeights[qid];
+            }
+            macademia.nbrviz.queryWeights[qid] = weight;
+            console.log('weight for ' + qid + ' is ' + weight);
+        });
         console.log("refreshing viz..." + queryIds);
         macademia.nbrviz.refreshQueryViz(queryIds);
     });
@@ -165,7 +185,12 @@ macademia.nbrviz.refreshQueryViz = function(queryIds) {
 
     // TODO: make asynchronous
     var url = macademia.makeActionUrlWithGroup('all', 'query', 'data');
+    var weights = [];
+    $.each(queryIds, function(i, qid) {
+            weights.push(macademia.nbrviz.queryWeights[qid] || 3);
+        });
     url += '?queryIds=' + queryIds.join('_');
+    url += '&queryWeights=' + weights.join('_');
     var vizJson = null;
     $.ajax({
         url: url,
@@ -174,6 +199,7 @@ macademia.nbrviz.refreshQueryViz = function(queryIds) {
     });
     macademia.startTimer();
 
+    $("#loadingMessage").html(macademia.nbrviz.loadingMessage || "loading...");
     $('#loadingDiv').show();
 };
 
@@ -290,5 +316,6 @@ macademia.nbrviz.loadNewData = function(vizJson) {
     macademia.nbrviz.qv = qv;
 
     $('#loadingDiv').hide();
+    macademia.nbrviz.loadingMessage = null;
     macademia.endTimer('layout');
 };

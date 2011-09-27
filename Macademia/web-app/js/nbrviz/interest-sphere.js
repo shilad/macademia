@@ -21,13 +21,12 @@ var InterestSphere = Sphere.extend({
         var bbox1 = this.label.getBBox();
         this.labelHeight = bbox1.height;
 
-        var addText = this.inQuery ? 'remove from query' : 'add to query';
+        var addText = this.inQuery ? '(click to remove)' : '(click to add)';
         this.addLink = this.paper.text(
                 x + this.xOffset,
                 y + this.yOffset + bbox1.height + this.VERTICAL_LABEL_SPACING,
                 addText);
         this.addLink.attr({
-            fill: '#00f',
             'font': this.font,
             'text-decoration' : 'underline',
             'cursor' : 'pointer'
@@ -82,6 +81,7 @@ var InterestSphere = Sphere.extend({
             attrs['fill'] = '#666';
         }
         this.label.attr(attrs);
+        this.addLink.attr(attrs);
 
         this._super(mode);
     },
@@ -146,8 +146,10 @@ var InterestSphere = Sphere.extend({
     },
     addClicked : function(callback) {
         var self = this;
-        this.addLink.click(
-                function() { callback(self.interest, self); }
+        $.each(this.getLayers(),
+                function (i, l) {
+                    l.click(function() { callback(self.interest, self); });
+                }
         );
     }
 });

@@ -219,14 +219,17 @@ var MNode = RaphaelComponent.extend(
     },
 
     addClicked : function(callback) {
-        $.each(this.relatedInterestNodes, function(i, n) {
-            n.addClicked(callback);
-        });
-        if (this.subclusters && this.subclusters.length) {
-            $.each(this.subclusters, function(i, sc) {
-                sc.addClicked(callback);
-            });
-        }
+        var self = this;
+        this.getLayerSet().click(
+            function() {
+                if (self.lastInterestHoverIndex != self.HOVER_NONE) {
+                    callback(
+                            self.relatedInterests[self.lastInterestHoverIndex],
+                            self.relatedInterestNodes[self.lastInterestHoverIndex]
+                    );
+                }
+            }
+        );
     },
 
     /**
