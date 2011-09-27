@@ -56,24 +56,41 @@ function distributePeople( coords ) {
 
 
 QueryViz.prototype.layoutInterests = function(vizJson) {
-    var a = ($(document).width() - 600)/2;
-    var b = ($(document).height()-360)/2;
+    var a = ($(document).width() - 200)/2;
+    var b = ($(document).height()-200)/2;
     var cx = $(document).width()/2;
     var cy = $(document).height()/2;
 
+    // layout up to four magnets "by hand."
+    var positions = [
+            [],
+            [[0.2, 0.0]],
+            [[-0.8, 0.0], [0.8, 0.0]],
+            [[-0.8, -0.8], [0, 0.8], [0.8, -0.8]],
+            [[-0.8, 0.0], [0.8, 0.0], [0.0, -1.0], [0.0, 1.0]]
+    ];
+
     var self = this;
     $.each(this.queryInterests, function(index, interestCluster) {
-        var th = index * (360/self.queryInterests.length) * (Math.PI/180);
-        var r = function( th ) {
-                    return (a * b)/
-                    Math.sqrt(
-                        Math.pow( b * Math.cos(th), 2 ) +
-                        Math.pow( a * Math.sin(th), 2 )
-                    );
-                }(th);
+        var xDisp, yDisp;
+        if (self.queryInterests.length < positions.length) {
+            var p = positions[self.queryInterests.length][index];
+            xDisp = p[0] * a + cx;
+            yDisp = p[1] * b + cy;
+        } else {
+            var th = index * (360/self.queryInterests.length) * (Math.PI/180);
+            var r = function( th ) {
+                        return (a * b)/
+                        Math.sqrt(
+                            Math.pow( b * Math.cos(th), 2 ) +
+                            Math.pow( a * Math.sin(th), 2 )
+                        );
+                    }(th);
 
-        var xDisp = Math.round( r * Math.cos(th) ) + cx;
-        var yDisp = Math.round( r * Math.sin(th) ) + cy;
+            xDisp = Math.round( r * Math.cos(th) ) + cx;
+            yDisp = Math.round( r * Math.sin(th) ) + cy;
+        }
+        console.log('xDisp is ' + xDisp + ', yDisp is ' + yDisp);
 
         interestCluster.setPosition(xDisp, yDisp);
 

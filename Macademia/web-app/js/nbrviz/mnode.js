@@ -28,7 +28,7 @@ var MNode = RaphaelComponent.extend(
         this.HOVER_NONE = -2;
 
         this.COLLAPSED_RADIUS = 30;
-        this.EXPANDED_RADIUS = 120;
+        this.EXPANDED_RADIUS = 100;
         this.RELATED_RADIUS = 15;
 
         this.POS_NOTIFY_THRESHOLD = 20;
@@ -70,7 +70,6 @@ var MNode = RaphaelComponent.extend(
 
         this.createCenterNode();
         if (this.centerNode == null) { alert('no center node created!'); }
-        this.createRelatedInterestNodes();
         this.createRing();
         this.getHandle().toFront();
 
@@ -126,6 +125,9 @@ var MNode = RaphaelComponent.extend(
      * Creates all related interests.
      */
     createRelatedInterestNodes : function() {
+        if (this.relatedInterests.length == this.relatedInterestNodes.length) {
+            return;
+        }
         this.relatedInterestNodes = [];
         var positions = macademia.nbrviz.calculateRelatedInterestPositions(
                             this.relatedInterests,
@@ -169,6 +171,12 @@ var MNode = RaphaelComponent.extend(
         });
         node.hideText();
         node.toBack();
+        var self = this;
+        node.hover(
+                function () { self.onInterestHoverIn(interest, node); },
+                function () { self.onInterestHoverOut(interest, node); }
+        );
+        this.hoverSet.addAll(node.getLayers());
         return node;
     },
     hoverInterest : function(mouseIn, mouseOut) {
@@ -196,15 +204,6 @@ var MNode = RaphaelComponent.extend(
             );
 
         this.getHandle().mousemove($.proxy(this.onMouseMove, this));
-
-        // Interest hover events
-        $.each(this.relatedInterestNodes, function(i, n) {
-            var ri = self.relatedInterests[i];
-            n.hover(
-                    function () { self.onInterestHoverIn(ri, n); },
-                    function () { self.onInterestHoverOut(ri, n); }
-            );
-        });
 
         // Main drag events
         this.getHandle().drag(
@@ -239,6 +238,7 @@ var MNode = RaphaelComponent.extend(
         if (this.state != this.STATE_COLLAPSED && this.state != this.STATE_COLLAPSING) {
             return;
         }
+        this.createRelatedInterestNodes();
         var millis = millis || 800;
         this.state = this.STATE_EXPANDING;
         this.stop();

@@ -109,7 +109,7 @@ var PersonCenter = RaphaelComponent.extend({
         });
 
     },
-    rescale : function(scalingFactor) {
+    rescale : function(scalingFactor, maxRadius) {
         var x = this.getX();
         var y = this.getY();
         var self = this;
@@ -125,6 +125,8 @@ var PersonCenter = RaphaelComponent.extend({
         }, ms);
         this.innerStroke.animate({ r : this.innerRadius * scalingFactor }, ms);
         var newOuterRadius = Math.sqrt(scalingFactor) * this.outerRadius;
+        newOuterRadius = Math.min(newOuterRadius, maxRadius - this.innerRadius * scalingFactor);
+
         this.outerStroke.animate({ r : (this.innerRadius * scalingFactor + newOuterRadius)}, ms);
 
         var self = this;
@@ -195,11 +197,11 @@ var Person = MNode.extend({
     },
     onHoverIn : function() {
         this._super();
-        this.centerNode.rescale(2.6);
+        this.centerNode.rescale(2.2, this.expandedRadius - this.relatedNodeRadius*1.5);
     },
     onHoverOut : function() {
         this._super();
-        this.centerNode.rescale(1.0);
+        this.centerNode.rescale(1.0, this.expandedRadius - this.relatedNodeRadius*1.5);
     },
     setPosition : function(x, y) {
         this._super(x, y);

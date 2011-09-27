@@ -177,7 +177,7 @@ select { font-size: 14px; padding: 2px; }
 /* line 95, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 #loadingDiv img { position: absolute; top: 50%; left: 50%; margin-top: -15px; margin-left: -30px; }
 /* line 102, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
-#loadingDiv #loadingMessage { position: absolute; top: 50%; font-size: 22px; color: white; margin-top: 50px; left: 50%; margin-left: -250px; width: 500px; text-align: center; }
+#loadingDiv #loadingMessage { position: absolute; top: 50%; font-size: 22px; color: white; margin-top: 20px; left: 50%; margin-left: -212px; width: 500px; text-align: center; }
 
 /* viz canvas */
 /* line 2, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */

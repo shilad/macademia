@@ -199,6 +199,7 @@ uiperformance.bundles = [
             'nbrviz/raphael-component',
             'nbrviz/hoverset',
             'nbrviz/shared',
+            'nbrviz/colors',
             'nbrviz/sphere',
             'nbrviz/interest-sphere',
             'nbrviz/mnode',
