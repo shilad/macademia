@@ -203,7 +203,19 @@ var MNode = RaphaelComponent.extend(
                 $.proxy(this.onHoverOut, this)
             );
 
-        this.getHandle().mousemove($.proxy(this.onMouseMove, this));
+        this.getHandle().mousemove(function (e) {
+            // fixup the event to have reasonable x and y
+            if ($.browser.safari || $.browser.webkit) {
+                // do nothing
+            } else if ($.browser.msie) {
+                e.x = event.clientX + document.body.scrollLeft;
+                e.y = event.clientY + document.body.scrollTop;
+            } else {  // grab the x-y pos.s if browser is NS
+                e.x= e.pageX;
+                e.y = e.pageY;
+            }
+            self.onMouseMove(e);
+        });
 
         // Main drag events
         this.getHandle().drag(
@@ -243,16 +255,25 @@ var MNode = RaphaelComponent.extend(
         this.state = this.STATE_EXPANDING;
         this.stop();
         var r = this.expandedHandleRadius;
+        this.origX = this.x;
+        this.origY = this.y;
+
+        this.newX = macademia.pinch(this.x, r*1.1, this.paper.width - r*1.1);
+        this.newY = macademia.pinch(this.y, r*1.1, this.paper.height - r*1.1);
+
+        this.centerNode.animate({
+                x: this.newX,
+                y: this.newY
+            }, millis, "linear");
+        this.getHandle().stop();
         this.getHandle().animate({
                 r: r,
-                x: this.x - r,
-                y: this.y - r,
-                width: r * 2,
-                height: r * 2
+                cx: this.newX,
+                cy: this.newY
             }, 0, "linear");
 
         var positions = macademia.nbrviz.calculateRelatedInterestPositions(
-                            this.relatedInterests, this.expandedRadius, this.x, this.y);
+                            this.relatedInterests, this.expandedRadius, this.newX, this.newY);
         var nodePositions = positions[0];
 
         var self = this;
@@ -265,10 +286,10 @@ var MNode = RaphaelComponent.extend(
                     { x: nodePositions[i][0], y: nodePositions[i][1] },
                     millis,
                     "elastic");
-        })
+        });
         self.lastInterestHoverIndex = self.HOVER_NONE;
         this.ring.animate(
-                {r: this.expandedRadius}, millis, "elastic",
+                {r: this.expandedRadius, cx : this.newX, cy: this.newY}, millis, "elastic",
                 function () { self.state = self.STATE_EXPANDED; }
         );
     },
@@ -279,19 +300,13 @@ var MNode = RaphaelComponent.extend(
         this.state = this.STATE_COLLAPSING;
         this.stop();
         var r = this.collapsedRadius;
-        this.getHandle().animate({
-                r: r,
-                x: this.x - this.collapsedRadius,
-                y: this.y - this.collapsedRadius,
-                width: this.collapsedRadius * 2,
-                height: this.collapsedRadius * 2
-            }, 0, "linear");
+        this.getHandle().animate({ r: r, cx: this.origX, cy: this.origY }, 0, "linear");
         var self = this;
         $.each(this.relatedInterestNodes,
             function(i, ri) {
                 ri.hideText();
                 ri.animate(
-                        { x: self.x, y: self.y },
+                        { x: self.origX, y: self.origY },
                         400,
                         "backIn",
                         function () { ri.hide(); }
@@ -300,7 +315,11 @@ var MNode = RaphaelComponent.extend(
         );
         this.ring.animate(
                 {r: 0}, 400, "backIn",
-                function () {  self.state = self.STATE_COLLAPSED;}
+                function () {
+                    self.state = self.STATE_COLLAPSED;
+                    this.x = this.origX;
+                    this.y = this.origY;
+                }
         );
         var li = this.lastInterestHoverIndex;
         if (li != this.HOVER_NONE) {

@@ -10,8 +10,8 @@ var PersonCenter = RaphaelComponent.extend({
     init : function(params) {
         this._super(params);
 
-        this.IMAGE_ASPECT = 130.0 / 194.0;
         // constants
+        this.IMAGE_ASPECT = 130.0 / 194.0;
         this.IMAGE_WIDTH = 28;
         this.IMAGE_HEIGHT = this.IMAGE_WIDTH / this.IMAGE_ASPECT;
         this.LABEL_VERT_OFFSET = 13;
@@ -23,6 +23,7 @@ var PersonCenter = RaphaelComponent.extend({
         this.imageHeight = params.imageHeight || this.IMAGE_HEIGHT;
         this.innerRadius = params.innerRadius || this.imageHeight * .5;
         this.outerRadius = params.outerRadius || this.innerRadius + 10;
+        this.maxRadius = params.maxRadius || 100000000;
         this.picture = params.picture || "";
         this.name = params.name || "nameless person";
 
@@ -55,7 +56,8 @@ var PersonCenter = RaphaelComponent.extend({
             y: y+this.innerRadius+this.outerRadius+this.LABEL_HORIZ_OFFSET,
             font: macademia.nbrviz.mainFont
         });
-        this.handle = this.paper.circle(x, y, this.innerRadius+this.outerRadius).attr({fill: "#fff", opacity: 0}).toFront();
+        this.handle = this.paper.circle(x, y, this.innerRadius+this.outerRadius)
+                .attr({fill: "#f00", opacity: 0.0}).toFront();
 
         this.setPosition(x, y);
 
@@ -109,9 +111,11 @@ var PersonCenter = RaphaelComponent.extend({
         });
 
     },
-    rescale : function(scalingFactor, maxRadius) {
-        var x = this.getX();
-        var y = this.getY();
+    animate : function(attrs) {
+        this.getLayerSet().stop();
+        var scalingFactor = attrs.scale;
+        var x = attrs.x || attrs.cx || this.getX();
+        var y = attrs.y || attrs.cy || this.getY();
         var self = this;
         $.each(this.getLayers(), function(i, l) {
             if (l != self.handle) { l.stop(); }
@@ -123,11 +127,12 @@ var PersonCenter = RaphaelComponent.extend({
             x : x - this.imageWidth * scalingFactor / 2,
             y : y - this.imageHeight * scalingFactor / 2
         }, ms);
-        this.innerStroke.animate({ r : this.innerRadius * scalingFactor }, ms);
+        this.imageBg.animate({ r : this.innerRadius * scalingFactor, cx : x, cy : y }, ms);
+        this.innerStroke.animate({ cx : x, cy : y, r : this.innerRadius * scalingFactor }, ms);
         var newOuterRadius = Math.sqrt(scalingFactor) * this.outerRadius;
-        newOuterRadius = Math.min(newOuterRadius, maxRadius - this.innerRadius * scalingFactor);
+        newOuterRadius = Math.min(newOuterRadius, this.maxRadius - this.innerRadius * scalingFactor);
 
-        this.outerStroke.animate({ r : (this.innerRadius * scalingFactor + newOuterRadius)}, ms);
+        this.outerStroke.animate({ cx : x, cy : y, r : (this.innerRadius * scalingFactor + newOuterRadius)}, ms);
 
         var self = this;
         var amount = 1.0;
@@ -192,16 +197,30 @@ var Person = MNode.extend({
             x : this.x,
             y : this.y,
             outerRadius : this.collapsedRadius,
+            maxRadius : this.expandedRadius - this.relatedNodeRadius * 1.5,
             paper : this.paper
         });
     },
     onHoverIn : function() {
         this._super();
-        this.centerNode.rescale(2.2, this.expandedRadius - this.relatedNodeRadius*1.5);
+        this.centerNode.animate({cx : this.newX, cy : this.newY, scale : 2.2});
+        this.getHandle().stop();
+        this.getHandle().animate({
+                r: this.expandedHandleRadius,
+                cx: this.newX,
+                cy: this.newY
+            }, 0, "linear");
     },
     onHoverOut : function() {
         this._super();
-        this.centerNode.rescale(1.0, this.expandedRadius - this.relatedNodeRadius*1.5);
+        this.centerNode.animate({x : this.origX, y : this.origY, scale : 1.0});
+        this.getHandle().stop();
+        var r = this.centerNode.outerRadius + this.centerNode.innerRadius;
+        this.getHandle().animate({
+                r: r,
+                cx: this.origX,
+                cy: this.origY
+            }, 0, "linear");
     },
     setPosition : function(x, y) {
         this._super(x, y);

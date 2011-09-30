@@ -12,7 +12,7 @@ macademia.nbrviz.distance = function(x1, y1, x2, y2) {
     };
 
 macademia.nbrviz.initPaper = function(domId, width, height) {
-    macademia.nbrviz.paper = new Raphael(domId, width - 30, height - 30);
+    macademia.nbrviz.paper = new Raphael(domId, width, height);
 
     macademia.nbrviz.paper.customAttributes.personArc = function(xPos, yPos, strokeWidth, percentage, innerCircle){
         var alpha = 360 / 60 * (percentage * 60),
@@ -131,3 +131,7 @@ macademia.endTimer = function(label) {
     console.log(label + ' required ' + elapsed + ' milliseconds');
     macademia.beginTime = Date.now();
 };
+
+macademia.pinch = function(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+}

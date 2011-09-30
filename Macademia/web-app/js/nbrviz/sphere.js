@@ -41,19 +41,14 @@ var Sphere = RaphaelComponent.extend({
                     "hsb(" + this.hue + ", " + this.sat + "," + (0.89 * this.brightness) + ")");
         }
 
-        this.gradient1 = this.paper.ellipse(x, y, this.r, this.r)
+        this.gradient1 = this.paper.circle(x, y, this.r)
                     .attr({fill: fill, stroke: '#ccc'});
-        this.gradient2 = this.paper.ellipse(
-                        x, y, this.r - this.r / 5, this.r - this.r / 20)
+        this.gradient2 = this.paper.circle(x, y, this.r - this.r / 5)
                     .attr({stroke: "none", fill: "r(.5,.1)#ddd-#ddd", opacity: 0});
 
         // invisible layer (useful for event handling)
-        this.handle =  this.paper.rect(
-                x - this.r,
-                y - this.r,
-                this.r * 2,
-                this.r * 2 + this.yOffset / 2)
-                .attr({fill: '#000', stroke: 'none', opacity: 0.0});
+        this.handle =  this.paper.circle(x, y, this.r)
+                .attr({fill: '#f00', stroke: 'none', opacity: 0.0});
 
         this.installListeners();
     },
@@ -109,11 +104,11 @@ var Sphere = RaphaelComponent.extend({
     },
 
     getRects : function() {
-        return [this.handle];
+        return [];
     },
 
     getCircles : function() {
-        return [this.gradient1, this.gradient2];
+        return [this.handle, this.gradient1, this.gradient2];
     },
 
     installListeners : function() {
@@ -165,25 +160,16 @@ var Sphere = RaphaelComponent.extend({
      */
     animate : function(attrs, millis, arg1, arg2) {
         var self = this;
-        // handle rectangles (position is upper left)
-        // HACK: only position handle, not inherited rects
-        $.each([this.handle], function() {
-            var a = attrs;
-            if (a.x) {
-                var a = $.extend({}, a);
-                a.x = a.x - this.attr('width') / 2;
-                a.y = a.y - this.attr('height') / 2;
-            }
-            this.animate(a, millis, arg1, arg2);
-        });
 
         // handle ellipses (position is center)
+        var x = attrs.x || attrs.cx;
+        var y = attrs.y || attrs.cy;
         var newAttrs = $.extend({}, attrs);
-        if (attrs.x) {
+        if (x || y) {
             delete newAttrs.x;
             delete newAttrs.y;
-            newAttrs.cx = attrs.x;
-            newAttrs.cy = attrs.y;
+            newAttrs.cx = x;
+            newAttrs.cy = y;
 
         }
         $.each(this.getCircles(), function(i) {
@@ -193,9 +179,11 @@ var Sphere = RaphaelComponent.extend({
         var d = 2 * Math.PI / this.orbit.length;
         for (var i = 0; i < this.orbit.length; i++) {
             newAttrs = $.extend({}, attrs);
-            if (attrs.x) {
-                newAttrs.x = attrs.x + this.r * Math.cos(i * d);
-                newAttrs.y = attrs.y + this.r * Math.sin(i * d);
+            if (x || y) {
+                delete newAttrs.cx;
+                delete newAttrs.cy;
+                newAttrs.x = x + this.r * Math.cos(i * d);
+                newAttrs.y = y + this.r * Math.sin(i * d);
             }
             this.orbit[i].animate(newAttrs, millis, arg1, arg2);
         }
