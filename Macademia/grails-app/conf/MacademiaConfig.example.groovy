@@ -1,3 +1,5 @@
+import grails.util.Environment
+
 /**
  * This is an example of MacademiaConfig.groovy.
  * You can copy this file to create your own, or you can simply
@@ -22,13 +24,21 @@
 //dataSource.mongoDbUrl = '127.0.0.1'
 
 /**
- * Uncomment these to bring up a local snapshot of the production db.
+ * Uncomment these to bring up a local snapshot of the production db for use in
+ * production and a local mongo for test.
  */
-//dataSource.mongoDbUrl = '127.0.0.1'
-//dataSource.url = "jdbc:postgresql://localhost:5432/macademia_prod"
-//dataSource.mongoDbName = "macademia_prod"
-//dataSource.driverClassName = "org.postgresql.Driver"
-//dataSource.username = "grails"
-//dataSource.password = "grails"
-//dataSource.dialect = net.sf.hibernate.dialect.PostgreSQLDialect
-//dataSource.mongoDbName = "macademia_prod"
+//switch (Environment.current) {
+//    case Environment.DEVELOPMENT:
+//        dataSource.mongoDbUrl = '127.0.0.1'
+//        dataSource.url = "jdbc:postgresql://localhost:5432/macademia_prod"
+//        dataSource.mongoDbName = "macademia_prod"
+//        dataSource.driverClassName = "org.postgresql.Driver"
+//        dataSource.username = "grails"
+//        dataSource.password = "grails"
+//        dataSource.dialect = net.sf.hibernate.dialect.PostgreSQLDialect
+//        dataSource.mongoDbName = "macademia_prod"
+//        break
+//    case Environment.TEST:
+//        dataSource.mongoDbUrl = '127.0.0.1'
+//        break
+//}

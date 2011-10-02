@@ -51,10 +51,4 @@ class Similarity2ServiceIntegrationTests extends GrailsUnitTestCase {
         assertEquals(graph.people, graph2.people)
     }
 
-    void testInjectInterference() {
-        assert(similarity2Service instanceof SimilarityService)
-        assert(!(similarityService instanceof Similarity2Service))
-        assert(!(interestService.similarityService instanceof Similarity2Service))
-    }
-
 }

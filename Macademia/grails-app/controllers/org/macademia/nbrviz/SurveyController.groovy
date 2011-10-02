@@ -2,6 +2,7 @@ package org.macademia.nbrviz
 
 import org.macademia.Person
 import org.macademia.Utils
+import org.macademia.Interest
 
 class SurveyController {
 
@@ -61,7 +62,7 @@ class SurveyController {
         }
         Subject subject = new Subject(consent: true)
         interestService.parseInterests(params.interests).each({
-            subject.addToInterests(it)
+            subject.addToInterests(it as Interest)
         })
         subjectService.create(subject)
         redirect(action: "show", params: [subToken: subject.token])
@@ -117,7 +118,6 @@ class SurveyController {
             throw new IllegalArgumentException("Subject with id ${subject.id} has not completed the survey")
         }
         subject.completedSurvey = true
-        surveyService.analyzeData()
         return [subject: subject]
     }
 

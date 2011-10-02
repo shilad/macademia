@@ -9,6 +9,7 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder
 class CollaboratorRequestServiceIntegrationTests extends GrailsUnitTestCase {
 
     def collaboratorRequestService
+    def interestService
     def personService
     def databaseService
 
@@ -30,12 +31,10 @@ class CollaboratorRequestServiceIntegrationTests extends GrailsUnitTestCase {
         Person creator = new Person(fullName: "joe", email: "joe@macalester.edu", department: "Math/CS")
         personService.create(creator, 'useR123!', [mac])
         CollaboratorRequest cr = new CollaboratorRequest(title: "Macademia", creator: creator, description: "kld", dateCreated: new Date(), expiration: new Date())
-        Interest i1 = new Interest("macademia")
-        Interest i2 = new Interest("tagging")
         assertEquals(Interest.findAllByText("macademia").size(),0)
-        cr.addToKeywords(i1)
-        cr.addToKeywords(i2)
         assertTrue(Interest.findByText("macademia")==null)
+        cr.addToKeywords(interestService.analyze("macademia"))
+        cr.addToKeywords(interestService.analyze("tagging"))
         collaboratorRequestService.save(cr)
         assertEquals(CollaboratorRequest.findAll().size(),1)
         assertTrue(CollaboratorRequest.findByTitle("Macademia")!=null)

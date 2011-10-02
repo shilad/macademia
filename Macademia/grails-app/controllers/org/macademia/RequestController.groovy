@@ -64,7 +64,7 @@ class RequestController {
         collaboratorRequest.creator = request.authenticated
         def oldKeywords = collaboratorRequest.keywords
         if (params.keywords){
-            interestService.parseInterests(params.interests).each({
+            interestService.parseInterests(params.keywords).each({
                 collaboratorRequest.addToKeywords(it)
             })
         }

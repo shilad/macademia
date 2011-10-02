@@ -61,7 +61,7 @@ class PseudonymService {
         def fakeData = [:]
         fakeData['id']=pair(sid, uid)
         fakeData['name']=generatePseudonym((long) fakeData.id)
-        fakeData['pic']=generateFakePicture(fakeData.id)
+        fakeData['pic']=generateFakePicture(fakeData.id as Long)
         return fakeData
     }
 

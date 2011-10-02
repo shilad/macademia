@@ -4,14 +4,13 @@ import org.macademia.*
 import grails.plugin.springcache.annotations.Cacheable
 
 /**
- * An extension of SimilarityService, provides neighbor algorithms
- * for the new query and exploration visualizations.
+ * Provides neighbor algorithms for the new query and exploration visualizations.
  */
 class Similarity2Service {
 
-    def similarityService
     def interestService
     def databaseService
+    def similarityService
     static double IDENTITY_SIM = 0.7
     private static final double MAX_UNCLUSTERED_SIM = 0.1
     private static final double MIN_CLUSTER_SIM = 0.005
@@ -87,7 +86,7 @@ class Similarity2Service {
         def interests = databaseService.getUserInterests(root.id)
         for(long i : interests){
             //For each interest owned by the central person, calculate neighbors
-            graph = calculateNeighbors(i, graph, maxPeople, (Set<Long>)root.interests.collect({it.id}), null) as NbrvizGraph
+            graph = similarityService.calculateNeighbors(i, graph, maxPeople, interests, null) as NbrvizGraph
         }
         graph.finalizeGraph(maxPeople)
         return graph
@@ -105,10 +104,10 @@ class Similarity2Service {
         int maxPeople = Integer.MAX_VALUE
         int maxInterests = Integer.MAX_VALUE
         NbrvizGraph graph = new NbrvizGraph()
-        graph = findPeopleAndRequests(graph, maxPeople, root.id, null, 1, null) as NbrvizGraph
-        for(SimilarInterest ir : getSimilarInterests(root.id, maxInterests, absoluteThreshold, null)){
+        graph = similarityService.findPeopleAndRequests(graph, maxPeople, root.id, null, 1, null) as NbrvizGraph
+        for(SimilarInterest ir : similarityService.getSimilarInterests(root.id, maxInterests, similarityService.absoluteThreshold, null)){
             graph.addEdge(null, root.id, ir.interestId, null, ir.similarity)
-            graph = findPeopleAndRequests(graph, maxPeople, ir.interestId, null, ir.similarity, null) as NbrvizGraph
+            graph = similarityService.findPeopleAndRequests(graph, maxPeople, ir.interestId, null, ir.similarity, null) as NbrvizGraph
         }
         graph.finalizeGraph(maxPeople)
         return graph
@@ -172,7 +171,7 @@ class Similarity2Service {
     public Set<Long> chooseTopRelatedInterests(Long interestId, int numResults) {
         // Subset of related interests
         SimilarInterestList sil = databaseService.getSimilarInterests(interestId)
-        if (sil.size() > numResults*8) { sil = sil.getSublistTo(numResults*8) }
+        if (sil.size() > numResults*8) { sil = sil.getSublistTo(numResults*8 as int) }
         Set<Long> interests = new HashSet<Long>(sil.list.interestId)
 
         // co-occurrence counts for related interests
@@ -209,7 +208,7 @@ class Similarity2Service {
         List<Long> centers = []
         while (centers.size() < numResults && remaining.size() > 0) {
             Long lastId = centers.isEmpty() ? null : centers.last()
-            double alpha = 1.0 / (centers.size() + 1)
+//            double alpha = 1.0 / (centers.size() + 1)
             double bestScore = -1
             Long bestId = null
             for (Iterator<Long> i = remaining.iterator(); i.hasNext();) {
@@ -247,7 +246,7 @@ class Similarity2Service {
     public Collection<Set<Long>> clusterInterests(Set<Long> iids) {
 //        println("iids are $iids")
         List<Set<Long>> clusters = []
-        Map<Long, Map<Long, Double>> sims = getIntraInterestSims(iids)
+        Map<Long, Map<Long, Double>> sims = databaseService.getIntraInterestSims(iids, false)
 
         for (Long i : sims.keySet()) {
             if (sims.containsKey(i)) {
@@ -282,7 +281,7 @@ class Similarity2Service {
             clusters.remove(closest[0])
             closest[1].addAll(closest[0])
         }
-        String desc = clusters.collect({describeCluster(it)}).join(", ")
+//        String desc = clusters.collect({describeCluster(it)}).join(", ")
         for (int i = 0; i < clusters.size(); i++) {
             println("cluster $i is ${describeCluster(clusters[i])}")
         }

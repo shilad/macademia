@@ -396,7 +396,7 @@ macademia.jit.init = function(rootType,id){
 macademia.jit.getColorsFromJson = function(json) {
     var colors = {};
     $.each(json, function(key, value) {
-        if (json[key]['data']['type'] == 'person') {
+        if ((json[key]['data']['type'] == 'person') && (json[key]['adjacencies'][0])) {
             colors[json[key]['data']['institution']] = json[key]['adjacencies'][0]['data']['$color'];
         }
     });

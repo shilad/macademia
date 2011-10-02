@@ -5,8 +5,8 @@ package org.macademia;
  */
 
 public class SimilarInterest implements Comparable {
-    long interestId;
-    double similarity;
+    public long interestId;
+    public double similarity;
 
     public SimilarInterest(long interestId, double similarity){
         this.interestId = interestId;
