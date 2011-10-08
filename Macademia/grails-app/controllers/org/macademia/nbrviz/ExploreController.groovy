@@ -26,12 +26,13 @@ class ExploreController {
           for (int i = 0; i < parentIds.size(); i++) {
               parentWeights[parentIds[i]] = weights[i] / 5.0
           }
+          println("weights are " + parentWeights)
       }
 
       TimingAnalysis ta = new TimingAnalysis('ExpController.interestData')
       ta.startTime()
       InterestGraph graph = similarity2Service.calculateExplorationNeighbors(
-                                        rootId, 20, 4)
+                                        rootId, 20, 4, parentWeights)
       ta.recordTime('sim2service')
       def data = json2Service.buildInterestCentricGraph(
               graph,

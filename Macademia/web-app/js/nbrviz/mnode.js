@@ -242,6 +242,13 @@ var MNode = RaphaelComponent.extend(
             }
         );
     },
+    animate : function(attrs, millis, arg1, arg2) {
+        if (this.state != this.STATE_COLLAPSED) {
+            alert('state is ' + this.state + ' in animate');
+            return;
+        }
+        this.centerNode.animate(attrs, millis, arg1, arg2);
+    },
 
     /**
      * Overall hover handlers

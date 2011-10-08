@@ -1,4 +1,5 @@
 macademia.nbrviz.explore = {};
+macademia.nbrviz.explore.queryWeights = {};
 
 macademia.nbrviz.explore.isInterestGraph = function() {
     return $.address.parameter('interestId');
@@ -8,38 +9,45 @@ macademia.nbrviz.explore.isPersonGraph = function() {
     return $.address.parameter('personId');
 };
 
-macademia.nbrviz.explore.initQueryKey = function(parentIds) {
+macademia.nbrviz.explore.recenter = function(klass, rootId) {
+    $.address.autoUpdate(false);
+    $.address.parameter('interestId', null);
+    $.address.parameter('personId', null);
+    $.address.parameter(klass + 'Id', rootId);
+    $.address.autoUpdate(true);
+    $.address.update();
+};
+
+macademia.nbrviz.explore.initQueryKey = function(vizJson) {
+    var parentIds = $.map(vizJson.clusterMap, function(val, key) { return key; });
     $(".addedInterestDiv:visible").remove();
-    $.each(parentIds, function(i, qid) {
-        // TODO: replace with non-ajax lookup into datastructure
-        var name = macademia.getInterestName(qid);
+    $.each(parentIds, function(i, pid) {
+
+        var name = vizJson.interests[pid].name;
         var elem = $("#queryInterestTemplate").clone();
-        elem.attr('id', 'queryInterestKey' + qid);
+        elem.attr('id', 'queryInterestKey' + pid);
         var html = elem.html();
-        html = html.replace(/INTEREST_ID/g, ""+qid);
+        html = html.replace(/INTEREST_ID/g, ""+pid);
         html = html.replace(/INTEREST_NAME/g, ""+name.toLowerCase());
         elem.html(html);
         $("#queryInterestTemplate").before(elem);
         elem.find('.interestSlider').slider(
                 {
                     min : 1, max : 5,
-                    value : macademia.nbrviz.explore.queryWeights[qid] || 3,
+                    value : macademia.nbrviz.explore.queryWeights[pid] || 3,
                     change : function() {$.address.update();}
                 }
         );
-    });
-};
 
-macademia.nbrviz.explore.drawKeySpheres = function(parentIds) {
-    $.each(parentIds, function(i, id) {
         // draw the sphere
-        var k = $(".interestKey[interest='" + id + "']");
+        var k = $(".interestKey[interest='" + pid + "']");
         var w = k.width(), h = k.height();
         var p = new Raphael(k.get(0), w, h);
         var s = new Sphere({
             r : Math.min(w / 2, h/2), x : w / 2, y : h/2,
-            hue : macademia.nbrviz.getColor(id), paper : p
+            hue : macademia.nbrviz.getColor(pid), paper : p
         });
+
     });
 };
 
@@ -71,18 +79,19 @@ macademia.nbrviz.explore.initViz = function() {
         var klass = interestId ? 'interest' : 'person';
         var rootId = interestId || personId;
 
-
-        /*$.each(queryIds, function(i, qid) {
+        $(".interestSlider:visible").each(function () {
+            var iid = $(this).attr('interest');
             var weight = 3;
-            var slider = $(".interestSlider[interest=" + qid + "]");
-            if (slider.length) {
-                weight = slider.slider( "option", "value" );
-            } else if (qid in macademia.nbrviz.query.queryWeights) {
-                weight = macademia.nbrviz.query.queryWeights[qid];
+            var weight = 3;
+            if ($(this).length) {
+                weight = $(this).slider( "option", "value" );
+            } else if (iid in macademia.nbrviz.explore.queryWeights) {
+                weight = macademia.nbrviz.explore.queryWeights[iid];
             }
-            macademia.nbrviz.query.queryWeights[qid] = weight;
-            console.log('weight for ' + qid + ' is ' + weight);
-        });*/
+            macademia.nbrviz.explore.queryWeights[iid] = weight;
+            console.log('weight for ' + iid + ' is ' + weight);
+        });
+
         console.log("refreshing viz to " + klass + " " + rootId);
         macademia.nbrviz.explore.refreshViz(klass, rootId);
     });
@@ -105,7 +114,7 @@ macademia.nbrviz.explore.initCluster = function(qid, vizJson, interests) {
     });
     ic.addClicked(
             function (interest, interestNode) {
-                alert('pivoting to ' + interest.name);
+                macademia.nbrviz.explore.recenter('interest', interest.id);
             });
     return ic;
 };
@@ -115,9 +124,6 @@ macademia.nbrviz.explore.initCluster = function(qid, vizJson, interests) {
  * @param vizJson
  */
 macademia.nbrviz.explore.refreshViz = function(klass, rootId) {
-//    macademia.nbrviz.query.initQueryKey();
-//    macademia.nbrviz.query.drawKeySpheres();
-
     if (klass != 'person' && klass != 'interest') {
         alert('unknown klass: "' + klass + '" (must be person or interest).');
         return;
@@ -125,6 +131,19 @@ macademia.nbrviz.explore.refreshViz = function(klass, rootId) {
 
     // TODO: make asynchronous
     var url = macademia.makeActionUrlWithGroup('all', 'explore', klass + 'Data') + '/' + rootId;
+
+    var parentIds = [];
+    var parentWeights = [];
+
+    $.each(macademia.nbrviz.explore.queryWeights, function (k, v) {
+        parentIds.push(k);
+        parentWeights.push(v);
+    });
+    if (parentIds.length) {
+        url += '?parentIds=' + parentIds.join('_');
+        url += '&parentWeights=' + parentWeights.join('_');
+    }
+
     var vizJson = null;
     $.ajax({
         url: url,
@@ -140,6 +159,8 @@ macademia.nbrviz.explore.refreshViz = function(klass, rootId) {
 
 macademia.nbrviz.explore.loadNewData = function(vizJson) {
     macademia.endTimer('ajax call');
+    macademia.nbrviz.explore.initQueryKey(vizJson);
+    macademia.endTimer('key');
 
     var paper = macademia.nbrviz.paper;
     if (paper) {
@@ -181,7 +202,7 @@ macademia.nbrviz.explore.loadNewData = function(vizJson) {
     if ( screenArea() < 650000 ) {
         limit = 6;
     } else {
-        limit = 20;
+        limit = 15;
     }
 
     var numPeople = 0;
@@ -227,7 +248,7 @@ macademia.nbrviz.explore.loadNewData = function(vizJson) {
         }
         person.addClicked(
                 function (interest, interestNode) {
-                    alert('recentering on person interest ' + interest.name);
+                    macademia.nbrviz.explore.recenter('interest', interest.id);
                 });
         people[id] = person;
     });

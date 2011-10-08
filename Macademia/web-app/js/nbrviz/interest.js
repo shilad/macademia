@@ -28,7 +28,6 @@ var InterestCluster = MNode.extend({
             this.name = this.retrieveClusterName();
             this.hasCenter = false;
         }
-        this.expandedHandleRadius = params.expandedHandleRadius || this.expandedRadius;
     },
 
     /**

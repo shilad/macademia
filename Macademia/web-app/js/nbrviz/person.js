@@ -113,7 +113,7 @@ var PersonCenter = RaphaelComponent.extend({
     },
     animate : function(attrs) {
         this.getLayerSet().stop();
-        var scalingFactor = attrs.scale;
+        var scalingFactor = attrs.scale || 1.0;
         var x = attrs.x || attrs.cx || this.getX();
         var y = attrs.y || attrs.cy || this.getY();
         var self = this;

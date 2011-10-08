@@ -101,16 +101,87 @@ ExploreViz.prototype.layoutPeople = function( /*coords*/ ) {
     });
     var iters = 0;
     var f = function() {
-        startLayout(.1);
+        var k = macademia.nbrviz.magnet.oneLayoutIteration();
         $.each(Point.points, function(index, p) {
-            self.people[p.id].setPosition( p.screenX(), p.screenY());
+            var person = self.people[p.id];
+            person.setPosition(p.screenX(), p.screenY());
         });
-        if (iters++ < 100) {
-            window.setTimeout(f, 10);
+        if (iters++ < 100 && k >= 0.01) {
+            window.setTimeout(f, 1);
         }
     };
     $.each(Point.points, function(index, p) {
         self.people[p.id].setPosition( p.screenX(), p.screenY());
     });
-    window.setTimeout(f, 200);
+    window.setTimeout(f, 1);
+};
+
+
+
+ExploreViz.prototype.raiseScreen = function(focus) {
+    this.fadeScreen.stop();
+    this.fadeScreen.insertBefore(focus);
+    this.fadeScreen.animate({opacity : 0.70}, 400);
+};
+
+ExploreViz.prototype.lowerScreen = function() {
+    this.fadeScreen.stop();
+    var self = this;
+    this.fadeScreen.animate({opacity : 0.0}, 200, function () {self.fadeScreen.toBack();});
+};
+
+ExploreViz.prototype.handlePersonHover = function(person) {
+    person.toFront();
+    this.raiseScreen(person.getBottomLayer());
+};
+
+ExploreViz.prototype.handlePersonUnhover = function(person) {
+    this.lowerScreen();
+};
+
+ExploreViz.prototype.handleInterestClusterHover = function(interest) {
+//    console.log("handle interest cluster hover: " + interest.name);
+    interest.toFront();
+    this.raiseScreen(interest.getBottomLayer());
+};
+
+ExploreViz.prototype.handleInterestClusterUnhover = function(interest) {
+//    console.log("handle interest cluster unhover" + interest.name);
+    this.lowerScreen();
+    this.hideEdges();
+};
+
+ExploreViz.prototype.handleInterestHover = function(parentNode, interest, interestNode) {
+//    console.log("handle interest hover" + interest.name);
+    this.hideEdges();
+    var self = this;
+    $.each(this.people, function (i, p) {
+        $.each(p.interests, function(index, interest2) {
+            if (interest.id == interest2.id) {
+                self.drawEdge(parentNode, p, interestNode);
+                p.toFront(parentNode.getBottomLayer());
+                self.highlighted.push(p);
+            }
+        });
+    });
+};
+
+ExploreViz.prototype.handleInterestUnhover = function(parentNode, interest, interestNode) {
+//    console.log("handle interest unhover" + interest.name);
+    this.hideEdges();
+};
+
+ExploreViz.prototype.drawEdge = function(parentNode, person, interestNode) {
+    var svgStr = 'M' + interestNode.getX() + ' ' + interestNode.getY() + 'L' + person.x + ' ' + person.y + 'Z';
+    var path = this.paper.path(svgStr);
+    path.insertBefore(parentNode.getBottomLayer());
+    path.attr({stroke : '#f00', 'stroke-width' : 2, 'stroke-dasharray' : '- ', 'stroke-opacity' : 0.2});
+    this.edges.push(path);
+};
+
+ExploreViz.prototype.hideEdges = function() {
+    $.each(this.edges, function (i, e) { e.remove(); });
+    this.edges = [];
+    $.each(this.highlighted, function (i, e) { e.toBack(); });
+    this.highlighted = [];
 };

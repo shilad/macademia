@@ -96,7 +96,7 @@ class Similarity2Service {
      * @param maxInterests The max number of Interests to include in the Graph.
      * @return A Graph
      */
-    public InterestGraph calculateExplorationNeighbors(Long rootId, int maxPeople, int maxInterests) {
+    public InterestGraph calculateExplorationNeighbors(Long rootId, int maxPeople, int maxInterests, Map<Long, Double> interestWeights) {
 
         TimingAnalysis ANALYSIS = new TimingAnalysis('calculateInterestNeighbors')
         InterestGraph graph = new InterestGraph(rootId)
@@ -105,7 +105,8 @@ class Similarity2Service {
         ANALYSIS.startTime()
         Map<Long, Double> related = chooseTopRelatedInterests(rootId, maxInterests, 0.5, [:])
         ANALYSIS.recordTime("choose related interests")
-        related[rootId] = 1.0  // Hack
+        related[rootId] = 1.0; interestWeights[rootId] = 1.0;  // Hacks
+
         Map<Long, Double> penalties = [:]   // between 0 (low) and 1 (high)
         related.keySet().each({penalties[it] = 1.0 })
 
@@ -118,7 +119,7 @@ class Similarity2Service {
             if (rid != rootId) {
                 displayedIds.each({ penalties[it] = 0.5 + penalties.get(it, 0) * 0.5 })
             }
-            graph.addRelatedInterest(rid, related[rid], displayedIds, sil)
+            graph.addRelatedInterest(rid, interestWeights.get(rid, 0.5), displayedIds, sil)
         }
         ANALYSIS.recordTime("related interest clusters")
 
@@ -140,7 +141,7 @@ class Similarity2Service {
         ANALYSIS.recordTime("people2")
 
         // Calculate scores, prune graph, etc
-        graph.finalizeGraph(maxPeople)
+        graph.finalizeGraph(maxPeople);
         ANALYSIS.recordTime("finalize")
         ANALYSIS.analyze()
 

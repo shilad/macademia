@@ -75,7 +75,7 @@ Point.applyCoulombsLaw = function() {
 };
 
 Point.updateVelocity = function() {
-	var damping = 0.5; // damping constant, points lose velocity over time
+	var damping = 0.3; // damping constant, points lose velocity over time
 	Point.points.forEach(function(p) {
 		p.v = p.v.add(p.f.multiply(MM.TIMESTEP)).multiply(damping);
 		p.f = new Vector(0,0);
@@ -111,7 +111,7 @@ Point.updatePosition = function() {
 //        POSITIONS.push(ps);
 //    }
 
-    console.log('meanD: ' + meanD/Point.points.length + ', maxD: ' + maxD);
+//    console.log('meanD: ' + meanD/Point.points.length + ', maxD: ' + maxD);
 };
 
 Point.printDeltas = function() {
@@ -132,8 +132,8 @@ Point.printDeltas = function() {
                 maxD = d;
             }
         }
-        console.log('i: ' + i + 'n: ' + Point.points.length +
-                ' meanD: ' + meanD / Point.points.length + ', maxD: ' + maxD);
+//        console.log('i: ' + i + 'n: ' + Point.points.length +
+//                ' meanD: ' + meanD / Point.points.length + ', maxD: ' + maxD);
     }
 };
 
@@ -270,5 +270,28 @@ function startLayout(threshold) {
 		}
         break;
 	}
+    return k;
 //    Point.printDeltas();
+}
+
+MM.oneLayoutIteration = function() {
+	Magnet.magnets.forEach(function(mag){
+		mag.normalizeRelevances();
+	});
+    Magnet.magnets.forEach(function(mag){
+        mag.attractPeople();
+    });
+
+    Point.applyCoulombsLaw();
+    Point.updateVelocity();
+    Point.updatePosition();
+
+    // calculate kinetic energy of system
+    var k = 0.0;
+    Point.points.forEach(function(p){
+        var speed = p.v.magnitude();
+        k += speed * speed;
+    });
+
+    return k;
 }
