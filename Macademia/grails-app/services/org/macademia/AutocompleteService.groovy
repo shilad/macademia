@@ -98,6 +98,9 @@ class AutocompleteService{
             gt.interestTree.add("i" + interest.id, entity)
         }
         int usage = databaseService.getInterestUsage(interest.id)
+        if (interest.articleName && interest.getNormalizedText() == Interest.normalize(interest.articleName)) {
+            usage += 1
+        }
         gt.overallTree.get("i" + interest.id).setScore(usage)
         gt.interestTree.get("i" + interest.id).setScore(usage)
         if (databaseService.getSimilarInterests(interest).size() > 5) {

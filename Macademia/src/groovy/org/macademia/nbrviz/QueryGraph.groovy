@@ -4,14 +4,12 @@ import org.macademia.SimilarInterestList
 import org.macademia.SimilarInterest
 import org.macademia.Interest
 
-class QueryVizGraph {
+class QueryGraph {
     static class InterestInfo {
         long interestId = 0
         long queryInterestId = -1
-        long clusterInterestId = -1
         double queryRelevance = -1.0
-        double clusterRelevance = -1.0
-        boolean isClusterId = false
+        boolean isSubInterest = false
     }
 
     public static final double CLUSTER_PENALTY = 0.5
@@ -23,7 +21,7 @@ class QueryVizGraph {
     Map<Long, Collection<PersonClusterEdge>> personClusterEdges = [:]
     Map<Long, Double> personScores = [:]
 
-    public QueryVizGraph(Set<Long> queryIds) {
+    public QueryGraph(Set<Long> queryIds) {
         this.queryIds = queryIds
     }
 
@@ -55,7 +53,6 @@ class QueryVizGraph {
         interestInfo[queryInterestId] = new InterestInfo(
                     interestId : queryInterestId,
                     queryInterestId : queryInterestId,
-                    isClusterId : true,
                     queryRelevance : HIGH_RELEVANCE,
                 )
     }
@@ -78,26 +75,19 @@ class QueryVizGraph {
     /**
      * Must be called after addPerson
      * @param queryInterestId
-     * @param clusterInterestId
+     * @param relatedInterestId
      * @param sil
      */
-    public void addQuerySubCluster(Long queryInterestId, Long clusterInterestId, SimilarInterestList sil) {
-        for (SimilarInterest si : sil.list) {
-            InterestInfo ii = interestInfo[si.interestId]
-            if (ii != null && !ii.isClusterId && ii.queryInterestId == queryInterestId && ii.clusterRelevance < si.similarity) {
-                ii.clusterRelevance = si.similarity
-                ii.clusterInterestId = clusterInterestId
-            }
-        }
-        if (!interestInfo.containsKey(clusterInterestId)) {
-            interestInfo[clusterInterestId] = new InterestInfo(
-                        interestId : clusterInterestId,
+    public void addQueryRelatedInterests(Long queryInterestId, Long relatedInterestId) {
+        if (!interestInfo.containsKey(relatedInterestId)) {
+            interestInfo[relatedInterestId] = new InterestInfo(
+                        interestId : relatedInterestId,
                         queryInterestId : queryInterestId,
                         queryRelevance : HIGH_RELEVANCE,
                     )
         }
-        interestInfo[clusterInterestId].clusterInterestId = clusterInterestId
-        interestInfo[clusterInterestId].isClusterId = true
+        interestInfo[relatedInterestId].queryInterestId = queryInterestId
+        interestInfo[relatedInterestId].isSubInterest = true
     }
 
     public void finalizeGraph(int maxPeople) {
@@ -118,7 +108,10 @@ class QueryVizGraph {
         for (Set<PersonClusterEdge> pedges : personClusterEdges.values()) {
             pedges.each({iids.addAll(it.relevantInterestIds)})
         }
-        interestInfo.values().each({iids.add(it.clusterInterestId)})
+        iids.addAll(
+                interestInfo.values().findAll({it.isSubInterest})
+                                     .collect({it.interestId})
+        )
         interestInfo.keySet().retainAll(iids)
     }
 
@@ -146,28 +139,6 @@ class QueryVizGraph {
         return sim
     }
 
-    protected double [] computePersonProfile(long pid) {
-        double [] profile = new double[queryIds.size()]
-        double norm1 = 0.0
-        for (PersonClusterEdge e : personClusterEdges[pid]) {
-            int c = e.clusterId.toInteger()
-            profile[c] = e.relevance
-            norm1 += e.relevance
-        }
-        for (int i = 0; i < profile.length; i++) {
-            profile[i] /= norm1
-        }
-        return profile
-    }
-
-    private static final dot(double [] X, double [] Y) {
-        double sum = 0
-        for (int i = 0; i < X.length; i++) {
-            sum += X[i] * Y[i]
-        }
-        return sum
-    }
-
     public Map<Long, Integer> getInterestCounts() {
         Map<Long, Integer> counts = [:]
         for (PersonClusterEdge e : personClusterEdges.values().flatten()) {
@@ -176,20 +147,17 @@ class QueryVizGraph {
         return counts
     }
 
-    public Map<Long, Map<Long, Set<Long>>> getClusterMap() {
-        Map<Long, Map<Long, Set<Long>>> cmap = [:]
+    public Map<Long, Set<Long>> getClusterMap() {
+        Map<Long, Set<Long>> cmap = [:]
         for (InterestInfo ii : interestInfo.values()) {
-            if (ii.queryInterestId < 0 || ii.clusterInterestId < 0) {
+            if (ii.queryInterestId < 0) {
                 continue
             }
             if (!cmap.containsKey(ii.queryInterestId)) {
-                cmap[ii.queryInterestId] = [:]
+                cmap[ii.queryInterestId] = new HashSet<Long>()
             }
-            if (!cmap[ii.queryInterestId].containsKey(ii.clusterInterestId)) {
-                cmap[ii.queryInterestId][ii.clusterInterestId] = new HashSet<Long>()
-            }
-            if (ii.interestId != ii.queryInterestId && ii.interestId != ii.clusterInterestId) {
-                cmap[ii.queryInterestId][ii.clusterInterestId].add(ii.interestId)
+            if (ii.interestId != ii.queryInterestId) {
+                cmap[ii.queryInterestId].add(ii.interestId)
             }
         }
         return cmap
@@ -203,11 +171,11 @@ class QueryVizGraph {
         }
         println()
 
-        Map<Long, Map<Long, Set<Long>>> cmap = getClusterMap()
+        Map<Long, Set<Long>> cmap = getClusterMap()
         for (Long qid : cmap.keySet()) {
-            println("Clusters for ${f(qid)}:")
-            for (Long cid : cmap[qid].keySet()) {
-                println("\t${f(cid)}: ${cmap[qid][cid].collect(f).join(', ')}")
+            println("Subinterests for ${f(qid)}:")
+            for (Long cid : cmap[qid]) {
+                println("\t${f(cid)}")
             }
         }
     }

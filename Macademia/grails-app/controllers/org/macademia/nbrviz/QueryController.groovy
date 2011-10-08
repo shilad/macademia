@@ -1,6 +1,5 @@
 package org.macademia.nbrviz
 
-import org.macademia.Graph
 import grails.converters.JSON
 import org.macademia.TimingAnalysis
 
@@ -27,7 +26,7 @@ class QueryController {
 
       TimingAnalysis ta = new TimingAnalysis('QueryController')
       ta.startTime()
-      QueryVizGraph graph = similarity2Service.calculateQueryNeighbors(
+      QueryGraph graph = similarity2Service.calculateQueryNeighbors(
                                 queryIds as HashSet<Long>, queryWeights, 20)
       ta.recordTime('sim2service')
       def data = json2Service.buildQueryCentricGraph(

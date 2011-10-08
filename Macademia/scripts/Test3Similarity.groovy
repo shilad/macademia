@@ -1,5 +1,6 @@
 import org.macademia.Interest
 import org.macademia.nbrviz.QueryGraph
+import org.macademia.nbrviz.InterestGraph
 
 
 ctx.getBean('autocompleteService').init()
@@ -13,19 +14,18 @@ def sessionFactory = ctx.getBean('sessionFactory')
 //    println("")
 //})
 def queries = [
-    ['web20'],
-    ['music'],
-    ['geography'],
-    ['jazz'],
-    ['web20', 'music'],
-    ['geography', 'jazz'],
-    ['geography', 'economics'],
+    'web20',
+    'anthropology',
+    'music',
+    'geography',
+    'jazz',
+    'economics',
 ]
 
 def t1 = System.currentTimeMillis()
 queries.each({
-    def queryIds = it.collect({Interest.findByNormalizedText(it).id})
-    QueryGraph graph = similarityService.calculateQueryNeighbors(new HashSet(queryIds), 30)
+    def interest = Interest.findByNormalizedText(it)
+    InterestGraph graph = similarityService.calculateExplorationNeighbors(interest.id, 20, 3)
     graph.prettyPrint()
     sessionFactory.currentSession.clear()
 })

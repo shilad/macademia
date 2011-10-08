@@ -208,9 +208,10 @@ uiperformance.bundles = [
             'nbrviz/magnet',
             'nbrviz/vector',
             'nbrviz/graph',
-            'nbrviz/exploration',
             'nbrviz/query',
-            'nbrviz/query-init'
+            'nbrviz/query-init',
+            'nbrviz/explore',
+            'nbrviz/explore-init'
     ]],
 ]
 

@@ -1,36 +1,16 @@
-macademia.nbrviz.query = {};
-macademia.nbrviz.query.getQueryIds = function() {
-    return $.address.parameter('queryIds').split('_');
-};
-macademia.nbrviz.query.queryWeights = {};
-macademia.nbrviz.query.loadingMessage = null;
+macademia.nbrviz.explore = {};
 
-macademia.nbrviz.query.addInterestToQuery = function(id, name) {
-    if (name == null) {
-        name = macademia.getInterestName(id);
-    }
-    macademia.nbrviz.query.loadingMessage = 'adding "' + name + '"...';
-    var ids = macademia.nbrviz.query.getQueryIds();
-    if ($.inArray(''+id, ids) < 0) {
-        ids.push(id);
-        $.address.parameter('queryIds', ids.join('_'));
-    } else {
-        return true;
-    }
+macademia.nbrviz.explore.isInterestGraph = function() {
+    return $.address.parameter('interestId');
 };
 
-macademia.nbrviz.query.removeInterestFromQuery = function(id) {
-    var name = macademia.nbrviz.interests[id].name;
-    macademia.nbrviz.query.loadingMessage = 'removing "' + name + '"...';
-    var ids = macademia.nbrviz.query.getQueryIds();
-    var i = $.inArray(''+id, ids);
-    ids.splice(i, 1);
-    $.address.parameter('queryIds', ids.join('_'));
+macademia.nbrviz.explore.isPersonGraph = function() {
+    return $.address.parameter('personId');
 };
 
-macademia.nbrviz.query.initQueryKey = function() {
+macademia.nbrviz.explore.initQueryKey = function(parentIds) {
     $(".addedInterestDiv:visible").remove();
-    $.each(macademia.nbrviz.query.getQueryIds(), function(i, qid) {
+    $.each(parentIds, function(i, qid) {
         // TODO: replace with non-ajax lookup into datastructure
         var name = macademia.getInterestName(qid);
         var elem = $("#queryInterestTemplate").clone();
@@ -43,19 +23,15 @@ macademia.nbrviz.query.initQueryKey = function() {
         elem.find('.interestSlider').slider(
                 {
                     min : 1, max : 5,
-                    value : macademia.nbrviz.query.queryWeights[qid] || 3,
+                    value : macademia.nbrviz.explore.queryWeights[qid] || 3,
                     change : function() {$.address.update();}
                 }
         );
-        elem.find('a.removeInterest').click(function() {
-            macademia.nbrviz.query.removeInterestFromQuery(qid);
-            return false;
-        });
     });
 };
 
-macademia.nbrviz.query.drawKeySpheres = function() {
-    $.each(macademia.nbrviz.query.getQueryIds(), function(i, id) {
+macademia.nbrviz.explore.drawKeySpheres = function(parentIds) {
+    $.each(parentIds, function(i, id) {
         // draw the sphere
         var k = $(".interestKey[interest='" + id + "']");
         var w = k.width(), h = k.height();
@@ -68,7 +44,7 @@ macademia.nbrviz.query.drawKeySpheres = function() {
 };
 
 
-macademia.nbrviz.query.initQueryInterests = function(vizJson) {
+macademia.nbrviz.explore.initInterests = function(vizJson) {
     var interests = {};
 
     // build up nested map of clusters
@@ -87,25 +63,35 @@ macademia.nbrviz.query.initQueryInterests = function(vizJson) {
     return interests;
 };
 
-macademia.nbrviz.query.initQueryClusterMap = function(vizJson) {
-    var clusterMap = {};
 
-    $.each(vizJson.queries, function (i, id) {
-        clusterMap[id] = [];
+macademia.nbrviz.explore.initViz = function() {
+    $.address.change(function(event) {
+        var interestId = event.parameters.interestId;
+        var personId = event.parameters.personId;
+        var klass = interestId ? 'interest' : 'person';
+        var rootId = interestId || personId;
+
+
+        /*$.each(queryIds, function(i, qid) {
+            var weight = 3;
+            var slider = $(".interestSlider[interest=" + qid + "]");
+            if (slider.length) {
+                weight = slider.slider( "option", "value" );
+            } else if (qid in macademia.nbrviz.query.queryWeights) {
+                weight = macademia.nbrviz.query.queryWeights[qid];
+            }
+            macademia.nbrviz.query.queryWeights[qid] = weight;
+            console.log('weight for ' + qid + ' is ' + weight);
+        });*/
+        console.log("refreshing viz to " + klass + " " + rootId);
+        macademia.nbrviz.explore.refreshViz(klass, rootId);
     });
-
-    // build up nested map of clusters
-    $.each(vizJson.interests, function (id, info) {
-        if (info && info.isSubInterest) {
-            clusterMap[info.cluster].push(id);
-        }
-    });
-
-    return clusterMap;
 };
 
-macademia.nbrviz.query.initQueryCluster = function(qid, vizJson, clusterMap, interests) {
+
+macademia.nbrviz.explore.initCluster = function(qid, vizJson, interests) {
     var paper = macademia.nbrviz.paper;
+    var clusterMap = vizJson.clusterMap;
     var relatedInterests = $.map(clusterMap[qid], function(ri) {return interests[ri];});
     var info = vizJson.interests[qid];
     var ic = new InterestCluster({
@@ -119,60 +105,40 @@ macademia.nbrviz.query.initQueryCluster = function(qid, vizJson, clusterMap, int
     });
     ic.addClicked(
             function (interest, interestNode) {
-                macademia.nbrviz.query.addInterestToQuery(interest.id, interest.name);
+                alert('pivoting to ' + interest.name);
             });
     return ic;
-};
-
-macademia.nbrviz.query.initViz = function() {
-    $.address.change(function(event) {
-        var queryIds = event.parameters.queryIds.split('_');
-        $.each(queryIds, function(i, qid) {
-            var weight = 3;
-            var slider = $(".interestSlider[interest=" + qid + "]");
-            if (slider.length) {
-                weight = slider.slider( "option", "value" );
-            } else if (qid in macademia.nbrviz.query.queryWeights) {
-                weight = macademia.nbrviz.query.queryWeights[qid];
-            }
-            macademia.nbrviz.query.queryWeights[qid] = weight;
-            console.log('weight for ' + qid + ' is ' + weight);
-        });
-        console.log("refreshing viz..." + queryIds);
-        macademia.nbrviz.query.refreshViz(queryIds);
-    });
-
 };
 
 /**
  * Glue that pieces together the data necessary for the QueryViz object.
  * @param vizJson
  */
-macademia.nbrviz.query.refreshViz = function(queryIds) {
-    macademia.nbrviz.query.initQueryKey();
-    macademia.nbrviz.query.drawKeySpheres();
+macademia.nbrviz.explore.refreshViz = function(klass, rootId) {
+//    macademia.nbrviz.query.initQueryKey();
+//    macademia.nbrviz.query.drawKeySpheres();
+
+    if (klass != 'person' && klass != 'interest') {
+        alert('unknown klass: "' + klass + '" (must be person or interest).');
+        return;
+    }
 
     // TODO: make asynchronous
-    var url = macademia.makeActionUrlWithGroup('all', 'query', 'data');
-    var weights = [];
-    $.each(queryIds, function(i, qid) {
-            weights.push(macademia.nbrviz.query.queryWeights[qid] || 3);
-        });
-    url += '?queryIds=' + queryIds.join('_');
-    url += '&queryWeights=' + weights.join('_');
+    var url = macademia.makeActionUrlWithGroup('all', 'explore', klass + 'Data') + '/' + rootId;
     var vizJson = null;
     $.ajax({
         url: url,
         dataType : 'json',
-        success : macademia.nbrviz.query.loadNewData
+        success : macademia.nbrviz.explore.loadNewData
     });
     macademia.startTimer();
 
-    $("#loadingMessage").html(macademia.nbrviz.query.loadingMessage || "loading...");
+    $("#loadingMessage").html(macademia.nbrviz.explore.loadingMessage || "loading...");
     $('#loadingDiv').show();
 };
 
-macademia.nbrviz.query.loadNewData = function(vizJson) {
+
+macademia.nbrviz.explore.loadNewData = function(vizJson) {
     macademia.endTimer('ajax call');
 
     var paper = macademia.nbrviz.paper;
@@ -183,23 +149,20 @@ macademia.nbrviz.query.loadNewData = function(vizJson) {
         paper = macademia.nbrviz.initPaper("graph", $("#graph").width(), $("#graph").height());
     }
 
-    width = $(document).width()-50;
-    height = $(document).height()-50;
+    macademia.nbrviz.magnet.init();
 
     // interestId -> interest
-    var interests = macademia.nbrviz.query.initQueryInterests(vizJson);
+    var interests = macademia.nbrviz.explore.initInterests(vizJson);
     macademia.nbrviz.query.interests = interests;
 
     // queryInterestId -> clusterInterestId -> related interest ids
-    var clusterMap = macademia.nbrviz.query.initQueryClusterMap(vizJson);
-
-    macademia.nbrviz.query.initQueryInterests(vizJson, clusterMap, interests);
+    var clusterMap = vizJson.clusterMap;
 
     // Create interest clusters
-    var queryInterests = {};
-    $.each(vizJson.queries, function (i, qid) {
-        queryInterests[qid] = macademia.nbrviz.query.initQueryCluster(
-                                qid, vizJson, clusterMap, interests);
+    var parentClusters = {};
+    $.each(vizJson.clusterMap, function (parentId) {
+        parentClusters[parentId] = macademia.nbrviz.explore.initCluster(
+                                parentId, vizJson, interests);
     });
     macademia.endTimer('up to queries');
 
@@ -242,13 +205,13 @@ macademia.nbrviz.query.loadNewData = function(vizJson) {
         $.each(pinfo.relevance, function(id, weight) {
             if (id != 'overall' && weight > 0) {
                 interestGroups.push([
-                    queryInterests[id],
+                    parentClusters[id],
                     pinfo.relevance[id],
                     pinfo.count[id] / totalCount
                 ]);
             }
         });
-        var r = 20 * (pinfo.relevance.overall - minRelevance) / (maxRelevance - minRelevance) + 10;
+        var r = 10 * (pinfo.relevance.overall - minRelevance) / (maxRelevance - minRelevance) + 10;
         var person = new Person({
             relevance : pinfo.relevance,
             interestGroups : interestGroups,
@@ -264,7 +227,7 @@ macademia.nbrviz.query.loadNewData = function(vizJson) {
         }
         person.addClicked(
                 function (interest, interestNode) {
-                    macademia.nbrviz.addInterestToQuery(interest.id, interest.name);
+                    alert('recentering on person interest ' + interest.name);
                 });
         people[id] = person;
     });
@@ -274,17 +237,19 @@ macademia.nbrviz.query.loadNewData = function(vizJson) {
     macademia.endTimer('loadNewData object creation');
     macademia.startTimer();
 
-    var qv = new QueryViz({
+    var ev = new ExploreViz({
+        rootId : vizJson.root,
+        rootClass : vizJson.root,
         people : $.map(people, function(v, k) {return v;}),
-        queryInterests : $.map(queryInterests, function(v, k) {return v;}),
+        parentInterests : $.map(parentClusters, function(v, k) {return v;}),
         paper : paper
     });
-    qv.layoutInterests();
-    qv.layoutPeople();
-    qv.setupListeners();
-    macademia.nbrviz.qv = qv;
-
     $('#loadingDiv').hide();
+    ev.layoutInterests();
+    ev.layoutPeople();
+    ev.setupListeners();
+
+//    macademia.nbrviz.qv = qv;
     macademia.nbrviz.query.loadingMessage = null;
     macademia.endTimer('layout');
 };

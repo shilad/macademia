@@ -10,6 +10,11 @@ if len(sys.argv) != 4:
 cnx = pymongo.Connection(host)
 db = cnx[dbName]
 
+def getInterestCount(db, id):
+    record = db.interests.find_one({'_id' : id})
+    if record:
+        return record.get('usage')
+
 def getInterestName(db, id):
     record = db.interests.find_one({'_id' : id})
     if record:
@@ -25,11 +30,12 @@ for pair in record['similar'].split('|'):
     id = long(tokens[0])
     score = float(tokens[1])
     name = getInterestName(db, id)
-    scores.append((score, name, id))
+    count = getInterestCount(db, id)
+    scores.append((score, name, count, id))
 
 scores.sort()
 scores.reverse()
 
 print 'articles similar to %s (%s)' % (record['text'], record['_id'])
-for (score, name, id) in scores:
-    print '\t%.4f %s (%s)' % (score, name, id)
+for (score, name, count, id) in scores:
+    print '\t%.4f %s (%s, n=%s)' % (score, name, id, count)

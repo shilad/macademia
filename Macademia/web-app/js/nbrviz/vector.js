@@ -35,7 +35,7 @@ function Vector(x, y)
 
 Vector.random = function()
 {
-	return new Vector(Math.random(),Math.random());
+	return new Vector(Math.random()*2 - 1,Math.random() * 2 - 1);
 }
 
 Vector.prototype.add = function(v2)
@@ -73,6 +73,10 @@ Vector.prototype.magnitude = function()
     if(VECTOR_DEBUG && a == NaN)
         alert("magnitude is NaN");
     return a
+};
+Vector.prototype.magnitude2 = function()
+{
+	return this.x*this.x + this.y*this.y;
 };
 
 Vector.prototype.normalise = function()

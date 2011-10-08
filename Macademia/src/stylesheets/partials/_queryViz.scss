@@ -17,7 +17,7 @@ input:-moz-placeholder, textarea::-moz-placeholder {
 }
 
 /* Query manipulation */
-#queryWidget {
+#queryWidget,#adjustmentWidget {
     background-color: rgba(100,100,220,0.1);
     padding: 10px;
     position:absolute;

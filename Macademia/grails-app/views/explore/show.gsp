@@ -10,12 +10,12 @@
 <g:javascript>
   $().ready(function() {
     macademia.serverLog('nav', 'initial', {'url' : location.href });
-    macademia.nbrviz.query.initViz();
+    macademia.nbrviz.explore.initViz();
   });
 </g:javascript>
 <body>
     <div id="graph">&nbsp;</div>
-    <div id="queryWidget"><g:render template="addInterest"/></div>
+    <div id="adjustmentWidget"><g:render template="adjustInterests"/></div>
   <g:render template="/layouts/loading"/>
 </body>
 </html>

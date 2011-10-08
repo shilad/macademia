@@ -12,10 +12,9 @@ class Similarity2Service {
     def databaseService
     def similarityService
     static double IDENTITY_SIM = 0.7
-    private static final double MAX_UNCLUSTERED_SIM = 0.1
+    private static final double MAX_UNCLUSTERED_SIM = 0.9
     private static final double MIN_CLUSTER_SIM = 0.005
     private static final int IDEAL_NUM_CLUSTERS = 7
-    private static final int MAX_SIM_INTERESTS = IDEAL_NUM_CLUSTERS * 4
     private static final int MAX_CLUSTER_SIZE = 6
 
     /**
@@ -25,9 +24,9 @@ class Similarity2Service {
      * @param maxPeople The max number of people to include in the Graph.
      * @return A Graph
      */
-    public QueryVizGraph calculateQueryNeighbors(Set<Long> qset, Map<Long, Double> weights, int maxNeighbors) {
+    public QueryGraph calculateQueryNeighbors(Set<Long> qset, Map<Long, Double> weights, int maxNeighbors) {
         TimingAnalysis ANALYSIS = new TimingAnalysis('calculateQueryNeighbors')
-        QueryVizGraph graph = new QueryVizGraph(qset)
+        QueryGraph graph = new QueryGraph(qset)
 
         // Calculate interest clusters
         ANALYSIS.startTime()
@@ -56,11 +55,8 @@ class Similarity2Service {
         ANALYSIS.recordTime("people2")
 
         for (Long q : qset){
-            for (Long iid : chooseTopRelatedInterests(q, IDEAL_NUM_CLUSTERS)) {
-                def simInterests = new SimilarInterestList()
-//                def simInterests = similarityService.getSimilarInterests(iid, 500, 0)
-//                simInterests.normalize()
-                graph.addQuerySubCluster(q, iid, simInterests)
+            for (Long iid : chooseTopRelatedInterests(q, IDEAL_NUM_CLUSTERS, 1.0, [:]).keySet()) {
+                graph.addQueryRelatedInterests(q, iid)
             }
         }
         ANALYSIS.recordTime("subcluster")
@@ -95,21 +91,59 @@ class Similarity2Service {
     /**
      * Creates and returns a new Graph based upon the parameter Interest for
      * the exploration visualization.
-     * @param root The root Interest of the exploration visualization.
+     * @param rootId The root Interest of the exploration visualization.
      * @param maxPeople The max number of people to include in the Graph.
      * @param maxInterests The max number of Interests to include in the Graph.
      * @return A Graph
      */
-    public Graph calculateExplorationNeighbors( Interest root) {
-        int maxPeople = Integer.MAX_VALUE
-        int maxInterests = Integer.MAX_VALUE
-        NbrvizGraph graph = new NbrvizGraph()
-        graph = similarityService.findPeopleAndRequests(graph, maxPeople, root.id, null, 1, null) as NbrvizGraph
-        for(SimilarInterest ir : similarityService.getSimilarInterests(root.id, maxInterests, similarityService.absoluteThreshold, null)){
-            graph.addEdge(null, root.id, ir.interestId, null, ir.similarity)
-            graph = similarityService.findPeopleAndRequests(graph, maxPeople, ir.interestId, null, ir.similarity, null) as NbrvizGraph
+    public InterestGraph calculateExplorationNeighbors(Long rootId, int maxPeople, int maxInterests) {
+
+        TimingAnalysis ANALYSIS = new TimingAnalysis('calculateInterestNeighbors')
+        InterestGraph graph = new InterestGraph(rootId)
+
+        // Calculate interest clusters
+        ANALYSIS.startTime()
+        Map<Long, Double> related = chooseTopRelatedInterests(rootId, maxInterests, 0.5, [:])
+        ANALYSIS.recordTime("choose related interests")
+        related[rootId] = 1.0  // Hack
+        Map<Long, Double> penalties = [:]   // between 0 (low) and 1 (high)
+        related.keySet().each({penalties[it] = 1.0 })
+
+        def relatedIds = related.keySet().asList().sort({ -1 * related[it] })
+        for (long rid : relatedIds){
+            def sil = similarityService.getSimilarInterests(rid, 500, 0)
+            sil.normalize()
+            double simWeight = (rid == rootId) ? 4.0 : 2.0
+            Set<Long> displayedIds = chooseTopRelatedInterests(rid, IDEAL_NUM_CLUSTERS, simWeight, penalties).keySet()
+            if (rid != rootId) {
+                displayedIds.each({ penalties[it] = 0.5 + penalties.get(it, 0) * 0.5 })
+            }
+            graph.addRelatedInterest(rid, related[rid], displayedIds, sil)
         }
+        ANALYSIS.recordTime("related interest clusters")
+
+        // find people with those clusters
+        Map<Long, Set<Long>> personInterests = [:]
+        for (Long iid : graph.interestInfo.keySet()) {
+            for (Long pid : databaseService.getInterestUsers(iid)) {
+                if (!personInterests.containsKey(pid)) {
+                    personInterests[pid] = new HashSet<Long>()
+                }
+            }
+        }
+        ANALYSIS.recordTime("people1")
+
+        // Add people to the graph
+        for (Long pid : personInterests.keySet()) {
+            graph.addPerson(pid, databaseService.getUserInterests(pid))
+        }
+        ANALYSIS.recordTime("people2")
+
+        // Calculate scores, prune graph, etc
         graph.finalizeGraph(maxPeople)
+        ANALYSIS.recordTime("finalize")
+        ANALYSIS.analyze()
+
         return graph
     }
 
@@ -166,12 +200,11 @@ class Similarity2Service {
         return graph
     }
 
-
     @Cacheable('simServiceCache')
-    public Set<Long> chooseTopRelatedInterests(Long interestId, int numResults) {
+    public Map<Long, Double> chooseTopRelatedInterests(Long interestId, int numResults, double simWeight, Map<Long, Double> penalties) {
         // Subset of related interests
         SimilarInterestList sil = databaseService.getSimilarInterests(interestId)
-        if (sil.size() > numResults*8) { sil = sil.getSublistTo(numResults*8 as int) }
+//        if (sil.size() > numResults*8) { sil = sil.getSublistTo(numResults*8 as int) }
         Set<Long> interests = new HashSet<Long>(sil.list.interestId)
 
         // co-occurrence counts for related interests
@@ -183,17 +216,19 @@ class Similarity2Service {
         }
         // popularity score
         Map<Long, Double> popularity = [:]
+        print("length of interests went from ${interests.size()}")
         for (Iterator<Long> i = interests.iterator(); i.hasNext();) {
             Long iid = i.next()
             int p1 = counts.get(iid, 0)
             int p2 = interestService.getInterestCount(iid)
-            if (p1 < 2 && p2 < 2) {
-                i.remove()
-                counts.remove(iid)
-            } else {
+//            if (p1 < 2 && p2 < 2) {
+//                i.remove()
+//                counts.remove(iid)
+//            } else {
                 popularity[iid] = (Math.log(p1 + 1) + Math.log(p2 + 1)) / Math.log(2)
-            }
+//            }
         }
+        println(" to ${interests.size()}")
 
         // Relevances to root interest
         Map<Long, Double> rels = [:]
@@ -215,14 +250,18 @@ class Similarity2Service {
                 Long iid = i.next()
                 if (lastId != null) {
                     double lastSim = intraSims[iid].get(lastId, 0.01)
-                    if (lastSim > 0.10) {
-                        i.remove()
-                        continue
-                    }
+//                    if (lastSim > 0.10) {
+//                        i.remove()
+//                        continue
+//                    }
 //                    sims[iid] = alpha * intraSims[iid].get(lastId, 0.01) + (1.0 - alpha) * sims[iid]
                     sims[iid] = Math.max(intraSims[iid].get(lastId, 0.01), sims[iid])
                 }
-                double score = (1.0 / (sims[iid] + 0.15)) * (popularity[iid] + 1) * rels[iid]
+                double intraSimTerm = (1.0 / (sims[iid] + 0.15))
+                double relTerm = Math.pow(rels[iid], simWeight)
+                double popularityTerm = popularity[iid] + 1
+                double penaltyTerm = (1.0 - penalties.get(iid, 0))
+                double score = intraSimTerm * popularityTerm * relTerm * penaltyTerm
 //                println("${centers.size()} interest: ${Interest.get(iid).text}, score: $score, sim: ${sims[iid]}, pop: ${popularity[iid]}, rel: ${rels[iid]}")
                 if (score > bestScore) {
                     bestScore = score
@@ -235,7 +274,9 @@ class Similarity2Service {
             remaining.remove(bestId)
             centers.add(bestId)
         }
-        return new HashSet<Long>(centers)
+        println("centers for $interestId are $centers" )
+        rels.keySet().retainAll(centers)
+        return rels
     }
 
     /**

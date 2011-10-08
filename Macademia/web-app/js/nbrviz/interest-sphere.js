@@ -40,7 +40,10 @@ var InterestSphere = Sphere.extend({
         this.addLink.hide();
 
         this.labelBg = this.paper.rect(x + this.xOffset - w / 2, y + this.yOffset - h / 2, w, h);
-        this.labelBg.attr({ 'fill' : '#fff', 'fill-opacity' : this.labelBgOpacity, 'stroke-width' : 0});
+        this.labelBg.attr({ 'fill' : '#fff',
+            'fill-opacity' : this.labelBgOpacity,
+            'stroke' : '#fff',
+            'stroke-width' : 0.0});
         this.labelBg.hide();
         this.label.toFront();
 

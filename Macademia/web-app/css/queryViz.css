@@ -195,33 +195,33 @@ input:-moz-placeholder, textarea::-moz-placeholder { color: #636363; }
 
 /* Query manipulation */
 /* line 20, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget { background-color: rgba(100, 100, 220, 0.1); padding: 10px; position: absolute; width: 420px; font-size: 16px; }
+#queryWidget, #adjustmentWidget { background-color: rgba(100, 100, 220, 0.1); padding: 10px; position: absolute; width: 420px; font-size: 16px; }
 /* line 27, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #showWidget { color: #44f; display: none; }
+#queryWidget #showWidget, #adjustmentWidget #showWidget { color: #44f; display: none; }
 /* line 31, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests { width: auto; float: left; background-color: rgba(210, 210, 240, 0.9); max-width: 100%; position: relative; margin-top: 3px; }
+#queryWidget #currentInterests, #adjustmentWidget #currentInterests { width: auto; float: left; background-color: rgba(210, 210, 240, 0.9); max-width: 100%; position: relative; margin-top: 3px; }
 /* line 39, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests #queryInterestTemplate { display: none; }
+#queryWidget #currentInterests #queryInterestTemplate, #adjustmentWidget #currentInterests #queryInterestTemplate { display: none; }
 /* line 43, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests h1 { font-size: 20px; font-weight: bold; text-align: left; padding-top: 10px; padding-bottom: 6px; margin-left: 20px; }
+#queryWidget #currentInterests h1, #adjustmentWidget #currentInterests h1 { font-size: 20px; font-weight: bold; text-align: left; padding-top: 10px; padding-bottom: 6px; margin-left: 20px; }
 /* line 51, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests #sliderKey { width: 140px; font-size: 12px; }
+#queryWidget #currentInterests #sliderKey, #adjustmentWidget #currentInterests #sliderKey { width: 140px; font-size: 12px; }
 /* line 54, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests #sliderKey .lessLabel { float: left; }
+#queryWidget #currentInterests #sliderKey .lessLabel, #adjustmentWidget #currentInterests #sliderKey .lessLabel { float: left; }
 /* line 57, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests #sliderKey .moreLabel { float: right; }
+#queryWidget #currentInterests #sliderKey .moreLabel, #adjustmentWidget #currentInterests #sliderKey .moreLabel { float: right; }
 /* line 62, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests .addedInterestDiv { margin-left: 15px; clear: both; padding: 6px; opacity: 1.0; width: 400px; }
+#queryWidget #currentInterests .addedInterestDiv, #adjustmentWidget #currentInterests .addedInterestDiv { margin-left: 15px; clear: both; padding: 6px; opacity: 1.0; width: 400px; }
 /* line 69, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests .addedInterestDiv .interestSlider { clear: both; float: left; width: 100px; position: relative; height: 8px; margin-right: 10px; top: 5px; }
+#queryWidget #currentInterests .addedInterestDiv .interestSlider, #adjustmentWidget #currentInterests .addedInterestDiv .interestSlider { clear: both; float: left; width: 100px; position: relative; height: 8px; margin-right: 10px; top: 5px; }
 /* line 79, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests .addedInterestDiv .interestKey { float: left; width: 20px; height: 20px; margin-right: 5px; }
+#queryWidget #currentInterests .addedInterestDiv .interestKey, #adjustmentWidget #currentInterests .addedInterestDiv .interestKey { float: left; width: 20px; height: 20px; margin-right: 5px; }
 /* line 85, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests .addedInterestDiv .addedInterest { display: inline; padding: 1px; }
+#queryWidget #currentInterests .addedInterestDiv .addedInterest, #adjustmentWidget #currentInterests .addedInterestDiv .addedInterest { display: inline; padding: 1px; }
 /* line 92, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests #interestQuery { margin: 10px 20px 20px 20px; clear: both; width: 350px; font-size: 20px; }
+#queryWidget #currentInterests #interestQuery, #adjustmentWidget #currentInterests #interestQuery { margin: 10px 20px 20px 20px; clear: both; width: 350px; font-size: 20px; }
 /* line 100, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests #hideWidget { color: #44f; position: absolute; top: 10px; right: 20px; }
+#queryWidget #currentInterests #hideWidget, #adjustmentWidget #currentInterests #hideWidget { color: #44f; position: absolute; top: 10px; right: 20px; }
 
 /*/mediaquery*/
 /*/mediaquery*/

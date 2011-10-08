@@ -1,7 +1,7 @@
 package org.macademia.nbrviz
 
 import org.macademia.*
-import org.macademia.nbrviz.QueryVizGraph.InterestInfo
+import org.macademia.nbrviz.InterestGraph.InterestRole
 
 /**
  * This Service supplies data in the JSON format for the construction
@@ -37,7 +37,6 @@ import org.macademia.nbrviz.QueryVizGraph.InterestInfo
  *              id: int
  *              name: string
  *              cluster: id of related query interest
- *              subcluster: int of sub-interest related to query
  *              relevance : double relevance to query
  *          ],
  *          i_id2: [ ... ], ...
@@ -61,7 +60,7 @@ class Json2Service {
 
     boolean transactional = false
 
-    def makeJsonPerson(Long pid, QueryVizGraph graph, Long sid) {
+    def makeJsonPerson(Long pid, Object graph, Long sid) {
         def interests = []
         def pedges = graph.personClusterEdges[pid]
         pedges.each({interests.addAll(it.relevantInterestIds)})
@@ -69,8 +68,8 @@ class Json2Service {
         def json = [
                 id: pid,
                 fid: fakedata.id,
-                name : Person.get(pid).fullName,
-//                name: fakedata.name,
+//                name : Person.get(pid).fullName,
+                name: fakedata.name,
                 pic: fakedata.pic,
                 relevance: [:],
                 count: [:],
@@ -89,20 +88,39 @@ class Json2Service {
         return json
     }
 
-    def makeJsonInterest(Long iid, QueryVizGraph graph) {
+    def makeJsonInterest(Long iid, QueryGraph graph) {
         Interest i = Interest.get(iid)
-        InterestInfo ii = graph.interestInfo[iid]
+        QueryGraph.InterestInfo ii = graph.interestInfo[iid]
         return [
                 id : iid,
                 name : i.text,
                 cluster : ii.queryInterestId,
-                subcluster : ii.clusterInterestId,
+                isSubInterest : ii.isSubInterest,
                 relevance : ii.queryRelevance,
         ]
     }
 
+    def makeJsonInterest(Long iid, InterestGraph graph) {
+        Interest i = Interest.get(iid)
+        InterestGraph.InterestInfo ii = graph.interestInfo[iid]
+        def o = [
+                id : iid,
+                name : i.text,
+                cluster : ii.closestParentId,
+                relevance : ii.closestRelevance,
+                roles : []
+        ]
+        for (InterestRole ir : ii.roles) {
+            o.roles.add([
+                role : ir.role,
+                parentId : ir.parentId,
+                relevance : ir.relevance
+            ])
+        }
+        return o
+    }
 
-    def buildQueryCentricGraph(QueryVizGraph graph, Long sid){
+    def buildQueryCentricGraph(QueryGraph graph, Long sid){
         Map<Long, Map> personNodes = [:]
         Map<Long, Map> interestNodes = [:]
 
@@ -118,6 +136,26 @@ class Json2Service {
                 'people':personNodes,
                 'interests':interestNodes,
                 'queries' : graph.queryIds
+        ]
+    }
+    def buildInterestCentricGraph(InterestGraph graph, Long sid){
+        Map<Long, Map> personNodes = [:]
+        Map<Long, Map> interestNodes = [:]
+
+        for (Long pid: graph.getPersonIds()){
+            personNodes[pid] = makeJsonPerson(pid, graph, sid)
+        }
+
+        for (Long iid : graph.interestInfo.keySet()) {
+            interestNodes[iid] = makeJsonInterest(iid, graph)
+        }
+
+        return [
+                'people':personNodes,
+                'interests':interestNodes,
+                'root' : graph.rootId,
+                'rootClass' : 'interest',
+                'clusterMap' : graph.getClusterMap(),
         ]
     }
 }

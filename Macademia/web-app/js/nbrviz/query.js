@@ -144,7 +144,7 @@ function posEquals( coord1, coord2 ) {
 QueryViz.prototype.raiseScreen = function(focus) {
     this.fadeScreen.stop();
     this.fadeScreen.insertBefore(focus);
-    this.fadeScreen.animate({opacity : 0.85}, 400);
+    this.fadeScreen.animate({opacity : 0.70}, 400);
 };
 
 QueryViz.prototype.lowerScreen = function() {
