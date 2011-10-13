@@ -60,14 +60,15 @@ macademia.nbrviz.query.initQueryKey = function() {
 };
 
 macademia.nbrviz.query.drawKeySpheres = function() {
-    $.each(macademia.nbrviz.query.getQueryIds(), function(i, id) {
+    var qids = macademia.nbrviz.query.getQueryIds();
+    $.each(qids, function(i, id) {
         // draw the sphere
         var k = $(".interestKey[interest='" + id + "']");
         var w = k.width(), h = k.height();
         var p = new Raphael(k.get(0), w, h);
         var s = new Sphere({
             r : Math.min(w / 2, h/2), x : w / 2, y : h/2,
-            hue : macademia.nbrviz.getColor(id), paper : p
+            hue : macademia.nbrviz.getColor(id, qids), paper : p
         });
     });
 };
@@ -79,7 +80,7 @@ macademia.nbrviz.query.initQueryInterests = function(vizJson) {
     // build up nested map of clusters
     $.each(vizJson.interests, function (id, info) {
         var hasCluster = (info && info.cluster >= 0);
-        var color = hasCluster ? macademia.nbrviz.getColor(info.cluster) : -1;
+        var color = hasCluster ? macademia.nbrviz.getColor(info.cluster, vizJson.queryIds) : -1;
         interests[id] = new Interest({
             id:id,
             name:info.name,
@@ -118,11 +119,11 @@ macademia.nbrviz.query.initQueryCluster = function(qid, vizJson, clusterMap, int
         interests : interests,
         relatedInterests : relatedInterests,
         name : info.name,
-        color : macademia.nbrviz.getColor(qid),
+        color : macademia.nbrviz.getColor(qid, vizJson.queryIds),
         paper : paper,
-        inQuery : true
+        clickText : '(click to remove)'
     });
-    ic.addClicked(
+    ic.clicked(
             function (interest, interestNode) {
                 macademia.nbrviz.query.addInterestToQuery(interest.id, interest.name);
             });
@@ -279,7 +280,7 @@ macademia.nbrviz.query.loadNewData = function(vizJson) {
         if (person.interests.length > 12) {
             person.expandedRadius *= Math.sqrt(person.interests.length / 12);
         }
-        person.addClicked(
+        person.clicked(
                 function (interest, interestNode) {
                     macademia.nbrviz.addInterestToQuery(interest.id, interest.name);
                 });

@@ -93,15 +93,15 @@ QueryViz.prototype.layoutPeople = function( /*coords*/ ) {
     var iters = 0;
     var f = function() {
         var k = 1.0;
-        for (var i = 0; i < 2; i++) {
+        var n = Math.min(5, 1 + iters / 5);
+        for (var i = 0; i < n; i++) {
             k = Math.min(k, macademia.nbrviz.magnet.oneLayoutIteration());
         }
         $.each(Point.points, function(index, p) {
             var person = self.people[p.id];
             person.setPosition(p.screenX(), p.screenY());
         });
-        console.log('iters is ' + iters + ', k is ' + k);
-        if (iters++ < 100 && k >= 0.1) {
+        if (iters++ < 20 && k >= 0.1) {
             window.setTimeout(f, 1);
         } else {
             self.setEnabled(true);

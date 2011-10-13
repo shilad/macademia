@@ -44,12 +44,13 @@ var MNode = RaphaelComponent.extend(
         this.id = params.id;
         this.name = params.name;
         this.state = this.STATE_COLLAPSED;
-
         this.centerNode = null;
+
         this.collapsedRadius = params.collapsedRadius || this.COLLAPSED_RADIUS;
         this.expandedRadius = params.expandedRadius || this.EXPANDED_RADIUS;
         this.relatedNodeRadius = params.relatedNodeRadius || this.RELATED_RADIUS;
         this.expandedHandleRadius = params.expandedHandleRadius || (this.expandedRadius + 2 * this.relatedNodeRadius);
+        this.clickText = params.clickText;
 
         this.relatedInterests = this.relatedInterests || params.relatedInterests || [];
         this.relatedInterestNodes = [];
@@ -181,7 +182,8 @@ var MNode = RaphaelComponent.extend(
             paper: this.paper,
             hoverDelay : 50,
             font : macademia.nbrviz.subFont,
-            boldFont : macademia.nbrviz.subFontBold
+            boldFont : macademia.nbrviz.subFontBold,
+            clickText : this.clickText
         });
         node.hideText();
         node.toBack();
@@ -243,7 +245,7 @@ var MNode = RaphaelComponent.extend(
         this.onHoverIn(0);
     },
 
-    addClicked : function(callback) {
+    clicked : function(callback) {
         var self = this;
         this.getLayerSet().click(
             function() {

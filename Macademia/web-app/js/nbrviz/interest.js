@@ -12,7 +12,7 @@ macademia.nbrviz.interest = macademia.nbrviz.interest || {};
 var InterestCluster = MNode.extend({
     init : function(params) {
         this.interest = params.interest;
-        this.inQuery = params.inQuery;
+        this.clickText = params.clickText;
 
         // Invoke superclass constructor
         this._super(params);
@@ -69,9 +69,19 @@ var InterestCluster = MNode.extend({
                 interest : this.interest,
                 yOffset : this.collapsedRadius + 10,
                 labelBgOpacity : 0.2,
-                inQuery : this.inQuery,
+                clickText : this.clickText,
                 paper : this.paper
             });
+    },
+
+    clicked : function(callback) {
+        var self = this;
+        this.centerNode.clicked(function () {
+            if (self.lastInterestHoverIndex == self.HOVER_CENTER) {
+                callback(self.interest, self.centerNode);
+            }
+        });
+        this._super(callback);
     },
 
     onMouseMove : function(e) {

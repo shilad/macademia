@@ -10,6 +10,8 @@ macademia.nbrviz.explore.isPersonGraph = function() {
 };
 
 macademia.nbrviz.explore.recenter = function(klass, rootId) {
+    var name = macademia.nbrviz.explore.interests[rootId].name;
+    macademia.nbrviz.explore.loadingMessage = 're-centering around "' + name + '"...';
     $.address.autoUpdate(false);
     $.address.parameter('interestId', null);
     $.address.parameter('personId', null);
@@ -45,7 +47,7 @@ macademia.nbrviz.explore.initQueryKey = function(vizJson) {
         var p = new Raphael(k.get(0), w, h);
         var s = new Sphere({
             r : Math.min(w / 2, h/2), x : w / 2, y : h/2,
-            hue : macademia.nbrviz.getColor(pid), paper : p
+            hue : macademia.nbrviz.getColor(pid, parentIds), paper : p
         });
 
     });
@@ -54,11 +56,12 @@ macademia.nbrviz.explore.initQueryKey = function(vizJson) {
 
 macademia.nbrviz.explore.initInterests = function(vizJson) {
     var interests = {};
+    var parentIds = $.map(vizJson.clusterMap, function (value, key) { return key; });
 
     // build up nested map of clusters
     $.each(vizJson.interests, function (id, info) {
         var hasCluster = (info && info.cluster >= 0);
-        var color = hasCluster ? macademia.nbrviz.getColor(info.cluster) : -1;
+        var color = hasCluster ? macademia.nbrviz.getColor(info.cluster, parentIds) : -1;
         interests[id] = new Interest({
             id:id,
             name:info.name,
@@ -103,18 +106,19 @@ macademia.nbrviz.explore.initCluster = function(qid, vizJson, interests) {
     var clusterMap = vizJson.clusterMap;
     var relatedInterests = $.map(clusterMap[qid], function(ri) {return interests[ri];});
     var info = vizJson.interests[qid];
+    var parentIds = $.map(vizJson.clusterMap, function(val, key) { return key; });
 
     var ic = new InterestCluster({
         id : qid,
         interests : interests,
         relatedInterests : relatedInterests,
         name : info.name,
-        color : macademia.nbrviz.getColor(qid),
+        color : macademia.nbrviz.getColor(qid, parentIds),
         paper : paper,
         collapsedRadius : (qid == vizJson.root) ? 30 : 20,
-        inQuery : true
+        clickText : '(click to re-center)'
     });
-    ic.addClicked(
+    ic.clicked(
             function (interest, interestNode) {
                 macademia.nbrviz.explore.recenter('interest', interest.id);
             });
@@ -176,7 +180,7 @@ macademia.nbrviz.explore.loadNewData = function(vizJson) {
 
     // interestId -> interest
     var interests = macademia.nbrviz.explore.initInterests(vizJson);
-    macademia.nbrviz.query.interests = interests;
+    macademia.nbrviz.explore.interests = interests;
 
     // queryInterestId -> clusterInterestId -> related interest ids
     var clusterMap = vizJson.clusterMap;
@@ -243,12 +247,13 @@ macademia.nbrviz.explore.loadNewData = function(vizJson) {
             paper : paper,
             interests : $.grep(pinterests, function(i) {return (i.relatedQueryId >= 0);}),
             nonRelevantInterests : $.grep(pinterests, function(i) {return (i.relatedQueryId < 0);}),
+            clickText : '(click to re-center)',
             collapsedRadius : r
         });
         if (person.interests.length > 12) {
             person.expandedRadius *= Math.sqrt(person.interests.length / 12);
         }
-        person.addClicked(
+        person.clicked(
                 function (interest, interestNode) {
                     macademia.nbrviz.explore.recenter('interest', interest.id);
                 });

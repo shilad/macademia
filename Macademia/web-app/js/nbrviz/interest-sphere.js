@@ -14,18 +14,17 @@ var InterestSphere = Sphere.extend({
         this.font = params.font || macademia.nbrviz.mainFont;
         this.boldFont = params.boldFont || macademia.nbrviz.mainFontBold;
         this.labelBgOpacity = params.labelBgOpacity || 0.6;
-        this.inQuery = params.inQuery || false;
+        this.clickText = params.clickText || '(click to add)';
 
         this.label = this.paper.text(x + this.xOffset, y + this.yOffset, this.name)
                     .attr({fill: '#000', 'font': this.font});
         var bbox1 = this.label.getBBox();
         this.labelHeight = bbox1.height;
 
-        var addText = this.inQuery ? '(click to remove)' : '(click to add)';
         this.addLink = this.paper.text(
                 x + this.xOffset,
                 y + this.yOffset + bbox1.height + this.VERTICAL_LABEL_SPACING,
-                addText);
+                this.clickText);
         this.addLink.attr({
             'font': this.font,
             'text-decoration' : 'underline',
@@ -147,7 +146,7 @@ var InterestSphere = Sphere.extend({
             this.attr({'x' : rx, 'y' : ry});
         });
     },
-    addClicked : function(callback) {
+    clicked : function(callback) {
         var self = this;
         $.each(this.getLayers(),
                 function (i, l) {
