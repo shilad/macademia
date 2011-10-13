@@ -1,6 +1,11 @@
 macademia.nbrviz.query = {};
 macademia.nbrviz.query.getQueryIds = function() {
-    return $.address.parameter('queryIds').split('_');
+    var s = $.address.parameter('queryIds');
+    if (s) {
+        return $.address.parameter('queryIds').split('_');
+    } else {
+        return [];
+    }
 };
 macademia.nbrviz.query.queryWeights = {};
 macademia.nbrviz.query.loadingMessage = null;
@@ -20,7 +25,7 @@ macademia.nbrviz.query.addInterestToQuery = function(id, name) {
 };
 
 macademia.nbrviz.query.removeInterestFromQuery = function(id) {
-    var name = macademia.nbrviz.interests[id].name;
+    var name = macademia.nbrviz.query.interests[id].name;
     macademia.nbrviz.query.loadingMessage = 'removing "' + name + '"...';
     var ids = macademia.nbrviz.query.getQueryIds();
     var i = $.inArray(''+id, ids);
@@ -126,6 +131,10 @@ macademia.nbrviz.query.initQueryCluster = function(qid, vizJson, clusterMap, int
 
 macademia.nbrviz.query.initViz = function() {
     $.address.change(function(event) {
+        if (!event.parameters.queryIds) {
+            macademia.nbrviz.query.refreshViz([]);
+            return;
+        }
         var queryIds = event.parameters.queryIds.split('_');
         $.each(queryIds, function(i, qid) {
             var weight = 3;
@@ -151,6 +160,11 @@ macademia.nbrviz.query.initViz = function() {
 macademia.nbrviz.query.refreshViz = function(queryIds) {
     macademia.nbrviz.query.initQueryKey();
     macademia.nbrviz.query.drawKeySpheres();
+
+    if (!queryIds.length) {
+        macademia.nbrviz.query.loadNewData(null);
+        return;
+    }
 
     // TODO: make asynchronous
     var url = macademia.makeActionUrlWithGroup('all', 'query', 'data');
@@ -181,6 +195,10 @@ macademia.nbrviz.query.loadNewData = function(vizJson) {
         Magnet.clear();
     } else {
         paper = macademia.nbrviz.initPaper("graph", $("#graph").width(), $("#graph").height());
+    }
+    if (!vizJson) {
+        $('#loadingDiv').hide();
+        return;
     }
 
     macademia.nbrviz.magnet.init();

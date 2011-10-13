@@ -39,20 +39,6 @@ QueryViz.prototype.setupListeners = function() {
     });
 };
 
-function distributePeople( coords ) {
-    var val = null;
-    for( var i = 0; i < coords.length - 1; i++ ) {
-        if( posEquals( coords[i], coords[coords.length -1] ) ){
-            coords[coords.length-1]['x'] = Math.floor( Math.random() * ($(document).width() - 190) ) + 95;
-            coords[coords.length-1]['y'] = Math.floor( Math.random() * ($(document).height() - 190) ) + 95;
-            i=0;
-            val = coords[coords.length-1];
-        }
-    }
-    return val;
-}
-
-
 
 QueryViz.prototype.layoutInterests = function(vizJson) {
     var a = ($(document).width() - 200)/2;
@@ -114,7 +100,8 @@ QueryViz.prototype.layoutPeople = function( /*coords*/ ) {
             var person = self.people[p.id];
             person.setPosition(p.screenX(), p.screenY());
         });
-        if (iters++ < 100 && k >= 0.01) {
+        console.log('iters is ' + iters + ', k is ' + k);
+        if (iters++ < 100 && k >= 0.1) {
             window.setTimeout(f, 1);
         } else {
             self.setEnabled(true);
@@ -149,18 +136,6 @@ QueryViz.prototype.relayoutPeople = function(interestCluster, x, y) {
     var step2 = Date.now();
 //    console.log('step 1 took ' + (step1 - start) + ' and step 2 ' + (step2 - step1));
 };
-
-
-
-// TODO: make this number relative to stroke width
-function posEquals( coord1, coord2 ) {
-    if( (coord1['x'] + 150) > coord2['x'] && (coord1['x'] - 150) < coord2['x'] ) {
-        if( (coord1['y'] + 150) > coord2['y'] && (coord1['y'] - 150) < coord2['y'] ) {
-            return true;
-        }
-    }
-    return false;
-}
 
 QueryViz.prototype.raiseScreen = function(focus) {
     this.fadeScreen.stop();

@@ -288,7 +288,7 @@ var MNode = RaphaelComponent.extend(
         this.centerNode.animate({
                 x: this.newX,
                 y: this.newY
-            }, millis, "linear");
+            }, 200, "linear");
         this.getHandle().stop();
         this.getHandle().animate({
                 r: r,
@@ -329,6 +329,10 @@ var MNode = RaphaelComponent.extend(
         this.stop();
         var r = this.collapsedRadius;
         this.getHandle().animate({ r: r, cx: this.origX, cy: this.origY }, 0, "linear");
+        this.centerNode.animate({
+                x: this.origX,
+                y: this.origY
+            }, 100, "linear");
         var self = this;
         $.each(this.relatedInterestNodes,
             function(i, ri) {
@@ -432,6 +436,12 @@ var MNode = RaphaelComponent.extend(
                 this.moveListeners[i](this, this.x, this.y);
             }
         }
+    },
+    getX : function() {
+        return this.centerNode.getX();
+    },
+    getY : function() {
+        return this.centerNode.getY();
     },
 
     /**

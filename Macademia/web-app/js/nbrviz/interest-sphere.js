@@ -118,17 +118,6 @@ var InterestSphere = Sphere.extend({
         layers.push(this.labelBg);
         return layers;
     },
-    getLayersExceptBackground : function() {
-        var sphereLayers = this._super();
-        var layers = [];
-        $.each(this.orbit, function(i, o) { macademia.concatInPlace(layers, o.getLayers()); });
-        layers.push(sphereLayers[0]);   // handle
-        macademia.concatInPlace(layers, sphereLayers.slice(1));
-        layers.push(this.label);
-        layers.push(this.addLink);
-        layers.push(this.labelBg);
-        return layers;
-    },
     animate : function(attrs, millis, arg1, arg2) {
         this._super(attrs, millis, arg1, arg2);
         var self = this;

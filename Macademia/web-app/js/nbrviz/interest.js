@@ -78,7 +78,7 @@ var InterestCluster = MNode.extend({
         if (this.state != this.STATE_EXPANDED) {
             return;
         }
-        if (macademia.nbrviz.distance(this.x, this.y, e.x, e.y) <= this.centerNode.r*1.5) {
+        if (macademia.nbrviz.distance(this.getX(), this.getY(), e.x, e.y) <= this.centerNode.r*1.5) {
             var last = this.lastInterestHoverIndex;
             if (this.lastInterestHoverIndex != this.HOVER_CENTER) {
                 this.lastInterestHoverIndex = this.HOVER_CENTER;

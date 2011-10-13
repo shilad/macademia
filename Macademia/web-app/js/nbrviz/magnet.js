@@ -10,8 +10,8 @@ macademia.nbrviz.magnet.init = function () {
     MM.ZOOM_CONSTANT = Math.min(MM.WIDTH, MM.HEIGHT) / 2;
 
     // maximum x and y values
-    MM.X_RANGE = MM.WIDTH / 2.0 / MM.ZOOM_CONSTANT;
-    MM.Y_RANGE = MM.HEIGHT / 2.0 / MM.ZOOM_CONSTANT;
+    MM.X_RANGE = MM.WIDTH / 2.0 / MM.ZOOM_CONSTANT * .9;
+    MM.Y_RANGE = MM.HEIGHT / 2.0 / MM.ZOOM_CONSTANT * .9;
 
     // attraction to magnets, and optimal distance from magnets
     MM.GRAVITATIONAL_CONSTANT = 20.0;
