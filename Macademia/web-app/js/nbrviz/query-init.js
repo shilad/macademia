@@ -183,8 +183,7 @@ macademia.nbrviz.query.loadNewData = function(vizJson) {
         paper = macademia.nbrviz.initPaper("graph", $("#graph").width(), $("#graph").height());
     }
 
-    width = $(document).width()-50;
-    height = $(document).height()-50;
+    macademia.nbrviz.magnet.init();
 
     // interestId -> interest
     var interests = macademia.nbrviz.query.initQueryInterests(vizJson);
@@ -279,6 +278,7 @@ macademia.nbrviz.query.loadNewData = function(vizJson) {
         queryInterests : $.map(queryInterests, function(v, k) {return v;}),
         paper : paper
     });
+    qv.setEnabled(false);
     qv.layoutInterests();
     qv.layoutPeople();
     qv.setupListeners();

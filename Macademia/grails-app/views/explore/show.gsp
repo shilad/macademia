@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <title>Query Based Visualization</title>
+  <title>Exploration - Based Visualization</title>
   <p:css name="nbrviz/jquery-ui-1.8.16.custom"/>
   <p:javascript src='macademia.js.nbrviz'/>
   <p:css name="queryViz" media="all"/>

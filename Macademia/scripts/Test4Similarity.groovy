@@ -1,6 +1,5 @@
-import org.macademia.Interest
-import org.macademia.nbrviz.QueryGraph
-import org.macademia.nbrviz.InterestGraph
+import org.macademia.Person
+import org.macademia.nbrviz.PersonGraph
 
 
 ctx.getBean('autocompleteService').init()
@@ -13,22 +12,17 @@ def sessionFactory = ctx.getBean('sessionFactory')
 //    }
 //    println("")
 //})
-def queries = [
-    'web20',
-    'anthropology',
-    'music',
-    'geography',
-    'jazz',
-    'economics',
+def emails = [
+    'ssen@macalester.edu'
 ]
 
 def t1 = System.currentTimeMillis()
-queries.each({
-    def interest = Interest.findByNormalizedText(it)
-    InterestGraph graph = similarityService.calculateInterestNeighbors(interest.id, 20, 3)
+emails.each({
+    def person = Person.findByEmail(it)
+    PersonGraph graph = similarityService.calculatePersonNeighbors(person.id, 20, 3, [:])
     graph.prettyPrint()
     sessionFactory.currentSession.clear()
 })
 def t2 = System.currentTimeMillis()
 println("elapsed time is ${t2 - t1}")
-println("mean time is ${(t2 - t1) / queries.size()}")
+println("mean time is ${(t2 - t1) / emails.size()}")

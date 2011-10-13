@@ -1,7 +1,6 @@
 package org.macademia.nbrviz
 
 import org.macademia.*
-import org.macademia.nbrviz.InterestGraph.InterestRole
 
 /**
  * This Service supplies data in the JSON format for the construction
@@ -102,7 +101,7 @@ class Json2Service {
 
     def makeJsonInterest(Long iid, InterestGraph graph) {
         Interest i = Interest.get(iid)
-        InterestGraph.InterestInfo ii = graph.interestInfo[iid]
+        InterestInfo ii = graph.interestInfo[iid]
         def o = [
                 id : iid,
                 name : i.text,

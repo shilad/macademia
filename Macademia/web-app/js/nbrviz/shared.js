@@ -14,20 +14,25 @@ macademia.nbrviz.distance = function(x1, y1, x2, y2) {
 macademia.nbrviz.initPaper = function(domId, width, height) {
     macademia.nbrviz.paper = new Raphael(domId, width, height);
 
-    macademia.nbrviz.paper.customAttributes.personArc = function(xPos, yPos, strokeWidth, percentage, innerCircle){
-        var alpha = 360 / 60 * (percentage * 60),
-           radius = innerCircle+strokeWidth/2,
-                a = (90 - alpha) * Math.PI / 180,
-                x = xPos + radius * Math.cos(a),
-                y = yPos - radius * Math.sin(a),
-                path;
-        if (percentage != 1){
-            path = [["M", xPos, yPos-radius], ["A", radius, radius, 0, +(alpha > 180), 1, x, y]];
-        }else {
-            path = [["M", xPos, yPos-radius], ["A", radius, radius, 0, 1, 1, xPos - 1 + 0.99, yPos-radius]];
+    macademia.nbrviz.paper.customAttributes.personArc = function(xPos, yPos, strokeWidth, percentage, rotation, innerCircle) {
+        var angle = Math.PI * 2 * percentage,
+            radius = innerCircle+strokeWidth/2,
+            x0 = xPos + radius * Math.cos(rotation),
+            y0 = yPos + radius * Math.sin(rotation),
+            x1 = xPos + radius * Math.cos(rotation + angle),
+            y1 = yPos + radius * Math.sin(rotation + angle),
+            path;
+        var largeArc = (angle > Math.PI) ? 1 : 0;
+        if (percentage == 1) {
+            // tricky to draw a closed arc...
+            path = [["M", xPos + radius, yPos],
+                ["A", radius, radius, 0, 1, 1, xPos - radius, yPos],
+                ["A", radius, radius, 0, 1, 1, xPos + radius, yPos]
+            ];
+        } else {
+            path = [["M", x0, y0], ["A", radius, radius, 0, largeArc, 1, x1, y1]];
         }
-        // what the path variables mean:
-        // ["M", x, y] - starting point of drawing path of the vector
+
         return {path: path, "stroke-width": strokeWidth};
     };
 

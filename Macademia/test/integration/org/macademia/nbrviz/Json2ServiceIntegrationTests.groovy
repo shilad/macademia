@@ -39,7 +39,7 @@ class Json2ServiceIntegrationTests extends GrailsUnitTestCase {
 
     void testExplorationCentricGraph() {
         def root = personService.findByEmail('ssen@macalester.edu')
-        Graph graph = similarity2Service.calculateExplorationNeighbors(root)
+        Graph graph = similarity2Service.calculatePersonNeighbors(root)
         def jsonGraph = json2Service.buildExplorationCentricGraph(root, graph) as Map
 //        println jsonGraph.toString()
         assert(graph.interestClusters.values().size() >= 1)

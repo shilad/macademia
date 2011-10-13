@@ -1,50 +1,50 @@
 package org.macademia.nbrviz
 
-import org.macademia.SimilarInterestList
-import org.macademia.SimilarInterest
 import org.macademia.Interest
+import org.macademia.SimilarInterest
+import org.macademia.SimilarInterestList
 import org.macademia.nbrviz.InterestRole.RoleType
 
-class InterestGraph {
+class PersonGraph {
     public static final double CLUSTER_PENALTY = 0.5
 
     Long rootId = null
+    Set<Long> rootInterests = null
     Set<Long> relatedInterestIds = new HashSet()
     Map<Long, InterestInfo> interestInfo = [:]
     Map<Long, Collection<PersonClusterEdge>> personClusterEdges = [:]
     Map<Long, Double> personScores = [:]
     Map<Long, Double> interestWeights = [:]
 
-    public InterestGraph(Long interestId) {
+    public PersonGraph(Long interestId, Set<Long> rootInterests) {
         this.rootId = interestId
+        this.rootInterests = rootInterests
         interestWeights[rootId] = 1.0
-        interestInfo[rootId] = new InterestInfo(interestId : rootId)
-        interestInfo[rootId].addRole(RoleType.ROOT, rootId, 1.0)
+
+        for (Long iid : rootInterests) {
+            this.interestInfo[iid] = new InterestInfo(interestId : iid)
+            this.interestInfo[iid].addRole(RoleType.CHILD_OF_ROOT, rootId, 1.0)
+        }
     }
 
     // Should also be called for the root id
     public void addRelatedInterest(Long interestId, double weight, Set<Long> displayedIds, SimilarInterestList sil) {
 
-        // setup related interest cluster node
-        if (interestId != rootId) {
-            relatedInterestIds.add(interestId)
-            if (!interestInfo.containsKey(interestId)) {
-                interestInfo[interestId] = new InterestInfo(interestId : interestId)
-            }
-            InterestInfo ii = interestInfo[interestId]
-            ii.addRole(RoleType.RELATED_ROOT, interestId, weight)
-            interestWeights[interestId] = weight
+        relatedInterestIds.add(interestId)
+        if (!interestInfo.containsKey(interestId)) {
+            interestInfo[interestId] = new InterestInfo(interestId : interestId)
         }
+        InterestInfo ii = interestInfo[interestId]
+        ii.addRole(RoleType.RELATED_ROOT, interestId, weight)
+        interestWeights[interestId] = weight
 
-        // Update to handle interestId = rootId...
-        println("for $interestId should display $displayedIds")
         for (SimilarInterest si : sil.list) {
             Long iid = si.interestId
             boolean isDisplayed = displayedIds.contains(iid)
             if (!interestInfo.containsKey(iid)) {
                 interestInfo[iid] = new InterestInfo(interestId : iid)
             }
-            InterestInfo ii = interestInfo[iid]
+            ii = interestInfo[iid]
             RoleType role = RoleType.HIDDEN;
             if (isDisplayed) {
                 role = (interestId == rootId) ? RoleType.CHILD_OF_ROOT : RoleType.CHILD_OF_RELATED
@@ -137,19 +137,14 @@ class InterestGraph {
 
     public void prettyPrint() {
         def f = { "$it:" + Interest.get(it)?.text } // nice to string
-        print("Interests are:")
-        print(" " + f(rootId) + " (root)")
-        for (Long rid : relatedInterestIds) {
-            print(" " + f(rid) + ",")
-        }
-        println()
-
+        println("Interests clusters are:")
         Map<Long, Set<Long>> cmap = getClusterMap()
         for (Long qid : cmap.keySet()) {
-            println("Subinterests for ${f(qid)}:")
+            print("\t${f(qid)}:")
             for (Long cid : cmap[qid]) {
-                println("\t${f(cid)}")
+                print(" ${f(cid)};")
             }
+            println("")
         }
     }
 
@@ -158,4 +153,16 @@ class InterestGraph {
         return personScores.keySet()
     }
 
+
+    public String describeCluster(Set<Long> ids) {
+        StringBuffer res = new StringBuffer("[")
+        for (Long iid : ids) {
+            Interest i = Interest.get(iid)
+            String name = (i == null) ? ""+iid : "${i.id}:${i.text}"
+            res.append(name)
+            res.append(", ")
+        }
+        res.append("]")
+        return res.toString()
+    }
 }

@@ -13,7 +13,6 @@ function QueryViz(params) {
     this.fadeScreen = this.paper.rect(0, 0, this.paper.width, this.paper.height);
     this.fadeScreen.attr({ fill : 'white' , opacity : 0.0, 'stroke-width' : 0});
     this.fadeScreen.toBack();
-
 }
 
 QueryViz.prototype.setupListeners = function() {
@@ -61,23 +60,25 @@ QueryViz.prototype.layoutInterests = function(vizJson) {
     var cx = $(document).width()/2;
     var cy = $(document).height()/2;
 
+    var xr = macademia.nbrviz.magnet.X_RANGE - .2;
+    var yr = macademia.nbrviz.magnet.Y_RANGE - .2;
+
     // layout up to four magnets "by hand."
     var positions = [
             [],
-            [[0.2, 0.0]],
-            [[-0.8, 0.0], [0.8, 0.0]],
-            [[-0.8, -0.8], [0, 0.8], [0.8, -0.8]],
-            [[-0.8, 0.0], [0.8, 0.0], [0.0, -1.0], [0.0, 1.0]]
+            [[0.0, 0.0]],
+            [[-xr, 0.0], [xr, 0.0]],
+            [[-xr, -yr], [0, yr], [xr, -yr]],
+            [[-xr, 0.0], [xr, 0.0], [0.0, -yr], [0.0, yr]]
     ];
 
     var self = this;
     $.each(this.queryInterests, function(index, interestCluster) {
-        var xDisp, yDisp;
+        var xDisp, yDisp, p;
         if (self.queryInterests.length < positions.length) {
-            var p = positions[self.queryInterests.length][index];
-            xDisp = p[0] * a + cx;
-            yDisp = p[1] * b + cy;
+            p = positions[self.queryInterests.length][index];
         } else {
+            // TODO: calculate p
             var th = index * (360/self.queryInterests.length) * (Math.PI/180);
             var r = function( th ) {
                         return (a * b)/
@@ -90,11 +91,10 @@ QueryViz.prototype.layoutInterests = function(vizJson) {
             xDisp = Math.round( r * Math.cos(th) ) + cx;
             yDisp = Math.round( r * Math.sin(th) ) + cy;
         }
-        console.log('xDisp is ' + xDisp + ', yDisp is ' + yDisp);
-
-        interestCluster.setPosition(xDisp, yDisp);
-
-        var mag = new Magnet( new Vector( xDisp, yDisp), interestCluster.id );
+                            ;
+        var point = new Point(new Vector(p[0], p[1]));
+        var mag = new Magnet(point.p, interestCluster.id );
+        interestCluster.setPosition(point.screenX(), point.screenY());
     });
 };
 
@@ -104,10 +104,31 @@ QueryViz.prototype.layoutPeople = function( /*coords*/ ) {
         var p = new Point( Vector.random() );
         p.setStuff( i, person.relevance );
     });
-    startLayout(.1);
+    var iters = 0;
+    var f = function() {
+        var k = 1.0;
+        for (var i = 0; i < 2; i++) {
+            k = Math.min(k, macademia.nbrviz.magnet.oneLayoutIteration());
+        }
+        $.each(Point.points, function(index, p) {
+            var person = self.people[p.id];
+            person.setPosition(p.screenX(), p.screenY());
+        });
+        if (iters++ < 100 && k >= 0.01) {
+            window.setTimeout(f, 1);
+        } else {
+            self.setEnabled(true);
+        }
+    };
     $.each(Point.points, function(index, p) {
         self.people[p.id].setPosition( p.screenX(), p.screenY());
     });
+    window.setTimeout(f, 1);
+};
+
+QueryViz.prototype.setEnabled = function(enabled) {
+    this.people.map(function (p) { p.setEnabled(enabled); });
+    this.queryInterests.map(function (qi) { qi.setEnabled(enabled); });
 };
 
 /**

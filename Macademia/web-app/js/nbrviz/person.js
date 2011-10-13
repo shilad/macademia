@@ -26,6 +26,7 @@ var PersonCenter = RaphaelComponent.extend({
         this.maxRadius = params.maxRadius || 100000000;
         this.picture = params.picture || "";
         this.name = params.name || "nameless person";
+        this.rotation = 0;
 
         var x = params.x, y = params.y;
 
@@ -103,13 +104,36 @@ var PersonCenter = RaphaelComponent.extend({
 
         var self = this;
         var amount = 1.0;
+        this.updateRotation();
         $.each(this.interestGroups, function(i) {
             var ig = this[0];
             var w = self.wedges[i];
-            w.attr({personArc: [x, y, self.outerRadius, amount, self.innerRadius], opacity: 1});
+            w.attr({personArc: [x, y, self.outerRadius, amount, self.rotation, self.innerRadius], opacity: 1});
             amount -= this[2];
         });
 
+    },
+    updateRotation : function() {
+        var domGroup = this.dominantInterestGroup();
+        var magX = domGroup.centerNode.getX();
+        var magY = domGroup.centerNode.getY();
+        var myX = this.getX();
+        var myY = this.getY();
+        var desiredAngle = Math.atan2(magY - myY, magX - myX);
+        var actualAngle = 0;
+        $.each(macademia.reverseCopy(this.interestGroups), function(i) {
+            var ig = this[0];
+            if (ig == domGroup) {
+                actualAngle += this[2] / 2;
+                return false;
+            }
+            actualAngle += this[2];
+        });
+        actualAngle *= Math.PI * 2;
+        this.rotation = desiredAngle - actualAngle;
+    },
+    dominantInterestGroup : function() {
+        return this.interestGroups[0][0];
     },
     animate : function(attrs) {
         this.getLayerSet().stop();
@@ -136,11 +160,12 @@ var PersonCenter = RaphaelComponent.extend({
 
         var self = this;
         var amount = 1.0;
+        this.updateRotation();
         $.each(this.interestGroups, function(i) {
             var ig = this[0];
             var w = self.wedges[i];
             w.animate({
-                personArc: [x, y, newOuterRadius, amount, self.innerRadius * scalingFactor]
+                personArc: [x, y, newOuterRadius, amount, self.rotation, self.innerRadius * scalingFactor]
             }, ms);
             amount -= this[2];
         });
@@ -189,6 +214,9 @@ var Person = MNode.extend({
         }
         return sortedInterests;
     },
+    dominantInterestGroup : function() {
+        return this.interestGroups[0][0];
+    },
     createCenterNode : function() {
         this.centerNode = new PersonCenter({
             interestGroups : this.interestGroups,
@@ -203,6 +231,9 @@ var Person = MNode.extend({
     },
     onHoverIn : function() {
         this._super();
+        if (!this.enabled) {
+            return;
+        }
         this.centerNode.animate({cx : this.newX, cy : this.newY, scale : 2.2});
         this.getHandle().stop();
         this.getHandle().animate({
@@ -213,6 +244,9 @@ var Person = MNode.extend({
     },
     onHoverOut : function() {
         this._super();
+        if (!this.enabled) {
+            return;
+        }
         this.centerNode.animate({x : this.origX, y : this.origY, scale : 1.0});
         this.getHandle().stop();
         var r = this.centerNode.outerRadius + this.centerNode.innerRadius;

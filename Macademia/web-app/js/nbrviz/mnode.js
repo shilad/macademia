@@ -39,6 +39,8 @@ var MNode = RaphaelComponent.extend(
         this.STATE_COLLAPSING = 3;
         this.STATE_DRAGGING = 4;
 
+        this.enabled = true;
+
         this.id = params.id;
         this.name = params.name;
         this.state = this.STATE_COLLAPSED;
@@ -76,6 +78,10 @@ var MNode = RaphaelComponent.extend(
         this.installListeners();
     },
 
+    setEnabled : function(enabled) {
+        this.enabled = enabled;
+    },
+
     /**
      * Sets the initial position of the node, and creates related interests.
      * @param x
@@ -95,9 +101,17 @@ var MNode = RaphaelComponent.extend(
         var layers = [];
         macademia.concatInPlace(layers, this.centerNode.getLayers());
         $.each(this.relatedInterestNodes,
-                function(i, ri) {macademia.concatInPlace(layers, ri.getLayers()); }
+                function(i, ri) {
+                    var ril = ri.getLayers();
+                    macademia.concatInPlace(layers, ril.slice(0, ril.length));
+                }
             );
         layers.push(this.ring);
+        $.each(this.relatedInterestNodes,
+                function(i, ri) {
+                    layers.push(ri.getBackgroundLayer());
+                }
+            );
         return layers;
     },
 
@@ -254,6 +268,9 @@ var MNode = RaphaelComponent.extend(
      * Overall hover handlers
      */
     onHoverIn : function(millis) {
+        if (!this.enabled) {
+            return;
+        }
         if (this.state != this.STATE_COLLAPSED && this.state != this.STATE_COLLAPSING) {
             return;
         }
@@ -289,6 +306,7 @@ var MNode = RaphaelComponent.extend(
             ri.show();
             ri.showText();
             ri.highlightNone();
+//            ri.getBackgroundLayer().insertAfter(self.ring);
             ri.animate(
                     { x: nodePositions[i][0], y: nodePositions[i][1] },
                     millis,
@@ -301,6 +319,9 @@ var MNode = RaphaelComponent.extend(
         );
     },
     onHoverOut : function() {
+        if (!this.enabled) {
+            return;
+        }
         if (this.state != this.STATE_EXPANDED && this.state != this.STATE_EXPANDING) {
             return;
         }
@@ -349,6 +370,7 @@ var MNode = RaphaelComponent.extend(
                 function (i, n) {
                     if (n == relatedInterestNode) {
                         n.toFront(self.centerNode.getBottomLayer());
+                        n.getBackgroundLayer().insertBefore(self.ring);
                         n.highlightOn();
                     } else {
                         n.highlightOff();
@@ -444,6 +466,7 @@ var MNode = RaphaelComponent.extend(
                     this.relatedInterestNodes[closestIndex]);
         }
     }
+
 });
 
 

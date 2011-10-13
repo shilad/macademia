@@ -15,7 +15,6 @@ function ExploreViz(params) {
     this.fadeScreen = this.paper.rect(0, 0, this.paper.width, this.paper.height);
     this.fadeScreen.attr({ fill : 'white' , opacity : 0.0, 'stroke-width' : 0});
     this.fadeScreen.toBack();
-
 };
 
 
@@ -43,18 +42,19 @@ ExploreViz.prototype.setupListeners = function() {
     });
 };
 
+ExploreViz.prototype.setEnabled = function(enabled) {
+    this.people.map(function (p) { p.setEnabled(enabled); });
+    this.parentInterests.map(function (pi) { pi.setEnabled(enabled); });
+};
 
-function distributePeople( coords ) {
-    var val = null;
-    for( var i = 0; i < coords.length - 1; i++ ) {
-        if( posEquals( coords[i], coords[coords.length -1] ) ){
-            coords[coords.length-1]['x'] = Math.floor( Math.random() * ($(document).width() - 190) ) + 95;
-            coords[coords.length-1]['y'] = Math.floor( Math.random() * ($(document).height() - 190) ) + 95;
-            i=0;
-            val = coords[coords.length-1];
+ExploreViz.prototype.getRootNode = function() {
+    for (var i = 0; i < this.parentInterests.length; i++) {
+        console.log('checking ' + this.parentInterests[i].id + ' against ' + this.rootId);
+        if (this.parentInterests[i].id == this.rootId) {
+            return this.parentInterests[i];
         }
     }
-    return val;
+    alert('no root node found!');
 };
 
 
@@ -75,10 +75,8 @@ ExploreViz.prototype.layoutInterests = function(vizJson) {
     var cx = $(document).width()/2;
     var cy = $(document).height()/2;
 
-    console.log('parentInterests length is ' + this.parentInterests.length);
     // layout up to four magnets "by hand." minus 1 because of root
     var positions = PARENT_POSITIONS_BY_LENGTH[this.parentInterests.length - 1];
-    console.log('positions is ' + positions);
     var self = this;
     var index = 0;
     $.each(this.parentInterests, function(i, interestCluster) {
@@ -86,7 +84,7 @@ ExploreViz.prototype.layoutInterests = function(vizJson) {
         var point = new Point(new Vector(p[0], p[1]));
         var mag = new Magnet(point.p, interestCluster.id );
         interestCluster.setPosition(point.screenX(), point.screenY());
-        console.log('for ' + p + 'pos is ' + point.screenX() + ',' + point.screenY())
+        console.log('for interest ' + i + ' pos is ' + point.screenX() + ',' + point.screenY())
         if (interestCluster.id != self.rootId) {
             index += 1;
         }
@@ -95,25 +93,45 @@ ExploreViz.prototype.layoutInterests = function(vizJson) {
 
 ExploreViz.prototype.layoutPeople = function( /*coords*/ ) {
     var self = this;
+    var MM = macademia.nbrviz.magnet;
+
+    // initial layout around dominant magnet
+    var angles = {};
+    $.each(Magnet.magnets, function (i, m) { angles[m.id] = 0.5; });
     $.each(this.people, function(i, person) {
-        var p = new Point( Vector.random() );
+        var ic = person.dominantInterestGroup();
+        var m = Magnet.findById(ic.id);
+        var d = MM.OPTIMAL_MAGNET_PERSON_DIST;
+        var x = m.p.x + d * Math.cos(angles[ic.id]) + 0.25 - 0.5 * Math.random();
+        var y = m.p.y + d * Math.sin(angles[ic.id]) + 0.25 - 0.5 * Math.random();;
+        var p = new Point(new Vector(
+                macademia.pinch(x, -MM.X_RANGE, MM.X_RANGE),
+                macademia.pinch(y, -MM.Y_RANGE, MM.Y_RANGE)
+        ));
         p.setStuff( i, person.relevance );
+        angles[ic.id] += 1.1;
     });
     var iters = 0;
+    $.each(Point.points, function(index, p) {
+        self.people[p.id].setPosition( p.screenX(), p.screenY());
+    });
+
     var f = function() {
-        var k = macademia.nbrviz.magnet.oneLayoutIteration();
+        var k = 1.0;
+        for (var i = 0; i < 2; i++) {
+            k = Math.min(k, MM.oneLayoutIteration());
+        }
         $.each(Point.points, function(index, p) {
             var person = self.people[p.id];
             person.setPosition(p.screenX(), p.screenY());
         });
         if (iters++ < 100 && k >= 0.01) {
-            window.setTimeout(f, 1);
+            window.setTimeout(f, 100);
+        } else {
+            self.setEnabled(true);
         }
     };
-    $.each(Point.points, function(index, p) {
-        self.people[p.id].setPosition( p.screenX(), p.screenY());
-    });
-    window.setTimeout(f, 1);
+    window.setTimeout(f, 100);
 };
 
 

@@ -34,17 +34,13 @@ var Sphere = RaphaelComponent.extend({
         this.brightness = params.brightness || 0.9;
 
         if (this.hue == -1) {
-            fill = "r(.5,.9)hsb(0, 0, .9)-hsb(0, 0, .80)";
+            fill = "hsb(0,0,.9)";
         } else {
-            fill = ("r(.5,.9)" +
-                    "hsb(" + this.hue + "," + this.sat + "," + this.brightness + ")-" +
-                    "hsb(" + this.hue + ", " + this.sat + "," + (0.89 * this.brightness) + ")");
+            fill = "hsb(" + this.hue + "," + 0.9*this.sat + "," + 1.1*this.brightness + ")";
         }
 
-        this.gradient1 = this.paper.circle(x, y, this.r)
-                    .attr({fill: fill, stroke: '#ccc'});
-        this.gradient2 = this.paper.circle(x, y, this.r - this.r / 5)
-                    .attr({stroke: "none", fill: "r(.5,.1)#ddd-#ddd", opacity: 0});
+        this.gradient1 = this.paper.circle(x, y, this.r-2)
+                    .attr({fill: fill, stroke: '#777', 'stroke-width' : 2});
 
         // invisible layer (useful for event handling)
         this.handle =  this.paper.circle(x, y, this.r)
@@ -108,7 +104,7 @@ var Sphere = RaphaelComponent.extend({
     },
 
     getCircles : function() {
-        return [this.handle, this.gradient1, this.gradient2];
+        return [this.handle, this.gradient1];
     },
 
     installListeners : function() {
@@ -147,7 +143,7 @@ var Sphere = RaphaelComponent.extend({
     },
 
     getLayers : function() {
-        return [this.handle, this.gradient2, this.gradient1];
+        return [this.handle, this.gradient1];
     },
 
 

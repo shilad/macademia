@@ -76,17 +76,50 @@ class Similarity2Service {
      * @param maxPeople The max number of people to include in the Graph.
      * @return A Graph
      */
-    public Graph calculateExplorationNeighbors(Person root) {
-        int maxPeople = Integer.MAX_VALUE
-        NbrvizGraph graph= new NbrvizGraph(root.id)
-        def interests = databaseService.getUserInterests(root.id)
-        for(long i : interests){
-            //For each interest owned by the central person, calculate neighbors
-            graph = similarityService.calculateNeighbors(i, graph, maxPeople, interests, null) as NbrvizGraph
+    public PersonGraph calculatePersonNeighbors(Long rootId, int maxPeople, int maxInterests, Map<Long, Double> interestWeights) {
+
+        TimingAnalysis ANALYSIS = new TimingAnalysis('calculatePersonNeighbors')
+        PersonGraph graph = new PersonGraph(rootId, databaseService.getUserInterests(rootId))
+
+        // Calculate interest clusters
+        ANALYSIS.startTime()
+        Map<Long, Set<Long>> clusters = clusterInterests(graph.rootInterests)
+        ANALYSIS.recordTime("cluster root interests")
+
+        println("clusters:")
+        for (Long iid : clusters.keySet()) {
+            SimilarInterestList sil = databaseService.getSimilarInterests(iid)
+            sil.normalize()
+            graph.addRelatedInterest(iid, interestWeights.get(iid, 0.5), clusters[iid], sil)
+            println("\t" + graph.describeCluster(clusters[iid]))
         }
+        ANALYSIS.recordTime("find related interests")
+
+        // find people with those clusters
+        Map<Long, Set<Long>> personInterests = [:]
+        for (Long iid : graph.interestInfo.keySet()) {
+            for (Long pid : databaseService.getInterestUsers(iid)) {
+                if (!personInterests.containsKey(pid)) {
+                    personInterests[pid] = new HashSet<Long>()
+                }
+            }
+        }
+        ANALYSIS.recordTime("people1")
+
+        // Add people to the graph
+        for (Long pid : personInterests.keySet()) {
+            graph.addPerson(pid, databaseService.getUserInterests(pid))
+        }
+        ANALYSIS.recordTime("people2")
+
+        // Calculate scores, prune graph, etc
         graph.finalizeGraph(maxPeople)
+        ANALYSIS.recordTime("finalize")
+        ANALYSIS.analyze()
+
         return graph
     }
+
 
     /**
      * Creates and returns a new Graph based upon the parameter Interest for
@@ -96,9 +129,9 @@ class Similarity2Service {
      * @param maxInterests The max number of Interests to include in the Graph.
      * @return A Graph
      */
-    public InterestGraph calculateExplorationNeighbors(Long rootId, int maxPeople, int maxInterests, Map<Long, Double> interestWeights) {
+    public InterestGraph calculateInterestNeighbors(Long rootId, int maxPeople, int maxInterests, Map<Long, Double> interestWeights) {
 
-        TimingAnalysis ANALYSIS = new TimingAnalysis('calculateInterestNeighbors')
+        TimingAnalysis ANALYSIS = new TimingAnalysis('calculatePersonNeighbors')
         InterestGraph graph = new InterestGraph(rootId)
 
         // Calculate interest clusters
@@ -285,16 +318,12 @@ class Similarity2Service {
      * @param ids
      * @return
      */
-    public Collection<Set<Long>> clusterInterests(Set<Long> iids) {
+    public Map<Long, Set<Long>> clusterInterests(Set<Long> iids) {
 //        println("iids are $iids")
-        List<Set<Long>> clusters = []
         Map<Long, Map<Long, Double>> sims = databaseService.getIntraInterestSims(iids, false)
 
-        for (Long i : sims.keySet()) {
-            if (sims.containsKey(i)) {
-                clusters.add(new HashSet<Long>([i]))
-            }
-        }
+        List<Set<Long>> clusters = []
+        sims.keySet().each({clusters.add(new HashSet<Long>([it]))})
 
         // find closest pair of clusters and merge
         while (clusters.size() > 1) {
@@ -323,12 +352,12 @@ class Similarity2Service {
             clusters.remove(closest[0])
             closest[1].addAll(closest[0])
         }
-//        String desc = clusters.collect({describeCluster(it)}).join(", ")
-        for (int i = 0; i < clusters.size(); i++) {
-            println("cluster $i is ${describeCluster(clusters[i])}")
+        // FIXME:
+        Map<Long, Set<Long>> clusterMap = [:]
+        for (Set<Long> cluster : clusters) {
+            clusterMap[cluster.iterator().next()] = cluster
         }
-
-        return clusters
+        return clusterMap
     }
 
     public double clusterSimilarity(Map<Long, Map<Long, Double>> sims, Collection<Long> cluster1, Collection<Long> cluster2) {
@@ -344,17 +373,5 @@ class Similarity2Service {
             }
         }
         return sim / (cluster1.size() * cluster2.size())
-    }
-
-    public String describeCluster(Set<Long> ids) {
-        StringBuffer res = new StringBuffer("[")
-        for (Long iid : ids) {
-            Interest i = Interest.get(iid)
-            String name = (i == null) ? ""+iid : "${i.id}:${i.text}"
-            res.append(name)
-            res.append(", ")
-        }
-        res.append("]")
-        return res.toString()
     }
 }

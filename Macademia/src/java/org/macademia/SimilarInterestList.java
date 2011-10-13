@@ -11,7 +11,7 @@ import java.util.regex.*;
 
 public class SimilarInterestList {
     // overridden in Config.groovy
-    public static int MAX_SIMILAR_INTERESTS = 2000;
+    public static int MAX_SIMILAR_INTERESTS = 5000;
 
     ArrayList<SimilarInterest> list;
 

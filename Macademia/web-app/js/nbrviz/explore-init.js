@@ -103,6 +103,7 @@ macademia.nbrviz.explore.initCluster = function(qid, vizJson, interests) {
     var clusterMap = vizJson.clusterMap;
     var relatedInterests = $.map(clusterMap[qid], function(ri) {return interests[ri];});
     var info = vizJson.interests[qid];
+
     var ic = new InterestCluster({
         id : qid,
         interests : interests,
@@ -110,6 +111,7 @@ macademia.nbrviz.explore.initCluster = function(qid, vizJson, interests) {
         name : info.name,
         color : macademia.nbrviz.getColor(qid),
         paper : paper,
+        collapsedRadius : (qid == vizJson.root) ? 30 : 20,
         inQuery : true
     });
     ic.addClicked(
@@ -265,6 +267,7 @@ macademia.nbrviz.explore.loadNewData = function(vizJson) {
         parentInterests : $.map(parentClusters, function(v, k) {return v;}),
         paper : paper
     });
+    ev.setEnabled(false);
     $('#loadingDiv').hide();
     ev.layoutInterests();
     ev.layoutPeople();

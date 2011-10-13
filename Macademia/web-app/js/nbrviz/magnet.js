@@ -15,10 +15,10 @@ macademia.nbrviz.magnet.init = function () {
 
     // attraction to magnets, and optimal distance from magnets
     MM.GRAVITATIONAL_CONSTANT = 20.0;
-    MM.OPTIMAL_MAGNET_PERSON_DIST = 0.1;
+    MM.OPTIMAL_MAGNET_PERSON_DIST = 0.3;
 
     // repulsion between nodes
-    MM.REPULSE_CONSTANT = 0.05;
+    MM.REPULSE_CONSTANT = 0.1;
 
     // repulsion from walls
     MM.WALL_REPULSE_CONSTANT = 0.5;

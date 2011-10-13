@@ -22,7 +22,7 @@
     });
 </g:javascript>
 <div>
-    <a id="showWidget" href="#">show adjustment box</a>
+    <a id="showWidget" href="#">show</a>
     <div id="currentInterests">
         <h1>Showing people related to:</h1>
         <ol>
@@ -38,7 +38,7 @@
               </div>
           </div>
         </ol>
-      <a id="hideWidget" href="#">hide adjustment box</a>
+      <a id="hideWidget" href="#">hide</a>
     </div>
 </div>
 

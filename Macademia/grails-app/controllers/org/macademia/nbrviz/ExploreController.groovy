@@ -1,6 +1,5 @@
 package org.macademia.nbrviz
 
-import org.macademia.Graph
 import grails.converters.JSON
 import org.macademia.TimingAnalysis
 
@@ -31,7 +30,7 @@ class ExploreController {
 
       TimingAnalysis ta = new TimingAnalysis('ExpController.interestData')
       ta.startTime()
-      InterestGraph graph = similarity2Service.calculateExplorationNeighbors(
+      InterestGraph graph = similarity2Service.calculateInterestNeighbors(
                                         rootId, 20, 4, parentWeights)
       ta.recordTime('sim2service')
       def data = json2Service.buildInterestCentricGraph(
