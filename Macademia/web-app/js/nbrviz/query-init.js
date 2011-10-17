@@ -232,13 +232,7 @@ macademia.nbrviz.query.loadNewData = function(vizJson) {
         minRelevance = Math.min(pinfo.relevance.overall, minRelevance);
     });
 
-    var limit = 0;
-    if ( screenArea() < 650000 ) {
-        limit = 6;
-    } else {
-        limit = 20;
-    }
-
+    var limit = Math.max(8, screenArea() / 52000);
     var numPeople = 0;
 //    console.profile();
 
