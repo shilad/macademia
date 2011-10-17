@@ -10,7 +10,7 @@ Interest.withTransaction {
     def i = 0
     interests.each() {
         i++
-        println "($i of ${interests.size()}): building interest doc for ${it.text}\n"
+        println "($i of ${interests.size()}): building interest doc for ${it.text}"
         interestService.buildDocuments(it)
     }
 }

@@ -7,4 +7,4 @@ fi
 
 export PGPASSWORD=grails
 
-psql -Ugrails -c "select email from person p, institution_group ig, institution_group_institutions igi, membership m where p.id = m.person_id and m.institution_id = igi.institution_id and igi.institution_group_id = ig.id and ig.abbrev = '$1'" macademia_prod | grep '@' | sed 's/ //g'
+psql -Ugrails -c "select date_created, email from person p, institution_group ig, institution_group_institutions igi, membership m where p.id = m.person_id and m.institution_id = igi.institution_id and igi.institution_group_id = ig.id and ig.abbrev = '$1'" macademia_prod | grep '@' | sed 's/ //g'

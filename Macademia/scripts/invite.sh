@@ -44,4 +44,5 @@ while read email; do
     wget -O - "$ADMIN_URL/invite?key=$key&email=$urlEmail&template=$EMAIL_TEMPLATE&baseUrl=$BASE_URL&subject=$SUBJECT"
     echo
     echo
+    sleep 60
 done <$EMAIL_FILE

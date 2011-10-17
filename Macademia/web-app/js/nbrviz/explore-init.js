@@ -208,7 +208,7 @@ macademia.nbrviz.explore.loadNewData = function(vizJson) {
     if ( screenArea() < 650000 ) {
         limit = 6;
     } else {
-        limit = 15;
+        limit = 20;
     }
 
     var numPeople = 0;

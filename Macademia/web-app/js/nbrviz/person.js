@@ -38,7 +38,7 @@ var PersonCenter = RaphaelComponent.extend({
 
         // strokes and borders
         this.outerStroke = this.paper.circle(x, y, this.innerRadius+this.outerRadius).attr({stroke: "#999", "stroke-width": 1});
-        this.innerStroke = this.paper.circle(x, y, this.innerRadius).attr({stroke: "#444", "stroke-width": 1});
+        this.innerStroke = this.paper.circle(x, y, this.innerRadius).attr({stroke: "#999", "stroke-width": 1});
 
         // wedges
         var self = this;

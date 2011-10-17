@@ -14,14 +14,14 @@ macademia.nbrviz.magnet.init = function () {
     MM.Y_RANGE = MM.HEIGHT / 2.0 / MM.ZOOM_CONSTANT * .9;
 
     // attraction to magnets, and optimal distance from magnets
-    MM.GRAVITATIONAL_CONSTANT = 20.0;
-    MM.OPTIMAL_MAGNET_PERSON_DIST = 0.3;
+    MM.GRAVITATIONAL_CONSTANT = 50.0;
+    MM.OPTIMAL_MAGNET_PERSON_DIST = 0.2;
 
     // repulsion between nodes
-    MM.REPULSE_CONSTANT = 0.1;
+    MM.REPULSE_CONSTANT = 0.05;
 
     // repulsion from walls
-    MM.WALL_REPULSE_CONSTANT = 0.5;
+    MM.WALL_REPULSE_CONSTANT = 1.0;
 
     // (virtual) time in between recomputations
     MM.TIMESTEP = 0.2;
@@ -181,7 +181,7 @@ Magnet.findById = function(id) {
             return Magnet.magnets[i];
         }
     }
-    alert('Error: no magnet found with id ' + id);
+    return null;
 };
 
 Magnet.prototype.setPosition = function(x, y) {
@@ -211,7 +211,8 @@ Magnet.prototype.attractPeople = function() {
         // attraction
 		if(self.relevances[p.id] && !isNaN(self.relevances[p.id])) {
             var stretch = Math.max(0, radius - MM.OPTIMAL_MAGNET_PERSON_DIST) + 0.00001;
-            var m2 = ( -1.0 * self.relevances[p.id] * MM.GRAVITATIONAL_CONSTANT  * stretch)
+            var rel = self.relevances[p.id];
+            var m2 = ( -1.0 * rel * rel * rel * MM.GRAVITATIONAL_CONSTANT  * stretch)
 //            console.log('radius: ' + radius + ' relevance: ' + self.relevances[p.id] +
 //                    ', forces: ' + magnitude + ', ' + m2);
             magnitude += m2;
@@ -228,56 +229,41 @@ Magnet.prototype.attractPeople = function() {
 	});
 };
 
-Magnet.prototype.normalizeRelevances = function() {
-	var self = this;
-	var sum = 0;
-	Point.points.forEach(function(p){
-        if ( p.relevance[self.id] != null ) { //TODO contains
-            self.relevances[p.id] = p.relevance[self.id];
-            sum += p.relevance[self.id];
-        }
+Magnet.normalizeRelevances = function() {
+    var meanRelevance = 0.0;
+    var n = 0;
+    Point.points.forEach(function(p) {
+        var sum = 0.0;
+        $.each(p.relevance, function (iid, rel) {
+            if (Magnet.findById(iid)) { sum += rel; }
+        });
+        $.each(p.relevance, function (iid, rel) {
+            if (Magnet.findById(iid)) {
+                p.relevance[iid] /= sum;
+            }
+        });
+    });
+	Magnet.magnets.forEach(function(mag){
+        Point.points.forEach(function(p){
+            if ( p.relevance[self.id] != null ) {
+                meanRelevance += p.relevance[self.id];
+                n++;
+            }
+        });
 	});
-	$.each(self.relevances, function(key,value) {
-		self.relevances[key] = value/sum;
+    meanRelevance /= n;
+	Magnet.magnets.forEach(function(mag){
+        var self = this;
+        Point.points.forEach(function(p){
+            if ( p.relevance[self.id] != null ) {
+                self.relevances[p.id] = p.relevance[self.id] / meanRelevance;
+            }
+        });
 	});
 };
 
-function startLayout(threshold) {
-	Magnet.magnets.forEach(function(mag){
-		mag.normalizeRelevances();
-	});
-	var count =0;
-	while (true) {
-		Magnet.magnets.forEach(function(mag){
-			mag.attractPeople();
-		});
-		count++;
-		Point.applyCoulombsLaw();
-		Point.updateVelocity();
-		Point.updatePosition();
-
-		// calculate kinetic energy of system
-		var k = 0.0;
-		Point.points.forEach(function(p){
-			var speed = p.v.magnitude();
-			k += speed * speed;
-		});
-
-		// stop simulation when
-		if ( k < threshold || count == 1000) {
-            console.log('k = ' + k + ', count = ' + count);
-			break;
-		}
-        break;
-	}
-    return k;
-//    Point.printDeltas();
-}
-
 MM.oneLayoutIteration = function() {
-	Magnet.magnets.forEach(function(mag){
-		mag.normalizeRelevances();
-	});
+	Magnet.normalizeRelevances();
     Magnet.magnets.forEach(function(mag){
         mag.attractPeople();
     });

@@ -48,7 +48,7 @@
                 left: 170px;
                 .login_input {
                     border: 1px solid gray;
-                    border-radius: 5px 5px 5px 5px;
+                    @include border-radius(5px);
                     display: block;
                     float: right;
                     margin-bottom: 7px;

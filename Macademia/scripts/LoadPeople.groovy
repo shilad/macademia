@@ -12,6 +12,7 @@ interestService.initBuildDocuments(new File("db/prod/").toString())
 
 System.in.eachLine() { line ->
     populateService.importPersonFromLine2(new File("stdin"), line)
+    Person.sleep(1000)
 }
 
 

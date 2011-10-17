@@ -1,11 +1,14 @@
 import pymongo
 import sys
 
-if len(sys.argv) != 4:
-    sys.stderr.write('usage: %s host mongoDb interest\n')
+if len(sys.argv) not in (4, 5):
+    sys.stderr.write('usage: %s host mongoDb interest {num-results}\n')
     sys.exit(1)
 
-(host, dbName, interest) = sys.argv[1:]
+(host, dbName, interest) = sys.argv[1:4]
+numInterests = 100
+if len(sys.argv) == 5:
+    numInterests = int(sys.argv[4])
 
 cnx = pymongo.Connection(host)
 db = cnx[dbName]

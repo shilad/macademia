@@ -12,7 +12,7 @@ cnx = pymongo.Connection(host)
 db = cnx[dbName]
 
 def getArticleName(db, id):
-    record = db.articlesToIds.find_one({'wpId' : id})
+    record = db.articlesToIds.find_one({'wpId' : int(id)})
     if record:
         return record.get('_id')
 

@@ -63,32 +63,34 @@ ExploreViz.prototype.layoutInterests = function(vizJson) {
     var xr = macademia.nbrviz.magnet.X_RANGE - .2;
     var yr = macademia.nbrviz.magnet.Y_RANGE - .2;
 
-    var PARENT_POSITIONS_BY_LENGTH = [
-        [],
-        [[0.0, 0.0]],
-        [[-xr, 0.0], [xr, 0.0]],
-        [[-xr, -yr], [0, yr], [xr, -yr]],
-        [[-xr, 0.0], [xr, 0.0], [0.0, -yr], [0.0, yr]]
-    ];
-    var a = ($(document).width() - 200)/2;
-    var b = ($(document).height()-200)/2;
-    var cx = $(document).width()/2;
-    var cy = $(document).height()/2;
-
     // layout up to four magnets "by hand." minus 1 because of root
-    var positions = PARENT_POSITIONS_BY_LENGTH[this.parentInterests.length - 1];
     var self = this;
     var index = 0;
+    var center = new Point(new Vector(0, 0));
+
     $.each(this.parentInterests, function(i, interestCluster) {
-        var p = (interestCluster.id == self.rootId) ? [0.0,0.0] : positions[index];
+        var slice = (Math.PI * 2 / (self.parentInterests.length - 1))
+        var angle = index * slice + slice / 2;
+        var p = (interestCluster.id == self.rootId)
+                    ? [0.0, 0.0]
+                    : [Math.cos(angle) * xr, Math.sin(angle) * yr];
         var point = new Point(new Vector(p[0], p[1]));
         var mag = new Magnet(point.p, interestCluster.id );
         interestCluster.setPosition(point.screenX(), point.screenY());
         console.log('for interest ' + i + ' pos is ' + point.screenX() + ',' + point.screenY())
         if (interestCluster.id != self.rootId) {
             index += 1;
+            var spoke = this.paper.path('M' + center.screenX() + ',' + center.screenY() + ',L' + point.screenX() + ',' + point.screenY());
+            spoke.attr({ stroke : '#ccc', 'stroke-dasharray' : '.'  });
+            spoke.toBack();
         }
     });
+
+    var p = new Point(new Vector(-xr, -yr));
+    var z = macademia.nbrviz.magnet.ZOOM_CONSTANT;
+    this.hub = this.paper.ellipse(p.screenX() + xr*z, p.screenY() + yr*z, xr * z, yr * z);
+    this.hub.attr({ stroke : '#ccc', 'stroke-dasharray' : '.'  });
+    this.hub.toBack();
 };
 
 ExploreViz.prototype.layoutPeople = function( /*coords*/ ) {

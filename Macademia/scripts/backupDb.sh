@@ -26,7 +26,7 @@ if ! [ -d $MONGO_WP_BACKUP_TEST ]; then
     mkdir $MONGO_WP_BACKUP_TEST
 fi
 
-#grails extract-prod-wp &&
+grails extract-prod-wp &&
 pg_dump -U grails macademia_prod -f $PSQL_BACKUP && \
 mongodump --db macademia_prod -o $MONGO_BACKUP && \
 mongodump --db wikipediaReadOnlySmall -o $MONGO_WP_BACKUP && \
