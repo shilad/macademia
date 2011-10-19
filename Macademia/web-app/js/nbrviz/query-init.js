@@ -232,12 +232,12 @@ macademia.nbrviz.query.loadNewData = function(vizJson) {
         minRelevance = Math.min(pinfo.relevance.overall, minRelevance);
     });
 
-    var limit = Math.max(8, screenArea() / 52000);
+    var maxPeople = Math.max(8, screenArea() / 35000) - vizJson.queries.length;
     var numPeople = 0;
 //    console.profile();
 
     $.each(vizJson.people, function(id, pinfo) {
-        if( numPeople++ >= limit ) {
+        if( numPeople++ >= maxPeople ) {
             return false; // break
         }
 
@@ -260,7 +260,8 @@ macademia.nbrviz.query.loadNewData = function(vizJson) {
                 ]);
             }
         });
-        var r = 20 * (pinfo.relevance.overall - minRelevance) / (maxRelevance - minRelevance) + 10;
+        var r = 10 * (pinfo.relevance.overall - minRelevance) / (maxRelevance - minRelevance) + 5;
+        console.log('r is ' + r);
         var person = new Person({
             relevance : pinfo.relevance,
             interestGroups : interestGroups,

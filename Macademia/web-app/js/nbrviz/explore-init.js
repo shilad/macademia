@@ -187,9 +187,11 @@ macademia.nbrviz.explore.loadNewData = function(vizJson) {
 
     // Create interest clusters
     var parentClusters = {};
+    var numParentClusters = 0;
     $.each(vizJson.clusterMap, function (parentId) {
         parentClusters[parentId] = macademia.nbrviz.explore.initCluster(
                                 parentId, vizJson, interests);
+        numParentClusters++;
     });
     macademia.endTimer('up to queries');
 
@@ -204,13 +206,13 @@ macademia.nbrviz.explore.loadNewData = function(vizJson) {
         minRelevance = Math.min(pinfo.relevance.overall, minRelevance);
     });
 
-    var limit = Math.max(8, screenArea() / 52000);
+    var maxPeople = Math.max(8, screenArea() / 35000) - numParentClusters;
 
     var numPeople = 0;
 //    console.profile();
 
     $.each(vizJson.people, function(id, pinfo) {
-        if( numPeople++ >= limit ) {
+        if( numPeople++ >= maxPeople ) {
             return false; // break
         }
 
@@ -233,7 +235,7 @@ macademia.nbrviz.explore.loadNewData = function(vizJson) {
                 ]);
             }
         });
-        var r = 10 * (pinfo.relevance.overall - minRelevance) / (maxRelevance - minRelevance) + 10;
+        var r = 10 * (pinfo.relevance.overall - minRelevance) / (maxRelevance - minRelevance) + 5;
         var person = new Person({
             relevance : pinfo.relevance,
             interestGroups : interestGroups,
