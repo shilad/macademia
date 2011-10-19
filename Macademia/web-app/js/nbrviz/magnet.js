@@ -14,17 +14,17 @@ macademia.nbrviz.magnet.init = function () {
     MM.Y_RANGE = MM.HEIGHT / 2.0 / MM.ZOOM_CONSTANT * .9;
 
     // attraction to magnets, and optimal distance from magnets
-    MM.GRAVITATIONAL_CONSTANT = 50.0;
-    MM.OPTIMAL_MAGNET_PERSON_DIST = 0.2;
+    MM.GRAVITATIONAL_CONSTANT = 100.0;
+    MM.OPTIMAL_MAGNET_PERSON_DIST = 0.1;
 
     // repulsion between nodes
-    MM.REPULSE_CONSTANT = 0.05;
+    MM.REPULSE_CONSTANT = 0.01;
 
     // repulsion from walls
-    MM.WALL_REPULSE_CONSTANT = 1.0;
+    MM.WALL_REPULSE_CONSTANT = 0.2;
 
     // (virtual) time in between recomputations
-    MM.TIMESTEP = 0.2;
+    MM.TIMESTEP = 0.5;
 };
 
 function Point(position) {
@@ -66,18 +66,28 @@ Point.applyCoulombsLaw = function() {
             return -sign * (range - Math.min(Math.abs(z), range) + 0.0001)
         };
         var deltaX = new Vector(f(point1.p.x, MM.X_RANGE), 0);
-        var wallForceX = deltaX.multiply(MM.WALL_REPULSE_CONSTANT/ (deltaX.magnitude2() + .01));
+        var wallForceX = deltaX.multiply(MM.WALL_REPULSE_CONSTANT/ deltaX.magnitude2());
         var deltaY = new Vector(0, f(point1.p.y, MM.Y_RANGE));
-        var wallForceY = deltaY.multiply(MM.WALL_REPULSE_CONSTANT/ (deltaY.magnitude2() + .01));
+        var wallForceY = deltaY.multiply(MM.WALL_REPULSE_CONSTANT/ deltaY.magnitude2());
+//        if (deltaX.magnitude() < .1 || deltaY.magnitude() < .1) {
+//            console.log('id ' + point1.id + ' is ' + point1.p + ' and forces are ' + wallForceX + ', ' + wallForceY);
+//        }
         point1.applyForce(wallForceX);
         point1.applyForce(wallForceY);
-	});
+    });
 };
 
 Point.updateVelocity = function() {
 	var damping = 0.3; // damping constant, points lose velocity over time
+
+    // only go 1/5 of the screen at a time, max
+    var maxMagnitude = Math.min(MM.X_RANGE, MM.Y_RANGE) / 5 / MM.TIMESTEP;
 	Point.points.forEach(function(p) {
 		p.v = p.v.add(p.f.multiply(MM.TIMESTEP)).multiply(damping);
+        var m = p.v.magnitude();
+        if (m > maxMagnitude) {
+            p.v = p.v.multiply(maxMagnitude / m);
+        }
 		p.f = new Vector(0,0);
 	});
 };
@@ -86,22 +96,22 @@ var POSITIONS = [];
 var INDEX = 0;
 
 Point.updatePosition = function() {
-    var maxD = 0;
-    var meanD = 0;
+//    var maxD = 0;
+//    var meanD = 0;
 
 	Point.points.forEach(function(p) {
-        var sx0 = p.screenX();
-        var sy0 = p.screenY();
+//        var sx0 = p.screenX();
+//        var sy0 = p.screenY();
 		p.p = p.p.add(p.v.multiply(MM.TIMESTEP));
         p.p.x = macademia.pinch(p.p.x, -MM.X_RANGE, MM.X_RANGE);
         p.p.y = macademia.pinch(p.p.y, -MM.Y_RANGE, MM.Y_RANGE);
-        var sx = p.screenX();
-        var sy = p.screenY();
-        var d = Math.sqrt((sx0 - sx) * (sx0 - sx) + (sy0 - sy) * (sy0 - sy));
-        meanD += d;
-        if (d > maxD) {
-            maxD = d;
-        }
+//        var sx = p.screenX();
+//        var sy = p.screenY();
+//        var d = Math.sqrt((sx0 - sx) * (sx0 - sx) + (sy0 - sy) * (sy0 - sy));
+//        meanD += d;
+//        if (d > maxD) {
+//            maxD = d;
+//        }
 	});
 //    if (INDEX++ % 100 == 0) {
 //        var ps = [];
@@ -212,7 +222,7 @@ Magnet.prototype.attractPeople = function() {
 		if(self.relevances[p.id] && !isNaN(self.relevances[p.id])) {
             var stretch = Math.max(0, radius - MM.OPTIMAL_MAGNET_PERSON_DIST) + 0.00001;
             var rel = self.relevances[p.id];
-            var m2 = ( -1.0 * rel * rel * rel * MM.GRAVITATIONAL_CONSTANT  * stretch)
+            var m2 = ( -1.0 * rel * MM.GRAVITATIONAL_CONSTANT  * stretch)
 //            console.log('radius: ' + radius + ' relevance: ' + self.relevances[p.id] +
 //                    ', forces: ' + magnitude + ', ' + m2);
             magnitude += m2;

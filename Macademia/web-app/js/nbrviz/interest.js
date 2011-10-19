@@ -88,20 +88,20 @@ var InterestCluster = MNode.extend({
         if (this.state != this.STATE_EXPANDED) {
             return;
         }
+        var last = this.lastInterestHoverIndex;
         if (macademia.nbrviz.distance(this.getX(), this.getY(), e.x, e.y) <= this.centerNode.r*1.5) {
-            var last = this.lastInterestHoverIndex;
-            if (this.lastInterestHoverIndex != this.HOVER_CENTER) {
-                this.lastInterestHoverIndex = this.HOVER_CENTER;
-                this.centerNode.highlightOn();
-                this.onInterestHoverIn(this.interest, this.centerNode);
+            if (last != this.HOVER_CENTER) {
                 if (last > 0) {
                     this.onInterestHoverOut(
                         this.relatedInterests[last],
                         this.relatedInterestNodes[last]);
                 }
+                this.onInterestHoverIn(this.interest, this.centerNode);
             }
         } else {
-            this.centerNode.highlightOff();
+            if (last == this.HOVER_CENTER) {
+                this.centerNode.highlightOff();
+            }
             this._super(e);
         }
     }

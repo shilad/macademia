@@ -371,13 +371,21 @@ var MNode = RaphaelComponent.extend(
         if (this.state != this.STATE_EXPANDED) {
             return;
         }
+
+        if (relatedInterestNode != this.centerNode) {
+            relatedInterestNode.toFront(this.centerNode.getBottomLayer());
+            relatedInterestNode.getBackgroundLayer().insertBefore(this.ring);
+        }
+        relatedInterestNode.highlightOn();
+
+        if (this.centerNode == relatedInterestNode) {
+            this.lastInterestHoverIndex = this.HOVER_CENTER;
+        }
         var self = this;
         $.each(this.relatedInterestNodes,
                 function (i, n) {
                     if (n == relatedInterestNode) {
-                        n.toFront(self.centerNode.getBottomLayer());
-                        n.getBackgroundLayer().insertBefore(self.ring);
-                        n.highlightOn();
+                        self.lastInterestHoverIndex = i;
                     } else {
                         n.highlightOff();
                     }
@@ -387,6 +395,7 @@ var MNode = RaphaelComponent.extend(
         }
     },
     onInterestHoverOut : function(relatedInterest, relatedInterestNode) {
+        this.lastInterestHoverIndex = this.HOVER_NONE;
         $.each(this.relatedInterestNodes, function (i, n) { n.highlightNone(); });
         for (var i = 0; i < this.hoverInterestListeners.length; i++) {
             this.hoverInterestListeners[i]['out'](this, relatedInterest, relatedInterestNode);
@@ -467,7 +476,6 @@ var MNode = RaphaelComponent.extend(
 
         if (closestIndex != this.lastInterestHoverIndex) {
             var last = this.lastInterestHoverIndex;
-            this.lastInterestHoverIndex = closestIndex;
             if (last >= 0) {
                 this.onInterestHoverOut(
                         this.relatedInterests[last],

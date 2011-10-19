@@ -60,8 +60,8 @@ ExploreViz.prototype.getRootNode = function() {
 
 ExploreViz.prototype.layoutInterests = function(vizJson) {
 
-    var xr = macademia.nbrviz.magnet.X_RANGE - .2;
-    var yr = macademia.nbrviz.magnet.Y_RANGE - .2;
+    var xr = macademia.nbrviz.magnet.X_RANGE - 0.01;
+    var yr = macademia.nbrviz.magnet.Y_RANGE - 0.01;
 
     // layout up to four magnets "by hand." minus 1 because of root
     var self = this;
@@ -131,7 +131,7 @@ ExploreViz.prototype.layoutPeople = function( /*coords*/ ) {
             var person = self.people[p.id];
             person.setPosition(p.screenX(), p.screenY());
         });
-        if (iters++ < 20 && k >= 0.01) {
+        if (iters++ < 30 && k >= 0.005) {
             window.setTimeout(f, 100);
         } else {
             self.setEnabled(true);
