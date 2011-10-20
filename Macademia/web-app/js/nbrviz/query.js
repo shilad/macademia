@@ -93,7 +93,7 @@ QueryViz.prototype.layoutPeople = function( /*coords*/ ) {
     var iters = 0;
     var f = function() {
         var k = 1.0;
-        var n = Math.min(5, 1 + iters / 5);
+        var n = Math.min(5, 1 + iters / 7);
         for (var i = 0; i < n; i++) {
             k = Math.min(k, macademia.nbrviz.magnet.oneLayoutIteration());
         }
@@ -101,9 +101,10 @@ QueryViz.prototype.layoutPeople = function( /*coords*/ ) {
             var person = self.people[p.id];
             person.setPosition(p.screenX(), p.screenY());
         });
-        if (iters++ < 20 && k >= 0.1) {
+        if (iters++ < 100 && k >= 0.001) {
             window.setTimeout(f, 1);
         } else {
+            console.log('stoppped at iters=' + iters + ', k=' + k);
             self.setEnabled(true);
         }
     };
@@ -114,7 +115,7 @@ QueryViz.prototype.layoutPeople = function( /*coords*/ ) {
 };
 
 QueryViz.prototype.setEnabled = function(enabled) {
-    this.people.map(function (p) { p.setEnabled(enabled); });
+    $.map(this.people, function (p) { p.setEnabled(enabled); });
     this.queryInterests.map(function (qi) { qi.setEnabled(enabled); });
 };
 

@@ -14,14 +14,14 @@ macademia.nbrviz.magnet.init = function () {
     MM.Y_RANGE = MM.HEIGHT / 2.0 / MM.ZOOM_CONSTANT * .9;
 
     // attraction to magnets, and optimal distance from magnets
-    MM.GRAVITATIONAL_CONSTANT = 100.0;
+    MM.GRAVITATIONAL_CONSTANT = 1.0;
     MM.OPTIMAL_MAGNET_PERSON_DIST = 0.1;
 
     // repulsion between nodes
-    MM.REPULSE_CONSTANT = 0.01;
+    MM.REPULSE_CONSTANT = 0.02;
 
     // repulsion from walls
-    MM.WALL_REPULSE_CONSTANT = 0.2;
+    MM.WALL_REPULSE_CONSTANT = 0.01;
 
     // (virtual) time in between recomputations
     MM.TIMESTEP = 0.5;
@@ -222,7 +222,7 @@ Magnet.prototype.attractPeople = function() {
 		if(self.relevances[p.id] && !isNaN(self.relevances[p.id])) {
             var stretch = Math.max(0, radius - MM.OPTIMAL_MAGNET_PERSON_DIST) + 0.00001;
             var rel = self.relevances[p.id];
-            var m2 = ( -1.0 * rel * MM.GRAVITATIONAL_CONSTANT  * stretch)
+            var m2 = ( -1.0 * rel * rel * MM.GRAVITATIONAL_CONSTANT  * stretch);
 //            console.log('radius: ' + radius + ' relevance: ' + self.relevances[p.id] +
 //                    ', forces: ' + magnitude + ', ' + m2);
             magnitude += m2;
@@ -255,18 +255,17 @@ Magnet.normalizeRelevances = function() {
     });
 	Magnet.magnets.forEach(function(mag){
         Point.points.forEach(function(p){
-            if ( p.relevance[self.id] != null ) {
-                meanRelevance += p.relevance[self.id];
+            if ( p.relevance[mag.id] != null ) {
+                meanRelevance += p.relevance[mag.id];
                 n++;
             }
         });
 	});
     meanRelevance /= n;
 	Magnet.magnets.forEach(function(mag){
-        var self = this;
         Point.points.forEach(function(p){
-            if ( p.relevance[self.id] != null ) {
-                self.relevances[p.id] = p.relevance[self.id] / meanRelevance;
+            if ( p.relevance[mag.id] != null ) {
+                mag.relevances[p.id] = p.relevance[mag.id] / meanRelevance;
             }
         });
 	});

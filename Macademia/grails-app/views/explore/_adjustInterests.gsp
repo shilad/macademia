@@ -27,8 +27,9 @@
         <h1>Showing people related to:</h1>
         <ol>
           <div id="sliderKey">
-            <div class="lessLabel">show less</div>
-            <div class="moreLabel">show more</div>
+            <div class="lessLabel">less</div>
+            <div class="okayLabel">ok</div>
+            <div class="moreLabel">more</div>
           </div>
           <div id="queryInterestTemplate" class="addedInterestDiv">
               <div class="interestSlider" interest="INTEREST_ID"></div>

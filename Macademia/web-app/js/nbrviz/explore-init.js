@@ -196,7 +196,7 @@ macademia.nbrviz.explore.loadNewData = function(vizJson) {
     macademia.endTimer('up to queries');
 
     // Create people
-    var people = [];
+    var people = {};
 
     // Normalize 'overall' relevances to modulate person ring size
     var maxRelevance = 0.0;
@@ -235,7 +235,7 @@ macademia.nbrviz.explore.loadNewData = function(vizJson) {
                 ]);
             }
         });
-        var r = 10 * (pinfo.relevance.overall - minRelevance) / (maxRelevance - minRelevance) + 5;
+        var r = 10 * (pinfo.relevance.overall - minRelevance) / (maxRelevance - minRelevance) + 7;
         var person = new Person({
             relevance : pinfo.relevance,
             interestGroups : interestGroups,
@@ -265,7 +265,7 @@ macademia.nbrviz.explore.loadNewData = function(vizJson) {
     var ev = new ExploreViz({
         rootId : vizJson.root,
         rootClass : vizJson.root,
-        people : $.map(people, function(v, k) {return v;}),
+        people :people,
         parentInterests : $.map(parentClusters, function(v, k) {return v;}),
         paper : paper
     });

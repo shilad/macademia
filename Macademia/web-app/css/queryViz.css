@@ -1,226 +1,228 @@
 @charset "UTF-8";
 /** HTML5 ✰ Boilerplate  style.css contains a reset, font normalization and some base styles.  Credit is left where credit is due. Much inspiration was taken from these projects: - yui.yahooapis.com/2.8.1/build/base/base.css - camendesign.com/design/ - praegnanz.de/weblog/htmlcssjs-kickstart */
 /** html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline) v1.6.1 2010-09-17 | Authors: Eric Meyer & Richard Clark html5doctor.com/html-5-reset-stylesheet/ */
-/* line 28, ../../src/stylesheets/partials/_reset.scss */
+/* line 28, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
 
-/* line 38, ../../src/stylesheets/partials/_reset.scss */
+/* line 38, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
 
-/* line 42, ../../src/stylesheets/partials/_reset.scss */
+/* line 42, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 blockquote, q { quotes: none; }
 
-/* line 45, ../../src/stylesheets/partials/_reset.scss */
+/* line 45, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
 
-/* line 47, ../../src/stylesheets/partials/_reset.scss */
+/* line 47, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 ins { background-color: #ff9; color: #000; text-decoration: none; }
 
-/* line 49, ../../src/stylesheets/partials/_reset.scss */
+/* line 49, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 mark { background-color: #ff9; color: #000; font-style: italic; font-weight: bold; }
 
-/* line 51, ../../src/stylesheets/partials/_reset.scss */
+/* line 51, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 del { text-decoration: line-through; }
 
-/* line 53, ../../src/stylesheets/partials/_reset.scss */
+/* line 53, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 abbr[title], dfn[title] { border-bottom: 1px dotted; cursor: help; }
 
-/* line 55, ../../src/stylesheets/partials/_reset.scss */
+/* line 55, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 table { border-collapse: collapse; border-spacing: 0; }
 
-/* line 57, ../../src/stylesheets/partials/_reset.scss */
+/* line 57, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
 
-/* line 59, ../../src/stylesheets/partials/_reset.scss */
+/* line 59, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 input, select { vertical-align: middle; }
 
 /** Font normalization inspired by YUI Library's fonts.css: developer.yahoo.com/yui/ */
-/* line 66, ../../src/stylesheets/partials/_reset.scss */
+/* line 66, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 body { font: 13px/1.231 sans-serif; *font-size: small; }
 
 /* Hack retained to preserve specificity */
-@-moz-document url-prefix() { /* line 68, ../../src/stylesheets/partials/_reset.scss */
+@-moz-document url-prefix() { /* line 68, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
   select, input, textarea, button { font: 100% sans-serif; } }
 
 /* Normalize monospace sizing: en.wikipedia.org/wiki/MediaWiki_talk:Common.css/Archive_11#Teletype_style_fix_for_Chrome */
-/* line 73, ../../src/stylesheets/partials/_reset.scss */
+/* line 73, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 pre, code, kbd, samp { font-family: monospace, sans-serif; }
 
 /** Minimal base styles. */
 /* Always force a scrollbar in non-IE */
-/* line 81, ../../src/stylesheets/partials/_reset.scss */
+/* line 81, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 html { overflow-y: scroll; }
 
 /* Accessible focus treatment: people.opera.com/patrickl/experiments/keyboard/test */
-/* line 84, ../../src/stylesheets/partials/_reset.scss */
+/* line 84, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 a:hover, a:active { outline: none; }
 
-/* line 86, ../../src/stylesheets/partials/_reset.scss */
+/* line 86, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 ul, ol { margin-left: 2em; }
 
-/* line 87, ../../src/stylesheets/partials/_reset.scss */
+/* line 87, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 ol { list-style-type: decimal; }
 
 /* Remove margins for navigation lists */
-/* line 90, ../../src/stylesheets/partials/_reset.scss */
+/* line 90, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 nav ul, nav li { margin: 0; list-style: none; list-style-image: none; }
 
-/* line 92, ../../src/stylesheets/partials/_reset.scss */
+/* line 92, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 small { font-size: 85%; }
 
-/* line 93, ../../src/stylesheets/partials/_reset.scss */
+/* line 93, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 strong, th { font-weight: bold; }
 
-/* line 95, ../../src/stylesheets/partials/_reset.scss */
+/* line 95, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 td { vertical-align: top; }
 
 /* Set sub, sup without affecting line-height: gist.github.com/413930 */
-/* line 98, ../../src/stylesheets/partials/_reset.scss */
+/* line 98, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 sub, sup { font-size: 75%; line-height: 0; position: relative; }
 
-/* line 99, ../../src/stylesheets/partials/_reset.scss */
+/* line 99, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 sup { top: -0.5em; }
 
-/* line 100, ../../src/stylesheets/partials/_reset.scss */
+/* line 100, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 sub { bottom: -0.25em; }
 
-/* line 102, ../../src/stylesheets/partials/_reset.scss */
+/* line 102, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 pre { /* www.pathf.com/blogs/2008/05/formatting-quoted-code-in-blog-posts-css21-white-space-pre-wrap/ */ white-space: pre; white-space: pre-wrap; word-wrap: break-word; padding: 15px; }
 
-/* line 108, ../../src/stylesheets/partials/_reset.scss */
+/* line 108, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 textarea { overflow: auto; }
 
 /* www.sitepoint.com/blogs/2010/08/20/ie-remove-textarea-scrollbars/ */
 /* Align checkboxes, radios, text inputs with their label by: Thierry Koblentz tjkdesign.com/ez-css/css/base.css ; */
-/* line 111, ../../src/stylesheets/partials/_reset.scss */
+/* line 111, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 input[type="radio"] { vertical-align: text-bottom; }
 
-/* line 112, ../../src/stylesheets/partials/_reset.scss */
+/* line 112, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 input[type="checkbox"] { vertical-align: bottom; }
 
 /* Hand cursor on clickable input elements */
-/* line 115, ../../src/stylesheets/partials/_reset.scss */
+/* line 115, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 label, input[type="button"], input[type="submit"], input[type="image"], button { cursor: pointer; }
 
 /* Webkit browsers add a 2px margin outside the chrome of form elements */
-/* line 118, ../../src/stylesheets/partials/_reset.scss */
+/* line 118, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 button, input, select, textarea { margin: 0; }
 
 /* Colors for form validity */
-/* line 122, ../../src/stylesheets/partials/_reset.scss */
+/* line 122, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 input:invalid, textarea:invalid { /*border-radius: 1px; -moz-box-shadow: 0px 0px 5px red; -webkit-box-shadow: 0px 0px 5px red; box-shadow: 0px 0px 5px red;*/ }
 
-/* line 125, ../../src/stylesheets/partials/_reset.scss */
+/* line 125, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 .no-boxshadow input:invalid, .no-boxshadow textarea:invalid { background-color: #f0dddd; }
 
 /* These selection declarations have to be separate No text-shadow: twitter.com/miketaylr/status/12228805301 */
-/* line 129, ../../src/stylesheets/partials/_reset.scss */
+/* line 129, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 ::-moz-selection { background: #a8d1ff; color: auto; text-shadow: none; }
 
 /* j.mp/webkit-tap-highlight-color */
-/* line 132, ../../src/stylesheets/partials/_reset.scss */
+/* line 132, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_reset.scss */
 a:link { -webkit-tap-highlight-color: #a8d1ff; }
 
-/* line 5, ../../src/stylesheets/partials/_base.scss */
+/* line 5, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 body, select, input, textarea { color: #444444; font-size: 13px; }
 
-/* line 13, ../../src/stylesheets/partials/_base.scss */
+/* line 13, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 h1, h2, h3, h4, h5, h6 { font-weight: bold; }
 
-/* line 18, ../../src/stylesheets/partials/_base.scss */
+/* line 18, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 h1 { font-size: 26px; }
 
-/* line 21, ../../src/stylesheets/partials/_base.scss */
+/* line 21, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 h2 { font-size: 24px; }
 
-/* line 24, ../../src/stylesheets/partials/_base.scss */
+/* line 24, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 h3 { font-size: 16px; }
 
-/* line 28, ../../src/stylesheets/partials/_base.scss */
+/* line 28, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 a, a:active, a:visited { color: #607890; text-decoration: none; }
 
-/* line 32, ../../src/stylesheets/partials/_base.scss */
+/* line 32, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 a:hover { color: #003366; }
 
-/* line 34, ../../src/stylesheets/partials/_base.scss */
+/* line 34, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 strong, th, b { font-weight: bold; }
 
-/* line 38, ../../src/stylesheets/partials/_base.scss */
+/* line 38, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 .alert { color: #c11; }
 
-/* line 42, ../../src/stylesheets/partials/_base.scss */
+/* line 42, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 .flash { font-weight: bold; color: #f00; display: none; }
 
-/* line 48, ../../src/stylesheets/partials/_base.scss */
+/* line 48, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 .warning { background: #FFDDDD; color: #A44; text-align: center; display: none; }
 
-/* line 55, ../../src/stylesheets/partials/_base.scss */
+/* line 55, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 body { min-width: 1024px; }
 
-/* line 59, ../../src/stylesheets/partials/_base.scss */
+/* line 59, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 .customButton { display: inline; padding: 5px 10px 3px; -moz-border-radius: 5px; -webkit-border-radius: 5px; -o-border-radius: 5px; -ms-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; background-color: gray; border: 1px solid #666; text-decoration: none; }
-/* line 66, ../../src/stylesheets/partials/_base.scss */
+/* line 66, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 .customButton a { color: white; }
-/* line 67, ../../src/stylesheets/partials/_base.scss */
+/* line 67, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 .customButton a:visited { color: white; }
-/* line 68, ../../src/stylesheets/partials/_base.scss */
+/* line 68, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 .customButton a:hover { color: #eeeeee; }
 
-/* line 71, ../../src/stylesheets/partials/_base.scss */
+/* line 71, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 button, input[type="submit"], input[type="button"] { padding: 5px 10px 3px; -moz-border-radius: 5px; -webkit-border-radius: 5px; -o-border-radius: 5px; -ms-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; background-color: gray; color: white; border: 1px solid #666; text-decoration: none; }
 
-/* line 81, ../../src/stylesheets/partials/_base.scss */
+/* line 81, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 select { font-size: 14px; padding: 2px; }
 
-/* line 88, ../../src/stylesheets/partials/_base.scss */
+/* line 88, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 #loadingDiv { z-index: 999999999999; position: absolute; background-color: #333; width: 100%; height: 100%; filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80); opacity: 0.8; }
-/* line 95, ../../src/stylesheets/partials/_base.scss */
+/* line 95, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 #loadingDiv img { position: absolute; top: 50%; left: 50%; margin-top: -15px; margin-left: -30px; }
-/* line 102, ../../src/stylesheets/partials/_base.scss */
+/* line 102, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_base.scss */
 #loadingDiv #loadingMessage { position: absolute; top: 50%; font-size: 22px; color: white; margin-top: 20px; left: 50%; margin-left: -212px; width: 500px; text-align: center; }
 
 /* viz canvas */
-/* line 2, ../../src/stylesheets/partials/_queryViz.scss */
+/* line 2, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #graph { width: 100%; height: 100%; position: absolute; }
 
 /* Auotocomplete */
-/* line 9, ../../src/stylesheets/partials/_queryViz.scss */
+/* line 9, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 .ui-corner-all { font-size: 14px; }
 
-/* line 12, ../../src/stylesheets/partials/_queryViz.scss */
+/* line 12, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #636363; }
 
-/* line 15, ../../src/stylesheets/partials/_queryViz.scss */
+/* line 15, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 input:-moz-placeholder, textarea::-moz-placeholder { color: #636363; }
 
 /* Query manipulation */
-/* line 20, ../../src/stylesheets/partials/_queryViz.scss */
+/* line 20, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget, #adjustmentWidget { background-color: rgba(100, 100, 220, 0.1); padding: 10px; position: absolute; width: 420px; font-size: 16px; }
-/* line 27, ../../src/stylesheets/partials/_queryViz.scss */
+/* line 27, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #showWidget, #adjustmentWidget #showWidget { color: #44f; display: none; }
-/* line 31, ../../src/stylesheets/partials/_queryViz.scss */
+/* line 31, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests, #adjustmentWidget #currentInterests { width: auto; float: left; background-color: rgba(210, 210, 240, 0.9); max-width: 100%; position: relative; margin-top: 3px; }
-/* line 39, ../../src/stylesheets/partials/_queryViz.scss */
+/* line 39, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests #queryInterestTemplate, #adjustmentWidget #currentInterests #queryInterestTemplate { display: none; }
-/* line 43, ../../src/stylesheets/partials/_queryViz.scss */
+/* line 43, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests h1, #adjustmentWidget #currentInterests h1 { font-size: 20px; font-weight: bold; text-align: left; padding-top: 10px; padding-bottom: 6px; margin-left: 20px; }
-/* line 51, ../../src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests #sliderKey, #adjustmentWidget #currentInterests #sliderKey { width: 140px; font-size: 12px; }
-/* line 54, ../../src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests #sliderKey .lessLabel, #adjustmentWidget #currentInterests #sliderKey .lessLabel { float: left; }
-/* line 57, ../../src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests #sliderKey .moreLabel, #adjustmentWidget #currentInterests #sliderKey .moreLabel { float: right; }
-/* line 62, ../../src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests .addedInterestDiv, #adjustmentWidget #currentInterests .addedInterestDiv { margin-left: 15px; clear: both; padding: 6px; opacity: 1.0; width: 400px; }
-/* line 69, ../../src/stylesheets/partials/_queryViz.scss */
+/* line 51, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+#queryWidget #currentInterests #sliderKey, #adjustmentWidget #currentInterests #sliderKey { width: 100px; font-size: 12px; }
+/* line 54, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+#queryWidget #currentInterests #sliderKey .lessLabel, #adjustmentWidget #currentInterests #sliderKey .lessLabel { float: left; width: 35%; text-align: left; }
+/* line 59, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+#queryWidget #currentInterests #sliderKey .okayLabel, #adjustmentWidget #currentInterests #sliderKey .okayLabel { float: left; width: 30%; text-align: center; }
+/* line 64, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+#queryWidget #currentInterests #sliderKey .moreLabel, #adjustmentWidget #currentInterests #sliderKey .moreLabel { float: left; width: 35%; text-align: right; }
+/* line 71, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+#queryWidget #currentInterests .addedInterestDiv, #adjustmentWidget #currentInterests .addedInterestDiv { margin-left: 0; clear: both; padding: 6px 0; opacity: 1.0; width: 400px; }
+/* line 78, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests .addedInterestDiv .interestSlider, #adjustmentWidget #currentInterests .addedInterestDiv .interestSlider { clear: both; float: left; width: 100px; position: relative; height: 8px; margin-right: 10px; top: 5px; }
-/* line 79, ../../src/stylesheets/partials/_queryViz.scss */
+/* line 88, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests .addedInterestDiv .interestKey, #adjustmentWidget #currentInterests .addedInterestDiv .interestKey { float: left; width: 20px; height: 20px; margin-right: 5px; }
-/* line 85, ../../src/stylesheets/partials/_queryViz.scss */
+/* line 94, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests .addedInterestDiv .addedInterest, #adjustmentWidget #currentInterests .addedInterestDiv .addedInterest { display: inline; padding: 1px; }
-/* line 92, ../../src/stylesheets/partials/_queryViz.scss */
+/* line 101, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests #interestQuery, #adjustmentWidget #currentInterests #interestQuery { margin: 10px 20px 20px 20px; clear: both; width: 350px; font-size: 20px; }
-/* line 100, ../../src/stylesheets/partials/_queryViz.scss */
+/* line 109, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests #hideWidget, #adjustmentWidget #currentInterests #hideWidget { color: #44f; position: absolute; top: 10px; right: 20px; }
 
 /*/mediaquery*/

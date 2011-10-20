@@ -43,7 +43,7 @@ ExploreViz.prototype.setupListeners = function() {
 };
 
 ExploreViz.prototype.setEnabled = function(enabled) {
-    this.people.map(function (p) { p.setEnabled(enabled); });
+    $.map(this.people, function (p) { p.setEnabled(enabled); });
     this.parentInterests.map(function (pi) { pi.setEnabled(enabled); });
 };
 
@@ -105,12 +105,12 @@ ExploreViz.prototype.layoutPeople = function( /*coords*/ ) {
         var m = Magnet.findById(ic.id);
         var d = MM.OPTIMAL_MAGNET_PERSON_DIST;
         var x = m.p.x + d * Math.cos(angles[ic.id]) + 0.25 - 0.5 * Math.random();
-        var y = m.p.y + d * Math.sin(angles[ic.id]) + 0.25 - 0.5 * Math.random();;
+        var y = m.p.y + d * Math.sin(angles[ic.id]) + 0.25 - 0.5 * Math.random();
         var p = new Point(new Vector(
                 macademia.pinch(x, -MM.X_RANGE, MM.X_RANGE),
                 macademia.pinch(y, -MM.Y_RANGE, MM.Y_RANGE)
         ));
-        p.setStuff( i, person.relevance );
+        p.setStuff(i, person.relevance );
         angles[ic.id] += 1.1;
     });
     var iters = 0;
@@ -120,7 +120,7 @@ ExploreViz.prototype.layoutPeople = function( /*coords*/ ) {
 
     var f = function() {
         var k = 1.0;
-        var n = Math.min(5, 1 + iters / 5);
+        var n = Math.min(5, 1 + iters / 7);
         for (var i = 0; i < n; i++) {
             k = Math.min(k, macademia.nbrviz.magnet.oneLayoutIteration());
         }
@@ -131,13 +131,14 @@ ExploreViz.prototype.layoutPeople = function( /*coords*/ ) {
             var person = self.people[p.id];
             person.setPosition(p.screenX(), p.screenY());
         });
-        if (iters++ < 30 && k >= 0.005) {
-            window.setTimeout(f, 100);
+        if (iters++ < 100 && k >= 0.00001) {
+            window.setTimeout(f, 1);
         } else {
+            console.log('stoppped at iters=' + iters + ', k=' + k);
             self.setEnabled(true);
         }
     };
-    window.setTimeout(f, 100);
+    window.setTimeout(f, 1);
 };
 
 
