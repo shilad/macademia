@@ -22,7 +22,10 @@ macademia.nbrviz.explore.recenter = function(klass, rootId) {
 
 macademia.nbrviz.explore.initQueryKey = function(vizJson) {
     var parentIds = $.map(vizJson.clusterMap, function(val, key) { return key; });
-    $(".addedInterestDiv:visible").remove();
+    macademia.nbrviz.assignColors(parentIds);
+    $(".addedInterestDiv").each(
+            function() { if (this.id != 'queryInterestTemplate') { $(this).remove(); } }
+    );
     $.each(parentIds, function(i, pid) {
 
         var name = vizJson.interests[pid].name;
@@ -47,7 +50,7 @@ macademia.nbrviz.explore.initQueryKey = function(vizJson) {
         var p = new Raphael(k.get(0), w, h);
         var s = new Sphere({
             r : Math.min(w / 2, h/2), x : w / 2, y : h/2,
-            hue : macademia.nbrviz.getColor(pid, parentIds), paper : p
+            hue : macademia.nbrviz.getColor(pid), paper : p
         });
 
     });
@@ -57,11 +60,12 @@ macademia.nbrviz.explore.initQueryKey = function(vizJson) {
 macademia.nbrviz.explore.initInterests = function(vizJson) {
     var interests = {};
     var parentIds = $.map(vizJson.clusterMap, function (value, key) { return key; });
+    macademia.nbrviz.assignColors(parentIds);
 
     // build up nested map of clusters
     $.each(vizJson.interests, function (id, info) {
         var hasCluster = (info && info.cluster >= 0);
-        var color = hasCluster ? macademia.nbrviz.getColor(info.cluster, parentIds) : -1;
+        var color = hasCluster ? macademia.nbrviz.getColor(info.cluster) : -1;
         interests[id] = new Interest({
             id:id,
             name:info.name,
@@ -92,7 +96,6 @@ macademia.nbrviz.explore.initViz = function() {
                 weight = macademia.nbrviz.explore.queryWeights[iid];
             }
             macademia.nbrviz.explore.queryWeights[iid] = weight;
-            console.log('weight for ' + iid + ' is ' + weight);
         });
 
         console.log("refreshing viz to " + klass + " " + rootId);
@@ -113,7 +116,7 @@ macademia.nbrviz.explore.initCluster = function(qid, vizJson, interests) {
         interests : interests,
         relatedInterests : relatedInterests,
         name : info.name,
-        color : macademia.nbrviz.getColor(qid, parentIds),
+        color : macademia.nbrviz.getColor(qid),
         paper : paper,
         collapsedRadius : (qid == vizJson.root) ? 30 : 20,
         clickText : '(click to re-center)'

@@ -15,13 +15,13 @@ macademia.nbrviz.magnet.init = function () {
 
     // attraction to magnets, and optimal distance from magnets
     MM.GRAVITATIONAL_CONSTANT = 1.0;
-    MM.OPTIMAL_MAGNET_PERSON_DIST = 0.1;
+    MM.OPTIMAL_MAGNET_PERSON_DIST = 0.2;
 
     // repulsion between nodes
     MM.REPULSE_CONSTANT = 0.02;
 
     // repulsion from walls
-    MM.WALL_REPULSE_CONSTANT = 0.01;
+    MM.WALL_REPULSE_CONSTANT = 0.007;
 
     // (virtual) time in between recomputations
     MM.TIMESTEP = 0.5;
@@ -63,7 +63,7 @@ Point.applyCoulombsLaw = function() {
         // aggregate repulsions from walls
         var f = function(z, range) {
             var sign = (z < 0) ? -1 : +1;
-            return -sign * (range - Math.min(Math.abs(z), range) + 0.0001)
+            return -sign * (range - Math.min(Math.abs(z), range) + 0.01)
         };
         var deltaX = new Vector(f(point1.p.x, MM.X_RANGE), 0);
         var wallForceX = deltaX.multiply(MM.WALL_REPULSE_CONSTANT/ deltaX.magnitude2());

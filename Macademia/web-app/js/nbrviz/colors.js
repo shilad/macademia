@@ -1,5 +1,27 @@
 macademia.nbrviz.colors = macademia.nbrviz.colors || null;
+macademia.nbrviz.colorStack = [];
+macademia.nbrviz.COLOR_COOKIE_NAME = 'viz_colors';
+macademia.nbrviz.COLOR_PADDING = 0.15;
+var NVZ = macademia.nbrviz;
 
+
+NVZ.assignColors = function(ids) {
+    if (!ids || !ids.length) {
+        return;
+    }
+    ids = ids.sort(function (id1, id2) {
+        return -1 * (NVZ.colorStack.indexOf(id1) - NVZ.colorStack.indexOf(id2));
+    });
+    // push ids to the top of the stack.
+    $.each(ids, function (i, id) {
+        i = NVZ.colorStack.indexOf(id);
+        if (i >= 0) { NVZ.colorStack.splice(i, 1); }
+        NVZ.colorStack.push(id);
+    });
+    $.each(ids, function (i, id) {
+        NVZ.ensureColorIsAssigned(id, ids.slice(0, i), ids);
+    });
+};
 
 /**
  * Returns a hue (float between 0 and 1) that is persistent for the id.
@@ -8,22 +30,35 @@ macademia.nbrviz.colors = macademia.nbrviz.colors || null;
  *
  * @param id
  */
-macademia.nbrviz.getColor = function(id, currentIds) {
-    if (macademia.nbrviz.colors == null) {
-        macademia.nbrviz.colors = macademia.nbrviz.loadColorsFromCookie();
-    }
-    if (id in macademia.nbrviz.colors) {
-        return macademia.nbrviz.colors[id];
+NVZ.ensureColorIsAssigned = function(id, assignedIds, displayedIds) {
+    if (NVZ.colors == null) {
+        NVZ.colors = NVZ.loadColorsFromCookie();
     }
 
-    var current = macademia.nbrviz.colors;
-    var hue;
-    if ($.isEmptyObject(current)) {
+
+    var current = NVZ.colors;
+    var hue = null;
+    if (id in NVZ.colors) {
+        hue = NVZ.colors[id];
+        for (var i = 0; i < assignedIds.length; i++) {
+            var id2 = assignedIds[i];
+            var d = Math.abs(hue - current[id2]);
+            d = Math.min(d, 1.0 - d);   // accommodate wrapping.
+            if (d < NVZ.COLOR_PADDING) {
+                hue = null;
+                break;
+            }
+        }
+    }
+
+    if (hue != null) {
+        // all set!
+    } else if ($.isEmptyObject(current)) {
         hue = 0.333;
     } else {
 
         // order hues, remember first and last
-        var allHues = $.map(current, function (hue, id) { return parseFloat(hue); });
+        var allHues = $.map(current, function (hue, id2) { return parseFloat(hue); });
         allHues.sort(function(x, y) { return x - y });
         var firstHue = allHues[0];
         var lastHue = allHues[allHues.length - 1];
@@ -34,19 +69,17 @@ macademia.nbrviz.getColor = function(id, currentIds) {
             intervals.push([allHues[i], allHues[i+1]]);
         }
 
-        var SPACE = 0.15;
-
         // currentHues will contain true current hues,
         // plus "fake" hues < 0 and > 1 for hues close to end points.
-        var currentHues = $.map(currentIds, function (id) {
-            if (!(id in current)) {
+        var currentHues = $.map(displayedIds, function (id2) {
+            if (!(id2 in current)) {
                 return null;
             }
-            var h = current[id];
+            var h = current[id2];
             var expanded = [h];
-            if (h < SPACE) {
+            if (h < NVZ.COLOR_PADDING) {
                 expanded.push(1.0 + h);
-            } else if (h > 1.0 - SPACE) {
+            } else if (h > 1.0 - NVZ.COLOR_PADDING) {
                 expanded.push(h - 1.0);
             }
             return expanded;
@@ -54,15 +87,15 @@ macademia.nbrviz.getColor = function(id, currentIds) {
 
         $.each(currentHues, function(index, h) {
             for (var i = 0; i < intervals.length;) {
-                var overlapsStart = Math.abs(h - intervals[i][0]) < SPACE;
-                var overlapsEnd = Math.abs(h - intervals[i][1]) < SPACE;
+                var overlapsStart = Math.abs(h - intervals[i][0]) < NVZ.COLOR_PADDING;
+                var overlapsEnd = Math.abs(h - intervals[i][1]) < NVZ.COLOR_PADDING;
                 if (overlapsStart && overlapsEnd) {
                     intervals.splice(i, 1); // remove it
                 } else if (overlapsStart) {
-                     intervals[i][0] = h + SPACE; // bump beginning
+                     intervals[i][0] = h + NVZ.COLOR_PADDING; // bump beginning
                     i += 1;
                 } else if (overlapsEnd) {
-                    intervals[i][1] = h - SPACE; // bump end
+                    intervals[i][1] = h - NVZ.COLOR_PADDING; // bump end
                     i += 1;
                 } else {
                     i += 1;     // in the clear
@@ -72,7 +105,7 @@ macademia.nbrviz.getColor = function(id, currentIds) {
 
         // if there are no intervals left, try again without one of the current ids
         if (!intervals.length) {
-            return macademia.nbrviz.getColor(id, currentIds.slice(1));
+            return NVZ.ensureColorIsAssigned(id, assignedIds.slice(1), displayedIds.slice(1));
         }
 
         // Initialize based on hue preceeding first hue (may be near 0 or 1.0)
@@ -97,18 +130,37 @@ macademia.nbrviz.getColor = function(id, currentIds) {
         }
     }
     current[id] = hue;
-    macademia.nbrviz.saveColorsToCookie(current);
+    console.log('assigned color ' + id + ' value ' + hue);
+    NVZ.saveColorsToCookie(current);
     return hue;
+
 };
 
-macademia.nbrviz.COLOR_COOKIE_NAME = 'viz_colors';
+/**
+ * Returns a hue (float between 0 and 1) that is persistent for the id.
+ * Tries to space out hues so that they arent too close together. Hues
+ * are persisted using a cookie.
+ *
+ * @param id
+ */
+NVZ.getColor = function(id) {
+    if (NVZ.colors == null) {
+        alert('getColor assertion error: colors is null');
+        return 0.0;
+    }
+    if (!(id in NVZ.colors)) {
+        console.log('getColor assertion error no color assigned for ' + id);
+        return 0.0;
+    }
+    return NVZ.colors[id];
+};
 
 /**
  * Returns a mapping from ids to hues.
  */
 
-macademia.nbrviz.loadColorsFromCookie = function() {
-    var cookieVal = macademia.getCookie(macademia.nbrviz.COLOR_COOKIE_NAME);
+NVZ.loadColorsFromCookie = function() {
+    var cookieVal = macademia.getCookie(NVZ.COLOR_COOKIE_NAME);
     if (!cookieVal) {
         return {};
     }
@@ -121,10 +173,10 @@ macademia.nbrviz.loadColorsFromCookie = function() {
     return colors;
 };
 
-macademia.nbrviz.saveColorsToCookie = function(colors) {
+NVZ.saveColorsToCookie = function(colors) {
     var tokens = [];
     $.each(colors, function(id, hue) {
         tokens.push(id + '_' + hue);
     });
-    macademia.setCookie(macademia.nbrviz.COLOR_COOKIE_NAME, tokens.join(','), 10);
+    macademia.setCookie(NVZ.COLOR_COOKIE_NAME, tokens.join(','), 10);
 };

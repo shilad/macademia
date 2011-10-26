@@ -60,24 +60,17 @@ QueryViz.prototype.layoutInterests = function(vizJson) {
 
     var self = this;
     $.each(this.queryInterests, function(index, interestCluster) {
-        var xDisp, yDisp, p;
+        var p;
         if (self.queryInterests.length < positions.length) {
             p = positions[self.queryInterests.length][index];
         } else {
             // TODO: calculate p
-            var th = index * (360/self.queryInterests.length) * (Math.PI/180);
-            var r = function( th ) {
-                        return (a * b)/
-                        Math.sqrt(
-                            Math.pow( b * Math.cos(th), 2 ) +
-                            Math.pow( a * Math.sin(th), 2 )
-                        );
-                    }(th);
-
-            xDisp = Math.round( r * Math.cos(th) ) + cx;
-            yDisp = Math.round( r * Math.sin(th) ) + cy;
+            var n = self.queryInterests.length;
+            var sliceTh = 2 * Math.PI / n;
+            var th = 3 * Math.PI / 2 + sliceTh * index +  sliceTh / 2;
+            th = th % (Math.PI * 2);
+            p = [xr * Math.cos(th), yr * Math.sin(th)];
         }
-                            ;
         var point = new Point(new Vector(p[0], p[1]));
         var mag = new Magnet(point.p, interestCluster.id );
         interestCluster.setPosition(point.screenX(), point.screenY());
@@ -101,7 +94,7 @@ QueryViz.prototype.layoutPeople = function( /*coords*/ ) {
             var person = self.people[p.id];
             person.setPosition(p.screenX(), p.screenY());
         });
-        if (iters++ < 100 && k >= 0.001) {
+        if (iters++ < 23 && k >= 0.001) {
             window.setTimeout(f, 1);
         } else {
             console.log('stoppped at iters=' + iters + ', k=' + k);

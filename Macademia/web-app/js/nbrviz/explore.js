@@ -131,7 +131,7 @@ ExploreViz.prototype.layoutPeople = function( /*coords*/ ) {
             var person = self.people[p.id];
             person.setPosition(p.screenX(), p.screenY());
         });
-        if (iters++ < 100 && k >= 0.00001) {
+        if (iters++ < 23 && k >= 0.00001) {
             window.setTimeout(f, 1);
         } else {
             console.log('stoppped at iters=' + iters + ', k=' + k);

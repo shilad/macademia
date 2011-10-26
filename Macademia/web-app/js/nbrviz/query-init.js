@@ -34,7 +34,9 @@ macademia.nbrviz.query.removeInterestFromQuery = function(id) {
 };
 
 macademia.nbrviz.query.initQueryKey = function() {
-    $(".addedInterestDiv:visible").remove();
+    $(".addedInterestDiv").each(
+            function() { if (this.id != 'queryInterestTemplate') { $(this).remove(); } }
+    );
     $.each(macademia.nbrviz.query.getQueryIds(), function(i, qid) {
         // TODO: replace with non-ajax lookup into datastructure
         var name = macademia.getInterestName(qid);
@@ -61,6 +63,7 @@ macademia.nbrviz.query.initQueryKey = function() {
 
 macademia.nbrviz.query.drawKeySpheres = function() {
     var qids = macademia.nbrviz.query.getQueryIds();
+    macademia.nbrviz.assignColors(qids);
     $.each(qids, function(i, id) {
         // draw the sphere
         var k = $(".interestKey[interest='" + id + "']");
@@ -68,7 +71,7 @@ macademia.nbrviz.query.drawKeySpheres = function() {
         var p = new Raphael(k.get(0), w, h);
         var s = new Sphere({
             r : Math.min(w / 2, h/2), x : w / 2, y : h/2,
-            hue : macademia.nbrviz.getColor(id, qids), paper : p
+            hue : macademia.nbrviz.getColor(id), paper : p
         });
     });
 };
@@ -80,7 +83,7 @@ macademia.nbrviz.query.initQueryInterests = function(vizJson) {
     // build up nested map of clusters
     $.each(vizJson.interests, function (id, info) {
         var hasCluster = (info && info.cluster >= 0);
-        var color = hasCluster ? macademia.nbrviz.getColor(info.cluster, vizJson.queryIds) : -1;
+        var color = hasCluster ? macademia.nbrviz.getColor(info.cluster) : -1;
         interests[id] = new Interest({
             id:id,
             name:info.name,
@@ -119,7 +122,7 @@ macademia.nbrviz.query.initQueryCluster = function(qid, vizJson, clusterMap, int
         interests : interests,
         relatedInterests : relatedInterests,
         name : info.name,
-        color : macademia.nbrviz.getColor(qid, vizJson.queryIds),
+        color : macademia.nbrviz.getColor(qid),
         paper : paper,
         clickText : '(click to remove)'
     });
@@ -203,6 +206,7 @@ macademia.nbrviz.query.loadNewData = function(vizJson) {
     }
 
     macademia.nbrviz.magnet.init();
+    macademia.nbrviz.assignColors(vizJson.queryIds);
 
     // interestId -> interest
     var interests = macademia.nbrviz.query.initQueryInterests(vizJson);
