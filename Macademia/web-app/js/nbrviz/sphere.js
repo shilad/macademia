@@ -23,6 +23,7 @@ var Sphere = RaphaelComponent.extend({
         this.paper = params.paper;
         this.orbitRadius = this.r / 5;
         this.highlightMode = this.HIGHLIGHT_NONE;
+        this.alwaysGlow = params.alwaysGlow || false;
         this.glow = null;
         this.orbit = [];    // spheres in orbit
 
@@ -61,25 +62,30 @@ var Sphere = RaphaelComponent.extend({
 
         // change from highlight to normal and vice-versa
         if (mode == this.HIGHLIGHT_ON) {
+            this.setGlow(true);
+        } else if (lastMode == this.HIGHLIGHT_ON) {
+            this.setGlow(false);
+        }
+        this.highlightMode = mode;
+    },
+
+    setGlow : function(shouldGlow) {
+        if (shouldGlow || this.alwaysGlow) {
             if (this.glow == null) {
                 this.glow = this.gradient1.glow();
             }
-        } else if (lastMode == this.HIGHLIGHT_ON) {
-            if (this.glow != null) {
+//            this.glow.toFront();
+        } else {
+            if (this.glow) {
                 this.glow.hide();
                 this.glow.remove();
                 this.glow = null;
             }
         }
-        this.highlightMode = mode;
     },
 
     hide : function() {
-        if (this.glow) {
-            this.glow.hide();
-            this.glow.remove();
-            this.glow = null;
-        }
+        this.setGlow(false);
         this._super();
     },
 
@@ -186,7 +192,9 @@ var Sphere = RaphaelComponent.extend({
     },
 
     setPosition : function(x, y) {
-        var self = this;
+        var dx = x - this.getX();
+        var dy = y - this.getY();
+
         // handle rectangles (position is upper left)
         // HACK: only position handle, not inherited rects
         $.each([this.handle], function() {
@@ -200,6 +208,9 @@ var Sphere = RaphaelComponent.extend({
         });
 
         this.positionOrbit(x, y);
+        if (this.glow) {
+            this.glow.translate(dx, dy);
+        }
     },
 
     addOrbit : function(numPlanets) {

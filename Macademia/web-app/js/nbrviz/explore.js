@@ -67,6 +67,7 @@ ExploreViz.prototype.layoutInterests = function(vizJson) {
     var self = this;
     var index = 0;
     var center = new Point(new Vector(0, 0));
+    var z = macademia.nbrviz.magnet.ZOOM_CONSTANT;
 
     $.each(this.parentInterests, function(i, interestCluster) {
         var slice = (Math.PI * 2 / (self.parentInterests.length - 1))
@@ -77,20 +78,32 @@ ExploreViz.prototype.layoutInterests = function(vizJson) {
         var point = new Point(new Vector(p[0], p[1]));
         var mag = new Magnet(point.p, interestCluster.id );
         interestCluster.setPosition(point.screenX(), point.screenY());
-        console.log('for interest ' + i + ' pos is ' + point.screenX() + ',' + point.screenY())
         if (interestCluster.id != self.rootId) {
             index += 1;
             var spoke = this.paper.path('M' + center.screenX() + ',' + center.screenY() + ',L' + point.screenX() + ',' + point.screenY());
             spoke.attr({ stroke : '#ccc', 'stroke-dasharray' : '.'  });
             spoke.toBack();
         }
+        var r = interestCluster.collapsedRadius;
+        var c1 =  Raphael.hsb(interestCluster.color, 0.5, 1.0);
+        var c2 =  Raphael.hsb(interestCluster.color, 0.3, 1.0);
+        this.paper.circle(point.screenX(), point.screenY(), r * 5)
+            .attr({
+                    'fill' : 'r(0.5, 0.5)' + c1 + '-' +c2 + ':30-#fff',
+                    'fill-opacity' : 0.0,
+                    'stroke-width': 0
+             })
+            .toBack();
     });
 
     var p = new Point(new Vector(-xr, -yr));
-    var z = macademia.nbrviz.magnet.ZOOM_CONSTANT;
     this.hub = this.paper.ellipse(p.screenX() + xr*z, p.screenY() + yr*z, xr * z, yr * z);
     this.hub.attr({ stroke : '#ccc', 'stroke-dasharray' : '.'  });
     this.hub.toBack();
+    var bg = this.paper.ellipse(p.screenX() + xr*z, p.screenY() + yr*z, xr * z * 2, yr * z * 2)
+            .attr('fill', 'r(0.5, 0.5)#ffffff-#EEE:50%-#DDD:100')
+            .attr('stroke-width', 0)
+            .toBack();
 };
 
 ExploreViz.prototype.layoutPeople = function( /*coords*/ ) {
@@ -205,8 +218,9 @@ ExploreViz.prototype.drawEdge = function(parentNode, person, interestNode) {
 };
 
 ExploreViz.prototype.hideEdges = function() {
+    var self = this;
     $.each(this.edges, function (i, e) { e.remove(); });
     this.edges = [];
-    $.each(this.highlighted, function (i, e) { e.toBack(); });
+    $.each(this.highlighted, function (i, e) { e.toFront(self.fadeScreen); });
     this.highlighted = [];
 };
