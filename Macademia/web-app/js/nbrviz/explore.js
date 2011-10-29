@@ -101,7 +101,7 @@ ExploreViz.prototype.layoutInterests = function(vizJson) {
     this.hub.attr({ stroke : '#ccc', 'stroke-dasharray' : '.'  });
     this.hub.toBack();
     var bg = this.paper.ellipse(p.screenX() + xr*z, p.screenY() + yr*z, xr * z * 2, yr * z * 2)
-            .attr('fill', 'r(0.5, 0.5)#ffffff-#EEE:50%-#DDD:100')
+            .attr('fill', 'r(0.5, 0.5)#fff-#fff:30%-#EEE:50%-#DDD:100')
             .attr('stroke-width', 0)
             .toBack();
 };

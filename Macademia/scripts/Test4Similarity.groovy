@@ -19,7 +19,7 @@ def emails = [
 def t1 = System.currentTimeMillis()
 emails.each({
     def person = Person.findByEmail(it)
-    PersonGraph graph = similarityService.calculatePersonNeighbors(person.id, 20, 3, [:])
+    PersonGraph graph = similarityService.calculatePersonNeighbors(person.id, 20, 5, [:])
     graph.prettyPrint()
     sessionFactory.currentSession.clear()
 })

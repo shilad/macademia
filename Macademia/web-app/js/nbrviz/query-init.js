@@ -280,7 +280,7 @@ macademia.nbrviz.query.loadNewData = function(vizJson) {
         }
         person.clicked(
                 function (interest, interestNode) {
-                    macademia.nbrviz.addInterestToQuery(interest.id, interest.name);
+                    macademia.nbrviz.query.addInterestToQuery(interest.id, interest.name);
                 });
         people[id] = person;
     });

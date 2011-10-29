@@ -55,7 +55,7 @@ var MNode = RaphaelComponent.extend(
         this.relatedInterests = this.relatedInterests || params.relatedInterests || [];
         this.relatedInterestNodes = [];
 
-        this.color = params.color || 0.1;
+        this.color = params.color || null;
 
         this.moveListeners = [];
         this.hoverInterestListeners = [];
@@ -173,7 +173,7 @@ var MNode = RaphaelComponent.extend(
             x: this.x,
             y: this.y,
             r: this.relatedNodeRadius,
-            hue: interest.color,
+            hue: this.color || interest.color,
             name: interest.name,
             sat : sat,
             interest : interest,

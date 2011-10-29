@@ -83,7 +83,7 @@ class Similarity2Service {
 
         // Calculate interest clusters
         ANALYSIS.startTime()
-        Map<Long, Set<Long>> clusters = clusterInterests(graph.rootInterests)
+        Map<Long, Set<Long>> clusters = clusterInterests2(graph.rootInterests, maxInterests)
         ANALYSIS.recordTime("cluster root interests")
 
         println("clusters:")
@@ -318,45 +318,65 @@ class Similarity2Service {
      * @param ids
      * @return
      */
-    public Map<Long, Set<Long>> clusterInterests(Set<Long> iids) {
+    public Map<Long, Set<Long>> clusterInterests2(Set<Long> iids, int maxNumClusters) {
 //        println("iids are $iids")
         Map<Long, Map<Long, Double>> sims = databaseService.getIntraInterestSims(iids, false)
+        Map<Long, Long> closest = [:]
+        for (Long iid : sims.keySet()) {
+            double maxSim = sims[iid].values().max()
+            Long iid2 = sims[iid].entrySet().find({
+                it.value == maxSim && it.key != iid
+            })?.key
+            closest[iid] = iid2
+        }
 
         List<Set<Long>> clusters = []
-        sims.keySet().each({clusters.add(new HashSet<Long>([it]))})
+        List<Long> remaining = iids.findAll({closest.containsKey(it)}).asList()  // copy it
+        remaining.sort({sims[it][closest[it]]})
 
-        // find closest pair of clusters and merge
-        while (clusters.size() > 1) {
-
-            def closest = null
-            def closestSim = -1.0
-
-            for (Set<Long> c1 : clusters) {
-                for (Set<Long> c2 : clusters) {
-                    if (Math.min(c1.size(), c2.size()) > 1 && Math.max(c1.size(), c2.size()) >= MAX_CLUSTER_SIZE) {
-                        continue
-                    }
-                    if (c1 != c2) {
-                        def s = clusterSimilarity(sims, c1, c2)
-                        if (s > closestSim) {
-                            closest = [c1, c2]
-                            closestSim = s
-                        }
+        while (remaining.size() > 0) {
+            Long iid = remaining.pop()
+            Long iid2 = closest[iid]
+            if (iid2 in remaining) {
+                clusters.add(new HashSet([iid, iid2]))
+                remaining.remove(iid2)
+            } else {
+                for (Set<Long> c : clusters) {
+                    if (c.contains(iid2)) {
+                        c.add(iid)
+                        break
                     }
                 }
             }
-            if ((closestSim < MIN_CLUSTER_SIM)  // don't cluster anything worse than this
-            ||  (closestSim < MAX_UNCLUSTERED_SIM && clusters.size() <= IDEAL_NUM_CLUSTERS)) { // only use if necessary
-                break
-            }
-            clusters.remove(closest[0])
-            closest[1].addAll(closest[0])
         }
+
+        if (clusters.size() > maxNumClusters) {
+            clusters = clusters.subList(0, maxNumClusters)
+        } else if (clusters.size() < maxNumClusters) {
+            Collection<Long> used = clusters.flatten()
+            for (Long iid : iids) {
+                // TODO: order these by popularity
+                if (clusters.size() == maxNumClusters) {
+                    break
+                }
+                if (!used.contains(iids)) {
+                    clusters.add(new HashSet([iid]))
+                }
+            }
+        }
+
+        Map<Long, Integer> counts = [:]
+        iids.each({counts[it] = interestService.getInterestCount(it)})
+
         // FIXME:
         Map<Long, Set<Long>> clusterMap = [:]
-        for (Set<Long> cluster : clusters) {
-            clusterMap[cluster.iterator().next()] = cluster
+        for (Set<Long> c : clusters) {
+            List<Long> cByCount = c.asList()
+            cByCount.sort({-1 * (counts[it] ? counts[it] : 0)})
+            Long cRoot = cByCount[0]
+            clusterMap[cRoot] = c
         }
+
         return clusterMap
     }
 

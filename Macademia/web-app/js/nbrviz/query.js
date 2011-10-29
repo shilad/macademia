@@ -88,7 +88,7 @@ QueryViz.prototype.layoutInterests = function(vizJson) {
     var z = macademia.nbrviz.magnet.ZOOM_CONSTANT;
     var p = new Point(new Vector(-xr, -yr));
     var bg = this.paper.ellipse(p.screenX() + xr*z, p.screenY() + yr*z, xr * z * 2, yr * z * 2)
-            .attr('fill', 'r(0.5, 0.5)#ffffff-#EEE:50%-#DDD:100')
+            .attr('fill', 'r(0.5, 0.5)#fff-#fff:30%-#EEE:50%-#DDD:100')
             .attr('stroke-width', 0)
             .toBack();
 };
@@ -209,9 +209,10 @@ QueryViz.prototype.drawEdge = function(parentNode, person, interestNode) {
 };
 
 QueryViz.prototype.hideEdges = function() {
+    var self = this;
     $.each(this.edges, function (i, e) { e.remove(); });
     this.edges = [];
-    $.each(this.highlighted, function (i, e) { e.toBack(); });
+    $.each(this.highlighted, function (i, e) { e.toFront(self.fadeScreen); });
     this.highlighted = [];
 };
 
