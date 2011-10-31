@@ -43,7 +43,7 @@
 </g:javascript>
 <div>
     <a id="showWidget" href="#">show search box</a>
-    <div id="currentInterests">
+    <div id="currentInterests" >
         <h1>Search for interests:</h1>
         <ol>
           <div id="sliderKey">
@@ -61,7 +61,7 @@
           </div>
         </ol>
       <input id="interestQuery" type="search" name="interestQuery" placeholder="Add new interest to query"/>
-      <a id="hideWidget" href="#">hide search box</a>
+      <a id="hideWidget" href="#">hide</a>
     </div>
 </div>
 

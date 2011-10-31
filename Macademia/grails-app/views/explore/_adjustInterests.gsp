@@ -22,16 +22,16 @@
     });
 </g:javascript>
 <div>
-    <a id="showWidget" href="#">show</a>
+    <a id="showWidget" href="#">show legend</a>
     <div id="currentInterests">
-        <h1>Showing people related to:</h1>
+        <h1>Related to <span>&nbsp;</span>:</h1>
         <ol>
           <div id="sliderKey">
             <div class="lessLabel">less</div>
             <div class="okayLabel">ok</div>
             <div class="moreLabel">more</div>
           </div>
-          <div id="queryInterestTemplate" class="addedInterestDiv">
+          <div id="queryInterestTemplate" class="addedInterestDiv exploration">
               <div class="interestSlider" interest="INTEREST_ID"></div>
               <div class="interestKey" interest="INTEREST_ID"></div>
               <div class="addedInterest">INTEREST_NAME&nbsp;&nbsp;&nbsp;

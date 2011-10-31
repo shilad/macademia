@@ -99,7 +99,7 @@ class Json2Service {
         ]
     }
 
-    def makeJsonInterest(Long iid, InterestGraph graph) {
+    def makeJsonInterest(Long iid, Object graph) {
         Interest i = Interest.get(iid)
         InterestInfo ii = graph.interestInfo[iid]
         def o = [
@@ -154,6 +154,26 @@ class Json2Service {
                 'interests':interestNodes,
                 'root' : graph.rootId,
                 'rootClass' : 'interest',
+                'clusterMap' : graph.getClusterMap(),
+        ]
+    }
+    def buildPersonCentricGraph(PersonGraph graph, Long sid){
+        Map<Long, Map> personNodes = [:]
+        Map<Long, Map> interestNodes = [:]
+
+        for (Long pid: graph.getPersonIds()){
+            personNodes[pid] = makeJsonPerson(pid, graph, sid)
+        }
+
+        for (Long iid : graph.interestInfo.keySet()) {
+            interestNodes[iid] = makeJsonInterest(iid, graph)
+        }
+
+        return [
+                'people':personNodes,
+                'interests':interestNodes,
+                'root' : graph.rootId,
+                'rootClass' : 'person',
                 'clusterMap' : graph.getClusterMap(),
         ]
     }

@@ -26,7 +26,11 @@ var PersonCenter = RaphaelComponent.extend({
         this.maxRadius = params.maxRadius || 100000000;
         this.picture = params.picture || "";
         this.name = params.name || "nameless person";
+        this.id = params.id || -1;
         this.rotation = 0;
+        this.r = this.outerRadius + this.innerRadius;
+        this.glow = null;
+        this.type = 'person';
 
         var x = params.x, y = params.y;
 
@@ -85,9 +89,18 @@ var PersonCenter = RaphaelComponent.extend({
     getHandle : function() { return this.handle; },
     getX : function() { return this.handle.attr('cx'); },
     getY : function() { return this.handle.attr('cy'); },
-    highlightOn : function() {},
-    highlightNone : function() {},
-    highlightOff : function() {},
+    highlightNone : function() {this.highlightOff();},
+    highlightOn : function() {
+        if (!this.glow) {
+            this.glow = this.outerStroke.glow();
+        }
+    },
+    highlightOff : function() {
+        if (this.glow) {
+            this.glow.remove();
+            this.glow = null;
+        }
+    },
     setPosition : function(x, y) {
         var circles = [this.handle, this.innerStroke, this.outerStroke, this.imageBg];
         $.each(circles, function() { this.attr({cx : x, cy : y}); });
@@ -222,6 +235,7 @@ var Person = MNode.extend({
             interestGroups : this.interestGroups,
             name : this.name,
             picture : this.picture,
+            id : this.id,
             x : this.x,
             y : this.y,
             outerRadius : this.collapsedRadius,
@@ -261,6 +275,9 @@ var Person = MNode.extend({
         // change the color of the ring.
         this.ring.attr('fill', 'hsb(0,0,.8)');
         this.centerNode.setPosition(x, y);
+    },
+    highlightNone : function() {
+        this.highlightOff();
     }
 });
 

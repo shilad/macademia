@@ -16,42 +16,36 @@ class PersonGraph {
     Map<Long, Double> personScores = [:]
     Map<Long, Double> interestWeights = [:]
 
-    public PersonGraph(Long interestId, Set<Long> rootInterests) {
-        this.rootId = interestId
+    public PersonGraph(Long personId, Set<Long> rootInterests) {
+        this.rootId = personId
         this.rootInterests = rootInterests
-        interestWeights[rootId] = 1.0
-
-        for (Long iid : rootInterests) {
-            this.interestInfo[iid] = new InterestInfo(interestId : iid)
-            this.interestInfo[iid].addRole(RoleType.CHILD_OF_ROOT, rootId, 1.0)
-        }
     }
 
     // Should also be called for the root id
     public void addRelatedInterest(Long interestId, double weight, Set<Long> displayedIds, SimilarInterestList sil) {
-
         relatedInterestIds.add(interestId)
-        if (!interestInfo.containsKey(interestId)) {
-            interestInfo[interestId] = new InterestInfo(interestId : interestId)
-        }
-        InterestInfo ii = interestInfo[interestId]
+        InterestInfo ii = interestInfo.get(interestId, new InterestInfo(interestId : interestId))
         ii.addRole(RoleType.RELATED_ROOT, interestId, weight)
+        interestInfo[interestId] = ii
         interestWeights[interestId] = weight
 
         for (SimilarInterest si : sil.list) {
             Long iid = si.interestId
-            boolean isDisplayed = displayedIds.contains(iid)
             if (!interestInfo.containsKey(iid)) {
                 interestInfo[iid] = new InterestInfo(interestId : iid)
             }
             ii = interestInfo[iid]
-            RoleType role = RoleType.HIDDEN;
-            if (isDisplayed) {
-                role = (interestId == rootId) ? RoleType.CHILD_OF_ROOT : RoleType.CHILD_OF_RELATED
-            }
-            ii.addRole(role, interestId, si.similarity)
+            ii.addRole(RoleType.HIDDEN, interestId, si.similarity)
         }
 
+        for (Long iid : displayedIds) {
+            if (!interestInfo.containsKey(iid)) {
+                interestInfo[iid] = new InterestInfo(interestId : iid)
+            }
+            ii = interestInfo[iid]
+            double sim = (ii.closestParentId == iid) ? ii.closestRelevance : 0.8
+            ii.addRole(RoleType.CHILD_OF_RELATED, interestId, sim)
+        }
     }
 
     public void addPerson(Long pid, Collection<Long> interests) {
@@ -121,12 +115,11 @@ class PersonGraph {
 
     public Map<Long, Set<Long>> getClusterMap() {
         Map<Long, Set<Long>> cmap = [:]
-        cmap[rootId] = new HashSet()
         relatedInterestIds.each({ cmap[it] = new HashSet() })
 
         for (InterestInfo ii : interestInfo.values()) {
             for (InterestRole ir : ii.roles) {
-                if (ir.role == RoleType.HIDDEN || ir.parentId == ii.interestId) {
+                if (ir.role == RoleType.HIDDEN || ir.role == RoleType.CHILD_OF_ROOT || ir.parentId == ii.interestId) {
                     continue
                 }
                 cmap[ir.parentId].add(ii.interestId)
@@ -151,6 +144,10 @@ class PersonGraph {
 
     Collection<Long> getPersonIds() {
         return personScores.keySet()
+    }
+
+    boolean hasPerson(Long pid) {
+        return personScores.containsKey(pid)
     }
 
 

@@ -14,7 +14,6 @@
  */
 var MNode = RaphaelComponent.extend(
 {
-
     /**
      * Constructor initialization
      * @param params
@@ -50,8 +49,9 @@ var MNode = RaphaelComponent.extend(
         this.expandedRadius = params.expandedRadius || this.EXPANDED_RADIUS;
         this.relatedNodeRadius = params.relatedNodeRadius || this.RELATED_RADIUS;
         this.expandedHandleRadius = params.expandedHandleRadius || (this.expandedRadius + 2 * this.relatedNodeRadius);
-        this.clickText = params.clickText;
+        this.centerActive = (params.centerActive === false) ? false : true;
 
+        this.clickText = params.clickText;
         this.relatedInterests = this.relatedInterests || params.relatedInterests || [];
         this.relatedInterestNodes = [];
 
@@ -249,12 +249,8 @@ var MNode = RaphaelComponent.extend(
         var self = this;
         this.getLayerSet().click(
             function() {
-                if (self.lastInterestHoverIndex != self.HOVER_NONE) {
-                    callback(
-                            self.relatedInterests[self.lastInterestHoverIndex],
-                            self.relatedInterestNodes[self.lastInterestHoverIndex]
-                    );
-                }
+                var node = self.getLastHoverNode();
+                if (node != null) { callback(node); }
             }
         );
     },
@@ -277,7 +273,7 @@ var MNode = RaphaelComponent.extend(
             return;
         }
         this.createRelatedInterestNodes();
-        var millis = millis || 800;
+        var millis = millis || 400;
         this.state = this.STATE_EXPANDING;
         this.stop();
         var r = this.expandedHandleRadius;
@@ -314,11 +310,20 @@ var MNode = RaphaelComponent.extend(
                     millis,
                     "elastic");
         });
+        $.each(this.relatedInterestNodes.concat(this.centerNode),
+                function() { this.highlightOff(); });
+
         self.lastInterestHoverIndex = self.HOVER_NONE;
         this.ring.animate(
                 {r: this.expandedRadius, cx : this.newX, cy: this.newY}, millis, "elastic",
-                function () { self.state = self.STATE_EXPANDED; }
+                function () {
+                    self.state = self.STATE_EXPANDED;
+                    if (self.centerActive) {
+                        self.onNodeHoverIn(self.centerNode);
+                    }
+                }
         );
+
     },
     onHoverOut : function() {
         if (!this.enabled) {
@@ -327,6 +332,12 @@ var MNode = RaphaelComponent.extend(
         if (this.state != this.STATE_EXPANDED && this.state != this.STATE_EXPANDING) {
             return;
         }
+
+        // reset highlighting
+        var latest = this.getLastHoverNode();
+        if (latest) { this.onNodeHoverOut(latest); }
+        this.centerNode.highlightNone();
+
         this.state = this.STATE_COLLAPSING;
         this.stop();
         var r = this.collapsedRadius;
@@ -355,10 +366,35 @@ var MNode = RaphaelComponent.extend(
                     this.y = this.origY;
                 }
         );
+    },
+
+    onNodeHoverIn : function(node) {
+        if (this.state != this.STATE_EXPANDED) {
+            return;
+        }
+        if (node == this.centerNode) {
+            this.lastInterestHoverIndex = this.HOVER_CENTER;
+            node.highlightOn();
+            if (this.rootClass == 'interest') {
+                this.onInterestHoverIn(node.interest, node);
+            }
+        } else {
+            node.toFront(this.centerNode.getBottomLayer());
+            node.getBackgroundLayer().insertBefore(this.ring);
+
+            // must be a related interest node
+            node.highlightOn();
+            this.lastInterestHoverIndex = this.relatedInterestNodes.indexOf(node);
+            this.onInterestHoverIn(node.interest, node);
+        }
+    },
+
+    onNodeHoverOut : function(node) {
+        this.lastInterestHoverIndex = this.HOVER_NONE;
+        node.highlightOff();
         var li = this.lastInterestHoverIndex;
-        if (li != this.HOVER_NONE) {
-            this.lastInterestHoverIndex = this.HOVER_NONE;
-            this.onInterestHoverOut(this.relatedInterests[li], this.relatedInterestNodes[li]);
+        if (node != this.centerNode || this.rootClass == 'interest') {
+            this.onInterestHoverOut(node.interest, node);
         }
     },
 
@@ -368,35 +404,11 @@ var MNode = RaphaelComponent.extend(
      * @param relatedInterestNode
      */
     onInterestHoverIn : function(relatedInterest, relatedInterestNode) {
-        if (this.state != this.STATE_EXPANDED) {
-            return;
-        }
-
-        if (relatedInterestNode != this.centerNode) {
-            relatedInterestNode.toFront(this.centerNode.getBottomLayer());
-            relatedInterestNode.getBackgroundLayer().insertBefore(this.ring);
-        }
-        relatedInterestNode.highlightOn();
-
-        if (this.centerNode == relatedInterestNode) {
-            this.lastInterestHoverIndex = this.HOVER_CENTER;
-        }
-        var self = this;
-        $.each(this.relatedInterestNodes,
-                function (i, n) {
-                    if (n == relatedInterestNode) {
-                        self.lastInterestHoverIndex = i;
-                    } else {
-                        n.highlightOff();
-                    }
-                });
         for (var i = 0; i < this.hoverInterestListeners.length; i++) {
             this.hoverInterestListeners[i]['in'](this, relatedInterest, relatedInterestNode);
         }
     },
     onInterestHoverOut : function(relatedInterest, relatedInterestNode) {
-        this.lastInterestHoverIndex = this.HOVER_NONE;
-        $.each(this.relatedInterestNodes, function (i, n) { n.highlightNone(); });
         for (var i = 0; i < this.hoverInterestListeners.length; i++) {
             this.hoverInterestListeners[i]['out'](this, relatedInterest, relatedInterestNode);
         }
@@ -455,6 +467,16 @@ var MNode = RaphaelComponent.extend(
         return this.centerNode.getY();
     },
 
+    getLastHoverNode : function() {
+        if (this.lastInterestHoverIndex == this.HOVER_NONE) {
+            return null;
+        } else if (this.lastInterestHoverIndex == this.HOVER_CENTER) {
+            return this.centerNode;
+        } else {
+            return this.relatedInterestNodes[this.lastInterestHoverIndex];
+        }
+    },
+
     /**
      * Mouse move handler
      */
@@ -462,7 +484,20 @@ var MNode = RaphaelComponent.extend(
         if (this.state != this.STATE_EXPANDED) {
             return;
         }
-        var ms = Date.now();
+        var last = this.getLastHoverNode();
+
+        // check center node
+        if (this.centerActive) {
+            var d = macademia.nbrviz.distance(this.getX(), this.getY(), e.x, e.y);
+            if (d <= this.centerNode.r * 1.5) {
+                if (last != this.centerNode) {
+                    if (last !=  null) { this.onNodeHoverOut(last); }
+                    this.onNodeHoverIn(this.centerNode);
+                }
+                return;
+            }
+        }
+
         var closestIndex = this.HOVER_NONE;
         var closestDistance = 1000000000000000;
         $.each(this.relatedInterestNodes,
@@ -475,18 +510,10 @@ var MNode = RaphaelComponent.extend(
             });
 
         if (closestIndex != this.lastInterestHoverIndex) {
-            var last = this.lastInterestHoverIndex;
-            if (last >= 0) {
-                this.onInterestHoverOut(
-                        this.relatedInterests[last],
-                        this.relatedInterestNodes[last]);
-            }
-            this.onInterestHoverIn(
-                    this.relatedInterests[closestIndex],
-                    this.relatedInterestNodes[closestIndex]);
+            if (last != null) { this.onNodeHoverOut(last); }
+            this.onNodeHoverIn(this.relatedInterestNodes[closestIndex]);
         }
     }
-
 });
 
 

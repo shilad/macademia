@@ -103,8 +103,10 @@ class AutocompleteService{
         }
         gt.overallTree.get("i" + interest.id).setScore(usage)
         gt.interestTree.get("i" + interest.id).setScore(usage)
-        if (databaseService.getSimilarInterests(interest).size() > 5) {
+        if (databaseService.getSimilarInterests(interest).size() > 3) {
             gt.relatedInterests.add("i" + interest.id, entity)
+            gt.relatedInterests.get("i" + interest.id).setScore(usage)
+
         }
     }
 

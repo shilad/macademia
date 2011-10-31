@@ -8,6 +8,7 @@ var InterestSphere = Sphere.extend({
         // FIXME: some of these are also intialized in Sphere
         this.name = params.name;
         this.interest = params.interest;
+        this.id = this.interest.id;
         this.paper = params.paper;
         this.xOffset = params.xOffset;
         this.yOffset = params.yOffset;
@@ -45,6 +46,7 @@ var InterestSphere = Sphere.extend({
             'stroke-width' : 0.0});
         this.labelBg.hide();
         this.label.toFront();
+        this.type = 'interest';
 
         this._super(params);
     },

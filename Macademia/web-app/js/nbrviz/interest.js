@@ -20,6 +20,7 @@ var InterestCluster = MNode.extend({
         this.clusterId = params.clusterId;
         this.interest = new Interest(params);
         this.fadeLayer = null;
+        this.type = 'interest-cluster';
 
         if(params.name) {
             this.name = params.name;
@@ -82,28 +83,6 @@ var InterestCluster = MNode.extend({
             }
         });
         this._super(callback);
-    },
-
-    onMouseMove : function(e) {
-        if (this.state != this.STATE_EXPANDED) {
-            return;
-        }
-        var last = this.lastInterestHoverIndex;
-        if (macademia.nbrviz.distance(this.getX(), this.getY(), e.x, e.y) <= this.centerNode.r*1.5) {
-            if (last != this.HOVER_CENTER) {
-                if (last > 0) {
-                    this.onInterestHoverOut(
-                        this.relatedInterests[last],
-                        this.relatedInterestNodes[last]);
-                }
-                this.onInterestHoverIn(this.interest, this.centerNode);
-            }
-        } else {
-            if (last == this.HOVER_CENTER) {
-                this.centerNode.highlightOff();
-            }
-            this._super(e);
-        }
     }
 });
 

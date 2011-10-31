@@ -119,12 +119,13 @@ macademia.nbrviz.query.initQueryCluster = function(qid, vizJson, clusterMap, int
     var info = vizJson.interests[qid];
     var ic = new InterestCluster({
         id : qid,
+        interest : info,
         interests : interests,
         relatedInterests : relatedInterests,
         name : info.name,
         color : macademia.nbrviz.getColor(qid),
         paper : paper,
-        clickText : '(click to remove)'
+        clickText : '(click to add)'
     });
     ic.clicked(
             function (interest, interestNode) {
@@ -271,6 +272,8 @@ macademia.nbrviz.query.loadNewData = function(vizJson) {
             name : pinfo.name,
             picture : pinfo.pic,
             paper : paper,
+            id : id,
+            centerActive : false,
             interests : $.grep(pinterests, function(i) {return (i.relatedQueryId >= 0);}),
             nonRelevantInterests : $.grep(pinterests, function(i) {return (i.relatedQueryId < 0);}),
             collapsedRadius : r
@@ -279,8 +282,10 @@ macademia.nbrviz.query.loadNewData = function(vizJson) {
             person.expandedRadius *= Math.sqrt(person.interests.length / 12);
         }
         person.clicked(
-                function (interest, interestNode) {
-                    macademia.nbrviz.query.addInterestToQuery(interest.id, interest.name);
+                function (node) {
+                    if (node.type == 'interest') {
+                        macademia.nbrviz.query.addInterestToQuery(node.id, node.name);
+                    }
                 });
         people[id] = person;
     });
@@ -292,7 +297,7 @@ macademia.nbrviz.query.loadNewData = function(vizJson) {
 
     var qv = new QueryViz({
         people : people,
-        queryInterests : $.map(queryInterests, function(v, k) {return v;}),
+        interestClusters : $.map(queryInterests, function(v, k) {return v;}),
         paper : paper
     });
     qv.setEnabled(false);

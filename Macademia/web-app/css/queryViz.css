@@ -197,33 +197,35 @@ input:-moz-placeholder, textarea::-moz-placeholder { color: #636363; }
 /* line 20, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget, #adjustmentWidget { background-color: rgba(100, 100, 220, 0.1); padding: 10px; position: absolute; width: 420px; font-size: 16px; }
 /* line 27, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #showWidget, #adjustmentWidget #showWidget { color: #44f; display: none; }
-/* line 31, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests, #adjustmentWidget #currentInterests { width: auto; float: left; background-color: rgba(210, 210, 240, 0.9); max-width: 100%; position: relative; margin-top: 3px; }
-/* line 39, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+#queryWidget #currentInterests, #adjustmentWidget #currentInterests { width: auto; float: left; background-color: rgba(210, 210, 240, 0.9); max-width: 100%; position: relative; margin-top: 3px; width: 455px; }
+/* line 36, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests #queryInterestTemplate, #adjustmentWidget #currentInterests #queryInterestTemplate { display: none; }
-/* line 43, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+/* line 40, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests h1, #adjustmentWidget #currentInterests h1 { font-size: 20px; font-weight: bold; text-align: left; padding-top: 10px; padding-bottom: 6px; margin-left: 20px; }
-/* line 51, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+/* line 48, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests #sliderKey, #adjustmentWidget #currentInterests #sliderKey { width: 100px; font-size: 12px; }
-/* line 54, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+/* line 51, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests #sliderKey .lessLabel, #adjustmentWidget #currentInterests #sliderKey .lessLabel { float: left; width: 35%; text-align: left; }
-/* line 59, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+/* line 56, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests #sliderKey .okayLabel, #adjustmentWidget #currentInterests #sliderKey .okayLabel { float: left; width: 30%; text-align: center; }
-/* line 64, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+/* line 61, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests #sliderKey .moreLabel, #adjustmentWidget #currentInterests #sliderKey .moreLabel { float: left; width: 35%; text-align: right; }
-/* line 71, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests .addedInterestDiv, #adjustmentWidget #currentInterests .addedInterestDiv { margin-left: 0; clear: both; padding: 6px 0; opacity: 1.0; width: 400px; }
-/* line 78, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+/* line 69, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+#queryWidget #currentInterests .addedInterestDiv, #adjustmentWidget #currentInterests .addedInterestDiv { margin-left: 0; clear: both; padding: 6px 0; margin-right: 20px; opacity: 1.0; }
+/* line 76, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests .addedInterestDiv .interestSlider, #adjustmentWidget #currentInterests .addedInterestDiv .interestSlider { clear: both; float: left; width: 100px; position: relative; height: 8px; margin-right: 10px; top: 5px; }
-/* line 88, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+/* line 86, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests .addedInterestDiv .interestKey, #adjustmentWidget #currentInterests .addedInterestDiv .interestKey { float: left; width: 20px; height: 20px; margin-right: 5px; }
-/* line 94, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+/* line 92, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests .addedInterestDiv .addedInterest, #adjustmentWidget #currentInterests .addedInterestDiv .addedInterest { display: inline; padding: 1px; }
-/* line 101, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests #interestQuery, #adjustmentWidget #currentInterests #interestQuery { margin: 10px 20px 20px 20px; clear: both; width: 350px; font-size: 20px; }
-/* line 109, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests #hideWidget, #adjustmentWidget #currentInterests #hideWidget { color: #44f; position: absolute; top: 10px; right: 20px; }
+/* line 98, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+#queryWidget #currentInterests .addedInterestDiv.exploration:nth-child(2), #adjustmentWidget #currentInterests .addedInterestDiv.exploration:nth-child(2) { font-weight: bold; border-bottom: 2px dotted #aaa; }
+/* line 104, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+#queryWidget #currentInterests #interestQuery, #adjustmentWidget #currentInterests #interestQuery { margin: 10px 20px 7px 20px; clear: both; width: 350px; font-size: 20px; }
+/* line 112, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+#queryWidget #currentInterests #hideWidget, #adjustmentWidget #currentInterests #hideWidget { color: #44f; position: absolute; bottom: 5px; right: 10px; }
+/* line 120, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
+#queryWidget #showWidget, #adjustmentWidget #showWidget { color: #44f; display: none; position: absolute; bottom: 1px; right: 20px; }
 
 /*/mediaquery*/
 /*/mediaquery*/

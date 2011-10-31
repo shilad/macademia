@@ -48,11 +48,14 @@ ExploreViz.prototype.setEnabled = function(enabled) {
 };
 
 ExploreViz.prototype.getRootNode = function() {
-    for (var i = 0; i < this.parentInterests.length; i++) {
-        console.log('checking ' + this.parentInterests[i].id + ' against ' + this.rootId);
-        if (this.parentInterests[i].id == this.rootId) {
-            return this.parentInterests[i];
+    if (this.rootClass == 'interest') {
+        for (var i = 0; i < this.parentInterests.length; i++) {
+            if (this.parentInterests[i].id == this.rootId) {
+                return this.parentInterests[i];
+            }
         }
+    } else {
+        return this.people[this.rootId];
     }
     alert('no root node found!');
 };
@@ -69,10 +72,13 @@ ExploreViz.prototype.layoutInterests = function(vizJson) {
     var center = new Point(new Vector(0, 0));
     var z = macademia.nbrviz.magnet.ZOOM_CONSTANT;
 
+    var numParents = this.parentInterests.length;
+    if (this.rootClass == 'interest') { numParents--; } // don't count root interest
+
     $.each(this.parentInterests, function(i, interestCluster) {
-        var slice = (Math.PI * 2 / (self.parentInterests.length - 1))
+        var slice = Math.PI * 2 / numParents;
         var angle = index * slice + slice / 2;
-        var p = (interestCluster.id == self.rootId)
+        var p = (self.rootClass == 'interest' && interestCluster.id == self.rootId)
                     ? [0.0, 0.0]
                     : [Math.cos(angle) * xr, Math.sin(angle) * yr];
         var point = new Point(new Vector(p[0], p[1]));
@@ -96,6 +102,19 @@ ExploreViz.prototype.layoutInterests = function(vizJson) {
             .toBack();
     });
 
+    // create "fake" repulsive magnet at center
+    if (this.rootClass == 'person') {
+        p = new Point(new Vector(0, 0));
+        var mag = new Magnet(p.p, -1);
+        this.paper.circle(p.screenX(), p.screenY(), 100)
+            .attr({
+                    'fill' : 'r(0.5, 0.5) #aaa-ccc:30-#fff',
+                    'fill-opacity' : 0.0,
+                    'stroke-width': 0
+             })
+            .toBack();
+    }
+
     var p = new Point(new Vector(-xr, -yr));
     this.hub = this.paper.ellipse(p.screenX() + xr*z, p.screenY() + yr*z, xr * z, yr * z);
     this.hub.attr({ stroke : '#ccc', 'stroke-dasharray' : '.'  });
@@ -110,10 +129,19 @@ ExploreViz.prototype.layoutPeople = function( /*coords*/ ) {
     var self = this;
     var MM = macademia.nbrviz.magnet;
 
+    // handle root specially if necessary.
+    if (this.rootClass == 'person') {
+        var p = new Point(new Vector(0, 0));
+        this.people[this.rootId].setPosition( p.screenX(), p.screenY());
+    }
+
     // initial layout around dominant magnet
     var angles = {};
     $.each(Magnet.magnets, function (i, m) { angles[m.id] = 0.5; });
     $.each(this.people, function(i, person) {
+        if (self.rootClass == 'person' && i == self.rootId) {
+            return; // skip the root (it's fixed)
+        }
         var ic = person.dominantInterestGroup();
         var m = Magnet.findById(ic.id);
         var d = MM.OPTIMAL_MAGNET_PERSON_DIST;

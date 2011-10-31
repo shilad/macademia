@@ -139,4 +139,9 @@ macademia.endTimer = function(label) {
 
 macademia.pinch = function(value, min, max) {
     return Math.min(Math.max(value, min), max);
-}
+};
+
+
+function screenArea() {
+    return $(document).width() * $(document).height();
+};

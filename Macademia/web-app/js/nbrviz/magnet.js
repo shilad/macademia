@@ -211,12 +211,16 @@ Magnet.prototype.forceDirection = function(pnt) {
 };
 
 Magnet.prototype.attractPeople = function() {
+    var repulse = MM.REPULSE_CONSTANT;
+    if (this.p.x == 0.0 && this.p.y == 0) { repulse *= 6; }
+
 	var self = this;
 	$.each(Point.points, function(i, p){
 		var radius = self.computeDistance(p);
 
+
         // spring repulsion for nodes very close to the cluster
-        var magnitude = MM.REPULSE_CONSTANT / Math.pow(radius + 0.001, 2.0);
+        var magnitude = repulse / Math.pow(radius + 0.001, 2.0);
 
         // attraction
 		if(self.relevances[p.id] && !isNaN(self.relevances[p.id])) {

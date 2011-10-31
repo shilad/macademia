@@ -24,10 +24,6 @@ input:-moz-placeholder, textarea::-moz-placeholder {
     width: 420px;
     font-size : 16px;
 
-    #showWidget{
-        color: #44f;
-        display: none;
-    }
     #currentInterests {
         width: auto;
         float : left;
@@ -35,6 +31,7 @@ input:-moz-placeholder, textarea::-moz-placeholder {
         max-width: 100%;
         position: relative;
         margin-top : 3px;
+        width : 455px;
 
         #queryInterestTemplate {
             display : none;
@@ -68,12 +65,13 @@ input:-moz-placeholder, textarea::-moz-placeholder {
             }
         }
 
+
         .addedInterestDiv{
             margin-left : 0;
             clear : both;
             padding: 6px 0;
+            margin-right : 20px;
             opacity: 1.0;
-            width : 400px;
 
             .interestSlider {
                 clear : both;
@@ -97,9 +95,14 @@ input:-moz-placeholder, textarea::-moz-placeholder {
             }
         }
 
+        .addedInterestDiv.exploration:nth-child(2) {
+            font-weight : bold;
+            border-bottom: 2px dotted #aaa;
+        }
+
         // add new interests field
         #interestQuery{
-            margin: 10px 20px 20px 20px;
+            margin: 10px 20px 7px 20px;
             clear : both;
             width : 350px;
             font-size : 20px;
@@ -109,8 +112,16 @@ input:-moz-placeholder, textarea::-moz-placeholder {
         #hideWidget{
             color: #44f;
             position : absolute;
-            top : 10px;
-            right : 20px;
+            bottom : 5px;
+            right : 10px;
         }
+    }
+
+    #showWidget{
+        color: #44f;
+        display: none;
+        position : absolute;
+        bottom : 1px;
+        right : 20px;
     }
 }

@@ -84,16 +84,15 @@ class Similarity2Service {
         // Calculate interest clusters
         ANALYSIS.startTime()
         Map<Long, Set<Long>> clusters = clusterInterests2(graph.rootInterests, maxInterests)
-        ANALYSIS.recordTime("cluster root interests")
+        ANALYSIS.recordTime("cluster root interests:")
 
         println("clusters:")
         for (Long iid : clusters.keySet()) {
             SimilarInterestList sil = databaseService.getSimilarInterests(iid)
             sil.normalize()
             graph.addRelatedInterest(iid, interestWeights.get(iid, 0.5), clusters[iid], sil)
-            println("\t" + graph.describeCluster(clusters[iid]))
         }
-        ANALYSIS.recordTime("find related interests")
+        ANALYSIS.recordTime("find related interests: ")
 
         // find people with those clusters
         Map<Long, Set<Long>> personInterests = [:]
@@ -109,6 +108,9 @@ class Similarity2Service {
         // Add people to the graph
         for (Long pid : personInterests.keySet()) {
             graph.addPerson(pid, databaseService.getUserInterests(pid))
+        }
+        if (!graph.hasPerson(rootId)) {
+            graph.addPerson(rootId, databaseService.getUserInterests(rootId))
         }
         ANALYSIS.recordTime("people2")
 
@@ -354,12 +356,10 @@ class Similarity2Service {
             clusters = clusters.subList(0, maxNumClusters)
         } else if (clusters.size() < maxNumClusters) {
             Collection<Long> used = clusters.flatten()
-            for (Long iid : iids) {
-                // TODO: order these by popularity
-                if (clusters.size() == maxNumClusters) {
-                    break
-                }
-                if (!used.contains(iids)) {
+            Iterator<Long> iter = iids.iterator()
+            while (iter.hasNext() && clusters.size() == maxNumClusters) {
+                Long iid = iter.next()
+                if (!used.contains(iid)) {
                     clusters.add(new HashSet([iid]))
                 }
             }
