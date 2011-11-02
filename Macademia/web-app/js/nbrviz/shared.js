@@ -11,6 +11,7 @@ macademia.nbrviz.distance = function(x1, y1, x2, y2) {
         return Math.sqrt(dx*dx + dy*dy);
     };
 
+
 macademia.nbrviz.initPaper = function(domId, width, height) {
     macademia.nbrviz.paper = new Raphael(domId, width, height);
 
@@ -142,6 +143,14 @@ macademia.pinch = function(value, min, max) {
 };
 
 
-function screenArea() {
+macademia.screenArea = function() {
     return $(document).width() * $(document).height();
+};
+
+macademia.objectSize = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
 };

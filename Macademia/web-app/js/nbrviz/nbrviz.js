@@ -3,24 +3,33 @@
  * the query and exploration visualizations.
  */
 
-var NbrViz = RaphaelComponent.extend({
+var NbrViz = Class.extend({
     init : function(params) {
-        this._super(params);
-
-        // only if the viz is rooted
-        this.rootId = params.rootId;
-        this.rootClass = params.rootClass;
-
-        this.people = params.people;
-        this.interestClusters = params.interestClusters;
         this.paper = params.paper;
-        this.edges = [];
-        this.highlighted = [];
+        this.peopleClickable = params.peopleClickable ||  false;
+        this.interestWeights = {};
+        this.reset();
+        this.loadingMessage = $("#loadingMessage");
+        this.loadingDiv = $("#loadingDiv");
 
         this.fadeScreen = this.paper.rect(0, 0, this.paper.width, this.paper.height);
         this.fadeScreen.attr({ fill : 'white' , opacity : 0.0, 'stroke-width' : 0});
         this.fadeScreen.toBack();
 
+        var self = this;
+        $.address.change(function(event) {self.onAddressChange(event);});
+    },
+
+    reset : function() {
+        this.rootId = null;
+        this.rootClass = null;
+        this.people = {};
+        this.interestClusters = {};
+        this.edges = [];
+        this.highlighted = [];
+        this.paper.clear();
+        Magnet.clear();
+        macademia.nbrviz.magnet.init();
     },
 
     hasRoot : function() {
@@ -62,10 +71,9 @@ var NbrViz = RaphaelComponent.extend({
         var center = new Point(new Vector(0, 0));
         var z = macademia.nbrviz.magnet.ZOOM_CONSTANT;
 
-        var numParents = this.interestClusters.length;
+        var numParents = macademia.objectSize(this.interestClusters);
         // don't count root interest if root is an interest
         if (this.rootClass == 'interest') { numParents--; }
-        console.log('numParents is ' + numParents);
 
         $.each(this.interestClusters, function(i, ic) {
             var slice = Math.PI * 2 / numParents;
@@ -176,7 +184,7 @@ var NbrViz = RaphaelComponent.extend({
 
     setEnabled : function(enabled) {
         $.map(this.people, function (p) { p.setEnabled(enabled); });
-        this.interestClusters.map(function (qi) { qi.setEnabled(enabled); });
+        $.map(this.interestClusters, function (qi) { qi.setEnabled(enabled); });
     },
 
     raiseScreen : function(focus) {
@@ -248,6 +256,136 @@ var NbrViz = RaphaelComponent.extend({
         this.edges = [];
         $.each(this.highlighted, function (i, e) { e.toFront(self.fadeScreen); });
         this.highlighted = [];
-    }
+    },
 
+    loadJson : function(model) {
+        model.dump();
+        this.reset();
+        this.rootId = model.getRootId();
+        this.rootClass = model.getRootClass();
+
+        if (model.isEmpty()) { return; }
+
+        var self = this;
+
+        macademia.nbrviz.assignColors(model.getClusterIds());
+        macademia.nbrviz.interests = model.getInterests();
+
+        // Create interest clusters
+        $.each(model.getClusterIds(), function (i, cid) {
+            self.interestClusters[cid] = self.initCluster(cid, model);
+        });
+
+        // create people
+        var peopleIds = model.getPeopleIds();
+        if (peopleIds.length > this.maxPeopleThatFit(model)) {
+            peopleIds = peopleIds.slice(0, this.maxPeopleThatFit(model));
+        }
+        $.each(peopleIds, function(i, pid) {
+            self.people[pid] = self.initPerson(pid, model);
+        });
+
+        this.setEnabled(false);
+        this.layoutInterests();
+        this.layoutPeople();
+        this.setupListeners();
+        this.loadingDiv.hide();
+    },
+
+    initCluster : function(id, model) {
+        var interest = model.getInterest(id);
+        var ic = new InterestCluster({
+            id : id,
+            interest : interest,
+            interests : model.getInterests(),
+            relatedInterests : model.getRelatedInterests(id),
+            name : interest.name,
+            color : macademia.nbrviz.getColor(id),
+            paper : this.paper,
+            clickText : '(click to add)'
+        });
+        var self = this;
+        ic.clicked(function (node) { self.interestClicked(node); });
+        return ic;
+    },
+
+    initPerson : function(pid, model) {
+        var pinfo = model.getPerson(pid);
+        var pinterests = model.getPersonInterests(pid);
+        var interestGroups = model.getPersonInterestGroups(pid, this.interestClusters);
+        var r = 10 * model.getNormalizedPersonRelevance(pid) + 7;
+        var person = new Person({
+            relevance : pinfo.relevance,
+            interestGroups : interestGroups,
+            name : pinfo.name,
+            picture : pinfo.pic,
+            paper : this.paper,
+            id : pid,
+            centerActive : this.peopleClickable,
+            interests : $.grep(pinterests, function(i) {return (i.relatedQueryId >= 0);}),
+            nonRelevantInterests : $.grep(pinterests, function(i) {return (i.relatedQueryId < 0);}),
+            collapsedRadius : r
+        });
+        if (person.interests.length > 12) {
+            person.expandedRadius *= Math.sqrt(person.interests.length / 12);
+        }
+        var self = this;
+        person.clicked(
+                function (node) {
+                    if (node.type == 'interest') { self.interestClicked(node); }
+                    if (node.type == 'person') { self.personClicked(node); }
+                });
+        return person;
+    },
+
+    maxPeopleThatFit : function(model) {
+        return Math.max(8, macademia.screenArea() / 35000) - model.getClusterIds().length;
+    },
+    interestClicked : function(interestNode) {
+    },
+    personClicked : function(personNode) {
+    },
+
+    initSlider : function(interestId) {
+        var weight = 3;
+        var slider = $(".interestSlider[interest=" + interestId + "]");
+        if (slider.length) {
+            weight = slider.slider( "option", "value" );
+        } else if (interestId in this.interestWeights) {
+            weight = this.interestWeights[interestId];
+        }
+        this.interestWeights[interestId] = weight;
+    },
+
+    getOrLookupInterestName : function(interestId) {
+        if (this.interests && this.interests[interestId] && this.interests[interestId].name) {
+            return this.interests[interestId].name;
+        } else {
+            return macademia.getInterestName(interestId);
+        }
+    },
+
+    initKey : function(clusterIds) {
+        alert('initKey must be overridden!');
+    },
+
+    setLoadingMessage : function(message) {
+        this.loadingMessage.html(message || "loading...");
+    },
+    showLoadingMessage : function() {
+        this.loadingDiv.show();
+    },
+    hideLoadingMessage : function() {
+        this.loadingDiv.hide();
+    },
+
+    drawKeySphere : function(interestId) {
+        var k = $(".interestKey[interest='" + interestId + "']");
+        var w = k.width(), h = k.height();
+        var p = new Raphael(k.get(0), w, h);
+        var s = new Sphere({
+            r : Math.min(w / 2, h/2), x : w / 2, y : h/2,
+            hue : macademia.nbrviz.getColor(interestId), paper : p
+        });
+    }
 });

@@ -25,7 +25,7 @@ def queries = [
 def t1 = System.currentTimeMillis()
 queries.each({
     def queryIds = it.collect({Interest.findByNormalizedText(it).id})
-    QueryGraph graph = similarityService.calculateQueryNeighbors(new HashSet(queryIds), 30)
+    QueryGraph graph = similarityService.calculateQueryNeighbors(new HashSet(queryIds), [:], 30)
     graph.prettyPrint()
     sessionFactory.currentSession.clear()
 })

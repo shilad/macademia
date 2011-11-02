@@ -5,6 +5,9 @@ import org.macademia.SimilarInterest
 import org.macademia.Interest
 import org.macademia.nbrviz.InterestRole.RoleType
 
+/**
+ * TODO: reconcile QueryGraph, InterestGraph, PersonGraph
+ */
 class InterestGraph {
     public static final double CLUSTER_PENALTY = 0.5
 

@@ -10,8 +10,8 @@
 <g:javascript>
   $().ready(function() {
     macademia.serverLog('nav', 'initial', {'url' : location.href });
-    macademia.nbrviz.query.initViz();
-  });
+    var paper = macademia.nbrviz.initPaper("graph", $("#graph").width(), $("#graph").height());
+    var viz = new QueryViz({ paper : paper });  });
 </g:javascript>
 <body>
     <div id="graph">&nbsp;</div>

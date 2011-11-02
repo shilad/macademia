@@ -3,14 +3,12 @@ package org.macademia.nbrviz
 import org.macademia.SimilarInterestList
 import org.macademia.SimilarInterest
 import org.macademia.Interest
+import org.macademia.nbrviz.InterestRole.RoleType
 
+/**
+ * TODO: reconcile QueryGraph, InterestGraph, PersonGraph
+ */
 class QueryGraph {
-    static class InterestInfo {
-        long interestId = 0
-        long queryInterestId = -1
-        double queryRelevance = -1.0
-        boolean isSubInterest = false
-    }
 
     public static final double CLUSTER_PENALTY = 0.5
     public static final double HIGH_RELEVANCE = 0.6
@@ -29,32 +27,26 @@ class QueryGraph {
         return personScores.keySet()
     }
 
-    /**
-     * Must be called before addPerson
-     * @param queryInterestId
-     * @param sil
-     */
-    public void incorporateQuerySimilarities(Long queryInterestId, Double weight, SimilarInterestList sil) {
-        queryWeights[queryInterestId] = weight
-        for (SimilarInterest si : sil.list) {
-            if (queryIds.contains(si.interestId)) {
-                continue
-            }
-            InterestInfo iis = interestInfo[si.interestId]
-            if (iis == null) {
-                iis = new InterestInfo(interestId : si.interestId)
-                interestInfo[si.interestId] = iis
-            }
-            if (si.similarity > iis.queryRelevance) {
-                iis.queryInterestId = queryInterestId
-                iis.queryRelevance = si.similarity
-            }
+    // Should also be called for the root id
+    public void addQueryInterest(Long interestId, double weight, Set<Long> displayedIds, SimilarInterestList sil) {
+
+        queryIds.add(interestId)
+        if (!interestInfo.containsKey(interestId)) {
+            interestInfo[interestId] = new InterestInfo(interestId : interestId)
         }
-        interestInfo[queryInterestId] = new InterestInfo(
-                    interestId : queryInterestId,
-                    queryInterestId : queryInterestId,
-                    queryRelevance : HIGH_RELEVANCE,
-                )
+        InterestInfo ii = interestInfo[interestId]
+        ii.addRole(RoleType.RELATED_ROOT, interestId, weight)
+        queryWeights[interestId] = weight
+
+        for (SimilarInterest si : sil.list) {
+            Long iid = si.interestId
+            if (!interestInfo.containsKey(iid)) {
+                interestInfo[iid] = new InterestInfo(interestId : iid)
+            }
+            ii = interestInfo[iid]
+            RoleType role = displayedIds.contains(iid) ? RoleType.CHILD_OF_RELATED : RoleType.HIDDEN;
+            ii.addRole(role, interestId, si.similarity)
+        }
     }
 
     public void addPerson(Long pid, Collection<Long> interests) {
@@ -63,31 +55,13 @@ class QueryGraph {
             if (!interestInfo.containsKey(iid)) {
                 interestInfo[iid] = new InterestInfo(interestId : iid)
             }
-            Long cid = interestInfo[iid].queryInterestId
+            Long cid = interestInfo[iid].closestParentId
             if (!edges.containsKey(cid)) {
                 edges[cid] = new PersonClusterEdge(personId : pid, clusterId: cid)
             }
             edges[cid].relevantInterestIds.add(iid)
         }
         personClusterEdges[pid] = edges.values().asList()
-    }
-
-    /**
-     * Must be called after addPerson
-     * @param queryInterestId
-     * @param relatedInterestId
-     * @param sil
-     */
-    public void addQueryRelatedInterests(Long queryInterestId, Long relatedInterestId) {
-        if (!interestInfo.containsKey(relatedInterestId)) {
-            interestInfo[relatedInterestId] = new InterestInfo(
-                        interestId : relatedInterestId,
-                        queryInterestId : queryInterestId,
-                        queryRelevance : HIGH_RELEVANCE,
-                    )
-        }
-        interestInfo[relatedInterestId].queryInterestId = queryInterestId
-        interestInfo[relatedInterestId].isSubInterest = true
     }
 
     public void finalizeGraph(int maxPeople) {
@@ -109,7 +83,7 @@ class QueryGraph {
             pedges.each({iids.addAll(it.relevantInterestIds)})
         }
         iids.addAll(
-                interestInfo.values().findAll({it.isSubInterest})
+                interestInfo.values().findAll({!it.roles.isEmpty()})
                                      .collect({it.interestId})
         )
         interestInfo.keySet().retainAll(iids)
@@ -126,12 +100,12 @@ class QueryGraph {
             if (e.clusterId < 0) {
                 continue    // unrelated interests
             }
-            e.relevantInterestIds.sort({ -1 * interestInfo[it].queryRelevance })
+            e.relevantInterestIds.sort({ -1 * interestInfo[it].closestRelevance })
             double weight = 1.0
             e.relevance = 0.0
             for (Long iid : e.relevantInterestIds) {
-                e.clusterId = interestInfo[iid].queryInterestId
-                e.relevance += interestInfo[iid].queryRelevance * weight
+                e.clusterId = interestInfo[iid].closestParentId
+                e.relevance += interestInfo[iid].closestRelevance * weight
                 weight *= CLUSTER_PENALTY
             }
             sim += e.relevance * queryWeights[e.clusterId] * queryWeights[e.clusterId]
@@ -149,15 +123,14 @@ class QueryGraph {
 
     public Map<Long, Set<Long>> getClusterMap() {
         Map<Long, Set<Long>> cmap = [:]
+        queryIds.each({ cmap[it] = new HashSet() })
+
         for (InterestInfo ii : interestInfo.values()) {
-            if (ii.queryInterestId < 0) {
-                continue
-            }
-            if (!cmap.containsKey(ii.queryInterestId)) {
-                cmap[ii.queryInterestId] = new HashSet<Long>()
-            }
-            if (ii.interestId != ii.queryInterestId) {
-                cmap[ii.queryInterestId].add(ii.interestId)
+            for (InterestRole ir : ii.roles) {
+                if (ir.role == RoleType.HIDDEN || ir.parentId == ii.interestId) {
+                    continue
+                }
+                cmap[ir.parentId].add(ii.interestId)
             }
         }
         return cmap
@@ -165,9 +138,9 @@ class QueryGraph {
 
     public void prettyPrint() {
         def f = { "$it:" + Interest.get(it)?.text } // nice to string
-        print("Query is:")
-        for (Long qid : queryIds) {
-            print(" " + f(qid) + ",")
+        print("Interests are:")
+        for (Long rid : queryIds) {
+            print(" " + f(rid) + ",")
         }
         println()
 

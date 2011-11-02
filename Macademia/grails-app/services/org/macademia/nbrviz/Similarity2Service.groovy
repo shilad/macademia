@@ -30,10 +30,17 @@ class Similarity2Service {
 
         // Calculate interest clusters
         ANALYSIS.startTime()
-        for (long q : qset){
-            def simInterests = similarityService.getSimilarInterests(q, 500, 0)
-            simInterests.normalize()
-            graph.incorporateQuerySimilarities(q, weights[q], simInterests)
+        ANALYSIS.recordTime("choose related interests")
+
+        Map<Long, Double> penalties = [:]   // between 0 (low) and 1 (high)
+        qset.each({penalties[it] = 1.0 })
+
+        for (long rid : qset){
+            def sil = similarityService.getSimilarInterests(rid, 500, 0)
+            sil.normalize()
+            Set<Long> displayedIds = chooseTopRelatedInterests(rid, IDEAL_NUM_CLUSTERS, 2.0, penalties).keySet()
+            displayedIds.each({ penalties[it] = 0.5 + penalties.get(it, 0) * 0.5 })
+            graph.addQueryInterest(rid, weights.get(rid, 0.5), displayedIds, sil)
         }
         ANALYSIS.recordTime("interest clusters")
 
@@ -53,13 +60,6 @@ class Similarity2Service {
             graph.addPerson(pid, databaseService.getUserInterests(pid))
         }
         ANALYSIS.recordTime("people2")
-
-        for (Long q : qset){
-            for (Long iid : chooseTopRelatedInterests(q, IDEAL_NUM_CLUSTERS, 1.0, [:]).keySet()) {
-                graph.addQueryRelatedInterests(q, iid)
-            }
-        }
-        ANALYSIS.recordTime("subcluster")
 
         // Calculate scores, prune graph, etc
         graph.finalizeGraph(maxNeighbors)

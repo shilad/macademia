@@ -87,18 +87,6 @@ class Json2Service {
         return json
     }
 
-    def makeJsonInterest(Long iid, QueryGraph graph) {
-        Interest i = Interest.get(iid)
-        QueryGraph.InterestInfo ii = graph.interestInfo[iid]
-        return [
-                id : iid,
-                name : i.text,
-                cluster : ii.queryInterestId,
-                isSubInterest : ii.isSubInterest,
-                relevance : ii.queryRelevance,
-        ]
-    }
-
     def makeJsonInterest(Long iid, Object graph) {
         Interest i = Interest.get(iid)
         InterestInfo ii = graph.interestInfo[iid]
@@ -134,7 +122,7 @@ class Json2Service {
         return [
                 'people':personNodes,
                 'interests':interestNodes,
-                'queries' : graph.queryIds
+                'clusterMap' : graph.getClusterMap()
         ]
     }
     def buildInterestCentricGraph(InterestGraph graph, Long sid){
@@ -152,7 +140,7 @@ class Json2Service {
         return [
                 'people':personNodes,
                 'interests':interestNodes,
-                'root' : graph.rootId,
+                'rootId' : graph.rootId,
                 'rootClass' : 'interest',
                 'clusterMap' : graph.getClusterMap(),
         ]
@@ -172,7 +160,7 @@ class Json2Service {
         return [
                 'people':personNodes,
                 'interests':interestNodes,
-                'root' : graph.rootId,
+                'rootId' : graph.rootId,
                 'rootClass' : 'person',
                 'clusterMap' : graph.getClusterMap(),
         ]
