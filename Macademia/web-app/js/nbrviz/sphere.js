@@ -21,6 +21,7 @@ var Sphere = RaphaelComponent.extend({
         this.yOffset = params.yOffset;
         this.name = params.name;
         this.paper = params.paper;
+        this.strokeWidth = params.strokeWidth || 2;
         this.orbitRadius = this.r / 5;
         this.highlightMode = this.HIGHLIGHT_NONE;
         this.alwaysGlow = params.alwaysGlow || false;
@@ -40,8 +41,8 @@ var Sphere = RaphaelComponent.extend({
             fill = "hsb(" + this.hue + "," + 0.9*this.sat + "," + 1.1*this.brightness + ")";
         }
 
-        this.gradient1 = this.paper.circle(x, y, this.r-2)
-                    .attr({fill: fill, stroke: '#777', 'stroke-width' : 2});
+        this.gradient1 = this.paper.circle(x, y, this.r-this.strokeWidth)
+                    .attr({fill: fill, stroke: '#777', 'stroke-width' : this.strokeWidth});
 
         // invisible layer (useful for event handling)
         this.handle =  this.paper.circle(x, y, this.r)

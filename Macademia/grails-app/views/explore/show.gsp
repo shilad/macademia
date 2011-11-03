@@ -10,7 +10,7 @@
 <g:javascript>
   $().ready(function() {
     macademia.serverLog('nav', 'initial', {'url' : location.href });
-    var paper = macademia.nbrviz.initPaper("graph", $("#graph").width(), $("#graph").height());
+    var paper = macademia.nbrviz.initPaper($(window).width(), $(window).height());
     var viz = new ExploreViz({ paper : paper });
   });
 </g:javascript>

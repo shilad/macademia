@@ -5,19 +5,18 @@ var ExploreViz = NbrViz.extend({
         this._super(params);
     },
     onAddressChange : function(event) {
-        var interestId = event.parameters.interestId;
-        var personId = event.parameters.personId;
-        var rootClass = interestId ? 'interest' : 'person';
-        var rootId = interestId || personId;
+        var c = event.parameters.rootId.charAt(0);
+        var rootClass = c == 'p' ? 'person' : 'interest';
+        var rootId = event.parameters.rootId.substring(1);
         this.refreshViz(rootClass, rootId);
     },
     recenter : function(rootClass, rootId, name) {
         name = name || ('unknown ' + rootClass);
         this.setLoadingMessage('re-centering around "' + name + '"...');
         $.address.autoUpdate(false);
-        $.address.parameter('interestId', null);
-        $.address.parameter('personId', null);
-        $.address.parameter(rootClass + 'Id', rootId);
+        $.address.parameter('rootId2', $.address.parameter('rootId1'));
+        $.address.parameter('rootId1', $.address.parameter('rootId'));
+        $.address.parameter('rootId', rootClass.charAt(0) + rootId);
         $.address.autoUpdate(true);
         $.address.update();
     },
@@ -76,7 +75,10 @@ var ExploreViz = NbrViz.extend({
                     {
                         min : 1, max : 5,
                         value : self.interestWeights[pid] || 3,
-                        change : function() {$.address.update();}
+                        change : function(event, ui) {
+                            self.interestWeights[pid] = ui.value;
+                            $.address.update();
+                        }
                     }
             );
             self.drawKeySphere(pid);
@@ -88,5 +90,67 @@ var ExploreViz = NbrViz.extend({
     },
     personClicked : function(personNode) {
         this.recenter('person', personNode.id, personNode.name);
+    },
+    layoutInterests : function(json) {
+        this._super(json);
+        this.drawHistory();
+    },
+    drawHistory : function() {
+        var points = [
+                [-0.89, 0.93],
+                [-0.60, 1.00]
+        ];
+        for (var i = 0; i < points.length; i++) {
+            var p = new Point(new Vector(
+                    this.xRange * points[i][0],
+                    this.yRange * points[i][1]));
+            points[i] = [p.screenX(), p.screenY()];
+        }
+        if ($.address.parameter('rootId1')) {
+
+        }
+        var interest = $.map(this.interests, function (i) { return i; })[0];
+        for (var i = 0; i < points.length; i++) {
+            var x = points[i][0];
+            var y = points[i][1];
+            var is = new InterestSphere({
+                x: x,
+                y: y,
+                r: 10 + 5 * (points.length - i - 1),
+                hue: 0.5,
+                sat : 0.2,
+                brightness : 0.8,
+                strokeWidth : 1,
+                name: 'social computing',
+                interest : interest,
+                paper: this.paper,
+                hoverDelay : 50,
+                font : macademia.nbrviz.subFont,
+                boldFont : macademia.nbrviz.subFontBold,
+                xOffset : 0,
+                yOffset : 15,
+                clickText : 'foo and bar'
+            });
+            is.toFront();
+        }
+
+        // TODO: make this work for foo.
+        var z = macademia.nbrviz.magnet.ZOOM_CONSTANT;
+        var xr = macademia.nbrviz.magnet.X_RANGE;
+        var yr = macademia.nbrviz.magnet.Y_RANGE;
+        var p0 = new Point(new Vector(-this.xRange, 0));
+        var pathStr = 'M' + p0.screenX() + ' ' + p0.screenY();
+
+        pathStr += 'C' + (p0.screenX() - xr * z * .1) + ' ' + (p0.screenY() + yr * z * .3);
+        pathStr += ' ' + (points[0][0] - xr * z * .2) + ' ' + (points[0][1] - yr * z * .2);
+        pathStr += ' ' + points[0][0] + ' ' + points[0][1];
+//
+
+        pathStr += 'C' + (points[0][0] + xr * z * .1) + ' ' + (points[0][1] + yr * z * .1);
+        pathStr += ' ' + (points[1][0] - xr * z * .1) + ' ' + (points[1][1] + yr * z * 0.05);
+        pathStr += ' ' + points[1][0] + ' ' + points[1][1];
+        var p = this.paper.path(pathStr);
+        p.attr({ stroke : '#999', 'stroke-dasharray' : '.'  });
+        p.insertAfter(this.bg);
     }
 });

@@ -19,8 +19,8 @@ var PersonCenter = RaphaelComponent.extend({
 
         // object properties
         this.interestGroups = params.interestGroups;
-        this.imageWidth = params.imageWidth || this.IMAGE_WIDTH;
         this.imageHeight = params.imageHeight || this.IMAGE_HEIGHT;
+        this.imageWidth = params.imageWidth || (this.imageHeight * this.IMAGE_ASPECT);
         this.innerRadius = params.innerRadius || this.imageHeight * .5;
         this.outerRadius = params.outerRadius || this.innerRadius + 10;
         this.maxRadius = params.maxRadius || 100000000;
@@ -202,9 +202,11 @@ var PersonCenter = RaphaelComponent.extend({
  */
 var Person = MNode.extend({
     init : function(params) {
+        this.type = 'person';
         this.picture = params.picture || "";
         this.name = params.name || "nameless person";
         this.relevance = params.relevance || null;
+        this.imageHeight = params.imageHeight;
         this.interestGroups = params.interestGroups || [];
         this.interestGroups.sort(function(a,b){
                 return b[1] - a[1]
@@ -238,6 +240,7 @@ var Person = MNode.extend({
             id : this.id,
             x : this.x,
             y : this.y,
+            imageHeight : this.imageHeight,
             outerRadius : this.collapsedRadius,
             maxRadius : this.expandedRadius - this.relatedNodeRadius * 1.5,
             paper : this.paper

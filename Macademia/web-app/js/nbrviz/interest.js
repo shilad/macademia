@@ -20,7 +20,7 @@ var InterestCluster = MNode.extend({
         this.clusterId = params.clusterId;
         this.interest = new Interest(params);
         this.fadeLayer = null;
-        this.type = 'interest-cluster';
+        this.type = 'interest';
 
         if(params.name) {
             this.name = params.name;

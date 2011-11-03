@@ -12,8 +12,8 @@ macademia.nbrviz.distance = function(x1, y1, x2, y2) {
     };
 
 
-macademia.nbrviz.initPaper = function(domId, width, height) {
-    macademia.nbrviz.paper = new Raphael(domId, width, height);
+macademia.nbrviz.initPaper = function(width, height) {
+    macademia.nbrviz.paper = new Raphael(0, 0, width, height);
 
     macademia.nbrviz.paper.customAttributes.personArc = function(xPos, yPos, strokeWidth, percentage, rotation, innerCircle) {
         var angle = Math.PI * 2 * percentage,

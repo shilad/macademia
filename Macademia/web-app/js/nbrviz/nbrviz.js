@@ -3,6 +3,7 @@
  * the query and exploration visualizations.
  */
 
+
 var NbrViz = Class.extend({
     init : function(params) {
         this.paper = params.paper;
@@ -15,6 +16,9 @@ var NbrViz = Class.extend({
         this.fadeScreen = this.paper.rect(0, 0, this.paper.width, this.paper.height);
         this.fadeScreen.attr({ fill : 'white' , opacity : 0.0, 'stroke-width' : 0});
         this.fadeScreen.toBack();
+
+        this.xRange = macademia.nbrviz.magnet.X_RANGE - 0.01;
+        this.yRange = macademia.nbrviz.magnet.Y_RANGE - 0.01;
 
         var self = this;
         $.address.change(function(event) {self.onAddressChange(event);});
@@ -44,6 +48,10 @@ var NbrViz = Class.extend({
                     function () { self.handlePersonHover(p); },
                     function () { self.handlePersonUnhover(p); }
                 );
+            p.hoverInterest(
+                    function (p, i2, n) { self.handleInterestHover(p, i2, n); },
+                    function (p, i2, n) { self.handleInterestUnhover(p, i2, n); }
+                );
         });
         $.each(this.interestClusters, function (index, i) {
             i.hover(
@@ -62,64 +70,60 @@ var NbrViz = Class.extend({
     },
 
     layoutInterests : function(json) {
-        var xr = macademia.nbrviz.magnet.X_RANGE - 0.01;
-        var yr = macademia.nbrviz.magnet.Y_RANGE - 0.01;
-
-        // layout up to four magnets "by hand." minus 1 because of root
-        var self = this;
-        var index = 0;
-        var center = new Point(new Vector(0, 0));
-        var z = macademia.nbrviz.magnet.ZOOM_CONSTANT;
-
         var numParents = macademia.objectSize(this.interestClusters);
+
         // don't count root interest if root is an interest
         if (this.rootClass == 'interest') { numParents--; }
 
+        var index = 0;
+        var self = this;
         $.each(this.interestClusters, function(i, ic) {
-            var slice = Math.PI * 2 / numParents;
-            var angle = index * slice + slice / 2 - Math.PI / 2;
-            var p = (self.rootClass == 'interest' && ic.id == self.rootId)
-                        ? [0.0, 0.0]
-                        : [Math.cos(angle) * xr, Math.sin(angle) * yr];
-            var point = new Point(new Vector(p[0], p[1]));
-            var mag = new Magnet(point.p, ic.id );
-            ic.setPosition(point.screenX(), point.screenY());
-            if (ic.id != self.rootId) {
-                index += 1;
-                var spoke = this.paper.path('M' + center.screenX() + ',' + center.screenY() + ',L' + point.screenX() + ',' + point.screenY());
-                spoke.attr({ stroke : '#ccc', 'stroke-dasharray' : '.'  });
-                spoke.toBack();
-            }
-            var r = ic.collapsedRadius;
-            var c1 =  Raphael.hsb(ic.color, 0.5, 1.0);
-            var c2 =  Raphael.hsb(ic.color, 0.3, 1.0);
-            this.paper.circle(point.screenX(), point.screenY(), r * 5)
-                .attr({
-                        'fill' : 'r(0.5, 0.5)' + c1 + '-' +c2 + ':30-#fff',
-                        'fill-opacity' : 0.0,
-                        'stroke-width': 0
-                 })
-                .toBack();
+            self.drawInterestCluster(index, ic, numParents);
+            if (!self.isRootNode(ic)) { index += 1; }
         });
+    },
 
-        // create "fake" repulsive magnet at center
-        if (this.rootClass == 'person') {
-            p = new Point(new Vector(0, 0));
-            var mag = new Magnet(p.p, -1);
-            this.paper.circle(p.screenX(), p.screenY(), 100)
-                .attr({
-                        'fill' : 'r(0.5, 0.5) #aaa-ccc:30-#fff',
-                        'fill-opacity' : 0.0,
-                        'stroke-width': 0
-                 })
-                .toBack();
+    drawInterestCluster : function(i, ic, numParents) {
+        var center = new Point(new Vector(0, 0));
+        var slice = Math.PI * 2 / numParents;
+        var angle = i * slice + slice / 2 - Math.PI / 2;
+        var p = this.isRootNode(ic)
+                    ? [0.0, 0.0]
+                    : [Math.cos(angle) * this.xRange, Math.sin(angle) * this.yRange];
+        var point = new Point(new Vector(p[0], p[1]));
+        var mag = new Magnet(point.p, ic.id );
+        ic.setPosition(point.screenX(), point.screenY());
+        if (!this.isRootNode(ic)) {
+            var spoke = this.paper.path('M' + center.screenX() + ',' + center.screenY() + ',L' + point.screenX() + ',' + point.screenY());
+            spoke.attr({ stroke : '#ccc', 'stroke-dasharray' : '.'  });
+            spoke.insertAfter(this.bg);
         }
+        var r = ic.collapsedRadius;
+        var c1 =  Raphael.hsb(ic.color, 0.5, 1.0);
+        var c2 =  Raphael.hsb(ic.color, 0.3, 1.0);
+        var g = this.paper.circle(point.screenX(), point.screenY(), r * 5)
+            .attr({
+                    'fill' : 'r(0.5, 0.5)' + c1 + '-' +c2 + ':30-#fff',
+                    'fill-opacity' : 0.0,
+                    'stroke-width': 0
+             });
+        g.insertAfter(this.bg);
+    },
 
+    isRootNode : function(node) {
+        return node.type == this.rootClass && node.id == this.rootId;
+    },
+
+    drawBackground : function() {
+        var xr = this.xRange;
+        var yr = this.yRange;
+        var z = macademia.nbrviz.magnet.ZOOM_CONSTANT;
         var p = new Point(new Vector(-xr, -yr));
+
         this.hub = this.paper.ellipse(p.screenX() + xr*z, p.screenY() + yr*z, xr * z, yr * z);
-        this.hub.attr({ stroke : '#ccc', 'stroke-dasharray' : '.'  });
+        this.hub.attr({ stroke : '#999', 'stroke-dasharray' : '.'  });
         this.hub.toBack();
-        var bg = this.paper.ellipse(p.screenX() + xr*z, p.screenY() + yr*z, xr * z * 2, yr * z * 2)
+        this.bg = this.paper.ellipse(p.screenX() + xr*z, p.screenY() + yr*z, xr * z * 2, yr * z * 2)
                 .attr('fill', 'r(0.5, 0.5)#fff-#fff:30%-#EEE:50%-#DDD:100')
                 .attr('stroke-width', 0)
                 .toBack();
@@ -132,6 +136,14 @@ var NbrViz = Class.extend({
         if (this.rootClass == 'person') {
             var p = new Point(new Vector(0, 0));
             this.people[this.rootId].setPosition( p.screenX(), p.screenY());
+            var mag = new Magnet(p.p, -1);
+            var c = this.paper.circle(p.screenX(), p.screenY(), 100)
+                .attr({
+                        'fill' : 'r(0.5, 0.5) #aaa-ccc:30-#fff',
+                        'fill-opacity' : 0.0,
+                        'stroke-width': 0
+                 });
+            c.insertAfter(this.bg);
         }
 
         // initial layout around dominant magnet
@@ -153,7 +165,6 @@ var NbrViz = Class.extend({
             p.setStuff(i, person.relevance );
             angles[ic.id] += 1.1;
         });
-
         $.each(Point.points, function(index, p) {
             self.people[p.id].setPosition( p.screenX(), p.screenY());
         });
@@ -227,6 +238,9 @@ var NbrViz = Class.extend({
         this.hideEdges();
         var self = this;
         $.each(this.people, function (i, p) {
+            if (p == parentNode) {
+                return;
+            }
             $.each(p.interests, function(index, interest2) {
                 if (interest.id == interest2.id) {
                     self.drawEdge(parentNode, p, interestNode);
@@ -269,7 +283,8 @@ var NbrViz = Class.extend({
         var self = this;
 
         macademia.nbrviz.assignColors(model.getClusterIds());
-        macademia.nbrviz.interests = model.getInterests();
+        this.interests = model.getInterests();
+        macademia.nbrviz.interests = this.interests;
 
         // Create interest clusters
         $.each(model.getClusterIds(), function (i, cid) {
@@ -286,6 +301,7 @@ var NbrViz = Class.extend({
         });
 
         this.setEnabled(false);
+        this.drawBackground();
         this.layoutInterests();
         this.layoutPeople();
         this.setupListeners();
@@ -313,8 +329,7 @@ var NbrViz = Class.extend({
         var pinfo = model.getPerson(pid);
         var pinterests = model.getPersonInterests(pid);
         var interestGroups = model.getPersonInterestGroups(pid, this.interestClusters);
-        var r = 10 * model.getNormalizedPersonRelevance(pid) + 7;
-        var person = new Person({
+        var params = {
             relevance : pinfo.relevance,
             interestGroups : interestGroups,
             name : pinfo.name,
@@ -324,10 +339,18 @@ var NbrViz = Class.extend({
             centerActive : this.peopleClickable,
             interests : $.grep(pinterests, function(i) {return (i.relatedQueryId >= 0);}),
             nonRelevantInterests : $.grep(pinterests, function(i) {return (i.relatedQueryId < 0);}),
-            collapsedRadius : r
-        });
+            collapsedRadius : 8 * model.getNormalizedPersonRelevance(pid) + 5
+        };
+        if (this.rootClass == 'person' && this.rootId == pid) {
+            params.imageHeight = 60;
+            params.collapsedRadius *= 2;
+        }
+        var person = new Person(params);
         if (person.interests.length > 12) {
             person.expandedRadius *= Math.sqrt(person.interests.length / 12);
+        }
+        if (this.rootClass == 'person' && this.rootId == pid) {
+            person.expandedRadius *= 1.2;
         }
         var self = this;
         person.clicked(

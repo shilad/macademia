@@ -23,6 +23,7 @@ input:-moz-placeholder, textarea::-moz-placeholder {
     position:absolute;
     width: 420px;
     font-size : 16px;
+    z-index : 9999;
 
     #currentInterests {
         width: auto;
