@@ -149,7 +149,6 @@ NVZ.getColor = function(id) {
         return 0.0;
     }
     if (!(id in NVZ.colors)) {
-        console.log('getColor assertion error no color assigned for ' + id);
         return 0.0;
     }
     return NVZ.colors[id];

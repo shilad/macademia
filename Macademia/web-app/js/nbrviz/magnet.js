@@ -2,11 +2,10 @@ macademia.nbrviz.magnet = {};
 
 var MM = macademia.nbrviz.magnet;
 
-macademia.nbrviz.magnet.init = function () {
-
+macademia.nbrviz.magnet.init = function (width, height) {
     // constants
-    MM.WIDTH = macademia.nbrviz.paper.width;
-    MM.HEIGHT = macademia.nbrviz.paper.height;
+    MM.WIDTH = width;
+    MM.HEIGHT = height;
     MM.ZOOM_CONSTANT = Math.min(MM.WIDTH, MM.HEIGHT) / 2;
 
     // maximum x and y values

@@ -11,7 +11,7 @@
   $().ready(function() {
     macademia.serverLog('nav', 'initial', {'url' : location.href });
     var paper = macademia.nbrviz.initPaper($(window).width(), $(window).height());
-    var viz = new QueryViz({ paper : paper });
+    macademia.nbrviz.viz = new QueryViz({ paper : paper });
   });
 </g:javascript>
 <body>

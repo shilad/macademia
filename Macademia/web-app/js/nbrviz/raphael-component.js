@@ -60,5 +60,8 @@ var RaphaelComponent = Class.extend({
     },
     drag : function(move, start, up) {
         this.getLayerSet().drag(move, start, up);
+    },
+    remove : function() {
+        this.getLayerSet().remove();
     }
 });

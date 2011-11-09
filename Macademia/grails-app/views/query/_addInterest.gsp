@@ -22,11 +22,9 @@
                   return false;
               },
               select: function(event, ui) {
-                  macademia.nbrviz.query.addInterestToQuery(ui.item.data[0], ui.item.value);
+                  macademia.nbrviz.viz.addInterestToQuery(ui.item.data[0], ui.item.value);
               }
             },  macademia.makeActionUrlWithGroup(macademia.retrieveGroup(),'autocomplete', 'index') + "?klass=relatedInterest&max=20");
-
-
 
         $("#hideWidget").click(function(){
             $("#currentInterests").hide("fast");

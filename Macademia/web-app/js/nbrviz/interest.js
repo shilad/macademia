@@ -61,7 +61,7 @@ var InterestCluster = MNode.extend({
     },
 
     createCenterNode : function() {
-        this.centerNode = new InterestSphere({
+        this.centerNode = new LabeledSphere({
                 x : this.x, y : this.y,
                 r : this.collapsedRadius,
                 hue : this.color,
@@ -73,16 +73,6 @@ var InterestCluster = MNode.extend({
                 clickText : this.clickText,
                 paper : this.paper
             });
-    },
-
-    clicked : function(callback) {
-        var self = this;
-        this.centerNode.clicked(function () {
-            if (self.lastInterestHoverIndex == self.HOVER_CENTER) {
-                callback(self.interest, self.centerNode);
-            }
-        });
-        this._super(callback);
     }
 });
 

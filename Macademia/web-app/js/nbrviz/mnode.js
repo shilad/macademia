@@ -169,7 +169,7 @@ var MNode = RaphaelComponent.extend(
     createOneRelatedInterestNode : function(interest, pos, textPos) {
         var sat = Math.max(Math.min(1.0, interest.relevance * interest.relevance * 2), .2);
 //        console.log('relatedness for ' + interest.name + ' is ' + sat);
-        var node = new InterestSphere({
+        var node = new LabeledSphere({
             x: this.x,
             y: this.y,
             r: this.relatedNodeRadius,

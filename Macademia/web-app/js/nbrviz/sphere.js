@@ -22,11 +22,9 @@ var Sphere = RaphaelComponent.extend({
         this.name = params.name;
         this.paper = params.paper;
         this.strokeWidth = params.strokeWidth || 2;
-        this.orbitRadius = this.r / 5;
         this.highlightMode = this.HIGHLIGHT_NONE;
         this.alwaysGlow = params.alwaysGlow || false;
         this.glow = null;
-        this.orbit = [];    // spheres in orbit
 
         var x = params.x, y = params.y;
 
@@ -41,7 +39,7 @@ var Sphere = RaphaelComponent.extend({
             fill = "hsb(" + this.hue + "," + 0.9*this.sat + "," + 1.1*this.brightness + ")";
         }
 
-        this.gradient1 = this.paper.circle(x, y, this.r-this.strokeWidth)
+        this.circle = this.paper.circle(x, y, this.r-this.strokeWidth)
                     .attr({fill: fill, stroke: '#777', 'stroke-width' : this.strokeWidth});
 
         // invisible layer (useful for event handling)
@@ -73,7 +71,7 @@ var Sphere = RaphaelComponent.extend({
     setGlow : function(shouldGlow) {
         if (shouldGlow || this.alwaysGlow) {
             if (this.glow == null) {
-                this.glow = this.gradient1.glow();
+                this.glow = this.circle.glow();
             }
 //            this.glow.toFront();
         } else {
@@ -99,11 +97,11 @@ var Sphere = RaphaelComponent.extend({
     },
 
     getX : function( ){
-        return this.gradient1.attr('cx');
+        return this.circle.attr('cx');
     },
 
     getY : function(){
-        return this.gradient1.attr('cy');
+        return this.circle.attr('cy');
     },
 
     getRects : function() {
@@ -111,7 +109,7 @@ var Sphere = RaphaelComponent.extend({
     },
 
     getCircles : function() {
-        return [this.handle, this.gradient1];
+        return [this.handle, this.circle];
     },
 
     installListeners : function() {
@@ -143,14 +141,13 @@ var Sphere = RaphaelComponent.extend({
         $.each(this.getCircles(),function () {
                     this.attr({cx : this.ox + dx, cy : this.oy + dy});
                 });
-        this.positionOrbit(this.ox + dx, this.oy + dy);
 
     },
     onDragUp : function() {
     },
 
     getLayers : function() {
-        return [this.handle, this.gradient1];
+        return [this.handle, this.circle];
     },
 
 
@@ -165,31 +162,19 @@ var Sphere = RaphaelComponent.extend({
         var self = this;
 
         // handle ellipses (position is center)
-        var x = attrs.x || attrs.cx;
-        var y = attrs.y || attrs.cy;
-        var newAttrs = $.extend({}, attrs);
-        if (x || y) {
-            delete newAttrs.x;
-            delete newAttrs.y;
-            newAttrs.cx = x;
-            newAttrs.cy = y;
-
-        }
         $.each(this.getCircles(), function(i) {
-            this.animate(newAttrs, millis, arg1, arg2);
-        });
+            var a = $.extend({}, attrs);
+            a.cx = a.x || a.cx || self.getX();
+            a.cy = a.y || a.cy || self.getY();
+            delete a.x;
+            delete a.y;
+            a.scale = a.scale || 1.0;
+            a.r = self.r * a.scale;
 
-        var d = 2 * Math.PI / this.orbit.length;
-        for (var i = 0; i < this.orbit.length; i++) {
-            newAttrs = $.extend({}, attrs);
-            if (x || y) {
-                delete newAttrs.cx;
-                delete newAttrs.cy;
-                newAttrs.x = x + this.r * Math.cos(i * d);
-                newAttrs.y = y + this.r * Math.sin(i * d);
-            }
-            this.orbit[i].animate(newAttrs, millis, arg1, arg2);
-        }
+            // only call the callback once
+            var f = (i == 0) ? arg2 : null;
+            this.animate(a, millis, arg1, f);
+        });
     },
 
     setPosition : function(x, y) {
@@ -208,33 +193,8 @@ var Sphere = RaphaelComponent.extend({
             this.attr({'cx' : x, 'cy' : y});
         });
 
-        this.positionOrbit(x, y);
         if (this.glow) {
             this.glow.translate(dx, dy);
         }
     },
-
-    addOrbit : function(numPlanets) {
-        for (var i = 0; i < numPlanets; i++) {
-            this.orbit.push(new Sphere({
-                r : this.orbitRadius,
-                paper : this.paper,
-                x : 0,
-                y : 0,
-                hue : this.hue,
-                brightness : this.brightness * 0.3,
-                sat : this.sat
-            }));
-        }
-        this.positionOrbit(this.getX(), this.getY());
-    },
-
-    positionOrbit : function(x, y) {
-        var d = 2 * Math.PI / this.orbit.length;
-        for (var i = 0; i < this.orbit.length; i++) {
-            var x2 = x + this.r * Math.cos(i * d);
-            var y2 = y + this.r * Math.sin(i * d);
-            this.orbit[i].setPosition(x2, y2);
-        }
-    }
 });

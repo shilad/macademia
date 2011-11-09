@@ -1,3 +1,5 @@
+"use strict";
+
 var macademia = macademia || {};
 
 // calculates the number of properties (keys, values, etc.) for an object or associative array.
@@ -643,13 +645,54 @@ macademia.initAsteroids = function() {
     });
 };
 
+/**
+ * FIXME: handle lists of params
+ */
+macademia.getQueryParams = function() {
+    var params = {};
+    var value = $.address.queryString();
+    if (value) {
+        var tokens = value.split('&');
+        for (var i = 0; i < tokens.length; i++) {
+            var p = tokens[i].split('=');
+            params[p[0]] = p[1];
+        }
+    }
+    return params;
+};
+
+/**
+ * FIXME: handle lists of params
+ */
+macademia.setQueryParams = function(params) {
+    var currentNames = $.address.parameterNames();
+    var tokens = [];
+    var appendParam = function(k, v) {
+        tokens.push(k + '=' + ((v == null) ? '' : v));
+    }
+    // make sure existing keys retain the ordering
+    for (var i = 0; i < currentNames.length; i++) {
+        var key = currentNames[i];
+        if (key in params) {
+            appendParam(key, params[key]);
+        }
+    }
+    // add new keys
+    for (key in params) {
+        if (currentNames.indexOf(key) < 0) {
+            appendParam(key, params[key]);
+        }
+    }
+    $.address.queryString(tokens.join('&'));
+};
+
 
 macademia.getCookie = function (c_name) {
     if (document.cookie.length > 0) {
-        c_start = document.cookie.indexOf(c_name + "=");
+        var c_start = document.cookie.indexOf(c_name + "=");
         if (c_start != -1) {
             c_start = c_start + c_name.length + 1;
-            c_end = document.cookie.indexOf(";", c_start);
+            var c_end = document.cookie.indexOf(";", c_start);
             if (c_end == -1) c_end = document.cookie.length;
             return unescape(document.cookie.substring(c_start, c_end));
         }

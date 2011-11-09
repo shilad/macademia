@@ -1,5 +1,5 @@
 
-var InterestSphere = Sphere.extend({
+var LabeledSphere = Sphere.extend({
     init : function(params) {
         var x = params.x, y = params.y;
 
@@ -8,7 +8,7 @@ var InterestSphere = Sphere.extend({
         // FIXME: some of these are also intialized in Sphere
         this.name = params.name;
         this.interest = params.interest;
-        this.id = this.interest.id;
+        this.id = params.id || this.interest.id;
         this.paper = params.paper;
         this.xOffset = params.xOffset;
         this.yOffset = params.yOffset;
@@ -20,6 +20,7 @@ var InterestSphere = Sphere.extend({
         this.label = this.paper.text(x + this.xOffset, y + this.yOffset, this.name)
                     .attr({fill: '#000', 'font': this.font});
         var bbox1 = this.label.getBBox();
+        this.labelWidth = bbox1.width;
         this.labelHeight = bbox1.height;
 
         this.addLink = this.paper.text(
@@ -111,7 +112,6 @@ var InterestSphere = Sphere.extend({
     getLayers : function() {
         var sphereLayers = this._super();
         var layers = [];
-        $.each(this.orbit, function(i, o) { macademia.concatInPlace(layers, o.getLayers()); });
         layers.push(sphereLayers[0]);   // handle
         macademia.concatInPlace(layers, sphereLayers.slice(1));
         layers.push(this.label);
@@ -124,16 +124,19 @@ var InterestSphere = Sphere.extend({
         var self = this;
         // handle rectangles (position is upper left)
         $.each([this.label, this.labelBg], function(i) {
-            var a = attrs;
+            var a = $.extend({}, attrs);
+            if (a.fill) { delete a.fill; }
+            a.x = a.x || self.getX();
+            a.y = a.y || self.getY();
+            a.scale = a.scale || 1.0;
             if (a.x) {
-                var a = $.extend({}, a);
-                a.x += self.xOffset - this.attr('width') / 2;
-                a.y += self.yOffset - this.attr('height') / 2;
+                a.x += a.scale * (self.xOffset - this.attr('width') / 2);
+                a.y += a.scale * (self.yOffset - this.attr('height') / 2);
                 if (this === self.labelBg) {
-                    a.y += this.attr('height') * 0.25;
+                    a.y += this.attr('height') * 0.25 * a.scale;
                 }
             }
-            this.animate(a, millis, arg1, arg2);
+            this.animate(a, millis, arg1, null);
         });
     },
     setPosition : function(x, y) {

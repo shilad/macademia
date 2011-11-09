@@ -104,6 +104,63 @@ macademia.nbrviz.makeHsb = function(h) {
     }
 };
 
+macademia.nbrviz.allNames= { people : {}, interests : {}};
+macademia.nbrviz.personPix = {};
+
+macademia.nbrviz.setPeople = function(people) {
+    macademia.nbrviz.people = people;
+    for (var pid in people) {
+        macademia.nbrviz.allNames.people[pid] = people[pid].name;
+        macademia.nbrviz.personPix[pid] = people[pid].pic;
+    }
+};
+macademia.nbrviz.setInterests = function(interests) {
+    macademia.nbrviz.interests = interests;
+    for (var iid in interests) {
+        macademia.nbrviz.allNames.interests[iid] = interests[iid].name;
+    }
+};
+macademia.nbrviz.getName = function(klass, id) {
+    if (klass == 'person') {
+        if (!macademia.nbrviz.allNames.people[id]) {
+            macademia.nbrviz.allNames.people[id] = macademia.retrievePersonInfo(id).name;
+        }
+        return macademia.nbrviz.allNames.people[id];
+    } else if (klass == 'interest') {
+        if (!macademia.nbrviz.allNames.interests[id]) {
+            macademia.nbrviz.allNames.interests[id] = macademia.getInterestName(id);
+        }
+        return macademia.nbrviz.allNames.interests[id];
+    } else {
+        alert('macademia.nbrviz.getName: unknown klass - ' + klass);
+        return 'unknown';
+    }
+};
+macademia.nbrviz.getPersonPic = function(pid) {
+    if (!macademia.nbrviz.personPix[pid]) {
+        var pinfo = macademia.retrievePersonInfo(pid);
+        macademia.nbrviz.personPix[pid] = pinfo.pic;
+    }
+    return macademia.nbrviz.personPix[pid];
+};
+macademia.getInterestName = function(id) {
+    return $.ajax({
+          url: macademia.makeActionUrlWithGroup('all', 'interest', 'name') + "?id="+id,
+          async: false
+     }).responseText;
+};
+
+macademia.retrievePersonInfo = function(id) {
+    var pinfo = null;
+    $.ajax({
+          url: macademia.makeActionUrlWithGroup('all', 'person', 'fakeInfo') + "?id="+id,
+          dataType : 'json',
+          async: false,
+          success : function (json) { pinfo = json;}
+     });
+    return pinfo;
+};
+
 /**
  * In place version of array concatenation
  * @param dest Array to be updated.
@@ -119,13 +176,6 @@ macademia.concatInPlace = function(dest, extra) {
 
 macademia.reverseCopy = function(l) {
     return l.slice(0).reverse();
-};
-
-macademia.getInterestName = function(id) {
-    return $.ajax({
-          url: macademia.makeActionUrlWithGroup('all', 'interest', 'name') + "?id="+id,
-          async: false
-     }).responseText;
 };
 
 macademia.startTimer = function() {

@@ -11,7 +11,20 @@ class  PersonController{
     def userService
     def institutionService
     def institutionGroupService
-    
+    def pseudonymService
+
+
+    def name = {
+        Person p = Person.get(params.id)
+        render(p.fullName)
+    }
+
+    def fakeInfo = {
+        def sid = params.subToken ? params.subToken.toLong() : 1
+        def fakedata = pseudonymService.getFakeData(sid, params.id as Long)
+        render(fakedata as JSON)
+    }
+
     def recent = {
         StringBuffer buff = new StringBuffer()
         buff.append('<html>\n')

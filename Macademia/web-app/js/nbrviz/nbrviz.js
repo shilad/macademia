@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * A base class that encapsulates shared funcationality between
  * the query and exploration visualizations.
@@ -7,6 +9,8 @@
 var NbrViz = Class.extend({
     init : function(params) {
         this.paper = params.paper;
+        this.width = params.width || this.paper.width;
+        this.height = params.height || this.paper.height;
         this.peopleClickable = params.peopleClickable ||  false;
         this.interestWeights = {};
         this.reset();
@@ -17,6 +21,7 @@ var NbrViz = Class.extend({
         this.fadeScreen.attr({ fill : 'white' , opacity : 0.0, 'stroke-width' : 0});
         this.fadeScreen.toBack();
 
+        // must be initialized after macademia.nbrviz.magnet.init(), called in reset()
         this.xRange = macademia.nbrviz.magnet.X_RANGE - 0.01;
         this.yRange = macademia.nbrviz.magnet.Y_RANGE - 0.01;
 
@@ -33,11 +38,11 @@ var NbrViz = Class.extend({
         this.highlighted = [];
         this.paper.clear();
         Magnet.clear();
-        macademia.nbrviz.magnet.init();
+        macademia.nbrviz.magnet.init(this.width, this.height);
     },
 
     hasRoot : function() {
-        return this.rootClass;
+        return !!this.rootClass;
     },
 
     setupListeners : function() {
@@ -62,9 +67,6 @@ var NbrViz = Class.extend({
                     function (p, i2, n) { self.handleInterestHover(p, i2, n); },
                     function (p, i2, n) { self.handleInterestUnhover(p, i2, n); }
                 );
-            i.move(function (interestCluster, x, y) {
-                self.relayoutPeople(interestCluster, x, y);
-            });
         });
 
     },
@@ -87,7 +89,7 @@ var NbrViz = Class.extend({
         var center = new Point(new Vector(0, 0));
         var slice = Math.PI * 2 / numParents;
         var angle = i * slice + slice / 2 - Math.PI / 2;
-        var p = this.isRootNode(ic)
+        var p = (this.isRootNode(ic) || (numParents == 1 && !this.hasRoot()))
                     ? [0.0, 0.0]
                     : [Math.cos(angle) * this.xRange, Math.sin(angle) * this.yRange];
         var point = new Point(new Vector(p[0], p[1]));
@@ -95,7 +97,7 @@ var NbrViz = Class.extend({
         ic.setPosition(point.screenX(), point.screenY());
         if (!this.isRootNode(ic)) {
             var spoke = this.paper.path('M' + center.screenX() + ',' + center.screenY() + ',L' + point.screenX() + ',' + point.screenY());
-            spoke.attr({ stroke : '#ccc', 'stroke-dasharray' : '.'  });
+            spoke.attr({ stroke : '#777', 'stroke-dasharray' : '.'  });
             spoke.insertAfter(this.bg);
         }
         var r = ic.collapsedRadius;
@@ -121,7 +123,7 @@ var NbrViz = Class.extend({
         var p = new Point(new Vector(-xr, -yr));
 
         this.hub = this.paper.ellipse(p.screenX() + xr*z, p.screenY() + yr*z, xr * z, yr * z);
-        this.hub.attr({ stroke : '#999', 'stroke-dasharray' : '.'  });
+        this.hub.attr({ stroke : '#777', 'stroke-dasharray' : '.'  });
         this.hub.toBack();
         this.bg = this.paper.ellipse(p.screenX() + xr*z, p.screenY() + yr*z, xr * z * 2, yr * z * 2)
                 .attr('fill', 'r(0.5, 0.5)#fff-#fff:30%-#EEE:50%-#DDD:100')
@@ -284,7 +286,7 @@ var NbrViz = Class.extend({
 
         macademia.nbrviz.assignColors(model.getClusterIds());
         this.interests = model.getInterests();
-        macademia.nbrviz.interests = this.interests;
+        macademia.nbrviz.setInterests(this.interests);
 
         // Create interest clusters
         $.each(model.getClusterIds(), function (i, cid) {
@@ -299,6 +301,7 @@ var NbrViz = Class.extend({
         $.each(peopleIds, function(i, pid) {
             self.people[pid] = self.initPerson(pid, model);
         });
+        macademia.nbrviz.setPeople(this.people);
 
         this.setEnabled(false);
         this.drawBackground();
