@@ -2974,6 +2974,11 @@
             callback && callback.call(element);
             return element;
         }
+        if (!ms) {
+            this.attr(params);
+            callback && callback.call(element);
+            return this;
+        }
         var anim = params instanceof Animation ? params : R.animation(params, ms, easing, callback);
         runAnimation(anim, element, anim.percents[0], null, element.attr());
         return element;

@@ -11,6 +11,14 @@ macademia.nbrviz.distance = function(x1, y1, x2, y2) {
         return Math.sqrt(dx*dx + dy*dy);
     };
 
+Raphael.el.fadeAndRemove = function(ms) {
+    var self = this;
+    this.animate(
+        {'opacity' : 0.0, 'fill-opacity' : 0.0}, ms, 'linear',
+        function () { self.remove(); }
+    );
+};
+
 
 macademia.nbrviz.initPaper = function(width, height) {
     macademia.nbrviz.paper = new Raphael(0, 0, width, height);

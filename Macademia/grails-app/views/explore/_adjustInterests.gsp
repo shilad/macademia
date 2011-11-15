@@ -24,7 +24,7 @@
 <div>
     <a id="showWidget" href="#">show legend</a>
     <div id="currentInterests">
-        <h1>Related to <span>&nbsp;</span>:</h1>
+        <h1>Related to <div class="rootInterestKey"></div> <div class="rootInterestName">&nbsp;</div>:</h1>
         <ol>
           <div id="sliderKey">
             <div class="lessLabel">less</div>

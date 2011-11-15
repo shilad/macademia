@@ -86,12 +86,12 @@ select {
 @import "compass/css3/opacity";
 
 #loadingDiv {
-    z-index : 999999999999;
+    z-index : 999999999;
     position : absolute;
-    background-color : #333;
+    background-color : #999;
     width : 100%;
     height : 100%;
-    @include opacity(0.8);
+    @include opacity(0.5);
     img {
         position : absolute;
         top:50%;
@@ -99,15 +99,16 @@ select {
         margin-top:-15px;
         margin-left:-30px;
     }
-    #loadingMessage {
-        position : absolute;
-        top:50%;
-        font-size : 22px;
-        color : white;
-        margin-top:20px;
-        left : 50%;
-        margin-left : -212px;
-        width : 500px;
-        text-align : center;
-    }
+}
+#loadingMessage {
+    z-index : 9999999999;
+    position : absolute;
+    top:50%;
+    font-size : 22px;
+    color : black;
+    margin-top:20px;
+    left : 50%;
+    margin-left : -212px;
+    width : 500px;
+    text-align : center;
 }

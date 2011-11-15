@@ -1,31 +1,34 @@
 
 var LabeledSphere = Sphere.extend({
+    VERTICAL_LABEL_SPACING : 0,
+
     init : function(params) {
         var x = params.x, y = params.y;
-
-        this.VERTICAL_LABEL_SPACING = 0;
 
         // FIXME: some of these are also intialized in Sphere
         this.name = params.name;
         this.interest = params.interest;
         this.id = params.id || this.interest.id;
+        this.scale = params.scale || 1.0;
         this.paper = params.paper;
         this.xOffset = params.xOffset;
         this.yOffset = params.yOffset;
         this.font = params.font || macademia.nbrviz.mainFont;
         this.boldFont = params.boldFont || macademia.nbrviz.mainFontBold;
-        this.labelBgOpacity = params.labelBgOpacity || 0.6;
+        this.labelBgOpacity = params.labelBgOpacity || 0.8;
         this.clickText = params.clickText || '(click to add)';
 
-        this.label = this.paper.text(x + this.xOffset, y + this.yOffset, this.name)
+        this.label = this.paper.text(
+                x + this.scale * this.xOffset,
+                y + this.scale * this.yOffset, this.name)
                     .attr({fill: '#000', 'font': this.font});
         var bbox1 = this.label.getBBox();
         this.labelWidth = bbox1.width;
         this.labelHeight = bbox1.height;
 
         this.addLink = this.paper.text(
-                x + this.xOffset,
-                y + this.yOffset + bbox1.height + this.VERTICAL_LABEL_SPACING,
+                x + this.scale * this.xOffset,
+                y + this.scale * this.yOffset + bbox1.height + this.VERTICAL_LABEL_SPACING,
                 this.clickText);
         this.addLink.attr({
             'font': this.font,
@@ -34,13 +37,17 @@ var LabeledSphere = Sphere.extend({
         });
 
         // x and y relative to center
-        this.addLinkXOffset = this.xOffset;
-        this.addLinkYOffset = this.yOffset + bbox1.height + this.VERTICAL_LABEL_SPACING;
+        this.addLinkXOffset = this.scale * this.xOffset;
+        this.addLinkYOffset = this.scale * this.yOffset + bbox1.height + this.VERTICAL_LABEL_SPACING;
         var w = bbox1.width;
         var h = (bbox1.height*2 + this.VERTICAL_LABEL_SPACING) * 1.2;
         this.addLink.hide();
 
-        this.labelBg = this.paper.rect(x + this.xOffset - w / 2, y + this.yOffset - h / 2, w, h);
+        this.labelBg = this.paper.rect(
+                x + this.scale * (this.xOffset - w / 2),
+                y + this.scale * (this.yOffset - h / 2),
+                this.scale * w,
+                this.scale * h);
         this.labelBg.attr({ 'fill' : '#fff',
             'fill-opacity' : this.labelBgOpacity,
             'stroke' : '#fff',
@@ -62,6 +69,7 @@ var LabeledSphere = Sphere.extend({
         // change from highlight to normal and vice-versa
         if (mode == this.HIGHLIGHT_ON) {
             this.labelBg.show();
+            this.labelBg.insertBefore(this.label);
             attrs['font'] = this.boldFont;
             attrs['font-weight'] = 'bold';
             this.addLink.attr({

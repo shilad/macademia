@@ -201,7 +201,7 @@ uiperformance.bundles = [
             'nbrviz/shared',
             'nbrviz/colors',
             'nbrviz/sphere',
-            'nbrviz/labled-sphere',
+            'nbrviz/labeled-sphere',
             'nbrviz/image-sphere',
             'nbrviz/mnode',
             'nbrviz/interest',

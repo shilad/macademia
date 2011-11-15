@@ -7,17 +7,20 @@ macademia.nbrviz.person.INTEREST_INCR = 100;
  * The center for a person node (image + wedges).
  */
 var PersonCenter = RaphaelComponent.extend({
+
+    IMAGE_ASPECT : 130.0 / 194.0,
+    IMAGE_WIDTH : 28,
+    IMAGE_HEIGHT : 28 / (130.0 / 194.0),
+    LABEL_VERT_OFFSET : 13,
+    LABEL_HORIZ_OFFSET : 13,
+
     init : function(params) {
         this._super(params);
 
         // constants
-        this.IMAGE_ASPECT = 130.0 / 194.0;
-        this.IMAGE_WIDTH = 28;
-        this.IMAGE_HEIGHT = this.IMAGE_WIDTH / this.IMAGE_ASPECT;
-        this.LABEL_VERT_OFFSET = 13;
-        this.LABEL_HORIZ_OFFSET = 13;
 
         // object properties
+        this.scale = params.scale || 1.0;
         this.interestGroups = params.interestGroups;
         this.imageHeight = params.imageHeight || this.IMAGE_HEIGHT;
         this.imageWidth = params.imageWidth || (this.imageHeight * this.IMAGE_ASPECT);
@@ -35,18 +38,62 @@ var PersonCenter = RaphaelComponent.extend({
         var x = params.x, y = params.y;
 
         // Avatar for the person
-        this.imageBg = this.paper.circle(x, y, this.innerRadius).attr({fill: "white"});
-        this.image = this.paper.image(this.picture,
-                x-this.imageWidth/2, y-this.imageHeight/2,
-                this.imageWidth, this.imageHeight);
+        this.imageBg = this.paper.circle(x, y, this.innerRadius * this.scale).attr({fill: "white"});
+        this.image = this.paper.image(
+                this.picture,
+                x-this.imageWidth / 2 * this.scale,
+                y-this.imageHeight / 2 * this.scale,
+                this.imageWidth * this.scale,
+                this.imageHeight * this.scale);
 
         // strokes and borders
-        this.outerStroke = this.paper.circle(x, y, this.innerRadius+this.outerRadius).attr({stroke: "#999", "stroke-width": 1});
-        this.innerStroke = this.paper.circle(x, y, this.innerRadius).attr({stroke: "#999", "stroke-width": 1});
+        this.outerStroke = this.paper.circle(x, y,
+                this.scale * (this.innerRadius + this.outerRadius))
+                .attr({stroke: "#999", "stroke-width": 1});
+        this.innerStroke = this.paper.circle(x, y, this.scale * this.innerRadius)
+                .attr({stroke: "#999", "stroke-width": 1});
 
         // wedges
         var self = this;
+        var outerR = this.scaledOuterRadius();
         this.wedges = [];
+        this.nameText = this.paper.text().attr({
+            text: this.name,
+            x: x + this.scale * this.LABEL_HORIZ_OFFSET,
+            y: y + this.scale * this.innerRadius + outerR + this.LABEL_HORIZ_OFFSET,
+            font: macademia.nbrviz.mainFont
+        });
+        this.handle = this.paper.circle(x, y, this.scale * this.innerRadius + outerR)
+                .attr({fill: "#f00", opacity: 0.0}).toFront();
+
+        // The order of the following statements is delicate...
+        this.installEventHandlers();
+        this.setInterestGroups(this.interestGroups);
+        this.setPosition(x, y);
+    },
+    installEventHandlers : function() {
+        this.hoverSet = new HoverSet(this.getLayers());
+    },
+    setOuterRadius : function(outerRadius) {
+        this.outerRadius = this.scale * outerRadius;
+        this.r = this.scale * (this.innerRadius + this.outerRadius);
+        this.outerStroke.attr('r', this.r);
+        this.handle.attr('r', this.r);
+
+        // FIXME: update the name text appropriately.
+    },
+    setInterestGroups : function(interestGroups) {
+        var self = this;
+
+        // remove old arcs
+        $.each(this.wedges, function() {
+            self.hoverSet.remove(this);
+            this.remove();
+        });
+        this.wedges = [];
+
+        // add new wedges
+        this.interestGroups = interestGroups;
         $.each(this.interestGroups, function() {
             var ig = this[0];
             var sat = Math.max(0.25, Math.min(this[1] * this[1] * this[1] / 2, 0.8));
@@ -55,22 +102,9 @@ var PersonCenter = RaphaelComponent.extend({
             var section = self.paper.path().attr({stroke: color, opacity: 0});
             self.wedges.push(section);
         });
-        this.nameText = this.paper.text().attr({
-            text: this.name,
-            x: x+this.LABEL_HORIZ_OFFSET,
-            y: y+this.innerRadius+this.outerRadius+this.LABEL_HORIZ_OFFSET,
-            font: macademia.nbrviz.mainFont
-        });
-        this.handle = this.paper.circle(x, y, this.innerRadius+this.outerRadius)
-                .attr({fill: "#f00", opacity: 0.0}).toFront();
 
-        this.setPosition(x, y);
-
-        // setup events
-        this.installEventHandlers();
-    },
-    installEventHandlers : function() {
-        this.hoverSet = new HoverSet(this.getLayers());
+        // install listeners
+        $.each(this.wedges, function() { self.hoverSet.add(this); });
     },
     getLayers : function() {
         var layers = [ this.imageBg, this.image, this.outerStroke, this.innerStroke ];
@@ -103,28 +137,36 @@ var PersonCenter = RaphaelComponent.extend({
     },
     setPosition : function(x, y) {
         var circles = [this.handle, this.innerStroke, this.outerStroke, this.imageBg];
-        $.each(circles, function() { this.attr({cx : x, cy : y}); });
 
-        this.image.attr({
+        var k = this.scale;
+        var outerR = this.scaledOuterRadius();
+        $.each(circles, function() { this.attr({cx : x, cy : y}); });
+            this.image.attr({
             x : (x - this.image.attr('width')/2),
             y : (y - this.image.attr('height')/2)
         });
         this.nameText.attr({
             x : (x - this.nameText.attr('width')/2),
-            y : y+this.innerRadius+this.outerRadius+this.LABEL_HORIZ_OFFSET
+            y : y + k * this.innerRadius + outerR + this.LABEL_HORIZ_OFFSET
         });
-        var rectangles = [this.image, this.nameText];
 
+        var rectangles = [this.image, this.nameText];
         var self = this;
         var amount = 1.0;
-        this.updateRotation();
+        this.updateRotation()
         $.each(this.interestGroups, function(i) {
             var ig = this[0];
             var w = self.wedges[i];
-            w.attr({personArc: [x, y, self.outerRadius, amount, self.rotation, self.innerRadius], opacity: 1});
+            w.attr({personArc: [x, y, outerR, amount, self.rotation, k*self.innerRadius], opacity: 1});
             amount -= this[2];
         });
 
+    },
+    setScale : function(scale) {
+        if (this.scale != scale) {
+            this.animate({scale : scale}, 0);
+            this.scale = scale;
+        }
     },
     updateRotation : function() {
         var domGroup = this.dominantInterestGroup();
@@ -150,7 +192,7 @@ var PersonCenter = RaphaelComponent.extend({
     },
     animate : function(attrs) {
         this.getLayerSet().stop();
-        var scalingFactor = attrs.scale || 1.0;
+        var k = attrs.scale || 1.0;
         var x = attrs.x || attrs.cx || this.getX();
         var y = attrs.y || attrs.cy || this.getY();
         var self = this;
@@ -159,17 +201,16 @@ var PersonCenter = RaphaelComponent.extend({
         });
         var ms = 200;
         this.image.animate({
-            width : this.imageWidth * scalingFactor,
-            height : this.imageHeight * scalingFactor,
-            x : x - this.imageWidth * scalingFactor / 2,
-            y : y - this.imageHeight * scalingFactor / 2
+            width : this.imageWidth * k,
+            height : this.imageHeight * k,
+            x : x - this.imageWidth * k / 2,
+            y : y - this.imageHeight * k / 2
         }, ms);
-        this.imageBg.animate({ r : this.innerRadius * scalingFactor, cx : x, cy : y }, ms);
-        this.innerStroke.animate({ cx : x, cy : y, r : this.innerRadius * scalingFactor }, ms);
-        var newOuterRadius = Math.sqrt(scalingFactor) * this.outerRadius;
-        newOuterRadius = Math.min(newOuterRadius, this.maxRadius - this.innerRadius * scalingFactor);
+        this.imageBg.animate({ r : this.innerRadius * k, cx : x, cy : y }, ms);
+        this.innerStroke.animate({ cx : x, cy : y, r : this.innerRadius * k }, ms);
+        var outerR = this.scaledOuterRadius(k);
 
-        this.outerStroke.animate({ cx : x, cy : y, r : (this.innerRadius * scalingFactor + newOuterRadius)}, ms);
+        this.outerStroke.animate({ cx : x, cy : y, r : (this.innerRadius * k + outerR)}, ms);
 
         var self = this;
         var amount = 1.0;
@@ -178,13 +219,18 @@ var PersonCenter = RaphaelComponent.extend({
             var ig = this[0];
             var w = self.wedges[i];
             w.animate({
-                personArc: [x, y, newOuterRadius, amount, self.rotation, self.innerRadius * scalingFactor]
+                personArc: [x, y, outerR, amount, self.rotation, self.innerRadius * k]
             }, ms);
             amount -= this[2];
         });
         this.nameText.animate({
-            y: y+this.innerRadius * scalingFactor +newOuterRadius +this.LABEL_HORIZ_OFFSET
+            y: y+this.innerRadius * k +outerR +this.LABEL_HORIZ_OFFSET
         }, ms);
+    },
+    scaledOuterRadius : function(scale) {
+        scale = scale || this.scale;
+        var r = Math.sqrt(scale) * this.outerRadius;
+        return Math.min(r, this.maxRadius - this.innerRadius * scale);
     }
 });
 
@@ -205,16 +251,28 @@ var Person = MNode.extend({
         this.type = 'person';
         this.picture = params.picture || "";
         this.name = params.name || "nameless person";
-        this.relevance = params.relevance || null;
         this.imageHeight = params.imageHeight;
-        this.interestGroups = params.interestGroups || [];
-        this.interestGroups.sort(function(a,b){
-                return b[1] - a[1]
-        });
-        this.interests = this.sortAndColorInterests(params.interests, params.interestGroups);
-        macademia.concatInPlace(this.interests, params.nonRelevantInterests || []);
-        this.relatedInterests = this.interests;
+        this.setRelevance(params.relevance);
+        this.setRelatedInterests(
+                params.interests, params.nonRelevantInterests,
+                params.interestGroups);
         this._super(params);
+    },
+    setRelevance : function(relevance) {
+        this.relevance = relevance;
+    },
+
+    setRelatedInterests : function(newInterests, nonRelevantInterests, newInterestGroups) {
+        newInterestGroups.sort(function(a,b){
+            return b[1] - a[1]
+        });
+        this.interestGroups = newInterestGroups;
+        this.interests = this.sortAndColorInterests(newInterests, newInterestGroups);
+        macademia.concatInPlace(this.interests, nonRelevantInterests);
+        if (this.centerNode) {
+            this.centerNode.setInterestGroups(newInterestGroups);
+        }
+        this._super(this.interests);
     },
     sortAndColorInterests : function(interests, interestGroups){
         var sortedInterests = [];
@@ -240,15 +298,16 @@ var Person = MNode.extend({
             id : this.id,
             x : this.x,
             y : this.y,
+            scale : this.scale,
             imageHeight : this.imageHeight,
             outerRadius : this.collapsedRadius,
             maxRadius : this.expandedRadius - this.relatedNodeRadius * 1.5,
             paper : this.paper
         });
     },
-    onHoverIn : function() {
-        this._super();
-        if (!this.enabled) {
+    onHoverIn : function(ms, override) {
+        this._super(ms, override);
+        if (!this.enabled && !override) {
             return;
         }
         this.centerNode.animate({cx : this.newX, cy : this.newY, scale : 2.2});
@@ -259,9 +318,9 @@ var Person = MNode.extend({
                 cy: this.newY
             }, 0, "linear");
     },
-    onHoverOut : function() {
-        this._super();
-        if (!this.enabled) {
+    onHoverOut : function(ms, override) {
+        this._super(ms, override);
+        if (!this.enabled && !override) {
             return;
         }
         this.centerNode.animate({x : this.origX, y : this.origY, scale : 1.0});
@@ -283,19 +342,3 @@ var Person = MNode.extend({
         this.highlightOff();
     }
 });
-
-
-function Center(params){
-    this.interestGroups = params.interestGroups || 0;
-    this.paper = params.paper || macademia.nbrviz.paper;
-    var xPos = macademia.nbrviz.paper.width/2,
-        yPos = macademia.nbrviz.paper.height/2;
-    macademia.nbrviz.paper.circle(xPos, yPos, 40).attr({fill: "r#fff-#000"});
-    macademia.nbrviz.paper.ball(xPos, yPos, 40, "#333", "shilad", 0, 20);
-    //creating conjoining connectors to interestclusters
-    for (var i=0; i< this.interestGroups.length; i++){
-        var color= macademia.nbrviz.makeHsb(this.interestGroups[i].color);
-        this.paper.path("M"+ xPos+" "+yPos+"L"+this.interestGroups[i].xPos+ " "+this.interestGroups[i].yPos).attr({"stroke-width": 3, stroke: color}).toBack();
-    }
-}
-

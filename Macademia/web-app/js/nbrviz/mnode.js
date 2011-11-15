@@ -13,7 +13,22 @@
  * @param params
  */
 var MNode = RaphaelComponent.extend(
-{
+{          
+    HOVER_CENTER : -1,
+    HOVER_NONE : -2,
+
+    COLLAPSED_RADIUS : 30,
+    EXPANDED_RADIUS : 100,
+    RELATED_RADIUS : 15,
+
+    POS_NOTIFY_THRESHOLD : 20,
+
+    STATE_COLLAPSED : 0,
+    STATE_EXPANDING : 1,
+    STATE_EXPANDED : 2,
+    STATE_COLLAPSING : 3,
+    STATE_DRAGGING : 4,
+
     /**
      * Constructor initialization
      * @param params
@@ -23,20 +38,6 @@ var MNode = RaphaelComponent.extend(
         this._super(params);
 
         // Constants
-        this.HOVER_CENTER = -1;
-        this.HOVER_NONE = -2;
-
-        this.COLLAPSED_RADIUS = 30;
-        this.EXPANDED_RADIUS = 100;
-        this.RELATED_RADIUS = 15;
-
-        this.POS_NOTIFY_THRESHOLD = 20;
-
-        this.STATE_COLLAPSED = 0;
-        this.STATE_EXPANDING = 1;
-        this.STATE_EXPANDED = 2;
-        this.STATE_COLLAPSING = 3;
-        this.STATE_DRAGGING = 4;
 
         this.enabled = true;
 
@@ -45,11 +46,12 @@ var MNode = RaphaelComponent.extend(
         this.state = this.STATE_COLLAPSED;
         this.centerNode = null;
 
+        this.scale = params.scale || 1.0;
         this.collapsedRadius = params.collapsedRadius || this.COLLAPSED_RADIUS;
         this.expandedRadius = params.expandedRadius || this.EXPANDED_RADIUS;
         this.relatedNodeRadius = params.relatedNodeRadius || this.RELATED_RADIUS;
         this.expandedHandleRadius = params.expandedHandleRadius || (this.expandedRadius + 2 * this.relatedNodeRadius);
-        this.centerActive = (params.centerActive === false) ? false : true;
+        this.centerActive = (params.centerActive !== false);
 
         this.clickText = params.clickText;
         this.relatedInterests = this.relatedInterests || params.relatedInterests || [];
@@ -161,6 +163,20 @@ var MNode = RaphaelComponent.extend(
     },
 
     /**
+     * Replaces related interest nodes.
+     */
+    setRelatedInterests : function(interests) {
+        if (this.relatedInterestNodes) {
+            for (var i = 0; i < this.relatedInterestNodes.length; i++) {
+                this.hoverSet.remove(this.relatedInterestNodes[i]);
+                this.relatedInterestNodes[i].remove();
+            }
+        }
+        this.relatedInterestNodes = [];
+        this.relatedInterests = interests;
+    },
+
+    /**
      * Creates a single related interest
      * @param interest
      * @param pos [x, y] for center of circle.
@@ -242,7 +258,11 @@ var MNode = RaphaelComponent.extend(
     },
 
     expand : function() {
-        this.onHoverIn(0);
+        this.onHoverIn(0, true);
+    },
+
+    collapse : function() {
+        this.onHoverOut(0, true);
     },
 
     clicked : function(callback) {
@@ -265,15 +285,15 @@ var MNode = RaphaelComponent.extend(
     /**
      * Overall hover handlers
      */
-    onHoverIn : function(millis) {
-        if (!this.enabled) {
+    onHoverIn : function(millis, override) {
+        if (!this.enabled && !override) {
             return;
         }
         if (this.state != this.STATE_COLLAPSED && this.state != this.STATE_COLLAPSING) {
             return;
         }
         this.createRelatedInterestNodes();
-        var millis = millis || 400;
+        millis = millis || 400;
         this.state = this.STATE_EXPANDING;
         this.stop();
         var r = this.expandedHandleRadius;
@@ -325,41 +345,44 @@ var MNode = RaphaelComponent.extend(
         );
 
     },
-    onHoverOut : function() {
-        if (!this.enabled) {
+    onHoverOut : function(ms, override) {
+        if (!this.enabled && !override) {
             return;
         }
         if (this.state != this.STATE_EXPANDED && this.state != this.STATE_EXPANDING) {
             return;
         }
+        ms = ms || 400;
+
+        this.state = this.STATE_COLLAPSING;
 
         // reset highlighting
         var latest = this.getLastHoverNode();
         if (latest) { this.onNodeHoverOut(latest); }
         this.centerNode.highlightNone();
 
-        this.state = this.STATE_COLLAPSING;
         this.stop();
-        var r = this.collapsedRadius;
+        var r = this.collapsedRadius * this.scale;
         this.getHandle().animate({ r: r, cx: this.origX, cy: this.origY }, 0, "linear");
         this.centerNode.animate({
                 x: this.origX,
-                y: this.origY
-            }, 100, "linear");
+                y: this.origY,
+                scale : this.scale
+            }, ms / 2, "linear");
         var self = this;
         $.each(this.relatedInterestNodes,
             function(i, ri) {
                 ri.hideText();
                 ri.animate(
                         { x: self.origX, y: self.origY },
-                        400,
+                        ms,
                         "backIn",
                         function () { ri.hide(); }
                 );
             }
         );
         this.ring.animate(
-                {r: 0}, 400, "backIn",
+                {r: 0}, ms, "backIn",
                 function () {
                     self.state = self.STATE_COLLAPSED;
                     this.x = this.origX;
@@ -465,6 +488,11 @@ var MNode = RaphaelComponent.extend(
     },
     getY : function() {
         return this.centerNode.getY();
+    },
+
+    setScale : function(scale) {
+        this.centerNode.setScale(scale);
+        this.scale = scale;
     },
 
     getLastHoverNode : function() {

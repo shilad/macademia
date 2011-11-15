@@ -53,6 +53,12 @@ var VizModel = Class.extend({
     getPerson : function(pid) {
         return this.json.people[pid];
     },
+    hasParentInterest : function(pid) {
+        return (''+pid in this.json.clusterMap);
+    },
+    hasPerson : function(pid) {
+        return (''+pid in this.json.people);
+    },
     getNormalizedPersonRelevance : function(pid) {
         // calculate min / max relevance if necessary
         if (typeof(this.maxPersonRelevance) === 'undefined') {

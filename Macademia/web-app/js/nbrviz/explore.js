@@ -1,15 +1,16 @@
 
 var ExploreViz = NbrViz.extend({
-    init : function(params) {
-        this.MAX_HISTORY_RADIUS = 30;
-        this.MIN_HISTORY_RADIUS = 10;
-        this.HISTORY_SPACING = 120;
-        this.HISTORY_LENGTH = 5;
+    MAX_HISTORY_RADIUS : 30,
+    MIN_HISTORY_RADIUS : 10,
+    HISTORY_SPACING : 120,
+    HISTORY_LENGTH : 5,
 
+    init : function(params) {
         params.peopleClickable = true;
-        params.height = params.paper.height - this.MAX_HISTORY_RADIUS + 15;
+        params.vizHeight = params.height - this.MAX_HISTORY_RADIUS + 15;
         this._super(params);
         this.history = [];  // history nodes
+        this.keyPapers = [];
     },
     onAddressChange : function(event) {
         var c = event.parameters.rootId.charAt(0);
@@ -18,8 +19,15 @@ var ExploreViz = NbrViz.extend({
         console.log('refreshing to ' + event.parameters.rootId);
         this.refreshViz(rootClass, rootId);
     },
-    recenter : function(rootClass, rootId) {
-        this.animateForward(rootClass, rootId);
+    getRootNode : function() {
+        if (this.rootClass == 'person') {
+            return this.people[this.rootId];
+        } else {
+            return this.interestClusters[this.rootId];
+        }
+    },
+    recenter : function(rootClass, rootId, name, node) {
+        this.animateForward(rootClass, rootId, node);
     },
     refreshViz : function(rootClass, rootId){
         if (rootClass != 'person' && rootClass != 'interest') {
@@ -59,13 +67,17 @@ var ExploreViz = NbrViz.extend({
     },
 
     initKey : function(model) {
+        $.each(this.keyPapers, function() { this.clear(); });
+        this.keyPapers = [];
         macademia.nbrviz.assignColors(model.getClusterIds());
         $(".addedInterestDiv").each(
                 function() { if (this.id != 'queryInterestTemplate') { $(this).remove(); } }
         );
         var self = this;
         $.each(model.getClusterIds(), function(i, pid) {
-
+            if (model.getRootClass() == 'interest' && pid == model.getRootId()) {
+                return;
+            }
             var name = self.getOrLookupInterestName(pid);
             var elem = $("#queryInterestTemplate").clone();
             elem.attr('id', 'queryInterestKey' + pid);
@@ -84,15 +96,26 @@ var ExploreViz = NbrViz.extend({
                         }
                     }
             );
-            self.drawKeySphere(pid);
+            var sphereElem =  $(".interestKey[interest='" + pid + "']");
+            self.keyPapers.push(self.drawKeySphere(sphereElem, pid));
         });
-        $("#currentInterests h1 span").html(model.getRootName());
+        if (model.getRootClass() == 'interest') {
+            $(".rootInterestKey").show();
+            this.keyPapers.push(
+                    self.drawKeySphere($(".rootInterestKey"), model.getRootId())
+                );
+        } else {
+            $(".rootInterestKey").hide();
+        }
+        $(".rootInterestName").html(model.getRootName());
     },
     interestClicked : function(interestNode) {
-        this.recenter('interest', interestNode.id, interestNode.name);
+        if (!this.enabled) { return; }
+        this.recenter('interest', interestNode.id, interestNode.name, interestNode);
     },
     personClicked : function(personNode) {
-        this.recenter('person', personNode.id, personNode.name);
+        if (!this.enabled) { return; }
+        this.recenter('person', personNode.id, personNode.name, personNode);
     },
     layoutInterests : function(json) {
         this._super(json);
@@ -100,25 +123,39 @@ var ExploreViz = NbrViz.extend({
     },
 
     drawHistory : function() {
-//        $.each(this.history, function() { this.remove(); });
-        this.history = [];
-        var label = this.paper.text(50, this.paper.height-40, 'History:');
-        label.attr({
-            'font' : macademia.nbrviz.mainFontBold,
-            'font-weight' : 'bold'
-        });
-        var bbox = label.getBBox();
-        this.historyX = bbox.x + bbox.width + this.HISTORY_SPACING / 2;
-        this.historyY = bbox.y;
-        var self = this;
+        console.log(this.MAX_HISTORY_RADIUS + ', ' + ExploreViz.MAX_HISTORY_RADIUS);
+        if (!this.historyLabel) {
+            this.historyLabel = this.paper.text(50, this.paper.height-40, 'History:');
+            this.historyLabel.attr({
+                'font' : macademia.nbrviz.mainFontBold,
+                'font-weight' : 'bold'
+            });
+            var bbox = this.historyLabel.getBBox();
+            this.historyX = bbox.x + bbox.width + this.HISTORY_SPACING / 2;
+            this.historyY = bbox.y;
+        }
         for (var i = 0; i < this.HISTORY_LENGTH; i++) {
             var value = $.address.parameter('rootId' + i);
             if (!value) {
+                if (this.history.length > i && this.history[i]) {
+                    this.history[i].remove();
+                }
                 continue;
             }
             var nodeClass = (value.charAt(0) == 'p' ) ? 'person' : 'interest';
             var nodeId = value.substring(1);
-            this.history.push(this.createHistoryNode(nodeClass, nodeId, i));
+
+            if (this.history.length > i && this.history[i].id == nodeId) {
+                continue;
+            }
+            if (this.history.length > i) {
+                this.history[i].remove();
+            }
+            var node = this.createHistoryNode(nodeClass, nodeId, i);
+            while (this.history.length <= i) {
+                this.history.push(null);
+            }
+            this.history[i] = node;
         }
     },
     createHistoryNode : function(nodeClass, nodeId, step) {
@@ -174,6 +211,9 @@ var ExploreViz = NbrViz.extend({
         return this.MAX_HISTORY_RADIUS - stepsBack * stepSize;
     },
     animateBack : function(steps) {
+        this.setEnabled(false);
+        this.resetAllHovers();
+
         var a = Raphael.animation({ 'opacity' : 0.0, 'fill-opacity' : 0.0}, 0.5);
         $.each(this.history, function () { this.setHighlightMode(this.HIGHLIGHT_NONE); });
         for (var i = 0; i < steps; i++) {
@@ -194,7 +234,28 @@ var ExploreViz = NbrViz.extend({
                 );
         }
     },
-    animateForward : function(nodeClass, nodeRoot) {
+    animateForward : function(nodeClass, nodeRoot, node) {
+        var millis = 2000;
+        this.setEnabled(false);
+        this.resetAllHovers();
+
+        // raise the screen and animate the new and old roots
+        this.historyLabel.toFront();
+        this.raiseScreen(this.historyLabel, 0.5);
+        $.each(this.history, function () {this.toFront()});
+        this.getRootNode().toFront();
+        var p1 = this.getSpokePosition( 5 * Math.PI / 4);
+
+        var s1 = 1.0 / (this.getRootNode().type == 'interest'
+                            ? NbrViz.ROOT_INTEREST_SCALE
+                            : NbrViz.ROOT_PERSON_SCALE);
+        this.getRootNode().animate({ x : p1.screenX(), y : p1.screenY(), scale : s1}, millis);
+        var p2 = this.getCenterPosition();
+        node.toFront();
+        var s2 = node.type == 'interest' ? NbrViz.ROOT_INTEREST_SCALE : NbrViz.ROOT_PERSON_SCALE;
+        node.animate({ x : p2.screenX(), y : p2.screenY(), scale : s2}, millis);
+
+        // update the history
         var self = this;
         for (var i = 0; i < this.history.length; i++) {
             var n = this.history[i];
@@ -206,31 +267,38 @@ var ExploreViz = NbrViz.extend({
                     y : (n.getY() - (r1 - r0)),
                     scale : scale
             };
+            var f = null;
             if (i + 1 >= this.HISTORY_LENGTH) {
                 a['opacity'] = 0.0;
                 a['fill-opacity'] = 0.0;
-                // FIXME: remove hidden nodes from canvas
+                f = $.proxy(function () { this.remove(); }, n);
             }
-            n.animate(a, 500, 'linear'
-            );
+            n.animate(a, millis, 'linear', f);
         }
         n = this.createHistoryNode(nodeClass, nodeRoot, 0);
         n.getLayerSet().attr({'opacity' : 0, 'fill-opacity' : 0});
         n.animate(
                 { 'opacity' : 1.0, 'fill-opacity' : 1.0 },
-                500,
+                millis,
                 'linear',
-                function () { self.shiftToNewNode(nodeClass, nodeRoot); }
+                function () {
+                    self.shiftToNewNode(nodeClass, nodeRoot); }
             );
+        this.history.splice(0, 0, n);
+
+        // trim down the history
+        if (this.history.length > this.HISTORY_LENGTH) {
+            this.history = this.history.slice(0, this.HISTORY_LENGTH);
+        }
+    },
+    animateNewNode : function(nodeClass, nodeRoot, node) {
 
     },
     shiftToNewNode : function(nodeClass, nodeRoot) {
         var params = macademia.getQueryParams();
         for (var i = this.HISTORY_LENGTH; i > 0; i--) {
             var val = params['rootId' + (i-1)];
-            if (val) {
-                params['rootId' + i] = val;
-            }
+            if (val) { params['rootId' + i] = val; }
         }
         var token = nodeClass.charAt(0) + nodeRoot;
         params['rootId0'] = token;

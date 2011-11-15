@@ -67,6 +67,7 @@ var InterestCluster = MNode.extend({
                 hue : this.color,
                 name : this.name,
                 xOffset : 0,
+                scale : this.scale,
                 interest : this.interest,
                 yOffset : this.collapsedRadius + 10,
                 labelBgOpacity : 0.2,

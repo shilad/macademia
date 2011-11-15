@@ -49,6 +49,13 @@ HoverSet.prototype.safeAdd = function(e) {
     }
 };
 
+HoverSet.prototype.remove = function(e) {
+    var i = this.elements.indexOf(e);
+    if (i >= 0) {
+        this.elements = this.elements.splice(i, 1);
+    }
+};
+
 HoverSet.prototype.addAll = function(l) {
     var self = this;
     $.each(l, function() { self.add(this); });

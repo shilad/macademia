@@ -10,20 +10,19 @@
  *          - yOffset y offset of the text from the center of the sphere
  */
 var Sphere = RaphaelComponent.extend({
+    HIGHLIGHT_NONE : 0,
+    HIGHLIGHT_ON : 1,
+    HIGHLIGHT_OFF : 2,
+
     init : function(params) {
         this._super(params);
-        this.HIGHLIGHT_NONE = 0;
-        this.HIGHLIGHT_ON = 1;
-        this.HIGHLIGHT_OFF = 2;
 
         this.r = params.r;
-        this.xOffset = params.xOffset;
-        this.yOffset = params.yOffset;
+        this.scale = params.scale || 1.0;
         this.name = params.name;
         this.paper = params.paper;
         this.strokeWidth = params.strokeWidth || 2;
         this.highlightMode = this.HIGHLIGHT_NONE;
-        this.alwaysGlow = params.alwaysGlow || false;
         this.glow = null;
 
         var x = params.x, y = params.y;
@@ -39,11 +38,11 @@ var Sphere = RaphaelComponent.extend({
             fill = "hsb(" + this.hue + "," + 0.9*this.sat + "," + 1.1*this.brightness + ")";
         }
 
-        this.circle = this.paper.circle(x, y, this.r-this.strokeWidth)
+        this.circle = this.paper.circle(x, y, this.scale * (this.r-this.strokeWidth))
                     .attr({fill: fill, stroke: '#777', 'stroke-width' : this.strokeWidth});
 
         // invisible layer (useful for event handling)
-        this.handle =  this.paper.circle(x, y, this.r)
+        this.handle =  this.paper.circle(x, y, this.r * this.scale)
                 .attr({fill: '#f00', stroke: 'none', opacity: 0.0});
 
         this.installListeners();
@@ -69,7 +68,7 @@ var Sphere = RaphaelComponent.extend({
     },
 
     setGlow : function(shouldGlow) {
-        if (shouldGlow || this.alwaysGlow) {
+        if (shouldGlow) {
             if (this.glow == null) {
                 this.glow = this.circle.glow();
             }
@@ -106,6 +105,10 @@ var Sphere = RaphaelComponent.extend({
 
     getRects : function() {
         return [];
+    },
+
+    getScaledR : function() {
+        return this.scale * this.r;
     },
 
     getCircles : function() {
@@ -175,6 +178,15 @@ var Sphere = RaphaelComponent.extend({
             var f = (i == 0) ? arg2 : null;
             this.animate(a, millis, arg1, f);
         });
+
+        this.scale = attrs.scale || 1.0;
+    },
+
+    setScale : function(scale) {
+        if (this.scale != scale) {
+            this.animate({scale : scale}, 0);
+            this.scale = scale;
+        }
     },
 
     setPosition : function(x, y) {

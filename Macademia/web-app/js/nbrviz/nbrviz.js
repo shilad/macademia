@@ -7,42 +7,92 @@
 
 
 var NbrViz = Class.extend({
+    ROOT_INTEREST_SCALE : 1.4,
+    ROOT_PERSON_SCALE : 1.8,
+
     init : function(params) {
-        this.paper = params.paper;
-        this.width = params.width || this.paper.width;
-        this.height = params.height || this.paper.height;
+        this.x = params.x;
+        this.y = params.y;
+        this.width = params.width;
+        this.height = params.height;
+        this.vizWidth = params.vizWidth || this.width;
+        this.vizHeight = params.vizHeight || this.height;
+        this.zIndex = 0;
+        this.spokes = [];
+        this.clusterShadows = [];
+        this.enabled = false;
+
         this.peopleClickable = params.peopleClickable ||  false;
         this.interestWeights = {};
-        this.reset();
-        this.loadingMessage = $("#loadingMessage");
-        this.loadingDiv = $("#loadingDiv");
 
-        this.fadeScreen = this.paper.rect(0, 0, this.paper.width, this.paper.height);
-        this.fadeScreen.attr({ fill : 'white' , opacity : 0.0, 'stroke-width' : 0});
-        this.fadeScreen.toBack();
+        macademia.nbrviz.magnet.init(this.vizWidth, this.vizHeight);
 
         // must be initialized after macademia.nbrviz.magnet.init(), called in reset()
         this.xRange = macademia.nbrviz.magnet.X_RANGE - 0.01;
         this.yRange = macademia.nbrviz.magnet.Y_RANGE - 0.01;
+
+        this.createNewPaper();
+        this.reset();
+        this.drawBackground();
+
+        this.loadingMessage = $("#loadingMessage");
+        this.loadingDiv = $("#loadingDiv");
+
 
         var self = this;
         $.address.change(function(event) {self.onAddressChange(event);});
     },
 
     reset : function() {
+        this.oldPeople = this.people || {};
+        this.oldInterestClusters = this.interestClusters || {};
+        this.oldRootId = this.rootId || {};
+        this.oldRootClass = this.rootClass || {};
+
         this.rootId = null;
         this.rootClass = null;
         this.people = {};
         this.interestClusters = {};
         this.edges = [];
         this.highlighted = [];
-        this.paper.clear();
+//        this.paper.clear();
         Magnet.clear();
-        macademia.nbrviz.magnet.init(this.width, this.height);
     },
 
     hasRoot : function() {
         return !!this.rootClass;
+    },
+
+    /**
+     * TODO : remove this if necessary.
+     */
+    createNewPaper : function() {
+        this.paper = new Raphael(this.x, this.y, this.width, this.height);
+        this.paper.canvas.style.zIndex = this.zIndex++;
+        this.fadeScreen = this.paper.rect(0, 0, this.paper.width, this.paper.height);
+        this.fadeScreen.attr({ fill : 'white' , opacity : 0.0, 'stroke-width' : 0});
+        this.fadeScreen.toBack();
+        this.paper.customAttributes.personArc = function(xPos, yPos, strokeWidth, percentage, rotation, innerCircle) {
+            var angle = Math.PI * 2 * percentage,
+                radius = innerCircle+strokeWidth/2,
+                x0 = xPos + radius * Math.cos(rotation),
+                y0 = yPos + radius * Math.sin(rotation),
+                x1 = xPos + radius * Math.cos(rotation + angle),
+                y1 = yPos + radius * Math.sin(rotation + angle),
+                path;
+            var largeArc = (angle > Math.PI) ? 1 : 0;
+            if (percentage == 1) {
+                // tricky to draw a closed arc...
+                path = [["M", xPos + radius, yPos],
+                    ["A", radius, radius, 0, 1, 1, xPos - radius, yPos],
+                    ["A", radius, radius, 0, 1, 1, xPos + radius, yPos]
+                ];
+            } else {
+                path = [["M", x0, y0], ["A", radius, radius, 0, largeArc, 1, x1, y1]];
+            }
+
+            return {path: path, "stroke-width": strokeWidth};
+        };
     },
 
     setupListeners : function() {
@@ -71,34 +121,72 @@ var NbrViz = Class.extend({
 
     },
 
-    layoutInterests : function(json) {
+    layoutInterests : function() {
+        var positions = this.calculatePositions();
+        for (var iid in positions) {
+            this.drawInterestCluster(this.interestClusters[iid], positions[iid]);
+        }
+    },
+
+    calculatePositions : function() {
         var numParents = macademia.objectSize(this.interestClusters);
 
         // don't count root interest if root is an interest
         if (this.rootClass == 'interest') { numParents--; }
 
+        // special case: if there's only one interest it should be centered.
+        if (numParents == 1 && !this.hasRoot()) {
+            for (var iid in this.interestClusters) {
+                return { iid : this.getCenterPosition() };
+            }
+        }
+
+        var slice = Math.PI * 2 / numParents;
+        var positions = {};
         var index = 0;
-        var self = this;
-        $.each(this.interestClusters, function(i, ic) {
-            self.drawInterestCluster(index, ic, numParents);
-            if (!self.isRootNode(ic)) { index += 1; }
-        });
+        for (iid in this.interestClusters) {
+            var ic = this.interestClusters[iid];
+            if (this.isRootNode(ic)) {
+                positions[iid] = this.getCenterPosition();
+            } else {
+                var angle = index * slice + slice / 2 - Math.PI / 2;
+                positions[iid] = this.getSpokePosition(angle);
+                index += 1;
+            }
+        }
+
+        // swap the previous root into the lower left
+        if (this.oldRootId in this.interestClusters) {
+            var lowerLeft =  this.getSpokePosition(Math.PI * 5 / 4);
+            var closestId = -1;
+            var closestDistance = 10000000000000000000;
+            for (iid in positions) {
+                var point = positions[iid];
+                var d = point.p.subtract(lowerLeft.p).magnitude();
+                if (d < closestDistance) {
+                    closestDistance = d;
+                    closestId = iid;
+                }
+            }
+            if (closestId != this.oldRootId) {
+                var tmp = positions[closestId];
+                positions[closestId] = positions[this.oldRootId];
+                positions[this.oldRootId] = tmp;
+            }
+        }
+
+        return positions;
     },
 
-    drawInterestCluster : function(i, ic, numParents) {
-        var center = new Point(new Vector(0, 0));
-        var slice = Math.PI * 2 / numParents;
-        var angle = i * slice + slice / 2 - Math.PI / 2;
-        var p = (this.isRootNode(ic) || (numParents == 1 && !this.hasRoot()))
-                    ? [0.0, 0.0]
-                    : [Math.cos(angle) * this.xRange, Math.sin(angle) * this.yRange];
-        var point = new Point(new Vector(p[0], p[1]));
+    drawInterestCluster : function(ic, point) {
+        var center = this.getCenterPosition();
         var mag = new Magnet(point.p, ic.id );
         ic.setPosition(point.screenX(), point.screenY());
         if (!this.isRootNode(ic)) {
             var spoke = this.paper.path('M' + center.screenX() + ',' + center.screenY() + ',L' + point.screenX() + ',' + point.screenY());
             spoke.attr({ stroke : '#777', 'stroke-dasharray' : '.'  });
             spoke.insertAfter(this.bg);
+            this.spokes.push(spoke);
         }
         var r = ic.collapsedRadius;
         var c1 =  Raphael.hsb(ic.color, 0.5, 1.0);
@@ -110,6 +198,17 @@ var NbrViz = Class.extend({
                     'stroke-width': 0
              });
         g.insertAfter(this.bg);
+        this.clusterShadows.push(g);
+    },
+
+    getSpokePosition : function(angle) {
+        var x = Math.cos(angle) * this.xRange;
+        var y = - Math.sin(angle) * this.yRange;
+        return new Point(new Vector(x, y));
+    },
+
+    getCenterPosition : function() {
+        return new Point(new Vector(0, 0));
     },
 
     isRootNode : function(node) {
@@ -146,6 +245,7 @@ var NbrViz = Class.extend({
                         'stroke-width': 0
                  });
             c.insertAfter(this.bg);
+            this.clusterShadows.push(c);
         }
 
         // initial layout around dominant magnet
@@ -198,12 +298,20 @@ var NbrViz = Class.extend({
     setEnabled : function(enabled) {
         $.map(this.people, function (p) { p.setEnabled(enabled); });
         $.map(this.interestClusters, function (qi) { qi.setEnabled(enabled); });
+        this.enabled = enabled;
+        if (enabled) {
+            this.lowerScreen();
+        }
     },
 
-    raiseScreen : function(focus) {
+    raiseScreen : function(focus, opacity) {
         this.fadeScreen.stop();
-        this.fadeScreen.insertBefore(focus);
-        this.fadeScreen.animate({opacity : 0.70}, 400);
+        if (focus) {
+            this.fadeScreen.insertBefore(focus);
+        } else {
+            this.fadeScreen.toFront();
+        }
+        this.fadeScreen.animate({opacity : (opacity || 0.70)}, 400);
     },
 
     lowerScreen : function() {
@@ -214,21 +322,25 @@ var NbrViz = Class.extend({
 
 
     handlePersonHover : function(person) {
+        if (!this.enabled) { return; }
         person.toFront();
         this.raiseScreen(person.getBottomLayer());
     },
 
     handlePersonUnhover : function(person) {
+        if (!this.enabled) { return; }
         this.lowerScreen();
     },
 
     handleInterestClusterHover : function(interest) {
+        if (!this.enabled) { return; }
 //    console.log("handle interest cluster hover: " + interest.name);
         interest.toFront();
         this.raiseScreen(interest.getBottomLayer());
     },
 
     handleInterestClusterUnhover : function(interest) {
+        if (!this.enabled) { return; }
     //    console.log("handle interest cluster unhover" + interest.name);
         this.lowerScreen();
         this.hideEdges();
@@ -236,6 +348,7 @@ var NbrViz = Class.extend({
 
 
     handleInterestHover : function(parentNode, interest, interestNode) {
+        if (!this.enabled) { return; }
     //    console.log("handle interest hover" + interest.name);
         this.hideEdges();
         var self = this;
@@ -254,8 +367,23 @@ var NbrViz = Class.extend({
     },
 
     handleInterestUnhover : function(parentNode, interest, interestNode) {
+        if (!this.enabled) { return; }
     //    console.log("handle interest unhover" + interest.name);
         this.hideEdges();
+    },
+
+    resetAllHovers : function(clicked) {
+        this.hideEdges();
+        this.hideLoadingMessage();
+        this.lowerScreen();
+        var collapse = function(node) {
+            if (node.state && (node.state == MNode.STATE_EXPANDED || node.state == MNode.STATE_EXPANDING)) {
+                node.stop();
+                node.collapse();
+            }
+        };
+        $.map(this.people, collapse);
+        $.map(this.interestClusters, collapse);
     },
 
     drawEdge : function(parentNode, person, interestNode) {
@@ -274,9 +402,31 @@ var NbrViz = Class.extend({
         this.highlighted = [];
     },
 
+    removeOldNodes : function(model) {
+        $.each(this.clusterShadows.concat(this.spokes),
+                function () { this.fadeAndRemove(500); }
+            );
+        var oldNodes = [];
+        for (var iid in this.oldInterestClusters) {
+            if (!model.hasParentInterest(iid)) {
+                oldNodes.push(this.oldInterestClusters[iid]);
+            }
+        }
+        for (var pid in this.oldPeople) {
+            if (!model.hasPerson(pid)) {
+                oldNodes.push(this.oldPeople[pid]);
+            }
+        }
+        $.each(oldNodes, function() {
+            $.each(this.getLayers(), function() { this.fadeAndRemove(500); });
+        });
+        this.spokes = [];
+        this.clusterShadows = [];
+    },
     loadJson : function(model) {
         model.dump();
         this.reset();
+        this.removeOldNodes(model);
         this.rootId = model.getRootId();
         this.rootClass = model.getRootClass();
 
@@ -290,7 +440,7 @@ var NbrViz = Class.extend({
 
         // Create interest clusters
         $.each(model.getClusterIds(), function (i, cid) {
-            self.interestClusters[cid] = self.initCluster(cid, model);
+            self.initCluster(cid, model);
         });
 
         // create people
@@ -299,33 +449,45 @@ var NbrViz = Class.extend({
             peopleIds = peopleIds.slice(0, this.maxPeopleThatFit(model));
         }
         $.each(peopleIds, function(i, pid) {
-            self.people[pid] = self.initPerson(pid, model);
+            self.initPerson(pid, model);
         });
         macademia.nbrviz.setPeople(this.people);
 
         this.setEnabled(false);
-        this.drawBackground();
         this.layoutInterests();
         this.layoutPeople();
         this.setupListeners();
-        this.loadingDiv.hide();
+        this.hideLoadingMessage();
     },
 
     initCluster : function(id, model) {
         var interest = model.getInterest(id);
-        var ic = new InterestCluster({
-            id : id,
-            interest : interest,
-            interests : model.getInterests(),
-            relatedInterests : model.getRelatedInterests(id),
-            name : interest.name,
-            color : macademia.nbrviz.getColor(id),
-            paper : this.paper,
-            clickText : '(click to add)'
-        });
+        var params = {
+                id : id,
+                interest : interest,
+                interests : model.getInterests(),
+                relatedInterests : model.getRelatedInterests(id),
+                name : interest.name,
+                color : macademia.nbrviz.getColor(id),
+                paper : this.paper,
+                scale : 1.0,
+                clickText : '(click to add)'
+            };
+        if (this.rootClass == 'interest' && this.rootId == id) {
+            params.scale = this.ROOT_INTEREST_SCALE;
+        }
+
+        var ic = this.oldInterestClusters[id];
+        if (ic) {
+            ic.stop();
+            ic.setRelatedInterests(model.getRelatedInterests(id));
+            ic.setScale(params.scale);
+        } else {
+            ic = new InterestCluster(params);
+        }
         var self = this;
         ic.clicked(function (node) { self.interestClicked(node); });
-        return ic;
+        this.interestClusters[id] = ic;
     },
 
     initPerson : function(pid, model) {
@@ -338,6 +500,7 @@ var NbrViz = Class.extend({
             name : pinfo.name,
             picture : pinfo.pic,
             paper : this.paper,
+            scale : 1.0,
             id : pid,
             centerActive : this.peopleClickable,
             interests : $.grep(pinterests, function(i) {return (i.relatedQueryId >= 0);}),
@@ -345,23 +508,34 @@ var NbrViz = Class.extend({
             collapsedRadius : 8 * model.getNormalizedPersonRelevance(pid) + 5
         };
         if (this.rootClass == 'person' && this.rootId == pid) {
-            params.imageHeight = 60;
-            params.collapsedRadius *= 2;
+            params.scale = this.ROOT_PERSON_SCALE;
         }
-        var person = new Person(params);
+        var person = this.oldPeople[pid];
+//        person = null;
+        if (person) {
+            person.stop();
+            person = this.oldPeople[pid];
+            person.setScale(params.scale);
+            person.setRelevance(params.relevance);
+            person.setRelatedInterests(params.interests, params.nonRelevantInterests, params.interestGroups);
+        } else {
+            person = new Person(params);
+        }
         if (person.interests.length > 12) {
             person.expandedRadius *= Math.sqrt(person.interests.length / 12);
         }
         if (this.rootClass == 'person' && this.rootId == pid) {
             person.expandedRadius *= 1.2;
         }
-        var self = this;
-        person.clicked(
-                function (node) {
-                    if (node.type == 'interest') { self.interestClicked(node); }
-                    if (node.type == 'person') { self.personClicked(node); }
-                });
-        return person;
+        if (!this.oldPeople[pid]) {
+            var self = this;
+            person.clicked(
+                    function (node) {
+                        if (node.type == 'interest') { self.interestClicked(node); }
+                        if (node.type == 'person') { self.personClicked(node); }
+                    });
+        }
+        this.people[pid] = person;
     },
 
     maxPeopleThatFit : function(model) {
@@ -400,18 +574,20 @@ var NbrViz = Class.extend({
     },
     showLoadingMessage : function() {
         this.loadingDiv.show();
+        this.loadingMessage.show();
     },
     hideLoadingMessage : function() {
         this.loadingDiv.hide();
+        this.loadingMessage.hide();
     },
 
-    drawKeySphere : function(interestId) {
-        var k = $(".interestKey[interest='" + interestId + "']");
-        var w = k.width(), h = k.height();
-        var p = new Raphael(k.get(0), w, h);
+    drawKeySphere : function(sphereElem, interestId) {
+        var w = sphereElem.width(), h = sphereElem.height();
+        var p = new Raphael(sphereElem.get(0), w, h);
         var s = new Sphere({
             r : Math.min(w / 2, h/2), x : w / 2, y : h/2,
             hue : macademia.nbrviz.getColor(interestId), paper : p
         });
+        return p;
     }
 });

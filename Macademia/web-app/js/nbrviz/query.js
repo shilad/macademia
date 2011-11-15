@@ -103,6 +103,9 @@ var QueryViz = NbrViz.extend({
         });
 
         // draw spheres
-        $.each(this.getQueryIds(), function(i, qid) { self.drawKeySphere(qid); });
+        $.each(this.getQueryIds(), function(i, qid) {
+            var sphereElem =  $(".interestKey[interest='" + qid + "']");
+            self.drawKeySphere(sphereElem, qid);
+        });
     }
 });

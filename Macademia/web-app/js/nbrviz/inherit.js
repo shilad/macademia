@@ -1,4 +1,8 @@
-/* Simple JavaScript Inheritance
+/*
+ * Shilad made one adjustment to support static class variables.
+ * All uppercase variable names are interpreted as such.
+ *
+ * Simple JavaScript Inheritance
  * By John Resig http://ejohn.org/
  * Described at http://ejohn.org/blog/simple-javascript-inheritance/
  * MIT Licensed.
@@ -10,7 +14,7 @@
   this.Class = function(){};
 
   // Create a new Class that inherits from this class
-  Class.extend = function(prop) {
+  Class.extend = function(prop, staticVars) {
     var _super = this.prototype;
 
     // Instantiate a base class (but only create the instance,
@@ -41,6 +45,7 @@
           };
         })(name, prop[name]) :
         prop[name];
+
     }
 
     // The dummy class constructor
@@ -58,6 +63,13 @@
 
     // And make this class extendable
     Class.extend = arguments.callee;
+
+    // Shilad's Hack: Support upper case class constants
+    for (var name in prop) {
+        if (name == name.toUpperCase()) {
+            Class[name] = prototype[name];
+        }
+    }
 
     return Class;
   };
