@@ -16,7 +16,6 @@ var ExploreViz = NbrViz.extend({
         var c = event.parameters.rootId.charAt(0);
         var rootClass = c == 'p' ? 'person' : 'interest';
         var rootId = event.parameters.rootId.substring(1);
-        console.log('refreshing to ' + event.parameters.rootId);
         this.refreshViz(rootClass, rootId);
     },
     getRootNode : function() {
@@ -30,6 +29,10 @@ var ExploreViz = NbrViz.extend({
         this.animateForward(rootClass, rootId, node);
     },
     refreshViz : function(rootClass, rootId){
+        if (this.stateIsSet(this.STATE_LOADING)) {
+            alert('invalid state in refreshViz: ' + this.state);
+            return;
+        }
         if (rootClass != 'person' && rootClass != 'interest') {
             alert('unknown klass: "' + rootClass + '" (must be person or interest).');
             return;
@@ -37,7 +40,6 @@ var ExploreViz = NbrViz.extend({
         var name = macademia.nbrviz.getName(rootClass, rootId);
         this.setLoadingMessage('re-centering around "' + name + '"...');
 
-        // TODO: make asynchronous
         var url = macademia.makeActionUrlWithGroup('all', 'explore', rootClass + 'Data') + '/' + rootId;
 
         var parentIds = [];
@@ -53,12 +55,14 @@ var ExploreViz = NbrViz.extend({
         }
 
         var self = this;
+        this.showLoadingMessage();
         $.ajax({
             url: url,
             dataType : 'json',
             success : function (json) { self.loadJson(new VizModel(json)); }
         });
-        this.showLoadingMessage();
+
+        this.setState(this.STATE_LOADING);
     },
 
     loadJson : function(model) {
@@ -212,6 +216,8 @@ var ExploreViz = NbrViz.extend({
         return this.MAX_HISTORY_RADIUS - stepsBack * stepSize;
     },
     animateBack : function(steps) {
+        this.state |= this.STATE_LOADING;
+
         this.setEnabled(false);
         this.resetAllHovers();
 
@@ -240,12 +246,16 @@ var ExploreViz = NbrViz.extend({
         this.setEnabled(false);
         this.resetAllHovers();
 
+        this.setState(this.STATE_ANIMATING);
+        this.shiftToNewNode(nodeClass, nodeRoot);
+
         var isSubInterest = false;
         if (node.type == 'interest' && !(node.id in this.interestClusters)) {
             var iids = this.getInterestClusterIds();
             iids.unshift(node.id);
             macademia.nbrviz.colors.assign(iids);
             node = new LabeledSphere(node.cloneParams());
+            this.fakeNode = node;
             isSubInterest = true;
         }
 
@@ -296,16 +306,14 @@ var ExploreViz = NbrViz.extend({
         }
         n = this.createHistoryNode(nodeClass, nodeRoot, 0);
         var fill = n.circle.attr('fill');
-        n.show();
-        n.getLayerSet().attr({ 'opacity' : 0.01, 'fill-opacity' : 0.01});
-        n.circle.attr({ 'opacity' : 0.01, 'fill-opacity' : 0.01, fill : fill});    // hack....
+        n.getLayerSet().attr({ 'opacity' : 0.0, 'fill-opacity' : 0.0});
         n.animate(
-                { 'opacity' : 1.0, 'fill-opacity' : 1.0 },
+                { 'opacity' : 1.0, 'fill-opacity' : 1.0 , fill : fill},
                 millis,
                 'linear',
                 function () {
-                    self.shiftToNewNode(nodeClass, nodeRoot);
-                    if (isSubInterest) { node.fadeAndRemove(); }
+                    self.unsetState(self.STATE_ANIMATING);
+                    self.checkIfComplete();
                 }
             );
         this.history.splice(0, 0, n);
@@ -314,9 +322,13 @@ var ExploreViz = NbrViz.extend({
         if (this.history.length > this.HISTORY_LENGTH) {
             this.history = this.history.slice(0, this.HISTORY_LENGTH);
         }
-    },
-    animateNewNode : function(nodeClass, nodeRoot, node) {
 
+    },
+    checkIfComplete : function() {
+        if (this._super() && this.fakeNode) {
+            this.fakeNode.fadeAndRemove();
+            this.fakeNode = null;
+        }
     },
     shiftToNewNode : function(nodeClass, nodeRoot) {
         var params = macademia.getQueryParams();

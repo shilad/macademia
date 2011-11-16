@@ -8,6 +8,11 @@
 
 var NbrViz = Class.extend({
 
+    STATE_NORMAL : 1,
+    STATE_LOADING : 2,
+    STATE_ANIMATING : 4,
+    STATE_BUILDING : 8,
+    STATE_LAYOUT : 16,
 
     ROOT_INTEREST_SCALE : 1.4,
     ROOT_PERSON_SCALE : 1.8,
@@ -15,6 +20,7 @@ var NbrViz = Class.extend({
     init : function(params) {
         this.x = params.x;
         this.y = params.y;
+        this.state = this.STATE_NORMAL;
         this.width = params.width;
         this.height = params.height;
         this.vizWidth = params.vizWidth || this.width;
@@ -23,6 +29,7 @@ var NbrViz = Class.extend({
         this.spokes = [];
         this.clusterShadows = [];
         this.enabled = false;
+        this.model = null;
 
         this.peopleClickable = params.peopleClickable ||  false;
         this.interestWeights = {};
@@ -57,12 +64,27 @@ var NbrViz = Class.extend({
         this.interestClusters = {};
         this.edges = [];
         this.highlighted = [];
-//        this.paper.clear();
         Magnet.clear();
     },
 
     hasRoot : function() {
         return !!this.rootClass;
+    },
+
+    setState : function(state) {
+        this.state |= state;
+    },
+
+    unsetState : function(state) {
+        this.state &= ~state;
+    },
+
+    setOnlyState : function(state) {
+        this.state = state;
+    },
+
+    stateIsSet : function(state) {
+        return ((this.state & state) != 0);
     },
 
     /**
@@ -289,6 +311,8 @@ var NbrViz = Class.extend({
             } else {
                 console.log('stoppped at iters=' + iters + ', k=' + k);
                 self.setEnabled(true);
+                self.setOnlyState(self.STATE_NORMAL);
+                self.hideLoadingMessage();
             }
         };
         $.each(Point.points, function(index, p) {
@@ -426,13 +450,24 @@ var NbrViz = Class.extend({
         this.clusterShadows = [];
     },
     loadJson : function(model) {
+        this.model = model;
+        this.unsetState(this.STATE_LOADING);
+        this.checkIfComplete();
+    },
+
+    checkIfComplete : function() {
+        if (this.stateIsSet(this.STATE_LOADING) || this.stateIsSet(this.STATE_ANIMATING)) {
+            return false;
+        }
+        this.setOnlyState(this.STATE_BUILDING);
+        var model = this.model;
         model.dump();
         this.reset();
         this.removeOldNodes(model);
         this.rootId = model.getRootId();
         this.rootClass = model.getRootClass();
 
-        if (model.isEmpty()) { return; }
+        if (model.isEmpty()) { return true; }
 
         var self = this;
 
@@ -456,10 +491,13 @@ var NbrViz = Class.extend({
         macademia.nbrviz.setPeople(this.people);
 
         this.setEnabled(false);
+
+        this.setOnlyState(this.STATE_LAYOUT);
         this.layoutInterests();
         this.layoutPeople();
         this.setupListeners();
-        this.hideLoadingMessage();
+
+        return true;
     },
 
     initCluster : function(id, model) {

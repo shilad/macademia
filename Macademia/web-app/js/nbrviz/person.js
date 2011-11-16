@@ -34,6 +34,7 @@ var PersonCenter = RaphaelComponent.extend({
         this.r = this.outerRadius + this.innerRadius;
         this.glow = null;
         this.type = 'person';
+        this.fakeRootNode = null;
 
         var x = params.x, y = params.y;
 
@@ -96,8 +97,7 @@ var PersonCenter = RaphaelComponent.extend({
         this.interestGroups = interestGroups;
         $.each(this.interestGroups, function() {
             var ig = this[0];
-            var sat = Math.max(0.25, Math.min(this[1] * this[1] * this[1] / 2, 0.8));
-//            console.log(self.name + ': ' + ig.name + ' ' + sat);
+            var sat = macademia.pinch(this[1] * this[1] * this[1] / 2.0, 0.35, 0.8);
             var color = self.fillHsb(ig.color, sat);
             var section = self.paper.path().attr({stroke: color, opacity: 0});
             self.wedges.push(section);
