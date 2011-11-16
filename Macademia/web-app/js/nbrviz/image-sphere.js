@@ -6,8 +6,6 @@ var ImageSphere = LabeledSphere.extend({
         params.hue = 0.0;
         params.brightness = 0.0;
         params.sat = 0.0001;
-        params.xOffset = 0;
-        params.yOffset = params.r * 1.1;
 
         this._super(params);
 
@@ -15,12 +13,9 @@ var ImageSphere = LabeledSphere.extend({
         this.IMAGE_ASPECT = 130.0 / 194.0;
         this.IMAGE_WIDTH = 28;
         this.IMAGE_HEIGHT = this.IMAGE_WIDTH / this.IMAGE_ASPECT;
-        this.LABEL_VERT_OFFSET = 13;
-        this.LABEL_HORIZ_OFFSET = 13;
 
         this.picture = params.picture || '';
 
-        this.font = params.font || macademia.nbrviz.mainFont;
         this.imageHeight = params.imageHeight || this.IMAGE_HEIGHT;
         this.imageWidth = params.imageWidth || (this.imageHeight * this.IMAGE_ASPECT);
         this.picture = this.paper.image(this.picture,

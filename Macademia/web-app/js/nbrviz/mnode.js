@@ -352,7 +352,7 @@ var MNode = RaphaelComponent.extend(
         if (this.state != this.STATE_EXPANDED && this.state != this.STATE_EXPANDING) {
             return;
         }
-        ms = ms || 400;
+        ms = typeof(ms) == 'undefined' ? 400 : ms;
 
         this.state = this.STATE_COLLAPSING;
 

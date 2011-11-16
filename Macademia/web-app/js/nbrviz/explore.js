@@ -1,7 +1,7 @@
 
 var ExploreViz = NbrViz.extend({
     MAX_HISTORY_RADIUS : 30,
-    MIN_HISTORY_RADIUS : 10,
+    MIN_HISTORY_RADIUS : 8,
     HISTORY_SPACING : 120,
     HISTORY_LENGTH : 5,
 
@@ -212,8 +212,8 @@ var ExploreViz = NbrViz.extend({
         return sphere;
     },
     historyNodeSize : function(stepsBack) {
-        var stepSize = (this.MAX_HISTORY_RADIUS - this.MIN_HISTORY_RADIUS) / this.HISTORY_LENGTH;
-        return this.MAX_HISTORY_RADIUS - stepsBack * stepSize;
+        var delta = (this.MAX_HISTORY_RADIUS - this.MIN_HISTORY_RADIUS);
+        return this.MIN_HISTORY_RADIUS + delta * Math.pow(0.62, stepsBack);
     },
     animateBack : function(steps) {
         this.state |= this.STATE_LOADING;
@@ -261,7 +261,7 @@ var ExploreViz = NbrViz.extend({
 
         // raise the screen and animate the new and old roots
         this.historyLabel.toFront();
-        this.raiseScreen(this.historyLabel, 0.5);
+        this.raiseScreen(this.historyLabel, 0.8);
         $.each(this.history, function () {this.toFront()});
         this.getRootNode().toFront();
         var p1 = this.getSpokePosition( 5 * Math.PI / 4);

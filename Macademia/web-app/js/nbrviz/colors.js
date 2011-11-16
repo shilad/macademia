@@ -1,8 +1,8 @@
 macademia.nbrviz.colors = macademia.nbrviz.colors || {
     map : null,
-    hues : [0.01, 0.17, 0.29, 0.47, 0.68, 0.82],
+    hues : [0.001, 0.10, 0.17, 0.27, 0.48, 0.68, 0.82],
     stack : [],
-    COOKIE_NAME : 'viz_colors'
+    COOKIE_NAME : 'viz_color_indexes'
 };
 
 var NVC = macademia.nbrviz.colors;
@@ -30,15 +30,15 @@ NVC.assign = function(ids) {
 
     // all available colors
     var avail = {};
-    $.each(NVC.hues, function (i, hue) { avail[hue] = -1; });
+    $.each(NVC.hues, function (i, hue) { avail[i] = -1; });
 
     // retain existing hues (track collisions)
     var collisions = [];
     for (var i = 0; i < ids.length; i++) {
         var id = ids[i];
-        var hue = NVC.map[id];
-        if (hue in avail) {
-            delete avail[hue];
+        var hueIndex = NVC.map[id] % NVC.hues.length;
+        if (hueIndex in avail) {
+            delete avail[hueIndex];
         } else {
             collisions.push(id);
         }
@@ -47,9 +47,9 @@ NVC.assign = function(ids) {
     // sort available hues by recency
     for (i = 0; i < NVC.stack.length; i++) {
         id = NVC.stack[i];
-        hue = NVC.map[id];
-        if (hue in avail) {
-            avail[hue] = Math.max(avail[hue], i);
+        hueIndex = NVC.map[id];
+        if (hueIndex in avail) {
+            avail[hueIndex] = Math.max(avail[hueIndex], i);
         }
     }
     var availList = $.map(avail, function(v, k) { return k; });
@@ -64,8 +64,8 @@ NVC.assign = function(ids) {
     }
     for (i = 0; i < collisions.length; i++) {
         id = collisions[i];
-        hue = availList[i];
-        NVC.map[id] = hue;
+        hueIndex = availList[i];
+        NVC.map[id] = hueIndex;
     }
 
     // save colors to cookie.
@@ -83,12 +83,12 @@ NVC.assign = function(ids) {
 NVC.getColor = function(id) {
     if (NVC.map == null) {
         alert('getColor assertion error: colors is null');
-        return 0.0;
+        return 0.001;
     }
     if (!(id in NVC.map)) {
-        return 0.0;
+        return 0.001;
     }
-    return NVC.map[id];
+    return NVC.hues[NVC.map[id] % NVC.hues.length];
 };
 
 /**
@@ -104,7 +104,7 @@ NVC.loadColorsFromCookie = function() {
     var colors = {};
     $.each(pairs, function (i, p) {
         var tokens = p.split('_');
-        colors[tokens[0]] = parseFloat(tokens[1]);
+        colors[tokens[0]] = parseInt(tokens[1]);
     });
     return colors;
 };

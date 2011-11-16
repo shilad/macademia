@@ -200,6 +200,10 @@ macademia.pinch = function(value, min, max) {
     return Math.min(Math.max(value, min), max);
 };
 
+macademia.trimSpace = function(str) {
+    return str.replace(/^\s+|\s+$/g, '');
+};
+
 
 macademia.screenArea = function() {
     return $(document).width() * $(document).height();

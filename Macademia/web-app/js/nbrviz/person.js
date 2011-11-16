@@ -48,15 +48,14 @@ var PersonCenter = RaphaelComponent.extend({
                 this.imageHeight * this.scale);
 
         // strokes and borders
-        this.outerStroke = this.paper.circle(x, y,
-                this.scale * (this.innerRadius + this.outerRadius))
+        var outerR = this.scaledOuterRadius();
+        this.outerStroke = this.paper.circle(x, y, this.scale * this.innerRadius + outerR)
                 .attr({stroke: "#999", "stroke-width": 1});
         this.innerStroke = this.paper.circle(x, y, this.scale * this.innerRadius)
                 .attr({stroke: "#999", "stroke-width": 1});
 
         // wedges
         var self = this;
-        var outerR = this.scaledOuterRadius();
         this.wedges = [];
         this.nameText = this.paper.text().attr({
             text: this.name,
@@ -141,7 +140,7 @@ var PersonCenter = RaphaelComponent.extend({
         var k = this.scale;
         var outerR = this.scaledOuterRadius();
         $.each(circles, function() { this.attr({cx : x, cy : y}); });
-            this.image.attr({
+        this.image.attr({
             x : (x - this.image.attr('width')/2),
             y : (y - this.image.attr('height')/2)
         });

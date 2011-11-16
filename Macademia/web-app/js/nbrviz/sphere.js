@@ -185,7 +185,7 @@ var Sphere = RaphaelComponent.extend({
             a.cy = a.y || a.cy || self.getY();
             delete a.x;
             delete a.y;
-            a.scale = a.scale || 1.0;
+            a.scale = a.scale || self.scale;
             a.r = self.r * a.scale;
 
             // only call the callback once
@@ -193,7 +193,7 @@ var Sphere = RaphaelComponent.extend({
             this.animate(a, millis, arg1, f);
         });
 
-        this.scale = attrs.scale || 1.0;
+        this.scale = attrs.scale || this.scale;
     },
 
     setScale : function(scale) {

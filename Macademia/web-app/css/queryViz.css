@@ -216,7 +216,7 @@ input:-moz-placeholder, textarea::-moz-placeholder { color: #636363; }
 /* line 7, /Users/shilad/.gem/ruby/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
 #queryWidget #currentInterests .rootInterestKey, #adjustmentWidget #currentInterests .rootInterestKey { *display: inline; }
 /* line 77, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */
-#queryWidget #currentInterests .rootInterestName, #adjustmentWidget #currentInterests .rootInterestName { display: -moz-inline-box; -moz-box-orient: vertical; display: inline-block; vertical-align: middle; *vertical-align: auto; height: 20px; vertical-align: top; position: relative; top: 1px; left: -1px; }
+#queryWidget #currentInterests .rootInterestName, #adjustmentWidget #currentInterests .rootInterestName { display: -moz-inline-box; -moz-box-orient: vertical; display: inline-block; vertical-align: middle; *vertical-align: auto; height: 20px; vertical-align: top; position: relative; top: 0; left: -1px; }
 /* line 7, /Users/shilad/.gem/ruby/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
 #queryWidget #currentInterests .rootInterestName, #adjustmentWidget #currentInterests .rootInterestName { *display: inline; }
 /* line 85, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_queryViz.scss */

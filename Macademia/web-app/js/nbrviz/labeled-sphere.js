@@ -20,7 +20,7 @@ var LabeledSphere = Sphere.extend({
 
         this.label = this.paper.text(
                 x + this.scale * this.xOffset,
-                y + this.scale * this.yOffset, this.name)
+                y + this.scale * this.yOffset, macademia.trimSpace(this.name))
                     .attr({fill: '#000', 'font': this.font});
         var bbox1 = this.label.getBBox();
         this.labelWidth = bbox1.width;
@@ -149,7 +149,7 @@ var LabeledSphere = Sphere.extend({
             if (a.fill) { delete a.fill; }
             a.x = a.x || self.getX();
             a.y = a.y || self.getY();
-            a.scale = a.scale || 1.0;
+            a.scale = a.scale || self.scale;
             if (a.x) {
                 a.x += a.scale * (self.xOffset - this.attr('width') / 2);
                 a.y += a.scale * (self.yOffset - this.attr('height') / 2);
@@ -165,10 +165,11 @@ var LabeledSphere = Sphere.extend({
         var self = this;
         // handle rectangles (position is upper left)
         $.each([this.label, this.labelBg], function() {
-            var rx = x - this.attr('width') / 2;
-            var ry = y - this.attr('height') / 2;
-            rx += self.xOffset;
-            ry += self.yOffset;
+            var rx = x + self.scale * (self.xOffset - this.attr('width') / 2);
+            var ry = y + self.scale * (self.yOffset - this.attr('height') / 2);
+            if (this === self.labelBg) {
+                ry += this.attr('height') * 0.25 * self.scale;
+            }
             this.attr({'x' : rx, 'y' : ry});
         });
     },
