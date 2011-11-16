@@ -16,7 +16,7 @@ var QueryViz = NbrViz.extend({
     },
 
     refreshViz : function(queryIds) {
-        macademia.nbrviz.assignColors(queryIds);
+        macademia.nbrviz.colors.assign(queryIds);
         this.initKey();
         if (!queryIds.length) {
             this.loadJson(new Model({}));
@@ -32,12 +32,13 @@ var QueryViz = NbrViz.extend({
             });
         url += '?queryIds=' + queryIds.join('_');
         url += '&queryWeights=' + weights.join('_');
+        this.setState(this.STATE_LOADING);
+        this.showLoadingMessage();
         $.ajax({
             url: url,
             dataType : 'json',
             success : function (json) { self.loadJson(new VizModel(json)); }
         });
-        this.showLoadingMessage();
     },
 
     getQueryIds : function() {

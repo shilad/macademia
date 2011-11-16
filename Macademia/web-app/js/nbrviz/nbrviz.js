@@ -161,7 +161,9 @@ var NbrViz = Class.extend({
         // special case: if there's only one interest it should be centered.
         if (numParents == 1 && !this.hasRoot()) {
             for (var iid in this.interestClusters) {
-                return { iid : this.getCenterPosition() };
+                var res = {};
+                res['' + iid] = this.getCenterPosition();
+                return res;
             }
         }
 
