@@ -69,7 +69,7 @@ var ExploreViz = NbrViz.extend({
     initKey : function(model) {
         $.each(this.keyPapers, function() { this.clear(); });
         this.keyPapers = [];
-        macademia.nbrviz.assignColors(model.getClusterIds());
+        macademia.nbrviz.colors.assign(model.getClusterIds());
         $(".addedInterestDiv").each(
                 function() { if (this.id != 'queryInterestTemplate') { $(this).remove(); } }
         );
@@ -173,7 +173,7 @@ var ExploreViz = NbrViz.extend({
             id : nodeId,
             hue: 0,
             sat : 0.2,
-            brightness : 0.8,
+            brightness : 1.0,
             strokeWidth : 1,
             name: name,
             paper: this.paper,
@@ -187,9 +187,10 @@ var ExploreViz = NbrViz.extend({
         var sphere;
         if (nodeClass == 'interest') {
             $.extend(attrs, {
-                sat : 0.2,
-                hue: macademia.nbrviz.getColor(nodeId)
+                sat : 0.3,
+                hue: macademia.nbrviz.colors.getColor(nodeId)
             });
+            console.log('color for ' + nodeId + ' is ' + attrs.hue);
             sphere = new LabeledSphere(attrs);
         } else {
             $.extend(attrs, {
@@ -235,9 +236,18 @@ var ExploreViz = NbrViz.extend({
         }
     },
     animateForward : function(nodeClass, nodeRoot, node) {
-        var millis = 2000;
+        var millis = 1000;
         this.setEnabled(false);
         this.resetAllHovers();
+
+        var isSubInterest = false;
+        if (node.type == 'interest' && !(node.id in this.interestClusters)) {
+            var iids = this.getInterestClusterIds();
+            iids.unshift(node.id);
+            macademia.nbrviz.colors.assign(iids);
+            node = new LabeledSphere(node.cloneParams());
+            isSubInterest = true;
+        }
 
         // raise the screen and animate the new and old roots
         this.historyLabel.toFront();
@@ -249,11 +259,20 @@ var ExploreViz = NbrViz.extend({
         var s1 = 1.0 / (this.getRootNode().type == 'interest'
                             ? NbrViz.ROOT_INTEREST_SCALE
                             : NbrViz.ROOT_PERSON_SCALE);
+
         this.getRootNode().animate({ x : p1.screenX(), y : p1.screenY(), scale : s1}, millis);
+
         var p2 = this.getCenterPosition();
         node.toFront();
         var s2 = node.type == 'interest' ? NbrViz.ROOT_INTEREST_SCALE : NbrViz.ROOT_PERSON_SCALE;
-        node.animate({ x : p2.screenX(), y : p2.screenY(), scale : s2}, millis);
+        var params = { x : p2.screenX(), y : p2.screenY(), scale : s2};
+
+        if (isSubInterest) { // subinterest
+            params.scale *= MNode.COLLAPSED_RADIUS / MNode.RELATED_RADIUS;
+            var hue = macademia.nbrviz.colors.getColor(node.id);
+            params.fill = 'hsb(' + hue + ',' + node.sat + ',' + node.brightness + ')';
+        }
+        node.animate(params, millis);
 
         // update the history
         var self = this;
@@ -276,13 +295,18 @@ var ExploreViz = NbrViz.extend({
             n.animate(a, millis, 'linear', f);
         }
         n = this.createHistoryNode(nodeClass, nodeRoot, 0);
-        n.getLayerSet().attr({'opacity' : 0, 'fill-opacity' : 0});
+        var fill = n.circle.attr('fill');
+        n.show();
+        n.getLayerSet().attr({ 'opacity' : 0.01, 'fill-opacity' : 0.01});
+        n.circle.attr({ 'opacity' : 0.01, 'fill-opacity' : 0.01, fill : fill});    // hack....
         n.animate(
                 { 'opacity' : 1.0, 'fill-opacity' : 1.0 },
                 millis,
                 'linear',
                 function () {
-                    self.shiftToNewNode(nodeClass, nodeRoot); }
+                    self.shiftToNewNode(nodeClass, nodeRoot);
+                    if (isSubInterest) { node.fadeAndRemove(); }
+                }
             );
         this.history.splice(0, 0, n);
 

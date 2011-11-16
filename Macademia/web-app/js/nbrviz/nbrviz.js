@@ -7,6 +7,8 @@
 
 
 var NbrViz = Class.extend({
+
+
     ROOT_INTEREST_SCALE : 1.4,
     ROOT_PERSON_SCALE : 1.8,
 
@@ -434,7 +436,7 @@ var NbrViz = Class.extend({
 
         var self = this;
 
-        macademia.nbrviz.assignColors(model.getClusterIds());
+        macademia.nbrviz.colors.assign(model.getClusterIds());
         this.interests = model.getInterests();
         macademia.nbrviz.setInterests(this.interests);
 
@@ -468,7 +470,7 @@ var NbrViz = Class.extend({
                 interests : model.getInterests(),
                 relatedInterests : model.getRelatedInterests(id),
                 name : interest.name,
-                color : macademia.nbrviz.getColor(id),
+                color : macademia.nbrviz.colors.getColor(id),
                 paper : this.paper,
                 scale : 1.0,
                 clickText : '(click to add)'
@@ -538,11 +540,17 @@ var NbrViz = Class.extend({
         this.people[pid] = person;
     },
 
+    getInterestClusterIds : function() {
+        return $.map(this.interestClusters, function (v, k) { return k; });
+    },
+
     maxPeopleThatFit : function(model) {
         return Math.max(8, macademia.screenArea() / 35000) - model.getClusterIds().length;
     },
+
     interestClicked : function(interestNode) {
     },
+
     personClicked : function(personNode) {
     },
 
@@ -586,7 +594,7 @@ var NbrViz = Class.extend({
         var p = new Raphael(sphereElem.get(0), w, h);
         var s = new Sphere({
             r : Math.min(w / 2, h/2), x : w / 2, y : h/2,
-            hue : macademia.nbrviz.getColor(interestId), paper : p
+            hue : macademia.nbrviz.colors.getColor(interestId), paper : p
         });
         return p;
     }

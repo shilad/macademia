@@ -20,6 +20,12 @@ var RaphaelComponent = Class.extend({
         }
         return this.hoverSet;
     },
+    cloneParams : function() {
+        return {
+            paper : this.paper,
+            hoverDelay: this.hoverDelay
+        }
+    },
     getLayerSet : function() {
         return this.paper.set(this.getLayers());
     },
@@ -60,6 +66,9 @@ var RaphaelComponent = Class.extend({
     },
     drag : function(move, start, up) {
         this.getLayerSet().drag(move, start, up);
+    },
+    fadeAndRemove : function() {
+        $.each(this.getLayers(), function () { this.fadeAndRemove(); });
     },
     remove : function() {
         this.getLayerSet().remove();

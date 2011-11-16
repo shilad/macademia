@@ -19,10 +19,10 @@
 
 
 <g:javascript>
-var NVZ = macademia.nbrviz;
+var NVC = macademia.nbrviz.colors;
 
 function appendColoredSpan(parentDiv, content, hue) {
-  var span =$("<span>" + content + "</span>");
+  var span =$("<span>" + content + '(' + hue + ')' + "</span>");
   span.addClass("removable");
   span.css('color', Raphael.hsb(hue, 1.0, 1.0));
   $(parentDiv).append(span);
@@ -31,33 +31,35 @@ function appendColoredSpan(parentDiv, content, hue) {
 function showColorsForIds(ids, parentDiv) {
   $(parentDiv).find('.removable').remove();
     for (var i = 0; i < ids.length; i++) {
-        var hue = NVZ.getColor(ids[i]);
+        var hue = NVC.getColor(ids[i]);
         appendColoredSpan(parentDiv, ids[i], hue);
     }
 }
 
 // override cookie serialization.
 FAKE_COOKIE = {};
-NVZ.loadColorsFromCookie = function() {
-  console.log('returning ' + FAKE_COOKIE);
+NVC.loadColorsFromCookie = function() {
   return FAKE_COOKIE;
 };
-NVZ.saveColorsToCookie = function(colors) {
+NVC.saveColorsToCookie = function(colors) {
   FAKE_COOKIE = colors;
 };
 
 $().ready(function() {
-  $("#changeColors").submit(
-  function() {
-        var text = $(this).find("input").val();
+  var foo = function() {
+        var text = $("#changeColors input").val();
         var letters = text.split('');
-        NVZ.assignColors(letters);
+        NVC.assign(letters);
         showColorsForIds(letters, $("#currentSet"));
         showColorsForIds(
                 $.map(FAKE_COOKIE, function (v, k) { return k; }),
                 $("#allColors"));
-        showColorsForIds(NVZ.colorStack, $("#colorStack"));
-  });
+        showColorsForIds(NVC.stack, $("#colorStack"));
+        return false;
+  };
+  $("#changeColors").submit(foo);
+  $("#changeColors input").val("abcdefghi");
+  foo();
 });
 
 </g:javascript>

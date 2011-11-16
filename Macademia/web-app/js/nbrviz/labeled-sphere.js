@@ -59,6 +59,19 @@ var LabeledSphere = Sphere.extend({
         this._super(params);
     },
 
+    cloneParams : function() {
+        return $.extend(this._super(), {
+            xOffset : this.xOffset,
+            yOffset : this.yOffset,
+            font : this.font,
+            name : this.name,
+            scale : this.scale,
+            interest : this.interest,
+            id : this.id,
+            clickText : this.clickText
+        });
+    },
+
     setHighlightMode : function(mode) {
         var lastMode = this.highlightMode;
         if (mode == lastMode) {

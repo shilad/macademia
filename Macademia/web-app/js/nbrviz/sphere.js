@@ -35,7 +35,7 @@ var Sphere = RaphaelComponent.extend({
         if (this.hue == -1) {
             fill = "hsb(0,0,.9)";
         } else {
-            fill = "hsb(" + this.hue + "," + 0.9*this.sat + "," + 1.1*this.brightness + ")";
+            fill = "hsb(" + this.hue + "," + this.sat + "," + this.brightness + ")";
         }
 
         this.circle = this.paper.circle(x, y, this.scale * (this.r-this.strokeWidth))
@@ -46,6 +46,20 @@ var Sphere = RaphaelComponent.extend({
                 .attr({fill: '#f00', stroke: 'none', opacity: 0.0});
 
         this.installListeners();
+    },
+
+    cloneParams : function() {
+        return $.extend(this._super(), {
+            sat : this.sat,
+            hue : this.hue,
+            brightness : this.brightness,
+            x : this.getX(),
+            y : this.getY(),
+            scale : this.scale,
+            r : this.r,
+            name : this.name,
+            strokeWidth : this.strokeWidth
+        });
     },
 
     highlightNone : function() { this.setHighlightMode(this.HIGHLIGHT_NONE); },

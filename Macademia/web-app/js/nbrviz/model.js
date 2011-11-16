@@ -35,7 +35,7 @@ var VizModel = Class.extend({
             var self = this;
             $.each(this.json.interests, function (id, info) {
                 var hasCluster = (info && info.cluster >= 0);
-                var color = hasCluster ? macademia.nbrviz.getColor(info.cluster) : -1;
+                var color = hasCluster ? macademia.nbrviz.colors.getColor(info.cluster) : -1;
                 self.interests[id] = new Interest({
                     id:id,
                     name:info.name,
