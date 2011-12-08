@@ -291,36 +291,42 @@ var NbrViz = Class.extend({
                     macademia.pinch(y, -MM.Y_RANGE, MM.Y_RANGE)
             ));
             p.setStuff(i, person.relevance );
+            Point.points.push(p);
             angles[ic.id] += 1.1;
         });
         $.each(Point.points, function(index, p) {
             self.people[p.id].setPosition( p.screenX(), p.screenY());
         });
 
-        var iters = 0;
-        var f = function() {
-            var k = 1.0;
-            var n = Math.min(5, 1 + iters / 7);
-            for (var i = 0; i < n; i++) {
-                k = Math.min(k, macademia.nbrviz.magnet.oneLayoutIteration());
-            }
-            $.each(Point.points, function(index, p) {
-                var person = self.people[p.id];
-                person.setPosition(p.screenX(), p.screenY());
+        var updatePeoplePositions = function(points) {
+            $.each(points, function(index, p) {
+                self.people[p.id].setPosition(p.screenX(), p.screenY());
             });
-            if (iters++ < 23 && k >= 0.00001) {
-                window.setTimeout(f, 1);
-            } else {
+        };
+
+        updatePeoplePositions(Point.points);
+        
+        var layoutWorker = new Worker("/Macademia/js/nbrviz/layout-worker.js");
+        layoutWorker.onmessage = function(event) {
+            var data = JSON.parse(event.data);
+            var args = data.args;
+            if (data.message == "updatePeoplePositions") {
+                updatePeoplePositions(Point.makePointsFromJSON(args.points));
+            } else if (data.message == "done") {
+                console.log('stoppped at iters=' + args.iters + ', k=' + args.k);
                 self.setEnabled(true);
                 self.setOnlyState(self.STATE_NORMAL);
                 self.hideLoadingMessage();
-                $.each(self.people, function (pid, p) { p.centerNode.updateRotation(); });
+            } else {
+                console.log(event.data);
             }
         };
-        $.each(Point.points, function(index, p) {
-            self.people[p.id].setPosition( p.screenX(), p.screenY());
-        });
-        window.setTimeout(f, 1);
+        var pointsJSON = Point.pointsToJSON(Point.points);
+        var magnetsJSON = Magnet.magnetsToJSON(Magnet.magnets);
+        layoutWorker.postMessage(JSON.stringify({message: "points" , args: { points: pointsJSON } }));
+        layoutWorker.postMessage(JSON.stringify({message: "magnets" , args: { magnets: magnetsJSON } }));
+        layoutWorker.postMessage(JSON.stringify({message: "initMagnet", args: {width: MM.WIDTH, height: MM.HEIGHT} }));
+        layoutWorker.postMessage(JSON.stringify({message: "start"}));
     },
 
     setEnabled : function(enabled) {

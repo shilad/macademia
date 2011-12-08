@@ -1,8 +1,19 @@
-macademia.nbrviz.magnet = {};
+/*
+ * This file is interpreted both as a component of
+ * the macademia namespace and as a discrete script
+ * for use in the layout-worker.
+ */
+var magnet = {};
+var MM = magnet;
+var macademia = macademia || {
+    pinch : function(value, min, max) {
+        return Math.min(Math.max(value, min), max);
+    },
+    nbrviz : {}
+};
+macademia.nbrviz.magnet = magnet;
 
-var MM = macademia.nbrviz.magnet;
-
-macademia.nbrviz.magnet.init = function (width, height) {
+magnet.init = function (width, height) {
     // constants
     MM.WIDTH = width;
     MM.HEIGHT = height;
@@ -36,20 +47,48 @@ Point.points = [];
 Point.prototype.setStuff= function( id, relevance ) {
 	this.relevance = relevance;
 	this.id = id;
-
-    Point.points.push(this);
 };
 
 Point.prototype.applyForce = function(force) {
 	this.f = this.f.add(force);
 };
 
-// points are slightly repulsed by other points
-Point.applyCoulombsLaw = function() {
+Point.pointsToJSON = function(points) {
+    var json = {};
+    for (var i = 0; i < points.length; i++) {
+        var p = points[i];
+        json["p_"+i] = {
+            "p" : p.p,
+            "v" : p.v,
+            "f" : p.f,
+            "id" : p.id,
+            "relevance" : p.relevance
+        }
+    }
+    return json;
+};
 
-	Point.points.forEach(function(point1) {
-		Point.points.forEach(function(point2) {
-			if (point1 !== point2) {
+Point.makePointsFromJSON = function(pointsJSON) {
+    var points = [];
+    for (var key in pointsJSON) {
+        var point = pointsJSON[key];
+        var p = new Point(new Vector(point.p.x, point.p.y));
+        p.v = new Vector(point.v.x, point.v.y);
+        p.f = new Vector(point.f.x, point.f.y);
+        p.setStuff(point.id, point.relevance);
+        points.push(p);
+    }
+    return points;
+};
+
+// points are slightly repulsed by other points
+Point.applyCoulombsLaw = function(points) {
+
+    for (var i = 0; i < points.length; i++) {
+        var point1 = points[i];
+        for (var j = 0; j < points.length; j++) {
+            var point2 = points[j];
+            if (point1 !== point2) {
 				var d = point1.p.subtract(point2.p);
 				var distance = d.magnitude() + 0.01;
 				var direction = d.normalise();
@@ -58,7 +97,7 @@ Point.applyCoulombsLaw = function() {
                 point1.applyForce(f);
 				point2.applyForce(f.multiply(-1));
 			}
-		});
+        }
         // aggregate repulsions from walls
         var f = function(z, range) {
             var sign = (z < 0) ? -1 : +1;
@@ -73,32 +112,34 @@ Point.applyCoulombsLaw = function() {
 //        }
         point1.applyForce(wallForceX);
         point1.applyForce(wallForceY);
-    });
+    }
 };
 
-Point.updateVelocity = function() {
+Point.updateVelocity = function(points) {
 	var damping = 0.3; // damping constant, points lose velocity over time
 
     // only go 1/5 of the screen at a time, max
     var maxMagnitude = Math.min(MM.X_RANGE, MM.Y_RANGE) / 5 / MM.TIMESTEP;
-	Point.points.forEach(function(p) {
-		p.v = p.v.add(p.f.multiply(MM.TIMESTEP)).multiply(damping);
+    for (var i = 0; i < points.length; i++) {
+        var p = points[i];
+        p.v = p.v.add(p.f.multiply(MM.TIMESTEP)).multiply(damping);
         var m = p.v.magnitude();
         if (m > maxMagnitude) {
             p.v = p.v.multiply(maxMagnitude / m);
         }
 		p.f = new Vector(0,0);
-	});
+    }
 };
 
 var POSITIONS = [];
 var INDEX = 0;
 
-Point.updatePosition = function() {
+Point.updatePosition = function(points) {
 //    var maxD = 0;
 //    var meanD = 0;
 
-	Point.points.forEach(function(p) {
+	for (var i = 0; i < points.length; i++) {
+        var p = points[i];
 //        var sx0 = p.screenX();
 //        var sy0 = p.screenY();
 		p.p = p.p.add(p.v.multiply(MM.TIMESTEP));
@@ -111,7 +152,7 @@ Point.updatePosition = function() {
 //        if (d > maxD) {
 //            maxD = d;
 //        }
-	});
+	}
 //    if (INDEX++ % 100 == 0) {
 //        var ps = [];
 //        $.each(Point.points, function() {
@@ -184,6 +225,30 @@ Magnet.clear = function() {
 
 Magnet.magnets = [];
 
+Magnet.magnetsToJSON = function(magnets) {
+    var json = {};
+    for(var i = 0; i < magnets.length; i++) {
+        var mag = magnets[i];
+        json["mag_"+i] = {
+            "p" : mag.p,
+            "id" : mag.id,
+            "relevances" : mag.relevances
+        }
+    }
+    return json;
+};
+
+Magnet.makeMagnetsFromJSON = function(magnetsJSON) {
+    var magnets = [];
+    for (var key in magnetsJSON) {
+        var mag = magnetsJSON[key];
+        var m = new Magnet(mag.p, mag.id);
+        m.relevances = mag.relevances;
+        magnets.push(m);
+    }
+    return magnets;
+};
+
 Magnet.findById = function(id) {
     for (var i = 0; i < Magnet.magnets.length; i++) {
         if (Magnet.magnets[i].id == id) {
@@ -209,14 +274,14 @@ Magnet.prototype.forceDirection = function(pnt) {
 	return new Vector(-this.p.x + pnt.p.x, -this.p.y + pnt.p.y).normalise();
 };
 
-Magnet.prototype.attractPeople = function() {
+Magnet.prototype.attractPeople = function(points) {
     var repulse = MM.REPULSE_CONSTANT;
     if (this.p.x == 0.0 && this.p.y == 0) { repulse *= 6; }
 
 	var self = this;
-	$.each(Point.points, function(i, p){
-		var radius = self.computeDistance(p);
-
+    for (var i = 0; i < points.length; i++) {
+        var p = points[i];
+        var radius = self.computeDistance(p);
 
         // spring repulsion for nodes very close to the cluster
         var magnitude = repulse / Math.pow(radius + 0.001, 2.0);
@@ -239,57 +304,65 @@ Magnet.prototype.attractPeople = function() {
 
 //        console.log('gforce is ' + gForce);
 		p.applyForce( gForce );
-	});
+    }
 };
 
-Magnet.normalizeRelevances = function() {
+Magnet.normalizeRelevances = function(points, magnets) {
     var meanRelevance = 0.0;
     var n = 0;
-    Point.points.forEach(function(p) {
+    var i, j, mag, p;
+    for (i = 0; i < points.length; i++) {
+        p = points[i];
         var sum = 0.0;
-        $.each(p.relevance, function (iid, rel) {
-            if (Magnet.findById(iid)) { sum += rel; }
-        });
-        $.each(p.relevance, function (iid, rel) {
-            if (Magnet.findById(iid)) {
-                p.relevance[iid] /= sum;
+        for (var relKey in p.relevance) {
+            if (Magnet.findById(relKey)) {
+                sum += p.relevance[relKey]
             }
-        });
-    });
-	Magnet.magnets.forEach(function(mag){
-        Point.points.forEach(function(p){
+        }
+        for (var relKey2 in p.relevance) {
+            if (Magnet.findById(relKey2)) {
+                p.relevance[relKey2] /= sum;
+            }
+        }
+    }
+    for (i = 0; i < magnets.length; i++) {
+        mag = magnets[i];
+        for (j = 0; j < points.length; j++) {
+            p = points[j];
             if ( p.relevance[mag.id] != null ) {
                 meanRelevance += p.relevance[mag.id];
                 n++;
             }
-        });
-	});
+        }
+    }
     meanRelevance /= n;
-	Magnet.magnets.forEach(function(mag){
-        Point.points.forEach(function(p){
+    for (i = 0; i < magnets.length; i++) {
+        mag = magnets[i];
+        for (j = 0; j < points.length; j++) {
+            p = points[j];
             if ( p.relevance[mag.id] != null ) {
                 mag.relevances[p.id] = p.relevance[mag.id] / meanRelevance;
             }
-        });
-	});
+        }
+	}
 };
 
-MM.oneLayoutIteration = function() {
-	Magnet.normalizeRelevances();
-    Magnet.magnets.forEach(function(mag){
-        mag.attractPeople();
-    });
+MM.oneLayoutIteration = function(points, magnets) {
+	Magnet.normalizeRelevances(points, magnets);
+    for (var i = 0; i < magnets.length; i++) {
+        magnets[i].attractPeople(points);
+    }
 
-    Point.applyCoulombsLaw();
-    Point.updateVelocity();
-    Point.updatePosition();
+    Point.applyCoulombsLaw(points);
+    Point.updateVelocity(points);
+    Point.updatePosition(points);
 
     // calculate kinetic energy of system
     var k = 0.0;
-    Point.points.forEach(function(p){
-        var speed = p.v.magnitude();
+    for (i = 0; i < points.length; i++) {
+        var speed = points[i].v.magnitude();
         k += speed * speed;
-    });
+    }
 
     return k;
-}
+};
