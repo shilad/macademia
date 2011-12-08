@@ -157,7 +157,7 @@ var LabeledSphere = Sphere.extend({
                     a.y += this.attr('height') * 0.25 * a.scale;
                 }
             }
-            this.animate(a, millis, arg1, null);
+            this.animateOrAttr(a, millis, arg1, null);
         });
     },
     setPosition : function(x, y) {

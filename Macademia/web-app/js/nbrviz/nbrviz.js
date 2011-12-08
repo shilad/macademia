@@ -251,7 +251,7 @@ var NbrViz = Class.extend({
         this.hub.attr({ stroke : '#777', 'stroke-dasharray' : '.'  });
         this.hub.toBack();
         this.bg = this.paper.ellipse(p.screenX() + xr*z, p.screenY() + yr*z, xr * z * 2, yr * z * 2)
-                .attr('fill', 'r(0.5, 0.5)#fff-#fff:30%-#EEE:50%-#DDD:100')
+                .attr('fill', 'r(0.5, 0.5)#fff-#fff:30%-#F7F7F7:50%-#EEE:100')
                 .attr('stroke-width', 0)
                 .toBack();
     },
@@ -261,7 +261,7 @@ var NbrViz = Class.extend({
 
         // handle root specially if necessary.
         if (this.rootClass == 'person') {
-            var p = new Point(new Vector(0, 0));
+            var p = this.getCenterPosition();
             this.people[this.rootId].setPosition( p.screenX(), p.screenY());
             var mag = new Magnet(p.p, -1);
             var c = this.paper.circle(p.screenX(), p.screenY(), 100)
@@ -311,10 +311,10 @@ var NbrViz = Class.extend({
             if (iters++ < 23 && k >= 0.00001) {
                 window.setTimeout(f, 1);
             } else {
-                console.log('stoppped at iters=' + iters + ', k=' + k);
                 self.setEnabled(true);
                 self.setOnlyState(self.STATE_NORMAL);
                 self.hideLoadingMessage();
+                $.each(self.people, function (pid, p) { p.centerNode.updateRotation(); });
             }
         };
         $.each(Point.points, function(index, p) {
@@ -553,7 +553,6 @@ var NbrViz = Class.extend({
             params.scale = this.ROOT_PERSON_SCALE;
         }
         var person = this.oldPeople[pid];
-//        person = null;
         if (person) {
             person.stop();
             person = this.oldPeople[pid];
@@ -563,12 +562,14 @@ var NbrViz = Class.extend({
         } else {
             person = new Person(params);
         }
-        if (person.interests.length > 12) {
-            person.expandedRadius *= Math.sqrt(person.interests.length / 12);
-        }
+        person.expandedRadius = MNode.EXPANDED_RADIUS;
         if (this.rootClass == 'person' && this.rootId == pid) {
             person.expandedRadius *= 1.2;
         }
+        if (person.interests.length > 12) {
+            person.expandedRadius *= Math.sqrt(person.interests.length / 12);
+        }
+
         if (!this.oldPeople[pid]) {
             var self = this;
             person.clicked(

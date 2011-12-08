@@ -20,6 +20,9 @@ var RaphaelComponent = Class.extend({
         }
         return this.hoverSet;
     },
+    animateOrAttr: function(params, ms, easing, callback) {
+        this.animate(params, ms, easing, callback);
+    },
     cloneParams : function() {
         return {
             paper : this.paper,

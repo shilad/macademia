@@ -190,7 +190,7 @@ var Sphere = RaphaelComponent.extend({
 
             // only call the callback once
             var f = (i == 0) ? arg2 : null;
-            this.animate(a, millis, arg1, f);
+            this.animateOrAttr(a, millis, arg1, f);
         });
 
         this.scale = attrs.scale || this.scale;

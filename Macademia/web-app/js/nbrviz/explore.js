@@ -7,7 +7,7 @@ var ExploreViz = NbrViz.extend({
 
     init : function(params) {
         params.peopleClickable = true;
-        params.vizHeight = params.height - this.MAX_HISTORY_RADIUS + 15;
+        params.vizHeight = params.height - 2 * this.MAX_HISTORY_RADIUS;
         this._super(params);
         this.history = [];  // history nodes
         this.keyPapers = [];
@@ -127,7 +127,6 @@ var ExploreViz = NbrViz.extend({
     },
 
     drawHistory : function() {
-        console.log(this.MAX_HISTORY_RADIUS + ', ' + ExploreViz.MAX_HISTORY_RADIUS);
         if (!this.historyLabel) {
             this.historyLabel = this.paper.text(50, this.paper.height-40, 'History:');
             this.historyLabel.attr({
@@ -194,7 +193,6 @@ var ExploreViz = NbrViz.extend({
                 sat : 0.3,
                 hue: macademia.nbrviz.colors.getColor(nodeId)
             });
-            console.log('color for ' + nodeId + ' is ' + attrs.hue);
             sphere = new LabeledSphere(attrs);
         } else {
             $.extend(attrs, {
@@ -216,8 +214,6 @@ var ExploreViz = NbrViz.extend({
         return this.MIN_HISTORY_RADIUS + delta * Math.pow(0.62, stepsBack);
     },
     animateBack : function(steps) {
-        this.state |= this.STATE_LOADING;
-
         this.setEnabled(false);
         this.resetAllHovers();
 

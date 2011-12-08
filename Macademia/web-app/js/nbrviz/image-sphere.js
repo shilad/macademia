@@ -38,7 +38,7 @@ var ImageSphere = LabeledSphere.extend({
         a.height = this.imageHeight * a.scale;
 
          // if callback (arg2) is not null, only the parent should use it.
-        this.picture.animate(a, millis, arg1, null);
+        this.picture.animateOrAttr(a, millis, arg1, null);
         this._super(attrs, millis, arg1, arg2);
     }
 });

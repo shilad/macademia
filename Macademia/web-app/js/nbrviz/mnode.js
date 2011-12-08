@@ -50,7 +50,6 @@ var MNode = RaphaelComponent.extend(
         this.collapsedRadius = params.collapsedRadius || this.COLLAPSED_RADIUS;
         this.expandedRadius = params.expandedRadius || this.EXPANDED_RADIUS;
         this.relatedNodeRadius = params.relatedNodeRadius || this.RELATED_RADIUS;
-        this.expandedHandleRadius = params.expandedHandleRadius || (this.expandedRadius + 2 * this.relatedNodeRadius);
         this.centerActive = (params.centerActive !== false);
 
         this.clickText = params.clickText;
@@ -73,6 +72,7 @@ var MNode = RaphaelComponent.extend(
         // -2 means no hover, -1 means center interest hover
         this.lastInterestHoverIndex = this.HOVER_NONE;
 
+        console.log('creating center for ' + this.name);
         this.createCenterNode();
         if (this.centerNode == null) { alert('no center node created!'); }
         this.createRing();
@@ -81,6 +81,9 @@ var MNode = RaphaelComponent.extend(
         this.installListeners();
     },
 
+    getExpandedHandleRadius : function() {
+        return (this.expandedRadius + 2 * this.relatedNodeRadius);
+    },
     setEnabled : function(enabled) {
         this.enabled = enabled;
     },
@@ -91,10 +94,13 @@ var MNode = RaphaelComponent.extend(
      * @param y
      */
     setPosition : function(x, y) {
+        this.stop();
         this.x = x;
         this.y = y;
         this.lastNotifyX = x;
         this.lastNotifyY = y;
+        this.origX = x;
+        this.origY = y;
         // Initial positioning, or update?
         this.centerNode.setPosition(x, y);
         this.ring.attr({cx : x, cy : y});
@@ -236,17 +242,21 @@ var MNode = RaphaelComponent.extend(
             );
 
         this.getHandle().mousemove(function (e) {
+            var newE = {};
             // fixup the event to have reasonable x and y
             if ($.browser.safari || $.browser.webkit) {
-                // do nothing
+                newE.x = e.x;
+                newE.y = e.y;
             } else if ($.browser.msie) {
-                e.x = event.clientX + document.body.scrollLeft;
-                e.y = event.clientY + document.body.scrollTop;
+                newE.x = event.clientX + document.body.scrollLeft;
+                newE.y = event.clientY + document.body.scrollTop;
             } else {  // grab the x-y pos.s if browser is NS
-                e.x= e.pageX;
-                e.y = e.pageY;
+                newE.x = e.pageX;
+                newE.y = e.pageY;
             }
-            self.onMouseMove(e);
+            newE.x -= self.paper.canvas.offsetLeft;
+            newE.y -= self.paper.canvas.offsetTop;
+            self.onMouseMove(newE);
         });
 
         // Main drag events
@@ -296,7 +306,7 @@ var MNode = RaphaelComponent.extend(
         millis = millis || 400;
         this.state = this.STATE_EXPANDING;
         this.stop();
-        var r = this.expandedHandleRadius;
+        var r = this.getExpandedHandleRadius();
         this.origX = this.x;
         this.origY = this.y;
 
@@ -308,7 +318,7 @@ var MNode = RaphaelComponent.extend(
                 y: this.newY
             }, 200, "linear");
         this.getHandle().stop();
-        this.getHandle().animate({
+        this.getHandle().animateOrAttr({
                 r: r,
                 cx: this.newX,
                 cy: this.newY
@@ -325,7 +335,7 @@ var MNode = RaphaelComponent.extend(
             ri.showText();
             ri.highlightNone();
 //            ri.getBackgroundLayer().insertAfter(self.ring);
-            ri.animate(
+            ri.animateOrAttr(
                     { x: nodePositions[i][0], y: nodePositions[i][1] },
                     millis,
                     "elastic");
@@ -334,7 +344,7 @@ var MNode = RaphaelComponent.extend(
                 function() { this.highlightOff(); });
 
         self.lastInterestHoverIndex = self.HOVER_NONE;
-        this.ring.animate(
+        this.ring.animateOrAttr(
                 {r: this.expandedRadius, cx : this.newX, cy: this.newY}, millis, "elastic",
                 function () {
                     self.state = self.STATE_EXPANDED;
@@ -363,8 +373,8 @@ var MNode = RaphaelComponent.extend(
 
         this.stop();
         var r = this.collapsedRadius * this.scale;
-        this.getHandle().animate({ r: r, cx: this.origX, cy: this.origY }, 0, "linear");
-        this.centerNode.animate({
+        this.getHandle().animateOrAttr({ r: r, cx: this.origX, cy: this.origY }, 0, "linear");
+        this.centerNode.animateOrAttr({
                 x: this.origX,
                 y: this.origY,
                 scale : this.scale
@@ -373,7 +383,7 @@ var MNode = RaphaelComponent.extend(
         $.each(this.relatedInterestNodes,
             function(i, ri) {
                 ri.hideText();
-                ri.animate(
+                ri.animateOrAttr(
                         { x: self.origX, y: self.origY },
                         ms,
                         "backIn",
@@ -381,7 +391,7 @@ var MNode = RaphaelComponent.extend(
                 );
             }
         );
-        this.ring.animate(
+        this.ring.animateOrAttr(
                 {r: 0}, ms, "backIn",
                 function () {
                     self.state = self.STATE_COLLAPSED;

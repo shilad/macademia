@@ -19,6 +19,15 @@ Raphael.el.fadeAndRemove = function(ms) {
     );
 };
 
+Raphael.el.animateOrAttr = function(params, ms, easing, callback) {
+    if (ms == 0) {
+        this.attr(params);
+        callback && callback();
+    } else {
+        return this.animate(params, ms, easing, callback);
+    }
+};
+
 
 macademia.nbrviz.initPaper = function(width, height) {
     macademia.nbrviz.paper = new Raphael(0, 0, width, height);

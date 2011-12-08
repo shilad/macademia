@@ -212,9 +212,7 @@ uiperformance.bundles = [
             'nbrviz/model',
             'nbrviz/nbrviz',
             'nbrviz/query',
-            'nbrviz/query-init',
             'nbrviz/explore',
-            'nbrviz/explore-init'
     ]],
 ]
 
