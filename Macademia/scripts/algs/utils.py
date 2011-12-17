@@ -1,10 +1,13 @@
+import collections
 import logging
 import math
 import pymongo
+import re
 import sys
 
 HOST = 'localhost'
 DB_NAME = 'macademia_prod'
+WP_DB_NAME = 'wikipediaReadOnly'
 db = None
 
 LOGGER = logging.getLogger(__name__)
@@ -78,6 +81,7 @@ def init(config={}):
         )
 
     #normalize()
+    incr_count_for_matching_titles(cnx)
 
 
 def normalize():
@@ -89,7 +93,26 @@ def normalize():
     for i in interests_by_name.values():
         for j in i.sim_scores:
             i.sim_scores[j] += offset
-    
+
+def incr_count_for_matching_titles(cnx):
+    db = cnx[DB_NAME]
+    wp_db = cnx[WP_DB_NAME]
+
+    num_matches = 0
+    for record in db.articlesToInterests.find():
+        interest_ids = [long(id) for id in record['interests'].split(',') if id]
+        wp_id = str(record['_id'])
+        record = wp_db.articlesToIds.find_one({'wpId' : wp_id})
+        if not record:
+            continue
+        title = normalize(record.get('_id', ''))
+        for iid in interest_ids:
+            i = interests_by_id.get(iid)
+            if i and normalize(i.text) == title:
+                i.count += 1
+                num_matches += 1
+    LOGGER.debug('incremented count for %d matching titles' % num_matches)
+
 def getInterestByName(name):
     return interests_by_name.get(name.lower())
 
@@ -117,6 +140,11 @@ def sigmoid(x):
 def test():
     init()
 
+NORMALIZE_PATTERN = re.compile('[\W_]+')
+
+def normalize(text):
+    return NORMALIZE_PATTERN.sub('', text).lower()
+
 
 def read_gold_standard(path):
     # weighted adjacency matrix
@@ -125,11 +153,12 @@ def read_gold_standard(path):
         for id1 in line.split():
             for id2 in line.split():
                 if id1 != id2:
-                    i1 = utils.getInterestById(id1)
-                    i2 = utils.getInterestById(id2)
+                    i1 = getInterestById(id1)
+                    i2 = getInterestById(id2)
                     if i1 and i2:
                         counts[i1][i2] += 1
     return counts
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.DEBUG)
     test()

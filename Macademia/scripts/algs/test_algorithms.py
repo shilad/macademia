@@ -11,9 +11,12 @@ LOGGER = logging.getLogger(__name__)
 
 SAMPLE_SIZE = 500
 POW_SIM = 2.0
-POW_DIVERSITY = 2.0
+POW_DIVERSITY = 0.333
 POW_POP = 1.0
 DEBUG = False
+
+NUM_TOP_INTERESTS_ROOT = 15
+NUM_TOP_INTERESTS_ELEM = 30
 
 def sigmoid(x):
     return 1.0 / (1.0 + math.exp(-x))
@@ -21,33 +24,39 @@ def sigmoid(x):
 def make_interest_graph(root):
     LOGGER.debug('building graph for %s', root)
 
-    candidates = set(root.get_similar()[20:])   # ignore the very closest items
+    candidates = root.get_similar()   # ignore the very closest items
+    candidates = zip(range(len(candidates)), candidates)
     cluster_roots = set()
-    while candidates and len(cluster_roots) < 4:
+    while candidates and len(cluster_roots) < 5:
         LOGGER.debug('doing iteration %d', len(cluster_roots))
         candidates, cluster_roots = pick_subcluster_root(root, candidates, cluster_roots)
 
     cluster_map = { 'root' : root, 'map' : {} }
-    for cr in cluster_roots:
-        cluster = pick_cluster_elems(cr, cluster_roots)
+    for cr in [root] + list(cluster_roots):
+        cluster_map['map'][cr] = None
+        cluster = pick_cluster_elems(cr, list(cluster_roots) + [root])
         cluster_map['map'][cr] = cluster
 
     return cluster_map
 
 def pick_subcluster_root(root, candidates, current_roots):
-    current_top = set()
+    current_top = set(root.get_similar()[:NUM_TOP_INTERESTS_ROOT])
     for i in current_roots:
-        current_top.update(i.get_similar()[:30])
+        current_top.add(i)
+        current_top.update(i.get_similar()[:NUM_TOP_INTERESTS_ELEM])
 
     debug = []
 
     top_match = None
     top_score = -1.0
-    for i in candidates:
-        candidate_top = set(i.get_similar()[:30])
+    for (rank, i) in candidates:
+        if i in current_roots or i == root:
+            continue
+        candidate_top = set(i.get_similar()[:NUM_TOP_INTERESTS_ROOT])
         n_new = len(candidate_top.difference(current_top))
+        sim = root.get_similarity(i)
         s = (
-                (root.get_similarity(i) ** POW_SIM) *
+                (sim ** POW_SIM) *
                 (n_new ** POW_DIVERSITY) *
                 (math.log(i.count + 1) ** POW_POP) 
         )
@@ -55,7 +64,7 @@ def pick_subcluster_root(root, candidates, current_roots):
             debug.append([s, root.get_similarity(i), n_new, math.log(i.count + 1), i])
         if s >= top_score:
             top_score = s
-            top_match = i
+            top_match = (rank, i)
 
     if LOGGER.isEnabledFor(logging.DEBUG):
         debug.sort()
@@ -64,18 +73,19 @@ def pick_subcluster_root(root, candidates, current_roots):
             LOGGER.debug('\t%s', debug[i])
 
     candidates.remove(top_match)
-    current_roots.add(top_match)
+    current_roots.add(top_match[1])
 
     return candidates, current_roots
 
 def pick_cluster_elems(root, other_roots):
-    candidates = set(root.get_similar())
+    candidates = root.get_similar()
+    candidates = zip(range(len(candidates)), candidates)
 
     # prune out candidates closer to some other root
-    for i in list(candidates):
+    for (rank, i) in list(candidates):
         for other in other_roots:
-            if i.get_similarity(root) < i.get_similarity(other):
-                candidates.remove(i)
+            if i == other or i.get_similarity(root) < i.get_similarity(other):
+                candidates.remove((rank, i))
                 break
 
     cluster_elems = set()
@@ -96,26 +106,26 @@ def describe_gold_standard(gold):
     for (n, i1, i2) in triples:
         print i1, i2, n
 
-def grid_evaluation(gold):
+def grid_evaluation(sample, gold):
     global POW_SIM, POW_DIVERSITY, POW_POP
 
-    options = [0.25, 0.5, 1.0, 2.0, 4.0]
-    for POW_SIM in options:
-        for POW_DIVERSITY in options:
-            for POW_POP in options:
-                evaluate(gold)
+    POW_POP = 1.0   # fix it
+    options = [0.25, 0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 6.0]
+    for POW_SIM in [1.0, 1.333, 1.666, 2.00, 2.333, 2.666, 3.0]:
+        for POW_DIVERSITY in [0, 0.1, 0.25, 0.33, 0.5, 0.75]:
+                evaluate(sample, gold)
 
 
-def evaluate(gold):
+def evaluate(sample, gold):
     sys.stdout.write('sim=%.2f, diversity=%.2f, pop=%.2f '
             % (POW_SIM, POW_DIVERSITY, POW_POP))
 
     hits = 0
     weights = 0
     total = 0
-    for i in random.sample(utils.getAllInterests(), SAMPLE_SIZE):
+    for i in sample:
         g = make_interest_graph(i)
-        for j in g['sub_clusters']:
+        for j in g['map']:
             total += 1
             if gold[i][j]:
                 hits += 1
@@ -135,10 +145,16 @@ def print_interest_subclusters():
                 print '\t\t\t%s' % k
         print
 
+def tune_parameters():
+    gold = utils.read_gold_standard('./gold/session_navs.txt')
+    sample = random.sample(gold.keys(), SAMPLE_SIZE)
+    
+    #import cProfile
+    #cProfile.runctx('grid_evaluation(sample, gold)', globals(), locals())
+    grid_evaluation(sample, gold)
+
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     utils.init()
     print_interest_subclusters()
-    #gold = utils.read_gold_standard('../dat/interest_navs2.txt')
-    #grid_evaluation(gold)
-    #describe_gold_standard(gold)
+    #tune_parameters()
