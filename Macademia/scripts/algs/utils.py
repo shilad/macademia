@@ -100,8 +100,8 @@ def incr_count_for_matching_titles(cnx):
 
     num_matches = 0
     for record in db.articlesToInterests.find():
-        interest_ids = [long(id) for id in record['interests'].split(',') if id]
         wp_id = str(record['_id'])
+        interest_ids = [long(id) for id in record['interests'].split(',') if id]
         record = wp_db.articlesToIds.find_one({'wpId' : wp_id})
         if not record:
             continue

@@ -10,8 +10,8 @@ import utils
 LOGGER = logging.getLogger(__name__)
 
 SAMPLE_SIZE = 500
-POW_SIM = 2.0
-POW_DIVERSITY = 0.333
+POW_SIM = 0.85
+POW_DIVERSITY = 0.250
 POW_POP = 1.0
 DEBUG = False
 
@@ -110,9 +110,8 @@ def grid_evaluation(sample, gold):
     global POW_SIM, POW_DIVERSITY, POW_POP
 
     POW_POP = 1.0   # fix it
-    options = [0.25, 0.5, 1.0, 1.5, 2.0, 3.0, 4.0, 6.0]
-    for POW_SIM in [1.0, 1.333, 1.666, 2.00, 2.333, 2.666, 3.0]:
-        for POW_DIVERSITY in [0, 0.1, 0.25, 0.33, 0.5, 0.75]:
+    for POW_SIM in [0.7, 0.85, 1.0, 1.333, 1.666]:
+        for POW_DIVERSITY in [0, 0.1, 0.25, 0.33]:
                 evaluate(sample, gold)
 
 
