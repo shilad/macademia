@@ -9,12 +9,45 @@ HOST = 'localhost'
 DB_NAME = 'macademia_prod'
 WP_DB_NAME = 'wikipediaReadOnly'
 db = None
+wp_db = None
 
 LOGGER = logging.getLogger(__name__)
 
-interests_by_name = {}    # string name -> interest
-interests_by_id = {}      # long id -> interest
+interests_by_name = {}                              # string name -> interest
+interests_by_id = {}                                # long interest id -> interest
 
+users_by_id = {}                                    # long user id -> user 
+users_by_interest = collections.defaultdict(set)    # interest -> set of users with interests
+
+class User:
+    def __init__(self, mongo_record):
+        self.id = long(mongo_record['_id'])
+        self.interests = set()
+        self.cluster_counts = collections.defaultdict(int)
+        for iid in mongo_record['interests']:
+            if long(iid) in interests_by_id:
+                self.interests.add(interests_by_id[long(iid)])
+
+    def set_cluster_counts(self, closest_clusters):
+        self.cluster_counts.clear()
+        for i in self.interests:
+            c = closest_clusters.get(i) # c may be None
+            self.cluster_counts[c] += 1
+
+    def get_cluster_counts(self):
+        return self.cluster_counts
+
+    def get_cluster_for_interest(self, i):
+        return self.cluster_interests[i]
+
+    def get_primary_clusters(self):
+        if not self.cluster_counts:
+            return []
+        if len(self.cluster_counts) == 1 and None in self.cluster_counts:
+            return []
+        max_count = max(n for (c, n) in self.cluster_counts.items() if c != None)
+        return [c for c in self.cluster_counts if self.cluster_counts[c] == max_count]
+        
 
 class Interest: 
     def __init__(self, mongo_record):
@@ -44,10 +77,19 @@ class Interest:
         self.sim_scores = new_scores
 
     def get_similar(self):
-        return self.sim_list
+        if self in self.sim_list:
+            return self.sim_list
+        else:
+            return [self] + self.sim_list
 
     def get_similarity(self, i):
-        return self.sim_scores.get(i, 0.0)
+        if i == self:
+            return 0.4
+        else:
+            return self.sim_scores.get(i, 0.0)
+
+    def get_capped_similarity(self, i):
+        return min(0.07, self.get_similarity(i))
 
     def __repr__(self):
         return str(self)
@@ -57,13 +99,16 @@ class Interest:
                     (`self.id`, `self.text`, self.count, len(self.sim_list)))
 
 def init(config={}):
-    global db, HOST, DB_NAME
+    global HOST, DB_NAME, WP_DB_NAME
+    global db, wp_db
     global interests_by_name, interests_by_id
 
     HOST = config.get('host', HOST)
     DB_NAME = config.get('db_name', DB_NAME)
+    WP_DB_NAME = config.get('wp_db_name', WP_DB_NAME)
     cnx = pymongo.Connection(HOST)
     db = cnx[DB_NAME]
+    wp_db = cnx[WP_DB_NAME]
 
     LOGGER.info('reading interests...')
     for record in db.interests.find():
@@ -80,8 +125,20 @@ def init(config={}):
             len(interests_by_name), num_sims, 1.0 * num_sims / len(interests_by_name)
         )
 
+    LOGGER.info('incrementing count for interests exactly matching WP titles...')
+    incr_count_for_matching_titles()
+
+    n_user_interests = 0
+    for record in db.users.find():
+        u = User(record)
+        users_by_id[i.id] = u
+        for i in u.interests:
+            users_by_interest[i].add(u)
+        n_user_interests += len(u.interests)
+
+    LOGGER.info('read %d users with %d interests', len(users_by_id), n_user_interests)
+
     #normalize()
-    incr_count_for_matching_titles(cnx)
 
 
 def normalize():
@@ -94,9 +151,8 @@ def normalize():
         for j in i.sim_scores:
             i.sim_scores[j] += offset
 
-def incr_count_for_matching_titles(cnx):
-    db = cnx[DB_NAME]
-    wp_db = cnx[WP_DB_NAME]
+def incr_count_for_matching_titles():
+    global db, wp_db
 
     num_matches = 0
     for record in db.articlesToInterests.find():
@@ -113,26 +169,20 @@ def incr_count_for_matching_titles(cnx):
                 num_matches += 1
     LOGGER.debug('incremented count for %d matching titles' % num_matches)
 
-def getInterestByName(name):
+def get_users_with_interest(interest):
+    return users_by_interest[interest]
+
+def get_user_by_id(id):
+    return users_by_id[id]
+
+def get_interest_by_name(name):
     return interests_by_name.get(name.lower())
 
-def getInterestById(id):
+def get_interest_by_id(id):
     return interests_by_id.get(long(id))
 
-def getAllInterests():
+def get_all_interests():
     return interests_by_id.values()
-
-def getInterestCount(db, id):
-    record = db.interests.find_one({'_id' : id})
-    if record:
-        return record.get('usage')
-    else:
-        return 0
-
-def getInterestName(db, id):
-    record = db.interests.find_one({'_id' : id})
-    if record:
-        return record.get('text')
 
 def sigmoid(x):
     return 1.0 / (1.0 + math.exp(-x))
@@ -145,6 +195,8 @@ NORMALIZE_PATTERN = re.compile('[\W_]+')
 def normalize(text):
     return NORMALIZE_PATTERN.sub('', text).lower()
 
+def mean(l):
+    return 1.0 * sum(l) / len(l)
 
 def read_gold_standard(path):
     # weighted adjacency matrix

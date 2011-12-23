@@ -11,7 +11,7 @@ LOGGER = logging.getLogger(__name__)
 
 SAMPLE_SIZE = 500
 POW_SIM = 0.85
-POW_DIVERSITY = 0.250
+POW_DIVERSITY = 0.40
 POW_POP = 1.0
 DEBUG = False
 
@@ -25,9 +25,10 @@ def make_interest_graph(root):
     LOGGER.debug('building graph for %s', root)
 
     candidates = root.get_similar()   # ignore the very closest items
+    candidates.remove(root)
     candidates = zip(range(len(candidates)), candidates)
     cluster_roots = set()
-    while candidates and len(cluster_roots) < 5:
+    while candidates and len(cluster_roots) < 4:
         LOGGER.debug('doing iteration %d', len(cluster_roots))
         candidates, cluster_roots = pick_subcluster_root(root, candidates, cluster_roots)
 
@@ -38,6 +39,7 @@ def make_interest_graph(root):
         cluster_map['map'][cr] = cluster
 
     return cluster_map
+
 
 def pick_subcluster_root(root, candidates, current_roots):
     current_top = set(root.get_similar()[:NUM_TOP_INTERESTS_ROOT])
@@ -135,7 +137,7 @@ def evaluate(sample, gold):
         
 
 def print_interest_subclusters():
-    for i in utils.getAllInterests():
+    for i in utils.get_all_interests():
         print i
         g = make_interest_graph(i)
         for j in g['map']:
