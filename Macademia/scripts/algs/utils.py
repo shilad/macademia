@@ -56,7 +56,9 @@ class Interest:
         self.text = str(mongo_record['text'])
         self.sim_list = []
         self.sim_scores = {}
+        self.sim_ranks = {}
 
+        rank = 1
         for pair in mongo_record['similar'].split('|'):
             if pair:
                 tokens = pair.split(',')
@@ -65,22 +67,33 @@ class Interest:
                 if not id in self.sim_scores:
                     self.sim_list.append(id)
                     self.sim_scores[id] = score
+                    self.sim_ranks[id] = rank
+                    rank += 1
 
     def replace_similar(self):
         new_sims = []
         new_scores = {}
+        new_ranks = {}
         for id in self.sim_list:
             if id in interests_by_id:
                 new_sims.append(interests_by_id[id])
                 new_scores[interests_by_id[id]] = self.sim_scores[id]
+                new_ranks[interests_by_id[id]] = self.sim_ranks[id]
         self.sim_list = new_sims
         self.sim_scores = new_scores
+        self.sim_ranks = new_ranks
 
     def get_similar(self):
         if self in self.sim_list:
             return self.sim_list
         else:
             return [self] + self.sim_list
+
+    def get_similarity_rank(self, i):
+        if i == self:
+            return 0
+        else:
+            return self.sim_ranks.get(i, 500)
 
     def get_similarity(self, i):
         if i == self:
@@ -183,6 +196,9 @@ def get_interest_by_id(id):
 
 def get_all_interests():
     return interests_by_id.values()
+
+def get_all_users():
+    return users_by_id.values()
 
 def sigmoid(x):
     return 1.0 / (1.0 + math.exp(-x))

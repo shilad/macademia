@@ -5,10 +5,47 @@ import random
 import clusters
 import utils
 
+MAX_CLUSTERS = 4
 NUM_USERS = 20
 MIN_USERS_PER_CLUSTER = 2
 
 LOGGER = logging.getLogger(__name__)
+
+def make_full_person_graph(root_user):
+    LOGGER.debug('user interests are %s', ([i.text for i in root_user.interests if len(i.sim_list) > 1]))
+    clusters = [set([i]) for i in root_user.interests]
+    
+    while merge_one_pair(clusters):
+        pass
+
+def merge_one_pair(clusters):
+    best_sim = 0.0
+    best_pair = None
+    for c1 in clusters:
+        for c2 in clusters:
+            if c1 == c2:
+                continue
+            sim = cluster_sim(c1, c2)
+            if sim > best_sim:
+                best_sim = sim
+                best_pair = (c1, c2)
+    if not best_pair:
+        return False
+    (c1, c2) = best_pair
+    LOGGER.debug('merging %s and %s', [i.text for i in c1], [i.text for i in c2])
+    clusters.remove(c1)
+    clusters.remove(c2)
+    c1.update(c2)
+    return True
+
+def cluster_sim(c1, c2):
+    sim = 0.0
+    for i1 in c1:
+        for i2 in c2:
+            sim += 1.0 / i1.get_similarity_rank(i2)
+            sim += 1.0 / i2.get_similarity_rank(i1)
+    return sim / (len(c1) * len(c2))
+            
 
 def make_full_interest_graph(root_interest):
     cluster_map = clusters.make_interest_graph(root_interest)
@@ -131,7 +168,17 @@ def test_graph():
     i = utils.get_interest_by_name('politics')
     make_full_interest_graph(i)
         
-def test_sample_graph():
+def test_sample_person_graph():
+    for u in random.sample(utils.get_all_users(), 50):
+        print '='*80
+        print
+        print 'results for ', u
+        make_full_person_graph(u)
+        print
+        print
+        print
+        
+def test_sample_interest_graph():
     for i in random.sample(utils.get_all_interests(), 100):
         print '='*80
         print
@@ -146,4 +193,5 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     LOGGER.setLevel(logging.DEBUG)
     utils.init()
-    test_sample_graph()
+    #test_sample_interest_graph()
+    test_sample_person_graph()
