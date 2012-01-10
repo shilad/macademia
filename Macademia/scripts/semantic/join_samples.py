@@ -88,6 +88,7 @@ def main(input_files):
         if not min_files[0].should_process:
             for f in min_files:
                 f.advance()
+            input_files = [i for i in input_files if i.has_next()]
             continue
         scores = collections.defaultdict(float)
         for f in min_files:
@@ -112,7 +113,7 @@ def main(input_files):
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     main([
-        ResultFile('sample/words.txt.gz', 0.5),
-        ResultFile('sample/links.txt.gz', 0.3),
-        ResultFile('sample/cats.txt.gz', 0.2),
+        ResultFile('sample/words.txt.gz', 0.55),
+        ResultFile('sample/links.txt.gz', 0.35),
+        ResultFile('sample/cats.txt.gz', 0.1),
     ])

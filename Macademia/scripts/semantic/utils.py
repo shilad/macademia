@@ -34,6 +34,15 @@ def get_title(wp_id):
     else:
         return 'unknown'
 
+def get_id(title):
+    title = title.replace('_', ' ')
+    record = wp_db.articlesToIds.find_one({'_id' : title})
+    if record:
+        return record.get('wpId', -1)
+    else:
+        return -1
+
+
 def sigmoid(x):
     return 1.0 / (1.0 + math.exp(-x))
 
