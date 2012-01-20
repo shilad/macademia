@@ -1,5 +1,8 @@
 #!/usr/bin/python -O
 
+import blist
+
+import multiprocessing
 import collections
 import logging
 import math
@@ -36,38 +39,96 @@ def get_category_by_name(name):
     return cats_by_name.get(name.lower())
 
 def all_bfs():
-    ancestors = {}
-    descendants = collections.defaultdict(dict)
+    ancestors = collections.defaultdict(list)   # cat => [(cat1, n1), (cat2, n2), ... ]
+    descendants = collections.defaultdict(list) # same structure
     beg = time.time()
     i = 0
     for cat1 in cats_by_name.values():
         shortest = bfs(cat1)
-        ancestors[cat1] = dict(shortest)
-        for (cat2, d) in shortest.items():
-            descendants[cat2][cat1] = d
+        for (cat2, distance) in shortest.items():
+            ancestors[cat1].append((cat2, distance))
+            descendants[cat2].append((cat1, distance))
         i += 1
         if i % 10000 == 0:
             LOGGER.info('explored %d of %d categories', i, len(cats_by_name))
     end = time.time()
     LOGGER.info('elapsed time is %.4f seconds', (end - beg))
+    LOGGER.info('sorting relations...')
+    f = lambda i1, i2: cmp(i1[1], i2[1])
+    for relations in (ancestors, descendants):
+        for cat in relations:
+            relations[cat].sort(f)
+    LOGGER.info('finished sorting relations')
     return ancestors, descendants
 
 def compute_neighbors(cat, ancestors, descendants):
+    LOGGER.info('computing neighbors for %s', cat.name)
+    beg = time.time()
     neighbors = {}
+    sorted_scores = blist.sortedset()
+    furthest = 1000000000000000000
     if cat in ancestors:
-        for (c1, n1) in ancestors[cat].items():
+        for (c1, n1) in ancestors[cat]:
+            if n1 > furthest:
+                break
             if c1 in descendants:
-                for (c2, n2) in descendants[c1].items():
-                    if c2 not in neighbors or (n1 + n2) < neighbors[c2]:
-                        neighbors[c2] = n1 + n2
-    return neighbors
+                for (c2, n2) in descendants[c1]:
+                    distance = n1 + n2
+                    if distance > furthest:
+                        break
+                    if c2 in neighbors:
+                        if distance > neighbors[c2]:
+                            continue
+                        old_distance = neighbors[c2]
+                        sorted_scores.remove((old_distance, c2))
+                        del(neighbors[c2])
+                    if len(neighbors) < 1000:
+                        neighbors[c2] = distance
+                        sorted_scores.add((distance, c2))
+                    else:
+                        furthest_cat = sorted_scores[-1][1]
+                        del(neighbors[furthest_cat])
+                        del(sorted_scores[-1])
+                        neighbors[c2] = distance
+                        sorted_scores.add((distance, c2))
+                    assert(len(neighbors) == len(sorted_scores))
+                    if len(neighbors) >= 1000:
+                        furthest = sorted_scores[-1][0]
+                
+    end = time.time()
+    LOGGER.info('computed %d neighbors for %s in %.3f seconds', len(neighbors), cat.name, (end-beg))
+    return sorted_scores
+
+def worker_callback(cat_name):
+    global worker_ancestors
+    global worker_descendants
+    global cats_by_name
+
+    cat = cats_by_name[cat_name]
+    results = []
+    for (score, cat2) in compute_neighbors(cat, worker_ancestors, worker_descendants):
+        results.append((cat2.name, score))
+    return (cat.name, results)
+
+def worker_output_results(params):
+    (cat1, sorted_scores) = params
+    for (cat2, score) in sorted_scores:
+        if cat1 != cat2:
+            print '%.4f\t%s\t%s' % (-math.log(1.0*(score+1)/10), cat1, cat2)
+            
+def compute_all_neighbors(ancestors, descendants, n_processes=3):
+    global worker_ancestors
+    global worker_descendants
+
+    worker_ancestors = ancestors
+    worker_descendants = descendants
+    pool = multiprocessing.Pool(n_processes)
+    result = pool.map_async(worker_callback, cats_by_name.keys(), callback=worker_output_results)
+    result.wait()
 
 def test_neighbors(ancestors, descendants):
     for cat1 in cats_by_name.values():
-        neighbors = compute_neighbors(cat1, ancestors, descendants)
-        items = [(n, cat2) for (cat2, n) in neighbors.items()]
-        items.sort()
-        for (n, cat2) in items[:1000]:
+        for (n, cat2) in compute_neighbors(cat1, ancestors, descendants):
             if cat1 != cat2:
                 print '%.4f\t%s\t%s' % (-math.log(1.0*(n+1)/10), cat1.name, cat2.name)
         
@@ -123,4 +184,4 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     read_categories()
     (ancestors, descendants) = all_bfs()
-    test_neighbors(ancestors, descendants)
+    compute_all_neighbors(ancestors, descendants)
