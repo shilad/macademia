@@ -1,6 +1,7 @@
 import collections
-import logging
 import gzip
+import logging
+import math
 import string
 import sys
 import utils
@@ -14,10 +15,10 @@ def should_process(id_str):
     return hash(id_str) % int(1/FRACTION_PAGES_TO_SUMMARIZE) == 0
 
 class ResultFile:
-    def __init__(self, path, weight):
+    def __init__(self, name, path):
+        self.name = name
         self.path = path
         self.file = gzip.GzipFile(path, 'r')
-        self.weight = weight
         self.id = ''
         self.scores = {}
         self.is_finished = False
@@ -75,6 +76,51 @@ class ResultFile:
 
         return results
 
+LINKS_MEAN = 0.02443887
+LINKS_DEV = 0.028633
+
+WORDS_MEAN = 0.0712068
+WORDS_DEV = 0.056137
+
+def link_zscore(x):
+    return (x - LINKS_MEAN) / LINKS_DEV
+
+def word_zscore(x):
+    return (x - WORDS_MEAN) / WORDS_DEV
+
+def percentile(r):
+    return 1 - r / 20000.0
+
+def sigmoid(x):
+    return 1.0 / (1 - math.exp(-2 * x))
+
+def combine_scores(names, scores):
+    # normalize scores
+    #if 'links' in scores:
+        #scores['linksig'] = sigmoid(2 * link_zscore(scores['links']))
+    #if 'words' in scores:
+        #scores['wordsig'] = sigmoid(2 * word_zscore(scores['words']))
+    if 'cats' in scores:
+        scores['catp'] = percentile(scores['cats'])
+
+    if len(names) < 3:
+        return (
+            5.9276 + 
+            0.9525 * scores.get('links', -0.1) +
+            11.6783 * scores.get('words', -0.1) +
+            0.5680 * scores.get('catp', -0.1)
+        )
+    else:   # all 3 available
+        if len(scores) == 1 and 'cats' in scores:
+            return -1   # don't trust it!
+        else:
+            assert(len(scores) >= 1)
+            return (
+                5.9276 + 
+                0.9525 * scores.get('links', -0.1) +
+                11.6783 * scores.get('words', -0.1) +
+                0.5680 * scores.get('catp', -0.1)
+            )
 
 def main(input_files):
     for f in input_files:
@@ -90,15 +136,20 @@ def main(input_files):
                 f.advance()
             input_files = [i for i in input_files if i.has_next()]
             continue
-        scores = collections.defaultdict(float)
+        sys.stderr.write('processing %s (%d files)\n' % (page_id1, len(min_files)))
+
+        scores_by_page = collections.defaultdict(dict)
         for f in min_files:
             assert(page_id1 == f.id and f.should_process)
             for (page_id2, score) in f.scores.items():
-                scores[page_id2] += f.weight * score
+                scores_by_page[page_id2][f.name] = score
             f.advance()
-        sys.stderr.write('processing %s (%d files)\n' % (page_id1, len(min_files)))
+        names = set([f.name for f in min_files])
+        final_scores = {}
+        for page_id2 in scores_by_page:
+            final_scores[page_id2] = combine_scores(names, scores_by_page[page_id2])
 
-        items = [(s, pid) for (pid, s) in scores.items()]
+        items = [(s, pid) for (pid, s) in final_scores.items()]
         items.sort()
         items.reverse()
 
@@ -113,7 +164,7 @@ def main(input_files):
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     main([
-        ResultFile('sample/words.txt.gz', 0.55),
-        ResultFile('sample/links.txt.gz', 0.35),
-        ResultFile('sample/cats.txt.gz', 0.1),
+        ResultFile('words', 'sample/words.txt.gz'),
+        ResultFile('links', 'sample/links.txt.gz'),
+        ResultFile('cats', 'sample/cats.txt.gz'),
     ])

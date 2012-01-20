@@ -24,7 +24,7 @@ class ResultFile:
         return self.__repr__()
 
     def __cmp__(self, other):
-        return cmp(self.id, other.id)
+        return cmp(str(self.id), str(other.id))
 
     def has_next(self):
         return not self.is_finished
@@ -66,7 +66,7 @@ class ResultFile:
     
         for (page_id, score) in results.items():
             rank = utils.mean(ranks_by_score[score])
-            results[page_id] = (score, 2.0 / utils.mean(ranks_by_score[score]))
+            results[page_id] = (score, rank)
 
         return results
 
@@ -78,15 +78,16 @@ def main(path_gold, input_files):
         (page_id1, page_id2, score) = map(int, line.split('\t'))
         gold[page_id1][page_id2] = score
 
+    sys.stdout.write('n\t')
     for f in input_files:
-        sys.stdout.write('%ss %sr ' % (f.name, f.name))
+        sys.stdout.write('%ss\t%sr\t' % (f.name, f.name))
         f.retained_ids = set(gold.keys())
         f.advance()
-    sys.stdout.write('\n')
+    sys.stdout.write('\ty\n')
 
     while input_files:
-        min_files = [i for i in input_files if i.id == min(input_files).id]
-        page_id1 = min_files[0].id
+        page_id1 = min(input_files).id
+        min_files = [i for i in input_files if i.id == page_id1]
 
         # should we skip these entries?
         if not min_files[0].should_process:
@@ -110,17 +111,17 @@ def main(path_gold, input_files):
             f.advance()
 
         for (page_id2, score) in gold[page_id1].items():
-            vals = []
+            vals = [len(min_files)]
             real_vals = 0
             for d in all_data:
                 if page_id2 in d:
                     real_vals += 1
                     vals.extend(d[page_id2])
                 else:
-                    vals.extend((0.0, 30000))
+                    vals.extend(('NA', 'NA'))
             if real_vals > 0:
                 vals.append(score)
-            print string.join(map(str, vals))
+                print '\t'.join(map(str, vals))
 
         input_files = [i for i in input_files if i.has_next()]
 
@@ -128,8 +129,8 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     main('dat/semantic_gold.txt',
         [
-            ResultFile('word', 'sample/words.txt.gz'),
-            ResultFile('link', 'sample/links.txt.gz'),
-            ResultFile('cat', 'sample/cats.txt.gz'),
+            ResultFile('word', 'gold-sample/words.txt.gz'),
+            ResultFile('link', 'gold-sample/links.txt.gz'),
+            ResultFile('cat', 'gold-sample/cats.txt.gz'),
         ]
     )
