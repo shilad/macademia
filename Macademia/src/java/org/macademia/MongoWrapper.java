@@ -699,7 +699,7 @@ public class MongoWrapper {
         }
         if (res.get("dab") != null) {
             List<Long> dabIds = new ArrayList<Long>();
-            for (Number disambiguationPageId : (Iterable<Long>)res.get("dab")) {
+            for (Number disambiguationPageId : (Iterable<Number>)res.get("dab")) {
                 dabIds.add(disambiguationPageId.longValue());
             }
             wp.setDisambiguatedIds(dabIds);
