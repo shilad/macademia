@@ -3,11 +3,14 @@ package org.macademia
 import info.bliki.api.User
 import org.json.JSONObject
 import org.json.JSONArray
+import java.util.logging.Logger;
 
 /**
  * @author Shilad, Brandon
  */
 public class Wikipedia {
+
+    private static final Logger LOG = Logger.getLogger(Wikipedia.class.getName());
 
     private static String WIKIPEDIA_URL = "http://en.wikipedia.org"
     private static String ARTICLE_PREFIX = "${WIKIPEDIA_URL}/wiki/"
@@ -35,11 +38,11 @@ public class Wikipedia {
      * @return List<String> giving at most maxResults urls which
      * match the given query.
      */
-    public List<String> query(String query, int maxResults) {
+    public List<String> query(String query, int maxResults, boolean includeRedirects) {
         if (cache != null && cache.contains(query)) {
             return cache.get(query) as List<String>
         }
-        def results = this.query(encodeQuery(query), maxResults, 0)
+        def results = this.query(encodeQuery(query), maxResults, 0, includeRedirects)
         if (cache != null) {
             cache.put(query, results)
         }
@@ -57,7 +60,7 @@ public class Wikipedia {
      * @return List<String> giving at most maxResults urls which
      * match the given query.
      */
-    private List<String> query(String query, int maxResults, int offset) {
+    private List<String> query(String query, int maxResults, int offset, boolean includeRedirects) {
         if( maxResults > minNumResults ) {
             minNumResults = maxResults
         }
@@ -75,7 +78,9 @@ public class Wikipedia {
         if (resArray.length() > 0) {
             // results for query returned, use them
             for (int i = 0; i < resArray.length(); i++) {
-                if (!resArray.get(i)["snippet"].contains("refer to")) {
+                if (!includeRedirects && resArray.get(i)["snippet"].contains("refer to")) {
+                    LOG.info("skipping redirect / disambiguation page ${resArray.get(i).get('title')}")
+                } else {
                     // result is not a disambiguation page
                     def result = resArray.get(i)["title"] as String
                     if( Interest.normalize( encodeQuery(result) ) == Interest.normalize(query) ) {
@@ -89,12 +94,12 @@ public class Wikipedia {
         } else if (hasSuggestion) {
             // search for the suggestion if there were no results
             def result = response.getJSONObject("query").getJSONObject("searchinfo").get("suggestion") as String
-            results.addAll(this.query(encodeQuery(result), maxResults, 0))
+            results.addAll(this.query(encodeQuery(result), maxResults, 0, includeRedirects))
         }
 
         // Check to see if more results are needed, or if there are too many
         if (results.size() < maxResults) {
-            results.addAll(this.query(query, maxResults-results.size(), offset+minNumResults))
+            results.addAll(this.query(query, maxResults-results.size(), offset+minNumResults, includeRedirects))
         } else if (results.size() > maxResults) {
             results = results.subList(0, maxResults)
         }

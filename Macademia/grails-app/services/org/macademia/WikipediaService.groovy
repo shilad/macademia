@@ -18,11 +18,11 @@ class WikipediaService {
             return []
         }
         try {
-            return getWikipedia().query(query, maxResults)
+            return getWikipedia().query(query, maxResults, true)
         } catch (Exception e) {
             holder.set(null)
             log.error("wikipedia query for " + query + " failed (${e.getMessage()}... retrying");
-            return getWikipedia().query(query, maxResults)
+            return getWikipedia().query(query, maxResults, true)
         }
     }
 

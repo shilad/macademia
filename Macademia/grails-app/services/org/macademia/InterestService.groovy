@@ -57,16 +57,60 @@ class InterestService implements ApplicationContextAware {
     */
     public void buildDocuments(Interest interest) {
 //        log.info("doing interest ${interest}")
-        double weight = 1.0
-        for (String url: wikipediaService.query(interest.text, 1)) {
-            weight *= 0.5;
+//        double weight = 1.0
+        for (String url: wikipediaService.query(interest.text, 3)) {
             String articleName = wikipediaService.decodeWikiUrl(url)
-            interest.articleId = databaseService.articleToId(articleName)
+            WikipediaPage wp = databaseService.getArticleInfo(articleName);
+            if (wp == null) {
+                log.warn("no WP article found with name ${articleName}")
+                continue
+            }
+            WikipediaPage wp2 = dereferencePage(wp, 0)
+            if (wp2 == null) {
+                log.warn("no WP dereferenced for ${wp2}")
+                continue
+            }
+            if (wp2.pageId != wp.pageId) {
+                log.info("mapped page $wp to $wp2")
+            }
+            interest.articleId = wp2.pageId
             interest.articleName = articleName
             databaseService.addInterestToArticle(interest, interest.articleId)
             Utils.safeSave(interest)
         }
         interest.lastAnalyzed = new Date()
+    }
+
+    /**
+     * Follows redirects and disambiguations
+     * @param page
+     * @param depth
+     * @return
+     */
+    private WikipediaPage dereferencePage(WikipediaPage page, int depth) {
+        if (depth > 5 || page == null) {
+            return null;
+        }
+        if (page.isRedirect()) {
+            return dereferencePage(databaseService.getArticleInfo(page.redirectId), depth+1);
+        } else if (page.isDisambiguation()) {
+            WikipediaPage best = null
+            for (Long dabId : page.disambiguatedIds) {
+                def dab = dereferencePage(databaseService.getArticleInfo(dabId), depth+1);
+                if (dab != null && (best == null || dab.viewCount > best.viewCount)) {
+                    best = dab
+                }
+            }
+            return best
+        } else {
+            SimilarInterestList sil = databaseService.getArticleSimilarities(page.pageId)
+            if (sil == null || sil.size() <= 1) {
+                log.warn("no similar interests for ${page}")
+                return null
+            } else {
+                return page
+            }
+        }
     }
 
     public void save(Interest interest) {

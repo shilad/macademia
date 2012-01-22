@@ -239,8 +239,21 @@ class DatabaseService {
         wrapper.addInterestToArticle(interest.id, article);
     }
 
+
+    public WikipediaPage getArticleInfo(String title) {
+        return wrapper.getArticleInfo(title);
+    }
+
+    public WikipediaPage getArticleInfo(long pageId) {
+        return wrapper.getArticleInfo(pageId);
+    }
+
     public long articleToId(String title){
         return wrapper.articleToId(title);
+    }
+
+    public SimilarInterestList getArticleSimilarities(long pageId) {
+        return wrapper.getArticleSimilarities(pageId)
     }
 
     public void buildInterestRelations(String text, long interest, long article, boolean relationsBuilt) {

@@ -123,7 +123,6 @@ public class MongoWrapper {
         }
     }
 
-
     public DBObject safeFindById(String collection, Object id, boolean articleDb){
         return safeFindByField(collection, "_id", id, articleDb);
     }
@@ -686,6 +685,34 @@ public class MongoWrapper {
             return (Long) wpId;
         } else {
             throw new IllegalStateException("invalid article id: '" + wpId + "'");
+        }
+    }
+
+    public WikipediaPage getArticleInfo(long pageId) {
+        DBObject res = safeFindByField(ARTICLES_TO_IDS, "wpId", new Long(pageId), true);
+        if (res == null) {
+            return null;
+        }
+        WikipediaPage wp = new WikipediaPage(pageId, ((String)res.get("_id")), ((Number)res.get("count")).intValue());
+        if (res.get("red") != null) {
+            wp.setRedirectId(((Number)res.get("red")).longValue());
+        }
+        if (res.get("dab") != null) {
+            List<Long> dabIds = new ArrayList<Long>();
+            for (Number disambiguationPageId : (Iterable<Long>)res.get("dab")) {
+                dabIds.add(disambiguationPageId.longValue());
+            }
+            wp.setDisambiguatedIds(dabIds);
+        }
+        return wp;
+    }
+    
+    public WikipediaPage getArticleInfo(String title) {
+        long pageId = articleToId(title);
+        if (pageId < 0) {
+            return null;
+        } else {
+            return getArticleInfo(pageId);
         }
     }
 
