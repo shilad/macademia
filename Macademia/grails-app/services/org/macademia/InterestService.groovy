@@ -67,7 +67,7 @@ class InterestService implements ApplicationContextAware {
             }
             WikipediaPage wp2 = dereferencePage(wp, 0)
             if (wp2 == null) {
-                log.warn("no WP dereferenced for ${wp2}")
+                log.warn("no WP dereferenced for ${wp}")
                 continue
             }
             if (wp2.pageId != wp.pageId) {
@@ -77,6 +77,7 @@ class InterestService implements ApplicationContextAware {
             interest.articleName = articleName
             databaseService.addInterestToArticle(interest, interest.articleId)
             Utils.safeSave(interest)
+            break;  // we found something!
         }
         interest.lastAnalyzed = new Date()
     }

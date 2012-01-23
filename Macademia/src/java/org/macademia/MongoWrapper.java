@@ -947,7 +947,7 @@ public class MongoWrapper {
     }
 
     public SimilarInterestList getArticleSimilarities(long article) {
-        DBObject similarities = safeFindById(ARTICLE_SIMILARITIES, "" + article, true);
+        DBObject similarities = safeFindById(ARTICLE_SIMILARITIES, article, true);
         if (similarities == null) {
             System.out.println(article + " does not have an articleSimilarities entry");
             return new SimilarInterestList();
