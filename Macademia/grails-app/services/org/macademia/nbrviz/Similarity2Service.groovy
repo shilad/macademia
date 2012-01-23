@@ -122,6 +122,71 @@ class Similarity2Service {
         return graph
     }
 
+    /**
+     * Creates and returns a new Graph based upon the parameter Interest for
+     * the exploration visualization.
+     * @param rootId The root Interest of the exploration visualization.
+     * @param maxPeople The max number of people to include in the Graph.
+     * @param maxInterests The max number of Interests to include in the Graph.
+     * @return A Graph
+     */
+    public InterestGraph calculateInterestNeighbors2(Long rootId, int maxPeople, int maxInterests, Map<Long, Double> interestWeights) {
+
+        TimingAnalysis ANALYSIS = new TimingAnalysis('calculatePersonNeighbors')
+        InterestGraph graph = new InterestGraph(rootId)
+
+        // Calculate interest clusters
+        ANALYSIS.startTime()
+
+        Set<Long> chosen = new HashSet<Long>()
+        while (chosen.size() < 4) {
+            // break if there are no good options
+
+        }
+        Map<Long, Double> related = chooseTopRelatedInterests(rootId, maxInterests, 0.5, [:])
+        ANALYSIS.recordTime("choose related interests")
+        related[rootId] = 1.0; interestWeights[rootId] = 1.0;  // Hacks
+
+        Map<Long, Double> penalties = [:]   // between 0 (low) and 1 (high)
+        related.keySet().each({penalties[it] = 1.0 })
+
+        def relatedIds = related.keySet().asList().sort({ -1 * related[it] })
+        for (long rid : relatedIds){
+            def sil = similarityService.getSimilarInterests(rid, 500, 0)
+            sil.normalize()
+            double simWeight = (rid == rootId) ? 4.0 : 2.0
+            Set<Long> displayedIds = chooseTopRelatedInterests(rid, IDEAL_NUM_CLUSTERS, simWeight, penalties).keySet()
+            if (rid != rootId) {
+                displayedIds.each({ penalties[it] = 0.5 + penalties.get(it, 0) * 0.5 })
+            }
+            graph.addRelatedInterest(rid, interestWeights.get(rid, 0.5), displayedIds, sil)
+        }
+        ANALYSIS.recordTime("related interest clusters")
+
+        // find people with those clusters
+        Map<Long, Set<Long>> personInterests = [:]
+        for (Long iid : graph.interestInfo.keySet()) {
+            for (Long pid : databaseService.getInterestUsers(iid)) {
+                if (!personInterests.containsKey(pid)) {
+                    personInterests[pid] = new HashSet<Long>()
+                }
+            }
+        }
+        ANALYSIS.recordTime("people1")
+
+        // Add people to the graph
+        for (Long pid : personInterests.keySet()) {
+            graph.addPerson(pid, databaseService.getUserInterests(pid))
+        }
+        ANALYSIS.recordTime("people2")
+
+        // Calculate scores, prune graph, etc
+        graph.finalizeGraph(maxPeople);
+        ANALYSIS.recordTime("finalize")
+        ANALYSIS.analyze()
+
+        return graph
+    }
 
     /**
      * Creates and returns a new Graph based upon the parameter Interest for

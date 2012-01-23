@@ -9,18 +9,20 @@ import java.util.regex.*;
  * Authors: Nathaniel Miller and Alex Schneeman
  */
 
-public class SimilarInterestList {
+public class SimilarInterestList implements Iterable<SimilarInterest> {
     // overridden in Config.groovy
     public static int MAX_SIMILAR_INTERESTS = 5000;
 
-    ArrayList<SimilarInterest> list;
+    private String flags = "";
+    private ArrayList<SimilarInterest> list;
 
     public SimilarInterestList(){
         list=new ArrayList<SimilarInterest>();
     }
 
     public SimilarInterestList(ArrayList<SimilarInterest> list) {
-        this.list = list;
+        this.flags = flags;
+        this.list = (list != null) ? list : new ArrayList<SimilarInterest>();
     }
 
     public SimilarInterestList(String fromDB) {
@@ -111,7 +113,13 @@ public class SimilarInterestList {
         return list.listIterator(index);  //To change body of implemented methods use File | Settings | File Templates.
     }
     public SimilarInterestList getSublistTo(int i) {
-        return new SimilarInterestList(new ArrayList<SimilarInterest>(list.subList(0, i)));
+        SimilarInterestList sil = new SimilarInterestList(new ArrayList<SimilarInterest>(list.subList(0, i)));
+        sil.setFlags(this.getFlags());
+        return sil;
+    }
+
+    public void setFlags(String flags) {
+        this.flags = flags;
     }
 
     public void remove(SimilarInterest remove) {
@@ -157,10 +165,6 @@ public class SimilarInterestList {
         return list.isEmpty();
     }
 
-    public Iterator iterator() {
-        return list.iterator();  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
     private static final double sigmoid(double x) {
         return 1.0 / (1.0 + Math.exp(-x));
     }
@@ -187,5 +191,13 @@ public class SimilarInterestList {
                 }
             }
         }
+    }
+
+    public Iterator<SimilarInterest> iterator() {
+        return list.iterator();
+    }
+    
+    public String getFlags() {
+        return this.flags;
     }
 }

@@ -66,8 +66,6 @@ class DatabaseServiceIntegrationTests extends GrailsUnitTestCase {
         assertEquals(databaseService.getSimilarInterests(interestService.findByText("web2.0")).size(), sizeOne+1)
         databaseService.addToInterests(interestService.findByText("web2.0"),interestService.findByText("ngos"),0.01812)
         assertEquals(databaseService.getSimilarInterests(interestService.findByText("web2.0")).size(), sizeOne+2)
-        databaseService.removeLowestSimilarity(interestService.findByText("web2.0"))
-        assertEquals(databaseService.getSimilarInterests(interestService.findByText("web2.0")).size(), sizeOne+1)
     }
 
     void testAddCollaboratorRequests(){
@@ -84,14 +82,6 @@ class DatabaseServiceIntegrationTests extends GrailsUnitTestCase {
         databaseService.removeCollaboratorRequest(rfc)
     }
 
-    void testReplaceLowestSimilarity() {
-        databaseService.addToInterests(interestService.findByText("web2.0"),interestService.findByText("ngos"),0.01812)
-        int sizeOne = databaseService.getSimilarInterests(interestService.findByText("web2.0")).size()
-        databaseService.replaceLowestSimilarity(interestService.findByText("web2.0"), interestService.findByText("nationalism"), 0.2)
-        assertEquals(databaseService.getSimilarInterests(interestService.findByText("web2.0")).size(),sizeOne)
-        databaseService.removeSimilarInterest(interestService.findByText("web2.0"), interestService.findByText("nationalism"))
-        assertEquals(databaseService.getSimilarInterests(interestService.findByText("web2.0")).size(),sizeOne-1)
-    }
 
     void testAddRemoveInterests() {
         InstitutionGroup ig = new InstitutionGroup(name:"Test", abbrev:"tst")

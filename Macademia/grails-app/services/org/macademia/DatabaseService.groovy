@@ -203,11 +203,6 @@ class DatabaseService {
         return wrapper.getIntraInterestSims(interestIds, normalize)
     }
 
-    public void removeLowestSimilarity(Interest interest) {
-        wrapper.removeLowestSimilarity(interest.id)
-    }
-
-
     public void cleanupInterestRelations(Set<Long> validIds) {
         wrapper.cleanupInterestRelations(validIds)
     }
@@ -219,16 +214,6 @@ class DatabaseService {
 
     public void cleanupCollaboratorRequests(Set<Long> validIds){
         wrapper.cleanupCollaboratorRequests(validIds)
-    }
-
-   /**
-    *
-    * @param interest the interest to replace lowest similarity in
-    * @param second the new similar interest
-    * @param similarity the new similarity
-    */
-    public void replaceLowestSimilarity(Interest interest, Interest newInterest, double similarity){
-        wrapper.replaceLowestSimilarity(interest.id, newInterest.id, similarity)
     }
 
     public Set<Long> getInstitutionInterests(long institutionId) {

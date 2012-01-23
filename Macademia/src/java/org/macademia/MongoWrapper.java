@@ -261,7 +261,7 @@ public class MongoWrapper {
             }
             SimilarInterestList sil = getSimilarInterests(iid);
             if (normalize) sil.normalize();
-            for (SimilarInterest si : sil.list) {
+            for (SimilarInterest si : sil) {
                 if (interestIds.contains(si.interestId)) {
                     if (!sims.containsKey(si.interestId)) {
                         sims.put(si.interestId, new HashMap<Long, Double>());
@@ -520,7 +520,7 @@ public class MongoWrapper {
             return;
         }
         SimilarInterestList similarInterests = getSimilarInterests(interestId);
-        for (SimilarInterest sim : similarInterests.list) {
+        for (SimilarInterest sim : similarInterests) {
             removeSimilarInterest(sim.interestId, interestId);    
         }
         DBCollection interests = getDb().getCollection(INTERESTS);
@@ -742,6 +742,7 @@ public class MongoWrapper {
     public void buildInterestRelations (String text, long interest, long article, boolean relationsBuilt) {
         SimilarInterestList articles = getArticleSimilarities(article);
         SimilarInterestList list = new SimilarInterestList();
+        list.setFlags(articles.getFlags());
         int i = 0;
         Map<Long, Double> ids = new HashMap<Long, Double>();
         if (article != -1) {
@@ -777,6 +778,8 @@ public class MongoWrapper {
         }
 
         addInterestRelations(interest, list, false);
+
+        // TODO: this is bad - different articles, different scalings
         if (relationsBuilt) {
             for (long id : ids.keySet()) {
                 SimilarInterestList sims = new SimilarInterestList();
@@ -853,7 +856,11 @@ public class MongoWrapper {
         if (res == null) {
             return new SimilarInterestList();
         }
-        return new SimilarInterestList(res);
+        SimilarInterestList sil = new SimilarInterestList(res);
+        if (i.get("flags") != null) {
+            sil.setFlags((String) i.get("flags"));
+        }
+        return sil;
     }
 
     public SimilarInterestList getSimilarInterests(Long interest, InstitutionFilter institutionFilter) {
@@ -870,32 +877,6 @@ public class MongoWrapper {
             institutionInterests.retainAll(getInstitutionInterests(institutionFilter.requiredInstitutionId));
         }
         return new SimilarInterestList((String)i.get("similar"), institutionInterests);
-    }
-
-    public void removeLowestSimilarity(Long interest) {
-        DBCollection interests = getDb().getCollection(INTERESTS);
-        DBObject i = safeFindById(INTERESTS, interest, false);
-        SimilarInterestList similarInterests = new SimilarInterestList((String)i.get("similar"));
-        similarInterests.removeLowest();
-        i.put("similar", similarInterests.toString());
-        interests.update(safeFindById(INTERESTS, interest, false),i);
-    }
-
-
-   /**
-    *
-    * @param interest the interest to replace lowest similarity in
-    * @param newInterest the new similar interest
-    * @param similarity the new similarity
-    */
-    public void replaceLowestSimilarity(Long interest, Long newInterest, Double similarity){
-        DBCollection interests = getDb().getCollection(INTERESTS);
-        DBObject i = safeFindById(INTERESTS, interest, false);
-        SimilarInterestList similarInterests = new SimilarInterestList((String)i.get("similar"));
-        similarInterests.add(new SimilarInterest(newInterest, similarity));
-        similarInterests.removeLowest();
-        i.put("similar", similarInterests.toString());
-        interests.update(safeFindById(INTERESTS, interest, false),i);
     }
 
     private void addInterestToInstitutions(long interestId, List<Long> institutionIds) {
@@ -971,10 +952,11 @@ public class MongoWrapper {
             System.out.println(article + " does not have an articleSimilarities entry");
             return new SimilarInterestList();
         }
-        //System.out.println(article);
-        //really long print ln statement below
-        //System.out.println(similarities.toString());
-        return new SimilarInterestList((String)similarities.get("similarities"));
+        SimilarInterestList sil = new SimilarInterestList((String)similarities.get("similarities"));
+        if (similarities.get("flags") != null) {
+            sil.setFlags((String) similarities.get("flags"));
+        }
+        return sil;
     }
 
     public void addInterestToArticle(long interest, long article){
