@@ -92,9 +92,13 @@ class InterestService implements ApplicationContextAware {
         if (depth > 5 || page == null) {
             return null;
         }
+        def pref = "    ".multiply(depth);
+        //System.err.println("$pref dereferencing $page");
         if (page.isRedirect()) {
+            //System.err.println("$pref is redirect!");
             return dereferencePage(databaseService.getArticleInfo(page.redirectId), depth+1);
         } else if (page.isDisambiguation()) {
+            //System.err.println("$pref is disambiguation!");
             WikipediaPage best = null
             for (Long dabId : page.disambiguatedIds) {
                 def dab = dereferencePage(databaseService.getArticleInfo(dabId), depth+1);
@@ -104,7 +108,10 @@ class InterestService implements ApplicationContextAware {
             }
             return best
         } else {
+            //System.err.println("$pref is normal!");
+            //System.err.println("$pref here 1");
             SimilarInterestList sil = databaseService.getArticleSimilarities(page.pageId)
+            //System.err.println("$pref here 2");
             if (sil == null || sil.size() <= 1) {
                 log.warn("no similar interests for ${page}")
                 return null
