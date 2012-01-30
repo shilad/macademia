@@ -74,7 +74,7 @@ class InterestService implements ApplicationContextAware {
                 log.info("mapped page $wp to $wp2")
             }
             interest.articleId = wp2.pageId
-            interest.articleName = articleName
+            interest.articleName = wp2.title
             databaseService.addInterestToArticle(interest, interest.articleId)
             Utils.safeSave(interest)
             break;  // we found something!
