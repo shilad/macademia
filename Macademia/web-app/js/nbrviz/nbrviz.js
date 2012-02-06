@@ -298,15 +298,14 @@ var NbrViz = Class.extend({
             self.people[p.id].setPosition( p.screenX(), p.screenY());
         });
 
+        var layoutWorker = new Worker("/Macademia/js/nbrviz/layout-worker.js");
         var updatePeoplePositions = function(points) {
             $.each(points, function(index, p) {
                 self.people[p.id].setPosition(p.screenX(), p.screenY());
             });
+            layoutWorker.postMessage(JSON.stringify({message:"ready", args: {}}));
         };
 
-        updatePeoplePositions(Point.points);
-        
-        var layoutWorker = new Worker("/Macademia/js/nbrviz/layout-worker.js");
         layoutWorker.onmessage = function(event) {
             var data = JSON.parse(event.data);
             var args = data.args;

@@ -27,8 +27,11 @@ magnet.init = function (width, height) {
     MM.GRAVITATIONAL_CONSTANT = 1.0;
     MM.OPTIMAL_MAGNET_PERSON_DIST = 0.3;
 
+    // Barnes-Hut threshold at which to approximate
+    MM.BH_THRESHOLD = 0.35;
+
     // repulsion between nodes
-    MM.REPULSE_CONSTANT = 0.02;
+    MM.REPULSE_CONSTANT = 0.04;
 
     // repulsion from walls
     MM.WALL_REPULSE_CONSTANT = 0.05;
@@ -47,6 +50,10 @@ Point.points = [];
 Point.prototype.setStuff= function( id, relevance ) {
 	this.relevance = relevance;
 	this.id = id;
+};
+
+Point.prototype.equals = function(other) {
+    return other.id == this.id;
 };
 
 Point.prototype.applyForce = function(force) {
@@ -81,37 +88,39 @@ Point.makePointsFromJSON = function(pointsJSON) {
     return points;
 };
 
+Point.prototype.applyCoulombsLaw = function(vec, mass) {
+    var d = this.p.subtract(vec);
+    var distance = d.magnitude() + 0.01;
+    var direction = d.normalise();
+
+    var f = direction.multiply(MM.REPULSE_CONSTANT * mass).divide(distance * distance);
+    this.applyForce(f);
+};
+
 // points are slightly repulsed by other points
-Point.applyCoulombsLaw = function(points) {
+Point.repulsePoints = function(points) {
+    var bhTree = new BarnesHut();
+    for (var pInd = 0; pInd < points.length; pInd++) {
+        bhTree.addPointToTree(points[pInd]);
+    }
 
     for (var i = 0; i < points.length; i++) {
-        var point1 = points[i];
-        for (var j = 0; j < points.length; j++) {
-            var point2 = points[j];
-            if (point1 !== point2) {
-				var d = point1.p.subtract(point2.p);
-				var distance = d.magnitude() + 0.01;
-				var direction = d.normalise();
-				// apply force to each end point
-                var f = direction.multiply(MM.REPULSE_CONSTANT).divide(distance * distance);
-                point1.applyForce(f);
-				point2.applyForce(f.multiply(-1));
-			}
-        }
+        var point = points[i];
+
+        bhTree.applyPointRepulsion(point);
+
         // aggregate repulsions from walls
         var f = function(z, range) {
             var sign = (z < 0) ? -1 : +1;
             return -sign * (range - Math.min(Math.abs(z), range) + 0.01)
         };
-        var deltaX = new Vector(f(point1.p.x, MM.X_RANGE), 0);
+        var deltaX = new Vector(f(point.p.x, MM.X_RANGE), 0);
         var wallForceX = deltaX.multiply(MM.WALL_REPULSE_CONSTANT/ deltaX.magnitude2());
-        var deltaY = new Vector(0, f(point1.p.y, MM.Y_RANGE));
+        var deltaY = new Vector(0, f(point.p.y, MM.Y_RANGE));
         var wallForceY = deltaY.multiply(MM.WALL_REPULSE_CONSTANT/ deltaY.magnitude2());
-//        if (deltaX.magnitude() < .1 || deltaY.magnitude() < .1) {
-//            console.log('id ' + point1.id + ' is ' + point1.p + ' and forces are ' + wallForceX + ', ' + wallForceY);
-//        }
-        point1.applyForce(wallForceX);
-        point1.applyForce(wallForceY);
+        point.applyForce(wallForceX);
+        point.applyForce(wallForceY);
+
     }
 };
 
@@ -353,7 +362,7 @@ MM.oneLayoutIteration = function(points, magnets) {
         magnets[i].attractPeople(points);
     }
 
-    Point.applyCoulombsLaw(points);
+    Point.repulsePoints(points);
     Point.updateVelocity(points);
     Point.updatePosition(points);
 
@@ -365,4 +374,149 @@ MM.oneLayoutIteration = function(points, magnets) {
     }
 
     return k;
+};
+
+/**
+ * Barnes-Hut tree is an object defined as:
+ * { area: {
+ *          areaRatio: (0, 100],
+ *          topLeft: Vector,
+ *          bottomRight: Vector
+ *     },
+ *     // if non-empty
+ *     center: Vector if internal, Point if external,
+ *     mass: number of child Points,
+ *     // if internal node with child Points
+ *     nw: {area: {...} ...},
+ *     ne: {area: {...} ...},
+ *     sw: {area: {...} ...},
+ *     se: {area: {...} ...}
+ * }
+ */
+function BarnesHut() {
+    this.root = {area: {
+            areaRatio:100.0,
+            topLeft: new Vector(-1*MM.X_RANGE, MM.Y_RANGE),
+            bottomRight: new Vector(MM.X_RANGE, -1*MM.Y_RANGE)
+        }};
+}
+
+BarnesHut.prototype.addPointToTree = function(point) {
+    this.addPointToTreeRecursive(this.root, point);
+};
+
+BarnesHut.prototype.addPointToTreeRecursive = function(tree, point) {
+    if (Object.keys(tree).length == 1) {
+        // empty external node (only area), add the new point in
+        tree["mass"] = 1;
+        tree["center"] = point;
+        return;
+    } else if (tree["nw"] == undefined) {
+        // external node, split it into 4 quadrants
+        var sibling = tree["center"];
+        BarnesHut.splitNode(tree);
+        this.addPointToTreeRecursive(tree, sibling);
+        this.addPointToTreeRecursive(tree, point);
+    } else {
+        // internal node, keep recursing
+        var nwArea = tree["nw"].area;
+        var neArea = tree["ne"].area;
+        var swArea = tree["sw"].area;
+        var inRectangle = function(point, topLeft, bottomRight) {
+            return (point.x >= topLeft.x && point.x <= bottomRight.x) &&
+                    (point.y <= topLeft.y && point.y >= bottomRight.y);
+        };
+
+        if (inRectangle(point.p, nwArea.topLeft, nwArea.bottomRight)) {
+            this.addPointToTreeRecursive(tree["nw"], point);
+        } else if (inRectangle(point.p, neArea.topLeft, neArea.bottomRight)) {
+            this.addPointToTreeRecursive(tree["ne"], point);
+        } else if (inRectangle(point.p, swArea.topLeft, swArea.bottomRight)) {
+            this.addPointToTreeRecursive(tree["sw"], point);
+        } else {
+            this.addPointToTreeRecursive(tree["se"], point);
+        }
+    }
+
+    // update midpoint and mass
+    var midPoint = new Vector(0, 0);
+    var children = [];
+    BarnesHut.getChildren(tree, children);
+    for (var i = 0; i < children.length; i++) {
+        midPoint = midPoint.add(children[i].p);
+    }
+    tree["center"] = midPoint.divide(children.length);
+    tree["mass"] = children.length;
+};
+
+BarnesHut.splitNode = function(node) {
+    var area = node["area"];
+    var subAreaRatio = area["areaRatio"] / 2.0;
+    var topLeft = area["topLeft"];
+    var bottomRight = area["bottomRight"];
+    var width = bottomRight.x - topLeft.x;
+    var height = topLeft.y -bottomRight.y;
+    node["nw"] = {area : {
+        areaRatio: subAreaRatio,
+        topLeft: topLeft,
+        bottomRight: new Vector(topLeft.x + 0.5*width, topLeft.y - 0.5*height)
+    }};
+    node["ne"] = {area : {
+        areaRatio: subAreaRatio,
+        topLeft: new Vector(topLeft.x + 0.5*width, topLeft.y),
+        bottomRight: new Vector(bottomRight.x, topLeft.y - 0.5*height)
+    }};
+    node["sw"] = {area : {
+        areaRatio: subAreaRatio,
+        topLeft: new Vector(topLeft.x, topLeft.y - 0.5*height),
+        bottomRight: new Vector(topLeft.x + 0.5*width, bottomRight.y)
+    }};
+    node["se"] = {area : {
+        areaRatio: subAreaRatio,
+        topLeft: new Vector(topLeft.x + 0.5*width, topLeft.y - 0.5*height),
+        bottomRight: bottomRight
+    }};
+};
+
+BarnesHut.getChildren = function(node, children) {
+    if (Object.keys(node).length == 1) {
+        // empty external node
+    } else if (node["nw"] == undefined) {
+        // an external node
+        children.push(node["center"]);
+    } else {
+        // internal node, continue recursion
+        var regions = ["nw", "ne", "sw", "se"];
+        for (var i = 0; i < regions.length; i++) {
+            children.concat(BarnesHut.getChildren(node[regions[i]], children));
+        }
+    }
+};
+
+BarnesHut.prototype.applyPointRepulsion = function(point) {
+    this.applyPointRepulsionRecursive(point, this.root);
+};
+
+BarnesHut.prototype.applyPointRepulsionRecursive = function(point, tree) {
+    if (Object.keys(tree).length == 1) {
+        // empty external node
+    } else if (tree["nw"] == undefined) {
+        // external node
+        if (!point.equals(tree["center"])) {
+            point.applyCoulombsLaw(tree["center"].p, tree["mass"]);
+        }
+    } else {
+        // internal node, approximate or continue recursion
+        var s = tree["area"].areaRatio / 100;
+        var d = point.p.subtract(tree["center"]).magnitude();
+        if (s / d < MM.BH_THRESHOLD) {
+            // approximate the effect of all children
+            point.applyCoulombsLaw(tree["center"], tree["mass"]);
+        } else {
+            var regions = ["nw", "ne", "sw", "se"];
+            for (var i = 0; i < regions.length; i++) {
+                this.applyPointRepulsionRecursive(point, tree[regions[i]]);
+            }
+        }
+    }
 };
