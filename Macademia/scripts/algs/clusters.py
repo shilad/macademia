@@ -10,8 +10,8 @@ import utils
 LOGGER = logging.getLogger(__name__)
 
 SAMPLE_SIZE = 500
-POW_SIM = 0.85
-POW_DIVERSITY = 0.40
+POW_SIM = 2.0
+POW_DIVERSITY = 0.5
 POW_POP = 1.0
 DEBUG = False
 
@@ -108,32 +108,40 @@ def describe_gold_standard(gold):
     for (n, i1, i2) in triples:
         print i1, i2, n
 
-def grid_evaluation(sample, gold):
+def grid_evaluation(gold):
     global POW_SIM, POW_DIVERSITY, POW_POP
 
     POW_POP = 1.0   # fix it
     for POW_SIM in [0.7, 0.85, 1.0, 1.333, 1.666]:
         for POW_DIVERSITY in [0, 0.1, 0.25, 0.33]:
-                evaluate(sample, gold)
+                evaluate(gold)
 
 
-def evaluate(sample, gold):
+def evaluate(gold):
     sys.stdout.write('sim=%.2f, diversity=%.2f, pop=%.2f '
             % (POW_SIM, POW_DIVERSITY, POW_POP))
 
     hits = 0
-    weights = 0
     total = 0
-    for i in sample:
-        g = make_interest_graph(i)
-        for j in g['map']:
-            total += 1
-            if gold[i][j]:
+    for session in gold:
+        total += 1
+        for i in session:
+            g = make_interest_graph(i)
+            has_hit = False
+            for j in g['map']:
+                if i != j and j in session:
+                    has_hit = True
+                    break
+            if has_hit:
                 hits += 1
-                weights += math.log(1.0 + hits)
+                break
 
-    sys.stdout.write('hits: %.3f%% weight=%.3f (%d of %d)\n'
-                    % (100.0 * hits / total, weights / total, hits, total))
+        #LOGGER.info('simulating session %d of %d' % (total, len(gold)))
+        #sys.stdout.write('hits: %.3f%% (%d of %d)\n'
+                    #% (100.0 * hits / total, hits, total))
+
+    sys.stdout.write('hits: %.3f%% (%d of %d)\n'
+                    % (100.0 * hits / total, hits, total))
         
 
 def print_interest_subclusters():
@@ -147,12 +155,11 @@ def print_interest_subclusters():
         print
 
 def tune_parameters():
-    gold = utils.read_gold_standard('./gold/session_navs.txt')
-    sample = random.sample(gold.keys(), SAMPLE_SIZE)
+    gold = utils.read_gold_sessions('./gold/session_navs.txt')
     
     #import cProfile
     #cProfile.runctx('grid_evaluation(sample, gold)', globals(), locals())
-    grid_evaluation(sample, gold)
+    grid_evaluation(gold)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)

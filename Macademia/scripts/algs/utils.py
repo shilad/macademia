@@ -13,6 +13,7 @@ wp_db = None
 
 LOGGER = logging.getLogger(__name__)
 
+interests_by_normalized = {}                        # string normalized text -> interest
 interests_by_name = {}                              # string name -> interest
 interests_by_id = {}                                # long interest id -> interest
 
@@ -47,6 +48,12 @@ class User:
             return []
         max_count = max(n for (c, n) in self.cluster_counts.items() if c != None)
         return [c for c in self.cluster_counts if self.cluster_counts[c] == max_count]
+
+    def __str__(self):
+        return '<user id=%d>' % self.id
+
+    def __repr__(self):
+        return '<user id=%d>' % self.id
         
 
 class Interest: 
@@ -97,12 +104,9 @@ class Interest:
 
     def get_similarity(self, i):
         if i == self:
-            return 0.4
+            return 12.0
         else:
             return self.sim_scores.get(i, 0.0)
-
-    def get_capped_similarity(self, i):
-        return min(0.07, self.get_similarity(i))
 
     def __repr__(self):
         return str(self)
@@ -128,6 +132,9 @@ def init(config={}):
         i = Interest(record)
         interests_by_id[i.id] = i
         interests_by_name[i.text] = i
+        ntext = normalize(i.text)
+        if not ntext in interests_by_normalized or interest_by_normalized[ntext].count < i.count:
+            interests_by_normalized[ntext] = i
 
     num_sims = 0
     for i in interests_by_name.values():
@@ -144,25 +151,26 @@ def init(config={}):
     n_user_interests = 0
     for record in db.users.find():
         u = User(record)
-        users_by_id[i.id] = u
+        users_by_id[u.id] = u
         for i in u.interests:
             users_by_interest[i].add(u)
         n_user_interests += len(u.interests)
 
     LOGGER.info('read %d users with %d interests', len(users_by_id), n_user_interests)
 
-    #normalize()
+    normalize_scores()
 
+def soft_truncate(s):
+    # "soft" truncation shoving s >= 10 into [10,12) using a geometric series
+    if s > 10:
+        return 12 - 2 * (1 - 0.2) ** (s - 10.0)
+    else:
+        return s
 
-def normalize():
-    scores = []
-    for i in interests_by_name.values():
-        scores.extend(i.sim_scores.values())
-    scores.sort()
-    offset = scores[4 * len(scores) / 5]
+def normalize_scores():
     for i in interests_by_name.values():
         for j in i.sim_scores:
-            i.sim_scores[j] += offset
+            i.sim_scores[j] = soft_truncate(i.sim_scores[j])
 
 def incr_count_for_matching_titles():
     global db, wp_db
@@ -182,6 +190,147 @@ def incr_count_for_matching_titles():
                 num_matches += 1
     LOGGER.debug('incremented count for %d matching titles' % num_matches)
 
+def get_article_id_for_interest(interest):
+    records = list(db.articlesToInterests.find(
+                    {'interests' : re.compile('^%s,|,%s,' % (interest.id, interest.id))}))
+    if len(records) == 0:
+        return None
+    else:
+        if len(records) > 1:
+            sys.stderr.write('too many matches for id %s: %s' % (id, `records`))
+        return records[0]['_id']
+
+def get_article_name_for_interest(interest):
+    id = get_article_id_for_interest(interest)
+    if id:
+        name = get_article_name(id)
+        if name:
+            return name
+    return 'Unknown'
+
+def get_article_name(article_id):
+    record = wp_db.articlesToIds.find_one({'wpId' : int(article_id)})
+    if record:
+        return record.get('_id')
+    else:
+        return None
+
+def get_article_similarities(article_id, n=10000):
+    record = wp_db.articleSimilarities.find_one({'_id' : int(article_id)})
+    scores = {}
+    if not record:
+        LOGGER.warn('no interests for article id %s' % article_id)
+        return scores
+    for pair in record['similarities'].split('|')[:n]:
+        if not pair:
+            break
+        tokens = pair.split(',')
+        id = tokens[0]
+        scores[id] = soft_truncate(float(tokens[1]))
+    return scores
+
+def get_correlation_matrix(interests):
+    sims = collections.defaultdict(dict)
+    for i in interests:
+        sims[i][i] = 1.0
+        for j in i.get_similar():
+            sims[i][j] = i.get_similarity(j)
+    return sims
+
+def get_correlation_matrix2(interests):
+    sims = {}
+
+    for i in interests:
+        article_id = get_article_id_for_interest(i)
+        if article_id:
+            sims[i] = get_article_similarities(article_id, 2000)
+        else:
+            LOGGER.warn('no article id for interest %s' % i.text)
+            sims[i] = {}
+
+    sims2 = {}
+    for i in sims:
+        sims2[i] = {}
+        for j in sims:
+            isims = sims[i]
+            jsims = sims[j]
+            ii = 0.0
+            jj = 0.0
+            ij = 0.0
+            for y in isims.values():
+                ii += y * y
+            for y in jsims.values():
+                jj += y * y
+            for (x, y) in isims.items():
+                ij += y * jsims.get(x, 0.0)
+            if ii == 0.0 or jj == 0.0:
+                assert(ij == 0.0)
+                sims2[i][j] = 0.0
+            else:
+                sims2[i][j] = ij / ((ii*jj)**0.5)
+    return sims2
+             
+def get_correlation_matrix3(interests):
+    sims = {}
+    norms = {}
+
+    for i in interests:
+        article_id = get_article_id_for_interest(i)
+        if article_id:
+            sims[i] = get_article_similarities(article_id, 2000)
+            norms[i] = sum([sim*sim for sim in sims[i].values()]) ** 0.5
+        else:
+            LOGGER.warn('no article id for interest %s' % i.text)
+            sims[i] = {}
+
+    sims2 = {}
+    for i in sims:
+        sims2[i] = {}
+        for j in sims:
+            n = 0
+            for x in sims[i]:
+                if x in sims[j]:
+                    n += 1
+            sims2[i][j] = n / (min([len(sims[i]), len(sims[j])]) + 20.0)
+    return sims2
+            
+def get_correlation_matrix4(interests):
+    lens = [50, 500, 2000]
+    lens.sort() # sanity check
+    sims = {}
+
+    def get_top_sims(sim_dict, n):
+        if len(sim_dict) <= n:
+            return sim_dict
+        else:
+            items = sim_dict.items()
+            items.sort(key=lambda pair: pair[1])
+            items.reverse()
+            return dict(items[:n])
+
+    for i in interests:
+        article_id = get_article_id_for_interest(i)
+        if article_id:
+            sims[i] = get_article_similarities(article_id, lens[-1])
+        else:
+            LOGGER.warn('no article id for interest %s' % i.text)
+            sims[i] = {}
+
+    sims2 = collections.defaultdict(lambda: collections.defaultdict(float))
+    for l in lens:
+        for i in sims:
+            isims = get_top_sims(sims[i], l)
+            for j in sims:
+                jsims = get_top_sims(sims[j], l)
+                assert(len(isims) <= l and len(jsims) <= l)
+                n = 0
+                for x in isims:
+                    if x in jsims:
+                        n += 1
+                mean_sim = n / (min([len(isims), len(jsims)]) + 20.0)
+                sims2[i][j] += mean_sim / len(lens)
+    return sims2
+            
 def get_users_with_interest(interest):
     return users_by_interest[interest]
 
@@ -190,6 +339,9 @@ def get_user_by_id(id):
 
 def get_interest_by_name(name):
     return interests_by_name.get(name.lower())
+
+def get_interest_by_normalized_text(text):
+    return interests_by_normalized.get(normalize(text))
 
 def get_interest_by_id(id):
     return interests_by_id.get(long(id))
@@ -214,6 +366,22 @@ def normalize(text):
 def mean(l):
     return 1.0 * sum(l) / len(l)
 
+def disambiguateArticle(id, steps=0):
+    idRecord = wp_db.articlesToIds.find_one({'wpId' : id})
+    if not idRecord or steps > 5:
+        return None
+    if 'red' in idRecord:
+        return disambiguateArticle(wp_db, idRecord['red'], steps+1)
+    elif 'dab' in idRecord:
+        bestRecord = None
+        for id in idRecord['dab']:
+            rec = wp_db.articlesToIds.find_one({'wpId' : id})
+            if not bestRecord or rec.get('count', 0) > bestRecord['count']:
+                bestRecord = rec
+        return bestRecord
+    else:
+        return idRecord
+
 def read_gold_standard(path):
     # weighted adjacency matrix
     counts = collections.defaultdict(lambda: collections.defaultdict(int))
@@ -221,11 +389,19 @@ def read_gold_standard(path):
         for id1 in line.split():
             for id2 in line.split():
                 if id1 != id2:
-                    i1 = getInterestById(id1)
-                    i2 = getInterestById(id2)
+                    i1 = get_interest_by_id(id1)
+                    i2 = get_interest_by_id(id2)
                     if i1 and i2:
                         counts[i1][i2] += 1
     return counts
+
+def read_gold_sessions(path):
+    # weighted adjacency matrix
+    sessions = []
+    for line in open(path):
+        interests = [get_interest_by_id(id) for id in line.split()]
+        sessions.append([i for i in interests if i])
+    return sessions
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG)
