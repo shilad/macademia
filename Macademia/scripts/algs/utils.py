@@ -215,6 +215,20 @@ def get_article_name(article_id):
     else:
         return None
 
+def get_article_similarity_ranks(article_id, n=10000):
+    record = wp_db.articleSimilarities.find_one({'_id' : int(article_id)})
+    scores = {}
+    if not record:
+        LOGGER.warn('no interests for article id %s' % article_id)
+        return scores
+    for pair in record['similarities'].split('|')[:n]:
+        if not pair:
+            break
+        tokens = pair.split(',')
+        scores[tokens[0]] = len(scores) + 1
+    return scores
+
+
 def get_article_similarities(article_id, n=10000):
     record = wp_db.articleSimilarities.find_one({'_id' : int(article_id)})
     scores = {}
@@ -237,6 +251,49 @@ def get_correlation_matrix(interests):
             sims[i][j] = i.get_similarity(j)
     return sims
 
+def get_correlation_matrix5(interests):
+    sims = {}
+
+    for i in interests:
+        article_id = get_article_id_for_interest(i)
+        if article_id:
+            sims[i] = {}
+            for (article, rank) in get_article_similarity_ranks(article_id, 2000).items():
+                sims[i][article] = math.log(rank + 10) / math.log(2)
+        else:
+            LOGGER.warn('no article id for interest %s' % i.text)
+            sims[i] = {}
+        if len(sims) % 100 == 0:
+            LOGGER.info('loading similarities %s of %s', len(sims), len(interests)) 
+
+    # use an inverted index for very big interest sets
+    LOGGER.warn('building inverted index')
+    interests_by_article = collections.defaultdict(dict)
+    for (interest, interest_sims) in sims.items():
+        for (article, sim) in interest_sims.items():
+            interests_by_article[article][interest] = sim
+
+    # calculate the length of each vector
+    LOGGER.warn('calculating norms')
+    norms = {}
+    for (i, interest_sims) in sims.items():
+        norms[i] = sum([sim*sim for sim in interest_sims.values()]) ** 0.5
+
+    # calculate pearsons
+    LOGGER.warn('calculating pairwise pearsons >= 0.003')
+    sims2 = collections.defaultdict(lambda: collections.defaultdict(float))
+    for (article, article_sims) in interests_by_article.items():
+        for (i1, y1) in article_sims.items():
+            for (i2, y2) in article_sims.items():
+                sims2[i1][i2] += y1 * y2
+    
+    LOGGER.warn('rescaling pairwise pearsons')
+    for (i1, i1_sims) in sims2.items():
+        for i2 in i1_sims:
+            sims2[i1][i2] /= (norms[i1]*norms[i2])
+
+    return sims2
+ 
 def get_correlation_matrix2(interests):
     sims = {}
 

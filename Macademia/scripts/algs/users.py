@@ -22,20 +22,21 @@ LOGGER = logging.getLogger(__name__)
 DEBUG = False
 
 def make_full_person_graph(root_user):
-    LOGGER.debug('user interests are %s', (' '.join([i.text for i in root_user.interests if len(i.sim_list) > 1])))
+    LOGGER.debug('user %s interests are %s', (root_user.id, ' '.join([i.text for i in root_user.interests if len(i.sim_list) > 1])))
     interests = set([i for i in root_user.interests])
-    clusters = cluster_user_interests(interests)
+    (reps, clusters) = cluster_user_interests(interests)
 
     print 'person clusters are:'
-    for c in clusters:
-        print '\t%s' % [i.text for i in c]
+    for rep, c in zip(reps, clusters):
+        print '\t%s:%s' % (rep.text, [i.text for i in c])
 
 
 
 def cluster_user_interests(interests):
-    correlations = utils.get_correlation_matrix4(interests)
+    correlations = utils.get_correlation_matrix5(interests)
 
     def describe(cluster): return '[' + ' '.join([i.text for i in cluster]) + ']'
+
     clusters = [set([i]) for i in interests]
     closestSim = 1.0
     while True:
@@ -52,7 +53,7 @@ def cluster_user_interests(interests):
                         sim += correlations[i].get(j, 0.0)
                 size_penalty = math.log(len(c1) * len(c2) + 1) / (2 * math.log(2))
                 sim /= (len(c1)*len(c2)*size_penalty)
-                LOGGER.debug('%s, %s, sim=%.3f', c1, c2, sim)
+                #LOGGER.debug('%s, %s, sim=%.3f', c1, c2, sim)
                 if sim > closestSim:
                     closestSim = sim
                     closestPair = (c1, c2)
@@ -62,14 +63,33 @@ def cluster_user_interests(interests):
 
         if len(clusters) <= 4 and closestSim <= 0.1:
             break
-    
-        if closestPair:
-            c1, c2 = closestPair
-            LOGGER.debug('merging [%s] and [%s] with sim %.3f', describe(c1), describe(c2), closestSim)
-            clusters.remove(c2)
-            c1.update(c2)
 
-    return clusters
+        (c1, c2) = closestPair
+        if len(clusters) > 4 and len(c1) > 1 and len(c2) > 1 and closestSim < 0.05:
+            break
+    
+        LOGGER.debug('merging [%s] and [%s] with sim %.3f', describe(c1), describe(c2), closestSim)
+        clusters.remove(c2)
+        c1.update(c2)
+
+    # pick the best representative for each cluster
+    reps = []
+    for c in clusters:
+        best_score = 0.0
+        best = None
+        for i in c:
+            score = 0.00001
+            for j in c:
+                if i != j:
+                    score += correlations[i].get(j, 0.0)
+            score *= math.log(i.count+1)
+            if score > best_score:
+                best_score = score
+                best = i
+        assert(best)
+        reps.append(best)
+
+    return reps, clusters
     
 
 def OLDER_STUFF():

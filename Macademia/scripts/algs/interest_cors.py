@@ -39,69 +39,23 @@ for i in interest_strs:
         sys.stdout.write('interests %s: id=%d, n=%d, article=%s\n' % (i.text, i.id, i.count, `article`))
         interests.append(i)
 
-correlations = utils.get_correlation_matrix(interests)
-
-sys.stdout.write('\n')
-sys.stdout.write('% 12s  ' % '')
-for i in interests:
-    sys.stdout.write('% 12s  ' % i.text[:12])
-sys.stdout.write('\n')
-
-for i in interests:
-    sys.stdout.write('% 12s  ' % i.text[:12])
-    for j in interests:
-        sim = '%.3f' % correlations[i].get(j, 0.0)
-        sys.stdout.write('% 12s  ' % sim)
+for correlations in (utils.get_correlation_matrix4(interests), utils.get_correlation_matrix5(interests)):
+    sys.stdout.write('\n')
+    sys.stdout.write('% 12s  ' % '')
+    for i in interests:
+        sys.stdout.write('% 12s  ' % i.text[:12])
     sys.stdout.write('\n')
 
+    for i in interests:
+        sys.stdout.write('% 12s  ' % i.text[:12])
+        for j in interests:
+            sim = '%.3f' % correlations[i].get(j, 0.0)
+            sys.stdout.write('% 12s  ' % sim)
+        sys.stdout.write('\n')
 
-correlations = utils.get_correlation_matrix2(interests)
 
-sys.stdout.write('\n')
-sys.stdout.write('% 12s  ' % '')
-for i in interests:
-    sys.stdout.write('% 12s  ' % i.text[:12])
-sys.stdout.write('\n')
-
-for i in interests:
-    sys.stdout.write('% 12s  ' % i.text[:12])
-    for j in interests:
-        sim = '%.3f' % correlations[i].get(j, 0.0)
-        sys.stdout.write('% 12s  ' % sim)
-    sys.stdout.write('\n')
-
-correlations = utils.get_correlation_matrix3(interests)
-
-sys.stdout.write('\n')
-sys.stdout.write('% 12s  ' % '')
-for i in interests:
-    sys.stdout.write('% 12s  ' % i.text[:12])
-sys.stdout.write('\n')
-
-for i in interests:
-    sys.stdout.write('% 12s  ' % i.text[:12])
-    for j in interests:
-        sim = '%.3f' % correlations[i].get(j, 0.0)
-        sys.stdout.write('% 12s  ' % sim)
-    sys.stdout.write('\n')
-
-correlations = utils.get_correlation_matrix4(interests)
-
-sys.stdout.write('\n')
-sys.stdout.write('% 12s  ' % '')
-for i in interests:
-    sys.stdout.write('% 12s  ' % i.text[:12])
-sys.stdout.write('\n')
-
-for i in interests:
-    sys.stdout.write('% 12s  ' % i.text[:12])
-    for j in interests:
-        sim = '%.3f' % correlations[i].get(j, 0.0)
-        sys.stdout.write('% 12s  ' % sim)
-    sys.stdout.write('\n')
-
-clusters = users.cluster_user_interests(set(interests))
+reps, clusters = users.cluster_user_interests(set(interests))
 
 print 'clusters are:'
-for c in clusters:
-    print ' '.join([i.text for i in c])
+for rep, c in zip(reps, clusters):
+    print '\t%s:%s' % (rep.text, ' '.join([i.text for i in c]))
