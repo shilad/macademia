@@ -6,7 +6,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.util.*;
-import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Authors: Nathaniel Miller and Alex Schneeman
@@ -692,14 +693,22 @@ public class MongoWrapper {
         DBObject res = safeFindByField(ARTICLES_TO_IDS, "wpId", new Long(pageId), true);
         if (res == null) {
             return null;
+        } else {
+            return mongoObjectToWikipediaPage(res);
         }
-        WikipediaPage wp = new WikipediaPage(pageId, ((String)res.get("_id")), ((Number)res.get("count")).intValue());
-        if (res.get("red") != null) {
-            wp.setRedirectId(((Number)res.get("red")).longValue());
+    }
+    
+    public static WikipediaPage mongoObjectToWikipediaPage(DBObject obj) {
+        if (obj == null) {
+            return null;
         }
-        if (res.get("dab") != null) {
+        WikipediaPage wp = new WikipediaPage(((Number) obj.get("wpId")).intValue(), ((String) obj.get("_id")), ((Number) obj.get("count")).intValue());
+        if (obj.get("red") != null) {
+            wp.setRedirectId(((Number) obj.get("red")).longValue());
+        }
+        if (obj.get("dab") != null) {
             List<Long> dabIds = new ArrayList<Long>();
-            for (Number disambiguationPageId : (Iterable<Number>)res.get("dab")) {
+            for (Number disambiguationPageId : (Iterable<Number>) obj.get("dab")) {
                 dabIds.add(disambiguationPageId.longValue());
             }
             wp.setDisambiguatedIds(dabIds);
@@ -716,6 +725,16 @@ public class MongoWrapper {
         }
     }
 
+    public List<WikipediaPage> getArticlesByNormalizedTitle(String title) {
+        String normalized = normalizeInterest(title);
+        DBObject searchByNormalized= new BasicDBObject("nid", normalized);
+        DBCollection coll = getDb(true).getCollection("articlesToIds");
+        List<WikipediaPage> matches = new ArrayList<WikipediaPage>();
+        for (DBObject record : coll.find(searchByNormalized)) {
+            matches.add(mongoObjectToWikipediaPage(record));
+        }
+        return matches;
+    }
 
     public void updateArticlesToInterests(Map<Long, Set<Long>> newMapping) {
         DBCollection articlesToInterests = getDb().getCollection(ARTICLES_TO_INTERESTS);
@@ -1071,6 +1090,9 @@ public class MongoWrapper {
         userInstitutionCache.clear();
     }
 
-
-
+    static Pattern CLEAN_INTEREST = Pattern.compile("[^a-zA-Z0-9]+");
+    public static String normalizeInterest(String s) {
+        Matcher m = CLEAN_INTEREST.matcher(s);
+        return m.replaceAll("");
+    }
 }

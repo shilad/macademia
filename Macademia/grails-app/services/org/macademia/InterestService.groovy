@@ -56,30 +56,51 @@ class InterestService implements ApplicationContextAware {
     * @param interest : an interest in the interest list
     */
     public void buildDocuments(Interest interest) {
-//        log.info("doing interest ${interest}")
-//        double weight = 1.0
-        for (String url: wikipediaService.query(interest.text, 3)) {
-            String articleName = wikipediaService.decodeWikiUrl(url)
-            WikipediaPage wp = databaseService.getArticleInfo(articleName);
-            if (wp == null) {
-                log.warn("no WP article found with name ${articleName}")
-                continue
-            }
+        WikipediaPage closestPage = null;
+
+        // look for an exact title match
+        List<WikipediaPage> matches = databaseService.getArticlesByNormalizedTitle(interest.normalizedText);
+        for (WikipediaPage wp : matches) {
             WikipediaPage wp2 = dereferencePage(wp, 0)
-            if (wp2 == null) {
-                log.warn("no WP dereferenced for ${wp}")
-                continue
-            }
             if (wp2.pageId != wp.pageId) {
                 log.info("mapped page $wp to $wp2")
             }
-            interest.articleId = wp2.pageId
-            interest.articleName = wp2.title
+            if (closestPage == null || wp2.getViewCount() > closestPage.getViewCount()) {
+                closestPage = wp2
+            }
+        }
+
+//        log.info("doing interest ${interest}")
+//        double weight = 1.0
+        if (closestPage == null) {
+            for (String url: wikipediaService.query(interest.text, 3)) {
+                String articleName = wikipediaService.decodeWikiUrl(url)
+                WikipediaPage wp = databaseService.getArticleInfo(articleName);
+                if (wp == null) {
+                    log.warn("no WP article found with name ${articleName}")
+                    continue
+                }
+                WikipediaPage wp2 = dereferencePage(wp, 0)
+                if (wp2 == null) {
+                    log.warn("no WP dereferenced for ${wp}")
+                    continue
+                }
+                if (wp2.pageId != wp.pageId) {
+                    log.info("mapped page $wp to $wp2")
+                }
+                closestPage = wp2;
+                break;  // we found something!
+            }
+        }
+        if (closestPage != null) {
+            interest.articleId = closestPage.pageId
+            interest.articleName = closestPage.title
             databaseService.addInterestToArticle(interest, interest.articleId)
-            Utils.safeSave(interest)
-            break;  // we found something!
+        } else {
+            log.warn("no WP page assigned to ${interest}")
         }
         interest.lastAnalyzed = new Date()
+        Utils.safeSave(interest)
     }
 
     /**

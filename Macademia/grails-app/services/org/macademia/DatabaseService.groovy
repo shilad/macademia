@@ -224,6 +224,9 @@ class DatabaseService {
         wrapper.addInterestToArticle(interest.id, article);
     }
 
+    public List<WikipediaPage> getArticlesByNormalizedTitle(String title) {
+        return wrapper.getArticlesByNormalizedTitle(title);
+    }
 
     public WikipediaPage getArticleInfo(String title) {
         return wrapper.getArticleInfo(title);
