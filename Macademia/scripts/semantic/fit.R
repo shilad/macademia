@@ -31,12 +31,22 @@ summary(lm(justcat$y ~ justcat$catp));
 #all3$wordsig <- sigmoid(scale(all3$words));
 #all3$linksig <- sigmoid(scale(all3$links));
 all3$catp <- percentile(all3$catr);
+all3$links[is.na(all3$links)] = -0.05;
+all3$linkk[is.na(all3$links)] = -0.05;
+all3$words[is.na(all3$words)] = -0.05;
+all3$wordk[is.na(all3$words)] = -0.05;
+all3$catp[is.na(all3$catp)] = -0.01;
 
 summary(all3);
 sapply(all3, mean, na.rm=TRUE);
 sapply(all3, sd, na.rm=TRUE);
 
 apply(all3, 2, function (v) { cor(all3$y[!is.na(v)], v[!is.na(v)]); });
+
+summary(lm(y ~ words + links + catp, all3));
+
+stop("end");
+
 
 evalfields <- function(fields) {
     rows <- all3;
@@ -65,7 +75,7 @@ evalfields <- function(fields) {
         print(lm(mat));
     } else {
         print(lm(mat));
-        #print(lm.ridge(mat, lambda<-1.0));
+        #print(lm.ridge(mat, lambda=0.0));
     }
 
     print("");

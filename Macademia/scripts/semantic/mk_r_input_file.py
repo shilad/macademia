@@ -37,11 +37,8 @@ class ResultFile:
             self.is_finished = True
         else:
             (id_str, result_str) = line.split('\t')
-            if len(id_str) < 2:
-                LOGGER.warning('invalid key %s in %s' % (`id_str`, `self.path`))
-                self.id = ''
-            else:
-                self.id = int(id_str[1:-1]) # strip quotes
+            id_str = id_str.replace('"', '')
+            self.id = int(id_str)
             self.should_process = (self.id in self.retained_ids)
             if self.should_process:
                 self.scores = self.parse_scores(result_str)
@@ -80,7 +77,7 @@ def main(path_gold, input_files):
 
     sys.stdout.write('n\t')
     for f in input_files:
-        sys.stdout.write('%ss\t%sr\t' % (f.name, f.name))
+        sys.stdout.write('%ss\t%sk\t%sr\t' % (f.name, f.name, f.name))
         f.retained_ids = set(gold.keys())
         f.advance()
     sys.stdout.write('\ty\n')
@@ -103,10 +100,17 @@ def main(path_gold, input_files):
         for f in input_files:
             data = {}
             scores = {}
-            if f in min_files: scores = f.scores
+            max_score = 1
+            if f in min_files:
+                scores = f.scores
+                max_score = max([p[0] for p in f.scores.values()])
             for page_id2 in gold[page_id1]:
                 if page_id2 in scores:
-                    data[page_id2] = scores[page_id2]
+                    data[page_id2] = (
+                            scores[page_id2][0],
+                            scores[page_id2][0] / max_score,
+                            scores[page_id2][1]
+                        )
             all_data.append(data)
             f.advance()
 
@@ -118,7 +122,7 @@ def main(path_gold, input_files):
                     real_vals += 1
                     vals.extend(d[page_id2])
                 else:
-                    vals.extend(('NA', 'NA'))
+                    vals.extend(('NA', 'NA', 'NA'))
             if real_vals > 0:
                 vals.append(score)
                 print '\t'.join(map(str, vals))

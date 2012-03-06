@@ -66,7 +66,8 @@ class Interest:
         self.sim_ranks = {}
 
         rank = 1
-        for pair in mongo_record['similar'].split('|'):
+        similar = mongo_record.get('similar2', mongo_record.get('similar'))
+        for pair in similar.split('|'):
             if pair:
                 tokens = pair.split(',')
                 id = long(tokens[0])
@@ -104,9 +105,20 @@ class Interest:
 
     def get_similarity(self, i):
         if i == self:
-            return 12.0
+            return 1.0
         else:
             return self.sim_scores.get(i, 0.0)
+
+    "checks for a similarity score in either direction."
+    def get_similarity2(self, i):
+        if i == self:
+            return 1.0
+        elif i in self.sim_scores:
+            return self.sim_scores[i]
+        elif self in i.sim_scores:
+            return i.sim_scores[self]
+        else:
+            return 0.0
 
     def __repr__(self):
         return str(self)

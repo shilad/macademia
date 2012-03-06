@@ -10,16 +10,13 @@ import utils
 LOGGER = logging.getLogger(__name__)
 
 SAMPLE_SIZE = 500
-POW_SIM = 2.0
-POW_DIVERSITY = 0.5
+POW_SIM = 1.0
+POW_DIVERSITY = 1.0
 POW_POP = 1.0
 DEBUG = False
 
 NUM_TOP_INTERESTS_ROOT = 15
 NUM_TOP_INTERESTS_ELEM = 30
-
-def sigmoid(x):
-    return 1.0 / (1.0 + math.exp(-x))
 
 def make_interest_graph(root):
     LOGGER.debug('building graph for %s', root)
@@ -41,7 +38,7 @@ def make_interest_graph(root):
     return cluster_map
 
 
-def pick_subcluster_root(root, candidates, current_roots):
+def pick_subcluster_root(root, candidates, current_roots, sim_exp=POW_SIM):
     current_top = set(root.get_similar()[:NUM_TOP_INTERESTS_ROOT])
     for i in current_roots:
         current_top.add(i)
@@ -58,7 +55,7 @@ def pick_subcluster_root(root, candidates, current_roots):
         n_new = len(candidate_top.difference(current_top))
         sim = root.get_similarity(i)
         s = (
-                (sim ** POW_SIM) *
+                (sim ** sim_exp) *
                 (n_new ** POW_DIVERSITY) *
                 (math.log(i.count + 1) ** POW_POP) 
         )
@@ -93,7 +90,7 @@ def pick_cluster_elems(root, other_roots):
     cluster_elems = set()
     while candidates and len(cluster_elems) < 7:
         LOGGER.debug('\tdoing iteration %d', len(cluster_elems))
-        candidates, cluster_elems = pick_subcluster_root(root, candidates, cluster_elems)
+        candidates, cluster_elems = pick_subcluster_root(root, candidates, cluster_elems, 2.0)
 
     return cluster_elems
 

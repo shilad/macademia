@@ -22,18 +22,123 @@ LOGGER = logging.getLogger(__name__)
 DEBUG = False
 
 def make_full_person_graph(root_user):
-    LOGGER.debug('user %s interests are %s', (root_user.id, ' '.join([i.text for i in root_user.interests if len(i.sim_list) > 1])))
+    LOGGER.debug('user %s interests are %s', root_user.id, ', '.join([i.text for i in root_user.interests if len(i.sim_list) > 1]))
     interests = set([i for i in root_user.interests])
-    (reps, clusters) = cluster_user_interests(interests)
+    clusters = cluster_user_interests(interests)
 
     print 'person clusters are:'
-    for rep, c in zip(reps, clusters):
+    for rep, c in clusters.items():
         print '\t%s:%s' % (rep.text, [i.text for i in c])
 
+    weights = dict([(r,1.0) for r in clusters])
+    (users, relations) = find_user_results(clusters.keys(), weights, root_user, clusters)
+    for u in users:
+        print_user_relations(u, relations[u], 'chose user with interests', '\t')
 
+
+def print_user_relations(u, relations, caption, prefix):
+    print caption, ', '.join([i.text for i in u.interests])
+    for (root, rels) in relations.items():
+        print '%s%s: %s' % (prefix, root.text, ', '.join([i.text for i in rels]))
+
+
+def find_user_results(roots, weights, root_user=None, clusters=None):
+    LOGGER.debug('roots are %s', ', '.join([i.text for i in roots]))
+    candidate_interests = set()
+    rev_cluster_map = {}
+    for root, c in clusters.items():
+        for interest in c:
+            candidate_interests.update(interest.get_similar()[:500])
+            rev_cluster_map[interest] = root
+    LOGGER.debug('num candidates is %s', len(candidate_interests))
+
+    # generate possible relations
+    closest_root = {}
+    for i in candidate_interests:
+        sims = [(i.get_similarity2(j), j) for j in roots]
+        max_sim = max([s for (s, j) in sims])
+        if max_sim >= 0.01:
+            assert(max_sim > 0)
+            best_roots = [j for (s, j) in sims if s == max_sim]
+            closest_root[i] = random.choice(best_roots)
+
+    # similarities for candidate interests to any one of the element in the cluster
+    interest_rels = {}
+    for (i, root) in closest_root.items():
+        interest_rels[i] = max([i.get_similarity2(j) for j in clusters[root]])
+
+    # build up relations
+    user_relations = {}
+    for (related, root) in closest_root.items():
+        for user in utils.get_users_with_interest(related):
+            if not user in user_relations:
+                user_relations[user] = collections.defaultdict(list)
+            user_relations[user][root].append(related)
+
+    # sort interests within relations by similarity
+    for (user, relations) in user_relations.items():
+        for (root, related) in relations.items():
+            related.sort(key=lambda i: interest_rels[i])
+            related.reverse()
+
+    # score users
+    user_relevances = {}
+    user_profiles = {}
+    for (user, relations) in user_relations.items():
+        rel = 0.0
+        profile = []
+        for root in roots:
+            if root in relations:
+                sims = [interest_rels[i] for i in relations[root]]
+                score = sum([
+                        s * (0.5**penalty)
+                        for (penalty, s) in enumerate(sims)
+                    ])
+                profile.append(len(relations))
+                rel += score
+            else:
+                profile.append(0)
+        norm = sum([x*x for x in profile]) ** 0.5
+        profile = [x / norm for x in profile]
+        user_relevances[user] = rel
+        user_profiles[user] = profile
+
+    # choose users
+    candidates = set(user_relevances.keys())
+    if root_user and root_user in candidates:
+        candidates.remove(root_user)
+
+    chosen = set()
+    while candidates and len(chosen) < 20:
+        #print 'iteration %d, chosen are:' % len(chosen)
+        #for u in chosen:
+            #print_user_relations(u, user_relations[u], '\tinterests', '\t\t')
+        best_user = None
+        best_score = None
+        #print 'candidates are:'
+        for u1 in candidates:
+            sims = []
+            for u2 in chosen:
+                dot = sum([x*y for (x,y) in zip(user_profiles[u1], user_profiles[u2])])
+                sims.append(dot)
+            sims.sort()
+            redundancy = sum(sims[-2:])  # three largest similarities
+            score = user_relevances[u1] - redundancy
+            #caption = '\tcandidate score=%.6f, sim=%.6f redund=%.6f' % (score, user_relevances[u1], redundancy)
+            #print_user_relations(u1, user_relations[u1], caption, '\t\t')
+            if score > best_score:
+                best_score = score
+                best_user = u1
+        #caption = 'best has score=%.6f' % best_score
+        #print_user_relations(best_user, user_relations[best_user], caption, '\t')
+        candidates.remove(best_user)
+        chosen.add(best_user)
+
+    return chosen, dict([(u, user_relations[u]) for u in chosen])
+        
 
 def cluster_user_interests(interests):
-    correlations = utils.get_correlation_matrix5(interests)
+    correlations = utils.get_correlation_matrix(interests)
 
     def describe(cluster): return '[' + ' '.join([i.text for i in cluster]) + ']'
 
@@ -89,269 +194,8 @@ def cluster_user_interests(interests):
         assert(best)
         reps.append(best)
 
-    return reps, clusters
+    return dict(zip(reps, clusters))
     
-
-def OLDER_STUFF():
-    while len(roots) < 4 and candidates:
-        (candidates, roots) = pick_subcluster_root(candidates, roots, interests)
-    
-    roots = list(roots)     # order matters
-    clusters = []           #
-    for r in roots:
-        clusters.append(set([r]))
-    outliers = []
-
-    # reset the interests
-    for i in interests.difference(set(roots)):
-        # try from i's perspective
-        pairs = [ (i.get_similarity(r), c)
-                  for (r,c) in zip(roots,clusters)
-                  if i.get_similarity(r) ]
-        if pairs:
-            pairs.sort()
-            (s, c) = pairs[-1]
-            c.add(i)
-            continue
-
-        # try from the cluster's perspective
-        pairs = [ (r.get_similarity(i), c)
-                  for (r,c) in zip(roots,clusters)
-                  if r.get_similarity(i) ]
-        if pairs:
-            pairs.sort()
-            (s, c) = pairs[-1]
-            c.add(i)
-        else:
-            outliers.append(i)
-        
-
-
-    #clusters = find_clusters(interests)
-    #outliers = find_outliers(interests)
-
-    #clusters = []
-    #for i in interests.difference(outliers):
-        #add_interest_to_clustering(clusters, i)
-    #LOGGER.debug('initial clustering is %s', clusters)
-     
-    #while len(clusters) > MAX_CLUSTERS:
-        #merge_one_pair(clusters)
-    #LOGGER.debug('final clustering is %s', clusters)
-
-def pick_subcluster_root(candidates, current_roots, interests):
-    current_top = set()
-    covered = set()
-    for i in current_roots:
-        current_top.add(i)
-        current_top.update(i.get_similar()[:100])
-        covered.update(i.get_similar())
-
-    debug = []
-
-    top_match = None
-    top_score = -1.0
-
-    uncovered = interests.intersection(covered)
-
-    for i in candidates:
-        if i in current_roots:
-            continue
-        candidate_top = set(i.get_similar()[:100])
-        n_new = len(candidate_top.difference(current_top))
-        n_covered = len(uncovered.intersection(i.get_similar()))
-
-        #print 'i is', i, 'current are', current_roots, 'n_new is', n_new, 'of', len(candidate_top)
-        if n_new < (len(candidate_top)+5) / 2:
-            continue
-
-        # TODO: add in component for user coverage
-        s = (
-                (math.log(n_covered + 1)) *
-                (n_new ** POW_DIVERSITY) *
-                (math.log(i.count + 1) ** POW_POP)
-        )
-        if LOGGER.isEnabledFor(logging.DEBUG):
-            debug.append([s, n_new, math.log(i.count + 1), i])
-        if s >= top_score:
-            top_score = s
-            top_match = i
-
-    if not top_match:
-        return set(), current_roots
-
-    if LOGGER.isEnabledFor(logging.DEBUG):
-        debug.sort()
-        debug.reverse()
-        for i in range(len(debug)):
-            LOGGER.debug('\t%s', debug[i])
-
-    candidates.remove(top_match)
-    current_roots.add(top_match)
-
-    return candidates, current_roots
-
-
-SAME_CLUSTER_THRESHOLD = 7.6
-
-def find_clusters(interests):
-    d1 = 6.0
-    d2 = 7.0 * 7.0
-
-    covered = collections.defaultdict(set)
-    for i in interests:
-        covered[i].add(i)
-        for j in interests:
-            s = max(i.get_similarity(j), j.get_similarity(i))
-            if s >= d1:
-                covered[i].add(j)
-
-    covered2 = []
-    for i in interests:
-        neighbors = set(covered[i])
-        for j in covered[i]:
-            if i == j: continue
-            s1 = max(i.get_similarity(j), j.get_similarity(i))
-            for k in covered[j].difference(neighbors):
-                s2 = s1 * max(j.get_similarity(k), k.get_similarity(j))
-                if s2 >= d2:
-                    neighbors.add(k)
-        covered2.append(neighbors)
-
-    covered_set = set()
-
-    clusters = []
-    for i in xrange(4):
-        if not covered2: break
-        covered2.sort(key=lambda x: len(x))
-        covered2.reverse()
-        covered_set.update(covered2[0])
-        clusters.append(covered2[0])
-        LOGGER.debug('removing covered set %s' % covered2[0])
-        del(covered2[0])
-        for c in covered2:
-            c.difference_update(covered_set)
-        covered2 = [c for c in covered2 if c]
-
-    # tighten up the clusters
-    for n in xrange(3):
-        for i in list(itertools.chain(*clusters)):
-            best_score = 0
-            best_cluster = None
-            orig_cluster = None
-            for c in clusters:
-                if i in c:
-                    orig_cluster = c
-                if len(c) == 0 or (len(c) == 1 and i in c):  # nothing here!
-                    continue
-                max_sim = 0
-                score = 0.0
-                for j in c.difference([i]):
-                    sim = max(i.get_similarity(j), j.get_similarity(i))
-                    max_sim = max(max_sim, sim)
-                    score += sim ** 4
-                score = score ** 0.25 / len(c.difference([i]))
-                if max_sim >= 6.0 and score > best_score:
-                    best_score = 0
-                    best_cluster = c
-            if best_cluster != None and best_cluster != orig_cluster:
-                assert(orig_cluster)
-                orig_cluster.remove(i)
-                best_cluster.add(i)
-
-    return clusters
-
-
-def add_interest_to_clustering(clusters, i):
-    span = []
-    for c in clusters:
-        for j in c:
-            sim = max(i.get_similarity(j), j.get_similarity(i))
-            if sim > SAME_CLUSTER_THRESHOLD:
-                span.append(c)
-                break
-
-    if span:
-        # fold all clusters into span[0]
-        for c in span[1:]:
-            span[0].update(c)
-            clusters.remove(c)
-    else:
-        clusters.append(set([i]))    # new!
-
-def find_outliers(interests):
-    optimal_distance = 10.0 / 8.0 * 2
-    def d(score): return 10.0 / score
-
-    covered = collections.defaultdict(list)
-    for i in interests:
-        covered[i] = set([  j for (j, score) in i.sim_scores.items()
-                        if d(score) <= optimal_distance and j in interests ])
-
-    covered2 = collections.defaultdict(list)
-    for i in interests:
-        covered2[i] = set(covered[i])
-        covered2[i].add(i)                 # hack: i covers itself
-        for j in list(covered2[i]):
-            if j != i:
-                for k in covered.get(j, []):
-                    if d(i.get_similarity(j)) + d(j.get_similarity(k)) <= optimal_distance:
-                        covered2[i].add(k)
-
-    covered_set = set() 
-    covered2 = covered2.values()
-
-    for i in xrange(4):
-        if not covered2: break
-        covered2.sort(key=lambda x: len(x))
-        covered2.reverse()
-        covered_set.update(covered2[0])
-        LOGGER.debug('removing covered set %s' % covered2[0])
-        del(covered2[0])
-        for c in covered2:
-            c.difference_update(covered_set)
-        covered2 = [c for c in covered2 if c]
-
-    uncovered = interests.difference(covered_set)
-
-    LOGGER.debug('uncovered is %s' % uncovered)
-    return uncovered
-
-def merge_one_pair(clusters):
-    best_sim = 0.0
-    best_pair = None
-    for c1 in clusters:
-        for c2 in clusters:
-            if c1 == c2:
-                continue
-            sim = cluster_sim_max(c1, c2)
-            if sim > best_sim:
-                best_sim = sim
-                best_pair = (c1, c2)
-    if not best_pair:
-        return False
-    (c1, c2) = best_pair
-    LOGGER.debug('merging %s and %s with score %.2f', [i.text for i in c1], [i.text for i in c2], best_sim)
-    clusters.remove(c2)
-    c1.update(c2)
-    return True
-
-def cluster_sim_max(c1, c2):
-    sim = 0.0
-    for i1 in c1:
-        for i2 in c2:
-            sim = max(sim, i1.get_similarity(i2))
-            sim = max(sim, i2.get_similarity(i1))
-    return sim
- 
-def cluster_sim(c1, c2):
-    sim = 0.0
-    for i1 in c1:
-        for i2 in c2:
-            sim += i1.get_similarity(i2) ** 4
-            sim += i2.get_similarity(i1) ** 4
-    return sim ** (1/4.0) / (len(c1) * len(c2))
-            
 
 def make_full_interest_graph(root_interest):
     cluster_map = clusters.make_interest_graph(root_interest)
@@ -475,7 +319,8 @@ def test_graph():
     make_full_interest_graph(i)
         
 def test_sample_person_graph():
-    #for u in [utils.get_user_by_id(3568)]:
+    #for u in [utils.get_user_by_id(3568), utils.get_user_by_id(16)]:
+    #for u in [utils.get_user_by_id(16)]:
     for u in random.sample(utils.get_all_users(), 200):
         print '='*80
         print
@@ -498,7 +343,7 @@ def test_sample_interest_graph():
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
-    LOGGER.setLevel(logging.DEBUG)
+    #LOGGER.setLevel(logging.DEBUG)
     utils.init()
     #test_sample_interest_graph()
     test_sample_person_graph()

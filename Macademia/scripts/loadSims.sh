@@ -9,4 +9,4 @@ if [ $1 == "drop" ]; then
 fi
 
 
-echo $@ | tr ' ' '\n' | sort | parallel --progress --eta -P 15 zcat "{}" "|" ./scripts/removeQuotes.py "|" mongoimport -d wikipediaReadOnly -c articleSimilarities -f _id,similarities --type tsv
+echo $@ | tr ' ' '\n' | sort | parallel --progress --eta -P 15 zcat "{}" "|" mongoimport -d wikipediaReadOnly -c articleSimilarities -f _id,flags,similarities --type tsv

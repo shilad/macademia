@@ -19,7 +19,7 @@ def main():
             summarize(page_id, results_str.strip())
 
 def summarize(page_id, results_str):
-    print 'results for %s (id=%d)' % (utils.get_title(page_id), page_id)
+    print 'results for %s (id=%d)' % (utils.get_title(page_id).encode('ascii', 'ignore'), page_id)
     if len(results_str) < 2:
         print '\tno results'
         return

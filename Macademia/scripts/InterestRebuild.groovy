@@ -5,7 +5,8 @@ Interest.withTransaction {
 
     InterestService interestService = ctx.getBean("interestService")
 
-    def interests = Interest.findAll()
+    //def interests = Interest.findAll()
+    def interests = Interest.findAllByNormalizedText('rap')
     println "building relations for ${interests.size()} interests\n"
     def i = 0
     interests.each() {

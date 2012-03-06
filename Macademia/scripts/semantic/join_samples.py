@@ -104,22 +104,17 @@ def combine_scores(names, scores):
         scores['catp'] = percentile(scores['cats'])
 
     if len(names) < 3:
-        return (
-            5.9276 + 
-            0.9525 * scores.get('links', -0.1) +
-            11.6783 * scores.get('words', -0.1) +
-            0.5680 * scores.get('catp', -0.1)
-        )
+        return -1   # don't trust it!
     else:   # all 3 available
         if len(scores) == 1 and 'cats' in scores:
             return -1   # don't trust it!
         else:
             assert(len(scores) >= 1)
             return (
-                5.9276 + 
-                0.9525 * scores.get('links', -0.1) +
-                11.6783 * scores.get('words', -0.1) +
-                0.5680 * scores.get('catp', -0.1)
+                5.849 + 
+                5.45869 * scores.get('words', -0.05) +
+                1.48050 * scores.get('links', -0.05) +
+                0.90944 * scores.get('catp', -0.01)
             )
 
 def main(input_files):

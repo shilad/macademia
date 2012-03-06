@@ -39,7 +39,7 @@ for i in interest_strs:
         sys.stdout.write('interests %s: id=%d, n=%d, article=%s\n' % (i.text, i.id, i.count, `article`))
         interests.append(i)
 
-for correlations in (utils.get_correlation_matrix4(interests), utils.get_correlation_matrix5(interests)):
+for correlations in (utils.get_correlation_matrix(interests), utils.get_correlation_matrix5(interests)):
     sys.stdout.write('\n')
     sys.stdout.write('% 12s  ' % '')
     for i in interests:
