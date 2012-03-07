@@ -22,6 +22,8 @@ public class MongoWrapper {
 
     //name of the interests collection
     public static final String INTERESTS = "interests";
+    
+    public static final String SIMILARITY_FIELD = "similar2";
 
     //name of the collaboratorRequests collection
     public static final String COLLABORATOR_REQUESTS = "collaboratorRequests" ;
@@ -44,6 +46,7 @@ public class MongoWrapper {
     LRUCache<Long, Set<Long>> interestUserCache = new LRUCache<Long, Set<Long>>(2000);
     LRUCache<Long, Set<Long>> interestRequestCache = new LRUCache<Long, Set<Long>>(2000);
     LRUCache<Long, Set<Long>> userInstitutionCache = new LRUCache<Long, Set<Long>>(2000);
+    LRUCache<Long, SimilarInterestList> similarInterestCache = new LRUCache<Long, SimilarInterestList>(10000);
 
     public MongoWrapper(Mongo mongo, String dbName, String wpDbName){
         this.mongo=mongo;
@@ -503,10 +506,17 @@ public class MongoWrapper {
         }
         //log.info("Similar Interest String added to DB: "+interest)
         //log.info(similar+interest+" addToInterests put" )
-        SimilarInterestList sim = new SimilarInterestList((String)i.get("similar"));
+        SimilarInterestList sim = new SimilarInterestList((String)i.get(SIMILARITY_FIELD));
         sim.add(new SimilarInterest(secondId, similarity));
-        i.put("similar",sim.toString());
+        i.put(SIMILARITY_FIELD,sim.toString());
         interests.update(safeFindById(INTERESTS, firstId, false),i);
+        if (i.containsField("usage")) {
+            sim.setCount((Integer) i.get("usage"));
+        };
+        if (i.containsField("flags")) {
+            sim.setFlags((String) i.get("flags"));
+        };
+        similarInterestCache.put(firstId, sim);
     }
 
     /**
@@ -516,6 +526,7 @@ public class MongoWrapper {
      * @param interestId The Long id of the interest to remove
      */
     private void removeInterest(Long interestId) {
+        similarInterestCache.remove(interestId);
         DBObject interest = safeFindById(INTERESTS, interestId, false);
         if (interest == null) {
             return;
@@ -623,10 +634,11 @@ public class MongoWrapper {
         DBCollection interests = getDb().getCollection(INTERESTS);
         DBObject i = safeFindById(INTERESTS, firstInterest, false);
         if (i != null) {
-            SimilarInterestList similarInterests = new SimilarInterestList((String)i.get("similar"));
+            SimilarInterestList similarInterests = new SimilarInterestList((String)i.get(SIMILARITY_FIELD));
             similarInterests.remove(new SimilarInterest(secondInterest, (double)0));
-            i.put("similar", similarInterests.toString());
+            i.put(SIMILARITY_FIELD, similarInterests.toString());
             interests.update(safeFindById(INTERESTS, firstInterest, false),i);
+            similarInterestCache.remove(firstInterest);
         }
     }
 
@@ -766,7 +778,7 @@ public class MongoWrapper {
         Map<Long, Double> ids = new HashMap<Long, Double>();
         if (article != -1) {
             // don't give interests mapped to unknown articles similar interests
-            while (list.size() < 200 && i < articles.size()) {
+            while (list.size() < 750 && i < articles.size()) {
                 SimilarInterest check = articles.get(i);
                 DBObject articleToInterests = safeFindById(ARTICLES_TO_INTERESTS, check.interestId, false);
                 if (articleToInterests != null) {
@@ -788,7 +800,7 @@ public class MongoWrapper {
         DBObject dbo = safeFindById(INTERESTS, interest, false);
         if(dbo == null) {
             dbo =  new BasicDBObject("_id", interest);
-            dbo.put("similar", "");
+            dbo.put(SIMILARITY_FIELD, "");
             dbo.put("usage", 0);
         }
         if (dbo.get("text") == null || dbo.get("text") != text) {
@@ -809,22 +821,26 @@ public class MongoWrapper {
     }
 
     public void cleanupInterestRelations(Set<Long> validIds) {
+        // clear cache
+        similarInterestCache.clear();
         DBCollection interests = getDb().getCollection(INTERESTS);
         for (DBObject entry : interests.find()) {
-            String simStr = (String)entry.get("similar");
+            String simStr = (String)entry.get(SIMILARITY_FIELD);
             if (simStr != null) {
                 Long id = (Long) entry.get("_id");
                 DBObject q = new BasicDBObject("_id", id);
                 if (validIds.contains(id)) {
                     SimilarInterestList sims = new SimilarInterestList(simStr);
                     sims.dedupe(validIds);
-                    entry.put("similar", sims.toString());
+                    entry.put(SIMILARITY_FIELD, sims.toString());
                     interests.update(q, entry);
                 } else {
                     interests.remove(q);
                 }
             }
         }
+        // re-clear cache
+        similarInterestCache.clear();
     }
 
     public void cleanupPeople(Set<Long> validIds){
@@ -853,17 +869,22 @@ public class MongoWrapper {
         DBObject interest= safeFindById(INTERESTS, interestId, false);
         if(interest == null){
             interest = new BasicDBObject("_id", interestId);
-            interest.put("similar", "");
+            interest.put(SIMILARITY_FIELD, "");
             interests.insert(interest);
         }
         if (merge) {
-            sims.add((String)interest.get("similar"));
+            sims.add((String)interest.get(SIMILARITY_FIELD));
         }
-        interest.put("similar", sims.toString());
+        interest.put(SIMILARITY_FIELD, sims.toString());
         interests.update(safeFindById(INTERESTS, interestId, false), interest);
+        similarInterestCache.put(interestId, sims);
     }
 
     public SimilarInterestList getSimilarInterests(long interest){
+        SimilarInterestList sil = similarInterestCache.get(interest);
+        if (sil != null) {
+            return sil;
+        }
         //System.out.println(interest + " was the interest");
         DBObject i = safeFindById(INTERESTS, interest, false);
         if (i == null) {
@@ -871,17 +892,28 @@ public class MongoWrapper {
             return new SimilarInterestList();
         }
         //System.out.println(i +" getSimilarInterests get");
-        String res = (String)i.get("similar");
+        String res = (String)i.get(SIMILARITY_FIELD);
         if (res == null) {
-            return new SimilarInterestList();
+            sil = new SimilarInterestList();
+        } else {
+            sil = new SimilarInterestList(res);
+            if (i.get("flags") != null) {
+                sil.setFlags((String) i.get("flags"));
+            }
+            if (i.containsField("usage")) {
+                sil.setCount((Integer) i.get("usage"));
+            };
         }
-        SimilarInterestList sil = new SimilarInterestList(res);
-        if (i.get("flags") != null) {
-            sil.setFlags((String) i.get("flags"));
-        }
+        similarInterestCache.put(interest, sil);
         return sil;
     }
 
+    /**
+     * TODO: use the similarInterestCache, add usage to SimilarInterestList
+     * @param interest
+     * @param institutionFilter
+     * @return
+     */
     public SimilarInterestList getSimilarInterests(Long interest, InstitutionFilter institutionFilter) {
         DBObject i = safeFindById(INTERESTS, interest, false);
         if (i == null) {
@@ -895,7 +927,7 @@ public class MongoWrapper {
         if (institutionFilter.requiredInstitutionId != null) {
             institutionInterests.retainAll(getInstitutionInterests(institutionFilter.requiredInstitutionId));
         }
-        return new SimilarInterestList((String)i.get("similar"), institutionInterests);
+        return new SimilarInterestList((String)i.get(SIMILARITY_FIELD), institutionInterests);
     }
 
     private void addInterestToInstitutions(long interestId, List<Long> institutionIds) {
@@ -912,8 +944,8 @@ public class MongoWrapper {
             institution.put("interests","");
             institutionInterests.insert(institution);
         }
-        String res = interestSetToString(interestStringToSet(institution.get("interests")+
-                Long.toString(interestId)+","));
+        String res = interestSetToString(interestStringToSet(institution.get("interests") +
+                Long.toString(interestId) + ","));
         institution.put("interests",res);
         institutionInterests.update(safeFindById(INSTITUTION_INTERESTS, institutionId, false),institution);
     }
@@ -1088,6 +1120,43 @@ public class MongoWrapper {
         interestUserCache.clear();
         interestRequestCache.clear();
         userInstitutionCache.clear();
+        similarInterestCache.clear();
+    }
+
+    public void fillCache() {
+        cacheInterestSimilarities();
+    }
+
+    public void cacheInterestSimilarities() {
+        Map<Long, List<SimilarInterest>> symmetric= new HashMap<Long, List<SimilarInterest>>();
+
+        // cache relations
+        DBCollection interests = getDb().getCollection(INTERESTS);
+        for (DBObject entry : interests.find()) {
+            if (entry.get(SIMILARITY_FIELD) == null) {
+                continue;
+            }
+            long id = ((Number)entry.get("_id")).longValue();
+            SimilarInterestList sil = new SimilarInterestList((String) entry.get(SIMILARITY_FIELD));
+            if (entry.containsField("usage")) { sil.setCount((Integer) entry.get("usage")); };
+            similarInterestCache.put(id, sil);
+
+            // build up symmetric relations
+            for (SimilarInterest si : sil) {
+                if (!symmetric.containsKey(si.interestId)) {
+                    symmetric.put(si.interestId, new ArrayList<SimilarInterest>());
+                }
+                symmetric.get(si.interestId).add(new SimilarInterest(id, si.similarity));
+            }
+        }
+
+        // Merge in symmetric relations
+        for (Long id : symmetric.keySet()) {
+            if (similarInterestCache.get(id) == null) {
+                similarInterestCache.put(id, new SimilarInterestList());
+            }
+            similarInterestCache.get(id).merge(symmetric.get(id));
+        }
     }
 
     static Pattern CLEAN_INTEREST = Pattern.compile("[^a-zA-Z0-9]+");

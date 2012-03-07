@@ -28,4 +28,14 @@ class SimilarInterestListTests extends GrailsUnitTestCase {
         assertEquals(list.toString(),"2,0.1|1,0.1|")
         assertEquals(list.removeLowest().interestId,1)
     }
+
+    void testSimilarInterestListMerge() {
+        SimilarInterestList list1 = new SimilarInterestList("7,0.4|2,0.2|1,0.1|5,0.05")
+        SimilarInterestList list2 = new SimilarInterestList("1,0.3|6,0.25|3,0.2|")
+        list1.merge(list2)
+        assertEquals(list1.size(), 6);
+        assertEquals(list1.get(0).interestId, 7);
+        assertEquals(list1.get(1).interestId, 1);
+        assertEquals(list1.get(5).interestId, 5);
+    }
 }

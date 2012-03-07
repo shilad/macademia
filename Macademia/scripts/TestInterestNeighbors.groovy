@@ -6,13 +6,9 @@ import org.macademia.nbrviz.InterestGraph
 ctx.getBean('autocompleteService').init()
 def similarityService = ctx.getBean('similarity2Service')
 def sessionFactory = ctx.getBean('sessionFactory')
-//Interest.list().each({
-//    print("${it?.text}:")
-//    for (Long iid : ss.chooseTopRelatedInterests(it.id, 7)) {
-//        print(" ${Interest.get(iid)?.text}")
-//    }
-//    println("")
-//})
+def databaseService = ctx.getBean('databaseService')
+
+databaseService.fillCache()
 def queries = [
     'web20',
     'anthropology',
@@ -24,8 +20,9 @@ def queries = [
 
 def t1 = System.currentTimeMillis()
 queries.each({
+    println("interest graph for ${it}")
     def interest = Interest.findByNormalizedText(it)
-    InterestGraph graph = similarityService.calculateInterestNeighbors(interest.id, 20, 3)
+    InterestGraph graph = similarityService.calculateInterestNeighbors(interest.id, 20, 5, [:])
     graph.prettyPrint()
     sessionFactory.currentSession.clear()
 })

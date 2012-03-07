@@ -6,163 +6,237 @@ import org.macademia.SimilarInterestList
 import org.macademia.nbrviz.InterestRole.RoleType
 
 /**
- * TODO: reconcile QueryGraph, InterestGraph, PersonGraph
+ * Procedure:
+ * - Create a person graph.
+ * - Add root person interests.
+ * - choose cluster roots (also clusters person's interests).
+ * - addSimilarInterests for all interests in getInterestsNeedingSims
+ * - chooseClusterMembers
+ * -
  */
-class PersonGraph {
-    public static final double CLUSTER_PENALTY = 0.5
+class PersonGraph extends NbrvizGraph {
 
     Long rootId = null
-    Set<Long> rootInterests = null
-    Set<Long> relatedInterestIds = new HashSet()
-    Map<Long, InterestInfo> interestInfo = [:]
-    Map<Long, Collection<PersonClusterEdge>> personClusterEdges = [:]
-    Map<Long, Double> personScores = [:]
-    Map<Long, Double> interestWeights = [:]
+    Map<Long, Set<Long>> rootPersonClusters = null
 
-    public PersonGraph(Long personId, Set<Long> rootInterests) {
+    public PersonGraph(Long personId) {
         this.rootId = personId
-        this.rootInterests = rootInterests
     }
 
-    // Should also be called for the root id
-    public void addRelatedInterest(Long interestId, double weight, Set<Long> displayedIds, SimilarInterestList sil) {
-        relatedInterestIds.add(interestId)
+    public void addRootPersonInterest(Long interestId, SimilarInterestList sil) {
         InterestInfo ii = interestInfo.get(interestId, new InterestInfo(interestId : interestId))
-        ii.addRole(RoleType.RELATED_ROOT, interestId, weight)
-        interestInfo[interestId] = ii
-        interestWeights[interestId] = weight
-
-        for (SimilarInterest si : sil.list) {
-            Long iid = si.interestId
-            if (!interestInfo.containsKey(iid)) {
-                interestInfo[iid] = new InterestInfo(interestId : iid)
-            }
-            ii = interestInfo[iid]
-            ii.addRole(RoleType.HIDDEN, interestId, si.similarity)
-        }
-
-        for (Long iid : displayedIds) {
-            if (!interestInfo.containsKey(iid)) {
-                interestInfo[iid] = new InterestInfo(interestId : iid)
-            }
-            ii = interestInfo[iid]
-            double sim = (ii.closestParentId == iid) ? ii.closestRelevance : 0.8
-            ii.addRole(RoleType.CHILD_OF_RELATED, interestId, sim)
-        }
+        ii.addRole(RoleType.CHILD_OF_ROOT, interestId, 0.0)
+        interestSims[interestId] = sil
     }
 
-    public void addPerson(Long pid, Collection<Long> interests) {
-        Map<Long, PersonClusterEdge> edges = [:]
-        for (Long iid : interests) {
-            if (!interestInfo.containsKey(iid)) {
-                interestInfo[iid] = new InterestInfo(interestId : iid)
-            }
-            Long cid = interestInfo[iid].closestParentId
-            if (!edges.containsKey(cid)) {
-                edges[cid] = new PersonClusterEdge(personId : pid, clusterId: cid)
-            }
-            edges[cid].relevantInterestIds.add(iid)
-        }
-        personClusterEdges[pid] = edges.values().asList()
-    }
+    public void chooseClusterRoots(int maxRoots) {
+        Set<Long> personRootInterests = getRootPersonInterests()
+        // generate correlation matrix
+        Map<String, Double> correlationMatrix = makeCorrelationMatrix(personRootInterests)
 
-    public void finalizeGraph(int maxPeople) {
-        for (Long pid : personClusterEdges.keySet()) {
-            personScores[pid] = scorePersonSimilarity(pid)
+        // create a cluster for each id
+        List<Set<Long>> clusters = []
+        for (Long id : personRootInterests) {
+            clusters.add(new HashSet<Long>([id]))
         }
 
-        // Compute top people
-        List<Long> pids = personScores.keySet().sort({ -1 * personScores[it]})
-        List<Long> keepers = pids.size() <= maxPeople ? pids : pids.subList(0, maxPeople)
+        // merge clusters
+        while (true) {
+            List<Set<Long>> closestPair = null
+            double closestSim = 0.0
 
-        // prune people
-        personScores.keySet().retainAll(keepers)
-        personClusterEdges.keySet().retainAll(keepers)
+            for (Set<Long> c1 : clusters) {
+                for (Set<Long> c2 : clusters) {
+                    if (c1 == c2) {
+                        continue
+                    }
 
-        // prune interests associated with those people and subcluster ids
-        Set<Long> iids = new HashSet<Long>(relatedInterestIds)
-        for (Set<PersonClusterEdge> pedges : personClusterEdges.values()) {
-            pedges.each({iids.addAll(it.relevantInterestIds)})
-        }
-        iids.addAll(
-                interestInfo.values().findAll({!it.roles.isEmpty()})
-                                     .collect({it.interestId})
-        )
-        interestInfo.keySet().retainAll(iids)
-    }
+                    double sim = 0.0
+                    for (Long id1 : c1) {
+                        for (Long id2 : c2) {
+                            sim += correlationMatrix.get(id1+","+id2, 0.0)
+                        }
+                    }
 
-
-    /**
-     * Returns the overall similarity score for a particular person.
-     * @param pid
-     * @return
-     */
-    protected double scorePersonSimilarity(long pid) {
-        double sim = 0.0
-        for (PersonClusterEdge e : personClusterEdges.get(pid)) {
-            if (e.clusterId < 0) {
-                continue    // unrelated interests
-            }
-            e.relevantInterestIds.sort({ -1 * interestInfo[it].closestRelevance })
-            double weight = 1.0
-            e.relevance = 0.0
-            for (Long iid : e.relevantInterestIds) {
-                e.clusterId = interestInfo[iid].closestParentId
-                e.relevance += interestInfo[iid].closestRelevance * weight
-                weight *= CLUSTER_PENALTY
-            }
-            sim += e.relevance * interestWeights[e.clusterId] * interestWeights[e.clusterId]
-        }
-        return sim
-    }
-
-    public Map<Long, Set<Long>> getClusterMap() {
-        Map<Long, Set<Long>> cmap = [:]
-        relatedInterestIds.each({ cmap[it] = new HashSet() })
-
-        for (InterestInfo ii : interestInfo.values()) {
-            for (InterestRole ir : ii.roles) {
-                if (ir.role == RoleType.HIDDEN || ir.role == RoleType.CHILD_OF_ROOT || ir.parentId == ii.interestId) {
-                    continue
+                    double size_penalty = Math.log(c1.size() * c2.size() + 1) / (2 * Math.log(2))
+                    sim /= (c1.size() * c2.size() * size_penalty)
+                    if (sim > closestSim) {
+                        closestSim = sim
+                        closestPair = [c1, c2]
+                    }
                 }
-                cmap[ir.parentId].add(ii.interestId)
+            }
+
+            Set<Long> c1 = closestPair[0]
+            Set<Long> c2 = closestPair[1]
+
+            // Not close enough, Period!
+            if (closestSim < MIN_SIMILARITY_THRESHOLD) { break }
+
+            // We hit our goal, and want to retain detailed structure.
+            if (clusters.size() <= maxRoots && closestSim < 0.1) { break }
+
+            // Both clusters are bigger than 1, and the sim isn't particularly close
+            if (clusters.size() > maxRoots  && c1.size() > 1 && c2.size() > 1 && closestSim < 0.05) { break }
+
+            clusters.remove(c1)
+            c2.addAll(c1)
+        }
+
+        // truncate to maxRoots  clusters
+        if (clusters.size() > maxRoots ) {
+            Collections.shuffle(clusters)
+            clusters.sort({ -1 * it.size() })
+            clusters = clusters.subList(0, maxRoots)
+        }
+
+        Map<Long, Integer> counts = [:]
+        for (Long id : personRootInterests) {
+            counts[id] = interestSims[id].count
+        }
+
+        // pick representative interests for each cluster
+        Map<Long, Set<Long>> clusterReps = [:]
+        for (Set<Long> c : clusters) {
+            double bestScore = 0.0
+            Long best = null
+            for (Long id1 : c) {
+                double score = 0.00001
+                for (Long id2 : c) {
+                    if (id1 != id2) {
+                        score += correlationMatrix.get(id1+","+id2, 0.0)
+                    }
+                }
+                score *= Math.log(counts[id1] + 1)
+                if (score > bestScore) {
+                    bestScore = score
+                    best = id1
+                }
+            }
+            if (best == null) { throw new IllegalStateException() }
+            clusterReps[best] = new HashSet<Long>()
+        }
+
+        // recluster around those representatives
+        for (Long iid : personRootInterests) {
+            double bestSim = 0.0
+            Long bestRoot = null
+            for (Long rid : clusterReps.keySet()) {
+                double sim = correlationMatrix.get(rid+","+iid, 0.0)
+                if (sim > bestSim) {
+                    bestSim = sim
+                    bestRoot = rid
+                }
+            }
+            if (bestRoot != null) {
+                clusterReps[bestRoot].add(iid)
             }
         }
-        return cmap
+        rootPersonClusters = clusterReps
+
+        // Fill in interest info
+        for (Long id1: clusterReps.keySet()) {
+            clusterMap[id1] = new HashSet<Long>()
+            InterestInfo ii1 = interestInfo.get(id1, new InterestInfo(interestId : id1))
+            ii1.addRole(RoleType.RELATED_ROOT, id1, 1.0)
+        }
+
+        // create surrogate mapping between cluster elements and root
+        for (Long parentId: clusterReps.keySet()) {
+            for (Long childId : clusterReps[parentId]) {
+                SimilarInterestList sil = interestSims.get(childId)
+                for (SimilarInterest si : sil) {
+                    Long iid = si.interestId
+                    InterestInfo ii = interestInfo.get(iid, new InterestInfo(interestId : iid))
+                    // install surrogate similarity
+                    ii.addRole(RoleType.HIDDEN, parentId, si.similarity)
+                }
+            }
+        }
     }
 
+    @Override
+    public void finalizeGraph(int maxPeople) {
+        personClusterEdges.remove(rootId)
+        super.finalizeGraph(maxPeople)
+    }
+
+    @Override
+    public Set<Long> getInterestsNeedingSims() {
+        Set<Long> needed = super.getInterestsNeedingSims()
+        needed.addAll(getRootPersonInterests())
+        return needed
+    }
+
+    @Override
+    public Set<Long> getInterestsToFindUsers() {
+        Set<Long> arena = super.getInterestsToFindUsers()
+        for (Long id : getRootPersonInterests()) {
+            if (interestInfo.containsKey(id) && interestInfo[id].closestRelevance > MIN_SIMILARITY_THRESHOLD) {
+                arena.add(id)
+            }
+        }
+        return arena
+    }
+
+    @Override
     public void prettyPrint() {
         def f = { "$it:" + Interest.get(it)?.text } // nice to string
         println("Interests clusters are:")
         Map<Long, Set<Long>> cmap = getClusterMap()
         for (Long qid : cmap.keySet()) {
-            print("\t${f(qid)}:")
+            print("\t${f(qid)} >> ")
             for (Long cid : cmap[qid]) {
-                print(" ${f(cid)};")
+                print(" ${f(cid)},")
             }
-            println("")
+            print("; (user has ")
+            for (Long cid : rootPersonClusters[qid]) {
+                print(" ${f(cid)},")
+            }
+            println(")")
+        }
+
+        for (Long pid: personClusterEdges.keySet()) {
+            println("person with similarity" + personScores[pid] + ":")
+            for (PersonClusterEdge edge : personClusterEdges[pid]) {
+                print("\t" + edge.relevance + ", " + f(edge.clusterId) + ">> ")
+                for (Long id : edge.relevantInterestIds) {
+                    print(f(id) + ", ")
+                }
+                println("")
+            }
         }
     }
 
-
-    Collection<Long> getPersonIds() {
-        return personScores.keySet()
-    }
-
-    boolean hasPerson(Long pid) {
-        return personScores.containsKey(pid)
-    }
-
-
-    public String describeCluster(Set<Long> ids) {
-        StringBuffer res = new StringBuffer("[")
-        for (Long iid : ids) {
-            Interest i = Interest.get(iid)
-            String name = (i == null) ? ""+iid : "${i.id}:${i.text}"
-            res.append(name)
-            res.append(", ")
+    /**
+     * Keys in result are id1 + "," + id2
+     * @param interestIds
+     * @return
+     */
+    protected Map<String, Double> makeCorrelationMatrix(Set<Long> interestIds) {
+        Map<String, Double> correlationMatrix = [:]
+        for (Long id1 : interestIds) {
+            if (!interestSims.containsKey(id1)) {
+                correlationMatrix[id1] = [:]
+            }
+            for (SimilarInterest si : interestSims.get(id1)) {
+                Long id2 = si.interestId;
+                if (interestIds.contains(id2)) {
+                    correlationMatrix[id1+","+id2] = si.similarity
+                    correlationMatrix[id2+","+id1] = si.similarity
+                }
+            }
         }
-        res.append("]")
-        return res.toString()
+        return correlationMatrix
+    }
+
+    public Set<Long> getRootPersonInterests() {
+        Set<Long> interests = new HashSet<Long>()
+        for (InterestInfo info : interestInfo.values()) {
+            if (info.getRole(RoleType.CHILD_OF_ROOT)) {
+                interests.add(info.interestId)
+            }
+        }
+        return interests
     }
 }

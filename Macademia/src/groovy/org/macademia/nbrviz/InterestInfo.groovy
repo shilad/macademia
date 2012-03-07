@@ -18,4 +18,17 @@ class InterestInfo {
             roles.add(new InterestRole(role : role, parentId : parentId, relevance : relevance))
         }
     }
+    
+    InterestRole getRole(RoleType roleType) {
+        for (InterestRole role : roles) {
+            if (role.role == roleType) {
+                return role
+            }
+        }
+        return null
+    }
+    
+    boolean hasRole(RoleType roleType) {
+        return getRole(roleType) != null
+    }
 }

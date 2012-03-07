@@ -1,9 +1,6 @@
 package org.macademia;
 
-import org.codehaus.groovy.grails.commons.ConfigurationHolder;
-
 import java.util.*;
-import java.util.regex.*;
 
 /**
  * Authors: Nathaniel Miller and Alex Schneeman
@@ -13,6 +10,7 @@ public class SimilarInterestList implements Iterable<SimilarInterest> {
     // overridden in Config.groovy
     public static int MAX_SIMILAR_INTERESTS = 5000;
 
+    private int count;  // how many times the interest is used. A hack to have it in here!
     private String flags = "";
     private ArrayList<SimilarInterest> list;
 
@@ -43,7 +41,7 @@ public class SimilarInterestList implements Iterable<SimilarInterest> {
         }
     }
 
-    public SimilarInterestList(String fromDB, Set<Long> institutionInterests) {
+    public SimilarInterestList(String fromDB, Set<Long> interestFilter) {
         list = new ArrayList<SimilarInterest>();
         if (fromDB != null) {
             for (String sim : fromDB.split("\\|")) {
@@ -51,7 +49,7 @@ public class SimilarInterestList implements Iterable<SimilarInterest> {
                 String[] info = sim.split(",");
                 if(info.length==2){
                     long id = Long.parseLong(info[0]);
-                    if (institutionInterests.contains(id)) {
+                    if (interestFilter.contains(id)) {
                         add(new SimilarInterest(id, Double.parseDouble(info[1])));
                     }
                 }
@@ -59,10 +57,43 @@ public class SimilarInterestList implements Iterable<SimilarInterest> {
         }
     }
 
-    public void add(SimilarInterestList toAdd) {
-        for (SimilarInterest s : toAdd.list) {
-            add(s);
+    public void merge(SimilarInterestList toMerge) {
+        merge(toMerge.list);
+    }
+
+    public void merge(List<SimilarInterest> toMerge) {
+        Collections.sort(toMerge);
+        Set<Long> toMergeIds = new HashSet<Long>();
+        for (SimilarInterest si : toMerge) {
+            toMergeIds.add(si.interestId);
         }
+        ArrayList<SimilarInterest> merged = new ArrayList<SimilarInterest>();
+        int i = 0;  // index into toMerge
+        int j = 0; // index into current
+        while (i < toMerge.size() && j < list.size()) {
+            SimilarInterest sii = toMerge.get(i);
+            SimilarInterest sij = list.get(j);
+            if (sii.similarity > sij.similarity) { // take tomerge
+                merged.add(sii);
+                i++;
+            } else { // take current
+                if (!toMergeIds.contains(sij.interestId)) {
+                    merged.add(sij);
+                }
+                j++;
+            }
+        }
+        
+        while (i < toMerge.size()) {
+            merged.add(toMerge.get(i++));
+        }
+        while (j < list.size()) {
+            if (!toMergeIds.contains(list.get(j).interestId)) {
+                merged.add(list.get(j));
+            }
+            j++;
+        }
+        this.list = merged;
     }
 
     public void add(SimilarInterest toAdd) {
@@ -99,6 +130,15 @@ public class SimilarInterestList implements Iterable<SimilarInterest> {
             }
         }
         return -1;
+    }
+    
+    public double getSimilarityOfId(long id) {
+        for (SimilarInterest si : list) {
+            if (si.interestId == id) {
+                return si.similarity;
+            }
+        }
+        return 0.0;
     }
 
     public SimilarInterest get(int i) {
@@ -199,5 +239,13 @@ public class SimilarInterestList implements Iterable<SimilarInterest> {
     
     public String getFlags() {
         return this.flags;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }

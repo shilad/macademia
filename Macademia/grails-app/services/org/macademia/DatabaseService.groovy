@@ -256,6 +256,10 @@ class DatabaseService {
         wrapper.extractSmallWpDb(destDb)
     }
 
+    public void fillCache(){
+        wrapper.fillCache()
+    }
+
     public void clearCache(){
         wrapper.clearCache()
     }
