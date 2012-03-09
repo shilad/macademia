@@ -198,6 +198,7 @@ var PersonCenter = RaphaelComponent.extend({
             });
 
         var domGroup = this.dominantInterestGroup();
+        console.log('looking for id ' + domGroup.id);
         var desiredAngle = angles[domGroup.id];
         var actualAngle = 0;
         $.each(macademia.reverseCopy(this.interestGroups), function(i) {

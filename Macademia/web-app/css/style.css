@@ -182,21 +182,21 @@ select { font-size: 14px; padding: 2px; }
 
 /* line 6, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_nav.scss */
 nav ul { margin: 0; padding: 0; border: 0; overflow: hidden; *zoom: 1; float: right; padding-top: 8px; margin-right: 20px; cursor: pointer; overflow: visible; }
-/* line 60, /Users/shilad/.gem/ruby/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
-nav ul li { list-style-image: none; list-style-type: none; margin-left: 0px; white-space: nowrap; display: inline; float: left; padding-left: 4px; padding-right: 4px; }
-/* line 48, /Users/shilad/.gem/ruby/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+/* line 60, /Library/Ruby/Gems/1.8/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+nav ul li { list-style-image: none; list-style-type: none; margin-left: 0; white-space: nowrap; display: inline; float: left; padding-left: 4px; padding-right: 4px; }
+/* line 48, /Library/Ruby/Gems/1.8/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
 nav ul li:first-child, nav ul li.first { padding-left: 0; }
-/* line 49, /Users/shilad/.gem/ruby/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+/* line 49, /Library/Ruby/Gems/1.8/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
 nav ul li:last-child { padding-right: 0; }
-/* line 50, /Users/shilad/.gem/ruby/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+/* line 50, /Library/Ruby/Gems/1.8/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
 nav ul li.last { padding-right: 0; }
 /* line 13, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_nav.scss */
-nav ul li { list-style-image: none; list-style-type: none; margin-left: 0px; white-space: nowrap; display: inline; float: left; padding-left: 4px; padding-right: 4px; margin-left: 35px; position: relative; }
-/* line 48, /Users/shilad/.gem/ruby/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+nav ul li { list-style-image: none; list-style-type: none; margin-left: 0; white-space: nowrap; display: inline; float: left; padding-left: 4px; padding-right: 4px; margin-left: 35px; position: relative; }
+/* line 48, /Library/Ruby/Gems/1.8/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
 nav ul li:first-child, nav ul li.first { padding-left: 0; }
-/* line 49, /Users/shilad/.gem/ruby/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+/* line 49, /Library/Ruby/Gems/1.8/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
 nav ul li:last-child { padding-right: 0; }
-/* line 50, /Users/shilad/.gem/ruby/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
+/* line 50, /Library/Ruby/Gems/1.8/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/typography/lists/_horizontal-list.scss */
 nav ul li.last { padding-right: 0; }
 /* line 17, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_nav.scss */
 nav ul li img { position: relative; bottom: 3px; }
@@ -247,7 +247,7 @@ nav ul li ul li a:hover { background: #777777 url(../images/dropdown/dropdown_li
 #homePage #main #mainSearchBox #consortia ul div.more { display: none; text-align: center; }
 /* line 136, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_home.scss */
 #homePage #main #mainSearchBox #consortia ul li { display: -moz-inline-box; -moz-box-orient: vertical; display: inline-block; vertical-align: middle; *vertical-align: auto; vertical-align: bottom; margin: 3px 20px; white-space: nowrap; }
-/* line 7, /Users/shilad/.gem/ruby/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
+/* line 7, /Library/Ruby/Gems/1.8/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
 #homePage #main #mainSearchBox #consortia ul li { *display: inline; }
 /* line 141, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_home.scss */
 #homePage #main #mainSearchBox #consortia ul li a { color: blue; }
@@ -267,7 +267,7 @@ nav ul li ul li a:hover { background: #777777 url(../images/dropdown/dropdown_li
 #homePage #main #slideshow .slide #entrancePortal { /*text-align: center;*/ font-size: 24px; margin-top: 25px; margin-bottom: 10px; }
 /* line 187, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_home.scss */
 #homePage #main #slideshow .slide #entrancePortal li { display: -moz-inline-box; -moz-box-orient: vertical; display: inline-block; vertical-align: middle; *vertical-align: auto; margin: 3px; padding: 0; border: 0; width: 30px; height: 30px; overflow: hidden; background-color: black; }
-/* line 7, /Users/shilad/.gem/ruby/1.8/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
+/* line 7, /Library/Ruby/Gems/1.8/gems/compass-0.11.7/frameworks/compass/stylesheets/compass/css3/_inline-block.scss */
 #homePage #main #slideshow .slide #entrancePortal li { *display: inline; }
 /* line 196, /Users/shilad/Documents/Intellij/MacademiaNbrvz/Macademia/src/stylesheets/partials/_home.scss */
 #homePage #main #slideshow .slide #entrancePortal li img { max-width: 30px; }

@@ -16,8 +16,9 @@ class InterestGraph extends NbrvizGraph {
 
     Long rootId = null
 
-    public InterestGraph(Long rootId) {
+    public InterestGraph(Long rootId, Map<Long, Double> interestWeights) {
         this.rootId = rootId
+        this.interestWeights = interestWeights
     }
 
     @Override
@@ -40,7 +41,10 @@ class InterestGraph extends NbrvizGraph {
             cluster.add(parentId)
             for (Long childId : cluster) {
                 SimilarInterestList sil = interestSims.get(childId)
+                int i = 0;
                 for (SimilarInterest si : sil) {
+                    if (i++ > SIMILAR_USER_INTEREST_NEIGHBORHOOD|| si.similarity < MIN_SIMILARITY_THRESHOLD)
+                        break;
                     Long iid = si.interestId
                     InterestInfo ii = interestInfo.get(iid, new InterestInfo(interestId : iid))
                     // install surrogate similarity

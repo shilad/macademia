@@ -19,8 +19,9 @@ class PersonGraph extends NbrvizGraph {
     Long rootId = null
     Map<Long, Set<Long>> rootPersonClusters = null
 
-    public PersonGraph(Long personId) {
+    public PersonGraph(Long personId, Map<Long, Double> interestWeights) {
         this.rootId = personId
+        this.interestWeights = interestWeights
     }
 
     public void addRootPersonInterest(Long interestId, SimilarInterestList sil) {
@@ -117,10 +118,11 @@ class PersonGraph extends NbrvizGraph {
             clusterReps[best] = new HashSet<Long>()
         }
 
-        // recluster around those representatives
+        // recluster around those representatives and build up root edges
+        Map<Long,PersonClusterEdge> rootEdges = [:]
         for (Long iid : personRootInterests) {
             double bestSim = 0.0
-            Long bestRoot = null
+            Long bestRoot = -1
             for (Long rid : clusterReps.keySet()) {
                 double sim = correlationMatrix.get(rid+","+iid, 0.0)
                 if (sim > bestSim) {
@@ -128,11 +130,16 @@ class PersonGraph extends NbrvizGraph {
                     bestRoot = rid
                 }
             }
-            if (bestRoot != null) {
+            if (!rootEdges.containsKey(bestRoot)) {
+                rootEdges[bestRoot] = new PersonClusterEdge(personId: rootId, clusterId: bestRoot)
+            }
+            rootEdges[bestRoot].relevantInterestIds.add(iid)
+            if (bestRoot >= 0) {
                 clusterReps[bestRoot].add(iid)
             }
         }
         rootPersonClusters = clusterReps
+        personClusterEdges[rootId] = rootEdges.values()
 
         // Fill in interest info
         for (Long id1: clusterReps.keySet()) {
@@ -141,7 +148,7 @@ class PersonGraph extends NbrvizGraph {
             ii1.addRole(RoleType.RELATED_ROOT, id1, 1.0)
         }
 
-        // create surrogate mapping between cluster elements and root
+        // create surrogate mapping between user's interests in cluster and root of cluster
         for (Long parentId: clusterReps.keySet()) {
             for (Long childId : clusterReps[parentId]) {
                 SimilarInterestList sil = interestSims.get(childId)
@@ -157,8 +164,14 @@ class PersonGraph extends NbrvizGraph {
 
     @Override
     public void finalizeGraph(int maxPeople) {
+        double score = scorePersonSimilarity(rootId)
+        Collection<PersonClusterEdge> edges = personClusterEdges[rootId]
         personClusterEdges.remove(rootId)
+
         super.finalizeGraph(maxPeople)
+        
+        personScores[rootId] = score
+        personClusterEdges[rootId] = edges
     }
 
     @Override

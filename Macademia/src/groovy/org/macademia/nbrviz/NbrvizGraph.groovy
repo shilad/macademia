@@ -282,7 +282,7 @@ public abstract class NbrvizGraph {
                 e.relevance += interestInfo[iid].closestRelevance * weight
                 weight *= CLUSTER_PENALTY
             }
-            sim += e.relevance
+            sim += e.relevance * interestWeights.get(e.clusterId, 0.5)
         }
         return sim
     }

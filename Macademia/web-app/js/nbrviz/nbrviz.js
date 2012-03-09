@@ -4,8 +4,6 @@
  * A base class that encapsulates shared funcationality between
  * the query and exploration visualizations.
  */
-
-
 var NbrViz = Class.extend({
 
     STATE_NORMAL : 1,

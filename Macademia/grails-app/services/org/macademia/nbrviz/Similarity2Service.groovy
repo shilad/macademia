@@ -22,7 +22,7 @@ class Similarity2Service {
     public PersonGraph calculatePersonNeighbors(Long rootId, int maxPeople, int maxInterests, Map<Long, Double> interestWeights) {
 
         TimingAnalysis ANALYSIS = new TimingAnalysis('calculatePersonNeighbors')
-        PersonGraph graph = new PersonGraph(rootId)
+        PersonGraph graph = new PersonGraph(rootId, interestWeights)
         for (Long id : databaseService.getUserInterests(rootId)) {
             graph.addRootPersonInterest(id, databaseService.getSimilarInterests(id))
         }
@@ -69,7 +69,7 @@ class Similarity2Service {
     public InterestGraph calculateInterestNeighbors(Long rootId, int maxPeople, int maxInterests, Map<Long, Double> interestWeights) {
 
         TimingAnalysis ANALYSIS = new TimingAnalysis('calculate interest neighbors')
-        InterestGraph graph = new InterestGraph(rootId)
+        InterestGraph graph = new InterestGraph(rootId, interestWeights)
         for (SimilarInterest id : databaseService.getSimilarInterests(rootId)) {
             graph.addSimilarInterests(id.interestId, databaseService.getSimilarInterests(id.interestId))
         }
