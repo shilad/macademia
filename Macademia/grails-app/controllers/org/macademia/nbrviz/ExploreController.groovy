@@ -45,11 +45,12 @@ class ExploreController {
               parentWeights[parentIds[i]] = weights[i] / 5.0
           }
       }
+      parentWeights[rootId] = 1.0
 
       TimingAnalysis ta = new TimingAnalysis('ExpController.personData')
       ta.startTime()
       PersonGraph graph = similarity2Service.calculatePersonNeighbors(
-                                        rootId, 20, 4, parentWeights)
+                                        rootId, 20, 3, parentWeights)
       ta.recordTime('sim2service')
       def data = json2Service.buildPersonCentricGraph(
               graph,

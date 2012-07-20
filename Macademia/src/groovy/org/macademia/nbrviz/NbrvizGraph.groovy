@@ -12,7 +12,7 @@ import org.macademia.SimilarInterestList
 public abstract class NbrvizGraph {
     public static final double CLUSTER_PENALTY = 0.5
 
-    public static final double MIN_SIMILARITY_THRESHOLD = 0.01
+    public static final double MIN_SIMILARITY_THRESHOLD = 0.03
 
     /**
      * Size of neighborhood around root for
@@ -203,7 +203,7 @@ public abstract class NbrvizGraph {
                 assert(i == chosen.size())
                 Arrays.sort(distDots)
                 double sim = 0.0
-                for (i = Math.max(0, distDots.length - 2); i < distDots.length; i++) {
+                for (i = Math.max(0, distDots.length - 3); i < distDots.length; i++) {
                     sim += distDots[i]
                 }
 

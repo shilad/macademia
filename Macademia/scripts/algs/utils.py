@@ -66,6 +66,7 @@ class Interest:
         self.sim_ranks = {}
 
         rank = 1
+        #similar = mongo_record.get('similar')
         similar = mongo_record.get('similar2', mongo_record.get('similar'))
         for pair in similar.split('|'):
             if pair:
