@@ -1,7 +1,5 @@
 package org.macademia
 
-import java.util.Map.Entry
-import org.macademia.IdAndScore
 import org.apache.commons.logging.LogFactory
 import org.apache.commons.logging.Log
 
@@ -79,7 +77,7 @@ class Graph {
      * @param e an edge
      *
      */
-    private void addEdge(Edge e) throws IllegalArgumentException {
+    private void _addEdge(Edge e) throws IllegalArgumentException {
         if (interestMap.containsKey(e.interestId)) {
             if (!interestMap.get(e.interestId).contains(e)) {
               edges++
@@ -143,7 +141,7 @@ class Graph {
         if(nullCount>=3){
             return
         }
-        addEdge(new Edge(interestId: interestId, personId: personId, requestId: requestId, relatedInterestId: relatedInterestId, sim : sim))
+        _addEdge(new Edge(interestId: interestId, personId: personId, requestId: requestId, relatedInterestId: relatedInterestId, sim : sim))
     }
 
     /**

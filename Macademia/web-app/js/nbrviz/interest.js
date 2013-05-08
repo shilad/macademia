@@ -3,7 +3,7 @@ macademia.nbrviz.interest = macademia.nbrviz.interest || {};
 
 /**
  * Interest Cluster constructor.
- * @param params A dictionary consisting of keys:
+ * @param params A concepts consisting of keys:
  *  relatedInterests : a list of RelatedInterest objects.
  *  color : An integer representing hue between 0 and 1
  *  name : label for cluster or not?

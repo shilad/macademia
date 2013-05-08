@@ -1,9 +1,9 @@
 dataSource {
 	pooled = true
-	driverClassName = "org.hsqldb.jdbcDriver"
+	driverClassName = "org.h2.Driver"
 	username = "sa"
 	password = ""
-    mongoDbUrl = "poliwiki.macalester.edu"
+    mongoDbUrl = "127.0.0.1"
     wpMongoDbName = "wikipediaReadOnly"
 }
 
@@ -33,7 +33,7 @@ environments {
 	populateTest {
 		dataSource {
 			dbCreate = "create" // one of 'create', 'create-drop','update'
-			url = "jdbc:hsqldb:file:db/test_backup/db;shutdown=true"
+			url = "jdbc:h2:file:db/test_backup/db"
             mongoDbName = "macademia_test_${uniqueDbToken}"
             wpMongoDbName = "wikipediaReadOnlyTest"
         }
@@ -41,7 +41,7 @@ environments {
 	test {
 		dataSource {
 			dbCreate = "update"
-			url = "jdbc:hsqldb:file:db/test/db;shutdown=true"
+			url = "jdbc:h2:file:db/test/db"
             mongoDbName = "macademia_test_${uniqueDbToken}"
             wpMongoDbName = "wikipediaReadOnlyTest"
         }
@@ -53,13 +53,13 @@ environments {
 		dataSource {
 			dbCreate = "create" // one of 'create', 'create-drop','update'
             mongoDbName = "macademia_dev_${uniqueDbToken}"
-			url = "jdbc:hsqldb:file:db/dev/full/devDb;shutdown=true"
+			url = "jdbc:h2:file:db/dev/full/devDb"
 		}
 	}
 	development {
 		dataSource {
 			dbCreate = "update" // one of 'create', 'create-drop','update'
-			url = "jdbc:hsqldb:file:db/dev/full/devDb;shutdown=true"  //dev
+			url = "jdbc:h2:file:db/dev/full/devDb"  //dev
             mongoDbName = "macademia_dev_${uniqueDbToken}"
 		}
 	}

@@ -128,6 +128,7 @@ macademia {
     collaboratorRequestFields = ['creator', 'title', 'description', 'expiration']
     maxSimilarInterests = 2000
     profileImagePath = "web-app/images/db"
+    similarityDir = "dat/phrase-sims"
 }
 
 springcache {
@@ -160,62 +161,6 @@ grails {
     }
 }
 grails.mail.default.from="macalester.macademia@gmail.com"
-
-uiperformance.bundles = [
-   [type: 'js',
-    name: 'macademia.js.all',
-    files: [
-            'jquery/jquery-1.6.1.min',
-            'jquery/jquery-ui-1.8.2.custom.min',
-            'jquery/jquery-ui-1.8.5.custom.min',
-            'jquery/jquery.qtip-1.0.0-rc3',
-            'jquery/jquery.address-1.4',
-            'jquery/jqModal',
-            'ba-debug',
-            'jit/jit',
-            'lib.macademia',
-            'lib.macademia.json',
-            'lib.macademia.jit',
-            'lib.macademia.collegefilter',
-            'lib.macademia.autocomplete',
-            'lib.macademia.profile',
-            'lib.macademia.density'
-    ]],
-   [type: 'js',
-    name: 'macademia.js.nbrviz',
-    files: [
-            'nbrviz/jquery-1.6.4.min',
-            'nbrviz/jquery-ui-1.8.16.custom.min',
-            'jquery/jquery.address-1.4',
-            'lib.macademia',
-            'lib.macademia.json',
-            'lib.macademia.jit',
-            'lib.macademia.collegefilter',
-            'lib.macademia.autocomplete',
-            'lib.macademia.profile',
-            'lib.macademia.density',
-            'nbrviz/inherit',
-            'nbrviz/raphael',
-            'nbrviz/raphael-component',
-            'nbrviz/hoverset',
-            'nbrviz/shared',
-            'nbrviz/colors',
-            'nbrviz/sphere',
-            'nbrviz/labeled-sphere',
-            'nbrviz/image-sphere',
-            'nbrviz/mnode',
-            'nbrviz/interest',
-            'nbrviz/person',
-            'nbrviz/magnet',
-            'nbrviz/vector',
-            'nbrviz/graph',
-            'nbrviz/model',
-            'nbrviz/nbrviz',
-            'nbrviz/query',
-            'nbrviz/explore',
-    ]],
-]
-
 
 absoluteThreshold = 0.001
 refinedThreshold = 0.08

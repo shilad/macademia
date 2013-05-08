@@ -45,14 +45,14 @@ if(jQuery)(
 					simUploadLimit : 1, // The number of simultaneous uploads allowed
 					queueID        : false, // The optional ID of the queue container
 					displayData    : 'percentage', // Set to "speed" to show the upload speed in the default queue item
-					onInit         : function() {}, // Function to run when uploadify is initialized
-					onSelect       : function() {}, // Function to run when a file is selected
-					onQueueFull    : function() {}, // Function to run when the queue reaches capacity
-					onCheck        : function() {}, // Function to run when script checks for duplicate files on the server
-					onCancel       : function() {}, // Function to run when an item is cleared from the queue
-					onError        : function() {}, // Function to run when an upload item returns an error
-					onProgress     : function() {}, // Function to run each time the upload progress is updated
-					onComplete     : function() {}, // Function to run when an upload is completed
+					onInit         : function() {}, // Procedure to run when uploadify is initialized
+					onSelect       : function() {}, // Procedure to run when a file is selected
+					onQueueFull    : function() {}, // Procedure to run when the queue reaches capacity
+					onCheck        : function() {}, // Procedure to run when script checks for duplicate files on the server
+					onCancel       : function() {}, // Procedure to run when an item is cleared from the queue
+					onError        : function() {}, // Procedure to run when an upload item returns an error
+					onProgress     : function() {}, // Procedure to run each time the upload progress is updated
+					onComplete     : function() {}, // Procedure to run when an upload is completed
 					onAllComplete  : function() {}  // Functino to run when all uploads are completed
 				}, options);
 				var pagePath = location.pathname;

@@ -1,6 +1,6 @@
 package org.macademia
 
-import grails.plugin.springcache.annotations.Cacheable
+//import grails.plugin.springcache.annotations.Cacheable
 
 class HomeController {
     public static int NUM_PEOPLE = 28

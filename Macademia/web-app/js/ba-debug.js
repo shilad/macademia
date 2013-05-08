@@ -239,7 +239,7 @@ window.debug = (function(){
   // 
   // Arguments:
   // 
-  //  callback - (Function) The aforementioned callback function. The first
+  //  callback - (Procedure) The aforementioned callback function. The first
   //    argument is the logging level, and all subsequent arguments are those
   //    passed to the initial debug logging method.
   //  force - (Boolean) If false, log to console.log if available, otherwise

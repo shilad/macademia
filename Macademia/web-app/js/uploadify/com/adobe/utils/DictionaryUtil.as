@@ -38,7 +38,7 @@ package com.adobe.utils
 	{
 		
 		/**
-		*	Returns an Array of all keys within the specified dictionary.	
+		*	Returns an Array of all keys within the specified concepts.
 		* 
 		* 	@param d The Dictionary instance whose keys will be returned.
 		* 
@@ -61,7 +61,7 @@ package com.adobe.utils
 		}
 		
 		/**
-		*	Returns an Array of all values within the specified dictionary.		
+		*	Returns an Array of all values within the specified concepts.
 		* 
 		* 	@param d The Dictionary instance whose values will be returned.
 		* 

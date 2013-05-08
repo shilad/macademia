@@ -1,7 +1,7 @@
 package org.macademia.nbrviz
 
 import org.macademia.*
-import grails.plugin.springcache.annotations.Cacheable
+//import grails.plugin.springcache.annotations.Cacheable
 
 /**
  * Provides neighbor algorithms for the new query and exploration visualizations.

@@ -7,6 +7,8 @@
 <html class='no-js' lang='en'>
   <!--<![endif]-->
   <head>
+    <meta name="layout" content="main"/>
+    <r:require modules="core"/>
     <meta charset='utf-8' />
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
@@ -104,11 +106,11 @@
       	<div id="slideshow">
       		<div id="slideshowReel">
 	      		<div class="slide">
-	      			<a href="/Macademia/acm"><p:image id="graphThumb" src="thumbnailTest01.png" alt="Go to Macademia visualization"/></a>
+	      			<a href="/Macademia/acm"><r:img id="graphThumb" src="thumbnailTest01.png" alt="Go to Macademia visualization"/></a>
 	      		    <div id="entrancePortal">
                         <ul>
                           <g:each in="${people}" var="p"><li><m:personLink person="${p}" group="all"><m:personImage person="${p}"/></m:personLink></li></g:each>
-                          <g:each in="${(people.size()..< HomeController.NUM_PEOPLE)}"><li><a href="#"><p:image src="shilad.jpg"/></a></li></g:each>
+                          <g:each in="${(people.size()..< HomeController.NUM_PEOPLE)}"><li><a href="#"><r:img src="shilad.jpg"/></a></li></g:each>
                         </ul>
 	      		    </div>
                     <h3>Find collaborators by searching for research interests</h3>
@@ -123,10 +125,10 @@
       	<div id="sponsors">
       		<h3>Macademia is generously funded by:</h3>
       		<ul>
-                <li><a href="http://www.macalester.edu"><p:image src="mac_logo2.png" alt="Macalester College" /></a></li>
-                <li><a href="http://www.acm.edu/index.html"><p:image src="logos_acm.png" alt="The American Colleges of the Midwest" /></a></li>
-      			<li><a href="http://www.nsf.gov/"><p:image src="logos_nsf.png" alt="The National Science Foundation" /></a></li>
-      			<li><a href="http://www.mellon.org/"><p:image src="logos_andrewMellon.png" alt="the Andrew Mellon Charitable Trust" /></a></li>
+                <li><a href="http://www.macalester.edu"><r:img src="mac_logo2.png" alt="Macalester College" /></a></li>
+                <li><a href="http://www.acm.edu/index.html"><r:img src="logos_acm.png" alt="The American Colleges of the Midwest" /></a></li>
+      			<li><a href="http://www.nsf.gov/"><r:img src="logos_nsf.png" alt="The National Science Foundation" /></a></li>
+      			<li><a href="http://www.mellon.org/"><r:img src="logos_andrewMellon.png" alt="the Andrew Mellon Charitable Trust" /></a></li>
       		</ul>
       	</div>
 

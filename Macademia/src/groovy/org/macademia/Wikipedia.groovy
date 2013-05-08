@@ -21,7 +21,7 @@ public class Wikipedia {
     private String apiUrl = WIKIPEDIA_API_URL
     private User user;
     private DiskMap cache = null
-    private int minNumResults = 5   // Minimum number of results to query for
+    private int minNumResults = 5   // Minimum number of results to _query for
 
     public Wikipedia() {
 
@@ -32,17 +32,17 @@ public class Wikipedia {
     }
 
     /**
-     * Returns a list of urls matching the specified query.
-     * @param query The textual query.
+     * Returns a list of urls matching the specified _query.
+     * @param query The textual _query.
      * @param maxResults the maximum number of results to return.
      * @return List<String> giving at most maxResults urls which
-     * match the given query.
+     * match the given _query.
      */
     public List<String> query(String query, int maxResults, boolean includeRedirects) {
         if (cache != null && cache.contains(query)) {
             return cache.get(query) as List<String>
         }
-        def results = this.query(encodeQuery(query), maxResults, 0, includeRedirects)
+        def results = this._query(encodeQuery(query), maxResults, 0, includeRedirects)
         if (cache != null) {
             cache.put(query, results)
         }
@@ -50,17 +50,17 @@ public class Wikipedia {
     }
 
     /**
-     * Performs the work of the query, using the Wikipedia search
+     * Performs the work of the _query, using the Wikipedia search
      * API to find matching urls.
-     * @param query The String query, already URL encoded.
+     * @param query The String _query, already URL encoded.
      * @param maxResults The int maximum number of results to
      * return.
      * @param offset The int offset, used in recursion to specify
      * where to pick up in the search.
      * @return List<String> giving at most maxResults urls which
-     * match the given query.
+     * match the given _query.
      */
-    private List<String> query(String query, int maxResults, int offset, boolean includeRedirects) {
+    private List<String> _query(String query, int maxResults, int offset, boolean includeRedirects) {
         if( maxResults > minNumResults ) {
             minNumResults = maxResults
         }
@@ -76,7 +76,7 @@ public class Wikipedia {
         }
 
         if (resArray.length() > 0) {
-            // results for query returned, use them
+            // results for _query returned, use them
             for (int i = 0; i < resArray.length(); i++) {
                 if (!includeRedirects && resArray.get(i)["snippet"].contains("refer to")) {
                     LOG.info("skipping redirect / disambiguation page ${resArray.get(i).get('title')}")
@@ -94,12 +94,12 @@ public class Wikipedia {
         } else if (hasSuggestion) {
             // search for the suggestion if there were no results
             def result = response.getJSONObject("query").getJSONObject("searchinfo").get("suggestion") as String
-            results.addAll(this.query(encodeQuery(result), maxResults, 0, includeRedirects))
+            results.addAll(this._query(encodeQuery(result), maxResults, 0, includeRedirects))
         }
 
         // Check to see if more results are needed, or if there are too many
         if (results.size() < maxResults) {
-            results.addAll(this.query(query, maxResults-results.size(), offset+minNumResults, includeRedirects))
+            results.addAll(this._query(query, maxResults-results.size(), offset+minNumResults, includeRedirects))
         } else if (results.size() > maxResults) {
             results = results.subList(0, maxResults)
         }
@@ -108,11 +108,11 @@ public class Wikipedia {
     }
 
     /**
-     * Performs the parameter query and returns the result.
-     * @param query The String encoded query to be performed.
+     * Performs the parameter _query and returns the result.
+     * @param query The String encoded _query to be performed.
      * @maxResults The maximum number of results to return.
      * @offset The offset at which to start pulling results from.
-     * @return A JSONObject of the query's result.
+     * @return A JSONObject of the _query's result.
      */
     private JSONObject performQuery(String query, int maxResults, int offset) {
         def type = "?action=query&list=search&format=json&srprop=snippet&what=text"
