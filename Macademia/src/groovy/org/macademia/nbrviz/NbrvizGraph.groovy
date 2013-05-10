@@ -12,7 +12,7 @@ import org.macademia.SimilarInterestList
 public abstract class NbrvizGraph {
     public static final double CLUSTER_PENALTY = 0.5
 
-    public static final double MIN_SIMILARITY_THRESHOLD = 0.03
+    public static final double MIN_SIMILARITY_THRESHOLD = 0.6
 
     /**
      * Size of neighborhood around root for

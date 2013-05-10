@@ -3,9 +3,8 @@
 <html>
 <head>
   <title>Exploration - Based Visualization</title>
-  <p:css name="nbrviz/jquery-ui-1.8.16.custom"/>
-  <p:javascript src='macademia.js.nbrviz'/>
-  <p:css name="queryViz" media="all"/>
+    <meta name="layout" content="main">
+    <r:require modules="queryViz"/>
 </head>
 <g:javascript>
   $().ready(function() {
@@ -17,6 +16,7 @@
     var height = $(window).height();
     var viz = new ExploreViz({ x : x, y : 0, width : width, height : height });
     $("#matches ol").sortable().disableSelection();
+  $.address.update();
   });
 
 </g:javascript>
@@ -48,11 +48,11 @@
           <h1>Best matches:</h1>
           <p>List people who best match the task described below. Drag a person listed below to reorder them.</p>
           <ol>
-            <li>Miles Davis &nbsp;&nbsp;( <a href="#">view</a>&nbsp;|&nbsp;<a href="#">remove</a> )<p:image src="drag_handle.png"/></li>
-            <li>John Coltrane &nbsp;&nbsp;( <a href="#">view</a>&nbsp;|&nbsp;<a href="#">remove</a> )<p:image src="drag_handle.png"/></li>
-            <li>Tony Williams &nbsp;&nbsp;( <a href="#">view</a>&nbsp;|&nbsp;<a href="#">remove</a> )<p:image src="drag_handle.png"/></li>
-            <li>Herbie Hancock &nbsp;&nbsp;( <a href="#">view</a>&nbsp;|&nbsp;<a href="#">remove</a> )<p:image src="drag_handle.png"/></li>
-            <li>Ron Carter &nbsp;&nbsp;( <a href="#">view</a>&nbsp;|&nbsp;<a href="#">remove</a> )<p:image src="drag_handle.png"/></li>
+            <li>Miles Davis &nbsp;&nbsp;( <a href="#">view</a>&nbsp;|&nbsp;<a href="#">remove</a> )<r:img dir="/images/nbrviz" file="drag_handle.png"/></li>
+            <li>John Coltrane &nbsp;&nbsp;( <a href="#">view</a>&nbsp;|&nbsp;<a href="#">remove</a> )<r:img dir="/images/nbrviz" file="drag_handle.png"/></li>
+            <li>Tony Williams &nbsp;&nbsp;( <a href="#">view</a>&nbsp;|&nbsp;<a href="#">remove</a> <r:img dir="/images/nbrviz" file="drag_handle.png"/></li>
+            <li>Herbie Hancock &nbsp;&nbsp;( <a href="#">view</a>&nbsp;|&nbsp;<a href="#">remove</a> ) <r:img dir="/images/nbrviz" file="drag_handle.png"/></li>
+            <li>Ron Carter &nbsp;&nbsp;( <a href="#">view</a>&nbsp;|&nbsp;<a href="#">remove</a> ) <r:img dir="/images/nbrviz" file="drag_handle.png"/></li>
           </ol>
           <div>Add person: <input type="text"/></div>
         </div>

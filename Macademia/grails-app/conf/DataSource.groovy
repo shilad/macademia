@@ -106,7 +106,6 @@ environments {
             username = "grails"
             password = "grails"
             dialect = net.sf.hibernate.dialect.PostgreSQLDialect
-
 		}
 	}
 }

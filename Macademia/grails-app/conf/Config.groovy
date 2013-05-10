@@ -183,7 +183,7 @@ environments {
         refinedThreshold = 0.08
         roughThreshold = 0.15
 
-        uiperformance.enabled = false
+        grails.resources.debug=true
 
         // FIXME: Don't cap # similar interests while testing
         org.macademia.SimilarInterestList.MAX_SIMILAR_INTERESTS = 1000000
@@ -191,7 +191,7 @@ environments {
     populateDev {
     }
     development {
-      uiperformance.enabled = false
+        grails.resources.debug=true
     }
     populateProd {
     }

@@ -54,7 +54,9 @@ class InstitutionGroupService {
         if (params.institutions == 'all' && params.group == 'all') {
             return null // everything
         } else if (params.institutions == 'all') {
+            println("group is ${params.group}")
             InstitutionGroup ig = findByAbbrev(params.group)
+            println("ig is $ig")
             return new InstitutionFilter(new HashSet<Long>(ig.institutions.collect{it.id}))
         } else {
             InstitutionGroup ig = findByAbbrev(params.group)

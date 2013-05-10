@@ -60,21 +60,21 @@ class InterestGraph extends NbrvizGraph {
         println("Interests clusters are:")
         Map<Long, Set<Long>> cmap = getClusterMap()
         for (Long qid : cmap.keySet()) {
-            print("\t${f(qid)} >> ")
+            def s = "\t${f(qid)} >> "
             for (Long cid : cmap[qid]) {
-                print(" ${f(cid)},")
+                s += (" ${f(cid)},")
             }
-            println("")
+            println(s)
         }
 
         for (Long pid: personClusterEdges.keySet()) {
             println("person with similarity" + personScores[pid] + ":")
             for (PersonClusterEdge edge : personClusterEdges[pid]) {
-                print("\t" + edge.relevance + ", " + f(edge.clusterId) + ">> ")
+                def s = ("\t" + edge.relevance + ", " + f(edge.clusterId) + ">> ")
                 for (Long id : edge.relevantInterestIds) {
-                    print(f(id) + ", ")
+                    s += (f(id) + ", ")
                 }
-                println("")
+                println(s)
             }
         }
     }

@@ -26,8 +26,8 @@ modules = {
         dependsOn 'jquery'
         defaultBundle 'macademia.js.nbrviz'
 
-        resource url: '/js/jquery/jquery-ui-1.8.16.custom.min.js'
-        resource url: '/js/jquery/jquery.address-1.4.js'
+        resource url: '/js/nbrviz/jquery-ui-1.8.16.custom.min.js'
+        resource url: '/js/jquery/jquery.address-1.6.js'
         resource url: '/js/lib.macademia.js'
         resource url: '/js/lib.macademia.json.js'
         resource url: '/js/lib.macademia.jit.js'
@@ -54,6 +54,13 @@ modules = {
         resource url: '/js/nbrviz/nbrviz.js'
         resource url: '/js/nbrviz/query.js'
         resource url: '/js/nbrviz/explore.js'
+    }
+
+    queryViz {
+        dependsOn 'nbrviz'
+
+        resource url: 'css/queryViz.css'
+        resource url: 'css/nbrviz/jquery-ui-1.8.16.custom.css'
     }
 
 }

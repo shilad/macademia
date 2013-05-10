@@ -1,6 +1,7 @@
 package org.macademia.nbrviz
 
 import org.macademia.*
+import gnu.trove.list.array.TIntArrayList
 //import grails.plugin.springcache.annotations.Cacheable
 
 /**
@@ -11,6 +12,7 @@ class Similarity2Service {
     def interestService
     def databaseService
     def similarityService
+    def semanticSimilarityService
 
     /**
      * Creates and returns a new Graph based upon the parameter Person for
@@ -23,16 +25,23 @@ class Similarity2Service {
 
         TimingAnalysis ANALYSIS = new TimingAnalysis('calculatePersonNeighbors')
         PersonGraph graph = new PersonGraph(rootId, interestWeights)
-        for (Long id : databaseService.getUserInterests(rootId)) {
-            graph.addRootPersonInterest(id, databaseService.getSimilarInterests(id))
+
+        TIntArrayList userInterests = new TIntArrayList()
+        databaseService.getUserInterests(rootId).each({userInterests.add(it as int)})
+        for (int id : userInterests.toArray()) {
+            graph.addRootPersonInterestSimilarities(id as long,
+                    semanticSimilarityService.mostSimilar(id))
         }
+        graph.addRootPersonInterests(userInterests.toArray(),
+                semanticSimilarityService.cosimilarity(userInterests.toArray()))
         ANALYSIS.recordTime("add root interests")
 
         graph.chooseClusterRoots(maxInterests)
         ANALYSIS.recordTime("cluster root")
-        
+
+
         for (Long id : graph.getInterestsNeedingSims()) {
-            graph.addSimilarInterests(id, databaseService.getSimilarInterests(id))
+            graph.addSimilarInterests(id, semanticSimilarityService.mostSimilar(id as int))
         }
         ANALYSIS.recordTime("add similar interest")
 
@@ -70,8 +79,8 @@ class Similarity2Service {
 
         TimingAnalysis ANALYSIS = new TimingAnalysis('calculate interest neighbors')
         InterestGraph graph = new InterestGraph(rootId, interestWeights)
-        for (SimilarInterest id : databaseService.getSimilarInterests(rootId)) {
-            graph.addSimilarInterests(id.interestId, databaseService.getSimilarInterests(id.interestId))
+        for (SimilarInterest si : semanticSimilarityService.mostSimilar(rootId as int)) {
+            graph.addSimilarInterests(si.interestId, semanticSimilarityService.mostSimilar(si.interestId as int))
         }
         ANALYSIS.recordTime("add root similar interests")
 
@@ -79,7 +88,7 @@ class Similarity2Service {
         ANALYSIS.recordTime("cluster root")
 
         for (Long id : graph.getInterestsNeedingSims()) {
-            graph.addSimilarInterests(id, databaseService.getSimilarInterests(id))
+            graph.addSimilarInterests(id, semanticSimilarityService.mostSimilar(id as int))
         }
         ANALYSIS.recordTime("add similar interest")
 

@@ -48,6 +48,8 @@ var NbrViz = Class.extend({
 
         var self = this;
         $.address.change(function(event) {self.onAddressChange(event);});
+
+
     },
 
     reset : function() {

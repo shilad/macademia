@@ -39,6 +39,7 @@ grails.project.dependency.resolution = {
 //        runtime "org.codehaus.groovy.modules.http-builder:http-builder:0.5.2"
         runtime 'net.sf.trove4j:trove4j:3.0.3'
         runtime 'org.apache.commons:commons-compress:1.4.1'
+        runtime 'org.apache.commons:commons-lang3:3.1'
 //        runtime 'edu.macalester:wpsemsim:0.2-SNAPSHOT'
     }
     plugins {
