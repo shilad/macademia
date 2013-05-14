@@ -21,6 +21,12 @@ modules = {
         resource url: '/js/lib.macademia.density.js'
     }
 
+    d3 {
+        dependsOn 'nbrviz'
+        resource url: '/js/d3/d3.v3.js'
+        resource url: '/js/d3/interest.js'
+    }
+
 
     nbrviz {
         dependsOn 'jquery'
@@ -49,7 +55,6 @@ modules = {
         resource url: '/js/nbrviz/person.js'
         resource url: '/js/nbrviz/magnet.js'
         resource url: '/js/nbrviz/vector.js'
-        resource url: '/js/nbrviz/graph.js'
         resource url: '/js/nbrviz/model.js'
         resource url: '/js/nbrviz/nbrviz.js'
         resource url: '/js/nbrviz/query.js'

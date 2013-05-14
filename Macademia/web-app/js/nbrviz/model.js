@@ -18,6 +18,9 @@ var VizModel = Class.extend({
 
         return ids;
     },
+    getPeople : function() {
+        return this.json.people;
+    },
     getPeopleIds : function() {
         return $.map(this.json.people, function (v, k) { return k; });
     },

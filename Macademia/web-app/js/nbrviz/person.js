@@ -376,3 +376,5 @@ var Person = MNode.extend({
         this.highlightOff();
     }
 });
+
+
