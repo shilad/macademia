@@ -1,43 +1,5 @@
 var MC = (window.MC = (window.MC || {}));
 
-/**
- * Hacks abound!
- *
- * @param visExport
- * @param opts
- */
-MC.createAccessors = function(visExport, opts) {
-    for (var n in opts) {
-        if (!opts.hasOwnProperty(n)) continue;
-        var isArray = opts[n] instanceof Array;
-
-        visExport[n] = (function(n) {
-            if (isArray) {    // hack to handle multiple event bindings!
-                return function () {
-                    console.log(arguments)
-                    if (arguments.length == 1) {
-                        return this.on(n);  // what is "this"? probably broken!
-                    } else {
-                        opts.on.push(arguments);
-                        return this;
-                    }
-                }
-            } else {
-                return function() {
-                    if (arguments.length == 0) {
-                        return opts[n];
-                    } else if (arguments.length == 1) {
-                        opts[n] = arguments[0];
-                        return this;
-                    } else {
-                        opts[n] = arguments;
-                        return this;
-                    }
-                }
-            }
-        })(n);
-    }
-};
 
 MC.capitalize = function(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
