@@ -1,4 +1,4 @@
-var NZ = (window.NZ = (window.NZ || {}));
+var MC = (window.MC = (window.MC || {}));
 
 /**
  * Hacks abound!
@@ -6,7 +6,7 @@ var NZ = (window.NZ = (window.NZ || {}));
  * @param visExport
  * @param opts
  */
-NZ.createAccessors = function(visExport, opts) {
+MC.createAccessors = function(visExport, opts) {
     for (var n in opts) {
         if (!opts.hasOwnProperty(n)) continue;
         var isArray = opts[n] instanceof Array;
@@ -39,11 +39,11 @@ NZ.createAccessors = function(visExport, opts) {
     }
 };
 
-NZ.capitalize = function(string) {
+MC.capitalize = function(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-NZ.options = {
+MC.options = {
     /**
      * Register getter / setter objects for a particular object.
      * If type is TYPE_NORMAL three options are created.
@@ -66,7 +66,7 @@ NZ.options = {
         obj.__nz_opts = obj.__nz_opts || {};
         obj.__nz_opts[name] = default_value;
 
-        var cname = NZ.capitalize(name);
+        var cname = MC.capitalize(name);
 
         obj['getOrCall' + cname] = function() {
             var val = obj.__nz_opts[name];
@@ -82,7 +82,7 @@ NZ.options = {
         };
 
         obj['set' + cname] = function() {
-            if (type == NZ.options.TYPE_LIST) {
+            if (type == MC.options.TYPE_LIST) {
                 throw ('must call add' + cname + ' for list types');
             }
             if (arguments.length == 1) {
@@ -94,7 +94,7 @@ NZ.options = {
         };
 
         obj['add' + cname] = function() {
-            if (type != NZ.options.TYPE_LIST) {
+            if (type != MC.options.TYPE_LIST) {
                 throw ('add' + cname + ' only available for list types');
             }
             if (arguments.length == 1) {

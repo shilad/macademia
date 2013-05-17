@@ -37,7 +37,7 @@ svg {
         {'name' : 'Squash', 'color' : 0.7}
     ];
 
-    var interest = NZ.interest()
+    var interest = MC.interest()
         .setCy(function (d) {
             i += 40;
             return i;

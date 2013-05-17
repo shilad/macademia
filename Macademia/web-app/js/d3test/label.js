@@ -1,9 +1,9 @@
-var NZ = (window.NZ = (window.NZ || {}));
+var MC = (window.MC = (window.MC || {}));
 
 /**
  * Adds a label to the current selection. Example invocation:
  *
- * var label = NZ.label()
+ * var label = MC.label()
  *    .setText(function (d) { return d; })
  *
  * g.data(['foo', 'bar', 'baz'])
@@ -25,7 +25,7 @@ var NZ = (window.NZ = (window.NZ || {}));
  *
  * @return {Function}
  */
-NZ.label = function() {
+MC.label = function() {
     function label(g) {
 
         var g = g.append('g')
@@ -46,12 +46,12 @@ NZ.label = function() {
         return g;
     }
 
-    NZ.options.register(label, 'text', 'undefined');
-    NZ.options.register(label, 'x', 0);
-    NZ.options.register(label, 'y', '1em');
-    NZ.options.register(label, 'align', 'left');
-    NZ.options.register(label, 'cssClass', 'label');
-    NZ.options.register(label, 'onHover', [], NZ.options.TYPE_LIST);
+    MC.options.register(label, 'text', 'undefined');
+    MC.options.register(label, 'x', 0);
+    MC.options.register(label, 'y', '1em');
+    MC.options.register(label, 'align', 'left');
+    MC.options.register(label, 'cssClass', 'label');
+    MC.options.register(label, 'onHover', [], MC.options.TYPE_LIST);
 
     return label;
 };

@@ -31,7 +31,7 @@ svg {
 </style>
 <r:script>
     var i = 0;
-    var label = NZ.label()
+    var label = MC.label()
         .setCssClass('testlabel')
         .setText(function (d) { return d; })
         .setY(function (d) {

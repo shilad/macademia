@@ -2,9 +2,9 @@
  * An interest is a single labeled sphere.
  */
 
-var NZ = (window.NZ = (window.NZ || {}));
+var MC = (window.MC = (window.MC || {}));
 
-NZ.interest = function() {
+MC.interest = function() {
     function hueToColor(h) {
         return d3.hsl(h * 359, 0.8, 0.8);
     }
@@ -28,7 +28,7 @@ NZ.interest = function() {
                 g.on('mouseout', v[1]);
             });
 
-        var l = NZ.label()
+        var l = MC.label()
             .setText(interest.getText())
             .setAlign('middle');
 
@@ -37,12 +37,12 @@ NZ.interest = function() {
         return g;
     }
 
-    NZ.options.register(interest, 'text', function (d) { return d.name; });
-    NZ.options.register(interest, 'cx', 100);
-    NZ.options.register(interest, 'cy', 100);
-    NZ.options.register(interest, 'r', 10);
-    NZ.options.register(interest, 'onHover', [], NZ.options.TYPE_LIST);
-    NZ.options.register(interest, 'cssClass', 'interest');
+    MC.options.register(interest, 'text', function (d) { return d.name; });
+    MC.options.register(interest, 'cx', 100);
+    MC.options.register(interest, 'cy', 100);
+    MC.options.register(interest, 'r', 10);
+    MC.options.register(interest, 'onHover', [], MC.options.TYPE_LIST);
+    MC.options.register(interest, 'cssClass', 'interest');
 
     return interest;
 };
