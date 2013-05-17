@@ -21,12 +21,18 @@ modules = {
         resource url: '/js/lib.macademia.density.js'
     }
 
-    d3 {
+    d3js {
         dependsOn 'nbrviz'
-        resource url: '/js/d3/d3.v3.js'
-        resource url: '/js/d3/interest.js'
+        resource url: '/js/d3test/d3.v3.js'
+        resource url: '/js/d3test/utils.js'
+        resource url: '/js/d3test/label.js'
+        resource url: '/js/d3test/interest.js'
     }
 
+    d3demo {
+        dependsOn 'd3js'
+        resource url: '/js/d3test/d3play.js'
+    }
 
     nbrviz {
         dependsOn 'jquery'

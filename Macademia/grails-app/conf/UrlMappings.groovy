@@ -2,6 +2,10 @@ import org.macademia.MacademiaConstants
 
 class UrlMappings {
     static mappings = {
+      "/d3/$module" (
+          controller:  "d3",
+          action: 'index'
+      )
       "/survey/$action?/$id?" {
           controller = 'survey'
           constraints {

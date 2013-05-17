@@ -11,7 +11,7 @@
 <head>
     <meta name="layout" content="main"/>
 
-    <r:require modules="d3"/>
+    <r:require modules="d3demo"/>
 
     <title></title>
 </head>
@@ -24,7 +24,7 @@
 }
 .interestNode.minor {
     font: 13px Georgia;
-    fill: #aaa;
+    fill: #bbb;
 }
 .interestNode.major {
     font: 16px Helvetica;
@@ -37,7 +37,7 @@
 
 .link {
     fill: none;
-    stroke: #ddd;
+    stroke: #ccc;
     stroke-width: 1.5px;
 }
 

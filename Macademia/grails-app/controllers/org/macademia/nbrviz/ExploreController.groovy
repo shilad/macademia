@@ -65,8 +65,4 @@ class ExploreController {
         group: params.group,
      ])
   }
-
-  def d3 = {
-      render(view : 'd3play')
-  }
 }
