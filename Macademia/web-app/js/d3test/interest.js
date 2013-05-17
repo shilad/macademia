@@ -1,9 +1,38 @@
-/**
- * An interest is a single labeled sphere.
- */
-
 var MC = (window.MC = (window.MC || {}));
 
+/**
+ * Adds a single circle with a label corresponding to an interest.
+ * An interest must be an object with fields:
+ * id, name, and color (actually a hue in [0,1]).
+ *
+ * Example usage:
+ *
+ * var interests = [
+ *      {'name' : 'Rock climbing', 'color' : 0.3},
+ *      {'name' : 'Squash', 'color' : 0.7}
+ * ];
+ *
+ * var interest = MC.interest()
+ *    .setCx(343)
+ *    .setR(function (d) { return d.name.length() / 5; };
+ *
+ * g.data(interests)
+ *     .enter()
+ *     .call(interest);
+ *
+ * Available attributes:
+ *      text: text of the label
+ *      cx: center x position
+ *      cy: center y position
+ *      r: radius of interest circle
+ *      align: text align, one of (left, middle, right)
+ *      cssClass: class for <g> enclosing the label
+ *      onHover: A list option that takes two parameters.
+ *               The first is called on mouse in, the second on mouse out.
+ *               Both function take two arguments: the interest and key.
+ *
+ * @return {Function}
+ */
 MC.interest = function() {
     function hueToColor(h) {
         return d3.hsl(h * 359, 0.8, 0.8);

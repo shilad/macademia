@@ -7,6 +7,7 @@ var MC = (window.MC = (window.MC || {}));
  *    .setText(function (d) { return d; })
  *
  * g.data(['foo', 'bar', 'baz'])
+ *     .enter()
  *     .call(label);
  *
  * Available attributes:
