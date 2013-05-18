@@ -39,4 +39,12 @@ class ImageController {
         response.outputStream << path.readBytes()
         response.outputStream.flush()
     }
+
+    def randomFake = {
+        Random r = new Random()
+        params.gender = ['male', 'female'][r.nextInt(2)]
+        String [] images = new File("db/nbrviz/${params.gender}pics").list()
+        params.img = images[r.nextInt(images.length)];
+        return fake()
+    }
 }

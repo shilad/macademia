@@ -19,8 +19,8 @@
 
 <style type="text/css">
 
-.interest {
-    font: 13px Georgia;
+.person {
+    font: 15px Georgia;
     fill: #000;
 }
 svg {
@@ -32,14 +32,24 @@ svg {
 <r:script>
     var i = 0;
 
-    var interests = [
-        {'name' : 'Rock climbing', 'color' : 0.3},
-        {'name' : 'Squash', 'color' : 0.7}
+    var people = [
+        {
+            'name' : 'Shilad Sen',
+            'pic' : '/Macademia/all/image/randomFake?foo',
+            'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
+            'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7}
+        }
+        /*{
+            'name' : 'John Riedl',
+            'pic' : '/Macademia/all/image/randomFake?bar',
+            'cleanedRelevance':  {5 : 1.0, 6: 3.0, 14: 5.0},
+            'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7}
+        } */
     ];
 
-    var interest = MC.interest()
+    var person = MC.person()
         .setCy(function (d) {
-            i += 40;
+            i += 100;
             return i;
         })
         .addOnHover(
@@ -63,13 +73,13 @@ svg {
     d3.select('svg')
             .attr('width', 500)
             .attr('height', 500)
-            .selectAll('interests')
+            .selectAll('people')
             .data([0])
             .append('g')
-            .attr('class', 'interests')
-            .data(interests)
+            .attr('class', 'people')
+            .data(people)
             .enter()
-            .call(interest);
+            .call(person);
 </r:script>
 
 <svg></svg>

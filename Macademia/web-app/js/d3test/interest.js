@@ -34,10 +34,6 @@ var MC = (window.MC = (window.MC || {}));
  * @return {Function}
  */
 MC.interest = function() {
-    function hueToColor(h) {
-        return d3.hsl(h * 359, 0.8, 0.8);
-    }
-
     function interest(g) {
 
         var g = g.append('g')
@@ -49,7 +45,7 @@ MC.interest = function() {
             });
 
         var c = g.append('circle')
-                .attr('fill', function (d) { return hueToColor(d.color); })
+                .attr('fill', function (d) { return MC.hueToColor(d.color); })
                 .attr('r', interest.getR());
 
         interest.getOrCallOnHover().forEach(function (v) {

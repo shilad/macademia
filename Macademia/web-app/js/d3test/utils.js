@@ -1,14 +1,21 @@
 var MC = (window.MC = (window.MC || {}));
 
 
+MC.hueToColor = function(h) {
+    return d3.hsl(h * 359, 0.8, 0.8);
+};
+
 MC.capitalize = function(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
-}
+};
 
 MC.options = {
     TYPE_NORMAL : 0,
     TYPE_LIST : 1
 };
+
+
+
 
 /**
  * Register getter / setter objects for a particular object.
@@ -37,7 +44,7 @@ MC.options.register = function (obj, name, default_value, type) {
     obj['getOrCall' + cname] = function() {
         var val = obj.__nz_opts[name];
         if (val.call) {
-            return val.call.apply(val, arguments);
+            return val.apply(val, arguments);
         } else {
             return val;
         }

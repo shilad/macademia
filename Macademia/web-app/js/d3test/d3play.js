@@ -14,6 +14,7 @@ D3Person = Class.extend({
         this.pic = this.json.pic;
         this.interests = this.json.interests;
         this.cleanedRelevance = {};
+        this.interestColors = params.interestColors;
         for (var k in this.relevance) {
             if (k != -1 && k != 'overall') {
                 this.cleanedRelevance[k] = this.relevance[k];
