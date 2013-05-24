@@ -127,7 +127,7 @@ macademia {
     editableFields = ['fullName', 'department', 'imageSubpath', 'links', 'title']
     collaboratorRequestFields = ['creator', 'title', 'description', 'expiration']
     maxSimilarInterests = 2000
-    profileImagePath = "web-app/images/db"
+    profileImagePath = "profileImages/"
     similarityDir = "dat/phrase-sims"
 }
 

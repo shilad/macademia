@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
   <component name="FacetManager">
-    <facet type="hibernate" name="Hibernate">
-      <configuration>
-        <datasource-map>
-          <unit-entry name="Gorm" />
-          <unit-entry name="sessionFactory" />
-        </datasource-map>
-      </configuration>
-    </facet>
     <facet type="web" name="GrailsWeb">
       <configuration>
         <webroots>
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/jquery-1.8.3/web-app" relative="/" />
           <root url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/searchable-0.6.4/web-app" relative="/" />
           <root url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/searchable-0.6.4/grails-app/views" relative="/" />
           <root url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/mail-1.0.1/grails-app/views" relative="/" />
-          <root url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/jquery-1.8.3/web-app" relative="/" />
         </webroots>
         <sourceRoots />
+      </configuration>
+    </facet>
+    <facet type="hibernate" name="Hibernate">
+      <configuration>
+        <datasource-map />
       </configuration>
     </facet>
   </component>
@@ -66,15 +63,15 @@
       <library name="Grails User Library (Macademia-grailsPlugins)">
         <CLASSES>
           <root url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/searchable-0.6.4/lib" />
-          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.tukaani/xz/jars/xz-1.0.jar!/" />
-          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.commons/commons-compress/jars/commons-compress-1.4.1.jar!/" />
-          <root url="jar://$USER_HOME$/.grails/ivy-cache/net.sf.trove4j/trove4j/jars/trove4j-3.0.3.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.springframework/spring-test/jars/spring-test-3.1.0.RELEASE.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/javax.activation/activation/jars/activation-1.1.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/javax.mail/mail/jars/mail-1.4.3.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.commons/commons-lang3/jars/commons-lang3-3.1.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.tukaani/xz/jars/xz-1.0.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.commons/commons-compress/jars/commons-compress-1.4.1.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/net.sf.trove4j/trove4j/jars/trove4j-3.0.3.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.eclipse.jdt.core.compiler/ecj/jars/ecj-3.7.2.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/net.sf.ehcache/ehcache-web/jars/ehcache-web-2.0.3.jar!/" />
-          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.commons/commons-lang3/jars/commons-lang3-3.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
