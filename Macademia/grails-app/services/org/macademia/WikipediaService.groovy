@@ -17,13 +17,20 @@ class WikipediaService {
         if (query == null || query.trim() == "") {
             return []
         }
-        try {
-            return getWikipedia().query(query, maxResults, true)
-        } catch (Exception e) {
-            holder.set(null)
-            log.error("wikipedia query for " + query + " failed (${e.getMessage()}... retrying");
-            return getWikipedia().query(query, maxResults, true)
+        int numTries = 2;
+        for (int i = 1; i <= numTries; i++) {
+            try {
+                return getWikipedia().query(query, maxResults)
+            } catch (Exception e) {
+                holder.set(null)
+                if (i < numTries) {
+                    log.error("wikipedia query for " + query + " failed (${e.getMessage()}... retrying");
+                } else {
+                    log.error("wikipedia query for " + query + " failed (${e.getMessage()}... giving up");
+                }
+            }
         }
+        return [];
     }
 
     public Wikipedia getWikipedia() {

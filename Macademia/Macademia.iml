@@ -12,17 +12,7 @@
     </facet>
     <facet type="hibernate" name="Hibernate">
       <configuration>
-        <datasource-map>
-          <unit-entry name="Gorm" />
-          <unit-entry name="sessionFactory" />
-        </datasource-map>
-      </configuration>
-    </facet>
-    <facet type="Spring" name="Spring">
-      <configuration>
-        <fileset id="Grails" name="Grails" removed="false">
-          <file>file://$MODULE_DIR$/web-app/WEB-INF/applicationContext.xml</file>
-        </fileset>
+        <datasource-map />
       </configuration>
     </facet>
   </component>
@@ -39,32 +29,28 @@
       <sourceFolder url="file://$MODULE_DIR$/grails-app/taglib" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/unit" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test/integration" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/target/classes" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="grails-2.2.2" level="application" />
     <orderEntry type="module-library" exported="">
       <library name="Grails User Library (Macademia)">
         <CLASSES>
           <root url="file://$MODULE_DIR$/lib" />
-          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.tukaani/xz/jars/xz-1.0.jar!/" />
-          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.commons/commons-compress/jars/commons-compress-1.4.1.jar!/" />
-          <root url="jar://$USER_HOME$/.grails/ivy-cache/net.sf.trove4j/trove4j/jars/trove4j-3.0.3.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.springframework/spring-test/jars/spring-test-3.1.0.RELEASE.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/javax.activation/activation/jars/activation-1.1.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/javax.mail/mail/jars/mail-1.4.3.jar!/" />
-          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.eclipse.jdt.core.compiler/ecj/jars/ecj-3.7.2.jar!/" />
-          <root url="jar://$USER_HOME$/.grails/ivy-cache/net.sf.ehcache/ehcache-web/jars/ehcache-web-2.0.3.jar!/" />
           <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.commons/commons-lang3/jars/commons-lang3-3.1.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.tukaani/xz/jars/xz-1.0.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.apache.commons/commons-compress/jars/commons-compress-1.4.1.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/net.sf.trove4j/trove4j/jars/trove4j-3.0.3.jar!/" />
+          <root url="jar://$USER_HOME$/.grails/ivy-cache/org.eclipse.jdt.core.compiler/ecj/jars/ecj-3.7.2.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
         <jarDirectory url="file://$MODULE_DIR$/lib" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="module" module-name="wp-semantic-similarity" />
-    <orderEntry type="module" module-name="Macademia-grailsPlugins" />
-    <orderEntry type="library" name="grails-2.2.2" level="application" />
   </component>
 </module>
 
