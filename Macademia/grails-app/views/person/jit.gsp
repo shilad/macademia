@@ -36,7 +36,7 @@
                     <li><g:link params="[group : params.group]" controller="account" action="createuser">Create Account</g:link></li>
                     <li><a id="login_link" href="#">Login</a></li>
                     %{--<li><a href="/Macademia"><p:image alt="home" src="home.png" height="20"/></a></li>--}%
-                    <li><a href="/Macademia"><r:img alt="home" src="home.png" height="20"/></a></li>
+                    <li><a href="/Macademia"><r:img alt="home" dir='images' file="home.png" height="20"/></a></li>
                 </m:ifNotLoggedIn>
                 <m:ifLoggedIn>
                   <li>
@@ -56,7 +56,7 @@
                     </ul>
                   </li>
                   %{--<li><a href="/Macademia"><p:image alt="home" src="home.png" height="20"/></a></li>--}%
-                  <li><a href="/Macademia"><r:img alt="home" src="home.png" height="20"/></a></li>
+                  <li><a href="/Macademia"><r:img alt="home" dir='images' file="home.png" height="20"/></a></li>
                 </m:ifLoggedIn>
             </ul>
         </nav>
