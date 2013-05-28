@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="layout" content="main"/>
+    <r:require modules="core"/>
     <meta charset='utf-8' />
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
@@ -33,7 +35,8 @@
                     <li><a class="listRequestLink" href="#">Collaboration Requests</a></li>
                     <li><g:link params="[group : params.group]" controller="account" action="createuser">Create Account</g:link></li>
                     <li><a id="login_link" href="#">Login</a></li>
-                    <li><a href="/Macademia"><p:image alt="home" src="home.png" height="20"/></a></li>
+                    %{--<li><a href="/Macademia"><p:image alt="home" src="home.png" height="20"/></a></li>--}%
+                    <li><a href="/Macademia"><r:img alt="home" src="home.png" height="20"/></a></li>
                 </m:ifNotLoggedIn>
                 <m:ifLoggedIn>
                   <li>
@@ -52,7 +55,8 @@
                       <li><g:link params="[group : params.group]" controller="account" action="logout" class="icon_cross">Logout</g:link></li>
                     </ul>
                   </li>
-                  <li><a href="/Macademia"><p:image alt="home" src="home.png" height="20"/></a></li>
+                  %{--<li><a href="/Macademia"><p:image alt="home" src="home.png" height="20"/></a></li>--}%
+                  <li><a href="/Macademia"><r:img alt="home" src="home.png" height="20"/></a></li>
                 </m:ifLoggedIn>
             </ul>
         </nav>

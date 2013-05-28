@@ -106,7 +106,7 @@
       	<div id="slideshow">
       		<div id="slideshowReel">
 	      		<div class="slide">
-	      			<a href="/Macademia/acm"><r:img id="graphThumb" src="thumbnailTest01.png" alt="Go to Macademia visualization"/></a>
+	      			<a href="/Macademia/acm"><r:img id="graphThumb" dir='images' file="thumbnailTest01.png" alt="Go to Macademia visualization"/></a>
 	      		    <div id="entrancePortal">
                         <ul>
                           <g:each in="${people}" var="p"><li><m:personLink person="${p}" group="all"><m:personImage person="${p}"/></m:personLink></li></g:each>
@@ -125,11 +125,11 @@
       	<div id="sponsors">
       		<h3>Macademia is generously funded by:</h3>
       		<ul>
-                <li><a href="http://www.macalester.edu"><r:img src="mac_logo2.png" alt="Macalester College" /></a></li>
-                <li><a href="http://www.acm.edu/index.html"><r:img src="logos_acm.png" alt="The American Colleges of the Midwest" /></a></li>
-      			<li><a href="http://www.nsf.gov/"><r:img src="logos_nsf.png" alt="The National Science Foundation" /></a></li>
-      			<li><a href="http://www.mellon.org/"><r:img src="logos_andrewMellon.png" alt="the Andrew Mellon Charitable Trust" /></a></li>
-      		</ul>
+                <li><a href="http://www.macalester.edu"><r:img dir='images' file="mac_logo2.png" alt="Macalester College" /></a></li>
+                <li><a href="http://www.acm.edu/index.html"><r:img dir='images' file="logos_acm.png" alt="The American Colleges of the Midwest" /></a></li>
+      			<li><a href="http://www.nsf.gov/"><r:img dir='images' file="logos_nsf.png" alt="The National Science Foundation" /></a></li>
+      			<li><a href="http://www.mellon.org/"><r:img dir='images' file="logos_andrewMellon.png" alt="the Andrew Mellon Charitable Trust" /></a></li>
+            </ul>
       	</div>
 
       </div>

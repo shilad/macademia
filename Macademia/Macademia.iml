@@ -17,7 +17,9 @@
     </facet>
     <facet type="Spring" name="Spring">
       <configuration>
-        <fileset id="Grails" name="Grails" removed="false" />
+        <fileset id="Grails" name="Grails" removed="false">
+          <file>file://$MODULE_DIR$/web-app/WEB-INF/applicationContext.xml</file>
+        </fileset>
       </configuration>
     </facet>
   </component>
@@ -59,6 +61,7 @@
     </orderEntry>
     <orderEntry type="module" module-name="Macademia-grailsPlugins" />
     <orderEntry type="library" name="grails-2.2.2" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sass-stdlib" level="application" />
   </component>
 </module>
 
