@@ -1,10 +1,40 @@
 var MC = (window.MC = (window.MC || {}));
 
 
+/**
+ * Returns the "untransformed" Cartesian x,y coordinates for a particular
+ * x, y coordinates under the transformation associated with some SVG shape.
+ *
+ * @param svg The parent svg container whose coordinate space we will use for the result.
+ * @param shape The shape whose transformation matrix the input coordinates appear in.
+ * @param x The input (transformed) x coordinate
+ * @param y The input (transformed) y coordinate
+ * @return {*} The output point in the new coordinate space.
+ */
+MC.getTransformedPosition = function(svg, shape, x, y) {
+    var matrix = shape.getCTM();
+
+    // transform a point using the transformed matrix
+    var position = svg.createSVGPoint();
+    position.x = x;
+    position.y = y;
+    return position.matrixTransform(matrix);
+};
+
+/**
+ * Converts a hue to a d3 color.
+ * @param h Hue in [0,1]
+ * @return {*} D3 color.
+ */
 MC.hueToColor = function(h) {
     return d3.hsl(h * 359, 0.8, 0.8);
 };
 
+/**
+ * Capitalizes the first letter of a string.
+ * @param string
+ * @return {String}
+ */
 MC.capitalize = function(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
@@ -43,7 +73,7 @@ MC.options.register = function (obj, name, default_value, type) {
 
     obj['getOrCall' + cname] = function() {
         var val = obj.__nz_opts[name];
-        if (val.call) {
+        if (val != null && val.call) {
             return val.apply(val, arguments);
         } else {
             return val;

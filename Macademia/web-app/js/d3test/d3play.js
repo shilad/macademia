@@ -129,6 +129,27 @@ D3.initInterests = function() {
         .append("g")
         .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
 
+    var gradient = svg
+        .append("radialGradient")
+        .attr("cx", "50%")
+        .attr("cy", "50%")
+        .attr("r", "50%")
+        .attr("fx", "50%")
+        .attr("fy", "50%")
+        .attr("id", "gradient");
+
+    gradient
+        .append("stop")
+        .attr("offset", "0")
+        .attr("stop-color", "#fff")
+        .attr("stop-opacity", "0.0");
+
+    gradient
+        .append("stop")
+        .attr("offset", "1.0")
+        .attr("stop-color", "#fff")
+        .attr("stop-opacity", "1.0");
+
     var link = svg.selectAll(".link")
         .data(links)
         .enter().append("path")
@@ -150,17 +171,22 @@ D3.initInterests = function() {
 
     var node = svg.selectAll(".interestNode")
         .data(nodes)
-        .enter().append("g")
-        .attr("class", function(d) { return (d.id in clusterMap) ? 'major interestNode' : 'minor interestNode'})
-        .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
+        .enter().append("g");
 
-    /* TODO: add gradient background
-     node.filter(function (d) {return d.id in clusterMap;})
-     .append("circle")
-     .attr("r", 30)
-     .style('fill',
-     '#ccf'
-     ); */
+    node.filter(function (d) {return d.id in clusterMap;})
+        .append("circle")
+        .attr("r", 30)
+        .style('fill', function (d) { return d3.hsl(d.color * 359, 0.8, 0.8); });
+
+    node.filter(function (d) {return d.id in clusterMap;})
+        .append("circle")
+        .attr("r", 30)
+        .style('fill', 'url(#gradient)');
+
+
+
+    node.attr("class", function(d) { return (d.id in clusterMap) ? 'major interestNode' : 'minor interestNode'})
+        .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
 
     node.append("circle")
         .attr("r", function (d) { return (d.id in clusterMap) ? 15 : 6; })
