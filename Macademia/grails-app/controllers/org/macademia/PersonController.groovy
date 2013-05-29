@@ -142,6 +142,7 @@ class  PersonController{
             max = 25
         }
         def root = personService.get((params.id as long))
+        println("root for ${params.id} is " + root)
         InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
         Graph graph = similarityService.calculatePersonNeighbors(root, max, institutions)
         def data = jsonService.buildUserCentricGraph(root, graph)

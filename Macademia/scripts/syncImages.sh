@@ -3,5 +3,5 @@
 rsync -avz \
     --exclude='**/orig/**' \
     --exclude='**/tmp/**' \
-    shilad@poliwiki:usr/macademia/grails2/profileImages/ \
+    shilad@macademia.macalester.edu:usr/macademia/grails2/profileImages/ \
     ./profileImages
