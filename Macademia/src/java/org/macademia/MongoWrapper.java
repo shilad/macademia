@@ -23,7 +23,7 @@ public class MongoWrapper {
     //name of the interests collection
     public static final String INTERESTS = "interests";
     
-    public static final String SIMILARITY_FIELD = "similar2";
+    public static final String SIMILARITY_FIELD = "similar";
 
     //name of the collaboratorRequests collection
     public static final String COLLABORATOR_REQUESTS = "collaboratorRequests" ;
@@ -882,6 +882,7 @@ public class MongoWrapper {
 
     public SimilarInterestList getSimilarInterests(long interest){
         SimilarInterestList sil = similarInterestCache.get(interest);
+        sil = null;
         if (sil != null) {
             return sil;
         }

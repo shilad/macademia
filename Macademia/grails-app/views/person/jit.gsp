@@ -11,7 +11,7 @@
     <title>Macademia - Connecting colleagues who share research interests.</title>
     <g:render template="/layouts/headers"/>
 
-    <g:javascript>
+    <r:script>
         macademia.igMap = ${igMap as JSON};
         $(document).ready(function() {
             macademia.pageLoad();
@@ -20,8 +20,9 @@
                 'page' : 'jit'
             };
             macademia.serverLog('page', 'load', params);
+
         });
-    </g:javascript>
+    </r:script>
 
 </head>
 <body>
