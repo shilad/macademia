@@ -333,7 +333,8 @@ The Macademia Team
     }
 
     def getDefaultImageUrl() {
-        String l = p.imageLink(src : MacademiaConstants.DEFAULT_IMG)
+//        String l = r.imageLink(src : MacademiaConstants.DEFAULT_IMG)
+        String l = r.img(dir:'images', file:MacademiaConstants.DEFAULT_IMG)
         if (l[0] == "'") {
             l = l[1..-1]
         }
