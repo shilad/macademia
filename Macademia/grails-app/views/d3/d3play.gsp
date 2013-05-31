@@ -41,6 +41,10 @@
     stroke-width: 1.5px;
 }
 
+.random{
+
+}
+
 </style>
 </body>
 </html>
