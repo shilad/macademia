@@ -42,7 +42,6 @@
 }
 
 .random{
-
 }
 
 </style>
