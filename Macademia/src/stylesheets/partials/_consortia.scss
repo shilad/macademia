@@ -93,7 +93,7 @@
     #mainSearchBox {
       padding: 13px 0 13px 182px;
       margin-bottom: 25px;
-      border-bottom: 1px solid #CCC;
+      //border-bottom: 1px solid #CCC;
       position: relative;
 
       #searchBox, #searchSubmit {
@@ -160,9 +160,9 @@
     #slideshow {
       @include clearfix();
       width: 980px;
-      border-bottom: 1px solid #CCC;
-      padding-bottom: 45px;
-      margin-bottom: 25px;
+     // border-bottom: 1px solid #CCC;
+      padding-bottom: 9px;
+      //margin-bottom: 25px;
 
       .slide {
         width: 920px;
@@ -187,7 +187,7 @@
           color: #666;
         }
         #entrancePortal {
-          text-align: center;
+          /*text-align: center;*/
           font-size: 24px;
           margin-top: 25px;
           margin-bottom: 10px;
