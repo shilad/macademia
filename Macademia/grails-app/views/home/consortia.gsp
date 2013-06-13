@@ -106,22 +106,22 @@
             </div>
         </div>
 
-        %{-- the button--}%
-        <a href="#" class="macaButton">Macademia Homepage</a>
-
-        <div id="mainSearchBox">
-            <input type="text" id="searchBox" placeholder="Search for researchers or interests" />
-            <div id="searchSubmit" class="customButton"><a id="submitSearch" href="javascript:;">Search</a></div>
-        </div>
         <div>
             <table>
                 <tr>
                     <td>
-                    <input type="radio" name="consortia" value="Members of ACM"/> ACM members
+                    <input type="radio" name="consortia" value="Members of ACM"/>
                     </td>
                 </tr>
                 <tr>
+                <td>
                     <input type="radio" name="consortia" value="General Macademia"/> General Macademia members
+                </td>
+                <td>
+                    %{-- the button--}%
+                    <a href="#" class="macaButton">Macademia Homepage</a>
+
+                </td>
                 </tr>
             </table>
         </div>
