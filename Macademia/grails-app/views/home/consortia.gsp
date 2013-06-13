@@ -116,6 +116,8 @@
                         <p style="margin-left: 20px; font-size: 15;"> ACM Members</p>
                     </td>
                 </tr>
+
+
                 <tr>
                 <td>
                     <input type="radio" name="radio" class="styled" style="margin: 5px"/>
@@ -129,8 +131,13 @@
 
                 </td>
                 </tr>
+
             </table>
+            <br>
+
+
         <hr />
+
         </div>
 
         %{-- the paragraph describing the consortium--}%
