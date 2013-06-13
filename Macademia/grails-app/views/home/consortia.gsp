@@ -103,10 +103,10 @@
                 <input type="text" id="searchBox" placeholder="Search for researchers or interests" />
                 <div id="searchSubmit" class="customButton"><a id="submitSearch" href="javascript:;">Search</a></div>
             </div>
-
-
-
         </div>
+
+        %{-- the button--}%
+        <a href="#" class="macaButton">Macademia Homepage</a>
 
         %{-- the paragraph describing the consortium--}%
         <div>
