@@ -115,7 +115,7 @@
                 </tr>
                 <tr>
                 <td>
-                    <input type="radio" name="consortia" value="General Macademia"/> General Macademia members
+                    <input type="radio" name="consortia" value="General Macademia"/> All institutions
                 </td>
                 <td>
                     %{-- the button--}%
