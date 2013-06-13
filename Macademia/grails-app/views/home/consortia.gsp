@@ -116,8 +116,6 @@
                         <p style="margin-left: 20px; font-size: 15;"> ACM Members</p>
                     </td>
                 </tr>
-
-
                 <tr>
                 <td>
                     <input type="radio" name="radio" class="styled" style="margin: 5px"/>
@@ -126,18 +124,18 @@
                      <p style="margin-left: 20px; font-size: 15;"> All Members</p>
                     </td>
                 <td>
-                    %{-- the button--}%
-                    <a href="#" class="macaButton" >Macademia Homepage</a>
 
                 </td>
                 </tr>
-
+                <tr>
+                <td>
+                </td>
+                <td>
+                    %{-- the button--}%
+                    <a style="text-align: right" href="#" class="macaButton" >Macademia Homepage</a>
+                </td>
             </table>
-            <br>
-
-
         <hr />
-
         </div>
 
         %{-- the paragraph describing the consortium--}%
