@@ -91,9 +91,8 @@
     padding-left:0px;
 
     #mainSearchBox {
-      padding: 13px 0 13px 182px;
+      padding: 13px 0 13px 15px;
       margin-bottom: 25px;
-      //border-bottom: 1px solid #CCC;
       position: relative;
 
       #searchBox, #searchSubmit {
@@ -102,7 +101,7 @@
       #searchBox {
         font-size: 18px;
         padding: 14px 10px 12px 10px;
-        width: 600px;
+        width: 900px;
         @include border-radius(8px);
         @include box-shadow(inset 0px 2px 2px 1px #ACACAC);
         border: 1px solid #999;
@@ -276,5 +275,6 @@
       position:relative;
       top:1px;
     }
+
 
 }
