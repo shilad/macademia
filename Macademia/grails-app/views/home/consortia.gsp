@@ -85,10 +85,27 @@
                 </tr>
             </table>
 
-        </div>
-        <div id="mainSearchBox">
-            <input type="text" id="searchBox" placeholder="Search for researchers or interests" />
-            <div id="searchSubmit" class="customButton"><a id="submitSearch" href="javascript:;">Search</a></div>
+
+            <div id="slideshow">
+                <div id="slideshowReel">
+                    <div class="slide">
+                        <div id="entrancePortal">
+                            <ul>
+                                <g:each in="${people}" var="p"><li><m:personLink person="${p}" group="all"><m:personImage person="${p}"/></m:personLink></li></g:each>
+                                <g:each in="${(people.size()..< HomeController.NUM_PEOPLE)}"><li><a href="#"><r:img dir='images' file="shilad.jpg"/></a></li></g:each>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mainSearchBox">
+                <input type="text" id="searchBox" placeholder="Search for researchers or interests" />
+                <div id="searchSubmit" class="customButton"><a id="submitSearch" href="javascript:;">Search</a></div>
+            </div>
+
+
+
         </div>
 
         %{-- the paragraph describing the consortium--}%
@@ -100,32 +117,6 @@
         <hr />
 
         </div>
-
-
-
-
-
-
-
-
-        <div id="slideshow">
-            <div id="slideshowReel">
-                <div class="slide">
-                    <div id="entrancePortal">
-                        <ul>
-                            <g:each in="${people}" var="p"><li><m:personLink person="${p}" group="all"><m:personImage person="${p}"/></m:personLink></li></g:each>
-                            <g:each in="${(people.size()..< HomeController.NUM_PEOPLE)}"><li><a href="#"><r:img dir='images' file="shilad.jpg"/></a></li></g:each>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="mainSearchBox">
-            <input type="text" id="searchBox" placeholder="Search for researchers or interests" />
-            <div id="searchSubmit" class="customButton"><a id="submitSearch" href="javascript:;">Search</a></div>
-        </div>
-
 
 
 
