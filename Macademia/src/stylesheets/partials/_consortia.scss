@@ -152,7 +152,10 @@
       margin-top: 30em;
       margin-bottom: 15em;
       font-size: 30%;
-    }
+      #cLogo{
+      background:url(../images/consortia/ACM.png) no-repeat;
+      }
+      }
     #slideshow {
       @include clearfix();
       width: 980px;

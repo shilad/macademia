@@ -1,166 +1,253 @@
 @charset "UTF-8";
 /** HTML5 ✰ Boilerplate  style.css contains a reset, font normalization and some base styles.  Credit is left where credit is due. Much inspiration was taken from these projects: - yui.yahooapis.com/2.8.1/build/base/base.css - camendesign.com/design/ - praegnanz.de/weblog/htmlcssjs-kickstart */
 /** html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline) v1.6.1 2010-09-17 | Authors: Eric Meyer & Richard Clark html5doctor.com/html-5-reset-stylesheet/ */
+/* line 28, ../../src/stylesheets/partials/_reset.scss */
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
 
+/* line 38, ../../src/stylesheets/partials/_reset.scss */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
 
+/* line 42, ../../src/stylesheets/partials/_reset.scss */
 blockquote, q { quotes: none; }
 
+/* line 45, ../../src/stylesheets/partials/_reset.scss */
 blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
 
+/* line 47, ../../src/stylesheets/partials/_reset.scss */
 ins { background-color: #ff9; color: #000; text-decoration: none; }
 
+/* line 49, ../../src/stylesheets/partials/_reset.scss */
 mark { background-color: #ff9; color: #000; font-style: italic; font-weight: bold; }
 
+/* line 51, ../../src/stylesheets/partials/_reset.scss */
 del { text-decoration: line-through; }
 
+/* line 53, ../../src/stylesheets/partials/_reset.scss */
 abbr[title], dfn[title] { border-bottom: 1px dotted; cursor: help; }
 
+/* line 55, ../../src/stylesheets/partials/_reset.scss */
 table { border-collapse: collapse; border-spacing: 0; }
 
+/* line 57, ../../src/stylesheets/partials/_reset.scss */
 hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
 
+/* line 59, ../../src/stylesheets/partials/_reset.scss */
 input, select { vertical-align: middle; }
 
 /** Font normalization inspired by YUI Library's fonts.css: developer.yahoo.com/yui/ */
+/* line 66, ../../src/stylesheets/partials/_reset.scss */
 body { font: 13px/1.231 sans-serif; *font-size: small; }
 
 /* Hack retained to preserve specificity */
-@-moz-document url-prefix() { select, input, textarea, button { font: 100% sans-serif; } }
+@-moz-document url-prefix() { /* line 68, ../../src/stylesheets/partials/_reset.scss */
+  select, input, textarea, button { font: 100% sans-serif; } }
 
 /* Normalize monospace sizing: en.wikipedia.org/wiki/MediaWiki_talk:Common.css/Archive_11#Teletype_style_fix_for_Chrome */
+/* line 73, ../../src/stylesheets/partials/_reset.scss */
 pre, code, kbd, samp { font-family: monospace, sans-serif; }
 
 /** Minimal base styles. */
 /* Always force a scrollbar in non-IE */
+/* line 81, ../../src/stylesheets/partials/_reset.scss */
 html { overflow-y: scroll; }
 
 /* Accessible focus treatment: people.opera.com/patrickl/experiments/keyboard/test */
+/* line 84, ../../src/stylesheets/partials/_reset.scss */
 a:hover, a:active { outline: none; }
 
+/* line 86, ../../src/stylesheets/partials/_reset.scss */
 ul, ol { margin-left: 2em; }
 
+/* line 87, ../../src/stylesheets/partials/_reset.scss */
 ol { list-style-type: decimal; }
 
 /* Remove margins for navigation lists */
+/* line 90, ../../src/stylesheets/partials/_reset.scss */
 nav ul, nav li { margin: 0; list-style: none; list-style-image: none; }
 
+/* line 92, ../../src/stylesheets/partials/_reset.scss */
 small { font-size: 85%; }
 
+/* line 93, ../../src/stylesheets/partials/_reset.scss */
 strong, th { font-weight: bold; }
 
+/* line 95, ../../src/stylesheets/partials/_reset.scss */
 td { vertical-align: top; }
 
 /* Set sub, sup without affecting line-height: gist.github.com/413930 */
+/* line 98, ../../src/stylesheets/partials/_reset.scss */
 sub, sup { font-size: 75%; line-height: 0; position: relative; }
 
+/* line 99, ../../src/stylesheets/partials/_reset.scss */
 sup { top: -0.5em; }
 
+/* line 100, ../../src/stylesheets/partials/_reset.scss */
 sub { bottom: -0.25em; }
 
+/* line 102, ../../src/stylesheets/partials/_reset.scss */
 pre { /* www.pathf.com/blogs/2008/05/formatting-quoted-code-in-blog-posts-css21-white-space-pre-wrap/ */ white-space: pre; white-space: pre-wrap; word-wrap: break-word; padding: 15px; }
 
+/* line 108, ../../src/stylesheets/partials/_reset.scss */
 textarea { overflow: auto; }
 
 /* www.sitepoint.com/blogs/2010/08/20/ie-remove-textarea-scrollbars/ */
 /* Align checkboxes, radios, text inputs with their label by: Thierry Koblentz tjkdesign.com/ez-css/css/base.css ; */
+/* line 111, ../../src/stylesheets/partials/_reset.scss */
 input[type="radio"] { vertical-align: text-bottom; }
 
+/* line 112, ../../src/stylesheets/partials/_reset.scss */
 input[type="checkbox"] { vertical-align: bottom; }
 
 /* Hand cursor on clickable input elements */
+/* line 115, ../../src/stylesheets/partials/_reset.scss */
 label, input[type="button"], input[type="submit"], input[type="image"], button { cursor: pointer; }
 
 /* Webkit browsers add a 2px margin outside the chrome of form elements */
+/* line 118, ../../src/stylesheets/partials/_reset.scss */
 button, input, select, textarea { margin: 0; }
 
 /* Colors for form validity */
+/* line 122, ../../src/stylesheets/partials/_reset.scss */
 input:invalid, textarea:invalid { /*border-radius: 1px; -moz-box-shadow: 0px 0px 5px red; -webkit-box-shadow: 0px 0px 5px red; box-shadow: 0px 0px 5px red;*/ }
 
+/* line 125, ../../src/stylesheets/partials/_reset.scss */
 .no-boxshadow input:invalid, .no-boxshadow textarea:invalid { background-color: #f0dddd; }
 
 /* These selection declarations have to be separate No text-shadow: twitter.com/miketaylr/status/12228805301 */
+/* line 129, ../../src/stylesheets/partials/_reset.scss */
 ::-moz-selection { background: #a8d1ff; color: auto; text-shadow: none; }
 
 /* j.mp/webkit-tap-highlight-color */
+/* line 132, ../../src/stylesheets/partials/_reset.scss */
 a:link { -webkit-tap-highlight-color: #a8d1ff; }
 
+/* line 5, ../../src/stylesheets/partials/_base.scss */
 body, select, input, textarea { color: #444444; font-size: 13px; }
 
+/* line 13, ../../src/stylesheets/partials/_base.scss */
 h1, h2, h3, h4, h5, h6 { font-weight: bold; }
 
+/* line 18, ../../src/stylesheets/partials/_base.scss */
 h1 { font-size: 26px; }
 
+/* line 21, ../../src/stylesheets/partials/_base.scss */
 h2 { font-size: 24px; }
 
+/* line 24, ../../src/stylesheets/partials/_base.scss */
 h3 { font-size: 16px; }
 
+/* line 28, ../../src/stylesheets/partials/_base.scss */
 a, a:active, a:visited { color: #607890; text-decoration: none; }
 
+/* line 32, ../../src/stylesheets/partials/_base.scss */
 a:hover { color: #003366; }
 
+/* line 34, ../../src/stylesheets/partials/_base.scss */
 strong, th, b { font-weight: bold; }
 
+/* line 38, ../../src/stylesheets/partials/_base.scss */
 .alert { color: #c11; }
 
+/* line 42, ../../src/stylesheets/partials/_base.scss */
 .flash { font-weight: bold; color: #f00; display: none; }
 
+/* line 48, ../../src/stylesheets/partials/_base.scss */
 .warning { background: #FFDDDD; color: #A44; text-align: center; display: none; }
 
+/* line 55, ../../src/stylesheets/partials/_base.scss */
 body { min-width: 1024px; }
 
+/* line 59, ../../src/stylesheets/partials/_base.scss */
 .customButton { display: inline; padding: 5px 10px 3px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; background-color: gray; border: 1px solid #666; text-decoration: none; }
+/* line 66, ../../src/stylesheets/partials/_base.scss */
 .customButton a { color: white; }
+/* line 67, ../../src/stylesheets/partials/_base.scss */
 .customButton a:visited { color: white; }
+/* line 68, ../../src/stylesheets/partials/_base.scss */
 .customButton a:hover { color: #eeeeee; }
 
+/* line 71, ../../src/stylesheets/partials/_base.scss */
 button, input[type="submit"], input[type="button"] { padding: 5px 10px 3px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; background-color: gray; color: white; border: 1px solid #666; text-decoration: none; }
 
+/* line 81, ../../src/stylesheets/partials/_base.scss */
 select { font-size: 14px; padding: 2px; }
 
+/* line 88, ../../src/stylesheets/partials/_base.scss */
 #loadingDiv { z-index: 999999999; position: fixed; background-color: #fff; width: 100%; height: 100%; top: 0; left: 0; filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50); opacity: 0.5; }
+/* line 97, ../../src/stylesheets/partials/_base.scss */
 #loadingDiv img { position: absolute; top: 50%; left: 50%; margin-top: -15px; margin-left: -30px; }
 
+/* line 105, ../../src/stylesheets/partials/_base.scss */
 #loadingMessage { z-index: 9999999999; position: fixed; top: 50%; font-size: 22px; color: black; margin-top: 20px; left: 50%; margin-left: -212px; width: 500px; text-align: center; }
 
+/* line 2, ../../src/stylesheets/partials/_queryViz.scss */
 html, body { height: 100%; width: 100%; min-width: 1024px; min-height: 700px; }
 
+/* line 9, ../../src/stylesheets/partials/_queryViz.scss */
 table { width: 100%; height: 100%; background-color: #F7F7F7; /* viz canvas */ }
+/* line 10, ../../src/stylesheets/partials/_queryViz.scss */
 table h1 { font-size: 20px; font-weight: bold; margin-bottom: 5px; }
+/* line 19, ../../src/stylesheets/partials/_queryViz.scss */
 table #nav { width: 30%; height: 100%; color: #555; }
+/* line 24, ../../src/stylesheets/partials/_queryViz.scss */
 table #nav > div { height: 100%; border-right: 1px dotted #777; padding: 5px 5px 5px 5px; font-size: 15px; }
+/* line 29, ../../src/stylesheets/partials/_queryViz.scss */
 table #nav > div > div { height: 33%; }
+/* line 35, ../../src/stylesheets/partials/_queryViz.scss */
 table #nav #matches input { min-width: 200; margin-left: 5px; width: 60%; }
+/* line 40, ../../src/stylesheets/partials/_queryViz.scss */
 table #nav #matches ol { margin-left: 0; margin-top: 5px; margin-bottom: 12px; list-style-position: inside; }
+/* line 45, ../../src/stylesheets/partials/_queryViz.scss */
 table #nav #matches ol li { cursor: url("../images/openhand.cur"); position: relative; background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #dddddd)); background-image: -webkit-linear-gradient(top, #ffffff, #dddddd); background-image: -moz-linear-gradient(top, #ffffff, #dddddd); background-image: -o-linear-gradient(top, #ffffff, #dddddd); background-image: linear-gradient(top, #ffffff, #dddddd); padding: 3px; border: 1px solid #aaa; margin: 7px 0 7px 0; }
+/* line 53, ../../src/stylesheets/partials/_queryViz.scss */
 table #nav #matches ol li img { position: absolute; top: -1px; right: 1px; height: 100%; }
+/* line 63, ../../src/stylesheets/partials/_queryViz.scss */
 table #nav #task { position: relative; }
+/* line 65, ../../src/stylesheets/partials/_queryViz.scss */
 table #nav #task > div { position: absolute; bottom: 0; }
+/* line 73, ../../src/stylesheets/partials/_queryViz.scss */
 table #graph { width: 70%; }
 
 /* Auotocomplete */
+/* line 79, ../../src/stylesheets/partials/_queryViz.scss */
 .ui-corner-all { font-size: 14px; }
 
+/* line 82, ../../src/stylesheets/partials/_queryViz.scss */
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #636363; }
 
+/* line 85, ../../src/stylesheets/partials/_queryViz.scss */
 input:-moz-placeholder, textarea::-moz-placeholder { color: #636363; }
 
 /* Query manipulation */
+/* line 90, ../../src/stylesheets/partials/_queryViz.scss */
 #queryWidget, #adjustmentWidget { overflow: hidden; }
+/* line 93, ../../src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests, #adjustmentWidget #currentInterests { width: auto; float: left; }
+/* line 97, ../../src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests #queryInterestTemplate, #adjustmentWidget #currentInterests #queryInterestTemplate { display: none; }
+/* line 101, ../../src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests h1, #adjustmentWidget #currentInterests h1 { text-align: left; }
+/* line 104, ../../src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests .rootInterestKey, #adjustmentWidget #currentInterests .rootInterestKey { display: -moz-inline-stack; display: inline-block; vertical-align: middle; *vertical-align: auto; zoom: 1; *display: inline; width: 20px; height: 20px; position: relative; top: -2px; left: 2px; }
+/* line 112, ../../src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests .rootInterestName, #adjustmentWidget #currentInterests .rootInterestName { display: -moz-inline-stack; display: inline-block; vertical-align: middle; *vertical-align: auto; zoom: 1; *display: inline; height: 20px; vertical-align: top; position: relative; top: 0; left: -1px; }
+/* line 121, ../../src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests #sliderKey, #adjustmentWidget #currentInterests #sliderKey { width: 90px; font-size: 12px; }
+/* line 124, ../../src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests #sliderKey .lessLabel, #adjustmentWidget #currentInterests #sliderKey .lessLabel { float: left; width: 33%; text-align: left; }
+/* line 129, ../../src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests #sliderKey .okayLabel, #adjustmentWidget #currentInterests #sliderKey .okayLabel { float: left; width: 30%; text-align: center; }
+/* line 134, ../../src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests #sliderKey .moreLabel, #adjustmentWidget #currentInterests #sliderKey .moreLabel { float: left; width: 37%; text-align: right; }
+/* line 141, ../../src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests .addedInterestDiv, #adjustmentWidget #currentInterests .addedInterestDiv { margin-left: 0; clear: both; padding: 6px 0; opacity: 1.0; }
+/* line 147, ../../src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests .addedInterestDiv .interestSlider, #adjustmentWidget #currentInterests .addedInterestDiv .interestSlider { clear: both; float: left; width: 80px; position: relative; height: 8px; margin-right: 10px; top: 5px; }
+/* line 157, ../../src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests .addedInterestDiv .interestKey, #adjustmentWidget #currentInterests .addedInterestDiv .interestKey { float: left; width: 20px; height: 20px; margin-right: 5px; }
+/* line 163, ../../src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests .addedInterestDiv .addedInterest, #adjustmentWidget #currentInterests .addedInterestDiv .addedInterest { display: inline; padding: 1px; }
+/* line 170, ../../src/stylesheets/partials/_queryViz.scss */
 #queryWidget #currentInterests #interestQuery, #adjustmentWidget #currentInterests #interestQuery { margin: 10px 20px 7px 20px; clear: both; width: 350px; font-size: 20px; }
 
 /*/mediaquery*/
