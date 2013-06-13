@@ -244,26 +244,23 @@
   }
 
   .macaButton {
-    -moz-box-shadow:inset 0px 1px 0px 0px #f29c93;
-    -webkit-box-shadow:inset 0px 1px 0px 0px #f29c93;
-    box-shadow:inset 0px 1px 0px 0px #f29c93;
+
+      width: 163px;
+      height:18px;
+      float:left;
+      background: url('../images/consortia/button_background.png') no-repeat;
+
     /*background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fe1a00), color-stop(1, #ce0100) );
     background:-moz-linear-gradient( center top, #fe1a00 5%, #ce0100 100% );*/
-    background: url(http://oi41.tinypic.com/2qipowx.jpg) 3px 5px no-repeat;
-    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#fe1a00', endColorstr='#ce0100');
-    background-color:#fe1a00;
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
     border-radius:5px;
-    border:2px solid #d83526;
     display:inline-block;
     color:#ffffff;
     font-family:arial;
     font-size:15px;
     font-weight:bold;
     padding:7px 5px;
-    text-decoration:none;
-    text-shadow:1px 1px 0px #b23e35;
     margin-left: 40em;
   }
   .macaButton:hover {

@@ -349,10 +349,11 @@ nav ul li ul li a:hover { background: #777777 url(../images/dropdown/dropdown_li
 /* line 233, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #sponsors ul li img { max-width: 150px; max-height: 125px; }
 /* line 246, ../../src/stylesheets/partials/_consortia.scss */
-#consortiaHome .macaButton { -moz-box-shadow: inset 0px 1px 0px 0px #f29c93; -webkit-box-shadow: inset 0px 1px 0px 0px #f29c93; box-shadow: inset 0px 1px 0px 0px #f29c93; background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #fe1a00), color-stop(1, #ce0100)); background: -moz-linear-gradient(center top, #fe1a00 5%, #ce0100 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fe1a00', endColorstr='#ce0100'); background-color: #fe1a00; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; border: 2px solid #d83526; display: inline-block; color: #ffffff; font-family: arial; font-size: 15px; font-weight: bold; padding: 7px 5px; text-decoration: none; text-shadow: 1px 1px 0px #b23e35; margin-left: 40em; }
-/* line 268, ../../src/stylesheets/partials/_consortia.scss */
+#consortiaHome .macaButton { width: 163px; height: 18px; float: left; background: url("../images/consortia/button_background.png") no-repeat; /*background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fe1a00), color-stop(1, #ce0100) );
+background:-moz-linear-gradient( center top, #fe1a00 5%, #ce0100 100% );*/ -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 5px; display: inline-block; color: #ffffff; font-family: arial; font-size: 15px; font-weight: bold; padding: 7px 5px; margin-left: 40em; }
+/* line 266, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome .macaButton:hover { background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ce0100), color-stop(1, #fe1a00)); background: -moz-linear-gradient(center top, #ce0100 5%, #fe1a00 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ce0100', endColorstr='#fe1a00'); background-color: #ce0100; }
-/* line 274, ../../src/stylesheets/partials/_consortia.scss */
+/* line 272, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome .macaButton:active { position: relative; top: 1px; }
 
 /* line 1, ../../src/stylesheets/partials/_header.scss */

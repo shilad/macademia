@@ -125,7 +125,7 @@
                     </td>
                 <td>
                     %{-- the button--}%
-                    <a href="#" class="macaButton">Macademia Homepage</a>
+                    <a href="#" class="macaButton" >Macademia Homepage</a>
 
                 </td>
                 </tr>
