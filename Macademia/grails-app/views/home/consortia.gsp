@@ -130,7 +130,9 @@
                 </td>
                 </tr>
             </table>
+        <hr />
         </div>
+
         %{-- the paragraph describing the consortium--}%
         <div>
             <strong>Associated Colleges of the Midwest</strong>
@@ -139,6 +141,11 @@
             <p> <br>%{-- a tab --}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  Last night I had a bad dream.  There was candy, cake, and ice cream, but all was not as well as it seemed.  Soon the creepy person from Scream was killing off everything, first he murdered Janine.  It was not cool, naw 'meen?</p>
             <hr />
 
+        </div>
+
+        <div>
+            <h5 style="text-align: center">Beloit, Carelton College, Macalester College, St. Olaf </h5>
+            <hr />
         </div>
 
 
