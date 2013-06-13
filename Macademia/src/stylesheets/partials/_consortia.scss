@@ -148,14 +148,15 @@
       }
     }
 
-    #consortiaName{
-      margin-top: 30em;
-      margin-bottom: 15em;
-      font-size: 30%;
-      #cLogo{
-      background:url(../images/consortia/ACM.png) no-repeat;
-      }
-      }
+    h4{
+      padding-top: 3em;
+      font-size: 216%;
+      text-align: 10%;
+    }
+     #cLogo{
+       padding-left: 29%;
+     }
+
     #slideshow {
       @include clearfix();
       width: 980px;
@@ -186,7 +187,7 @@
           color: #666;
         }
         #entrancePortal {
-          /*text-align: center;*/
+          text-align: center;
           font-size: 24px;
           margin-top: 25px;
           margin-bottom: 10px;
