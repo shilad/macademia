@@ -71,31 +71,40 @@
     </header>
 
     <div id='main' role='main'>
-        <div id= consortiaName>
-            <h1> Associated Colleges of the Midwest </h1>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <h4> Associated Colleges of the Midwest </h4>
+                    </td>
+                    <td>
+                        <div id= cLogo>
+                            <r:img dir='images/consortia' file="ACM.png" alt="ACM" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
         </div>
-        <div id="mainSearchBox">
-            <input type="text" id="searchBox" placeholder="Search for researchers or interests" />
-            <div id="searchSubmit" class="customButton"><a id="submitSearch" href="javascript:;">Search</a></div>
-        </div>
-
         <div id="slideshow">
             <div id="slideshowReel">
                 <div class="slide">
-                    <a href="/Macademia/acm"><r:img id="graphThumb" dir='images' file="thumbnailTest01.png" alt="Go to Macademia visualization"/></a>
                     <div id="entrancePortal">
                         <ul>
                             <g:each in="${people}" var="p"><li><m:personLink person="${p}" group="all"><m:personImage person="${p}"/></m:personLink></li></g:each>
                             <g:each in="${(people.size()..< HomeController.NUM_PEOPLE)}"><li><a href="#"><r:img dir='images' file="shilad.jpg"/></a></li></g:each>
                         </ul>
                     </div>
-                    <h3>Find collaborators by searching for research interests</h3>
-                    <p>Macademia visualizes your search results by showing connections between research topics and colleagues. Click on names or interests to recenter the visualization.</p>
-
                 </div>
             </div>
         </div>
+
+        <div id="mainSearchBox">
+            <input type="text" id="searchBox" placeholder="Search for researchers or interests" />
+            <div id="searchSubmit" class="customButton"><a id="submitSearch" href="javascript:;">Search</a></div>
+        </div>
+
+
 
 
 
