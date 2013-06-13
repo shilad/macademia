@@ -80,6 +80,23 @@
             <div id="searchSubmit" class="customButton"><a id="submitSearch" href="javascript:;">Search</a></div>
         </div>
 
+        %{-- the paragraph describing the consortium--}%
+        <div>
+        <strong>Associated Colleges of the Midwest</strong>
+
+
+        <p> <br>%{-- a tab --}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  Last night I had a bad dream.  There was candy, cake, and ice cream, but all was not as well as it seemed.  Soon the creepy person from Scream was killing off everything, first he murdered Janine.  It was not cool, naw 'meen?</p>
+        <hr />
+
+        </div>
+
+
+
+
+
+
+
+
         <div id="slideshow">
             <div id="slideshowReel">
                 <div class="slide">
