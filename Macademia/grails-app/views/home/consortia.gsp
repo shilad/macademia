@@ -156,7 +156,7 @@
         </div>
 
         <div>
-            <h5 style="text-align: center">Beloit College, Carelton College, Coe College, Colorado College, Cornell College, Grinnell College, Knox College, Lake Forest College, Lawrence University, Luther College, Macalester College, St. Olaf </h5>
+            <h5 style="text-align: center">Beloit College, Carelton College, Coe College, Colorado College, Cornell College, Grinnell College, Knox College, Lake Forest College, Lawrence University, Luther College, Macalester College, Monmouth College, Ripon College, St. Olaf College</h5>
             <hr />
         </div>
 
