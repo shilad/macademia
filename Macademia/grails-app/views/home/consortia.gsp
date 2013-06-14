@@ -5,7 +5,9 @@
 <!--[if IE 8]>    <html lang="en" class="no-js ie8"> <![endif]-->
 <!--[if gt IE 8]><!-->
 %{--Testing--}%
-<html class='no-js' lang='en'>
+<html class='no-js' lang='en' xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <!--<![endif]-->
 <head>
     <meta name="layout" content="main"/>
@@ -80,6 +82,8 @@
                     <td>
                         <div id= cLogo>
                             <r:img dir='images/consortia' file="ACM.png" alt="ACM" />
+                            </br>
+                            </br>
                         </div>
                     </td>
                 </tr>
@@ -95,56 +99,59 @@
                         <ul>
                             <g:each in="${people}" var="p"><li><m:personLink person="${p}" group="all"><m:personImage person="${p}"/></m:personLink></li></g:each>
                             <g:each in="${(people.size()..< HomeController.NUM_PEOPLE)}"><li><a href="#"><r:img dir='images' file="shilad.jpg"/></a></li></g:each>
+                        </br>
                         </ul>
                     </div>
                 </div>
             </div>
-
-            <div id="mainSearchBox">
-                <input type="text" id="searchBox" placeholder="Search for researchers or interests" />
-                <div id="searchSubmit" class="customButton"><a id="submitSearch" href="javascript:;">Search</a></div>
-            </div>
         </div>
 
-        <div>
-            <table>
+        <div id = "mainSearchBox">
+           <table>
                 <tr>
                     <td>
-                    <input type="radio" name="radio" class="styled" style="margin: 5px"/>
+                    <input type="text" id="searchBox" placeholder="Search for researchers or interests" />
+                    <div id="searchSubmit" class="customButton"><a id="submitSearch" href="javascript:;">Search</a></div>
                     </td>
                     <td>
-                        <p style="margin-left: 20px; font-size: 15;"> ACM Members</p>
-                    </td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="radio" class="styled" style="margin-left: 18px; margin-top: 5px;"/>
+                                </td>
+                                <td>
+                                    <p style="margin-left: 5px; font-size: 15;"> ACM Members</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="radio" name="radio" class="styled" style="margin-left: 18px; margin-top: 12px;"/>
+                                </td>
+                                <td>
+                                    <p style="margin-left: 5px;margin-top: 6px; font-size: 15;"> All Members</p>
+                                </td>
+                            </tr>
+                        </table>
                 </tr>
-                <tr>
-                <td>
-                    <input type="radio" name="radio" class="styled" style="margin: 5px"/>
-               </td>
-                    <td>
-                     <p style="margin-left: 20px; font-size: 15;"> All Members</p>
-                    </td>
-                <td>
-
-                </td>
-                </tr>
-                <tr>
-                <td>
-                </td>
-                <td>
-                    %{-- the button--}%
-                    <a style="text-align: right" href="#" class="macaButton" >Macademia Homepage</a>
-                </td>
             </table>
-        <hr />
+           </br>
+            %{-- the button--}%
+            <a style="text-align: right" href="#" class="macaButton" >Macademia Homepage</a>
+
         </div>
 
         %{-- the paragraph describing the consortium--}%
         <div>
-            <strong>Associated Colleges of the Midwest</strong>
+            </br>
+            </br>
+        <hr/>
+            </br>
+            <h5>Associated Colleges of the Midwest</h5>
 
 
             <p> <br>%{-- a tab --}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  Last night I had a bad dream.  There was candy, cake, and ice cream, but all was not as well as it seemed.  Soon the creepy person from Scream was killing off everything, first he murdered Janine.  It was not cool, naw 'meen?</p>
-            <hr />
+            </br>
+            </br>
 
         </div>
 

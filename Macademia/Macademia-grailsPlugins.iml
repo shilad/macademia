@@ -20,6 +20,10 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/compass-sass-0.7">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/compass-sass-0.7/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/compass-sass-0.7/grails-app/i18n" isTestSource="false" />
+    </content>
     <content url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/hibernate-2.2.2">
       <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/hibernate-2.2.2/grails-app/i18n" isTestSource="false" />
     </content>
