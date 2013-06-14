@@ -299,7 +299,7 @@ nav ul li ul li a:hover { background: #777777 url(../images/dropdown/dropdown_li
 /* line 73, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome header #headerWrapper #login label { color: #eeeeee; clear: both; display: block; float: left; margin: 3px; padding-top: 9px; text-align: right; width: 67px; }
 /* line 86, ../../src/stylesheets/partials/_consortia.scss */
-#consortiaHome #main { width: 980px; margin-left: auto; margin-right: auto; padding-top: 20px; padding-left: 0px; }
+#consortiaHome #main { width: 980px; margin-left: auto; margin-right: auto; padding-top: 0px; padding-left: 0px; }
 /* line 93, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #mainSearchBox { padding: 37px 0 32px 21px; position: relative; }
 /* line 101, ../../src/stylesheets/partials/_consortia.scss */
@@ -309,7 +309,7 @@ nav ul li ul li a:hover { background: #777777 url(../images/dropdown/dropdown_li
 /* line 117, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #mainSearchBox #consortia { font-size: 14px; margin-top: 15px; margin-left: -180px; }
 /* line 123, ../../src/stylesheets/partials/_consortia.scss */
-#consortiaHome #main #mainSearchBox #consortia ul { list-style-type: none; width: 960px; margin: 0 auto; text-align: center; }
+#consortiaHome #main #mainSearchBox #consortia ul { list-style-type: none; width: 960px; margin: center auto; text-align: center; }
 /* line 129, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #mainSearchBox #consortia ul div.more { display: none; text-align: center; }
 /* line 134, ../../src/stylesheets/partials/_consortia.scss */
@@ -319,43 +319,43 @@ nav ul li ul li a:hover { background: #777777 url(../images/dropdown/dropdown_li
 /* line 141, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #mainSearchBox #consortia ul li a:hover { text-decoration: underline; }
 /* line 150, ../../src/stylesheets/partials/_consortia.scss */
-#consortiaHome #main h4 { padding-top: 19px; font-size: 216%; text-align: 10%; }
-/* line 159, ../../src/stylesheets/partials/_consortia.scss */
+#consortiaHome #main h4 { padding-top: 2em; font-size: 216%; text-align: 10%; }
+/* line 160, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #slideshow { overflow: hidden; *zoom: 1; width: 500px; padding-bottom: 9px; }
-/* line 167, ../../src/stylesheets/partials/_consortia.scss */
+/* line 168, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #slideshow .slide { width: 500px; }
-/* line 170, ../../src/stylesheets/partials/_consortia.scss */
+/* line 171, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #slideshow .slide #graphThumb { float: left; margin-right: 40px; }
-/* line 175, ../../src/stylesheets/partials/_consortia.scss */
+/* line 176, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #slideshow .slide h3 { padding-top: 15px; font-size: 20px; font-weight: normal; color: #000; margin-bottom: 10px; }
-/* line 183, ../../src/stylesheets/partials/_consortia.scss */
+/* line 184, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #slideshow .slide p { font-size: 16px; font-weight: normal; color: #666; }
-/* line 188, ../../src/stylesheets/partials/_consortia.scss */
+/* line 189, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #slideshow .slide #entrancePortal { /*text-align: center;*/ font-size: 3px; margin-top: 10px; margin-bottom: 10px; }
-/* line 194, ../../src/stylesheets/partials/_consortia.scss */
+/* line 195, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #slideshow .slide #entrancePortal li { display: -moz-inline-stack; display: inline-block; vertical-align: middle; *vertical-align: auto; zoom: 1; *display: inline; margin: 3px; padding: 0; border: 0; width: 30px; height: 30px; overflow: hidden; background-color: black; }
-/* line 203, ../../src/stylesheets/partials/_consortia.scss */
+/* line 204, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #slideshow .slide #entrancePortal li img { max-width: 30px; }
-/* line 212, ../../src/stylesheets/partials/_consortia.scss */
+/* line 213, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #sponsors { text-align: center; margin-bottom: 10px; padding-bottom: 20px; }
-/* line 217, ../../src/stylesheets/partials/_consortia.scss */
+/* line 218, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #sponsors h3 { font-size: 16px; font-weight: normal; margin-bottom: 10px; }
-/* line 224, ../../src/stylesheets/partials/_consortia.scss */
+/* line 225, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #sponsors ul { list-style-type: none; width: 960px; margin: 0 auto; }
-/* line 229, ../../src/stylesheets/partials/_consortia.scss */
+/* line 230, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #sponsors ul li { display: inline; vertical-align: bottom; margin: 0 20px; }
-/* line 233, ../../src/stylesheets/partials/_consortia.scss */
+/* line 234, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #sponsors ul li img { max-width: 150px; max-height: 125px; }
-/* line 246, ../../src/stylesheets/partials/_consortia.scss */
+/* line 247, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome .macaButton { width: 163px; height: 18px; float: left; background: url("../images/consortia/button_background.png") no-repeat; /*background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fe1a00), color-stop(1, #ce0100) );
 background:-moz-linear-gradient( center top, #fe1a00 5%, #ce0100 100% );*/ -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 5px; display: inline-block; color: #ffffff; font-family: arial; font-size: 15px; font-weight: bold; padding: 7px 5px; margin-left: 45em; }
-/* line 266, ../../src/stylesheets/partials/_consortia.scss */
+/* line 267, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome .macaButton:hover { background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ce0100), color-stop(1, #fe1a00)); background: -moz-linear-gradient(center top, #ce0100 5%, #fe1a00 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ce0100', endColorstr='#fe1a00'); background-color: #ce0100; }
-/* line 272, ../../src/stylesheets/partials/_consortia.scss */
+/* line 273, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome .macaButton:active { position: relative; top: 1px; }
-/* line 277, ../../src/stylesheets/partials/_consortia.scss */
-#consortiaHome #cLogo { padding-left: 6em; }
-/* line 280, ../../src/stylesheets/partials/_consortia.scss */
+/* line 278, ../../src/stylesheets/partials/_consortia.scss */
+#consortiaHome #cLogo { padding-left: 6em; padding-top: 3em; }
+/* line 282, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome h6 { font-size: 16px; }
 
 /* line 1, ../../src/stylesheets/partials/_header.scss */
