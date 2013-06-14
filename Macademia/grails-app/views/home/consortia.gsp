@@ -100,7 +100,7 @@
                         </table>
                     </td>
                     <td>
-                        <div id= cLogo>
+                        <div id= "cLogo">
                             <a href="http://www.acm.edu/index.html"><r:img dir='images/consortia' file="ACM.png" alt="ACM" /></a>
                         </div>
                     </td>
@@ -152,7 +152,7 @@
         <div>
 
             <hr/>
-              <h5>Associated Colleges of the Midwest</h5>
+              <h6>Associated Colleges of the Midwest</h6>
 
 
             <p> <br>%{-- a tab --}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  Last night I had a bad dream.  There was candy, cake, and ice cream, but all was not as well as it seemed.  Soon the creepy person from Scream was killing off everything, first he murdered Janine.  It was not cool, naw 'meen?</p>
