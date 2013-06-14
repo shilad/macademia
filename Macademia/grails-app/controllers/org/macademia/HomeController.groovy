@@ -3,7 +3,7 @@ package org.macademia
 //import grails.plugin.springcache.annotations.Cacheable
 
 class HomeController {
-    public static int NUM_PEOPLE = 28
+    public static int NUM_PEOPLE = 26
     public static int NUM_RANDOM_LISTS = 20
 
     def institutionGroupService
