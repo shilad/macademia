@@ -100,7 +100,7 @@
                         </table>
                     </td>
                     <td>
-                        <div id= "cLogo">
+                        <div id= cLogo>
                             <a href="http://www.acm.edu/index.html"><r:img dir='images/consortia' file="ACM.png" alt="ACM" /></a>
                         </div>
                     </td>
