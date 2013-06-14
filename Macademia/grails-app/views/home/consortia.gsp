@@ -90,7 +90,7 @@
                                             <div id="entrancePortal">
                                                   <ul>
                                                     <g:each in="${people}" var="p"><li><m:personLink person="${p}" group="all"><m:personImage person="${p}"/></m:personLink></li></g:each>
-                                                    <g:each in="${(people.size()..< HomeController.NUM_PEOPLE)}"><li><a href="#"><r:img dir='images' file="shilad.jpg"/></a></li></g:each>
+                                                    %{--<g:each in="${(people.size()..< HomeController.NUM_PEOPLE)}"><li><a href="#"><r:img dir='images' file="shilad.jpg"/></a></li></g:each>--}%
                                                    </ul>
                                             </div>
                                         </div>
