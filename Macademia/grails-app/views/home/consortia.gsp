@@ -80,7 +80,6 @@
                     <td>
                         <div id= cLogo>
                             <a href="http://www.acm.edu/index.html"><r:img dir='images/consortia' file="ACM.png" alt="ACM" /></a>
-                            <r:img dir='images/consortia' file="ACM.png" alt="ACM" />
                             </br>
                             </br>
                         </div>
