@@ -5,7 +5,8 @@
 <!--[if IE 8]>    <html lang="en" class="no-js ie8"> <![endif]-->
 <!--[if gt IE 8]><!-->
 %{--Testing--}%
-<html class='no-js' lang='en' xmlns="http://www.w3.org/1999/html">
+<html class='no-js' lang='en' xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <!--<![endif]-->
 <head>
     <meta name="layout" content="main"/>
@@ -71,6 +72,10 @@
     </header>
 
     <div id='main' role='main'>
+        </br>
+        </br>
+        </br>
+        </br>
         <div>
             <table>
                 <tr>
@@ -96,7 +101,7 @@
                         </table>
                     </td>
                     <td>
-                        <div id= cLogo>
+                        <div>
                             <a href="http://www.acm.edu/index.html"><r:img dir='images/consortia' file="ACM.png" alt="ACM" /></a>
                         </div>
                     </td>
