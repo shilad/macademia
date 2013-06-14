@@ -5,7 +5,7 @@
 <!--[if IE 8]>    <html lang="en" class="no-js ie8"> <![endif]-->
 <!--[if gt IE 8]><!-->
 %{--Testing--}%
-<html class='no-js' lang='en'>
+<html class='no-js' lang='en' xmlns="http://www.w3.org/1999/html">
 <!--<![endif]-->
 <head>
     <meta name="layout" content="main"/>
@@ -75,13 +75,29 @@
             <table>
                 <tr>
                     <td>
-                        <h4> Associated Colleges of the Midwest </h4>
+                        <table>
+                            <tr>
+                                <h4> Associated Colleges of the Midwest </h4>
+                            </tr>
+                            <tr>
+                                <div id="slideshow">
+                                    <div id="slideshowReel">
+                                        <div class="slide">
+                                            <div id="entrancePortal">
+                                                <ul>
+                                                    <g:each in="${people}" var="p"><li><m:personLink person="${p}" group="all"><m:personImage person="${p}"/></m:personLink></li></g:each>
+                                                    <g:each in="${(people.size()..< HomeController.NUM_PEOPLE)}"><li><a href="#"><r:img dir='images' file="shilad.jpg"/></a></li></g:each>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </tr>
+                        </table>
                     </td>
                     <td>
                         <div id= cLogo>
                             <a href="http://www.acm.edu/index.html"><r:img dir='images/consortia' file="ACM.png" alt="ACM" /></a>
-                            </br>
-                            </br>
                         </div>
                     </td>
                 </tr>
@@ -90,26 +106,14 @@
         </div>
 
 
-        <div id="slideshow">
-            <div id="slideshowReel">
-                <div class="slide">
-                    <div id="entrancePortal">
-                        <ul>
-                            <g:each in="${people}" var="p"><li><m:personLink person="${p}" group="all"><m:personImage person="${p}"/></m:personLink></li></g:each>
-                            <g:each in="${(people.size()..< HomeController.NUM_PEOPLE)}"><li><a href="#"><r:img dir='images' file="shilad.jpg"/></a></li></g:each>
-                        </br>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
         <div id = "mainSearchBox">
-           <table>
+            <table>
                 <tr>
                     <td>
-                    <input type="text" id="searchBox" placeholder="Search for researchers or interests" />
-                    <div id="searchSubmit" class="customButton"><a id="submitSearch" href="javascript:;">Search</a></div>
+                        <input type="text" id="searchBox" placeholder="Search for researchers or interests" />
+                        <div id="searchSubmit" class="customButton"><a id="submitSearch" href="javascript:;">Search</a></div>
                     </td>
                     <td>
                         <table>
@@ -132,7 +136,7 @@
                         </table>
                 </tr>
             </table>
-           </br>
+        </br>
             %{-- the button--}%
             <a style="text-align: right" href="http://macademia.macalester.edu/Macademia/" class="macaButton" >Macademia Homepage</a>
 
@@ -142,21 +146,22 @@
 
         %{-- the paragraph describing the consortium--}%
         <div>
-            </br>
-            </br>
-        <hr/>
-            </br>
+        </br>
+        </br>
+            <hr/>
+        </br>
             <h5>Associated Colleges of the Midwest</h5>
 
 
             <p> <br>%{-- a tab --}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  Last night I had a bad dream.  There was candy, cake, and ice cream, but all was not as well as it seemed.  Soon the creepy person from Scream was killing off everything, first he murdered Janine.  It was not cool, naw 'meen?</p>
-            </br>
-            </br>
+        </br>
+        </br>
 
         </div>
 
         <div>
             <h5 style="text-align: center">Beloit College, Carelton College, Coe College, Colorado College, Cornell College, Grinnell College, Knox College, Lake Forest College, Lawrence University, Luther College, Macalester College, Monmouth College, Ripon College, St. Olaf College</h5>
+        </br>
             <hr />
         </div>
 

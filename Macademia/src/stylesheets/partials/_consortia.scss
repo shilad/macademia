@@ -152,24 +152,24 @@
       font-size: 216%;
       text-align: 10%;
     }
-     #cLogo{
-       padding-left: 29%;
-     }
+    // #cLogo{
+      // padding-left: 29%;
+     //}
 
     #slideshow {
       @include clearfix();
-      width: 980px;
+      width: 592px;
+
      // border-bottom: 1px solid #CCC;
       padding-bottom: 9px;
       //margin-bottom: 25px;
 
       .slide {
-        width: 920px;
-        padding-right: 60px;
+        width: 592px;
 
         #graphThumb {
-          float: left;
-          margin-right: 40px;
+        //  float: left;
+          //margin-right: 40px;
         }
 
         h3 {
