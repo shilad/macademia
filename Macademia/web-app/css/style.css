@@ -301,11 +301,11 @@ nav ul li ul li a:hover { background: #777777 url(../images/dropdown/dropdown_li
 /* line 86, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main { width: 980px; margin-left: auto; margin-right: auto; padding-top: 20px; padding-left: 0px; }
 /* line 93, ../../src/stylesheets/partials/_consortia.scss */
-#consortiaHome #main #mainSearchBox { padding: 13px 0 13px 15px; position: relative; }
+#consortiaHome #main #mainSearchBox { padding: 37px 0 32px 21px; position: relative; }
 /* line 101, ../../src/stylesheets/partials/_consortia.scss */
-#consortiaHome #main #mainSearchBox #searchBox { font-size: 18px; padding: 14px 10px 12px 10px; width: 533px; -webkit-border-radius: 8px; -moz-border-radius: 8px; -ms-border-radius: 8px; -o-border-radius: 8px; border-radius: 8px; -webkit-box-shadow: inset 0px 2px 2px 1px #acacac; -moz-box-shadow: inset 0px 2px 2px 1px #acacac; box-shadow: inset 0px 2px 2px 1px #acacac; border: 1px solid #999; }
+#consortiaHome #main #mainSearchBox #searchBox { font-size: 18px; padding: 14px 10px 12px 10px; width: 543px; -webkit-border-radius: 8px; -moz-border-radius: 8px; -ms-border-radius: 8px; -o-border-radius: 8px; border-radius: 8px; -webkit-box-shadow: inset 0px 2px 2px 1px #acacac; -moz-box-shadow: inset 0px 2px 2px 1px #acacac; box-shadow: inset 0px 2px 2px 1px #acacac; border: 1px solid #999; }
 /* line 110, ../../src/stylesheets/partials/_consortia.scss */
-#consortiaHome #main #mainSearchBox #searchSubmit { position: absolute; top: 23px; left: 466px; font-size: 14px; padding: 7px 14px 5px; }
+#consortiaHome #main #mainSearchBox #searchSubmit { position: absolute; top: 47px; left: 482px; font-size: 14px; padding: 7px 14px 5px; }
 /* line 117, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #mainSearchBox #consortia { font-size: 14px; margin-top: 15px; margin-left: -180px; }
 /* line 123, ../../src/stylesheets/partials/_consortia.scss */

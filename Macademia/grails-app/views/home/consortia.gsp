@@ -89,10 +89,10 @@
                                     <div id="slideshowReel">
                                         <div class="slide">
                                             <div id="entrancePortal">
-                                                <ul>
+
                                                     <g:each in="${people}" var="p"><li><m:personLink person="${p}" group="all"><m:personImage person="${p}"/></m:personLink></li></g:each>
                                                     <g:each in="${(people.size()..< HomeController.NUM_PEOPLE)}"><li><a href="#"><r:img dir='images' file="shilad.jpg"/></a></li></g:each>
-                                                </ul>
+
                                             </div>
                                         </div>
                                     </div>
@@ -141,21 +141,19 @@
                         </table>
                 </tr>
             </table>
-        </br>
-            %{-- the button--}%
-            <a style="text-align: right" href="http://macademia.macalester.edu/Macademia/" class="macaButton" >Macademia Homepage</a>
 
+            %{-- the button--}%
+            %{-- <a style="text-align: right" href="http://macademia.macalester.edu/Macademia/" class="macaButton" >Macademia Homepage</a>
+             --}%
             %{--<a style="text-align: right" href="#" class="macaButton" >Macademia Homepage</a>--}%
 
         </div>
 
         %{-- the paragraph describing the consortium--}%
         <div>
-        </br>
-        </br>
+
             <hr/>
-        </br>
-            <h5>Associated Colleges of the Midwest</h5>
+              <h5>Associated Colleges of the Midwest</h5>
 
 
             <p> <br>%{-- a tab --}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  Last night I had a bad dream.  There was candy, cake, and ice cream, but all was not as well as it seemed.  Soon the creepy person from Scream was killing off everything, first he murdered Janine.  It was not cool, naw 'meen?</p>
