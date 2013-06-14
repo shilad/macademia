@@ -87,7 +87,7 @@
     width: 980px;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 20px;
+    padding-top: 0px;//20px;
     padding-left:0px;
 
     #mainSearchBox {
@@ -123,8 +123,8 @@
         ul {
           list-style-type: none;
           width: 960px;
-          margin: 0 auto;
-          text-align : center;
+          margin: center auto;
+          text-align:center;
 
           div.more {
             display : none;
@@ -151,6 +151,7 @@
       padding-top: 19px;
       font-size: 216%;
       text-align: 10%;
+
     }
     // #cLogo{
       // padding-left: 29%;
