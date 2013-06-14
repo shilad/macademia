@@ -134,7 +134,9 @@
             </table>
            </br>
             %{-- the button--}%
-            <a style="text-align: right" href="#" class="macaButton" >Macademia Homepage</a>
+            <a style="text-align: right" href="http://macademia.macalester.edu/Macademia/" class="macaButton" >Macademia Homepage</a>
+
+            %{--<a style="text-align: right" href="#" class="macaButton" >Macademia Homepage</a>--}%
 
         </div>
 
@@ -154,7 +156,7 @@
         </div>
 
         <div>
-            <h5 style="text-align: center">Beloit, Carelton College, Macalester College, St. Olaf </h5>
+            <h5 style="text-align: center">Beloit College, Carelton College, Coe College, Colorado College, Cornell College, Grinnell College, Knox College, Lake Forest College, Lawrence University, Luther College, Macalester College, St. Olaf </h5>
             <hr />
         </div>
 
