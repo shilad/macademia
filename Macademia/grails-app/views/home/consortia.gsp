@@ -123,7 +123,7 @@
                         <table>
                             <tr>
                                 <td>
-                                    <input type="radio" name="radio" class="styled" style="margin-left: 18px; margin-top: 5px;"/>
+                                    <input type="radio" name="radio" class="styled" style="margin-left: 1em; margin-top: 2px"/>
                                 </td>
                                 <td>
                                     <p style="margin-left: 5px; font-size: 15;"> ACM Members</p>
@@ -131,10 +131,10 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="radio" name="radio" class="styled" style="margin-left: 18px; margin-top: 12px;"/>
+                                    <input type="radio" name="radio" class="styled" style="margin-left: 1em; margin-top: 1em;"/>
                                 </td>
                                 <td>
-                                    <p style="margin-left: 5px;margin-top: 6px; font-size: 15;"> All Members</p>
+                                    <p style="margin-left: 5px;margin-top: 10px; font-size: 15;"> All Members</p>
                                 </td>
                             </tr>
                         </table>
