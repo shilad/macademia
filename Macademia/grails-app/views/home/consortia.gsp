@@ -82,7 +82,7 @@
                     <td>
                         <table>
                             <tr>
-                                <h4> Associated Colleges of the Midwest </h4>
+                                <h4> Associated Colleges of the Midwest</h4>
                             </tr>
                             <tr>
                                 <div id="slideshow">
