@@ -320,14 +320,10 @@ nav ul li ul li a:hover { background: #777777 url(../images/dropdown/dropdown_li
 #consortiaHome #main #mainSearchBox #consortia ul li a:hover { text-decoration: underline; }
 /* line 150, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main h4 { padding-top: 3em; font-size: 216%; text-align: 10%; }
-/* line 155, ../../src/stylesheets/partials/_consortia.scss */
-#consortiaHome #main #cLogo { padding-left: 29%; }
 /* line 159, ../../src/stylesheets/partials/_consortia.scss */
-#consortiaHome #main #slideshow { overflow: hidden; *zoom: 1; width: 980px; padding-bottom: 9px; }
-/* line 166, ../../src/stylesheets/partials/_consortia.scss */
-#consortiaHome #main #slideshow .slide { width: 920px; padding-right: 60px; }
-/* line 170, ../../src/stylesheets/partials/_consortia.scss */
-#consortiaHome #main #slideshow .slide #graphThumb { float: left; margin-right: 40px; }
+#consortiaHome #main #slideshow { overflow: hidden; *zoom: 1; width: 592px; padding-bottom: 9px; }
+/* line 167, ../../src/stylesheets/partials/_consortia.scss */
+#consortiaHome #main #slideshow .slide { width: 592px; }
 /* line 175, ../../src/stylesheets/partials/_consortia.scss */
 #consortiaHome #main #slideshow .slide h3 { padding-top: 15px; font-size: 20px; font-weight: normal; color: #000; margin-bottom: 10px; }
 /* line 183, ../../src/stylesheets/partials/_consortia.scss */
