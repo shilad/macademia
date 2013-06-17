@@ -3,11 +3,15 @@ package org.macademia
 class InstitutionGroup {
     String name
     String abbrev
+//    String description  // can contain html markup
+//    String imageSubpath
     Boolean crossCutting = false
 
     static hasMany = [ institutions : Institution ]
     static mapping = {
         institutions batchSize: 100
+//        description(nullable: true)
+//        imageSubpath(nullable : true, blank:false)
     }
 
     static constraints = {

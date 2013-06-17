@@ -126,7 +126,7 @@
                                     <input type="radio" name="radio" class="styled" style="margin-left: 1em; margin-top: 2px"/>
                                 </td>
                                 <td>
-                                    <p style="margin-left: 5px; font-size: 15;"> ACM Members</p>
+                                    <p style="margin-left: 5px; font-size: 15;"> ${consortium} Members</p>
                                 </td>
                             </tr>
                             <tr>
