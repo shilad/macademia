@@ -91,16 +91,10 @@ class HomeController {
             //display all the photos centered in one row
         }
 
-
-
-
-
-
-
         String consortiumName = (ig)
         String[] conSplit = consortiumName.split("\\(")
         String consortium = conSplit[0]
-        String abrev = conSplit[1]
+
 
         String colls = institutionGroupService.retrieveInstitutions(ig)
         String colleges = colls[1..-2];
@@ -118,6 +112,6 @@ class HomeController {
         def people = getRandomPeopleWithImages(6, r)
         ta.recordTime("find random images")
 //        ta.analyze()
-        [people : people, igs : igs, colleges : colleges, consortium : consortium, abrev : abrev]
+        [people : people, igs : igs, colleges : colleges, consortium : consortium]
     }
 }
