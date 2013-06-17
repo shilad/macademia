@@ -55,21 +55,50 @@ class HomeController {
        //InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
         //def ids = institutions.institutionIds;
         //ArrayList<People> people = new ArrayList<People>();
-        InstitutionGroup ig = InstitutionGroupService.findByAbbrev(params.group)
+        //InstitutionGroup ig = InstitutionGroupService.findByAbbrev(params.group)
         //get institutions
-        def institutions = institutionGroupService.retrieveInstitutions(ig)
+        //def institutions = institutionGroupService.retrieveInstitutions(ig)
         //get the people in the institutions
-        for (Institution i : ig.getInstitutions()){
+        /*for (Institution i : ig.getInstitutions()){
             def peopleInInstitution = personService.findAllInInstitution(i)
             for (Person p: peopleInInstitution){
                 people.add(p)
             }
+        }*/
+
+
+        InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
+
+        def colleges = ig.toString()
+        def colleges1 = institutionGroupService.retrieveInstitutions(ig) //colleges1 is a set of strings
+        //get the people with pictures from colleges1
+        ArrayList<Person> peopleWithPictures = new ArrayList<Person>()
+
+
+        /*for (Institution i : ig.getInstitutions()){
+            def peopleInInstitution = personService.findAllInInstitution(i)
+            for (Person p: peopleInInstitution){
+                peoples.add(p)
+            }*/
+
+        for(Institution i : colleges1.toArray(Institution))
+        {
+            def peopleInCollege = personService.findAllInInstitution(i) //an array of Persons?
+            for(Person p: peopleInCollege)
+            {
+                if (p.imageSubpath!=null)
+                {
+                    peopleWithPictures.add(p)
+                }
+
+
+            }
         }
 
-       // InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
-        InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
-        //InstitutionGroup ig = institutionGroupService().findByAbbrev(params.group)
-        def colleges = ig.toString()
+        int numPeopleWithPictures = peopleWithPictures.size()
+        if (numPeopleWithPictures)
+
+
 
 
 
