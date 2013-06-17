@@ -64,6 +64,8 @@ class HomeController {
             for (Person p: peopleInInstitution){
                 people.add(p)
             }
+        }
+*/
         }*/
 
 
@@ -100,6 +102,14 @@ class HomeController {
 
 
 
+        String consortiumName = (ig)
+        String[] conSplit = consortiumName.split("\\(")
+        String consortium = conSplit[0]
+        String abrev = conSplit[1]
+
+        String colls = institutionGroupService.retrieveInstitutions(ig)
+        String colleges = colls[1..-2];
+
 
 
         TimingAnalysis ta = new TimingAnalysis()
@@ -113,6 +123,6 @@ class HomeController {
         def people = getRandomPeopleWithImages(6, r)
         ta.recordTime("find random images")
 //        ta.analyze()
-        [people : people, igs : igs, colleges : colleges]
+        [people : people, igs : igs, colleges : colleges, consortium : consortium, abrev : abrev]
     }
 }

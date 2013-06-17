@@ -81,7 +81,7 @@
                     <td>
                         <table>
                             <tr>
-                                <h4> Associated Colleges of the Midwest</h4>
+                                <h4> ${consortium}</h4>
                             </tr>
                             <tr>
                                 <div id="slideshow">
@@ -126,7 +126,7 @@
                                     <input type="radio" name="radio" class="styled" style="margin-left: 1em; margin-top: 2px"/>
                                 </td>
                                 <td>
-                                    <p style="margin-left: 5px; font-size: 15;"> ACM Members</p>
+                                    <p style="margin-left: 5px; font-size: 15;"> ${consortium} Members</p>
                                 </td>
                             </tr>
                             <tr>
@@ -152,8 +152,7 @@
         <div>
 
             <hr/>
-              <h6>Associated Colleges of the Midwest</h6>
-        <% out << (city == "colleges" ? "\"colleges\"" : colleges) %>.
+              <h6>${consortium}</h6>
 
             <p> <br>%{-- a tab --}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  Last night I had a bad dream.  There was candy, cake, and ice cream, but all was not as well as it seemed.  Soon the creepy person from Scream was killing off everything, first he murdered Janine.  It was not cool, naw 'meen?</p>
         </br>
@@ -162,9 +161,7 @@
         </div>
 
         <div>
-
-             <p> ${colleges}</p>
-            <h5 style="text-align: center">Beloit College, Carelton College, Coe College, Colorado College, Cornell College, Grinnell College, Knox College, Lake Forest College, Lawrence University, Luther College, Macalester College, Monmouth College, Ripon College, St. Olaf College</h5>
+            <h5 style="text-align: center"> ${colleges} </h5>
         </br>
             <hr />
         </div>
