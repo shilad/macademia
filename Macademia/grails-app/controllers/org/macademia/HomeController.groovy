@@ -53,7 +53,7 @@ class HomeController {
     def consortia() {
         //InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
         //def ids = institutions.institutionIds;
-        ArrayList<People> people = new ArrayList<People>();
+        //ArrayList<People> people = new ArrayList<People>();
         InstitutionGroup ig = InstitutionGroupService.findByAbbrev(params.group)
         //get institutions
         def institutions = institutionGroupService.retrieveInstitutions(ig)
