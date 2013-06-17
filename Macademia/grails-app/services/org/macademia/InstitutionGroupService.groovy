@@ -75,6 +75,28 @@ class InstitutionGroupService {
         }
     }
 
+    List<Long> getPeopleInInstitutionFilter(InstitutionFilter filter) {
+        List<Long> ids = new ArrayList<Long>()
+        InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
+        if (institutions == null) {
+            ids.addAll(Person.findAll().collect({it.id}))
+        } else if (institutions.requiredInstitutionId) {
+            Institution req = institutionService.get(institutions.requiredInstitutionId)
+            Set<Person> people = personService.findAllInInstitution(req)
+            ids.addAll(people.findAll({it.isMatch(institutions)}).collect({it.id}))
+        } else {
+            for (Institution i : institutions.institutionIds.collect {Institution.get(it)}) {
+                ids.addAll(personService.findAllInInstitution(i).collect({it.id}))
+            }
+        }
+        Random r = new Random()
+        def id = 'empty'
+        if (ids) {
+            id = ids[r.nextInt(ids.size())]
+        }
+        redirect(uri: "/${params.group}/person/jit/#/?nodeId=p_${id}&navVisibility=true&navFunction=person&institutions=all&personId=${id}")
+    }
+
     def addToInstitutions(InstitutionGroup group, Institution institution){
         institutionService.save(institution)
         group.addToInstitutions(institution)
