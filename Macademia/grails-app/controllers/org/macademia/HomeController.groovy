@@ -55,21 +55,14 @@ class HomeController {
         InstitutionFilter filter =  institutionGroupService.getInstitutionFilterFromParams(params)
         List<Long> peopleIds = institutionGroupService.getPeopleInInstitutionFilter(filter)
         int numPeopleWithPictures=0
-        for(Person.get) {
+        for(Long id: peopleIds) {
             //if the person has a photo, add 1 to numPeopleWithPictures
-
-
-
+            Person p = Person.get(id)
+            if (p.imageSubpath!=null)
+            {
+                numPeopleWithPictures++
+            }
         }
-
-
-
-
-
-
-
-
-
 
         if (numPeopleWithPictures>=26)
         {
