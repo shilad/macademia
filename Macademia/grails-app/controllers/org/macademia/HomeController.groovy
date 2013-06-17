@@ -51,7 +51,8 @@ class HomeController {
     }
 
     def consortia() {
-        //InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
+
+       //InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
         //def ids = institutions.institutionIds;
         ArrayList<People> people = new ArrayList<People>();
         InstitutionGroup ig = InstitutionGroupService.findByAbbrev(params.group)
@@ -65,6 +66,12 @@ class HomeController {
             }
         }
 
+       // InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
+        InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
+        //InstitutionGroup ig = institutionGroupService().findByAbbrev(params.group)
+        def colleges = ig.toString()
+
+
 
         TimingAnalysis ta = new TimingAnalysis()
         ta.startTime()
@@ -77,7 +84,6 @@ class HomeController {
         def people = getRandomPeopleWithImages(6, r)
         ta.recordTime("find random images")
 //        ta.analyze()
-        [people : people, igs : igs]
-
+        [people : people, igs : igs, colleges : colleges]
     }
 }
