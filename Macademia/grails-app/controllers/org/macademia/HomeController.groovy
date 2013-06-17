@@ -54,7 +54,7 @@ class HomeController {
 
         InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
 
-        def colleges2 = ig.toString()
+        //def colleges = ig.toString()  is this important?  I don't think so.
         def colleges1 = institutionGroupService.retrieveInstitutions(ig) //colleges1 is a set of strings
         //get the people with pictures from colleges1
         ArrayList<Person> peopleWithPictures = new ArrayList<Person>()
@@ -77,6 +77,9 @@ class HomeController {
         if (numPeopleWithPictures>=26)
         {
             //display 2 rows of 13 pictures
+            def r = random.nextInt(NUM_RANDOM_LISTS)
+            def people = getRandomPeopleWithImages(26, r)
+            ta.recordTime("find random images")
         }
 
         else if (13<numPeopleWithPictures && numPeopleWithPictures<26)
@@ -84,11 +87,17 @@ class HomeController {
             int topRow = ceil(numPeopleWithPictures/2)
             //display the first topRow photos centered
             //display the rest of the photos (numPeopleWithPictures-topRow) in bottom row centered
+            def r = random.nextInt(NUM_RANDOM_LISTS)
+            def people = getRandomPeopleWithImages(numPeopleWithPictures, r)
+            ta.recordTime("find random images")
         }
 
         else if (numPeopleWithPictures<=13)
         {
             //display all the photos centered in one row
+            def r = random.nextInt(NUM_RANDOM_LISTS)
+            def people = getRandomPeopleWithImages(numPeopleWithPictures, r)
+            ta.recordTime("find random images")
         }
 
         String consortiumName = (ig)
@@ -109,7 +118,7 @@ class HomeController {
         igs.sort({igCounts[it]})
         igs = igs.reverse()
         def r = random.nextInt(NUM_RANDOM_LISTS)
-        def people = getRandomPeopleWithImages(6, r)
+        def people = getRandomPeopleWithImages(26, r)
         ta.recordTime("find random images")
 //        ta.analyze()
         [people : people, igs : igs, colleges : colleges, consortium : consortium]
