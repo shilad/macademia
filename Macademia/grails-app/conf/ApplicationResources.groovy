@@ -20,7 +20,12 @@ modules = {
         resource url: '/js/lib.macademia.profile.js'
         resource url: '/js/lib.macademia.density.js'
     }
+    profile{
+        dependsOn 'core'
 
+        resource url: '/js/lib.macademia.upload.js'
+        resource url: '/js/lib.macademia.profile.js'
+    }
     d3js {
         dependsOn 'nbrviz'
         resource url: '/js/d3test/d3.v3.js'
