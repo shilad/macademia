@@ -51,7 +51,7 @@ class HomeController {
     }
 
     def consortia() {
-
+  /*
        //InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
         //def ids = institutions.institutionIds;
         ArrayList<People> people = new ArrayList<People>();
@@ -65,11 +65,15 @@ class HomeController {
                 people.add(p)
             }
         }
-
-       // InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
+*/
         InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
-        //InstitutionGroup ig = institutionGroupService().findByAbbrev(params.group)
-        def colleges = ig.toString()
+
+        String consortiumName = (ig)
+        String[] conSplit = consortiumName.split("\\(")
+        String consortium = conSplit[0]
+
+        String colls = institutionGroupService.retrieveInstitutions(ig)
+        String colleges = colls[1..-2];
 
 
 
@@ -84,6 +88,6 @@ class HomeController {
         def people = getRandomPeopleWithImages(6, r)
         ta.recordTime("find random images")
 //        ta.analyze()
-        [people : people, igs : igs, colleges : colleges]
+        [people : people, igs : igs, colleges : colleges, consortium : consortium]
     }
 }
