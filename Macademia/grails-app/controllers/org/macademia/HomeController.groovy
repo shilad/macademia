@@ -46,9 +46,19 @@ class HomeController {
         return springcacheService.doWithCache(
                 'homeCache',
                 'getRandomPeople' + randomNum,
-                {personService.findRandomPeopleWithImage(numPeople)}
+                {personService.findRandomPeopleWithImage(numPeople, allowableIds)}
         )
     }
+
+//    Don't mess with this method
+//    def getRandomPeopleWithImages(int numPeople, int randomNum) {
+//        return springcacheService.doWithCache(
+//                'homeCache',
+//                'getRandomPeople' + randomNum,
+//                {personService.findRandomPeopleWithImage(numPeople)}
+//        )
+//    }
+
 
     def consortia() {
         InstitutionFilter filter =  institutionGroupService.getInstitutionFilterFromParams(params)
@@ -86,6 +96,11 @@ class HomeController {
 //            def people = getRandomPeopleWithImages(numPeopleWithPicture, r)
 //        }
 
+        int numPeople = 0
+//        if (IdsWithPics.size()>=26) numPeople=26
+//        else if (13<IdsWithPics.size() && IdsWithPics.size()<26) numPeople=IdsWithPics.size()
+//        else if (IdsWithPics.size()<=13) numPeople=IdsWithPics.size()
+
 
         String consortiumName = (ig)
         String[] conSplit = consortiumName.split("\\(")
@@ -102,7 +117,7 @@ class HomeController {
         igs.sort({igCounts[it]})
         igs = igs.reverse()
         def r = random.nextInt(NUM_RANDOM_LISTS)
-        def people = getRandomPeopleWithImages(6, r)
+        def people = getRandomPeopleWithImages(numPeople, r, IdsWithPics)
         ta.recordTime("find random images")
 //        ta.analyze()
         [people : people, igs : igs, colleges : colleges, consortium : consortium, abrev : abrev]

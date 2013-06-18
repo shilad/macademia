@@ -45,14 +45,47 @@ class PersonService {
         this.save(person, person.memberships.institution)
     }
 
-    public Collection<Person> findRandomPeopleWithImage(int n) {
-        List<Long> ids = Person.findAllByImageSubpathNotIsNull().id as ArrayList<Long>
-        Collections.shuffle(ids)
-        if (ids.size() > n) {
-            ids = ids.subList(0, n)
+
+    public Collection<Person> findRandomPeopleWithImage(int n, ArrayList<Long> allowableIds) {
+        if (allowableIds.isEmpty()){
+            List<Long> ids = Person.findAllByImageSubpathNotIsNull().id as ArrayList<Long>
+            Collections.shuffle(ids)
+            if (ids.size() > n) {
+                ids = ids.subList(0, n)
+            }
+            return Person.getAll(ids)
         }
-        return Person.getAll(ids)
+        else {
+            Collections.shuffle(allowableIds)
+            if (allowableIds.size() > n) {
+                allowableIds = allowableIds.subList(0, n)
+            }
+            return Person.getAll(allowableIds)
+
+        }
+
+
     }
+//  Don't mess with this method
+//    public Collection<Person> findRandomPeopleWithImage(int n) {
+//        List<Long> ids = Person.findAllByImageSubpathNotIsNull().id as ArrayList<Long>
+//        Collections.shuffle(ids)
+//        if (ids.size() > n) {
+//            ids = ids.subList(0, n)
+//        }
+//        return Person.getAll(ids)
+//    }
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Saves the parameter person. Requires that all of the parameter
