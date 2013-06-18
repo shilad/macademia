@@ -51,35 +51,45 @@ class HomeController {
     }
 
     def consortia() {
-        InstitutionFilter filter =  InstitutionGroupService.getInstitutionFilterFromParams(params)
-
-
-        /*
-       //InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
-        //def ids = institutions.institutionIds;
-        ArrayList<People> people = new ArrayList<People>();
-        InstitutionGroup ig = InstitutionGroupService.findByAbbrev(params.group)
-        //get institutions
-        def institutions = institutionGroupService.retrieveInstitutions(ig)
-        //get the people in the institutions
-        for (Institution i : ig.getInstitutions()){
-            def peopleInInstitution = personService.findAllInInstitution(i)
-            for (Person p: peopleInInstitution){
-                people.add(p)
+        InstitutionFilter filter =  institutionGroupService.getInstitutionFilterFromParams(params)
+        InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
+        List<Long> Ids = personService.getPeopleInInstitutionFilter(filter)
+        int numPeopleWithPicture=0
+        for (Long id:Ids){
+            Person p = personService.get(id)
+            if (p.imageSubpath!=null){
+                numPeopleWithPicture++
             }
         }
-*/
-        InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
+
+        if (numPeopleWithPicture>=26){
+            //display 2 rows of 13 pictures
+            def r = random.nextInt(NUM_RANDOM_LISTS)
+            def people = getRandomPeopleWithImages(26, r)
+
+        }
+
+        else if (13<numPeopleWithPicture && numPeopleWithPicture<26){
+            //display n of the pictures on the top row, and the rest on the bottom
+            int topRow=Math.ceil(numPeopleWithPicture/2)
+            int bottomRow=numPeopleWithPicture-topRow
+            def r = random.nextInt(NUM_RANDOM_LISTS)
+            def people = getRandomPeopleWithImages(numPeopleWithPicture, r)
+        }
+
+        else if (numPeopleWithPicture<=13){
+            //display all the pictures in one row
+            def r = random.nextInt(NUM_RANDOM_LISTS)
+            def people = getRandomPeopleWithImages(numPeopleWithPicture, r)
+        }
+
 
         String consortiumName = (ig)
         String[] conSplit = consortiumName.split("\\(")
         String consortium = conSplit[0]
         String abrev = conSplit[1]
-
         String colls = institutionGroupService.retrieveInstitutions(ig)
         String colleges = colls[1..-2];
-
-
 
         TimingAnalysis ta = new TimingAnalysis()
         ta.startTime()
@@ -88,8 +98,8 @@ class HomeController {
         def igs = igCounts.keySet() as ArrayList
         igs.sort({igCounts[it]})
         igs = igs.reverse()
-        def r = random.nextInt(NUM_RANDOM_LISTS)
-        def people = getRandomPeopleWithImages(6, r)
+//        def r = random.nextInt(NUM_RANDOM_LISTS)
+//        def people = getRandomPeopleWithImages(6, r)
         ta.recordTime("find random images")
 //        ta.analyze()
         [people : people, igs : igs, colleges : colleges, consortium : consortium, abrev : abrev]
