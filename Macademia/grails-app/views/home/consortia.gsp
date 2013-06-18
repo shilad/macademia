@@ -72,9 +72,7 @@
         </div>
     </header>
 
-    <div id='main' role='main'>
-        </br>
-        </br>
+    <div>
         <div>
             <table>
                 <tr>
@@ -88,10 +86,10 @@
                                     <div id="slideshowReel">
                                         <div class="slide">
                                             <div id="entrancePortal">
-                                                  <ul>
+                                                <ul>
                                                     <g:each in="${people}" var="p"><li><m:personLink person="${p}" group="all"><m:personImage person="${p}"/></m:personLink></li></g:each>
-                                                    %{--<g:each in="${(people.size()..< HomeController.NUM_PEOPLE)}"><li><a href="#"><r:img dir='images' file="shilad.jpg"/></a></li></g:each>--}%
-                                                   </ul>
+                                                %{--<g:each in="${(people.size()..< HomeController.NUM_PEOPLE)}"><li><a href="#"><r:img dir='images' file="shilad.jpg"/></a></li></g:each>--}%
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -152,7 +150,7 @@
         <div>
 
             <hr/>
-              <h6>${consortium}</h6>
+            <h6>${consortium}</h6>
 
             <p> <br>%{-- a tab --}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  Last night I had a bad dream.  There was candy, cake, and ice cream, but all was not as well as it seemed.  Soon the creepy person from Scream was killing off everything, first he murdered Janine.  It was not cool, naw 'meen?</p>
         </br>
@@ -182,6 +180,8 @@
     </div>
 
     <g:render template="/layouts/footer" />
+
+
 
 </div>
 
