@@ -1,5 +1,7 @@
 package org.macademia
 
+import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
+
 /**
  * Authors: Nathaniel Miller and Alex Schneeman
  */
@@ -14,6 +16,7 @@ class PersonService {
     def collaboratorRequestService
     def membershipService
     def institutionGroupService
+    def institutionService
 
     public void cleanupPeople(){
         Set<Long> validIds = new HashSet<Long>(Person.list().collect({it.id}))
@@ -150,7 +153,7 @@ class PersonService {
         return igCounts
     }
 
-    List<Long> getPeopleInInstitutionFilter(InstitutionFilter filter) {
+    List<Long> getPeopleInInstitutionFilter(InstitutionFilter filter, GrailsParameterMap params) {
         List<Long> ids = new ArrayList<Long>()
         InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
         if (institutions == null) {

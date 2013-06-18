@@ -42,7 +42,7 @@ class HomeController {
         )
     }
 
-    def getRandomPeopleWithImages(int numPeople, int randomNum) {
+    def getRandomPeopleWithImages(int numPeople, int randomNum, ArrayList<Long> allowableIds) {
         return springcacheService.doWithCache(
                 'homeCache',
                 'getRandomPeople' + randomNum,
@@ -53,35 +53,38 @@ class HomeController {
     def consortia() {
         InstitutionFilter filter =  institutionGroupService.getInstitutionFilterFromParams(params)
         InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
-        List<Long> Ids = personService.getPeopleInInstitutionFilter(filter)
-        int numPeopleWithPicture=0
+        List<Long> Ids = personService.getPeopleInInstitutionFilter(filter, params)
+        ArrayList<Long> IdsWithPics = new ArrayList<Long>()
+
         for (Long id:Ids){
             Person p = personService.get(id)
             if (p.imageSubpath!=null){
-                numPeopleWithPicture++
+                IdsWithPics.add(id)
             }
         }
 
-        if (numPeopleWithPicture>=26){
-            //display 2 rows of 13 pictures
-            def r = random.nextInt(NUM_RANDOM_LISTS)
-            def people = getRandomPeopleWithImages(26, r)
 
-        }
-
-        else if (13<numPeopleWithPicture && numPeopleWithPicture<26){
-            //display n of the pictures on the top row, and the rest on the bottom
-            int topRow=Math.ceil(numPeopleWithPicture/2)
-            int bottomRow=numPeopleWithPicture-topRow
-            def r = random.nextInt(NUM_RANDOM_LISTS)
-            def people = getRandomPeopleWithImages(numPeopleWithPicture, r)
-        }
-
-        else if (numPeopleWithPicture<=13){
-            //display all the pictures in one row
-            def r = random.nextInt(NUM_RANDOM_LISTS)
-            def people = getRandomPeopleWithImages(numPeopleWithPicture, r)
-        }
+//
+//        if (numPeopleWithPicture>=26){
+//            //display 2 rows of 13 pictures
+//            def r = random.nextInt(NUM_RANDOM_LISTS)
+//            def people = getRandomPeopleWithImages(26, r)
+//
+//        }
+//
+//        else if (13<numPeopleWithPicture && numPeopleWithPicture<26){
+//            //display n of the pictures on the top row, and the rest on the bottom
+//            int topRow=Math.ceil(numPeopleWithPicture/2)
+//            int bottomRow=numPeopleWithPicture-topRow
+//            def r = random.nextInt(NUM_RANDOM_LISTS)
+//            def people = getRandomPeopleWithImages(numPeopleWithPicture, r)
+//        }
+//
+//        else if (numPeopleWithPicture<=13){
+//            //display all the pictures in one row
+//            def r = random.nextInt(NUM_RANDOM_LISTS)
+//            def people = getRandomPeopleWithImages(numPeopleWithPicture, r)
+//        }
 
 
         String consortiumName = (ig)
@@ -98,8 +101,8 @@ class HomeController {
         def igs = igCounts.keySet() as ArrayList
         igs.sort({igCounts[it]})
         igs = igs.reverse()
-//        def r = random.nextInt(NUM_RANDOM_LISTS)
-//        def people = getRandomPeopleWithImages(6, r)
+        def r = random.nextInt(NUM_RANDOM_LISTS)
+        def people = getRandomPeopleWithImages(6, r)
         ta.recordTime("find random images")
 //        ta.analyze()
         [people : people, igs : igs, colleges : colleges, consortium : consortium, abrev : abrev]
