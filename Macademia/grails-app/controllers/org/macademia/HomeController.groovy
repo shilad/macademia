@@ -51,6 +51,8 @@ class HomeController {
     }
 
     def consortia() {
+        InstitutionFilter filter =  InstitutionGroupService.getInstitutionFilterFromParams(params)
+
 
         InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
 
