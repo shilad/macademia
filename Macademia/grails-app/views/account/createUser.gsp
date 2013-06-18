@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <r:require modules="core"/>
+    <r:require modules="profile"/>
 
   <title>
     <g:if test="${user.id}">Edit Macademia Profile</g:if>

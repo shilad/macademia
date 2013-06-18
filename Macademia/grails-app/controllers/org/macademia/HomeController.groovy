@@ -22,7 +22,7 @@ class HomeController {
         def r = random.nextInt(NUM_RANDOM_LISTS)
         def people = getRandomPeopleWithImages(NUM_PEOPLE, r)
         ta.recordTime("find random images")
-        ta.analyze()
+//        ta.analyze()
         [people : people, igs : igs]
     }
 
@@ -51,49 +51,64 @@ class HomeController {
     }
 
     def consortia() {
-        InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
-        InstitutionFilter filter =  institutionGroupService.getInstitutionFilterFromParams(params)
-        List<Long> peopleIds = personService.getPeopleInInstitutionFilter(filter)
-        int numPeopleWithPictures=0
 
-//        for(Long id: peopleIds) {
-//            //if the person has a photo, add 1 to numPeopleWithPictures
-//            Person p = Person.get(id)
-//            if (p.imageSubpath!=null) numPeopleWithPictures++
-//        }
-//
-//        if (numPeopleWithPictures>=26)
-//        {
-//            //display 2 rows of 13 pictures
-//            def r = random.nextInt(NUM_RANDOM_LISTS)
-//            def people = getRandomPeopleWithImages(26, r)
-//
-//        }
-//
-//        else if (13<numPeopleWithPictures && numPeopleWithPictures<26)
-//        {
-//            int topRow = Math.ceil(numPeopleWithPictures/2)
-//            //display the first topRow photos centered
-//            //display the rest of the photos (numPeopleWithPictures-topRow) in bottom row centered
-//            def r = random.nextInt(NUM_RANDOM_LISTS)
-//            def people = getRandomPeopleWithImages(numPeopleWithPictures, r)
-//
-//        }
-//
-//        else if (numPeopleWithPictures<=13)
-//        {
-//            //display all the photos centered in one row
-//            def r = random.nextInt(NUM_RANDOM_LISTS)
-//            def people = getRandomPeopleWithImages(numPeopleWithPictures, r)
-//
-//        }
+        InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
+
+        //def colleges = ig.toString()  is this important?  I don't think so.
+        def colleges1 = institutionGroupService.retrieveInstitutions(ig) //colleges1 is a set of strings
+        //get the people with pictures from colleges1
+        ArrayList<Person> peopleWithPictures = new ArrayList<Person>()
+        for(Institution i : colleges1.toArray(Institution))
+        {
+            def peopleInCollege = personService.findAllInInstitution(i) //an array of Persons?
+            for(Person p: peopleInCollege)
+            {
+                if (p.imageSubpath!=null)
+                {
+                    peopleWithPictures.add(p)
+                }
+
+
+            }
+        }
+
+        int numPeopleWithPictures = peopleWithPictures.size()
+
+        if (numPeopleWithPictures>=26)
+        {
+            //display 2 rows of 13 pictures
+            def r = random.nextInt(NUM_RANDOM_LISTS)
+            def people = getRandomPeopleWithImages(26, r)
+            ta.recordTime("find random images")
+        }
+
+        else if (13<numPeopleWithPictures && numPeopleWithPictures<26)
+        {
+            int topRow = ceil(numPeopleWithPictures/2)
+            //display the first topRow photos centered
+            //display the rest of the photos (numPeopleWithPictures-topRow) in bottom row centered
+            def r = random.nextInt(NUM_RANDOM_LISTS)
+            def people = getRandomPeopleWithImages(numPeopleWithPictures, r)
+            ta.recordTime("find random images")
+        }
+
+        else if (numPeopleWithPictures<=13)
+        {
+            //display all the photos centered in one row
+            def r = random.nextInt(NUM_RANDOM_LISTS)
+            def people = getRandomPeopleWithImages(numPeopleWithPictures, r)
+            ta.recordTime("find random images")
+        }
 
         String consortiumName = (ig)
         String[] conSplit = consortiumName.split("\\(")
         String consortium = conSplit[0]
         String abrev = conSplit[1]
+
         String colls = institutionGroupService.retrieveInstitutions(ig)
         String colleges = colls[1..-2];
+
+
 
         TimingAnalysis ta = new TimingAnalysis()
         ta.startTime()
@@ -105,7 +120,7 @@ class HomeController {
         def r = random.nextInt(NUM_RANDOM_LISTS)
         def people = getRandomPeopleWithImages(26, r)
         ta.recordTime("find random images")
-        ta.analyze()
+//        ta.analyze()
         [people : people, igs : igs, colleges : colleges, consortium : consortium, abrev : abrev]
     }
 }
