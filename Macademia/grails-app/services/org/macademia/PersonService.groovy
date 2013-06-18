@@ -13,6 +13,7 @@ class PersonService {
     def autocompleteService
     def collaboratorRequestService
     def membershipService
+    def institutionGroupService
 
     public void cleanupPeople(){
         Set<Long> validIds = new HashSet<Long>(Person.list().collect({it.id}))
@@ -147,5 +148,30 @@ class PersonService {
             igCounts[ig] = countMemberships(ig)
         }
         return igCounts
+    }
+
+    List<Long> getPeopleInInstitutionFilter(InstitutionFilter filter) {
+        List<Long> ids = new ArrayList<Long>()
+        InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
+        if (institutions == null) {
+            ids.addAll(Person.findAll().collect({it.id}))
+        }
+        else if (institutions.requiredInstitutionId) {
+            Institution req = institutionService.get(institutions.requiredInstitutionId)
+            Set<Person> people = findAllInInstitution(req)
+            ids.addAll(people.findAll({it.isMatch(institutions)}).collect({it.id}))
+        }
+        else {
+            for (Institution i : institutions.institutionIds.collect {Institution.get(it)}) {
+                ids.addAll(findAllInInstitution(i).collect({it.id}))
+            }
+        }
+        return ids
+//        Random r = new Random()
+//        def id = 'empty'
+//        if (ids) {
+//            id = ids[r.nextInt(ids.size())]
+//        }
+//        redirect(uri: "/${params.group}/person/jit/#/?nodeId=p_${id}&navVisibility=true&navFunction=person&institutions=all&personId=${id}")
     }
 }
