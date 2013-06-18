@@ -20,7 +20,7 @@ class HomeController {
         igs.sort({igCounts[it]})
         igs = igs.reverse()
         def r = random.nextInt(NUM_RANDOM_LISTS)
-        def people = getRandomPeopleWithImages(NUM_PEOPLE, r)
+        //def people = getRandomPeopleWithImages(NUM_PEOPLE, r)
         ta.recordTime("find random images")
 //        ta.analyze()
         [people : people, igs : igs]
@@ -60,7 +60,7 @@ class HomeController {
             Person p = Person.get(id)
             if (p.imageSubpath!=null)
             {
-                numPeopleWithPictures++
+                numPeopleWithPictures=numPeopleWithPictures+1
             }
         }
 
