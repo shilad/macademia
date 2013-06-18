@@ -22,11 +22,22 @@ modules = {
     }
     profile {
         dependsOn 'core'
+        dependsOn 'upload'
+    }
+    consortia {
+        dependsOn 'core'
+        dependsOn 'upload'
 
+        resource url: '/js/lib.macademia.consortia.js'
+    }
+
+    upload {
+        dependsOn 'core'
         resource url: '/js/uploadify/swfobject.js'
         resource url: '/js/uploadify/jquery.uploadify.v2.1.0.js'
         resource url: '/js/uploadify/uploadify.css'
         resource url: '/js/lib.macademia.upload.js'
+
     }
     d3js {
         dependsOn 'nbrviz'
