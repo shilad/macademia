@@ -72,7 +72,9 @@
         </div>
     </header>
 
-    <div>
+    <div id='main' role='main'>
+    </br>
+    </br>
         <div>
             <table>
                 <tr>
@@ -180,8 +182,6 @@
     </div>
 
     <g:render template="/layouts/footer" />
-
-
 
 </div>
 
