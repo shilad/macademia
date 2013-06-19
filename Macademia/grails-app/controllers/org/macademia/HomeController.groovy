@@ -75,7 +75,7 @@ class HomeController {
         }
 
 
-//
+
 //        if (numPeopleWithPicture>=26){
 //            //display 2 rows of 13 pictures
 //            def r = random.nextInt(NUM_RANDOM_LISTS)
