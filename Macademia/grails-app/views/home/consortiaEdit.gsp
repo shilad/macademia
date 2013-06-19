@@ -89,6 +89,7 @@
                                 <td style= "text-align: right; padding-right: 40; padding-top: 68; padding-left: 34;">
                                     <button id="hideNm">Edit</button>
                                 </td>
+                                </td>
                             </tr>
                             <tr>
                         </table>
@@ -100,8 +101,10 @@
                             <table>
                                 <tr>
                                     <td>
+                                        <textarea rows="3" cols="18" class = "rounded-corners" name="text" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;"> ${consortium} </textarea>
                                     </td>
                                     <td style= "text-align: right; padding-right: 40; padding-top: 68; padding-left: 34;">
+
                                         <button id="saveName">Save</button>
                                     </td>
                                 </tr>
@@ -109,24 +112,42 @@
                             </table>
                         </div>
 
-
-
                     </td>
 
                     <td>
+                        <div id= "hideimg">
                         <table>
                             <tr>
                             <td>
-                        <div id= cLogo>
-                            <a href="http://www.acm.edu/index.html"><r:img dir='images/consortia' file="ACM.png" alt="ACM" /></a>
+                        <div id= "cLogo" >
+                            <a href="http://www.acm.edu/index.html"><r:img style="margin-left: 3em " dir='images/consortia' file="ACM.png" alt="ACM" /></a>
                         </div>
                                 </td>
                             <td>
                         <div style= "text-align: right; vertical-align: bottom">
-                            <button>Edit</button>
+                            <button id="hidelogo">Edit</button>
                             </td>
                         </tr>
                         </table>
+                        </div>
+
+                        <div id = "showavatar" style="display: none">
+                            <table>
+                                <tr>
+                                    <td>
+
+                                        <r:img dir='images' file="no_avatar.jpg" alt="avatar"/>
+
+
+                                    </td>
+                                    <td>
+                                        <div style= "text-align: right; vertical-align: bottom">
+                                            <button>Save</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
                         </td>
                 </tr>
             </table>
@@ -152,6 +173,7 @@
                         <textarea rows="4" cols="118" class = "rounded-corners" name="text" style="border: 2.4px solid #000000;">Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?   Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  I bet I can write</textarea>
                     </tr>
                     <tr>
+                        </br>
                         <div style= "text-align: right; padding-right: 253;">
                             <button id="saveblurb">Save</button>
                         </div>
