@@ -101,7 +101,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <textarea rows="3" cols="18" class = "rounded-corners" name="text" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;"> ${consortium} </textarea>
+                                        <textarea rows="3" cols="18" class = "rounded-corners" id="name-text" name="text" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;"> ${consortium} </textarea>
                                     </td>
                                     <td style= "text-align: right; padding-right: 40; padding-top: 68; padding-left: 34;">
 
@@ -170,7 +170,7 @@
             <div id="showeditblurb"style="display:none" >
                 <table>
                     <tr>
-                        <textarea rows="4" cols="118" class = "rounded-corners" name="text" style="border: 2.4px solid #000000;">Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?   Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  I bet I can write</textarea>
+                        <textarea rows="4" cols="118" class = "rounded-corners" id="blurb-text" name="text" style="border: 2.4px solid #000000;">Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?   Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  I bet I can write</textarea>
                     </tr>
                     <tr>
                         </br>
