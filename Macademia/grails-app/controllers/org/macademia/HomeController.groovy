@@ -147,7 +147,7 @@ class HomeController {
         //Find the institutionGroup based off the params
         InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
 
-        ig.setName(params["text-area"])//TODO: text-area is wront loon at comment to see how to make it better :)
+        ig.setName(params["text-area"])//TODO: text-area is wrong look at comment to see how to make it better :)
 
 
          //saves edits to the description
