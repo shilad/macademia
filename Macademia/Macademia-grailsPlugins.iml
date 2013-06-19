@@ -8,6 +8,7 @@
           <root url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/searchable-0.6.4/web-app" relative="/" />
           <root url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/searchable-0.6.4/grails-app/views" relative="/" />
           <root url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/mail-1.0.1/grails-app/views" relative="/" />
+          <root url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/database-migration-1.3.3/grails-app/views" relative="/" />
         </webroots>
         <sourceRoots />
       </configuration>
@@ -23,6 +24,10 @@
     <content url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/compass-sass-0.7">
       <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/compass-sass-0.7/src/groovy" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/compass-sass-0.7/grails-app/i18n" isTestSource="false" />
+    </content>
+    <content url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/database-migration-1.3.3">
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/database-migration-1.3.3/src/groovy" isTestSource="false" />
+      <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/database-migration-1.3.3/grails-app/controllers" isTestSource="false" />
     </content>
     <content url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/hibernate-2.2.2">
       <sourceFolder url="file://$USER_HOME$/.grails/2.2.2/projects/Macademia/plugins/hibernate-2.2.2/grails-app/i18n" isTestSource="false" />

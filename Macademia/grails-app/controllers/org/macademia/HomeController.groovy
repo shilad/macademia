@@ -108,11 +108,12 @@ class HomeController {
         else if (IdsWithPics.size()<=13){
             numPeople=IdsWithPics.size()
         }
-
+        //gets the entire institution group name
         String consortiumName = (ig)
+        //removes abreviation from the end of institution group name
         String[] conSplit = consortiumName.split("\\(")
         String consortium = conSplit[0]
-        String abrev = conSplit[1]
+        //gets colleges/universities in the consortium and removes the formating[]
         String colls = institutionGroupService.retrieveInstitutions(ig)
         String colleges = colls[1..-2];
 
@@ -127,7 +128,7 @@ class HomeController {
         def people = getRandomPeopleWithImages(numPeople, r, IdsWithPics)
         ta.recordTime("find random images")
 //        ta.analyze()
-        [people : people, igs : igs, colleges : colleges, consortium : consortium, abrev : abrev]
+        [people : people, igs : igs, colleges : colleges, consortium : consortium]
     }
 
     def consortiaEdit(){
@@ -138,5 +139,22 @@ class HomeController {
         String[] conSplit = consortiumName.split("\\(")
         String consortium = conSplit[0]
         [consortium : consortium]
+    }
+
+    def processConsortiaEdit(){
+        render(view:'consortiaEdit');
+
+        //Find the institutionGroup based off the params
+        InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
+
+        ig.setName(params["text-area"])//TODO: text-area is wront loon at comment to see how to make it better :)
+
+
+         //saves edits to the description
+        ig.setDescription(params["text-area"])
+        ig.save(flush: true)
+
+        //TODO: change this to the final view when created
+        render(view: "final")
     }
 }
