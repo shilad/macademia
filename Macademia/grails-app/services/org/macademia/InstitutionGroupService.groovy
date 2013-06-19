@@ -11,6 +11,10 @@ class InstitutionGroupService {
         return InstitutionGroup.list()
     }
 
+    void update(InstitutionGroup ig) {
+        ig.save()
+    }
+
     Collection<InstitutionGroup> findAllByInstitution(Institution i) {
         if (i.institutionGroups){
             return i.institutionGroups
