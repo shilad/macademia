@@ -97,17 +97,17 @@ class HomeController {
 //            def people = getRandomPeopleWithImages(numPeopleWithPicture, r)
 //        }
 
-        int numPeople=17
+        int numPeople=0
 
-//        if (IdsWithPics.size()>=26){
-//            numPeople=26
-//        }
-//        else if (13<IdsWithPics.size() && IdsWithPics.size()<26){
-//            numPeople=IdsWithPics.size()
-//        }
-//        else if (IdsWithPics.size()<=13){
-//            numPeople=IdsWithPics.size()
-//        }
+        if (IdsWithPics.size()>=26){
+            numPeople=26
+        }
+        else if (13<IdsWithPics.size() && IdsWithPics.size()<26){
+            numPeople=IdsWithPics.size()
+        }
+        else if (IdsWithPics.size()<=13){
+            numPeople=IdsWithPics.size()
+        }
 
         String consortiumName = (ig)
         String[] conSplit = consortiumName.split("\\(")
