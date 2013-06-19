@@ -20,7 +20,8 @@ class HomeController {
         igs.sort({igCounts[it]})
         igs = igs.reverse()
         def r = random.nextInt(NUM_RANDOM_LISTS)
-        def people = getRandomPeopleWithImages(NUM_PEOPLE, r)
+        ArrayList<Long> Ids = new ArrayList<Long>()
+        def people = getRandomPeopleWithImages(NUM_PEOPLE, r, Ids)
         ta.recordTime("find random images")
 //        ta.analyze()
         [people : people, igs : igs]
@@ -96,11 +97,17 @@ class HomeController {
 //            def people = getRandomPeopleWithImages(numPeopleWithPicture, r)
 //        }
 
-        int numPeople = 0
-//        if (IdsWithPics.size()>=26) numPeople=26
-//        else if (13<IdsWithPics.size() && IdsWithPics.size()<26) numPeople=IdsWithPics.size()
-//        else if (IdsWithPics.size()<=13) numPeople=IdsWithPics.size()
+        int numPeople=17
 
+//        if (IdsWithPics.size()>=26){
+//            numPeople=26
+//        }
+//        else if (13<IdsWithPics.size() && IdsWithPics.size()<26){
+//            numPeople=IdsWithPics.size()
+//        }
+//        else if (IdsWithPics.size()<=13){
+//            numPeople=IdsWithPics.size()
+//        }
 
         String consortiumName = (ig)
         String[] conSplit = consortiumName.split("\\(")
