@@ -142,7 +142,7 @@ class HomeController {
     }
 
     def processConsortiaEdit(){
-        render(view:'consortiaEdit');
+        render(view:'consortiaEdit'); //render or redirect?
 
         //Find the institutionGroup based off the params
         InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
