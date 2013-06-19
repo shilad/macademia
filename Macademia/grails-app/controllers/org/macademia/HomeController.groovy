@@ -42,42 +42,72 @@ class HomeController {
         )
     }
 
-    def getRandomPeopleWithImages(int numPeople, int randomNum) {
+    def getRandomPeopleWithImages(int numPeople, int randomNum, ArrayList<Long> allowableIds) {
         return springcacheService.doWithCache(
                 'homeCache',
                 'getRandomPeople' + randomNum,
-                {personService.findRandomPeopleWithImage(numPeople)}
+                {personService.findRandomPeopleWithImage(numPeople, allowableIds)}
         )
     }
 
-    def consortia() {
+//    Don't mess with this method
+//    def getRandomPeopleWithImages(int numPeople, int randomNum) {
+//        return springcacheService.doWithCache(
+//                'homeCache',
+//                'getRandomPeople' + randomNum,
+//                {personService.findRandomPeopleWithImage(numPeople)}
+//        )
+//    }
 
-        /*
-       //InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
-        //def ids = institutions.institutionIds;
-        ArrayList<People> people = new ArrayList<People>();
-        InstitutionGroup ig = InstitutionGroupService.findByAbbrev(params.group)
-        //get institutions
-        def institutions = institutionGroupService.retrieveInstitutions(ig)
-        //get the people in the institutions
-        for (Institution i : ig.getInstitutions()){
-            def peopleInInstitution = personService.findAllInInstitution(i)
-            for (Person p: peopleInInstitution){
-                people.add(p)
+
+    def consortia() {
+        InstitutionFilter filter =  institutionGroupService.getInstitutionFilterFromParams(params)
+        InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
+        List<Long> Ids = personService.getPeopleInInstitutionFilter(filter, params)
+        ArrayList<Long> IdsWithPics = new ArrayList<Long>()
+
+        for (Long id:Ids){
+            Person p = personService.get(id)
+            if (p.imageSubpath!=null){
+                IdsWithPics.add(id)
             }
         }
-*/
-        InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
+
+
+//
+//        if (numPeopleWithPicture>=26){
+//            //display 2 rows of 13 pictures
+//            def r = random.nextInt(NUM_RANDOM_LISTS)
+//            def people = getRandomPeopleWithImages(26, r)
+//
+//        }
+//
+//        else if (13<numPeopleWithPicture && numPeopleWithPicture<26){
+//            //display n of the pictures on the top row, and the rest on the bottom
+//            int topRow=Math.ceil(numPeopleWithPicture/2)
+//            int bottomRow=numPeopleWithPicture-topRow
+//            def r = random.nextInt(NUM_RANDOM_LISTS)
+//            def people = getRandomPeopleWithImages(numPeopleWithPicture, r)
+//        }
+//
+//        else if (numPeopleWithPicture<=13){
+//            //display all the pictures in one row
+//            def r = random.nextInt(NUM_RANDOM_LISTS)
+//            def people = getRandomPeopleWithImages(numPeopleWithPicture, r)
+//        }
+
+        int numPeople = 0
+//        if (IdsWithPics.size()>=26) numPeople=26
+//        else if (13<IdsWithPics.size() && IdsWithPics.size()<26) numPeople=IdsWithPics.size()
+//        else if (IdsWithPics.size()<=13) numPeople=IdsWithPics.size()
+
 
         String consortiumName = (ig)
         String[] conSplit = consortiumName.split("\\(")
         String consortium = conSplit[0]
         String abrev = conSplit[1]
-
         String colls = institutionGroupService.retrieveInstitutions(ig)
         String colleges = colls[1..-2];
-
-
 
         TimingAnalysis ta = new TimingAnalysis()
         ta.startTime()
@@ -87,7 +117,7 @@ class HomeController {
         igs.sort({igCounts[it]})
         igs = igs.reverse()
         def r = random.nextInt(NUM_RANDOM_LISTS)
-        def people = getRandomPeopleWithImages(6, r)
+        def people = getRandomPeopleWithImages(numPeople, r, IdsWithPics)
         ta.recordTime("find random images")
 //        ta.analyze()
         [people : people, igs : igs, colleges : colleges, consortium : consortium, abrev : abrev]
