@@ -28,7 +28,7 @@ class AutocompleteService{
 
     def init() {
 
-        for (InstitutionGroup ig : InstitutionGroup.list()) {
+      for (InstitutionGroup ig : InstitutionGroup.list()) {
             getTree(ig.abbrev).institutionTree.clear()
             getTree(ig.abbrev).interestTree.clear()
             getTree(ig.abbrev).overallTree.clear()
