@@ -136,7 +136,7 @@
                                 <tr>
                                     <td>
 
-                                        <r:img dir='images' file="no_avatar.jpg" alt="avatar"/>
+                                        <r:img id= "image-sub" dir='images' file="no_avatar.jpg" alt="avatar"/>
 
 
                                     </td>

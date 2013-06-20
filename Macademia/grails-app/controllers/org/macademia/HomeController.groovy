@@ -148,11 +148,12 @@ class HomeController {
         InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
 
         ig.setName(params["name-text"])
-        ig.save(flush: true)
+
+
+        ig.setImageSubpath(params["image-sub"])
 
          //saves edits to the description
         ig.setDescription(params["blurb-text"])
-        ig.save(flush: true)
 
         redirect(consortiaEdit())
     }
