@@ -3,8 +3,8 @@ package org.macademia
 class InstitutionGroup {
     String name
     String abbrev
-    String description  // can contain html markup
-    String imageSubpath
+//    String description  // can contain html markup
+//    String imageSubpath
     Boolean crossCutting = false
 
     static hasMany = [ institutions : Institution ]
