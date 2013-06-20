@@ -12,11 +12,6 @@ macademia = macademia || {};
             $("#showeditblurb").show();
         });
 
-        $("#saveblurb").click(function(){
-            $("#hideblurb").show();
-            $("#showeditblurb").hide();
-        });
-
         $("#hideNm").click(function(){
             $("#hidename").hide();
             $("#showeditname").show();

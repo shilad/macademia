@@ -97,7 +97,7 @@
 
 
                         <div id ="showeditname" style="display:none">
-                        <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
+                            <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
                                 <table>
                                     <tr>
                                         <td>
@@ -110,7 +110,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                         </g:form>
+                            </g:form>
                         </div>
 
                     </td>
@@ -161,7 +161,8 @@
             <div id="hideblurb">
                 <table>
                     <tr>
-                        <p> <br>%{-- a tab --}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  Last night I had a bad dream.  There was candy, cake, and ice cream, but all was not as well as it seemed.  Soon the creepy person from Scream was killdafffaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafffsfffsssssssssing off everything, first he murdered Janine.  It was not cool, naw 'meen?</p>
+                        <p>${institutionGroup.description}</p>
+
                     </tr>
                     <tr>
                         <div style= "text-align: right; padding-right: 253;">
@@ -172,18 +173,20 @@
                 </table>
             </div>
             <div id="showeditblurb"style="display:none" >
-                <table>
-                    <tr>
-                        <textarea rows="4" cols="118" class = "rounded-corners" id="blurbText" name="blurbText" style="border: 2.4px solid #000000;">Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?   Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  I bet I can write</textarea>
-                    </tr>
-                    <tr>
-                    </br>
-                        <div style= "text-align: right; padding-right: 253;">
-                            <button id="saveblurb">Save</button>
-                        </div>
-                    </tr>
-                </br>
-                </table>
+                <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
+                    <table>
+                        <tr>
+                            <textarea rows="4" cols="118" class = "rounded-corners"  name="blurbText" style="border: 2.4px solid #000000;">${institutionGroup.description}</textarea>
+                        </tr>
+                        <tr>
+                        </br>
+                            <div style= "text-align: right; padding-right: 253;">
+                    <g:submitButton name="Save"></g:submitButton>
+                    </div>
+                </tr>
+            </br>
+            </table>
+                </g:form>
             </div>
         </div>
 

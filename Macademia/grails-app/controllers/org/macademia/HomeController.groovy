@@ -141,7 +141,8 @@ class HomeController {
         String consortiumName = (ig)
         String[] conSplit = consortiumName.split("\\(")
         String consortium = conSplit[0]
-        [consortium : consortium]
+
+        [consortium : consortium, institutionGroup:ig]
     }
 
     def processConsortiaEdit(){
@@ -150,17 +151,23 @@ class HomeController {
 
         //println(params.text);
         if(params.keySet().contains("nameText")){
-           ig.setName(params.nameText)
-//           ig.setImageSubpath(params["imageSub"])
-           //ig.setDescription(params["blurbText"])
-           ig.save(flush: true, failOnError: true);
+           ig.setName(params.nameText)}
+        else if(params.keySet().contains("blurbText")) {
+           ig.setDescription(params["blurbText"])
         }
+        //           ig.setImageSubpath(params["imageSub"])
+
+        ig.save(flush: true, failOnError: true);
+
 
         String consortiumName = (ig)
         String[] conSplit = consortiumName.split("\\(")
+        println(conSplit[0])
         String consortium = conSplit[0]
 
-        render(view:'consortiaEdit',model: [consortium : consortium]); //render or redirect?
+
+
+        render(view:'consortiaEdit',model:[consortium : consortium, institutionGroup:ig])
 
     }
 }
