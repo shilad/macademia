@@ -10,12 +10,12 @@ class InstitutionGroup {
     static hasMany = [ institutions : Institution ]
     static mapping = {
         institutions batchSize: 100
-        description(nullable: true)
-        imageSubpath(nullable : true)
     }
 
     static constraints = {
         abbrev(unique: true)
+        description(nullable: true)
+        imageSubpath(nullable : true)
     }
 
     public String toString() {

@@ -43,13 +43,13 @@ class HomeController {
         )
     }
 
-    def getRandomPeopleWithImages(int numPeople, int randomNum, ArrayList<Long> allowableIds) {
-        return springcacheService.doWithCache(
-                'homeCache',
-                'getRandomPeople' + randomNum,
-                {personService.findRandomPeopleWithImage(numPeople, allowableIds)}
-        )
-    }
+//    def getRandomPeopleWithImages(int numPeople, int randomNum, ArrayList<Long> allowableIds) {
+//        return springcacheService.doWithCache(
+//                'homeCache',
+//                'getRandomPeople' + randomNum,
+//                {personService.findRandomPeopleWithImage(numPeople, allowableIds)}
+//        )
+//    }
 
 //    Don't mess with this method
 //    def getRandomPeopleWithImages(int numPeople, int randomNum) {
@@ -66,14 +66,15 @@ class HomeController {
         InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
         List<Long> Ids = personService.getPeopleInInstitutionFilter(filter, params)
         ArrayList<Long> IdsWithPics = new ArrayList<Long>()
-
+         println("hi")
         for (Long id:Ids){
             Person p = personService.get(id)
             if (p.imageSubpath!=null){
                 IdsWithPics.add(id)
+            println("if")
             }
         }
-
+         println("shi")
 
 
 //        if (numPeopleWithPicture>=26){
@@ -104,6 +105,7 @@ class HomeController {
         }
         else if (13<IdsWithPics.size() && IdsWithPics.size()<26){
             numPeople=IdsWithPics.size()
+       print("lad")
         }
         else if (IdsWithPics.size()<=13){
             numPeople=IdsWithPics.size()
@@ -116,13 +118,14 @@ class HomeController {
         //gets colleges/universities in the consortium and removes the formating[]
         String colls = institutionGroupService.retrieveInstitutions(ig)
         String colleges = colls[1..-2];
-
+       println("lad")
         TimingAnalysis ta = new TimingAnalysis()
         ta.startTime()
         def igCounts = getInstitutionGroupCounts()
         ta.recordTime("count ig memberships")
         def igs = igCounts.keySet() as ArrayList
         igs.sort({igCounts[it]})
+       println("sam")
         igs = igs.reverse()
         def r = random.nextInt(NUM_RANDOM_LISTS)
         def people = getRandomPeopleWithImages(numPeople, r, IdsWithPics)
@@ -142,19 +145,22 @@ class HomeController {
     }
 
     def processConsortiaEdit(){
-        render(view:'consortiaEdit'); //render or redirect?
 
-        //Find the institutionGroup based off the params
         InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
 
-        ig.setName(params["name-text"])
+        //println(params.text);
+        if(params.keySet().contains("nameText")){
+           ig.setName(params.nameText)
+//           ig.setImageSubpath(params["imageSub"])
+           //ig.setDescription(params["blurbText"])
+           ig.save(flush: true, failOnError: true);
+        }
 
+        String consortiumName = (ig)
+        String[] conSplit = consortiumName.split("\\(")
+        String consortium = conSplit[0]
 
-        ig.setImageSubpath(params["image-sub"])
+        render(view:'consortiaEdit',model: [consortium : consortium]); //render or redirect?
 
-         //saves edits to the description
-        ig.setDescription(params["blurb-text"])
-
-        redirect(consortiaEdit())
     }
 }

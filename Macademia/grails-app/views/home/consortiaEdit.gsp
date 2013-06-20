@@ -76,59 +76,61 @@
     </br>
     </br>
         <div>
-
             <table>
                 <tr>
                     <td>
                         <div id ="hidename">
-                        <table>
-                            <tr>
-                                <td>
-                                    <h4> ${consortium}</h4>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <h4> ${consortium}</h4>
+                                    </td>
+                                    <td style= "text-align: right; padding-right: 40; padding-top: 68; padding-left: 34;">
+                                        <button id="hideNm">Edit</button>
+                                    </td>
                                 </td>
-                                <td style= "text-align: right; padding-right: 40; padding-top: 68; padding-left: 34;">
-                                    <button id="hideNm">Edit</button>
-                                </td>
-                                </td>
-                            </tr>
-                            <tr>
-                        </table>
+                                </tr>
+                                <tr>
+                            </table>
                         </div>
 
 
 
                         <div id ="showeditname" style="display:none">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <textarea rows="3" cols="18" class = "rounded-corners" id="name-text" name="text" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;"> ${consortium} </textarea>
-                                    </td>
-                                    <td style= "text-align: right; padding-right: 40; padding-top: 68; padding-left: 34;">
+                        <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <textarea rows="3" cols="18" class = "rounded-corners" name="nameText" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;"> ${consortium} </textarea>
+                                        </td>
+                                        <td style= "text-align: right; padding-right: 40; padding-top: 68; padding-left: 34;">
 
-                                        <button id="saveName">Save</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                            </table>
+                                            %{--<button id="saveName">Save</button>--}%
+                                            <g:submitButton name="Save"></g:submitButton>
+                                        </td>
+                                    </tr>
+                                </table>
+                         </g:form>
                         </div>
 
                     </td>
 
                     <td>
                         <div id= "hideimg">
-                        <table>
-                            <tr>
-                            <td>
-                        <div id= "cLogo" >
-                            <a href="http://www.acm.edu/index.html"><r:img style="margin-left: 3em " dir='images/consortia' file="ACM.png" alt="ACM" /></a>
-                        </div>
-                                </td>
-                            <td>
-                        <div style= "text-align: right; vertical-align: bottom">
-                            <button id="hidelogo">Edit</button>
-                            </td>
-                        </tr>
-                        </table>
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div id= "cLogo" >
+                                            <a href="http://www.acm.edu/index.html"><r:img style="margin-left: 3em " dir='images/consortia' file="ACM.png" alt="ACM" /></a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style= "text-align: right; vertical-align: bottom">
+                                            <button id="hidelogo">Edit</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
 
                         <div id = "showavatar" style="display: none">
@@ -136,44 +138,46 @@
                                 <tr>
                                     <td>
 
-                                        <r:img id= "image-sub" dir='images' file="no_avatar.jpg" alt="avatar"/>
+                                        <r:img id="imageSub" dir='images' file="no_avatar.jpg" alt="avatar"/>
 
 
                                     </td>
                                     <td>
                                         <div style= "text-align: right; vertical-align: bottom">
-                                            <button>Save</button>
+                                            %{--<button>Save</button>--}%
+                                            <g:submitButton name="Save"></g:submitButton>
+                                        </div>
                                     </td>
                                 </tr>
                             </table>
                         </div>
 
-                        </td>
+                    </td>
                 </tr>
             </table>
 
 
             <hr/>
             <div id="hideblurb">
-            <table>
-                <tr>
-                    <p> <br>%{-- a tab --}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  Last night I had a bad dream.  There was candy, cake, and ice cream, but all was not as well as it seemed.  Soon the creepy person from Scream was killdafffaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafffsfffsssssssssing off everything, first he murdered Janine.  It was not cool, naw 'meen?</p>
-                </tr>
-                <tr>
-                    <div style= "text-align: right; padding-right: 253;">
-                        <button id="hide">Edit</button>
-                    </div>
-                </tr>
-            </br>
-            </table>
-        </div>
+                <table>
+                    <tr>
+                        <p> <br>%{-- a tab --}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  Last night I had a bad dream.  There was candy, cake, and ice cream, but all was not as well as it seemed.  Soon the creepy person from Scream was killdafffaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaafffsfffsssssssssing off everything, first he murdered Janine.  It was not cool, naw 'meen?</p>
+                    </tr>
+                    <tr>
+                        <div style= "text-align: right; padding-right: 253;">
+                            <button id="hide">Edit</button>
+                        </div>
+                    </tr>
+                </br>
+                </table>
+            </div>
             <div id="showeditblurb"style="display:none" >
                 <table>
                     <tr>
-                        <textarea rows="4" cols="118" class = "rounded-corners" id="blurb-text" name="text" style="border: 2.4px solid #000000;">Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?   Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  I bet I can write</textarea>
+                        <textarea rows="4" cols="118" class = "rounded-corners" id="blurbText" name="blurbText" style="border: 2.4px solid #000000;">Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?   Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  I bet I can write</textarea>
                     </tr>
                     <tr>
-                        </br>
+                    </br>
                         <div style= "text-align: right; padding-right: 253;">
                             <button id="saveblurb">Save</button>
                         </div>
