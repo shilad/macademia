@@ -91,11 +91,6 @@
                                         <td>
                                             <textarea rows="3" cols="18" class = "rounded-corners" name="nameText" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;"> ${consortium} </textarea>
                                         </td>
-                                        <td style= "text-align: right; padding-right: 40; padding-top: 68; padding-left: 34;">
-
-                                            %{--<button id="saveName">Save</button>--}%
-                                            <g:submitButton name="Save"></g:submitButton>
-                                        </td>
                                     </tr>
                                 </table>
                             </g:form>
@@ -145,7 +140,16 @@
             </div>
         </div>
 
+        <div id="submit_edits" style= "margin-left : 46%">
+
+            <input style="margin-right: 1em" type="submit" value="Update" />
+
+            <input type="button" value="Cancel" onclick="location.href = '/Macademia/${params.group}/home/consortia'" />
+        </div>
+
     </div>
+
+
 
     <g:render template="/layouts/footer" />
 
