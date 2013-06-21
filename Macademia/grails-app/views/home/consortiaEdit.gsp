@@ -7,7 +7,8 @@
 %{--Testing--}%
 <html class='no-js' lang='en' xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
       xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
-      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html">
 <!--<![endif]-->
 <head>
     <meta name="layout" content="main"/>
@@ -80,12 +81,13 @@
     <div id='main' role='main'>
     </br>
     </br>
-        <div>
+    <div>
+        <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
+
             <table>
                 <tr>
                     <td>
                         <div id ="showeditname" >
-                            <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
                                 <table>
                                     <tr>
                                         <td>
@@ -93,8 +95,7 @@
                                         </td>
                                     </tr>
                                 </table>
-                            </g:form>
-                        </div>
+                           </div>
 
                     </td>
 
@@ -103,12 +104,12 @@
                             <table>
                                 <tr>
                                     <td>
-                                   </td>
+                                    </td>
                                     <td>
                                         <div class="subcolumn_left left2 fieldLabel topBorder"><label></label></div>
                                         <div class="subcolumn_right topBorder">
-                                            <g:render template="../templates/macademia/imageUploader"/>
 
+                                            <g:render template="../templates/macademia/imageUploader" model="['image':image]" />
                                         </div>
                                     </td>
                                 </tr>
@@ -123,30 +124,31 @@
             <hr/>
 
             <div id="showeditblurb" >
-                <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
-                    <table>
-                        <tr>
-                            <textarea rows="4" cols="118" class = "rounded-corners"  name="blurbText" style="border: 2.4px solid #000000;">${institutionGroup.description}</textarea>
-                        </tr>
-                        <tr>
-                        </br>
-                            <div style= "text-align: right; padding-right: 253;">
-                    <g:submitButton name="Save"></g:submitButton>
-                    </div>
-                </tr>
-            </br>
-            </table>
-                </g:form>
+                <table>
+                    <tr>
+                        <textarea rows="4" cols="118" class = "rounded-corners"  name="blurbText" style="border: 2.4px solid #000000;">${institutionGroup.description}</textarea>
+                    </tr>
+                    <tr>
+                    </br>
+                        <div style= "text-align: right; padding-right: 253;">
+
+                        </div>
+                    </tr>
+                </br>
+                </table>
+
             </div>
+            </div>
+
+            <div id="submit_edits" style= "margin-left : 46%">
+
+                <input style="margin-right: 1em" type="submit" name="Save" value="Update" />
+
+                <input type="button" value="Cancel" onclick="location.href = '/Macademia/${params.group}/home/consortia'" />
+            </br>
+        </br>
         </div>
-
-        <div id="submit_edits" style= "margin-left : 46%">
-
-            <input style="margin-right: 1em" type="submit" value="Update" />
-
-            <input type="button" value="Cancel" onclick="location.href = '/Macademia/${params.group}/home/consortia'" />
-        </div>
-
+        </g:form>
     </div>
 
 
