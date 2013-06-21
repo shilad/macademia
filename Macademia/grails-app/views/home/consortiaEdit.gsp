@@ -4,7 +4,7 @@
 <!--[if IE 7]>    <html lang="en" class="no-js ie7"> <![endif]-->
 <!--[if IE 8]>    <html lang="en" class="no-js ie8"> <![endif]-->
 <!--[if gt IE 8]><!-->
-Testing
+%{--Testing--}%
 <html class='no-js' lang='en' xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
       xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
       xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
@@ -100,7 +100,7 @@ Testing
                         </div>
 
 
-                        <div id ="showeditname" style="display:none" >
+                        <div id ="showeditname" style="display:none">
                             <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
                                 <table>
                                     <tr>
@@ -138,7 +138,7 @@ Testing
                         </div>
 
 
-                        <div id = "showavatar" style="display:none" >
+                        <div id = "showavatar" style="display: none">
                             <table>
                                 <tr>
                                     <td>
@@ -179,7 +179,7 @@ Testing
 
 
 
-            <div id="showeditblurb" style="display:none" >
+            <div id="showeditblurb"style="display:none" >
                 <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
                     <table>
                         <tr>
