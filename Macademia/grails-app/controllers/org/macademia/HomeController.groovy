@@ -170,7 +170,7 @@ class HomeController {
         //println(params.text);
         if(params.keySet().contains("nameText")){
            ig.setName(params.nameText)}
-        if (params.keySet().contains("blurbText")) {
+        else if (params.keySet().contains("blurbText")) {
            ig.setDescription(params["blurbText"])
         }
 //        else if(params.keySet().contains("newlogo")

@@ -84,16 +84,32 @@ Testing
             <table>
                 <tr>
                     <td>
-                        <div id ="showeditname" >
+                        <div id ="hidename">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <h4> ${consortium}</h4>
+                                    </td>
+                                    <td style= "text-align: right; padding-right: 40; padding-top: 68; padding-left: 34;">
+                                        <button id="hideNm">Edit</button>
+                                    </td>
+                                </td>
+                                </tr>
+                                <tr>
+                            </table>
+                        </div>
+
+
+                        <div id ="showeditname" style="display:none" >
                             <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
                                 <table>
                                     <tr>
                                         <td>
                                             <textarea rows="3" cols="18" class = "rounded-corners" name="nameText" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;"> ${consortium} </textarea>
                                         </td>
-                                        <td style= "text-align: right; padding-right: 70; padding-top: 68; padding-left: 34;">
+                                        <td style= "text-align: right; padding-right: 40; padding-top: 68; padding-left: 34;">
 
-                                            <button id="saveName">Save</button>
+                                            %{--<button id="saveName">Save</button>--}%
                                             <g:submitButton name="Save"></g:submitButton>
                                         </td>
                                     </tr>
@@ -104,7 +120,25 @@ Testing
                     </td>
 
                     <td>
-                        <div id = "showavatar" >
+                        <div id= "hideimg">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <div id= "cLogo" >
+                                            <a href="http://www.acm.edu/index.html"><r:img style="margin-left: 3em " dir='images/consortia' file="ACM.png" alt="ACM" /></a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div style= "text-align: right; vertical-align: bottom">
+                                            <button id="hidelogo">Edit</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+
+                        <div id = "showavatar" style="display:none" >
                             <table>
                                 <tr>
                                     <td>
@@ -123,12 +157,29 @@ Testing
                     </td>
                 </tr>
             </table>
-            %{--hi--}%
+
 
 
             <hr/>
+            <div id="hideblurb">
+                <table>
+                    <tr>
+                        <p>${institutionGroup.description}</p>
 
-            <div id="showeditblurb" >
+                    </tr>
+                    <tr>
+                        <div style= "text-align: right; padding-right: 253;">
+                            <button id="hide">Edit</button>
+                        </div>
+                    </tr>
+                </br>
+                </table>
+            </div>
+
+
+
+
+            <div id="showeditblurb" style="display:none" >
                 <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
                     <table>
                         <tr>
@@ -156,3 +207,9 @@ Testing
 
 </body>
 </html>
+
+
+
+
+
+
