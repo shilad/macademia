@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="717469908">
+    <data-source source="LOCAL" name="Data Source" product="PostgreSQL" version="9.2.4" jdbc-version="4.0" driver-name="PostgreSQL Native Driver" driver-version="PostgreSQL 9.2 JDBC4 (build 1002)" uuid="6ee2fec0-dbdb-4966-8832-5c0b5ade0980">
+      <identifier-quote-string>&quot;</identifier-quote-string>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/macademia_prod</jdbc-url>
+      <user-name>grails</user-name>
+      <user-password>dfcddfd8dfcbdfc3dfc6dfd9</user-password>
+      <libraries>
+        <library>
+          <url>jar://$PROJECT_DIR$/postgresql-9.2-1002.jdbc4.jar!/</url>
+        </library>
+        <library>
+          <url>file://$PROJECT_DIR$/postgresql-driver-license.txt</url>
+        </library>
+      </libraries>
+    </data-source>
+  </component>
+</project>
+
