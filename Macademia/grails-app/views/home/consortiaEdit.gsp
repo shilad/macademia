@@ -106,10 +106,11 @@
                                     <td>
                                     </td>
                                     <td>
-                                        <div class="subcolumn_left left2 fieldLabel topBorder"><label></label></div>
+                                        <div class="subcolumn_left left2 fieldLabel topBorder"><label></label>
                                         <div class="subcolumn_right topBorder">
 
-                                            <g:render template="../templates/macademia/imageUploader" model="['image':image]" />
+                                            <g:render template="../templates/macademia/imageUploader"  />
+                                        </div>
                                         </div>
                                     </td>
                                 </tr>

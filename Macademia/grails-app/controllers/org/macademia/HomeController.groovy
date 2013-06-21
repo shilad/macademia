@@ -65,16 +65,16 @@ class HomeController {
     def consortia() {
         InstitutionFilter filter =  institutionGroupService.getInstitutionFilterFromParams(params)
         InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
-        List<Long> Ids = personService.getPeopleInInstitutionFilter(filter, params)
+//        List<Long> Ids = personService.getPeopleInInstitutionFilter(filter, params)
         ArrayList<Long> IdsWithPics = new ArrayList<Long>()
          println("hi")
-        for (Long id:Ids){
-            Person p = personService.get(id)
-            if (p.imageSubpath!=null){
-                IdsWithPics.add(id)
-            println("if")
-            }
-        }
+//        for (Long id:Ids){
+//            Person p = personService.get(id)
+//            if (p.imageSubpath!=null){
+//                IdsWithPics.add(id)
+//            println("if")
+//            }
+//        }
          println("shi")
 
 
@@ -129,10 +129,17 @@ class HomeController {
        println("sam")
         igs = igs.reverse()
         def r = random.nextInt(NUM_RANDOM_LISTS)
-        def people = getRandomPeopleWithImages(numPeople, r, IdsWithPics)
+        def people = [] // getRandomPeopleWithImages(numPeople, r, IdsWithPics)
         ta.recordTime("find random images")
 //        ta.analyze()
-        [people : people, igs : igs, colleges : colleges, consortium : consortium]
+        [
+                people : people,
+                igs : igs,
+                colleges : colleges,
+                defaultImageUrl : getDefaultImageUrl(),
+                consortium : consortium,
+                institutionGroup: ig
+        ]
     }
 
     def consortiaEdit(){
@@ -170,11 +177,15 @@ class HomeController {
 
         //println(params.text);
         if(params.keySet().contains("nameText")){
-           ig.setName(params.nameText)}
-        else if (params.keySet().contains("blurbText")) {
+           ig.setName(params.nameText)
+        }
+        if (params.keySet().contains("blurbText")) {
            ig.setDescription(params["blurbText"])
         }
-        ig.setImageSubpath(imageService.createNewImages(params["image"],ig.getId()) )
+        if (params.keySet().contains('imageSubpath')) {
+            ig.setImageSubpath(params.imageSubpath)
+        }
+
 //        else if(params.keySet().contains("newlogo")
          //   ig.setImageSubpath(params[template])
         ig.save(flush: true, failOnError: true);
@@ -185,6 +196,6 @@ class HomeController {
         println(conSplit[0])
         String consortium = conSplit[0]
 
-        redirect(action : 'consortiaEdit', params: [group : params.group])
+        redirect(action : 'consortia', params: [group : params.group])
     }
 }

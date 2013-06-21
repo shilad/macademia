@@ -95,16 +95,4 @@ class MacademiaTagLib {
         out << '/>'
     }
 
-    def imageLink = {
-        attrs, body ->
-            Object imgOwner = attrs.imgOwner
-            String group = attrs.group ? attrs.group : params.group
-            String uri = null
-            if (!imgOwner.imageSubpath) {
-                throw new IllegalStateException("m:imageLink no img for imgOwner ${imgOwner}")
-            }
-            uri = Utils.makeUrl(group, 'image', 'retrieve', ['subPath' : imgOwner.imageSubpath])
-            out << createLink(['uri' : uri])
-    }
-
 }

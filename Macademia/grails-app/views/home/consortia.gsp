@@ -101,7 +101,14 @@
                     </td>
                     <td>
                         <div id= cLogo>
-                            <a href="http://www.acm.edu/index.html"><r:img dir='images/consortia' file="ACM.png" alt="ACM" /></a>
+                            <a href="http://www.acm.edu/index.html">
+                                <g:if test="${institutionGroup?.imageSubpath}">
+                                    <img  src="/Macademia/${params.group}/image/retrieveOrig?subPath=${institutionGroup.imageSubpath}" style="max-width: 40em; max-height: 20em" defaultImage="${defaultImageUrl}"/>
+                                </g:if>
+                                <g:else>
+                                    <img src="${defaultImageUrl}" width="50"  alt="" defaultImage="${defaultImageUrl}"/>
+                                </g:else>
+                            </a>
                         </div>
                     </td>
                 </tr>
@@ -154,7 +161,7 @@
             <hr/>
             <h6>${consortium}</h6>
 
-            <p> <br>%{-- a tab --}%&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Here is the paragraph describing the consortium.  Who knows how long it will be? Not me.  maybe Margaret G?  I bet I can write a whole paragraph with this rhyme scheme.  Have you seen the cat leap meme?  Last night I had a bad dream.  There was candy, cake, and ice cream, but all was not as well as it seemed.  Soon the creepy person from Scream was killing off everything, first he murdered Janine.  It was not cool, naw 'meen?</p>
+            <p> <br> ${institutionGroup.description} </p>
         </br>
         </br>
 

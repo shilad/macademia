@@ -7,12 +7,27 @@ class ImageController {
     def imageService
 
     def retrieve = {
+        retrieveInternal()
+    }
+
+    def retrieveOrig = {
+        params.size =  'orig'
+        retrieveInternal()
+    }
+
+    def retrieveInternal = {
         File path
+        String imgDir
+        if (params.size == 'orig') {
+            imgDir = imageService.ORIG_IMAGES_PATH
+        } else {
+            imgDir = imageService.LARGE_IMAGES_PATH
+        }
         if (params.id) {
             long id = params.id as long
-            path = imageService.constructPath(imageService.LARGE_IMAGES_PATH, id, false)
+            path = imageService.constructPath(imgDir, id, false)
         } else {
-            path = new File(imageService.LARGE_IMAGES_PATH + '/' + params.subPath)
+            path = new File(imgDir + '/' + params.subPath)
         }
         response.contentType = 'image/png'
         response.outputStream << path.readBytes()
