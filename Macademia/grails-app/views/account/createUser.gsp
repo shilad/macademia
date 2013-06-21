@@ -15,16 +15,8 @@
   </title>
 
   <g:render template="/layouts/headers"/>
-  %{--<g:javascript src="uploadify/swfobject"/>--}%
-  %{--<g:javascript src="uploadify/jquery.uploadify.v2.1.0.min"/>--}%
-  %{--<g:javascript src="lib.macademia.upload"/>--}%
-  <r:script dir='js' file='uploadify/swfobject'></r:script>
-  <r:script dir='js' file='uploadify/jquery.uploadify.v2.1.0.min'></r:script>
-  <r:script dir='js' file='lib.macademia.upload'></r:script>
 
 
-  %{--TODO: Convert this link to a p:css link (unfortunately, it is in a js directory)--}%
-  <link type="text/css" rel="stylesheet" href="${createLinkTo(dir: "js", file: "/uploadify/uploadify.css")}">
   <g:javascript>
     $(document).ready(function() {
         macademia.otherInstitutions = ${otherInstitutions};

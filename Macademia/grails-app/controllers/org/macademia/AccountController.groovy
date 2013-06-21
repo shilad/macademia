@@ -324,6 +324,7 @@ The Macademia Team
                     model: [
                             defaultImageUrl : getDefaultImageUrl(),
                             user: person,
+                            imgOwner: person,
                             interests : allInterests,
                             primaryInstitution: person.retrievePrimaryInstitution(),
                             otherInstitutions: jsonService.makeJsonForNonPrimaryInstitutions(person) as JSON,

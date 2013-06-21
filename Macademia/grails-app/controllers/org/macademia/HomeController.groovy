@@ -43,15 +43,15 @@ class HomeController {
         )
     }
 
-//    def getRandomPeopleWithImages(int numPeople, int randomNum, ArrayList<Long> allowableIds) {
-//        return springcacheService.doWithCache(
-//                'homeCache',
-//                'getRandomPeople' + randomNum,
-//                {personService.findRandomPeopleWithImage(numPeople, allowableIds)}
-//        )
-//    }
+    def getRandomPeopleWithImages(int numPeople, int randomNum, ArrayList<Long> allowableIds) {
+        return springcacheService.doWithCache(
+                'homeCache',
+                'getRandomPeople' + randomNum,
+                {personService.findRandomPeopleWithImage(numPeople, allowableIds)}
+        )
+    }
 
-//    Don't mess with this method
+//    //Don't mess with this method
 //    def getRandomPeopleWithImages(int numPeople, int randomNum) {
 //        return springcacheService.doWithCache(
 //                'homeCache',
@@ -142,7 +142,25 @@ class HomeController {
         String[] conSplit = consortiumName.split("\\(")
         String consortium = conSplit[0]
 
-        [consortium : consortium, institutionGroup:ig]
+        [
+                consortium : consortium,
+                imgOwner : ig,
+                defaultImageUrl : getDefaultImageUrl(),
+                institutionGroup:ig
+        ]
+    }
+
+    def getDefaultImageUrl() {
+//        String l = r.imageLink(src : MacademiaConstants.DEFAULT_IMG)
+        String l = r.resource(dir:'images', file:MacademiaConstants.DEFAULT_IMG)
+        if (l[0] == "'") {
+            l = l[1..-1]
+        }
+        if (l[-1] == "'") {
+            l = l[0..-2]
+        }
+        return l
+
     }
 
     def processConsortiaEdit(){
@@ -155,7 +173,8 @@ class HomeController {
         else if(params.keySet().contains("blurbText")) {
            ig.setDescription(params["blurbText"])
         }
-        //           ig.setImageSubpath(params["imageSub"])
+//        else if(params.keySet().contains("newlogo")
+//            ig.setImageSubpath(params["imageSub"])
 
         ig.save(flush: true, failOnError: true);
 
@@ -165,9 +184,6 @@ class HomeController {
         println(conSplit[0])
         String consortium = conSplit[0]
 
-
-
-        render(view:'consortiaEdit',model:[consortium : consortium, institutionGroup:ig])
-
+        redirect(action : 'consortiaEdit', params: [group : params.group])
     }
 }

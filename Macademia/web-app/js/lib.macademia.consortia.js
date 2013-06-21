@@ -7,11 +7,6 @@ macademia = macademia || {};
     $(document).ready(function(){
 
 
-        $("#hide").click(function(){
-            $("#hideblurb").hide();
-            $("#showeditblurb").show();
-        });
-
         $("#hideNm").click(function(){
             $("#hidename").hide();
             $("#showeditname").show();
@@ -21,6 +16,15 @@ macademia = macademia || {};
             $("#hideimg").hide();
             $("#showavatar").show();
         });
+
+        $("#hide").click(function(){
+            $("#hideblurb").hide();
+            $("#showeditblurb").show();
+        });
+
+
+
+
 
 
     });
