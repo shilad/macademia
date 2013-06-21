@@ -84,24 +84,7 @@
             <table>
                 <tr>
                     <td>
-                        <div id ="hidename">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <h4> ${consortium}</h4>
-                                    </td>
-                                    <td style= "text-align: right; padding-right: 40; padding-top: 68; padding-left: 34;">
-                                        <button id="hideNm">Edit</button>
-                                    </td>
-                                </td>
-                                </tr>
-                                <tr>
-                            </table>
-                        </div>
-
-
-
-                        <div id ="showeditname" style="display:none">
+                        <div id ="showeditname" >
                             <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
                                 <table>
                                     <tr>
@@ -121,24 +104,7 @@
                     </td>
 
                     <td>
-                        <div id= "hideimg">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <div id= "cLogo" >
-                                            <a href="http://www.acm.edu/index.html"><r:img style="margin-left: 3em " dir='images/consortia' file="ACM.png" alt="ACM" /></a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div style= "text-align: right; vertical-align: bottom">
-                                            <button id="hidelogo">Edit</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-
-                        <div id = "showavatar" style="display: none">
+                        <div id = "showavatar" >
                             <table>
                                 <tr>
                                     <td>
@@ -160,21 +126,8 @@
 
 
             <hr/>
-            <div id="hideblurb">
-                <table>
-                    <tr>
-                        <p>${institutionGroup.description}</p>
 
-                    </tr>
-                    <tr>
-                        <div style= "text-align: right; padding-right: 253;">
-                            <button id="hide">Edit</button>
-                        </div>
-                    </tr>
-                </br>
-                </table>
-            </div>
-            <div id="showeditblurb"style="display:none" >
+            <div id="showeditblurb" >
                 <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
                     <table>
                         <tr>
