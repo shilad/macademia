@@ -29,7 +29,7 @@ modules = {
         dependsOn 'upload'
 
         resource url: '/js/lib.macademia.consortia.js'
-    }
+          }
 
     upload {
         dependsOn 'core'
