@@ -197,6 +197,15 @@
             </div>
         </div>
 
+        <div id="submit_edits" style= "margin-left : 46%">
+
+            <input style="margin-right: 1em" type="submit" value="Update" />
+
+            <input type="button" value="Cancel" onclick="location.href = '/Macademia/${params.group}/home/consortia'" />
+        </div>
+
+
+
     </div>
 
     <g:render template="/layouts/footer" />
