@@ -7,7 +7,8 @@
 %{--Testing--}%
 <html class='no-js' lang='en' xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
       xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
-      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html">
 <!--<![endif]-->
 <head>
     <meta name="layout" content="main"/>
@@ -80,74 +81,35 @@
     <div id='main' role='main'>
     </br>
     </br>
-        <div>
+    <div>
+        <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
+
             <table>
                 <tr>
                     <td>
-                        <div id ="hidename">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <h4> ${consortium}</h4>
-                                    </td>
-                                    <td style= "text-align: right; padding-right: 40; padding-top: 68; padding-left: 34;">
-                                        <button id="hideNm">Edit</button>
-                                    </td>
-                                </td>
-                                </tr>
-                                <tr>
-                            </table>
-                        </div>
-
-
-                        <div id ="showeditname" style="display:none">
-                            <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
+                        <div id ="showeditname" >
                                 <table>
                                     <tr>
                                         <td>
                                             <textarea rows="3" cols="18" class = "rounded-corners" name="nameText" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;"> ${consortium} </textarea>
                                         </td>
-                                        <td style= "text-align: right; padding-right: 40; padding-top: 68; padding-left: 34;">
-
-                                            %{--<button id="saveName">Save</button>--}%
-                                            <g:submitButton name="Save"></g:submitButton>
-                                        </td>
                                     </tr>
                                 </table>
-                            </g:form>
-                        </div>
+                           </div>
 
                     </td>
 
                     <td>
-                        <div id= "hideimg">
+                        <div id = "showavatar" >
                             <table>
                                 <tr>
                                     <td>
-                                        <div id= "cLogo" >
-                                            <a href="http://www.acm.edu/index.html"><r:img style="margin-left: 3em " dir='images/consortia' file="ACM.png" alt="ACM" /></a>
-                                        </div>
                                     </td>
-                                    <td>
-                                        <div style= "text-align: right; vertical-align: bottom">
-                                            <button id="hidelogo">Edit</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-
-
-                        <div id = "showavatar" style="display: none">
-                            <table>
-                                <tr>
-                                    <td>
-                                   </td>
                                     <td>
                                         <div class="subcolumn_left left2 fieldLabel topBorder"><label></label></div>
                                         <div class="subcolumn_right topBorder">
-                                            <g:render template="../templates/macademia/imageUploader"/>
 
+                                            <g:render template="../templates/macademia/imageUploader" model="['image':image]" />
                                         </div>
                                     </td>
                                 </tr>
@@ -159,54 +121,37 @@
             </table>
 
 
-
             <hr/>
-            <div id="hideblurb">
+
+            <div id="showeditblurb" >
                 <table>
                     <tr>
-                        <p>${institutionGroup.description}</p>
-
+                        <textarea rows="4" cols="118" class = "rounded-corners"  name="blurbText" style="border: 2.4px solid #000000;">${institutionGroup.description}</textarea>
                     </tr>
                     <tr>
+                    </br>
                         <div style= "text-align: right; padding-right: 253;">
-                            <button id="hide">Edit</button>
+
                         </div>
                     </tr>
                 </br>
                 </table>
+
+            </div>
             </div>
 
+            <div id="submit_edits" style= "margin-left : 46%">
 
+                <input style="margin-right: 1em" type="submit" name="Save" value="Update" />
 
-
-            <div id="showeditblurb"style="display:none" >
-                <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
-                    <table>
-                        <tr>
-                            <textarea rows="4" cols="118" class = "rounded-corners"  name="blurbText" style="border: 2.4px solid #000000;">${institutionGroup.description}</textarea>
-                        </tr>
-                        <tr>
-                        </br>
-                            <div style= "text-align: right; padding-right: 253;">
-                    <g:submitButton name="Save"></g:submitButton>
-                    </div>
-                </tr>
+                <input type="button" value="Cancel" onclick="location.href = '/Macademia/${params.group}/home/consortia'" />
             </br>
-            </table>
-                </g:form>
-            </div>
+        </br>
         </div>
-
-        <div id="submit_edits" style= "margin-left : 46%">
-
-            <input style="margin-right: 1em" type="submit" value="Update" />
-
-            <input type="button" value="Cancel" onclick="location.href = '/Macademia/${params.group}/home/consortia'" />
-        </div>
-
-
-
+        </g:form>
     </div>
+
+
 
     <g:render template="/layouts/footer" />
 
@@ -216,9 +161,3 @@
 
 </body>
 </html>
-
-
-
-
-
-

@@ -9,6 +9,7 @@ class HomeController {
     def institutionGroupService
     def personService
     def springcacheService
+    def imageService
     def random = new Random()
 
     def index = {
@@ -173,9 +174,9 @@ class HomeController {
         else if (params.keySet().contains("blurbText")) {
            ig.setDescription(params["blurbText"])
         }
+        ig.setImageSubpath(imageService.createNewImages(params["image"],ig.getId()) )
 //        else if(params.keySet().contains("newlogo")
-//            ig.setImageSubpath(params["imageSub"])
-
+         //   ig.setImageSubpath(params[template])
         ig.save(flush: true, failOnError: true);
 
 
