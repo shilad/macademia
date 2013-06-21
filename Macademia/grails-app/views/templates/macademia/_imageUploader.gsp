@@ -2,8 +2,8 @@
      %{--Change them at your own risk--}%
      <div class="editPicture left">
       <div>
-        <g:if test="${user?.imageSubpath}">
-          <img src="/Macademia/${params.group}/image/retrieve?subPath=${user.imageSubpath}" alt="" defaultImage="${defaultImageUrl}"/>
+        <g:if test="${imgOwner?.imageSubpath}">
+          <img src="/Macademia/${params.group}/image/retrieve?subPath=${imgOwner.imageSubpath}" alt="" defaultImage="${defaultImageUrl}"/>
         </g:if>
         <g:else>
           <img src="${defaultImageUrl}" width="50"  alt="" defaultImage="${defaultImageUrl}"/>
@@ -14,5 +14,5 @@
           <a href="#" class="change">change picture</a> <span class="separator">|</span><a href="#" class="delete">delete</a>
           <div id="imgUploader">&nbsp;</div>
       </div>
-      <input type="hidden" name="imageSubpath" value="${user?.imageSubpath}"/>
+      <input type="hidden" name="imageSubpath" value="${imgOwner?.imageSubpath}"/>
     </div>

@@ -17,9 +17,14 @@
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
     <g:render template="/layouts/headers"/>
     <title>Macademia - Connecting colleagues who share research interests.</title>
+
     <g:javascript>
         $(document).ready(function() {
-            macademia.homePageLoad();
+            macademia.initLogoLink();
+            macademia.initializeTopNav();
+            macademia.initializeLogin();
+            macademia.initInstitutionGroups();
+            macademia.upload.init();
             macademia.serverLog('page', 'load', {'page' : 'home'});
         });
     </g:javascript>
@@ -137,15 +142,12 @@
                             <table>
                                 <tr>
                                     <td>
-
-                                        <r:img id="imageSub" dir='images' file="no_avatar.jpg" alt="avatar"/>
-
-
-                                    </td>
+                                   </td>
                                     <td>
-                                        <div style= "text-align: right; vertical-align: bottom">
-                                            %{--<button>Save</button>--}%
-                                            <g:submitButton name="Save"></g:submitButton>
+                                        <div class="subcolumn_left left2 fieldLabel topBorder"><label></label></div>
+                                        <div class="subcolumn_right topBorder">
+                                            <g:render template="../templates/macademia/imageUploader"/>
+
                                         </div>
                                     </td>
                                 </tr>
