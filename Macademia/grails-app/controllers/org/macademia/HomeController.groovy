@@ -116,10 +116,10 @@ class HomeController {
         //removes abreviation from the end of institution group name
         String[] conSplit = consortiumName.split("\\(")
         String consortium = conSplit[0]
+        println(consortium)
         //gets colleges/universities in the consortium and removes the formating[]
         String colls = institutionGroupService.retrieveInstitutions(ig)
         String colleges = colls[1..-2];
-       println("lad")
         TimingAnalysis ta = new TimingAnalysis()
         ta.startTime()
         def igCounts = getInstitutionGroupCounts()
@@ -149,6 +149,7 @@ class HomeController {
         String consortiumName = (ig)
         String[] conSplit = consortiumName.split("\\(")
         String consortium = conSplit[0]
+
 
         [
                 consortium : consortium,

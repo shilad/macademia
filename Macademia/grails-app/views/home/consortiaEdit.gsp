@@ -90,7 +90,8 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <textarea rows="3" cols="18" class = "rounded-corners" name="url" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;"> ${consortium} </textarea>
+                                            <textarea rows="3" cols="18" class = "rounded-corners" name="url" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;">${consortium}</textarea>
+
                                         </td>
                                     </tr>
                                 </table>
@@ -106,8 +107,8 @@
 
                     </td>
                     <td>
-                        <textarea rows="3"  cols="18" class = "rounded-corners" name="webUrl" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%; margin-top:2em; margin-left:3.1em;">${institutionGroup.webUrl}</textarea>
 
+                        <textarea rows="3"  cols="18" class = "rounded-corners" name="webUrl" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%; margin-top:2em; margin-left:3.1em;">${institutionGroup.webUrl}</textarea>
                     </td>
                 </tr>
             </table>
@@ -121,7 +122,7 @@
                 <table>
                     <tr>
                         <textarea rows="4" cols="118" class = "rounded-corners"  name="blurbText" style="border: 2.4px solid #000000;">${institutionGroup.description}</textarea>
-                    </tr>
+                                            </tr>
                     <tr>
                     </br>
                         <div style= "text-align: right; padding-right: 253;">
