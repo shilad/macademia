@@ -134,14 +134,14 @@
 
 
                     </tr>
-                        <textarea rows="4" cols="118" class = "rounded-corners"  name="blurbText" style="border: 2.4px solid #000000;">${institutionGroup.description}</textarea>
-                                            </tr>
-                    <tr>
-                    </br>
-                        <div style= "text-align: right; padding-right: 253;">
+                        %{--<textarea rows="4" cols="118" class = "rounded-corners"  name="blurbText" style="border: 2.4px solid #000000;">${institutionGroup.description}</textarea>--}%
+                                            %{--</tr>--}%
+                    %{--<tr>--}%
+                    %{--</br>--}%
+                        %{--<div style= "text-align: right; padding-right: 253;">--}%
 
-                        </div>
-                    </tr>
+                        %{--</div>--}%
+                    %{--</tr>--}%
                 </br>
                 </table>
 
