@@ -101,7 +101,7 @@
                     </td>
                     <td>
                         <div id= cLogo>
-                            <a href="http://www.acm.edu/index.html">
+                            %{--<a href="http://www.acm.edu/index.html">--}%
                                 <g:if test="${institutionGroup?.imageSubpath}">
                                     <img  src="/Macademia/${params.group}/image/retrieveOrig?subPath=${institutionGroup.imageSubpath}" style="max-width: 40em; max-height: 20em" defaultImage="${defaultImageUrl}"/>
                                 </g:if>
