@@ -103,8 +103,8 @@
                     <td>
 
                                         %{--<div id="imgUploaderUploader">--}%
+                                            <div style="padding-left: 430; padding-top: 50"><g:render template="../templates/macademia/imageUploader" /></div>
 
-                                            <g:render template="../templates/macademia/imageUploader" />
                                         %{--</div>--}%
 
                     </td>
