@@ -8,7 +8,7 @@
 <html class='no-js' lang='en' xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
       xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
       xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
-      xmlns="http://www.w3.org/1999/html">
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <!--<![endif]-->
 <head>
     <meta name="layout" content="main"/>
@@ -80,6 +80,7 @@
     </header>
 
     <div id="main">
+    </br>
         <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
 
             <table>
@@ -89,7 +90,7 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <textarea rows="3" cols="18" class = "rounded-corners" name="nameText" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;"> ${consortium} </textarea>
+                                            <textarea rows="3" cols="18" class = "rounded-corners" name="nameText" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;">${consortium}</textarea>
                                         </td>
                                     </tr>
                                 </table>
@@ -99,9 +100,9 @@
 
                     <td>
 
-                                        %{--<div id="imgUploaderUploader">--}%
+                                        <div style= "margin-top:5em; margin-left:10em;"
                                             <g:render template="../templates/macademia/imageUploader" />
-                                        %{--</div>--}%
+                                        </div>
 
                     </td>
                 </tr>
