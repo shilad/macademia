@@ -12,18 +12,18 @@
       position: relative;
 
       #logo {
-        position:absolute;
-        background:url(../images/macademiaRibbon.png) no-repeat;
+        position: absolute;
+        background: url(../images/macademiaRibbon.png) no-repeat;
         height: 214px;
         width: 163px;
-        left:-16px;
+        left: -16px;
         text-indent: -9999px;
-        z-index:1;
+        z-index: 1;
       }
 
       h1 {
         text-indent: -9999px;
-        background:url(../images/macademiaLogotype.png) no-repeat;
+        background: url(../images/macademiaLogotype.png) no-repeat;
         height: 57px;
         width: 280px;
         position: absolute;
@@ -83,62 +83,66 @@
       }
     }
   }
-  .editPicture {
-    text-align: center;
-    line-height: 1.25em;
-    float : left;
+  #main {
+    width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 0px;
+    //20px;
+    padding-left: 0px;
 
-    .links {
-      position: relative;
-      a {
-        z-index: -1;
+    .editPicture {
+      text-align: center;
+      line-height: 1.25em;
+      float: left;
+
+      .links {
+        position: relative;
+        a {
+          z-index: -1;
+        }
       }
     }
-  }
 
-  #imgUploaderUploader {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100px;
-    height: 25px;
-    z-index: 100;
-  }
-
-  .center {
-    text-align: center;
-
-  }
-
-
-}
-
-    #searchSubmit {
-     // position: absolute;
-      margin-top: 100em;
-      //left: 482px;
-      font-size: 14px;
-      //padding: 7px 14px 5px;
+    #imgUploaderUploader {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100px;
+      height: 25px;
+      z-index: 100;
     }
 
-#text-area{
+    .center {
+      text-align: center;
 
-  margin: 10px 1px 0px 81px;
-  width: 500px;
-  height: 248px;
-  background-color: whitesmoke;
-  resize: none;
-  border: 2.4px solid #000000;
+    }
+
+  }
+
+  #searchSubmit {
+    // position: absolute;
+    margin-top: 100em;
+    //left: 482px;
+    font-size: 14px;
+    //padding: 7px 14px 5px;
+  }
+
+  #text-area {
+
+    margin: 10px 1px 0px 81px;
+    width: 500px;
+    height: 248px;
+    background-color: whitesmoke;
+    resize: none;
+    border: 2.4px solid #000000;
+  }
+
+  h4 {
+    padding-top: 2em;
+    font-size: 216%;
+    text-align: 10%;
+
+  }
 }
-
-
-
-
-h4{
-      padding-top: 2em;
-      font-size: 216%;
-      text-align: 10%;
-
-}
-
 
