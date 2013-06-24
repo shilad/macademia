@@ -17,7 +17,7 @@ class InstitutionGroup {
         abbrev(unique: true)
         description(nullable: true)
         imageSubpath(nullable : true)
-        webLink(nullable : true)
+        webUrl(nullable : true)
     }
 
     public String toString() {
