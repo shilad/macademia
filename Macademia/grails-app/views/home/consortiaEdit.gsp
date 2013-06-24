@@ -85,7 +85,7 @@
 
             <table>
                 <tr>
-                    <td>
+                    <td width=33%>
                         <div id ="showeditname" >
                                 <table>
                                     <tr>
@@ -99,16 +99,16 @@
 
                     </td>
 
-                    <td>
+                    <td width=26%>
 
-                                        <div style= "margin-top:7em; margin-left : 7.5em">
+                                        <div style= "margin-left:50%;margin-top:7em;">
                                             <g:render template="../templates/macademia/imageUploader" />
                                         </div>
 
                     </td>
-                    <td>
+                    <td width=33%>
 
-                        <textarea rows="3"  cols="18" class = "rounded-corners" name="webUrl" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%; margin-top:2em; margin-left:3.1em;">${institutionGroup.webUrl}</textarea>
+                        <textarea rows="3"  cols="18" class = "rounded-corners" name="webUrl" style= " margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%; margin-top:2em; margin-left: 1.5em">${institutionGroup.webUrl}</textarea>
                     </td>
                 </tr>
             </table>
