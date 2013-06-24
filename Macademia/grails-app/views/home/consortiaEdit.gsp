@@ -32,7 +32,7 @@
 </head>
 
 <body>
-<div id="consortiaHome">
+<div id="consortiaEdit">
     <header>
         <div id="headerWrapper">
             <div id="logo" title="Macademia">Macademia</div>
@@ -102,10 +102,10 @@
 
                     <td>
 
-                                        <div id="imgUploaderUploader">
+                                        %{--<div id="imgUploaderUploader">--}%
 
                                             <g:render template="../templates/macademia/imageUploader" />
-                                        </div>
+                                        %{--</div>--}%
 
                     </td>
                 </tr>
