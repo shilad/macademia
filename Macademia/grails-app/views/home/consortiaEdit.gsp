@@ -12,7 +12,7 @@
 <!--<![endif]-->
 <head>
     <meta name="layout" content="main"/>
-    <r:require modules="consortia"/>
+    <r:require modules="profile"/>
     <meta charset='utf-8' />
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
@@ -30,6 +30,7 @@
         });
     </g:javascript>
 </head>
+
 <body>
 <div id="consortiaHome">
     <header>
@@ -100,26 +101,16 @@
                     </td>
 
                     <td>
-                        <div id = "showavatar" >
-                            <table>
-                                <tr>
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <div class="subcolumn_left left2 fieldLabel topBorder"><label></label>
-                                        <div class="subcolumn_right topBorder">
 
-                                            <g:render template="../templates/macademia/imageUploader"  />
+                                        <div id="imgUploaderUploader">
+
+                                            <g:render template="../templates/macademia/imageUploader" />
                                         </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
 
                     </td>
                 </tr>
             </table>
+
 
 
             <hr/>

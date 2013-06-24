@@ -83,6 +83,7 @@
       }
     }
   }
+
 }
 
     #searchSubmit {
@@ -101,6 +102,15 @@
   background-color: whitesmoke;
   resize: none;
   border: 2.4px solid #000000;
+}
+
+#imgUploaderUploader {
+  position: absolute;
+  top: 50px;
+  left: 0px;
+  width: 100px;
+  height: 25px;
+  z-index: 100;
 }
 
 h4{
