@@ -79,10 +79,7 @@
         </div>
     </header>
 
-    <div id='main' role='main'>
-    </br>
-    </br>
-    <div>
+    <div id="main">
         <g:form params="[group : params.group]" action="processConsortiaEdit" method="post">
 
             <table>
@@ -103,8 +100,7 @@
                     <td>
 
                                         %{--<div id="imgUploaderUploader">--}%
-                                            <div style="padding-left: 430; padding-top: 50"><g:render template="../templates/macademia/imageUploader" /></div>
-
+                                            <g:render template="../templates/macademia/imageUploader" />
                                         %{--</div>--}%
 
                     </td>
@@ -149,7 +145,7 @@
 
 
 
-</div>
+
 
 </body>
 </html>
