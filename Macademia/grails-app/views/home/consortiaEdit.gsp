@@ -100,7 +100,7 @@
 
                     <td>
 
-                                        <div style= "margin-top:5em; margin-left:10em;"
+                                        <div style= "margin-top:6.5em; margin-left:18em;"
                                             <g:render template="../templates/macademia/imageUploader" />
                                         </div>
 
