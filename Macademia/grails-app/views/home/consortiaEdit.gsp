@@ -90,7 +90,7 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <textarea rows="3" cols="18" class = "rounded-corners" name="nameText" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;"> ${consortium} </textarea>
+                                            <textarea rows="3" cols="18" class = "rounded-corners" name="url" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;"> ${consortium} </textarea>
                                         </td>
                                     </tr>
                                 </table>
@@ -100,13 +100,18 @@
 
                     <td>
 
-                                        <div style= "margin-top:7em; margin-left:7em;"
+                                        <div style= "margin-top:7em; margin-left : 7.5em">
                                             <g:render template="../templates/macademia/imageUploader" />
                                         </div>
 
                     </td>
+                    <td>
+                        <textarea rows="3"  cols="18" class = "rounded-corners" name="webUrl" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%; margin-top:2em; margin-left:3.1em;">${institutionGroup.webUrl}</textarea>
+
+                    </td>
                 </tr>
             </table>
+
 
 
 

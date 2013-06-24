@@ -185,6 +185,8 @@ class HomeController {
         if (params.keySet().contains('imageSubpath')) {
             ig.setImageSubpath(params.imageSubpath)
         }
+        if (params.keySet().contains("webUrl"))
+            ig.setWebUrl(params.webUrl)
 
 //        else if(params.keySet().contains("newlogo")
          //   ig.setImageSubpath(params[template])

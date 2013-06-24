@@ -11,7 +11,7 @@
       </div>
       <div class="links">
           %{--These elements must appear in exactly this order for the upload functionality to work--}%
-          <a href="#" class="change">change picture</a> <span class="separator">|</span><a href="#" class="delete">delete</a>
+          <a href="#" class="change">change picture</a> <span class="separator">|</span><a href="#" class="delete"> delete</a>
           <div id="imgUploader">&nbsp;</div>
       </div>
       <input type="hidden" name="imageSubpath" value="${imgOwner?.imageSubpath}"/>
