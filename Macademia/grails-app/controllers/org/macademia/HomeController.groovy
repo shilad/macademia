@@ -176,16 +176,16 @@ class HomeController {
         InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
 
         //println(params.text);
-        if(params.keySet().contains("nameText")){
+        if(params.keySet().contains("nameText"!="")){
            ig.setName(params.nameText)
         }
-        if (params.keySet().contains("blurbText")) {
+        if (params.keySet().contains("blurbText"!="")) {
            ig.setDescription(params["blurbText"])
         }
-        if (params.keySet().contains('imageSubpath')) {
+        if (params.keySet().contains('imageSubpath'!="")) {
             ig.setImageSubpath(params.imageSubpath)
         }
-        if (params.keySet().contains("webUrl"))
+        if (params.keySet().contains("webUrl"!=""))
             ig.setWebUrl(params.webUrl)
 
 //        else if(params.keySet().contains("newlogo")
