@@ -5,7 +5,7 @@ class InstitutionGroup {
     String abbrev
     String description  // can contain html markup
     String imageSubpath
-    String webLink
+    String webUrl
     Boolean crossCutting = false
 
     static hasMany = [ institutions : Institution ]
@@ -17,7 +17,7 @@ class InstitutionGroup {
         abbrev(unique: true)
         description(nullable: true)
         imageSubpath(nullable : true)
-        webLink(nullable : true)
+        webUrl(nullable : true)
     }
 
     public String toString() {
