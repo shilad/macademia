@@ -89,8 +89,14 @@
                         <div id ="showeditname" >
                                 <table>
                                     <tr>
+
                                         <td>
-                                            <textarea rows="3" cols="18" class = "rounded-corners" name="url" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;">${consortium}</textarea>
+
+
+
+
+                                                <textarea rows="3" cols="18" class = "rounded-corners" name="url" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;">${consortium}</textarea>
+
 
                                         </td>
                                     </tr>
@@ -107,8 +113,19 @@
 
                     </td>
                     <td>
+                        <g:if test="${institutionGroup.webUrl==null||institutionGroup.webUrl==""}">
 
-                        <textarea rows="3"  cols="18" class = "rounded-corners" name="webUrl" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%; margin-top:2em; margin-left:3.1em;">${institutionGroup.webUrl}</textarea>
+                            <textarea rows="3"  cols="18" class = "rounded-corners" name="webUrl" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%; margin-top:2em; margin-left:3.1em;"placeholder="Copy and paste URL here"></textarea>
+                        </g:if>
+
+                        <g:else>
+                            <textarea rows="3"  cols="18" class = "rounded-corners" name="webUrl" style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%; margin-top:2em; margin-left:3.1em;">${institutionGroup.webUrl}</textarea>
+
+                        </g:else>
+
+
+
+
                     </td>
                 </tr>
             </table>
