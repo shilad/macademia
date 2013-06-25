@@ -65,17 +65,19 @@ class HomeController {
     def consortia() {
         InstitutionFilter filter =  institutionGroupService.getInstitutionFilterFromParams(params)
         InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
-//        List<Long> Ids = personService.getPeopleInInstitutionFilter(filter, params)
+        List<Long> Ids = personService.getPeopleInInstitutionFilter(filter, params)
         ArrayList<Long> IdsWithPics = new ArrayList<Long>()
-         println("hi")
-//        for (Long id:Ids){
-//            Person p = personService.get(id)
-//            if (p.imageSubpath!=null){
-//                IdsWithPics.add(id)
-//            println("if")
-//            }
-//        }
-         println("shi")
+        println("hi")
+        for (Long id:Ids){
+            Person p = personService.get(id)
+            if (p.imageSubpath!=null){
+                IdsWithPics.add(id)
+            println("if")
+            }
+        }
+        println("shi")
+
+
 
 
 //        if (numPeopleWithPicture>=26){
@@ -111,6 +113,12 @@ class HomeController {
         else if (IdsWithPics.size()<=13){
             numPeople=IdsWithPics.size()
         }
+
+
+
+
+
+
         //gets the entire institution group name
         String consortiumName = (ig)
         //removes abreviation from the end of institution group name
@@ -126,10 +134,10 @@ class HomeController {
         ta.recordTime("count ig memberships")
         def igs = igCounts.keySet() as ArrayList
         igs.sort({igCounts[it]})
-       println("sam")
+        println("sam")
         igs = igs.reverse()
         def r = random.nextInt(NUM_RANDOM_LISTS)
-        def people = [] // getRandomPeopleWithImages(numPeople, r, IdsWithPics)
+        def people = getRandomPeopleWithImages(numPeople, r, IdsWithPics)
         ta.recordTime("find random images")
 //        ta.analyze()
         [
