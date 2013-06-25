@@ -3,7 +3,7 @@
      <div class="editPicture left">
       <div>
         <g:if test="${imgOwner?.imageSubpath}">
-          <img src="/Macademia/${params.group}/image/retrieve?subPath=${imgOwner.imageSubpath}" alt="" defaultImage="${defaultImageUrl}"/>
+          <img width="50" src="/Macademia/${params.group}/image/retrieve?subPath=${imgOwner.imageSubpath}" alt="" defaultImage="${defaultImageUrl}"/>
         </g:if>
         <g:else>
           <img src="${defaultImageUrl}" width="50"  alt="" defaultImage="${defaultImageUrl}"/>

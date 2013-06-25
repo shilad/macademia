@@ -106,9 +106,9 @@
                                 <g:if test="${institutionGroup?.imageSubpath}">
                                     <img  src="/Macademia/${params.group}/image/retrieveOrig?subPath=${institutionGroup.imageSubpath}" style="max-width: 40em; max-height: 20em" defaultImage="${defaultImageUrl}"/>
                                 </g:if>
-                                <g:else>
-                                    <img src="${defaultImageUrl}" width="50"  alt="" defaultImage="${defaultImageUrl}"/>
-                                </g:else>
+                                %{--<g:else>--}%
+                                    %{--<img src="${defaultImageUrl}" width="50"  alt="" defaultImage="${defaultImageUrl}"/>--}%
+                                %{--</g:else>--}%
                             </a>
                         </div>
                     </td>
