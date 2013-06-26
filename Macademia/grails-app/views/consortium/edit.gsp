@@ -89,7 +89,7 @@
 
 <div id="main">
 </br>
-    <g:form params="[group: params.group]" action="processConsortiaEdit" method="post">
+    <g:form params="[group: params.group]" action="save" method="post">
 
         <table>
             <tr>

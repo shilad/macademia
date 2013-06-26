@@ -36,7 +36,8 @@ class Person {
     }
     
     static mapping = {
-        interests fetch: "join", cache: true
+//        interests fetch: "join", cache: true
+        interests fetch: "join"
         links type:'text'
     }
 
