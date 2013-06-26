@@ -8,7 +8,8 @@
 <html class='no-js' lang='en' xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
       xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
       xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
-      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html">
 <!--<![endif]-->
 <head>
     <meta name="layout" content="main"/>
@@ -98,8 +99,8 @@
                         <table>
                             <tr>
                                 <td>
-                                    <textarea rows="3" cols="18" class="rounded-corners" name="nameText"
-                                              style="margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%;">${consortium}</textarea>
+                                    <input class="rounded-corners" name="nameText"
+                                              style="width: 17em; margin-top: 4em; border: 2.4px solid #000000; font-weight: bold; font-size:20;" value= "${institutionGroup.name.encodeAsHTML()}" >
 
                                 </td>
                             </tr>
@@ -110,19 +111,19 @@
 
                 <td width=26%>
 
-                    <div style="margin-left:40%;margin-top:7em;">
+                    <div style="margin-left: 5.5em;margin-top:6em;">
                         <g:render template="../templates/macademia/imageUploader"/>
                     </div>
 
                 </td>
                 <td width=33%>
                     <g:if test="${institutionGroup.webUrl == null || institutionGroup.webUrl == ""}">
-                        <textarea rows="3" cols="18" class="rounded-corners" name="webUrl"
-                                  style=" margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%; margin-top:2em; margin-left: 1.5em;" placeholder="Type Url here"></textarea>
+                        <input class="rounded-corners" name="webUrl"
+                               style="width: 17em; margin-top: 4em;margin-left: .7em; border: 2.4px solid #000000; font-weight: bold; font-size: 20" placeholder="Type Url here">
                     </g:if>
                     <g:else>
-                        <textarea rows="3" cols="18" class="rounded-corners" name="webUrl"
-                                  style=" margin-top: 2em; border: 2.4px solid #000000; font-weight: bold; font-size: 216%; margin-top:2em; margin-left: 1.5em">${institutionGroup.webUrl}</textarea>
+                         <input class="rounded-corners" name="webUrl"
+                                  style="width: 17em; margin-top: 4em;margin-left: .7em; border: 2.4px solid #000000; font-weight: bold; font-size: 20;" value= "${institutionGroup.webUrl.encodeAsHTML()}">
                     </g:else>
                 </td>
             </tr>
@@ -144,7 +145,7 @@
 
                     <g:else>
                         <textarea rows="4" cols="118" class="rounded-corners" name="blurbText"
-                                  style="border: 2.4px solid #000000;">${institutionGroup.description}</textarea>
+                                  style="border: 2.4px solid #000000;">${institutionGroup.description.encodeAsHTML()}</textarea>
 
                     </g:else>
 

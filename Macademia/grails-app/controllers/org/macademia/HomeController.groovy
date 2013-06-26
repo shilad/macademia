@@ -136,6 +136,7 @@ class HomeController {
         def people = getRandomPeopleWithImages(numPeople, r, IdsWithPics)
         ta.recordTime("find random images")
 //        ta.analyze()
+        println("this is the part of consortia" + consortium)
         [
                 people : people,
                 igs : igs,
@@ -150,11 +151,10 @@ class HomeController {
 
         InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
 
-        String consortiumName = (ig)
-        String[] conSplit = consortiumName.split("\\(")
-        String consortium = conSplit[0]
-
-
+//        String consortiumName = (ig)
+        //String[] conSplit = consortiumName.split("\\(")
+        String consortium = ig.name
+       //println("in consortia edit" + consortium)
         [
                 consortium : consortium,
                 imgOwner : ig,
@@ -180,17 +180,16 @@ class HomeController {
 
         InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
 
-        //println(params.text);
         if(params.keySet().contains("nameText") && params.nameText !="/ "){
            ig.setName(params.nameText)
         }
-        if (params.keySet().contains("blurbText") && params.nameText !="/ ") {
+        if (params.keySet().contains("blurbText") && params.blurbText !="/ ") {
            ig.setDescription(params["blurbText"])
         }
         if (params.keySet().contains('imageSubpath')) {
             ig.setImageSubpath(params.imageSubpath)
         }
-        if (params.keySet().contains("webUrl") && params.nameText !="/ ")
+        if (params.keySet().contains("webUrl") && params.webUrl !="/ ")
             ig.setWebUrl(params.webUrl)
 
 //        else if(params.keySet().contains("newlogo")
