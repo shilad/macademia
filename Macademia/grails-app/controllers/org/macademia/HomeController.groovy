@@ -68,14 +68,17 @@ class HomeController {
         List<Long> Ids = personService.getPeopleInInstitutionFilter(filter, params)
         ArrayList<Long> IdsWithPics = new ArrayList<Long>()
         println("hi")
+
+
+        println("shi")
         for (Long id:Ids){
             Person p = personService.get(id)
-            if (p.imageSubpath!=null){
-                IdsWithPics.add(id)
-            println("if")
+            IdsWithPics.add(id)
+            if (p.imageSubpath==null){
+                IdsWithPics.remove(id)
+                println("if")
             }
         }
-        println("shi")
 
 
 
