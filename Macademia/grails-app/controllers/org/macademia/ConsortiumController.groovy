@@ -57,7 +57,13 @@ class ConsortiumController {
         ta.recordTime("making colleges string")
         ta.analyze()
 
+        def igsk = igCounts.keySet() as ArrayList
+        igsk.sort({igCounts[it]})
+        igsk = igsk.reverse()
+
+
         [
+                igsk: igsk,
                 people : people,
                 igs : igCounts.keySet() as ArrayList,
                 colleges : colleges,
