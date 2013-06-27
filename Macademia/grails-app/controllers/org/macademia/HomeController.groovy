@@ -21,14 +21,13 @@ class HomeController {
         igs.sort({igCounts[it]})
         igs = igs.reverse()
         def r = random.nextInt(NUM_RANDOM_LISTS)
-        ArrayList<Long> Ids = new ArrayList<Long>()
-        def people = getRandomPeopleWithImages(NUM_PEOPLE, r, Ids)
+        def people = getRandomPeopleWithImages(NUM_PEOPLE, r)
         ta.recordTime("find random images")
 //        ta.analyze()
         [people : people, igs : igs]
     }
 
-    def getInstitutionGroupCounts() {
+    private def getInstitutionGroupCounts() {
         return springcacheService.doWithCache(
                 'homeCache',
                 'institutionGroupCounts',
@@ -44,172 +43,11 @@ class HomeController {
         )
     }
 
-    def getRandomPeopleWithImages(int numPeople, int randomNum, ArrayList<Long> allowableIds) {
+    private def getRandomPeopleWithImages(int numPeople, int randomNum) {
         return springcacheService.doWithCache(
                 'homeCache',
                 'getRandomPeople' + randomNum,
-                {personService.findRandomPeopleWithImage(numPeople, allowableIds)}
+                {personService.findRandomPeopleWithImage(numPeople, null)}
         )
-    }
-
-//    //Don't mess with this method
-//    def getRandomPeopleWithImages(int numPeople, int randomNum) {
-//        return springcacheService.doWithCache(
-//                'homeCache',
-//                'getRandomPeople' + randomNum,
-//                {personService.findRandomPeopleWithImage(numPeople)}
-//        )
-//    }
-
-
-    def consortia() {
-        InstitutionFilter filter =  institutionGroupService.getInstitutionFilterFromParams(params)
-        InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
-        List<Long> Ids = personService.getPeopleInInstitutionFilter(filter, params)
-        ArrayList<Long> IdsWithPics = new ArrayList<Long>()
-        println("hi")
-
-
-        println("shi")
-        for (Long id:Ids){
-            Person p = personService.get(id)
-            IdsWithPics.add(id)
-            if (p.imageSubpath==null){
-                IdsWithPics.remove(id)
-                println("if")
-            }
-        }
-
-
-
-
-//        if (numPeopleWithPicture>=26){
-//            //display 2 rows of 13 pictures
-//            def r = random.nextInt(NUM_RANDOM_LISTS)
-//            def people = getRandomPeopleWithImages(26, r)
-//
-//        }
-//
-//        else if (13<numPeopleWithPicture && numPeopleWithPicture<26){
-//            //display n of the pictures on the top row, and the rest on the bottom
-//            int topRow=Math.ceil(numPeopleWithPicture/2)
-//            int bottomRow=numPeopleWithPicture-topRow
-//            def r = random.nextInt(NUM_RANDOM_LISTS)
-//            def people = getRandomPeopleWithImages(numPeopleWithPicture, r)
-//        }
-//
-//        else if (numPeopleWithPicture<=13){
-//            //display all the pictures in one row
-//            def r = random.nextInt(NUM_RANDOM_LISTS)
-//            def people = getRandomPeopleWithImages(numPeopleWithPicture, r)
-//        }
-
-        int numPeople=0
-
-        if (IdsWithPics.size()>=26){
-            numPeople=26
-        }
-        else if (13<IdsWithPics.size() && IdsWithPics.size()<26){
-            numPeople=IdsWithPics.size()
-       print("lad")
-        }
-        else if (IdsWithPics.size()<=13){
-            numPeople=IdsWithPics.size()
-        }
-
-
-
-
-
-
-        //gets the entire institution group name
-        String consortiumName = (ig)
-        //removes abreviation from the end of institution group name
-        String[] conSplit = consortiumName.split("\\(")
-        String consortium = conSplit[0]
-        println(consortium)
-        //gets colleges/universities in the consortium and removes the formating[]
-        String colls = institutionGroupService.retrieveInstitutions(ig)
-        String colleges = colls[1..-2];
-        TimingAnalysis ta = new TimingAnalysis()
-        ta.startTime()
-        def igCounts = getInstitutionGroupCounts()
-        ta.recordTime("count ig memberships")
-        def igs = igCounts.keySet() as ArrayList
-        igs.sort({igCounts[it]})
-        println("sam")
-        igs = igs.reverse()
-        def r = random.nextInt(NUM_RANDOM_LISTS)
-        def people = getRandomPeopleWithImages(numPeople, r, IdsWithPics)
-        ta.recordTime("find random images")
-//        ta.analyze()
-        [
-                people : people,
-                igs : igs,
-                colleges : colleges,
-                defaultImageUrl : getDefaultImageUrl(),
-                consortium : consortium,
-                institutionGroup: ig
-        ]
-    }
-
-    def consortiaEdit(){
-
-        InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
-
-        String consortiumName = (ig)
-        String[] conSplit = consortiumName.split("\\(")
-        String consortium = conSplit[0]
-
-
-        [
-                consortium : consortium,
-                imgOwner : ig,
-                defaultImageUrl : getDefaultImageUrl(),
-                institutionGroup:ig
-        ]
-    }
-
-    def getDefaultImageUrl() {
-//        String l = r.imageLink(src : MacademiaConstants.DEFAULT_IMG)
-        String l = r.resource(dir:'images', file:MacademiaConstants.DEFAULT_IMG)
-        if (l[0] == "'") {
-            l = l[1..-1]
-        }
-        if (l[-1] == "'") {
-            l = l[0..-2]
-        }
-        return l
-
-    }
-
-    def processConsortiaEdit(){
-
-        InstitutionGroup ig = institutionGroupService.findByAbbrev(params.group)
-
-        //println(params.text);
-        if(params.keySet().contains("nameText") && params.nameText !="/ "){
-           ig.setName(params.nameText)
-        }
-        if (params.keySet().contains("blurbText") && params.nameText !="/ ") {
-           ig.setDescription(params["blurbText"])
-        }
-        if (params.keySet().contains('imageSubpath')) {
-            ig.setImageSubpath(params.imageSubpath)
-        }
-        if (params.keySet().contains("webUrl") && params.nameText !="/ ")
-            ig.setWebUrl(params.webUrl)
-
-//        else if(params.keySet().contains("newlogo")
-         //   ig.setImageSubpath(params[template])
-        ig.save(flush: true, failOnError: true);
-
-
-        String consortiumName = (ig)
-        String[] conSplit = consortiumName.split("\\(")
-        println(conSplit[0])
-        String consortium = conSplit[0]
-
-        redirect(action : 'consortia', params: [group : params.group])
     }
 }

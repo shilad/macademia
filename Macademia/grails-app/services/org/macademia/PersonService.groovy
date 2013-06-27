@@ -7,7 +7,8 @@ import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
  */
 class PersonService {
 
-    boolean transactional = true
+    boolean transactional = false
+
     def MAX_DEPTH = 5
     def interestService
     def userService
@@ -47,24 +48,17 @@ class PersonService {
 
 
     public Collection<Person> findRandomPeopleWithImage(int n, ArrayList<Long> allowableIds) {
-        if (allowableIds.isEmpty()){
-            List<Long> ids = Person.findAllByImageSubpathNotIsNull().id as ArrayList<Long>
-            Collections.shuffle(ids)
-            if (ids.size() > n) {
-                ids = ids.subList(0, n)
-            }
-            return Person.getAll(ids)
+        List<Long> ids
+        if (allowableIds == null){
+            ids = Person.findAllByImageSubpathNotIsNull().id as ArrayList<Long>
+        } else {
+            ids = Person.findAllByImageSubpathNotIsNullAndIdInList(allowableIds).id as ArrayList<Long>
         }
-        else {
-            Collections.shuffle(allowableIds)
-            if (allowableIds.size() > n) {
-                allowableIds = allowableIds.subList(0, n)
-            }
-            return Person.getAll(allowableIds)
-
+        Collections.shuffle(ids)
+        if (ids.size() > n) {
+            ids = ids.subList(0, n)
         }
-
-
+        return Person.getAll(ids)
     }
 //  Don't mess with this method
 //    public Collection<Person> findRandomPeopleWithImage(int n) {
