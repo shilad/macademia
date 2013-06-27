@@ -17,7 +17,7 @@
         <ul>
             <li><a href="http://www.acm.edu">Associated Colleges of the Midwest</a></li>
             <li><a href="http://glca.org/">The Great Lakes Colleges Association</a></li>
-            <li><a href="http://www3.babson.edu/newsroom/releases/babsonolinwellesleypartnership.cfm">BOW: Babson, Olin, Wellesley</a></li>
+            <li><a href=http://bow3colleges.org/>BOW: Babson, Olin, Wellesley</a></li>
             <li><a href="http://www.biologyscholars.org/">The Biology Scholars Program</a></li>
 
         </ul>
