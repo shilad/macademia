@@ -27,223 +27,184 @@
 
 <body>
 <div id="consortiaHome">
-<header>
-    <div id="headerWrapper">
-        <div id="logo" title="Macademia">Macademia</div>
-        <nav>
-            <ul>
-                <m:ifNotLoggedIn>
-                    <li><g:link params="[group: params.group]" controller="account"
-                                action="createuser">Create Account</g:link></li>
-                    <li><a id="login_link" href="#">Login</a></li>
-                </m:ifNotLoggedIn>
-                <m:ifLoggedIn>
-                    <li>
-                        Logged in as <a href="#">${request.authenticated.fullName.encodeAsHTML()}</a>
-                        <ul>
-                            <li><m:personLink person="${request.authenticated}">View</m:personLink></li>
-                            <li><g:link params="[group: params.group]" controller="account"
-                                        action="edit">Edit Profile</g:link></li>
-                            <li><g:link params="[group: params.group]" controller="account"
-                                        action="changepassword">Change Password</g:link></li>
-                            <li><g:link params="[group: params.group]" controller="account" action="logout"
-                                        class="icon_cross">Logout</g:link></li>
-                        </ul>
-                    </li>
-                </m:ifLoggedIn>
-            </ul>
-        </nav>
+    <header>
+        <div id="headerWrapper">
+            <div id="logo" title="Macademia">Macademia</div>
+            <nav>
+                <ul>
+                    <m:ifNotLoggedIn>
+                        <li><g:link params="[group: params.group]" controller="account"
+                                    action="createuser">Create Account</g:link></li>
+                        <li><a id="login_link" href="#">Login</a></li>
+                    </m:ifNotLoggedIn>
+                    <m:ifLoggedIn>
+                        <li>
+                            Logged in as <a href="#">${request.authenticated.fullName.encodeAsHTML()}</a>
+                            <ul>
+                                <li><m:personLink person="${request.authenticated}">View</m:personLink></li>
+                                <li><g:link params="[group: params.group]" controller="account"
+                                            action="edit">Edit Profile</g:link></li>
+                                <li><g:link params="[group: params.group]" controller="account"
+                                            action="changepassword">Change Password</g:link></li>
+                                <li><g:link params="[group: params.group]" controller="account" action="logout"
+                                            class="icon_cross">Logout</g:link></li>
+                            </ul>
+                        </li>
+                    </m:ifLoggedIn>
+                </ul>
+            </nav>
 
-        <div id="login">
-            <div id="local" class="localonlymethod">
-                <form id="signin" name="signin" action="#">
-                    <div id="login_info_div" style="display: block;">
-                        <div>
-                            <label for="email">Email:</label>
-                            <input type="text" tabindex="1" name="email" class="login_input" id="email"/>
-                        </div>
+            <div id="login">
+                <div id="local" class="localonlymethod">
+                    <form id="signin" name="signin" action="#">
+                        <div id="login_info_div" style="display: block;">
+                            <div>
+                                <label for="email">Email:</label>
+                                <input type="text" tabindex="1" name="email" class="login_input" id="email"/>
+                            </div>
 
-                        <div>
-                            <label for="password">Password:</label>
-                            <input type="password" tabindex="2" name="password" class="login_input" id="password">
+                            <div>
+                                <label for="password">Password:</label>
+                                <input type="password" tabindex="2" name="password" class="login_input" id="password">
+                            </div>
+                            <input type="submit" tabindex="3" value="Login" class="login_submit"><g:link
+                                params="[group: params.group]" controller="account" action="forgottenpassword"
+                                class="forgot_password">forgot password?</g:link>
                         </div>
-                        <input type="submit" tabindex="3" value="Login" class="login_submit"><g:link
-                            params="[group: params.group]" controller="account" action="forgottenpassword"
-                            class="forgot_password">forgot password?</g:link>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
+
+            <h1>Macademia</h1>
+
+            <h2>Connecting colleagues who share research interests</h2>
         </div>
+    </header>
 
-        <h1>Macademia</h1>
-
-        <h2>Connecting colleagues who share research interests</h2>
-    </div>
-</header>
-
-<div id='main' role='main'>
-</br>
-</br>
-    <div>
-        <table>
-            <tr>
-                <td>
-                    <table>
-                        <tr>
-                            <h4>${consortium}</h4>
-                        </tr>
-                        <tr>
-                            <div id="slideshow">
-                                <div id="slideshowReel">
-                                    <div class="slide">
-                                        <div id="entrancePortal">
-                                            <ul>
-                                                <g:each in="${people}" var="p"><li><m:personLink person="${p}"
-                                                                                                 group="all"><m:personImage
-                                                            person="${p}"/></m:personLink></li></g:each>
-                                            %{--<g:each in="${(people.size()..< HomeController.NUM_PEOPLE)}"><li><a href="#"><r:img dir='images' file="shilad.jpg"/></a></li></g:each>--}%
-                                            </ul>
+    <div id='main' role='main'>
+    </br>
+    </br>
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <h4>${consortium}</h4>
+                            </tr>
+                            <tr>
+                                <div id="slideshow">
+                                    <div id="slideshowReel">
+                                        <div class="slide">
+                                            <div id="entrancePortal">
+                                                <ul>
+                                                    <g:each in="${people}" var="p"><li><m:personLink person="${p}"
+                                                                                                     group="all"><m:personImage
+                                                                person="${p}"/></m:personLink></li></g:each>
+                                                %{--<g:each in="${(people.size()..< HomeController.NUM_PEOPLE)}"><li><a href="#"><r:img dir='images' file="shilad.jpg"/></a></li></g:each>--}%
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </tr>
-                    </table>
-                </td>
-                <td>
-                    <div id=cLogo>
-                        <a href= ${institutionGroup.webUrl}>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <div id=cLogo>
+                            <a href= ${institutionGroup.webUrl}>
 
-                            <g:if test="${institutionGroup?.imageSubpath}">
-                                <img src="/Macademia/${params.group}/image/retrieveOrig?subPath=${institutionGroup.imageSubpath}"
-                                     style="max-width: 40em; max-height: 20em" defaultImage="${defaultImageUrl}"/>
-                            </g:if>
-                        %{--<g:else>--}%
-                        %{--<img src="${defaultImageUrl}" width="50"  alt="" defaultImage="${defaultImageUrl}"/>--}%
-                        %{--</g:else>--}%
-                        </a>
-                    </div>
-                </td>
-            </tr>
-        </table>
+                                <g:if test="${institutionGroup?.imageSubpath}">
+                                    <img src="/Macademia/${params.group}/image/retrieveOrig?subPath=${institutionGroup.imageSubpath}"
+                                         style="max-width: 40em; max-height: 20em" defaultImage="${defaultImageUrl}"/>
+                                </g:if>
+                            %{--<g:else>--}%
+                            %{--<img src="${defaultImageUrl}" width="50"  alt="" defaultImage="${defaultImageUrl}"/>--}%
+                            %{--</g:else>--}%
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
-    </div>
+        </div>
 
 
-    <div id="mainSearchBox">
-        <table>
-            <tr>
-                <td>
-                    <input type="text" id="searchBox" placeholder="Search for researchers or interests"/>
+        <div id="mainSearchBox">
+            <table>
+                <tr>
+                    <td>
+                        <input type="text" id="searchBox" placeholder="Search for researchers or interests"/>
 
-                    <div id="searchSubmit" class="customButton"><a id="submitSearch" href="javascript:;">Search</a>
-                    </div>
-                </td>
-                <td>
-                    <table>
-                        <div id="consortia">
-                            <ul>
-                                <g:each in="${igsk}" var="ig" status="i">
-                                    <g:if test="${i < 4}">
+                        <div id="searchSubmit" class="customButton"><a id="submitSearch" href="javascript:;">Search</a>
+                        </div>
+                    </td>
+                    <td>
+                        <table>
+                            <div id="consortia">
+                                <ul>
+                                    <g:each in="${igsk}" var="ig" status="i">
                                         <li>
-                                            <label for="radio_${ig.abbrev}">
+                                            <g:if test="${i < 1}">
                                                 <input type="radio" name="consortia" id="radio_${ig.abbrev}"
                                                        value="${ig.abbrev}"/>&nbsp;${ig.name.encodeAsHTML().replace(' ', '&nbsp;')}
-                                            </label>
+                                            </g:if>
+                                            <g:if test="${ig.name == consortium}">
+
+                                                <input type="radio" name="consortia" id="radio_${ig.abbrev}"
+                                                       value="${ig.abbrev}"/>&nbsp;${ig.name.encodeAsHTML().replace(' ', '&nbsp;')}
+                                            </g:if>
                                         </li>
-                                    </g:if>
-                                </g:each>
-                                <li>
-                                    <a href="#">more...</a>
-                                </li>
-
-                                <div class="more">
-                                    <g:each in="${igs}" var="ig" status="i">
-                                        <g:if test="${i >= 4}">
-                                            <li>
-                                                <label for="radio_${ig.abbrev}">
-                                                    <input type="radio" name="consortia" id="radio_${ig.abbrev}"
-                                                           value="${ig.abbrev}"/>&nbsp;${ig.name.encodeAsHTML().replace(' ', '&nbsp;')}
-                                                </label>
-                                            </li>
-                                        </g:if>
                                     </g:each>
-                                </div>
-                            </ul>
-                        </div>
+                                </ul>
+                            </div>
+                        </table>
+                </tr>
+            </table>
+
+            %{-- the button--}%
+            %{-- <a style="text-align: right" href="http://macademia.macalester.edu/Macademia/" class="macaButton" >Macademia Homepage</a>
+             --}%
+            %{--<a style="text-align: right" href="#" class="macaButton" >Macademia Homepage</a>--}%
+
+        </div>
+
+        %{-- the paragraph describing the consortium--}%
+        <div>
+
+            <hr/>
+            <h6>${consortium}</h6>
+
+            <p><br> ${institutionGroup.description}</p>
+        </br>
+        </br>
+
+        </div>
+
+        <div>
+            <h5 style="text-align: center">${colleges}</h5>
+        </br>
+            <hr/>
+        </div>
 
 
-                        %{--<label for="radio_${igsk.abbrev}">--}%
-                        %{--<input type="radio" name="consortia" id="radio_${igsk.abbrev}" value="${igsk.abbrev}"/>&nbsp;${igsk.name.encodeAsHTML().replace(' ', '&nbsp;')}--}%
-                        %{--</label>--}%
-                        %{--<tr>--}%
-                        %{--<td>--}%
-                        %{--<input type="radio" name="consortia" id="radio_${institutionGroup.abbrev}" value="${institutionGroup.abbrev}"/>&nbsp;${institutionGroup.name.encodeAsHTML().replace(' ', '&nbsp;')}--}%
-
-                        %{--<input type="radio" name="conRadio" class="styled" style="margin-left: 1em; margin-top: 2px"checked="checked"/>--}%
-                        %{--</td>--}%
-                        %{--<td>--}%
-                        %{--<p style="margin-left: 5px; font-size: 15;"> ${consortium} Members</p>--}%
-                        %{--</td>--}%
-                        %{--</tr>--}%
-                        %{--<tr>--}%
-                        %{--<td>--}%
-                        %{--</br>--}%
-                        %{--<input type="radio" name="consortia" id="radio_${aldl.abbrev}" value="${aldl.abbrev}"/>&nbsp;All Members--}%
-
-                        %{--<input type="radio" name="consortia" class="styled" style="margin-left: 1em; margin-top: 1em;"/>--}%
-                        %{--</td>--}%
-                        %{--<td>--}%
-                        %{--<p style="margin-left: 5px;margin-top: 10px; font-size: 15;"> All Members</p>--}%
-                        %{--</td>--}%
-                        %{--</tr>--}%
-                    </table>
-            </tr>
-        </table>
-
-        %{-- the button--}%
-        %{-- <a style="text-align: right" href="http://macademia.macalester.edu/Macademia/" class="macaButton" >Macademia Homepage</a>
-         --}%
-        %{--<a style="text-align: right" href="#" class="macaButton" >Macademia Homepage</a>--}%
-
-    </div>
-
-    %{-- the paragraph describing the consortium--}%
-    <div>
-
-        <hr/>
-        <h6>${consortium}</h6>
-
-        <p><br> ${institutionGroup.description}</p>
-    </br>
-    </br>
+        <div id="sponsors">
+            <h3>Macademia is generously funded by:</h3>
+            <ul>
+                <li><a href="http://www.macalester.edu"><r:img dir='images' file="mac_logo2.png"
+                                                               alt="Macalester College"/></a></li>
+                <li><a href="http://www.acm.edu/index.html"><r:img dir='images' file="logos_acm.png"
+                                                                   alt="The American Colleges of the Midwest"/></a></li>
+                <li><a href="http://www.nsf.gov/"><r:img dir='images' file="logos_nsf.png"
+                                                         alt="The National Science Foundation"/></a></li>
+                <li><a href="http://www.mellon.org/"><r:img dir='images' file="logos_andrewMellon.png"
+                                                            alt="the Andrew Mellon Charitable Trust"/></a></li>
+            </ul>
+        </div>
 
     </div>
 
-    <div>
-        <h5 style="text-align: center">${colleges}</h5>
-    </br>
-        <hr/>
-    </div>
-
-
-    <div id="sponsors">
-        <h3>Macademia is generously funded by:</h3>
-        <ul>
-            <li><a href="http://www.macalester.edu"><r:img dir='images' file="mac_logo2.png"
-                                                           alt="Macalester College"/></a></li>
-            <li><a href="http://www.acm.edu/index.html"><r:img dir='images' file="logos_acm.png"
-                                                               alt="The American Colleges of the Midwest"/></a></li>
-            <li><a href="http://www.nsf.gov/"><r:img dir='images' file="logos_nsf.png"
-                                                     alt="The National Science Foundation"/></a></li>
-            <li><a href="http://www.mellon.org/"><r:img dir='images' file="logos_andrewMellon.png"
-                                                        alt="the Andrew Mellon Charitable Trust"/></a></li>
-        </ul>
-    </div>
-
-</div>
-
-<g:render template="/layouts/footer"/>
+    <g:render template="/layouts/footer"/>
 
 </div>
 
