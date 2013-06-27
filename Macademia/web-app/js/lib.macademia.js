@@ -617,7 +617,7 @@ macademia.reloadToPerson = function(pid) {
     };
     var rand = Math.random();
     try {
-        group = $.ajax({
+        var group = $.ajax({
             url : macademia.makeActionUrl('institution', 'primaryGroup'),
             type: "POST",
             data : {},
@@ -697,6 +697,7 @@ macademia.getCookie = function (c_name) {
             return unescape(document.cookie.substring(c_start, c_end));
         }
     }
+
     return "";
 };
 
