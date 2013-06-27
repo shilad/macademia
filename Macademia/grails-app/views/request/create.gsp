@@ -42,10 +42,10 @@
       <g:submitButton name="create" class="save" value="${collaboratorRequest.id ? 'Update' : 'Create'}"/>
     </div>
   </g:form>
-  <g:javascript >
+  <r:script >
     $(document).ready(function () {
         macademia.autocomplete.initEditRequest();
         $("#listRequestDialog").jqmHide();
     });
-</g:javascript>
+</r:script>
 </div>

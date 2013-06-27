@@ -7,7 +7,7 @@
   <p:javascript src='macademia.js.nbrviz'/>
   <link rel="stylesheet" type="text/css" href="../css/queryViz.css" />
 </head>
-<g:javascript>
+<r:script>
   $().ready(function() {
     var paper = macademia.nbrviz.initPaper( $("#graph").width(), $("#graph").height());
     var s = new PersonSphere({
@@ -22,7 +22,7 @@
     });
     s.animate({ x : 500, y : 500, scale : 2.0, fill : '#f00'}, 1000);
   });
-</g:javascript>
+</r:script>
 <body>
     <div id="graph">&nbsp;</div>
 </body>
