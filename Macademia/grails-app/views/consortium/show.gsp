@@ -16,7 +16,7 @@
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
     <g:render template="/layouts/headers"/>
-    <title>Macademia - Connecting colleagues who share research interests.</title>
+    %{--<title>Macademia - Connecting colleagues who share research interests.</title>--}%
     <g:javascript>
         $(document).ready(function() {
             macademia.homePageLoad();
