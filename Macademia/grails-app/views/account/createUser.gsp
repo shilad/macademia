@@ -17,7 +17,7 @@
   <g:render template="/layouts/headers"/>
 
 
-  <g:javascript>
+  <r:script>
     $(document).ready(function() {
         macademia.otherInstitutions = ${otherInstitutions};
         macademia.allInstitutions = ${allInstitutions};
@@ -30,7 +30,7 @@
         macademia.serverLog('page', 'load', params);
         $(".clearDefault").clearDefault();
     });
-  </g:javascript>
+  </r:script>
   
 </head>
 <body>

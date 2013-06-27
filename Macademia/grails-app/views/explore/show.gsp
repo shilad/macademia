@@ -6,7 +6,7 @@
     <meta name="layout" content="main">
     <r:require modules="queryViz"/>
 </head>
-<g:javascript>
+<r:script>
   $().ready(function() {
     macademia.serverLog('nav', 'initial', {'url' : location.href });
     var offset = $("#graph").offset();
@@ -19,7 +19,7 @@
   $.address.update();
   });
 
-</g:javascript>
+</r:script>
 <body>
   <table><tbody><tr>
     <td id="nav">

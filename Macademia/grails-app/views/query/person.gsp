@@ -7,7 +7,7 @@
   <p:javascript src='macademia.js.nbrviz'/>
   <link rel="stylesheet" type="text/css" href="../css/queryViz.css" />
 </head>
-<g:javascript>
+<r:script>
   $().ready(function() {
     var paper = macademia.nbrviz.initPaper(1000, 1000);
     var interestGroups = [
@@ -34,7 +34,7 @@
     }, 1000);
 //    s.setPosition(200, 200);
   });
-</g:javascript>
+</r:script>
 <body>
     <div id="graph">&nbsp;</div>
 </body>

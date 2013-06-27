@@ -20,7 +20,7 @@
     <g:render template="/layouts/headers"/>
     <title>Macademia - Connecting colleagues who share research interests.</title>
 
-    <g:javascript>
+    <r:script>
         $(document).ready(function () {
             macademia.initLogoLink();
             macademia.initializeTopNav();
@@ -29,7 +29,7 @@
             macademia.upload.init();
             macademia.serverLog('page', 'load', {'page': 'home'});
         });
-    </g:javascript>
+    </r:script>
 </head>
 
 <body>

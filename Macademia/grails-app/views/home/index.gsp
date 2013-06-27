@@ -15,12 +15,12 @@
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
     <g:render template="/layouts/headers"/>
     %{--<title>Macademia - Connecting colleagues who share research interests.</title>--}%
-    <g:javascript>
+    <r:script>
       $(document).ready(function() {
             macademia.homePageLoad();
             macademia.serverLog('page', 'load', {'page' : 'home'});
       });
-    </g:javascript>
+    </r:script>
   </head>
   <body>
     <div id="homePage">

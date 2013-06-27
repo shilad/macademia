@@ -33,7 +33,7 @@
     </g:if>
   </div>
 </div>
-  <g:javascript >
+  <r:script >
     $(document).ready(function() {
         $("#editRequestDialog").jqm({
             ajax: "/Macademia/${params.group}/request/edit/${collaboratorRequest.id}",
@@ -47,4 +47,4 @@
                 }
             });
       });
-  </g:javascript>
+  </r:script>

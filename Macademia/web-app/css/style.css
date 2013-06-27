@@ -739,6 +739,8 @@ footer #footerWrapper .footerBlock ul li a:hover { color: #0160a0; }
 #filterDialog #selectedColleges { background-color: white; border: 1px solid gray; clear: both; height: 350px; margin: 5px; overflow: auto; padding: 5px; }
 /* line 207, ../../src/stylesheets/partials/_modal.scss */
 #filterDialog #selectedColleges ul { list-style-type: none; padding: 0; margin: 0; }
+/* line 211, ../../src/stylesheets/partials/_modal.scss */
+#filterDialog #selectedColleges ul .collegeDiv { display: none; }
 /* line 213, ../../src/stylesheets/partials/_modal.scss */
 #filterDialog #selectedColleges ul .collegeDiv li { list-style-type: none; display: block; padding: 3px 0; border-top: 1px solid #EFEFEF; }
 /* line 218, ../../src/stylesheets/partials/_modal.scss */
