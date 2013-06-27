@@ -128,75 +128,36 @@
         </table>
 
     </div>
-
-
-    <div id="mainSearchBox">
+    <div id = "mainSearchBox">
         <table>
             <tr>
                 <td>
-                    <input type="text" id="searchBox" placeholder="Search for researchers or interests"/>
-
-                    <div id="searchSubmit" class="customButton"><a id="submitSearch" href="javascript:;">Search</a>
-                    </div>
+                    <input type="text" id="searchBox" placeholder="Search for researchers or interests" />
+                    <div id="searchSubmit" class="customButton"><a id="submitSearch" href="javascript:;">Search</a></div>
                 </td>
                 <td>
                     <table>
-                        <div id="consortia">
-                            <ul>
-                                <g:each in="${igsk}" var="ig" status="i">
-                                    <g:if test="${i < 4}">
-                                        <li>
-                                            <label for="radio_${ig.abbrev}">
-                                                <input type="radio" name="consortia" id="radio_${ig.abbrev}"
-                                                       value="${ig.abbrev}"/>&nbsp;${ig.name.encodeAsHTML().replace(' ', '&nbsp;')}
-                                            </label>
-                                        </li>
-                                    </g:if>
-                                </g:each>
-                                <li>
-                                    <a href="#">more...</a>
-                                </li>
+                        <tr>
+                            <td>
+                                <input checked="checked" type="radio" name="consortia" id="radio_${consortium.a}" value="${institutionGroup.abbrev}"/>&nbsp;${institutionGroup.name.encodeAsHTML().replace(' ', '&nbsp;')}
 
-                                <div class="more">
-                                    <g:each in="${igs}" var="ig" status="i">
-                                        <g:if test="${i >= 4}">
-                                            <li>
-                                                <label for="radio_${ig.abbrev}">
-                                                    <input type="radio" name="consortia" id="radio_${ig.abbrev}"
-                                                           value="${ig.abbrev}"/>&nbsp;${ig.name.encodeAsHTML().replace(' ', '&nbsp;')}
-                                                </label>
-                                            </li>
-                                        </g:if>
-                                    </g:each>
-                                </div>
-                            </ul>
-                        </div>
+                            %{--<input type="radio" name="conRadio" class="styled" style="margin-left: 1em; margin-top: 2px"checked="checked"/>--}%
+                            </td>
+                            <td>
+                                %{--<p style="margin-left: 5px; font-size: 15;"> ${consortium} Members</p>--}%
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </br>
+                                <input type="radio" name="consortia" id="radio_all" value="All Members"/>&nbsp;All Members
 
-
-                        %{--<label for="radio_${igsk.abbrev}">--}%
-                        %{--<input type="radio" name="consortia" id="radio_${igsk.abbrev}" value="${igsk.abbrev}"/>&nbsp;${igsk.name.encodeAsHTML().replace(' ', '&nbsp;')}--}%
-                        %{--</label>--}%
-                        %{--<tr>--}%
-                        %{--<td>--}%
-                        %{--<input type="radio" name="consortia" id="radio_${institutionGroup.abbrev}" value="${institutionGroup.abbrev}"/>&nbsp;${institutionGroup.name.encodeAsHTML().replace(' ', '&nbsp;')}--}%
-
-                        %{--<input type="radio" name="conRadio" class="styled" style="margin-left: 1em; margin-top: 2px"checked="checked"/>--}%
-                        %{--</td>--}%
-                        %{--<td>--}%
-                        %{--<p style="margin-left: 5px; font-size: 15;"> ${consortium} Members</p>--}%
-                        %{--</td>--}%
-                        %{--</tr>--}%
-                        %{--<tr>--}%
-                        %{--<td>--}%
-                        %{--</br>--}%
-                        %{--<input type="radio" name="consortia" id="radio_${aldl.abbrev}" value="${aldl.abbrev}"/>&nbsp;All Members--}%
-
-                        %{--<input type="radio" name="consortia" class="styled" style="margin-left: 1em; margin-top: 1em;"/>--}%
-                        %{--</td>--}%
-                        %{--<td>--}%
-                        %{--<p style="margin-left: 5px;margin-top: 10px; font-size: 15;"> All Members</p>--}%
-                        %{--</td>--}%
-                        %{--</tr>--}%
+                            %{--<input type="radio" name="consortia" class="styled" style="margin-left: 1em; margin-top: 1em;"/>--}%
+                            </td>
+                            %{--<td>--}%
+                            %{--<p style="margin-left: 5px;margin-top: 10px; font-size: 15;"> All Members</p>--}%
+                            %{--</td>--}%
+                        </tr>
                     </table>
             </tr>
         </table>
@@ -212,6 +173,10 @@
     <div>
 
         <hr/>
+
+
+
+
         <h6>${consortium}</h6>
 
         <p><br> ${institutionGroup.description}</p>
