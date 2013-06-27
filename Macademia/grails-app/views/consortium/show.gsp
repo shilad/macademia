@@ -7,22 +7,22 @@
 %{--Testing--}%
 <html class='no-js' lang='en' xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
       xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
-      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+      xmlns="http://www.w3.org/1999/html">
 <!--<![endif]-->
 <head>
     <meta name="layout" content="main"/>
     <r:require modules="core"/>
-    <meta charset='utf-8'/>
-    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible'/>
-    <meta content='width=device-width, initial-scale=1.0' name='viewport'/>
+    <meta charset='utf-8' />
+    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
+    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
     <g:render template="/layouts/headers"/>
     %{--<title>Macademia - Connecting colleagues who share research interests.</title>--}%
-    <g:javascript>
-        $(document).ready(function () {
+    <r:script>
+        $(document).ready(function() {
             macademia.homePageLoad();
-            macademia.serverLog('page', 'load', {'page': 'home'});
+            macademia.serverLog('page', 'load', {'page' : 'home'});
         });
-    </g:javascript>
+    </r:script>
 </head>
 
 <body>

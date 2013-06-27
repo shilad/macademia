@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<g:javascript>
+<r:script>
     $(document).ready(function() {
         $("#interestQuery").editAutocomplete({
               multiple : true,
@@ -38,7 +38,7 @@
             return false;
         });
     });
-</g:javascript>
+</r:script>
 <div>
     <a id="showWidget" href="#">show search box</a>
     <div id="currentInterests" >

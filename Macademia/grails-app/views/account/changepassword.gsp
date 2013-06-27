@@ -10,7 +10,7 @@
     <title>Change password</title>
 
   <g:render template="/layouts/headers"/>
-  <g:javascript>
+  <r:script>
       $(document).ready(function() {
           macademia.initLogoLink();
           var params = {
@@ -19,7 +19,7 @@
           };
           macademia.serverLog('page', 'load', params);
       });
-  </g:javascript>
+  </r:script>
 </head>
 
 <body>

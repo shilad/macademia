@@ -60,7 +60,8 @@ class ConsortiumController {
         def igsk = igCounts.keySet() as ArrayList
         igsk.sort({igCounts[it]})
         igsk = igsk.reverse()
-
+        println(igsk)
+        println(consortium)
 
         [
                 igsk: igsk,
@@ -68,6 +69,7 @@ class ConsortiumController {
                 igs : igCounts.keySet() as ArrayList,
                 colleges : colleges,
                 defaultImageUrl : getDefaultImageUrl(),
+                nconsortium : consortium,
                 consortium : consortium.name,
                 institutionGroup: consortium
         ]
