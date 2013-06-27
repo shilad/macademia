@@ -7,7 +7,7 @@
 %{--Testing--}%
 <html class='no-js' lang='en' xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
       xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
-      xmlns="http://www.w3.org/1999/html">
+      xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <!--<![endif]-->
 <head>
     <meta name="layout" content="main"/>
@@ -131,19 +131,24 @@
                         <table>
                             <tr>
                                 <td>
-                                    <input type="radio" name="radio" class="styled" style="margin-left: 1em; margin-top: 2px"/>
+                                    <input checked="checked" type="radio" name="consortia" id="radio_${institutionGroup.abbrev}" value="${institutionGroup.abbrev}"/>&nbsp;${institutionGroup.name.encodeAsHTML().replace(' ', '&nbsp;')}
+
+                                    %{--<input type="radio" name="conRadio" class="styled" style="margin-left: 1em; margin-top: 2px"checked="checked"/>--}%
                                 </td>
                                 <td>
-                                    <p style="margin-left: 5px; font-size: 15;"> ${consortium} Members</p>
+                                    %{--<p style="margin-left: 5px; font-size: 15;"> ${consortium} Members</p>--}%
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="radio" name="radio" class="styled" style="margin-left: 1em; margin-top: 1em;"/>
+                                    </br>
+                                    <input type="radio" name="consortia" id="radio_all" value="All Members"/>&nbsp;All Members
+
+                                    %{--<input type="radio" name="consortia" class="styled" style="margin-left: 1em; margin-top: 1em;"/>--}%
                                 </td>
-                                <td>
-                                    <p style="margin-left: 5px;margin-top: 10px; font-size: 15;"> All Members</p>
-                                </td>
+                                %{--<td>--}%
+                                    %{--<p style="margin-left: 5px;margin-top: 10px; font-size: 15;"> All Members</p>--}%
+                                %{--</td>--}%
                             </tr>
                         </table>
                 </tr>
