@@ -45,7 +45,7 @@
     </tbody>
   </table>
   <div id="closeListRequests">
-    <a href ="#"><p:image src="close_icon.gif"/></a>
+    <a href ="#"><r:img dir="images" file="close_icon.gif"/></a>
   </div>
   <script>
   $().ready(function () {
