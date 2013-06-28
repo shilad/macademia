@@ -71,10 +71,10 @@ macademia.initLogoLink = function() {
 macademia.initInstitutionGroups = function() {
     $('#consortia ul>li:first-child input').attr('checked', 'checked');
     $('#consortia a').click(
-            function() {
-                $("#consortia .more").fadeIn();
-                $("#consortia a").hide();
-            }
+        function() {
+            $("#consortia .more").fadeIn();
+            $("#consortia a").hide();
+        }
     )
 };
 
@@ -84,29 +84,29 @@ macademia.getSelectedInstitutionGroup = function() {
 
 //sets macademia.queryString values and initial page settings
 macademia.initialSettings = function(){
-        $("#show").hide();
-        if($.address.parameter('nodeId')){
-            macademia.queryString.nodeId = $.address.parameter('nodeId');
-        }else{
-            $.address.parameter('nodeId',macademia.queryString.nodeId);
+    $("#show").hide();
+    if($.address.parameter('nodeId')){
+        macademia.queryString.nodeId = $.address.parameter('nodeId');
+    }else{
+        $.address.parameter('nodeId',macademia.queryString.nodeId);
+    }
+    if(!$.address.parameter('navVisibility')){
+        $.address.parameter('navVisibility',macademia.queryString.navVisibility);
+    }if($.address.parameter('navFunction')){
+        macademia.queryString.navFunction = $.address.parameter('navFunction');
+    }else{
+        $.address.parameter('navFunction',macademia.queryString.navFunction);
+    }
+    if($.address.parameter('institutions')){
+        macademia.queryString.institutions = $.address.parameter('institutions');
+        if(macademia.queryString.institutions != "all"){
+            macademia.initiateCollegeString(macademia.queryString.institutions);
         }
-        if(!$.address.parameter('navVisibility')){
-            $.address.parameter('navVisibility',macademia.queryString.navVisibility);
-        }if($.address.parameter('navFunction')){
-            macademia.queryString.navFunction = $.address.parameter('navFunction');
-        }else{
-            $.address.parameter('navFunction',macademia.queryString.navFunction);
-        }
-        if($.address.parameter('institutions')){
-            macademia.queryString.institutions = $.address.parameter('institutions');
-            if(macademia.queryString.institutions != "all"){
-                macademia.initiateCollegeString(macademia.queryString.institutions);
-            }
-        }else{
-            $.address.parameter('institutions',macademia.queryString.institutions);
-        }
-        macademia.sortParameters(macademia.queryString.navFunction);
-        $.address.update();
+    }else{
+        $.address.parameter('institutions',macademia.queryString.institutions);
+    }
+    macademia.sortParameters(macademia.queryString.navFunction);
+    $.address.update();
 };
 
 //calls the init function in jitConfig
@@ -254,6 +254,7 @@ macademia.nav = function() {
                 }
                 macademia.sortParameters($.address.parameter('navFunction'));
                 $.address.update();
+                console.log("Case 2");
             }
         }
     });
@@ -282,22 +283,33 @@ macademia.nav = function() {
 
 // Changes the visualization to new root node
 macademia.changeGraph = function(nodeId){
+    console.log("changeGraph function called");
     if ($.address.parameter('nodeId') != macademia.queryString.nodeId && $.address.parameter('institutions') == macademia.queryString.institutions) {
+        console.log("Case 1");
         if (macademia.rgraph){
-              var param = $.address.parameter('nodeId');
-              if (macademia.rgraph.graph.getNode(param)) {
-              // if the node is on the current graph
+            var param = $.address.parameter('nodeId');
+            if (macademia.rgraph.graph.getNode(param)) {
+                // if the node is on the current graph
                 macademia.rgraph.onClick(param);
                 //macademia.rgraph.refresh();
-              }else{
-                  macademia.initiateGraph();
-              }
-              macademia.queryString.nodeId = param;
+            }else{
+                macademia.initiateGraph();
+            }
+            macademia.queryString.nodeId = param;
         }
-    }else if($.address.parameter('institutions') != macademia.queryString.institutions){
+    }else if($.address.parameter('institutions') != undefined && $.address.parameter('institutions') != macademia.queryString.institutions){
+        //debug comment
+        //this part is strange. The second and third are doing the same thing.
+        console.log("Case 2");
+        console.log($.address.parameter('institutions'));
         macademia.initiateGraph();
-    } else if (macademia.rgraph && $.address.parameter('density') != macademia.queryString.density) {        
-            macademia.initiateGraph();
+    } else if (macademia.rgraph && $.address.parameter('density') != macademia.queryString.density) {
+        console.log("Case 3");
+        macademia.initiateGraph();
+    } else if ($.address.parameter('institutions')==undefined){ //if institutions is undefined, try to give it an institution
+        console.log("Case undefined");
+        $.address.parameter('institutions','all');
+        macademia.initiateGraph();
     }
 };
 // resizes canvas according to original dimensions
@@ -334,26 +346,29 @@ macademia.changeQueryString = function(query) {
 
 // controls view of right nav (incomplete)
 macademia.updateNav = function(){
-     var navFunction = $.address.parameter('navFunction');
-     macademia.showDivs(navFunction);
-     if (navFunction == 'search'){
-            macademia.submitSearch();
-            macademia.queryString.searchPage = $.address.parameter('searchPage');
-         // go to search page
-     }else if (navFunction == 'person' && $.address.parameter('personId') != macademia.queryString.personId){
-         var rootId = $.address.parameter('nodeId');
-         if (rootId != 'p_empty') {
+    var navFunction = $.address.parameter('navFunction');
+    macademia.showDivs(navFunction);
+    if (navFunction == 'search'){
+        macademia.submitSearch();
+        macademia.queryString.searchPage = $.address.parameter('searchPage');
+        // go to search page
+    }else if (navFunction == 'person' && $.address.parameter('personId') != macademia.queryString.personId){
+        var rootId = $.address.parameter('nodeId');
+        if (rootId != 'p_empty') {
             $('#rightContent').load(macademia.makeActionUrl('person', 'show') + '/' + rootId.slice(2));
-         }
-     }else if (navFunction == 'request'){
-         var rootId = $.address.parameter('nodeId');
-         $('#rightContent').load(macademia.makeActionUrl('request', 'show') + '/' + rootId.slice(2));
-         macademia.queryString.requestId = $.address.parameter('requestId');
-     }else if (navFunction == 'interest'){
-         var rootId = $.address.parameter('nodeId');
-         $('#rightContent').load(macademia.makeActionUrl('interest', 'show') + '/' + rootId.slice(2));
-     }//else if etc...
-     macademia.queryString.navFunction = navFunction;
+        }
+    }else if (navFunction == 'request'){
+        var rootId = $.address.parameter('nodeId');
+        $('#rightContent').load(macademia.makeActionUrl('request', 'show') + '/' + rootId.slice(2));
+        macademia.queryString.requestId = $.address.parameter('requestId');
+    }else if (navFunction == 'interest'){
+        var rootId = $.address.parameter('nodeId');
+        //debug comments:
+        //after the user click the interest name on the rightContent, it will go to this case
+        //this function is only responsible for the contents on the right, which works correctly.
+        $('#rightContent').load(macademia.makeActionUrl('interest', 'show') + '/' + rootId.slice(2));
+    }//else if etc...
+    macademia.queryString.navFunction = navFunction;
 };
 
 // removes unused parameters and updates used parameters
@@ -366,7 +381,7 @@ macademia.sortParameters = function(type,value){
                 macademia.queryString[queries[i]] = null;
             }
         }else if (value){
-                $.address.parameter(queries[i],value);
+            $.address.parameter(queries[i],value);
         }
     }
     if (type != 'search'){
@@ -410,9 +425,9 @@ macademia.submitSearch = function(){
             $('#rightContent').load(
                 url,
                 {searchBox:search,
-                institutions: institutions,
-                type: type,
-                pageNumber: number}
+                    institutions: institutions,
+                    type: type,
+                    pageNumber: number}
             );
         }else{
             $('#searchBoxDiv').empty();
@@ -446,7 +461,8 @@ macademia.retrieveGroup = function() {
 };
 
 macademia.makeActionUrl = function(controller, action) {
-    return macademia.makeActionUrlWithGroup(macademia.retrieveGroup(), controller, action);
+    var url =  macademia.makeActionUrlWithGroup(macademia.retrieveGroup(), controller, action);
+    return url;
 };
 
 macademia.makeActionUrlWithGroup = function(group, controller, action) {
@@ -473,42 +489,42 @@ macademia.serverLog = function(category, event, params, onSuccess) {
     params.category = category;
     params.event = event;
     $.ajax({
-            url : url,
-            data : params,
-            dataType : 'text',
-            cache : false,
-            success : function(data) {
-                onSuccess();
-            },
-            error : function(req, textStatus, error) {
-                // Changing pages can cause logs to fail, set this variable in params
-                // if the log is getting through the controller but failing anyway.
-                if (!params.ignoreLogFail) {
-                    alert('logging failed: ' + textStatus + ', ' + error);
-                }
+        url : url,
+        data : params,
+        dataType : 'text',
+        cache : false,
+        success : function(data) {
+            onSuccess();
+        },
+        error : function(req, textStatus, error) {
+            // Changing pages can cause logs to fail, set this variable in params
+            // if the log is getting through the controller but failing anyway.
+            if (!params.ignoreLogFail) {
+                alert('logging failed: ' + textStatus + ', ' + error);
             }
-        });
+        }
+    });
 };
 
 
 macademia.trim = function(stringToTrim) {
-	return stringToTrim.replace(/^\s+|\s+$/g,"");
+    return stringToTrim.replace(/^\s+|\s+$/g,"");
 };
 
 
 macademia.htmlEncode = function(value){
-  return $('<div/>').text(value).html();
+    return $('<div/>').text(value).html();
 };
 
 macademia.htmlDecode = function(value){
-  return $('<div/>').html(value).text();
+    return $('<div/>').html(value).text();
 };
 
 macademia.toggleAccountControls = function() {
-  $('#accountControlList').hide();
-  $('#toggleControls').click(function() {
-      $('#accountControlList').slideToggle();
-  })
+    $('#accountControlList').hide();
+    $('#toggleControls').click(function() {
+        $('#accountControlList').slideToggle();
+    })
 };
 
 macademia.setupRequestCreation = function() {
@@ -536,7 +552,7 @@ macademia.initializeTopNav = function() {
                     }, 100);
                 }
             );
-    });
+        });
 };
 
 macademia.initializeLogin = function() {
@@ -596,11 +612,11 @@ macademia.initHomeSearchSubmit = function() {
 
 macademia.reloadToRequest = function(rid) {
     var params = {
-       institutions : 'all',
-       nodeId : 'r_' + rid,
-       requestId : '' + rid,
-       navFunction : 'request',
-       navVisibility : 'true'
+        institutions : 'all',
+        nodeId : 'r_' + rid,
+        requestId : '' + rid,
+        navFunction : 'request',
+        navVisibility : 'true'
     };
     var rand = Math.random();
 
@@ -609,11 +625,11 @@ macademia.reloadToRequest = function(rid) {
 
 macademia.reloadToPerson = function(pid) {
     var params = {
-       institutions : 'all',
-       nodeId : 'p_' + pid,
-       personId : '' + pid,
-       navFunction : 'person',
-       navVisibility : 'true'
+        institutions : 'all',
+        nodeId : 'p_' + pid,
+        personId : '' + pid,
+        navFunction : 'person',
+        navVisibility : 'true'
     };
     var rand = Math.random();
     try {
@@ -705,7 +721,7 @@ macademia.setCookie = function (c_name, value, expiredays) {
     var exdate = new Date();
     exdate.setDate(exdate.getDate() + expiredays);
     document.cookie = c_name + "=" + escape(value) +
-            ((expiredays == null) ? "" : ";expires=" + exdate.toUTCString());
+        ((expiredays == null) ? "" : ";expires=" + exdate.toUTCString());
 };
 
 macademia.endsWith = function(str, suffix) {
