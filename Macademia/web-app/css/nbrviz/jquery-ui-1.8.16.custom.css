@@ -426,21 +426,4 @@
 .ui-progressbar .ui-progressbar-value {margin: -1px; height:100%; }
 
 
-#infovis-canvaswidget{
 
-}
-#infovis-canvas{
-    position: relative;
-    left: 5%;
-    top:0%;
-}
-#infovis-bkcanvas{
-    position: relative;
-    left: 5%;
-    top:0%;
-}
-#infovis-label{
-    position: relative;
-    left: 5%;
-    top:0%;
-}
