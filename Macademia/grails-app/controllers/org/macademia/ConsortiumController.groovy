@@ -63,13 +63,13 @@ class ConsortiumController {
         println(igsk)
         println(consortium)
 
+
         [
                 igsk: igsk,
                 people : people,
                 igs : igCounts.keySet() as ArrayList,
                 colleges : colleges,
                 defaultImageUrl : getDefaultImageUrl(),
-                nconsortium : consortium,
                 consortium : consortium.name,
                 institutionGroup: consortium
         ]
@@ -126,11 +126,10 @@ class ConsortiumController {
         //   ig.setImageSubpath(params[template])
         ig.save(flush: true, failOnError: true);
 
-
-        String consortiumName = (ig)
-        String[] conSplit = consortiumName.split("\\(")
-        println(conSplit[0])
-        String consortium = conSplit[0]
+//        String consortiumName = (ig)
+//        String[] conSplit = consortiumName.split("\\(")
+//        println(conSplit[0])
+//        String consortium = conSplit[0]
 
         redirect(action : 'show', params: [group : params.group])
     }
