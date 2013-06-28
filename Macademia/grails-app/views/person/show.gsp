@@ -35,18 +35,15 @@
 </div>
 
 <div class="sidebarSection">
-    <h2>Interests:</h2>
+  <h2>Interests:</h2>
+  <p>
+    <g:set var="counter" value="${0}"/>
+    <g:each in="${interests}" var="interest" >
 
-    <p>
-        <g:set var="counter" value="${0}"/>
-        <g:each in="${interests}" var="interest">
-
-            <g:set var="counter" value="${counter + 1}"/>
-            <g:link url="#/?nodeId=i_${interest.id}&navFunction=interest&interestId=${interest.id}"
-                    params='[group: params.group]'>${interest.text}<g:if
-                    test="${counter != interests.size()}">,</g:if></g:link>
-        </g:each>
-    </p>
+      <g:set var="counter" value="${counter + 1}"/>
+      <g:link url="#/?nodeId=i_${interest.id}&navFunction=interest&interestId=${interest.id}" params="[group : params.group]">${interest.text}<g:if test="${counter!=interests.size()}">,</g:if></g:link>
+    </g:each>
+  </p>
 </div>
 <g:if test="${collaboratorRequests}">
     <div class="sidebarSection">
