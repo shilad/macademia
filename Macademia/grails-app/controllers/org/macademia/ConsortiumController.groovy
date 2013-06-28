@@ -57,15 +57,14 @@ class ConsortiumController {
         ta.recordTime("making colleges string")
         ta.analyze()
 
-        def igsk = igCounts.keySet() as ArrayList
-        igsk.sort({igCounts[it]})
-        igsk = igsk.reverse()
-        println(igsk)
-        println(consortium)
+        def igList = igCounts.keySet() as ArrayList
+        igList.sort({igCounts[it]})
+        igList = igList.reverse()
+
 
 
         [
-                igsk: igsk,
+                igList: igList,
                 people : people,
                 igs : igCounts.keySet() as ArrayList,
                 colleges : colleges,
@@ -126,10 +125,6 @@ class ConsortiumController {
         //   ig.setImageSubpath(params[template])
         ig.save(flush: true, failOnError: true);
 
-//        String consortiumName = (ig)
-//        String[] conSplit = consortiumName.split("\\(")
-//        println(conSplit[0])
-//        String consortium = conSplit[0]
 
         redirect(action : 'show', params: [group : params.group])
     }
