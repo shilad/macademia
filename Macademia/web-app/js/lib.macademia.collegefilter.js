@@ -214,7 +214,6 @@ macademia.collegesInGroup = function(collegeArray){
 
 
 macademia.initiateCollegeString = function(ids){
-    console.log(ids);
     $.getJSON(macademia.makeActionUrl('institution', 'idsToNames'), {ids: ids.replace(/\+/g, " ")}, function(institutionList) {
         macademia.changeCollegeString(institutionList);
     });
