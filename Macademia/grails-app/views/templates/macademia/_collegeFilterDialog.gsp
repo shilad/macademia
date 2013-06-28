@@ -18,7 +18,7 @@
       </form>
   </div>
   <div id="closeCollegeFilter">
-    <a href ="#"><r:img dir="image" file="close_icon.gif"/></a>
+    <a href ="#"><r:img dir="images" file="close_icon.gif"/></a>
   </div>
 
     <div id="editColleges">
@@ -34,7 +34,7 @@
             <g:each in="${institutions}" var="c">
               <div class="collegeDiv" id="c_${c.id}">
                 <li class="college" institutionId="c_${c.id}">
-                  <a href="#"><r:img dir="image" file="close_icon.gif"/></a>
+                  <a href="#"><r:img dir="images" file="close_icon.gif"/></a>
                   ${c.name}
                 </li>
               </div>

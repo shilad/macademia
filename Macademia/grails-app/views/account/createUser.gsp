@@ -121,7 +121,7 @@
                   <div class="institutionNumber">1.</div>
                   <div class="otherInstitutionField"><input type="text" class="clearDefault otherInstitutionInput" prompt="institution name" value="institution name"></div>
                   <div class="otherInstitutionURL"><input type="text" class="clearDefault otherInstitutionUrlInput" prompt="institution url" value="institution url"></div>
-                  <div class="removeLink"><a href="#" class="removeLink"><r:img dir='images' file="close_icon.gif"/></a></div>
+                  <div class="removeLink"><a href="#" class="removeLink"><r:img dir="images" file="close_icon.gif"/></a></div>
                 </div>
 
                 <div class="customLinkCaption">
@@ -144,7 +144,7 @@
                   <div class="linkNumber">1.</div>
                   <div class="linkField"><input type="text" class="clearDefault" prompt="link name" value="link name"></div>
                   <div class="linkValue"><input type="text" class="clearDefault" prompt="link url" value="link url"></div>
-                  <div class="removeLink"><a href="#" class="removeLink"><r:img dir='images' file="close_icon.gif"/></a></div>
+                  <div class="removeLink"><a href="#" class="removeLink"><r:img dir="images" file="close_icon.gif"/></a></div>
                 </div>
 
                 <div class="customLinkCaption">

@@ -2,15 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="main"/>
     <r:require modules="core"/>
-    <meta charset='utf-8' />
-    <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
-    <meta content='width=device-width, initial-scale=1.0' name='viewport' />
-    <link rel="shortcut icon" type="image/x-icon" href="/myfavicon.ico"/>
-    <title>Macademia - Connecting colleagues who share research interests.</title>
-    <g:render template="/layouts/headers"/>
-
     <r:script>
         macademia.igMap = ${igMap as JSON};
         $(document).ready(function() {
@@ -23,7 +15,7 @@
 
         });
     </r:script>
-
+    <meta name="layout" content="main"/>
 </head>
 <body>
     <div id='container'>

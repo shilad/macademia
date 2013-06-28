@@ -5,8 +5,9 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <g:layoutTitle/>
+    <title><g:layoutTitle default="Macademia - Connecting colleagues who share research interests."/></title>
     <r:layoutResources/>
+    <g:layoutHead/>
 </head>
 <body>
 <g:layoutBody/>
