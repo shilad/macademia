@@ -129,7 +129,7 @@
 
         </div>
 
-              %{--hi Margaret--}%
+
         <div id="mainSearchBox">
             <table>
                 <tr>
@@ -144,11 +144,6 @@
                             <div id="consortia">
                                 <ul style="list-style-type: none;">
                                     <li>
-                                        <input type="radio" name="consortia" id="radio_${igList.get(0).abbrev}"
-                                               value="${igList.get(0).abbrev}"/>&nbsp;${igList.get(0).name.encodeAsHTML().replace(' ', '&nbsp;')}
-                                    </li>
-                                    <br/>
-                                    <li>
                                         <g:each in="${igList}" var="ig" status="i">
                                             <g:if test="${ig.abbrev == institutionGroup.abbrev}">
                                                 <input type="radio" name="consortia" id="radio_${ig.abbrev}"
@@ -158,8 +153,8 @@
                                     </li>
                                     <br/>
                                     <li>
-                                        <input type="radio" name="consortia" id="radio_${igsk.get(0).abbrev}"
-                                               value="${igsk.get(0).abbrev}"/>&nbsp;${igsk.get(0).name.encodeAsHTML().replace(' ', '&nbsp;')}
+                                        <input type="radio" name="consortia" id="radio_${igList.get(0).abbrev}"
+                                               value="${igList.get(0).abbrev}"/>&nbsp;${igList.get(0).name.encodeAsHTML().replace(' ', '&nbsp;')}
                                     </li>
 
 
