@@ -274,9 +274,11 @@ macademia.nav = function() {
 
     $(".clearDefault").clearDefault();
 
+    //TODO: function such as live() is deprecated in jQuery 1.7
     $(".sidebarSection li.more").live('click', function () {
-        $(this).hide();
-        $(".sidebarSection div.more").slideDown('medium');
+        console.log("show clicked");
+        //$(this).hide(); //this hide the "show xx more interests" part
+        //$(".sidebarSection div.more").slideDown('medium');
     });
 };
 

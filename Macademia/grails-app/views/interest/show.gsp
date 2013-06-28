@@ -29,7 +29,6 @@
   <g:if test="${relatedInterests}">
     <div class="sidebarSection">
       <h2>Related interests:</h2>
-      <p>${relatedInterests}</p>
       <ul>
         <g:set var="maxInterests" value="${11}"/>
         <g:each in="${relatedInterests.subList(0, Math.min(relatedInterests.size(), maxInterests))}" var="interest">
@@ -41,6 +40,8 @@
             </li>
           </g:if>
         </g:each>
+      </ul>
+      <ul>
         <g:if test="${relatedInterests.size() > maxInterests}">
           <li class="more"><a href="#">show ${relatedInterests.size() - maxInterests} more related interests&nbsp;...</a></li>
           <div class="more">
