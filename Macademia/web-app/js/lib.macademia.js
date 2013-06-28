@@ -254,7 +254,6 @@ macademia.nav = function() {
                 }
                 macademia.sortParameters($.address.parameter('navFunction'));
                 $.address.update();
-                console.log("Case 2");
             }
         }
     });
@@ -283,9 +282,7 @@ macademia.nav = function() {
 
 // Changes the visualization to new root node
 macademia.changeGraph = function(nodeId){
-    console.log("changeGraph function called");
     if ($.address.parameter('nodeId') != macademia.queryString.nodeId && $.address.parameter('institutions') == macademia.queryString.institutions) {
-        console.log("Case 1");
         if (macademia.rgraph){
             var param = $.address.parameter('nodeId');
             if (macademia.rgraph.graph.getNode(param)) {
@@ -300,14 +297,10 @@ macademia.changeGraph = function(nodeId){
     }else if($.address.parameter('institutions') != undefined && $.address.parameter('institutions') != macademia.queryString.institutions){
         //debug comment
         //this part is strange. The second and third are doing the same thing.
-        console.log("Case 2");
-        console.log($.address.parameter('institutions'));
         macademia.initiateGraph();
     } else if (macademia.rgraph && $.address.parameter('density') != macademia.queryString.density) {
-        console.log("Case 3");
         macademia.initiateGraph();
     } else if ($.address.parameter('institutions')==undefined){ //if institutions is undefined, try to give it an institution
-        console.log("Case undefined");
         $.address.parameter('institutions','all');
         macademia.initiateGraph();
     }
@@ -462,7 +455,6 @@ macademia.retrieveGroup = function() {
 
 macademia.makeActionUrl = function(controller, action) {
     var url =  macademia.makeActionUrlWithGroup(macademia.retrieveGroup(), controller, action);
-    console.log(url)
     return url;
 };
 

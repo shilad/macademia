@@ -29,6 +29,7 @@
   <g:if test="${relatedInterests}">
     <div class="sidebarSection">
       <h2>Related interests:</h2>
+      <p>${relatedInterests}</p>
       <ul>
         <g:set var="maxInterests" value="${11}"/>
         <g:each in="${relatedInterests.subList(0, Math.min(relatedInterests.size(), maxInterests))}" var="interest">
