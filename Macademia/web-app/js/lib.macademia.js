@@ -462,6 +462,7 @@ macademia.retrieveGroup = function() {
 
 macademia.makeActionUrl = function(controller, action) {
     var url =  macademia.makeActionUrlWithGroup(macademia.retrieveGroup(), controller, action);
+    console.log(url)
     return url;
 };
 

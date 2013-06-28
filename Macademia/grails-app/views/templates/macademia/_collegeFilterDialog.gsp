@@ -46,7 +46,11 @@
       </div>
     </div>
 
-    <r:script>
-        macademia.initCollegeFilter();
-    </r:script>
+    %{--<r:script>--}%
+        %{--macademia.initCollegeFilter();--}%
+    %{--</r:script>--}%
 </div>
+
+<script type="text/javascript">
+    macademia.initCollegeFilter();
+</script>
