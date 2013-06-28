@@ -60,6 +60,8 @@ class ConsortiumController {
         def igsk = igCounts.keySet() as ArrayList
         igsk.sort({igCounts[it]})
         igsk = igsk.reverse()
+        println(igsk)
+        println(consortium)
 
 
         [
@@ -124,11 +126,10 @@ class ConsortiumController {
         //   ig.setImageSubpath(params[template])
         ig.save(flush: true, failOnError: true);
 
-
-        String consortiumName = (ig)
-        String[] conSplit = consortiumName.split("\\(")
-        println(conSplit[0])
-        String consortium = conSplit[0]
+//        String consortiumName = (ig)
+//        String[] conSplit = consortiumName.split("\\(")
+//        println(conSplit[0])
+//        String consortium = conSplit[0]
 
         redirect(action : 'show', params: [group : params.group])
     }
