@@ -117,18 +117,16 @@
       #consortia {
 
         font-size: 14px;
-        margin-top: 15px;
         margin-left: -180px;
 
         ul {
           list-style-type: none;
-          width: 960px;
-          margin: center auto;
-          text-align:center;
-
+          width: 90px;
+          margin-left : 13em;
+          text-align:left;
           div.more {
             display : none;
-            text-align : center;
+            text-align : left;
           }
 
           li {
@@ -136,6 +134,7 @@
             vertical-align: bottom;
             margin: 3px 20px;
             white-space: nowrap;
+
             a {
               color : blue;
               &:hover{
