@@ -319,16 +319,17 @@ macademia.resizeCanvas = function(currentWidth) {
     var originalWidth = 680;
     var originalHeight = 660;
     var currentHeight = $(window).height()-125;
-    //currentWidth=currentWidth-100;
+    currentWidth=currentWidth-125;
     if (currentWidth <= currentHeight) {
-        var newWidth = 0.95 * currentWidth;
-        var newHeight = originalHeight * newWidth / originalWidth;
-    } else {
-        var newHeight = 0.95 * currentHeight;
-        var newWidth = originalWidth * newHeight / originalHeight;
+        var newWidth = 0.9 * currentWidth;
+        var newHeight = originalHeight * (newWidth / originalWidth);
+    }
+    if(currentHeight<=currentWidth) {
+        var newHeight = 0.9 * currentHeight;
+        var newWidth = originalWidth * (newHeight / originalHeight);
     }
     if (newWidth != $("#infovis-canvaswidget").css("width") && macademia.rgraph) {
-        $("#infovis-canvaswidget").css({width:newWidth, height: newHeight});
+        $("#infovis-canvaswidget").css({width:newWidth, height: newHeight,"margin-top":"5%","margin-left":"8%"});
         $("#infovis-canvaswidget").css("left","5%");
         $("#infovis-canvaswidget").css("right","5%");
         macademia.rgraph.canvas.resize(newWidth, newHeight);
