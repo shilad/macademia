@@ -144,11 +144,6 @@
                             <div id="consortia">
                                 <ul style="list-style-type: none;">
                                     <li>
-                                        <input type="radio" name="consortia" id="radio_${igsk.get(0).abbrev}"
-                                               value="${igsk.get(0).abbrev}"/>&nbsp;${igsk.get(0).name.encodeAsHTML().replace(' ', '&nbsp;')}
-                                    </li>
-                                    <br/>
-                                    <li>
                                         <g:each in="${igsk}" var="ig" status="i">
                                             <g:if test="${ig.abbrev == institutionGroup.abbrev}">
                                                 <input type="radio" name="consortia" id="radio_${ig.abbrev}"
@@ -156,6 +151,13 @@
                                             </g:if>
                                         </g:each>
                                     </li>
+                                    <br/>
+                                    <li>
+                                        <input type="radio" name="consortia" id="radio_${igsk.get(0).abbrev}"
+                                               value="${igsk.get(0).abbrev}"/>&nbsp;${igsk.get(0).name.encodeAsHTML().replace(' ', '&nbsp;')}
+                                    </li>
+
+
                                 </ul>
                             </div>
 
