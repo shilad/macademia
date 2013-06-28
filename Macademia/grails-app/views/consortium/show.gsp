@@ -156,6 +156,13 @@
                                             </g:if>
                                         </g:each>
                                     </li>
+                                    <br/>
+                                    <li>
+                                        <input type="radio" name="consortia" id="radio_${igsk.get(0).abbrev}"
+                                               value="${igsk.get(0).abbrev}"/>&nbsp;${igsk.get(0).name.encodeAsHTML().replace(' ', '&nbsp;')}
+                                    </li>
+
+
                                 </ul>
                             </div>
 
