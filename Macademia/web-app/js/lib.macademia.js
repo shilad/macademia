@@ -225,25 +225,36 @@ macademia.logCurrentFragment = function() {
         params[key] = $.address.parameter(key);
     }
     macademia.serverLog('nav', 'fragment', params);
+
 };
 
+//macademia.onAddressChange = function(value, path, pathNames, parameterNames, parameters, queryString) {
 macademia.onAddressChange = function() {
+
+    console.log(arguments[0].parameters);
     try {
+        console.log('here 1');
         macademia.updateNav();
+        console.log('here 2');
         macademia.changeGraph(macademia.nodeId);
+        console.log('here 3');
         macademia.changeDisplayedColleges();
+        console.log('here 4');
         macademia.logCurrentFragment();
     } catch (err) {
+        console.log(printStackTrace({e : err}));
         alert('error occured during state change: ' + err);
     }
 };
 
 // click navigation for the rightDiv
 macademia.nav = function() {
+    console.log($("#interest_info"));
     macademia.wireupCollegeFilter();
     $("a").address(function() {
         if(macademia.jit.refreshNeeded){
             var url = $(this).attr('href');
+            console.log(url);
             if (url && url.length > 1) {
                 if (url.indexOf("#") == 0) {
                     macademia.changeQueryString(url);
@@ -254,7 +265,6 @@ macademia.nav = function() {
                 }
                 macademia.sortParameters($.address.parameter('navFunction'));
                 $.address.update();
-                console.log("Case 2");
             }
         }
     });
@@ -275,17 +285,17 @@ macademia.nav = function() {
 
     $(".clearDefault").clearDefault();
 
-    $(".sidebarSection li.more").live('click', function () {
-        $(this).hide();
+    //TODO: function such as live() is deprecated in jQuery 1.7
+    $("#sidebar").on(".sidebarSection click", "li.more", function () {
+        $(this).hide(); //this hide the "show xx more interests" part
         $(".sidebarSection div.more").slideDown('medium');
+        return true;
     });
 };
 
 // Changes the visualization to new root node
 macademia.changeGraph = function(nodeId){
-    console.log("changeGraph function called");
     if ($.address.parameter('nodeId') != macademia.queryString.nodeId && $.address.parameter('institutions') == macademia.queryString.institutions) {
-        console.log("Case 1");
         if (macademia.rgraph){
             var param = $.address.parameter('nodeId');
             if (macademia.rgraph.graph.getNode(param)) {
@@ -300,15 +310,11 @@ macademia.changeGraph = function(nodeId){
     }else if($.address.parameter('institutions') != undefined && $.address.parameter('institutions') != macademia.queryString.institutions){
         //debug comment
         //this part is strange. The second and third are doing the same thing.
-        console.log("Case 2");
-        console.log($.address.parameter('institutions'));
         macademia.initiateGraph();
     } else if (macademia.rgraph && $.address.parameter('density') != macademia.queryString.density) {
-        console.log("Case 3");
         macademia.initiateGraph();
     } else if ($.address.parameter('institutions')==undefined){ //if institutions is undefined, try to give it an institution
-        console.log("Case undefined");
-        $.address.parameter('institutions','all');
+//        $.address.parameter('institutions','all');
         macademia.initiateGraph();
     }
 };
@@ -467,7 +473,6 @@ macademia.retrieveGroup = function() {
 
 macademia.makeActionUrl = function(controller, action) {
     var url =  macademia.makeActionUrlWithGroup(macademia.retrieveGroup(), controller, action);
-    console.log(url)
     return url;
 };
 

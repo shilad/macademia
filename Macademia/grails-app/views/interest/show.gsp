@@ -40,6 +40,8 @@
             </li>
           </g:if>
         </g:each>
+      </ul>
+      <ul>
         <g:if test="${relatedInterests.size() > maxInterests}">
           <li class="more"><a href="#">show ${relatedInterests.size() - maxInterests} more related interests&nbsp;...</a></li>
           <div class="more">
@@ -58,3 +60,4 @@
     </div>
   </g:if>
 </div>
+

@@ -12,6 +12,8 @@ modules = {
         resource url: '/js/jquery/jqModal.js'
         resource url: '/js/ba-debug.js'
         resource url: '/js/jit/jit.js'
+        resource url: '/js/stacktrace.js'
+
         resource url: '/js/lib.macademia.js'
         resource url: '/js/lib.macademia.json.js'
         resource url: '/js/lib.macademia.jit.js'
