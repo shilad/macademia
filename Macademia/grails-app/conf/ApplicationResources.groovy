@@ -55,6 +55,12 @@ modules = {
         resource url: '/js/d3test/d3play.js'
     }
 
+    darth{
+
+            dependsOn 'd3js'
+    }
+
+
     nbrviz {
         dependsOn 'jquery'
         defaultBundle 'macademia.js.nbrviz'
