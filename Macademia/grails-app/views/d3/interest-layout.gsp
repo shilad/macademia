@@ -20,8 +20,8 @@
 <style type="text/css">
 
 .interest {
-    font: 13px Georgia;
-    fill: #000;
+    font: 13px Helvetica;
+    fill: #DCDCDC;
 }
 svg {
     height : 90%;
@@ -38,13 +38,13 @@ svg {
     };
 
     var interests = [
-        {"id":18, "name":"data mining"},
-        {"id":2687, "name":"Text mining", "cluster":18, "relevance":0.7576502561569214, "roles":[]},
-        {"id":15677, "name":" text analytics", "cluster":18, "relevance":0.7576502561569214, "roles":[]},
-        {"id":19, "name":"machine learning", "cluster":18, "relevance":0.7538068890571594, "roles":[]},
-        {"id":925, "name":" regression", "cluster":18, "relevance":0.7336868643760681, "roles":[]},
-        {"id":15679, "name":" information visualization", "cluster":18, "relevance":0.724751889705658, "roles":[]},
-        {"id":227, "name":"artificial intelligence", "cluster":18, "relevance":0.7178208231925964, "roles":[]}
+        {"id":18, "name":"data mining", 'color' : 0.3},
+        {"id":2687, "name":"Text mining", "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color' : 0.7},
+        {"id":15677, "name":" text analytics", "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color' : 0.5},
+        {"id":19, "name":"machine learning", "cluster":18, "relevance":0.7538068890571594, "roles":[], 'color' : 0.1},
+        {"id":925, "name":" regression", "cluster":18, "relevance":0.7336868643760681, "roles":[], 'color' : 0.9},
+        {"id":15679, "name":" information visualization", "cluster":18, "relevance":0.724751889705658, "roles":[], 'color' : 0.2},
+        {"id":227, "name":"artificial intelligence", "cluster":18, "relevance":0.7178208231925964, "roles":[], 'color' : 0.0}
     ];
     var i = 0;
 
@@ -65,7 +65,7 @@ svg {
                     .selectAll('text')
                     .transition()
                     .duration(200)
-                    .attr('fill', 'red');
+                    .attr('fill', 'black');
             },
             function (d) {
                 console.log('out ' + d.name);
@@ -73,7 +73,7 @@ svg {
                         .selectAll('text')
                         .transition()
                         .duration(200)
-                        .attr('fill', 'black');
+                        .attr('fill', '#DCDCDC');
             });
 
     d3.select('svg')
