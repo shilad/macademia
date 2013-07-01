@@ -32,6 +32,7 @@
 }
 .personNode {
     font: 13px Georgia;
+    fill: #ddf;
     /*fill: #aaa;*/
 }
 
@@ -45,5 +46,8 @@
 }
 
 </style>
+
+
+
 </body>
 </html>
