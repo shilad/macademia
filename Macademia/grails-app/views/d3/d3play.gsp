@@ -32,7 +32,7 @@
 }
 .personNode {
     font: 13px Georgia;
-    fill: #ddf;
+    fill: #DCDCDC;
     /*fill: #aaa;*/
 }
 
