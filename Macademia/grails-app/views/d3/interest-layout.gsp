@@ -88,6 +88,10 @@ svg {
             .call(interest);
 
     var interestLayout = MC.interestLayout()
+    interestLayout.apply(clusterMap,interests)
+    interestLayout.display
+
+
 
 
 
