@@ -241,7 +241,7 @@ macademia.onAddressChange = function() {
 // click navigation for the rightDiv
 macademia.nav = function() {
     macademia.wireupCollegeFilter();
-    $("a").address2(function() {
+    $("a").address(function() {
         if(macademia.jit.refreshNeeded){
             var url = $(this).attr('href');
             if (url && url.length > 1) {
@@ -379,14 +379,16 @@ macademia.updateNav = function(){
 // removes unused parameters and updates used parameters
 macademia.sortParameters = function(type,value){
     var queries = ['searchBox','interestId','personId','requestId'];
-    for(var i = 0; i < queries.length; i++){
-        if (queries[i].indexOf(type) < 0){
+    for(var i = 0; i < queries.length; i++) {
+        if (queries[i].indexOf(type) >= 0){
+            if (value) {
+                $.address.parameter(queries[i],value);
+            }
+        } else {
             if ($.address.parameter(queries[i]) || macademia.queryString[queries[i]]){
                 $.address.parameter(queries[i],null);
                 macademia.queryString[queries[i]] = null;
             }
-        }else if (value){
-            $.address.parameter(queries[i],value);
         }
     }
     if (type != 'search'){

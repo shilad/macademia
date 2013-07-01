@@ -13,6 +13,7 @@ modules = {
         resource url: '/js/ba-debug.js'
         resource url: '/js/jit/jit.js'
         resource url: '/js/stacktrace.js'
+        resource url: '/js/history.js'
 
         resource url: '/js/lib.macademia.js'
         resource url: '/js/lib.macademia.json.js'
@@ -21,6 +22,7 @@ modules = {
         resource url: '/js/lib.macademia.autocomplete.js'
         resource url: '/js/lib.macademia.profile.js'
         resource url: '/js/lib.macademia.density.js'
+        resource url: '/js/lib.macademia.history.js'
     }
     profile {
         dependsOn 'core'
