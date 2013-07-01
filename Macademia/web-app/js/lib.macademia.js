@@ -241,7 +241,7 @@ macademia.onAddressChange = function() {
 // click navigation for the rightDiv
 macademia.nav = function() {
     macademia.wireupCollegeFilter();
-    $("a").address(function() {
+    $("a").address2(function() {
         if(macademia.jit.refreshNeeded){
             var url = $(this).attr('href');
             if (url && url.length > 1) {
@@ -467,7 +467,7 @@ macademia.retrieveGroup = function() {
 
 macademia.makeActionUrl = function(controller, action) {
     var url =  macademia.makeActionUrlWithGroup(macademia.retrieveGroup(), controller, action);
-    console.log(url)
+    //console.log(url)
     return url;
 };
 
