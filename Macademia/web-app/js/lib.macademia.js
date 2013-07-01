@@ -230,7 +230,7 @@ macademia.logCurrentFragment = function() {
 macademia.onAddressChange = function() {
     try {
         macademia.updateNav();
-        macademia.changeGraph();
+        macademia.changeGraph(macademia.nodeId);
         macademia.changeDisplayedColleges();
         macademia.logCurrentFragment();
     } catch (err) {
@@ -314,23 +314,28 @@ macademia.changeGraph = function(nodeId){
 };
 // resizes canvas according to original dimensions
 macademia.resizeCanvas = function(currentWidth) {
-    $("#infovis").height('');
+    //$("#infovis").height();
+
     var originalWidth = 680;
     var originalHeight = 660;
-    var currentHeight = $(window).height() - 125;
+    var currentHeight = $(window).height()-125;
+    currentWidth=currentWidth-125;
     if (currentWidth <= currentHeight) {
-        var newWidth = 0.95 * currentWidth;
-        var newHeight = originalHeight * newWidth / originalWidth;
-    } else {
-        var newHeight = 0.95 * currentHeight;
-        var newWidth = originalWidth * newHeight / originalHeight;
+        var newWidth = 0.85 * currentWidth;
+        var newHeight = originalHeight * (newWidth / originalWidth);
     }
-    if (newWidth !== $("#infovis-canvaswidget").css("width") && macademia.rgraph) {
-        $("#infovis-canvaswidget").css({"width":newWidth, "height": newHeight});
-        macademia.rgraph.canvas.resize(currentWidth, currentHeight);
+    if(currentHeight<=currentWidth) {
+        var newHeight = 0.85 * currentHeight;
+        var newWidth = originalWidth * (newHeight / originalHeight);
+    }
+    if (newWidth != $("#infovis-canvaswidget").css("width") && macademia.rgraph) {
+        $("#infovis-canvaswidget").css({width:newWidth, height: newHeight,"margin-top":"4%","margin-left":"8%"});
+        $("#infovis-canvaswidget").css("left","5%");
+        $("#infovis-canvaswidget").css("right","5%");
+        macademia.rgraph.canvas.resize(newWidth, newHeight);
         macademia.rgraph.canvas.scale(newWidth/originalWidth, newHeight/originalHeight);
     }
-    $("#infovis").height($("#infovis").height());
+    //$("#infovis").height($("#infovis").height());
 };
 
 // changes the Query string according link's href
@@ -462,6 +467,7 @@ macademia.retrieveGroup = function() {
 
 macademia.makeActionUrl = function(controller, action) {
     var url =  macademia.makeActionUrlWithGroup(macademia.retrieveGroup(), controller, action);
+    console.log(url)
     return url;
 };
 

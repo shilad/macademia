@@ -55,8 +55,6 @@ svg {
             .attr('width', 500)
             .attr('height', 500)
             .selectAll('labels')
-            .data([0])
-            .append('g')
             .attr('class', 'labels')
             .data(['foo', 'bar', 'baz'])
             .enter().call(label);

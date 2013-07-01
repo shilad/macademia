@@ -27,11 +27,7 @@ var MC = (window.MC = (window.MC || {}));
  * @return {Function}
  */
 MC.label = function() {
-    function label(sel) {
-        sel.each(function(data) {
-
-        });
-
+    function label(g) {
         var g = g.append('g')
             .attr('class', label.getCssClass());
 
