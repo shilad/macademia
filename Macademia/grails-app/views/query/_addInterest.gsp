@@ -6,7 +6,31 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<r:script>
+<div>
+    <a id="showWidget" href="#">show search box</a>
+    <div id="currentInterests" >
+        <h1>Search for interests:</h1>
+        <ol>
+          <div id="sliderKey">
+            <div class="lessLabel">less</div>
+            <div class="okayLabel">ok</div>
+            <div class="moreLabel">more</div>
+          </div>
+          <div id="queryInterestTemplate" class="addedInterestDiv">
+              <div class="interestSlider" interest="INTEREST_ID"></div>
+              <div class="interestKey" interest="INTEREST_ID"></div>
+              <div class="addedInterest">INTEREST_NAME&nbsp;&nbsp;&nbsp;
+              <input class="addedInterestId" value="INTEREST_ID" type="hidden"/>
+              [<a href="#" class='removeInterest'>X</a>]
+              </div>
+          </div>
+        </ol>
+      <input id="interestQuery" type="search" name="interestQuery" placeholder="Add new interest to query"/>
+      <a id="hideWidget" href="#">hide</a>
+    </div>
+</div>
+
+<script type="text/javascript">
     $(document).ready(function() {
         $("#interestQuery").editAutocomplete({
               multiple : true,
@@ -38,29 +62,5 @@
             return false;
         });
     });
-</r:script>
-<div>
-    <a id="showWidget" href="#">show search box</a>
-    <div id="currentInterests" >
-        <h1>Search for interests:</h1>
-        <ol>
-          <div id="sliderKey">
-            <div class="lessLabel">less</div>
-            <div class="okayLabel">ok</div>
-            <div class="moreLabel">more</div>
-          </div>
-          <div id="queryInterestTemplate" class="addedInterestDiv">
-              <div class="interestSlider" interest="INTEREST_ID"></div>
-              <div class="interestKey" interest="INTEREST_ID"></div>
-              <div class="addedInterest">INTEREST_NAME&nbsp;&nbsp;&nbsp;
-              <input class="addedInterestId" value="INTEREST_ID" type="hidden"/>
-              [<a href="#" class='removeInterest'>X</a>]
-              </div>
-          </div>
-        </ol>
-      <input id="interestQuery" type="search" name="interestQuery" placeholder="Add new interest to query"/>
-      <a id="hideWidget" href="#">hide</a>
-    </div>
-</div>
-
+</script>
 
