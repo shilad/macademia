@@ -225,25 +225,36 @@ macademia.logCurrentFragment = function() {
         params[key] = $.address.parameter(key);
     }
     macademia.serverLog('nav', 'fragment', params);
+
 };
 
+//macademia.onAddressChange = function(value, path, pathNames, parameterNames, parameters, queryString) {
 macademia.onAddressChange = function() {
+
+    console.log(arguments[0].parameters);
     try {
+        console.log('here 1');
         macademia.updateNav();
+        console.log('here 2');
         macademia.changeGraph(macademia.nodeId);
+        console.log('here 3');
         macademia.changeDisplayedColleges();
+        console.log('here 4');
         macademia.logCurrentFragment();
     } catch (err) {
+        console.log(printStackTrace({e : err}));
         alert('error occured during state change: ' + err);
     }
 };
 
 // click navigation for the rightDiv
 macademia.nav = function() {
+    console.log($("#interest_info"));
     macademia.wireupCollegeFilter();
     $("a").address(function() {
         if(macademia.jit.refreshNeeded){
             var url = $(this).attr('href');
+            console.log(url);
             if (url && url.length > 1) {
                 if (url.indexOf("#") == 0) {
                     macademia.changeQueryString(url);
@@ -275,10 +286,10 @@ macademia.nav = function() {
     $(".clearDefault").clearDefault();
 
     //TODO: function such as live() is deprecated in jQuery 1.7
-    $(".sidebarSection li.more").live('click', function () {
-        console.log("show clicked");
+    $("#sidebar").on(".sidebarSection click", "li.more", function () {
         $(this).hide(); //this hide the "show xx more interests" part
         $(".sidebarSection div.more").slideDown('medium');
+        return true;
     });
 };
 
@@ -303,7 +314,7 @@ macademia.changeGraph = function(nodeId){
     } else if (macademia.rgraph && $.address.parameter('density') != macademia.queryString.density) {
         macademia.initiateGraph();
     } else if ($.address.parameter('institutions')==undefined){ //if institutions is undefined, try to give it an institution
-        $.address.parameter('institutions','all');
+//        $.address.parameter('institutions','all');
         macademia.initiateGraph();
     }
 };
