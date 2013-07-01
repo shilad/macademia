@@ -33,24 +33,36 @@ var macademia = macademia || {};
 
 var MH = macademia.history = {};
 
+var temp = {};
 /*
  * Returns the parameter with the specified name.
  */
 MH.get = function(name) {
+    if(history.getState().data!=undefined){
+        return history.getState().data.name;
+    }
+    else{
+        //var url=history.getState().url;
+        var currentHash=history.getHash();
+        alert(currentHash.name);
+    }
+
 };
 
 /*
  * Sets the parameter to the specified value.
  */
-MH.set = function(name, value) {
-
+MH.setTemp = function(name, value) {
+    temp.name=value;
+    //temp.data=parseUrl(value);
 };
 
 /*
- * Installs the specified handler for address changes
- * The handler will be passed a map of key/value pairs.
+ *
+ *
  */
-MH.onUpdate = function(handler) {
+MH.getOld = function() {
+    return history.getStateByIndex(history.getCurrentIndex()-1);
 
 };
 
