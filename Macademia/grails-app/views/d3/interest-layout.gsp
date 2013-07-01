@@ -36,21 +36,22 @@ svg {
         "976":[4018, 738, 2710, 2126, 407, 3805, 318],
         "1501":[2581, 223, 10957, 2331, 452, 890, 74]
     };
-    var interests = {
-        "18":{"id":18, "name":"data mining"},
-        "2687":{"id":2687, "name":"Text mining", "cluster":18, "relevance":0.7576502561569214, "roles":[]},
-        "15677":{"id":15677, "name":" text analytics", "cluster":18, "relevance":0.7576502561569214, "roles":[]},
-        "19":{"id":19, "name":"machine learning", "cluster":18, "relevance":0.7538068890571594, "roles":[]},
-        "925":{"id":925, "name":" regression", "cluster":18, "relevance":0.7336868643760681, "roles":[]},
-        "15679":{"id":15679, "name":" information visualization", "cluster":18, "relevance":0.724751889705658, "roles":[]},
-        "227":{"id":227, "name":"artificial intelligence", "cluster":18, "relevance":0.7178208231925964, "roles":[]}
-    };
-    var i = 0;
 
     var interests = [
-        {'name' : 'Rock climbing', 'color' : 0.3},
-        {'name' : 'Squash', 'color' : 0.7}
+        {"id":18, "name":"data mining"},
+        {"id":2687, "name":"Text mining", "cluster":18, "relevance":0.7576502561569214, "roles":[]},
+        {"id":15677, "name":" text analytics", "cluster":18, "relevance":0.7576502561569214, "roles":[]},
+        {"id":19, "name":"machine learning", "cluster":18, "relevance":0.7538068890571594, "roles":[]},
+        {"id":925, "name":" regression", "cluster":18, "relevance":0.7336868643760681, "roles":[]},
+        {"id":15679, "name":" information visualization", "cluster":18, "relevance":0.724751889705658, "roles":[]},
+        {"id":227, "name":"artificial intelligence", "cluster":18, "relevance":0.7178208231925964, "roles":[]}
     ];
+    var i = 0;
+
+//    var interests = [
+//        {'name' : 'Rock climbing', 'color' : 0.3},
+//        {'name' : 'Squash', 'color' : 0.7}
+//    ];
 
     var interest = MC.interest()
         .setCy(function (d) {
