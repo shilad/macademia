@@ -12,11 +12,11 @@ MC.interestLayout = function() {
         var rootId = il.getOrCallRootId();
 
         var getChildren = function (i) {
-            if (i.id == rootId) {
-                var closelyRelated = $.map(cm[i.id],
-                        function (iid) { return (iid in cm) ? null : iid
-                    });
+            if (i.id == rootId) {    // i.e. "data mining" in our example
+                // a list of ids that are children of this node (or null)
+                var closelyRelated = cm[i.id];
 
+                // siblings are the other keys in the cm (besides 18)
                 var siblings = [];
                 for (var iid in cm) {
                     if (iid != rootId) {
@@ -25,13 +25,18 @@ MC.interestLayout = function() {
                     }
                 }
 
+                // Thsi distributes the closely related nodes between the sibilings
                 for (var j = closelyRelated.length-1; j >= 0; j--) {
                     var destIndex = (d3.keys(cm).length - 1) * j / closelyRelated.length;    // TODO: adjust for non-interest-centric graphs
                     siblings.splice(Math.round(destIndex), 0, closelyRelated[j]);
                 }
+
                 return siblings;
             } else if (i.id in cm) {
+                // a non-root hub (e.g. mathematics)
                 var children = $.map(cm[i.id], function (iid) { return interests[iid]; });
+
+                // sort so short names are near the beginning or end
                 children.sort(function (i1, i2) { return i1.name.length - i2.name.length});
                 var odd  = children.filter(function (v, i) { return i % 2 == 1; });
                 var even = children.filter(function (v, i) { return i % 2 == 0; });
@@ -53,12 +58,17 @@ MC.interestLayout = function() {
 
         var nodes = tree.nodes(interests[rootId]);
 
+        // adjust the radial layout.
+        // In the layout x is degrees (or radians?)
+        // Y is distance from the center.
         $.each(nodes, function (i) {
+            // closely related to root
             if (this.depth == 1 && this.siblingIndex >= 0) {
                 this.y *= 1.75;
-            } else if (this.depth == 1) {
+            } else if (this.depth == 1) {  // hubs
                 this.y *= 0.8;
             } else if (this.depth == 2) {
+                // cornerness fans out the short
                 var rads = this.x / 180 * Math.PI;
                 var cornerness = Math.min(
                     Math.abs(Math.tan(rads)),
@@ -103,7 +113,7 @@ MC.interestLayout = function() {
     MC.options.register(il, 'diameter', 800);
     MC.options.register(il, 'rootId', null);
     MC.options.register(il, 'clusterMap', function() { throw('no clusterMap specified'); });
-    MC.options.register(il, 'interestSelection', function() { throw('no interestSelection specified.')});
+    MC.options.register(il, 'interests', function() { throw('no interests specified.')});
 
     return il;
 };
