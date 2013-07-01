@@ -21,7 +21,7 @@
 
 .person {
     font: 17px Helvetica;
-    fill: gray;
+    fill: #DCDCDC;
 }
 svg {
     height : 90%;
@@ -67,7 +67,7 @@ svg {
                         .selectAll('text')
                         .transition()
                         .duration(200)
-                        .attr('fill', 'gray');
+                        .attr('fill', '#DCDCDC');
             });
 
     d3.select('svg')
