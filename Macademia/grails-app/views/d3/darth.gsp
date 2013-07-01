@@ -9,90 +9,41 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <meta name="layout" content="main" />
+    <meta name="layout" content="main"/>
 
-    <r:require modules="d3js"/>
+    <r:require modules = "darth"/>
 
   <title></title>
 </head>
 <body>
-
 <style type="text/css">
-   .person {
-       font: 17px Helvetica;
-       fill: #DCDCDC;
-   }
-    svg{
-        height : 90%;
-        width : 90%;
-    }
+.node circle {
+    stroke:#000000   ;
+    stroke-width: 1.5px;
+}
+.interestNode.minor {
+    font: 13px Georgia;
+    fill: #000000 ;
+}
+.interestNode.major {
+    font: 16px Helvetica;
+    font-weight: bold;
+}
+.personNode {
+    font: 13px Georgia;
+    fill:#000000 ;
+    /*fill: #aaa;*/
+}
+
+.link {
+    fill: none;
+    stroke:#000000  ;
+    stroke-width: 1.5px;
+}
+
+.random{
+}
+
 </style>
-
-<r:script>
-    var i = 0;
-
-    var people = [
-        {
-            'name' : 'Ash Ketchum',
-            'pic' : '/Macademia/all/image/randomFake?ash',
-            'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
-            'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7}
-        },
-        {
-            'name' : 'Misty Waters',
-            'pic' : '/Macademia/all/image/randomFake?misty',
-            'cleanedRelevance':  {5 : 1.0, 6: 3.0, 14: 5.0},
-            'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7}
-        },
-        {
-            'name' : 'Brock Rock',
-            'pic' : '/Macademia/all/image/randomFake?brock',
-            'cleanedRelevance':  {4 : 3.0, 6: 3.0, 14: 5.0},
-            'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7}
-        },
-        {
-            'name' : 'Pikachu Pokemon',
-            'pic' : '/Macademia/all/image/randomFake?pikachu',
-            'cleanedRelevance':  {5 : 3.0, 6: 8.3, 11: 2.0},
-            'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7}
-        }
-    ];
-
-    var person = MC.person()
-            .setCy(function (d) {
-                i += 100;
-                return i;
-            })
-            .addOnHover(
-            function (d) {
-                console.log('in ' + d.name);
-                d3.select(this)
-                        .selectAll('text')
-                        .transition()
-                        .duration(200)
-                        .attr('fill', 'black');
-            },
-            function (d) {
-                console.log('out ' + d.name);
-                d3.select(this)
-                        .selectAll('text')
-                        .transition()
-                        .duration(200)
-                        .attr('fill', '#DCDCDC');
-            });
-
-    d3.select('svg')
-            .attr('width', 500)
-            .attr('height', 500)
-            .selectAll('people')
-            .data([0])
-            .append('g')
-            .attr('class', 'people')
-            .data(people)
-            .enter()
-            .call(person);
-</r:script>
-
-<svg></svg>
 </body>
 </html>

@@ -47,6 +47,7 @@ modules = {
         resource url: '/js/d3test/utils.js'
         resource url: '/js/d3test/label.js'
         resource url: '/js/d3test/interest.js'
+        resource url: '/js/d3test/interest-layout.js'
         resource url: '/js/d3test/person.js'
     }
 
@@ -57,7 +58,10 @@ modules = {
 
     darth{
 
-            dependsOn 'd3js'
+           dependsOn 'd3js'
+        resource url: '/js/d3test/d3play.js'
+
+
     }
 
 
