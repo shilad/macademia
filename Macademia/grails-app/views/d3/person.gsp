@@ -20,8 +20,8 @@
 <style type="text/css">
 
 .person {
-    font: 15px Georgia;
-    fill: #000;
+    font: 17px Helvetica;
+    fill: gray;
 }
 svg {
     height : 90%;
@@ -38,13 +38,13 @@ svg {
             'pic' : '/Macademia/all/image/randomFake?foo',
             'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
             'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7}
-        }
-        /*{
+        },
+        {
             'name' : 'John Riedl',
             'pic' : '/Macademia/all/image/randomFake?bar',
             'cleanedRelevance':  {5 : 1.0, 6: 3.0, 14: 5.0},
             'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7}
-        } */
+        }
     ];
 
     var person = MC.person()
@@ -59,7 +59,7 @@ svg {
                     .selectAll('text')
                     .transition()
                     .duration(200)
-                    .attr('fill', 'red');
+                    .attr('fill', 'black');
             },
             function (d) {
                 console.log('out ' + d.name);
@@ -67,7 +67,7 @@ svg {
                         .selectAll('text')
                         .transition()
                         .duration(200)
-                        .attr('fill', 'black');
+                        .attr('fill', 'gray');
             });
 
     d3.select('svg')
