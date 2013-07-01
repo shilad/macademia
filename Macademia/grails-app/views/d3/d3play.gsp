@@ -17,8 +17,6 @@
 </head>
 <body>
 
-<g:javascript src="label.js"/>
-
 
 <style type="text/css">
 .node circle {
