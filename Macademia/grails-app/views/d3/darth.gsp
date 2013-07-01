@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<g:javascript src="label.js"/>
+%{--<g:javascript src="label.js"/>--}%
 
 
 <style type="text/css">
