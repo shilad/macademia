@@ -18,3 +18,9 @@ This is our testing page
 
 </body>
 </html>
+
+<r:script>
+    macademia.history.update();
+    macademia.history.get('test');
+
+</r:script>
