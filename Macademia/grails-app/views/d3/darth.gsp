@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
-  User: shilad
-  Date: 5/10/13
-  Time: 3:38 PM
+  User: research
+  Date: 7/1/13
+  Time: 3:00 PM
   To change this template use File | Settings | File Templates.
 --%>
 
@@ -11,23 +11,19 @@
 <head>
     <meta name="layout" content="main"/>
 
-    <r:require modules="d3demo"/>
+    <r:require modules = "darth"/>
 
-    <title></title>
+  <title></title>
 </head>
 <body>
-
-%{--<g:javascript src="label.js"/>--}%
-
-
 <style type="text/css">
 .node circle {
-    stroke: #ddf;
+    stroke:#000000   ;
     stroke-width: 1.5px;
 }
 .interestNode.minor {
     font: 13px Georgia;
-    fill: #bbb;
+    fill: #000000 ;
 }
 .interestNode.major {
     font: 16px Helvetica;
@@ -35,13 +31,13 @@
 }
 .personNode {
     font: 13px Georgia;
-    fill: #ddf;
+    fill:#000000 ;
     /*fill: #aaa;*/
 }
 
 .link {
     fill: none;
-    stroke: #ccc;
+    stroke:#000000  ;
     stroke-width: 1.5px;
 }
 
@@ -49,8 +45,5 @@
 }
 
 </style>
-
-
-
 </body>
 </html>
