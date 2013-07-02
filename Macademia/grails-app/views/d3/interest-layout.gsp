@@ -31,7 +31,7 @@ svg {
 </style>
 <r:script>
     var interests = [
-        {"id":18, "name":"data mining",  "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
+        {"id":18, "name":"data mining"} ,
         {"id":24, "name":"gum",  "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
         {"id":976, "name":"shoe", "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
         {"id":1501, "name":"ben hillman", "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
@@ -45,14 +45,14 @@ svg {
     ];
 
     var clusterMap = {
-        "18": [1443, 16204, 1501, 24, 976],
-        "24":[323, 295],
-        "976":[3590],
-        "1501":[227, 711]
+        "18": ["1443", "16204", "1501", "24", "976"],
+        "24":["323", "295"],
+        "976":["3590"],
+        "1501":["227", "711"]
     };
 
 
-    var i = 0;
+    var i = 40;
 
     var interest = MC.interest()
         .setCy(function (d) {
@@ -84,8 +84,8 @@ svg {
 ////     d3.entries(clusterMap)
 
     d3.select('svg')
-            .attr('width', 500)
-            .attr('height', 500)
+            .attr('width', 800)
+            .attr('height', 800)
             .selectAll('interests')
             .data([0])
             .enter()
@@ -93,19 +93,24 @@ svg {
             .attr('class', 'interests')
             .data(interests)
             .enter()
-            .call(interest);
+            .call(interest)[0];
 
 
+    var interestNodes = d3.selectAll('g.interest');
     var interestLayout = MC.interestLayout()
+            .setDiameter(500)
             .setInterests(interests)
             .setClusterMap(clusterMap)
-            .setRootId('18');
+            .setRootId('18')
+            .setInterestNodes(interestNodes);
 
     d3.select('svg')
             .selectAll('interest-layouts')
             .data([0])
             .enter()
             .call(interestLayout);
+
+
 
 
 </r:script>

@@ -53,6 +53,7 @@ modules = {
 
     d3demo {
         dependsOn 'd3js'
+        dependsOn 'nbrviz'
         resource url: '/js/d3test/d3play.js'
     }
 
