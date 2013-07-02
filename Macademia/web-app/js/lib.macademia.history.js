@@ -38,15 +38,8 @@ var temp = {};
  * Returns the parameter with the specified name.
  */
 MH.get = function(name) {
-    if(history.getState().data!=undefined){
-        return history.getState().data.name;
-    }
-    else{
-        //var url=history.getState().url;
-        var currentHash=history.getHash();
-        alert(currentHash.name);
-    }
-
+    console.log("Get Function");
+    console.log(history.state);
 };
 
 /*

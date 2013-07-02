@@ -17,4 +17,9 @@
 This is our testing page
 
 </body>
+
 </html>
+
+<r:script>
+    macademia.history.get('test');
+</r:script>

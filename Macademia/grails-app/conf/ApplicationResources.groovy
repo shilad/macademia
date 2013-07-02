@@ -13,7 +13,7 @@ modules = {
         resource url: '/js/ba-debug.js'
         resource url: '/js/jit/jit.js'
         resource url: '/js/stacktrace.js'
-        resource url: '/js/history.js'
+        resource url: '/js/jquery/jquery.history.js'
 
         resource url: '/js/lib.macademia.js'
         resource url: '/js/lib.macademia.json.js'
