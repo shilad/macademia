@@ -1,5 +1,7 @@
 /**
  *
+ * Created by Jesse & ken
+ *
  * Flow:
  * 0. Event happens.
  * 1. Library takes snapshot of parameter state.
@@ -39,8 +41,7 @@ var temp = {};
  * Returns the parameter with the specified name.
  */
 MH.get = function(name) {
-    //alert(MH.parseUrl(History.getHash()).name);
-    console.log(MH.parseUrl(History.getHash())[name]);
+
     return MH.parseUrl(History.getHash())[name];
 
 
@@ -49,39 +50,40 @@ MH.get = function(name) {
 /*
  * Sets the parameter to the specified value.
  */
-MH.setTemp = function(name, value) {
-    temp.name=name;
-    temp.value=value;
+MH.setTempValue = function(name, value) {
+    temp[name]=value;
+
 };
-MH.getTemp = function() {
-    return temp;
-};
+
 /*
- *
+ *  Gets the state back i indices
  *
  */
-MH.getOld = function() {
-    console.log(History.getStateByIndex(History.getCurrentIndex()-1));
-    return History.getStateByIndex(History.getCurrentIndex()-1);
+MH.getOld = function(i) {
+    return History.getStateByIndex(History.getCurrentIndex()-i);
 
 };
 
 /*
  * Triggers a call to the currently installed handler.
  */
-MH.update = function(event) {
-    var name=event.target.href.substring(event.target.href.indexOf("?"));
-    var value=MH.parseUrl(event.target.hash);
-    MH.setTemp(name,value);
+$.fn.onUpdate = function(fn) {
+
+    //var name=event.target.href.substring(event.target.href.indexOf("?"));
+    temp=MH.parseUrl(event.target.hash);
 
 
-//    console.log("Prior to push:\t");
-//    console.log(History.getState());
-    History.pushState(MH.getTemp()[name],'',MH.getTemp()[value]);
-//    console.log("After push:\t");
-//    console.log(History.getState());
 };
- //http://localhost:8080/Macademia/all/person/test/#/?test=test&test2=test2
+MH.update = function(){
+    History.pushState(temp,'',MH.combineTemp(temp));
+}
+MH.combineTemp= function(map){
+    var s="?";
+    for(var key in map){
+        s+=key+"="+map[key]+"&";
+    }
+    return s.substring(0,s.length-1);
+};
 MH.parseUrl= function(hashUrl){
     var temp=hashUrl;
     var start = temp.indexOf('?');
@@ -94,4 +96,8 @@ MH.parseUrl= function(hashUrl){
         hashMap[kv[0]]=kv[1];
     }
     return hashMap;
-}
+};
+
+$("a").MH.onUpdate(function(){
+
+});

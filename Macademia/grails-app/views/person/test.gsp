@@ -33,7 +33,7 @@ This is our testing page
 
         $("a").on("click", function(event){
             macademia.history.update(event);
-            macademia.history.getOld(1);
+//            macademia.history.getOld(1);
 //        macademia.history.get('test2');
         });
 
