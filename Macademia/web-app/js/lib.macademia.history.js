@@ -39,9 +39,9 @@ var temp = {};
  * Returns the parameter with the specified name.
  */
 MH.get = function(name) {
-    alert(MH.parseUrl(History.getHash()).name);
-
-    return MH.parseUrl(History.getHash()).name;
+    //alert(MH.parseUrl(History.getHash()).name);
+    console.log(MH.parseUrl(History.getHash())[name]);
+    return MH.parseUrl(History.getHash())[name];
 
 
 };
@@ -50,15 +50,18 @@ MH.get = function(name) {
  * Sets the parameter to the specified value.
  */
 MH.setTemp = function(name, value) {
-    temp.name=value;
-    //temp.data=parseUrl(value);
+    temp.name=name;
+    temp.value=value;
 };
-
+MH.getTemp = function() {
+    return temp;
+};
 /*
  *
  *
  */
 MH.getOld = function() {
+    console.log(History.getStateByIndex(History.getCurrentIndex()-1));
     return History.getStateByIndex(History.getCurrentIndex()-1);
 
 };
@@ -66,9 +69,17 @@ MH.getOld = function() {
 /*
  * Triggers a call to the currently installed handler.
  */
-MH.update = function() {
+MH.update = function(event) {
+    var name=event.target.href.substring(event.target.href.indexOf("?"));
+    var value=MH.parseUrl(event.target.hash);
+    MH.setTemp(name,value);
 
-    History.pushState([],'','http://localhost:8080/Macademia/all/person/test/#/?test=test&test2=test2');
+
+//    console.log("Prior to push:\t");
+//    console.log(History.getState());
+    History.pushState(MH.getTemp()[name],'',MH.getTemp()[value]);
+//    console.log("After push:\t");
+//    console.log(History.getState());
 };
  //http://localhost:8080/Macademia/all/person/test/#/?test=test&test2=test2
 MH.parseUrl= function(hashUrl){
