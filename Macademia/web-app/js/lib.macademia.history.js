@@ -38,9 +38,11 @@ var temp = {};
  * Returns the parameter with the specified name.
  */
 MH.get = function(name) {
-    alert(MH.parseUrl(History.getHash(),name));
+    //alert(MH.parseUrl(History.getHash(),name));
+    //return MH.parseUrl(History.getHash(),name);
+    history.pushState(null,null,history.location.href);
+    console.log(window.history.back());
 
-    return MH.parseUrl(History.getHash(),name);
 
 
 };

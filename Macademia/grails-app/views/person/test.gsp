@@ -20,7 +20,7 @@ This is our testing page
 </html>
 
 <r:script>
-    macademia.history.update();
+//    macademia.history.update();
     macademia.history.get('test');
 
 </r:script>
