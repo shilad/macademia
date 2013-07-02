@@ -33,16 +33,15 @@ var macademia = macademia || {};
 
 var MH = macademia.history = {};
 
+
 var temp = {};
 /*
  * Returns the parameter with the specified name.
  */
 MH.get = function(name) {
-    //alert(MH.parseUrl(History.getHash(),name));
-    //return MH.parseUrl(History.getHash(),name);
-    history.pushState(null,null,history.location.href);
-    console.log(window.history.back());
-
+    //alert(MH.parseUrl(History.getHash()).name);
+    console.log(MH.parseUrl(History.getHash())[name]);
+    return MH.parseUrl(History.getHash())[name];
 
 
 };
@@ -51,15 +50,18 @@ MH.get = function(name) {
  * Sets the parameter to the specified value.
  */
 MH.setTemp = function(name, value) {
-    temp.name=value;
-    //temp.data=parseUrl(value);
+    temp.name=name;
+    temp.value=value;
 };
-
+MH.getTemp = function() {
+    return temp;
+};
 /*
  *
  *
  */
 MH.getOld = function() {
+    console.log(History.getStateByIndex(History.getCurrentIndex()-1));
     return History.getStateByIndex(History.getCurrentIndex()-1);
 
 };
@@ -67,22 +69,29 @@ MH.getOld = function() {
 /*
  * Triggers a call to the currently installed handler.
  */
-MH.update = function() {
-    History.pushState([],'','http://localhost:8080/Macademia/all/person/test/#/?test=test&test2=test2');
+MH.update = function(event) {
+    var name=event.target.href.substring(event.target.href.indexOf("?"));
+    var value=MH.parseUrl(event.target.hash);
+    MH.setTemp(name,value);
+
+
+//    console.log("Prior to push:\t");
+//    console.log(History.getState());
+    History.pushState(MH.getTemp()[name],'',MH.getTemp()[value]);
+//    console.log("After push:\t");
+//    console.log(History.getState());
 };
  //http://localhost:8080/Macademia/all/person/test/#/?test=test&test2=test2
-MH.parseUrl= function(hashUrl, paramName){
+MH.parseUrl= function(hashUrl){
     var temp=hashUrl;
     var start = temp.indexOf('?');
     temp=temp.substring(start+1);
     var hash=temp.split('&');
-    //console.log(hash);
     var hashMap={};
     var kv={};
     for(var i =0;i<hash.length;i++){
         kv=hash[i].split('=');
-        console.log(hash[i]);
-        hashMap.kv[0]=kv[1];
+        hashMap[kv[0]]=kv[1];
     }
-    return hashMap.paramName;
+    return hashMap;
 }
