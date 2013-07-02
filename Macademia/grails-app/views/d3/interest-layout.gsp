@@ -87,9 +87,17 @@ svg {
             .enter()
             .call(interest);
 
+
+
+
     var interestLayout = MC.interestLayout()
-    interestLayout.apply(clusterMap,interests)
-    interestLayout.display
+            .display
+            .sort()
+            .data(interests);
+
+
+
+
 
 
 
