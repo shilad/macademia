@@ -6,12 +6,13 @@ MC.interestLayout = function() {
         var diam = il.getOrCallDiameter();
         var cm = il.getOrCallClusterMap();
         var interests = {};
-        il.getOrCallInterestSelection().each(function (d, i) {
+        $.each(il.getOrCallInterests(), function (i, d) {
             interests[d.id] = d;
         });
         var rootId = il.getOrCallRootId();
 
         var getChildren = function (i) {
+            console.log(i);
             if (i.id == rootId) {    // i.e. "data mining" in our example
                 // a list of ids that are children of this node (or null)
                 var closelyRelated = cm[i.id];
@@ -20,6 +21,7 @@ MC.interestLayout = function() {
                 var siblings = [];
                 for (var iid in cm) {
                     if (iid != rootId) {
+                        console.log(iid);
                         interests[iid].siblingIndex = siblings.length;
                         siblings.push(iid);
                     }
@@ -31,6 +33,7 @@ MC.interestLayout = function() {
                     siblings.splice(Math.round(destIndex), 0, closelyRelated[j]);
                 }
 
+                console.log(siblings);
                 return siblings;
             } else if (i.id in cm) {
                 // a non-root hub (e.g. mathematics)
@@ -42,8 +45,10 @@ MC.interestLayout = function() {
                 var even = children.filter(function (v, i) { return i % 2 == 0; });
                 even.reverse();
                 if (i.siblingIndex % 2 == 0) {
+                    console.log(even);
                     return odd.concat(even);
                 } else {
+                    console.log(odd);
                     return even.concat(odd);
                 }
             } else {
@@ -52,10 +57,12 @@ MC.interestLayout = function() {
         };
 
         var tree = d3.layout.tree()
-            .sort()
+            .sort(null)
             .size([360, diam / 2 - 50])
             .children(getChildren);
 
+        console.log('root is ' + rootId);
+        console.log(interests);
         var nodes = tree.nodes(interests[rootId]);
 
         // adjust the radial layout.
