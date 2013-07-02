@@ -127,6 +127,7 @@
         pushState: function(state, title, url) {
             historyPushState && historyPushState.apply(windowHistory, arguments);
             changeState(state, url);
+
         },
         /**
          * The method updates the state object,
@@ -169,6 +170,7 @@
                 return stateStorage[windowLocation.href] || null;
             }
         }
+
     };
 
     /**
