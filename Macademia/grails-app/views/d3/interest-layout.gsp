@@ -88,6 +88,14 @@ svg {
             .call(interest);
 
     var interestLayout = MC.interestLayout()
+            .setInterests(interests)
+            .setClusterMap(clusterMap);
+
+    d3.select('svg')
+            .selectAll('interest-layout')
+            .data([0])
+            .
+
 
 </r:script>
 
