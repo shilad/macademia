@@ -33,14 +33,15 @@ var macademia = macademia || {};
 
 var MH = macademia.history = {};
 
+
 var temp = {};
 /*
  * Returns the parameter with the specified name.
  */
 MH.get = function(name) {
-    alert(MH.parseUrl(History.getHash(),name));
+    alert(MH.parseUrl(History.getHash()).name);
 
-    return MH.parseUrl(History.getHash(),name);
+    return MH.parseUrl(History.getHash()).name;
 
 
 };
@@ -66,21 +67,20 @@ MH.getOld = function() {
  * Triggers a call to the currently installed handler.
  */
 MH.update = function() {
+
     History.pushState([],'','http://localhost:8080/Macademia/all/person/test/#/?test=test&test2=test2');
 };
  //http://localhost:8080/Macademia/all/person/test/#/?test=test&test2=test2
-MH.parseUrl= function(hashUrl, paramName){
+MH.parseUrl= function(hashUrl){
     var temp=hashUrl;
     var start = temp.indexOf('?');
     temp=temp.substring(start+1);
     var hash=temp.split('&');
-    //console.log(hash);
     var hashMap={};
     var kv={};
     for(var i =0;i<hash.length;i++){
         kv=hash[i].split('=');
-        console.log(hash[i]);
-        hashMap.kv[0]=kv[1];
+        hashMap[kv[0]]=kv[1];
     }
-    return hashMap.paramName;
+    return hashMap;
 }

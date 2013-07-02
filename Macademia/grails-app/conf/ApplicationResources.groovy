@@ -14,7 +14,7 @@ modules = {
         resource url: '/js/jit/jit.js'
         resource url: '/js/stacktrace.js'
         resource url: '/js/jquery/jquery.history.js'
-        resource url: '/js/jquery/history.js'
+
 
         resource url: '/js/lib.macademia.js'
         resource url: '/js/lib.macademia.json.js'
@@ -25,6 +25,7 @@ modules = {
         resource url: '/js/lib.macademia.density.js'
         resource url: '/js/lib.macademia.history.js'
         resource url: '/js/lib.macademia.history2.js'
+        resource url: '/js/jquery/history.js'     //DO NOT CHANGE ORDER!! This must be loaded after lib.macademia.js
     }
     profile {
         dependsOn 'core'

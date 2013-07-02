@@ -2,6 +2,10 @@
 
 var macademia = macademia || {};
 
+//Ultra important line of code to change the default option for History.js to enable the hashbangs
+// The url will be drastically altered if this is deleted
+window.History = {options: {html4Mode: true} };
+
 // calculates the number of properties (keys, values, etc.) for an object or associative array.
 macademia.size = function(obj) {
     var size = 0, key;
@@ -51,6 +55,7 @@ macademia.pageLoad = function() {
     macademia.initLogging();
     macademia.changeDisplayedColleges();
     macademia.initAsteroids();
+    History.options.html4Mode=true;
 };
 
 macademia.homePageLoad = function() {

@@ -90,6 +90,3 @@ MH.parseUrl= function(hashUrl){
     }
     return hashMap;
 }
-h.prototype.getStorage= function(){
-    return ;
-}
