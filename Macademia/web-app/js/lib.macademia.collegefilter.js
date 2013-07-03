@@ -1,6 +1,9 @@
 // controller for the select colleges filter
 macademia.wireupCollegeFilter = function() {
-    $("#filterDialog").jqm({ajax: macademia.makeActionUrl('institution', 'filter'), trigger: '.collegeFilterTrigger .change',  modal: false});
+    $("#filterDialog").jqm({ajax:
+        macademia.makeActionUrl('institution', 'filter'),
+        trigger: '.collegeFilterTrigger .change',
+        modal: false});
 };
 
 macademia.initCollegeFilter = function() {

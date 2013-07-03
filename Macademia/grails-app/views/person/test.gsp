@@ -14,12 +14,27 @@
 </head>
 <body>
 
-<a href="#/?test1=test1&test2=test2">Link 1</a> <br/>
-<a href="#/?test3=test3&test4=test4">Link 2</a> <br/>
-<a href="#/?test5=test5&test6=test6">Link 3</a> <br/>
-<a href="#/?test7=test7&test8=test8">Link 4</a> <br/>
+<div style="margin-left:300px;margin-right:auto;margin-top:100px;">
+    <table>
+        <tr><td><a href="#/?test1=test1&test2=test2">Link 1</a>
+    </td>
+        <td><a href="#/?test3=test3&test4=test4">Link 2</a>
+    </td>
+        <td><a href="#/?test5=test5&test6=test6">Link 3</a>
+    </td>
+        <td><a href="#/?test7=test7&test8=test8">Link 4</a>
+    </td>
+    </tr><tr>
+        <td><button id="#b2">Go back two</button></td>
+        <td><button id="#b1">Go back one</button></td>
+        <td><button id="#f1">Go forward one</button></td>
+        <td><button id="#f2">Go forward two</button></td>
+    </tr>
+    </table>
+    This is our testing page
+
+</div>
 <br/>
-This is our testing page
 
 </body>
 </html>
@@ -27,16 +42,27 @@ This is our testing page
 <r:script>
 
     $( document ).ready(function() {
-        $("a").onUpdate(function(e){
-            /*
-             *  Set temp first
-             *  Do changes to temp
-             *  Push temp as the the new link to history
-             *
-             */
-            console.log(macademia.history.getOld(1));
-            console.log("This is inside the function");
+        $("button").on("click", function(e){
+           var id=$(this).context.id;
+           if(id.indexOf("b")>=0){
+               if(id.indexOf(1)>=0){
+                   History.back();
+               }
+               else{
+                   History.go(-2);
+               }
+           }
+           else{
+               if(id.indexOf(1)>=0){
+                   History.forward();
+               }
+               else{
+                   History.go(2);
+               }
+           }
         });
+
+        macademia.history.bindAnchors($("a"));
 
 
 //        macademia.history.update();

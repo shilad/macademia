@@ -64,32 +64,43 @@ MH.getOld = function(i) {
 
 };
 
-(function ($) {
 /*
  * Triggers a call to the currently installed handler.
+ * fn will be called whenever history state changes.
+ * History can be changed by the program calling MH.update()
+ * or the user pressing back / forward in the browser, for example.
  */
-    $.fn.onUpdate = function(fn) {
+MH.onUpdate = function(fn) {
     var f = function(e) {
         if(fn){
             fn.call(this);
         }
-        temp = MH.parseUrl(e.target.hash);
-        e.preventDefault();
-        MH.update();
     };
 
-    if ($(this).is('a')) {
-        History.Adapter.bind($(this),'click',f);
-    }
+    History.Adapter.bind($(window),'window.onstatechange',f);
 
 };
-})(jQuery);
+
+/**
+ * Installs event handlers for the anchor that merge
+ * URL encoded parameters in the anchor text into the
+ * current state when the text is clicked.
+ *
+ * @param anchors
+ */
+MH.bindAnchors = function(anchors) {
+    History.Adapter.bind(anchors,"click",function(e){
+        temp= MH.parseUrl(e.target.hash);
+        MH.update();
+    });
+};
 
 /*
  * Push the changes in temp to the history stack
  */
 MH.update = function(){
     History.pushState(temp,'',MH.unparseUrl(temp));
+    //console.log(History.getStateByIndex(History.getCurrentIndex()));               //History.getStateByIndex(History.getCurrentIndex())
 };
 
 /*
@@ -99,11 +110,8 @@ MH.update = function(){
  * ?test1=test1
  */
 MH.unparseUrl= function(map){
-    var s="?";
-    for(var key in map){
-        s+=key+"="+map[key]+"&";
-    }
-    return s.substring(0,s.length-1);
+    var s=decodeURIComponent($.param(map));        //returns it with the #
+    return s.substring(s.indexOf("?"));      //removes the #/
 };
 
 /*
@@ -111,19 +119,8 @@ MH.unparseUrl= function(map){
  *
  */
 MH.parseUrl= function(hashUrl){
-    var temp=hashUrl;
-    var start = temp.indexOf('?');
-    temp=temp.substring(start+1);
-    var hash=temp.split('&');
-    var hashMap={};
-    var kv={};
-    for(var i =0;i<hash.length;i++){
-        kv=hash[i].split('=');
-        hashMap[kv[0]]=kv[1];
-    }
-    return hashMap;
+
+    console.log($.deparam.querystring($.param.fragment(hashUrl)));
+    return $.deparam(hashUrl);
 };
 
-//$("a").MH.onUpdate(function(){
-//
-//});

@@ -41,6 +41,7 @@ macademia.pageLoad = function() {
     // address only updates manually when a link/node is clicked
     $.address.autoUpdate(false);
     $.address.change(macademia.onAddressChange);
+    // MH.onUpdate(macademia.onAddressChange);
     macademia.initLogoLink();
     macademia.initialSettings();
     macademia.initializeTopNav();
