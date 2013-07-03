@@ -30,18 +30,20 @@ svg {
 
 </style>
 <r:script>
+    //when I added parentID it caused the hilighted click to remain hilighted until next click
     var interests = [
-        {"id":18, "name":"data mining"} ,
-        {"id":24, "name":"gum",  "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
-        {"id":976, "name":"shoe", "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
-        {"id":1501, "name":"ben hillman", "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
-        {"id":1443, "name":"Text mining", "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
-        {"id":16204, "name":" text analytics", "cluster":18, "relevance":0.7576502561569214, "roles":[]},
-        {"id":323, "name":"machine learning", "cluster":18, "relevance":0.7538068890571594, "roles":[]},
-        {"id":295, "name":" regression", "cluster":18, "relevance":0.7336868643760681, "roles":[]},
-        {"id":3590, "name":" information visualization", "cluster":18, "relevance":0.724751889705658, "roles":[]},
-        {"id":227, "name":"artificial intelligence", "cluster":18, "relevance":0.7178208231925964, "roles":[] },
-        {"id":711, "name":"artificial gum chewing", "cluster":18, "relevance":0.718208231925964, "roles":[] }
+//        {"18": [1443, 16204, 323, 295, 3590, 227, 711]},
+        {"id":18, "name":"WINNING", "cluster" : 18} ,
+        {"id":24, "name":"gum",  "cluster":18,"parentId":"18", "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
+        {"id":976, "name":"shoe", "cluster":18,"parentId":"18", "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
+        {"id":1501, "name":"ben hillman", "cluster":18,"parentId":"18", "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
+        {"id":1443, "name":"Text mining", "cluster":18, "parentId":"18","relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
+        {"id":16204, "name":" text analytics", "cluster":18, "parentId":"18","relevance":0.7576502561569214, "roles":[]},
+        {"id":323, "name":"machine learning", "cluster":18, "parentId":"18","relevance":0.7538068890571594, "roles":[]},
+        {"id":295, "name":" regression", "cluster":18,"parentId":"18", "relevance":0.7336868643760681, "roles":[]},
+        {"id":3590, "name":" information visualization", "cluster":18, "parentId":"18","relevance":0.724751889705658, "roles":[]},
+        {"id":227, "name":"artificial intelligence", "cluster":18, "relevance":0.7178208231925964, "parentId":"18","roles":[] },
+        {"id":711, "name":"artificial gum chewing", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
     ];
 
     var clusterMap = {
@@ -56,12 +58,12 @@ svg {
 
     var interest = MC.interest()
         .setCy(function (d) {
-            i += 40;
-            return i;
+                console.log('in ' + d.name);
+                i += 40;
+                return i;
         })
         .addOnHover(
             function (d) {
-                console.log('in ' + d.name);
                 d3.select(this)
                     .selectAll('text')
                     .transition()
@@ -87,9 +89,9 @@ svg {
             .attr('width', 800)
             .attr('height', 800)
             .selectAll('interests')
-            .data([0])
-            .enter()
-            .append('g')
+//            .data([129483571])
+//            .enter()
+//            .append('g')
             .attr('class', 'interests')
             .data(interests)
             .enter()
