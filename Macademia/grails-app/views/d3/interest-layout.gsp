@@ -30,28 +30,29 @@ svg {
 
 </style>
 <r:script>
+    var interests = [
+        {"id":18, "name":"data mining",  "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
+        {"id":24, "name":"gum",  "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
+        {"id":976, "name":"shoe", "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
+        {"id":1501, "name":"ben hillman", "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
+        {"id":1443, "name":"Text mining", "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
+        {"id":16204, "name":" text analytics", "cluster":18, "relevance":0.7576502561569214, "roles":[]},
+        {"id":323, "name":"machine learning", "cluster":18, "relevance":0.7538068890571594, "roles":[]},
+        {"id":295, "name":" regression", "cluster":18, "relevance":0.7336868643760681, "roles":[]},
+        {"id":3590, "name":" information visualization", "cluster":18, "relevance":0.724751889705658, "roles":[]},
+        {"id":227, "name":"artificial intelligence", "cluster":18, "relevance":0.7178208231925964, "roles":[] },
+        {"id":711, "name":"artificial gum chewing", "cluster":18, "relevance":0.718208231925964, "roles":[] }
+    ];
+
     var clusterMap = {
-        "18": [1443, 16204, 323, 295, 3590, 227, 711],
-        "24":[307, 773, 3281, 320, 145, 2178, 758],
-        "976":[4018, 738, 2710, 2126, 407, 3805, 318],
-        "1501":[2581, 223, 10957, 2331, 452, 890, 74]
+        "18": [1443, 16204, 1501, 24, 976],
+        "24":[323, 295],
+        "976":[3590],
+        "1501":[227, 711]
     };
 
-    var interests = [
-        {"id":18, "name":"data mining", 'color' : 0.3},
-        {"id":2687, "name":"Text mining", "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color' : 0.7},
-        {"id":15677, "name":" text analytics", "cluster":18, "relevance":0.7576502561569214, "roles":[], 'color' : 0.5},
-        {"id":19, "name":"machine learning", "cluster":18, "relevance":0.7538068890571594, "roles":[], 'color' : 0.1},
-        {"id":925, "name":" regression", "cluster":18, "relevance":0.7336868643760681, "roles":[], 'color' : 0.9},
-        {"id":15679, "name":" information visualization", "cluster":18, "relevance":0.724751889705658, "roles":[], 'color' : 0.2},
-        {"id":227, "name":"artificial intelligence", "cluster":18, "relevance":0.7178208231925964, "roles":[], 'color' : 0.0}
-    ];
-    var i = 0;
 
-//    var interests = [
-//        {'name' : 'Rock climbing', 'color' : 0.3},
-//        {'name' : 'Squash', 'color' : 0.7}
-//    ];
+    var i = 0;
 
     var interest = MC.interest()
         .setCy(function (d) {
@@ -76,29 +77,40 @@ svg {
                         .attr('fill', '#DCDCDC');
             });
 
+//    var interestLayout = MC.interestLayout()
+//
+//    d3.select(clusterMap)
+//            .values("18")
+////     d3.entries(clusterMap)
+
     d3.select('svg')
             .attr('width', 500)
             .attr('height', 500)
             .selectAll('interests')
             .data([0])
+            .enter()
             .append('g')
             .attr('class', 'interests')
             .data(interests)
             .enter()
             .call(interest);
 
+
     var interestLayout = MC.interestLayout()
             .setInterests(interests)
-            .setClusterMap(clusterMap);
+            .setClusterMap(clusterMap)
+            .setRootId('18');
 
     d3.select('svg')
-            .selectAll('interest-layout')
+            .selectAll('interest-layouts')
             .data([0])
-            .
+            .enter()
+            .call(interestLayout);
 
 
 </r:script>
 
-<svg></svg>
+<svg>
+</svg>
 </body>
 </html>
