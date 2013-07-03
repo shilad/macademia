@@ -27,15 +27,24 @@ This is our testing page
 <r:script>
 
     $( document ).ready(function() {
-//        macademia.history.update();
-
-
-
-        $("a").on("click", function(event){
-            macademia.history.update(event);
-//            macademia.history.getOld(1);
-//        macademia.history.get('test2');
+        $("a").onUpdate(function(e){
+            /*
+             *  Set temp first
+             *  Do changes to temp
+             *  Push temp as the the new link to history
+             *
+             */
+            console.log(macademia.history.getOld(1));
+            console.log("This is inside the function");
         });
+
+
+//        macademia.history.update();
+//        $("a").on("click", function(event){
+//            macademia.history.update(event);
+////            macademia.history.getOld(1);
+////        macademia.history.get('test2');
+//        });
 
     });
 </r:script>

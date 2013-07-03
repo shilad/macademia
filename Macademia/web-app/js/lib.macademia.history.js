@@ -64,26 +64,52 @@ MH.getOld = function(i) {
 
 };
 
+(function ($) {
 /*
  * Triggers a call to the currently installed handler.
  */
-$.fn.onUpdate = function(fn) {
+    $.fn.onUpdate = function(fn) {
+    var f = function(e) {
+        if(fn){
+            fn.call(this);
+        }
+        temp = MH.parseUrl(e.target.hash);
+        e.preventDefault();
+        MH.update();
+    };
 
-    //var name=event.target.href.substring(event.target.href.indexOf("?"));
-    temp=MH.parseUrl(event.target.hash);
-
+    if ($(this).is('a')) {
+        History.Adapter.bind($(this),'click',f);
+    }
 
 };
+})(jQuery);
+
+/*
+ * Push the changes in temp to the history stack
+ */
 MH.update = function(){
-    History.pushState(temp,'',MH.combineTemp(temp));
-}
-MH.combineTemp= function(map){
+    History.pushState(temp,'',MH.unparseUrl(temp));
+};
+
+/*
+ * Return a hash string based on the map
+ * For example:
+ * map test1:test1 will be returned as
+ * ?test1=test1
+ */
+MH.unparseUrl= function(map){
     var s="?";
     for(var key in map){
         s+=key+"="+map[key]+"&";
     }
     return s.substring(0,s.length-1);
 };
+
+/*
+ * parse the hash in the url into map
+ *
+ */
 MH.parseUrl= function(hashUrl){
     var temp=hashUrl;
     var start = temp.indexOf('?');
@@ -98,6 +124,6 @@ MH.parseUrl= function(hashUrl){
     return hashMap;
 };
 
-$("a").MH.onUpdate(function(){
-
-});
+//$("a").MH.onUpdate(function(){
+//
+//});
