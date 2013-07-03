@@ -10,7 +10,12 @@ MC.interestLayout = function() {
         $.each(il.getOrCallInterests(), function (i, d) {
             interests[d.id] = d;
         });
+        console.log(interests)
+
+
+
         var rootId = il.getOrCallRootId();
+        console.log(rootId)
         var idsToInterests = function(ids) {
             return $.map(ids, function (id) {
                 return interests[id];
@@ -64,6 +69,7 @@ MC.interestLayout = function() {
             .children(getChildren);
 
         var nodes = tree.nodes(interests[rootId]);
+
 
         // adjust the radial layout.
         // In the layout x is degrees (or radians?)
