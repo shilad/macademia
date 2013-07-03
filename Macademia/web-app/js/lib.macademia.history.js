@@ -90,7 +90,8 @@ MH.onUpdate = function(fn) {
  */
 MH.bindAnchors = function(anchors) {
     History.Adapter.bind(anchors,"click",function(e){
-        temp= MH.parseUrl(e.target.hash);
+        temp = MH.parseUrl(e.target.hash);
+        e.preventDefault();
         MH.update();
     });
 };
@@ -100,7 +101,8 @@ MH.bindAnchors = function(anchors) {
  */
 MH.update = function(){
     History.pushState(temp,'',MH.unparseUrl(temp));
-    //console.log(History.getStateByIndex(History.getCurrentIndex()));               //History.getStateByIndex(History.getCurrentIndex())
+
+    console.log(temp);               //History.getStateByIndex(History.getCurrentIndex())
 };
 
 /*
@@ -110,8 +112,8 @@ MH.update = function(){
  * ?test1=test1
  */
 MH.unparseUrl= function(map){
-    var s=decodeURIComponent($.param(map));        //returns it with the #
-    return s.substring(s.indexOf("?"));      //removes the #/
+    var s="?"+decodeURIComponent($.param(map));
+    return s;
 };
 
 /*
@@ -119,8 +121,16 @@ MH.unparseUrl= function(map){
  *
  */
 MH.parseUrl= function(hashUrl){
+    var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        query  = hashUrl.substring(hashUrl.indexOf("?")+1);
 
-    console.log($.deparam.querystring($.param.fragment(hashUrl)));
-    return $.deparam(hashUrl);
+    urlParams = {};
+    while (match = search.exec(query))
+        urlParams[decode(match[1])] = decode(match[2]);
+
+    return urlParams;
 };
 

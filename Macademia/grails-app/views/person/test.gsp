@@ -61,7 +61,7 @@
                }
            }
         });
-
+        console.log(macademia.history.getOld(0));
         macademia.history.bindAnchors($("a"));
 
 
