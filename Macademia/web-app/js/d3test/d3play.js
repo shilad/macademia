@@ -183,8 +183,6 @@ D3.initInterests = function() {
         .attr("r", 30)
         .style('fill', 'url(#gradient)');
 
-
-
     node.attr("class", function(d) { return (d.id in clusterMap) ? 'major interestNode' : 'minor interestNode'})
         .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
 
