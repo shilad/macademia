@@ -42,6 +42,8 @@ var temp = {};
  */
 MH.get = function(name) {
 
+//  I am not sure whether I should use the current one or temp
+//  I think we should use temp
 //    return MH.parseUrl(History.getHash())[name];
     return temp[name];
 
@@ -80,15 +82,16 @@ MH.getOld = function(i) {
  * or the user pressing back / forward in the browser, for example.
  */
 MH.onUpdate = function(fn) {
-    console.log("onUpdate is fired");
     var f = function(e) {
-        console.log("f is fired");
+        console.log(e);
+
         if(fn){
             fn.call(this);
         }
     };
 
     History.Adapter.bind(window,'statechange',f);
+//    History.Adapter.bind(window,'anchorchange',f);
 
 };
 

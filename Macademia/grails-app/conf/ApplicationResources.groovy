@@ -8,7 +8,6 @@ modules = {
         resource url: '/css/ui-lightness/jquery-ui-1.8.2.custom.css'
         resource url: '/css/style.css'
         resource url: '/js/jquery/jquery.qtip-1.0.0-rc3.js'
-        resource url: '/js/jquery/jquery.address-1.6.js'
         resource url: '/js/jquery/jqModal.js'
         resource url: '/js/ba-debug.js'
         resource url: '/js/jit/jit.js'

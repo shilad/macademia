@@ -39,6 +39,7 @@ macademia.pageLoad = function() {
     });
 
 
+    //Setting temp to the current page
     macademia.history.setTemp(macademia.history.parseUrl(History.getHash()));
     macademia.history.onUpdate(macademia.onAddressChange);
 //    $.address.change(macademia.onAddressChange);
@@ -111,7 +112,7 @@ macademia.initialSettings = function(){
     }else{
         macademia.history.setTempValue('institutions',macademia.queryString.institutions);
     }
-    macademia.sortParameters(macademia.queryString.navFunction);
+//    macademia.sortParameters(macademia.queryString.navFunction);
     macademia.history.update();
 };
 
@@ -238,15 +239,10 @@ macademia.logCurrentFragment = function() {
 
 macademia.onAddressChange = function() {
     try {
-        console.log("On address Change 1");
         macademia.updateNav();
-        console.log("On address Change 2");
         macademia.changeGraph(macademia.nodeId);
-        console.log("On address Change 3");
         macademia.changeDisplayedColleges();
-        console.log("On address Change 4");
         macademia.logCurrentFragment();
-        console.log("On address Change 5");
 
     } catch (err) {
         alert('error occured during state change: ' + err);
