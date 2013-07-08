@@ -97,7 +97,8 @@ macademia.initialSettings = function(){
     }
     if(!macademia.history.get('navVisibility')){
         macademia.history.setTempValue('navVisibility',macademia.queryString.navVisibility);
-    }if(macademia.history.get('navFunction')){
+    }
+    if(macademia.history.get('navFunction')){
         macademia.queryString.navFunction = macademia.history.get('navFunction');
     }else{
         macademia.history.setTempValue('navFunction',macademia.queryString.navFunction);
