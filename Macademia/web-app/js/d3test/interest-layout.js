@@ -2,17 +2,27 @@ var MC = (window.MC = (window.MC || {}));
 
 MC.interestLayout = function() {
     // We presume there's only one interest layout. Is this bad?
-    function il(g) {
+    function il(container) {
         var diam = il.getOrCallDiameter();
         var cm = il.getOrCallClusterMap();
+        var interestNodes =  il.getInterestNodes();
         var interests = {};
         $.each(il.getOrCallInterests(), function (i, d) {
             interests[d.id] = d;
         });
+        console.log(interests)
+
+
+
         var rootId = il.getOrCallRootId();
+        console.log(rootId)
+        var idsToInterests = function(ids) {
+            return $.map(ids, function (id) {
+                return interests[id];
+            });
+        };
 
         var getChildren = function (i) {
-            console.log(i);
             if (i.id == rootId) {    // i.e. "data mining" in our example
                 // a list of ids that are children of this node (or null)
                 var closelyRelated = cm[i.id];
@@ -21,7 +31,6 @@ MC.interestLayout = function() {
                 var siblings = [];
                 for (var iid in cm) {
                     if (iid != rootId) {
-                        console.log(iid);
                         interests[iid].siblingIndex = siblings.length;
                         siblings.push(iid);
                     }
@@ -33,11 +42,11 @@ MC.interestLayout = function() {
                     siblings.splice(Math.round(destIndex), 0, closelyRelated[j]);
                 }
 
-                console.log(siblings);
+                siblings = idsToInterests(siblings);
                 return siblings;
             } else if (i.id in cm) {
                 // a non-root hub (e.g. mathematics)
-                var children = $.map(cm[i.id], function (iid) { return interests[iid]; });
+                var children = idsToInterests(cm[i.id]);
 
                 // sort so short names are near the beginning or end
                 children.sort(function (i1, i2) { return i1.name.length - i2.name.length});
@@ -45,10 +54,8 @@ MC.interestLayout = function() {
                 var even = children.filter(function (v, i) { return i % 2 == 0; });
                 even.reverse();
                 if (i.siblingIndex % 2 == 0) {
-                    console.log(even);
                     return odd.concat(even);
                 } else {
-                    console.log(odd);
                     return even.concat(odd);
                 }
             } else {
@@ -61,9 +68,8 @@ MC.interestLayout = function() {
             .size([360, diam / 2 - 50])
             .children(getChildren);
 
-        console.log('root is ' + rootId);
-        console.log(interests);
         var nodes = tree.nodes(interests[rootId]);
+
 
         // adjust the radial layout.
         // In the layout x is degrees (or radians?)
@@ -90,13 +96,10 @@ MC.interestLayout = function() {
         var diagonal = d3.svg.diagonal.radial()
             .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
 
-        var svg = d3.select("body").append("svg")
-            .attr("width", diam)
-            .attr("height", diam)
-            .append("g")
+        var group = container.append("g")
             .attr("transform", "translate(" + diam / 2 + "," + diam / 2 + ")");
 
-        var link = svg.selectAll(".link")
+        var link = group.selectAll(".link")
             .data(links)
             .enter().append("path")
             .attr("class", "link")
@@ -114,6 +117,35 @@ MC.interestLayout = function() {
                     return diagonal(d);
                 }
             });
+
+        var positions = group.selectAll(".positionNodes")
+            .data(nodes)
+            .enter().append("circle")
+            .attr('r', 5)
+            .style('fill', 'black')
+            .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; });
+
+        var svg = d3.select('svg');
+
+
+        var interestNodesById = {};
+        interestNodes.each(function(d, i) {
+            interestNodesById[d.id] = this;
+        });
+        positions.each(function (d, i) {
+            var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
+            console.log(d.id);
+            if (interestNodesById[d.id]) {
+                d3.select(interestNodesById[d.id]).attr('transform', 'translate(' + pos.x + ',' + pos.y + ')');
+            }
+        });
+
+//        interestNodes.attr('transform', 'rotate(90)translate(100,-100)');
+
+//        console.log(interestNodes);
+//
+//        interestNodes.attr("class", function(d) { return (d.id in clusterMap) ? 'major interestNode' : 'minor interestNode'})
+//            .attr("transform", function(d) { return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")"; })
     }
 
     MC.options.register(il, 'cssClass', 'label');
@@ -121,6 +153,7 @@ MC.interestLayout = function() {
     MC.options.register(il, 'rootId', null);
     MC.options.register(il, 'clusterMap', function() { throw('no clusterMap specified'); });
     MC.options.register(il, 'interests', function() { throw('no interests specified.')});
+    MC.options.register(il, 'interestNodes', function() { throw('no interest nodes specified.')});
 
     return il;
 };
