@@ -79,13 +79,15 @@ MH.getOld = function(i) {
  * or the user pressing back / forward in the browser, for example.
  */
 MH.onUpdate = function(fn) {
+    console.log("onUpdate is fired");
     var f = function(e) {
+        console.log("f is fired");
         if(fn){
             fn.call(this);
         }
     };
 
-    History.Adapter.bind($(window),'window.onstatechange',f);
+    History.Adapter.bind(window,'statechange',f);
 
 };
 

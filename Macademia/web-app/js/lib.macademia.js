@@ -41,7 +41,7 @@ macademia.pageLoad = function() {
 
     macademia.history.setTemp(macademia.history.parseUrl(History.getHash()));
     macademia.history.onUpdate(macademia.onAddressChange);
-
+//    $.address.change(macademia.onAddressChange);
     macademia.initLogoLink();
     macademia.initialSettings();
     macademia.initializeTopNav();
@@ -224,21 +224,28 @@ macademia.navInfovis = function(node) {
 
 macademia.logCurrentFragment = function() {
     // log the navigation
-    var params = {};
-    var keys = macademia.history.getTemp().keys();
-    for (var i = 0; i < keys.length; i++) {
-        var key = keys[i];
-        params[key] = macademia.history.get(key);
-    }
+//    var params = {};
+//    console.log(macademia.history.getTemp());
+//    var keys = macademia.history.getTemp().keys;
+//    for (var i = 0; i < keys.size(); i++) {
+//        var key = keys[i];
+//        params[key] = macademia.history.get(key);
+//    }
+    var params = macademia.history.getTemp();
     macademia.serverLog('nav', 'fragment', params);
 };
 
 macademia.onAddressChange = function() {
     try {
+        console.log("On address Change 1");
         macademia.updateNav();
+        console.log("On address Change 2");
         macademia.changeGraph(macademia.nodeId);
+        console.log("On address Change 3");
         macademia.changeDisplayedColleges();
+        console.log("On address Change 4");
         macademia.logCurrentFragment();
+        console.log("On address Change 5");
 
     } catch (err) {
         alert('error occured during state change: ' + err);
