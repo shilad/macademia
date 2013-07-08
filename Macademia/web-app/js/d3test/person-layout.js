@@ -10,7 +10,7 @@ var MC = (window.MC = (window.MC || {}));
 MC.personLayout = function () {
     function pl(container) {
 
-        var interestNodes = pl.getInterests();
+        var interestNodes = pl.getInterestNodes();
         var people = {};
 
         $.each(pl.getPeople(), function (i, d) {
