@@ -1,0 +1,163 @@
+/**
+ * Created with IntelliJ IDEA.
+ * User: research
+ * Date: 7/3/13
+ * Time: 12:48 PM
+ * To change this template use File | Settings | File Templates.
+ */
+var MC = (window.MC = (window.MC || {}));
+
+MC.personLayout = function () {
+    function pl(container) {
+
+        var interestNodes = pl.getInterests();
+        var people = {};
+
+        $.each(pl.getPeople(), function (i, d) {
+            people[d.id] = d;
+        });
+        var interests = {};
+        $.each(pl.getOrCallInterests(), function (i, d) {
+            interests[d.id] = d;
+        });
+        var w = 800,
+            h = 800;
+
+
+        var svg = d3.select('svg');
+
+        var surrogates = {};
+
+        //copies the interest node information--not sure why
+        // perhaps this was to avoid radial coordinates
+        interestNodes.each(function (d, i) {
+                var pos = pl.getTransformedPosition(svg[0][0], this, 0, 0);
+                surrogates[d.id] = {
+                    id: d.id,
+                    fixed: true,  // interests cannot move
+                    x: pos.x,
+                    y: pos.y,
+                    real: d
+                };
+            });
+
+        var getPrimaryInterest = function (p) {
+            var maxId = -1;
+            var maxRel = -1;
+            for (var id in p.relevance) {
+                if (id != -1 && id != 'overall' && p.relevance[id] > maxRel) {
+                    maxId = id;
+                    maxRel = p.relevance[id];
+                }
+            }
+            ;
+            return maxId;
+        }
+        //constructing data structure, grabs each person,
+        var personNodes = $.map(pl.model.getPeople(),
+            function (v, k) {
+                var p = { real: v };
+                var primary = surrogates[getPrimaryInterest(p)];
+                if (primary) {
+                    p.x = primary.x + (0.5 - Math.random()) * 50;
+                    p.y = primary.y + (0.5 - Math.random()) * 50;
+                }
+                return p;
+            });
+
+        // create an edge between each person and the hubs the relate to.
+        var links = [];
+        personNodes.forEach(function (p) {
+            $.map(p.relevance, function (r, iid) {
+                if (iid != -1 && iid != 'overall') {
+                    links.push({
+                        source: p,
+                        target: surrogates[iid],
+                        strength: r * r
+                    });
+                }
+            });
+        });
+        var clusterMap = pl.getClusterMap();
+        //places the person in relation to the surrogates
+        var force = d3.layout.force()
+            .nodes(d3.values(surrogates).concat(personNodes))
+            .links(links)
+            .size([w, h])
+            .linkStrength(function (l) {
+                return l.strength / 6;
+            })
+            .gravity(0.005)
+            .linkDistance(50)
+            .charge(function (d) {
+                if (d.id in clusterMap) {
+                    return -600;
+                } else if (d instanceof D3Person) {
+                    return -600;
+                } else {
+                    return -50;
+                }
+            })
+            .friction(0.8)
+            .start();
+        //creates a new g  for each new person
+        var groups = svg.selectAll(".personNode")
+            .data(personNodes)
+            .enter()
+            .append("g")
+            .attr('class', 'personNode');
+        //works with each person as a unit and manipulates
+        groups.append("image")
+            .attr("xlink:href", function (d) {
+                console.log('doing ' + d.name);
+                return d.pic;
+            })
+            .attr("height", "28")
+            .attr("width", "28")
+            .attr("transform", "translate(-14,-14)");
+
+        //fade in
+        svg.style("opacity", 1e-6)
+            .transition()
+            .duration(1000)
+            .style("opacity", 1);
+        //keep with in the graph
+        var pinch = function (x, min, max) {
+            return (x < min) ? min : ((x > max) ? max : x);
+        };
+
+        // walk through iterations of convergence to final positions
+        force.on("tick", function (e) {
+
+//        // Push different nodes in different directions for clustering.
+//        var k = 6 * e.alpha;
+//        nodes.forEach(function(o, i) {
+//            o.y += i & 1 ? k : -k;
+//            o.x += i & 2 ? k : -k;
+//        });
+
+            groups.attr("transform", function (d) {
+                d.x = pinch(d.x, 50, 750);
+                d.y = pinch(d.y, 50, 750);
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+        });
+
+        d3.select("body").on("click", function () {
+            personNodes.forEach(function (o, i) {
+                o.x += (Math.random() - .5) * 40;
+                o.y += (Math.random() - .5) * 40;
+            });
+            force.resume();
+        });
+    }
+
+
+    MC.options.register(pl, 'people', function () {
+        throw('no people specified.')
+    });
+    MC.options.register(pl, 'interests', function () {
+        throw('no interests specified.')
+    });
+    return pl;
+};
