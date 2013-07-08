@@ -10,9 +10,6 @@ MC.interestLayout = function() {
         $.each(il.getOrCallInterests(), function (i, d) {
             interests[d.id] = d;
         });
-        console.log(interests)
-
-
 
         var rootId = il.getOrCallRootId();
         console.log(rootId)
