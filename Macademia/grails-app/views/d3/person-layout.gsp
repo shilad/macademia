@@ -31,7 +31,7 @@ svg {
 </style>
 <r:script>
      var people = [
-         {"id":15830, "fid":250588901, "name":"Luther Rea",  'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
+         {"id":15830, "fid":250588901, "name":"Luther Rea",
              'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9},
              "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
              "relevance":{"-1":null, "976":1.1539017856121063, "24":1,
@@ -40,17 +40,17 @@ svg {
 
      {"id":16, "fid":257, "name":"Donnie Burroughs",
             "pic":"/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
-             'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
+
              'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9},
-//            "relevance":{"-1":null, "18":1.555315688252449, "24":1,
+            "relevance":{"-1":null, "18":1.555315688252449, "24":1,
 //            "overall":1.2776578441262245},
 //            "count":{"-1":13, "18":3, "24":1, "overall":4},
             "interests":[1223, 15, 17, 21, 20, 23, 22, 25, 601, 27, 1208, 1110, 30, 18, 19, 28, 24]},
 //         {"id":2691, "fid":7241482, "name":"Diana Brooks",
 //            "pic":"/Macademia/all/image/fake?gender=female&img=00633_940928_fa.png",
-//            "relevance":{"18":1.3140089064836502, "-1":null, "976":1, "overall":1.157004453241825}, "count":{"18":3, "-1":5, "976":1, "overall":4},
+            "relevance":{"18":1.3140089064836502, "-1":null, "976":1, "overall":1.157004453241825}, "count":{"18":3, "-1":5, "976":1, "overall":4},
 //            "interests":[2687, 19, 227, 2693, 2692, 2694, 1224, 2688, 976]},
-         {"id":15680, "fid":245862401, 'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
+         {"id":15680, "fid":245862401,
              'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9},
          "name":"Ed Sanborn", "pic":"/Macademia/all/image/fake?gender=male&img=00798_941205_fa.png",
              "relevance":{"18":1.7103700954467058, "-1":null, "overall":0.8551850477233529},
@@ -153,8 +153,7 @@ svg {
 
     var personLayout = MC.personLayout()
             .setPeople(personNodes)
-            .setInterests(interests)
-            .setInterestNodes(interestNodes) ;
+            .setInterests(interestNodes);
 
      d3.select('svg')
             .selectAll('person-layouts')
