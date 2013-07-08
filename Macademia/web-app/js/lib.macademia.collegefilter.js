@@ -217,6 +217,7 @@ macademia.collegesInGroup = function(collegeArray){
 
 
 macademia.initiateCollegeString = function(ids){
+    console.log(ids);
     $.getJSON(macademia.makeActionUrl('institution', 'idsToNames'), {ids: ids.replace(/\+/g, " ")}, function(institutionList) {
         macademia.changeCollegeString(institutionList);
     });
@@ -251,9 +252,11 @@ macademia.changeCollegeString = function(institutionNames){
 macademia.changeDisplayedColleges = function(){
 
     if(macademia.history.get('institutions') == 'all') {
+        console.log("changeDisplayedColleges 1");
         macademia.changeCollegeString(['all']);
     } else if ($(".collegeDiv").size() > 0) {
 
+        console.log("changeDisplayedColleges 2");
         var collegeIds = (macademia.history.get('institutions')).split("+");
         var collegeNames = new Array();
         var igId = macademia.getGroupId();
@@ -273,6 +276,7 @@ macademia.changeDisplayedColleges = function(){
         macademia.changeCollegeString(collegeNames);
 
     } else {
+        console.log("changeDisplayedColleges 3");
         macademia.initiateCollegeString(macademia.history.get('institutions'));
     }
 

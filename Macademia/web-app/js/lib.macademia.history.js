@@ -42,7 +42,8 @@ var temp = {};
  */
 MH.get = function(name) {
 
-    return MH.parseUrl(History.getHash())[name];
+//    return MH.parseUrl(History.getHash())[name];
+    return temp[name];
 
 
 };

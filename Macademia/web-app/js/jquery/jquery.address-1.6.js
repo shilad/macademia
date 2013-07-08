@@ -529,6 +529,7 @@
                 if (value) {
                     var r = [];
                     params = value.split('&');
+                    console.log(params);
                     for (i = 0; i < params.length; i++) {
                         var p = params[i].split('=');
                         if (p[0] == name) {
