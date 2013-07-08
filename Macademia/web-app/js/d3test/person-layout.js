@@ -12,14 +12,15 @@ MC.personLayout = function () {
 
         var interestNodes = pl.getInterestNodes();
         var people = {};
-
         $.each(pl.getPeople(), function (i, d) {
             people[d.id] = d;
         });
+
         var interests = {};
-        $.each(pl.getOrCallInterests(), function (i, d) {
+        $.each(interestNodes, function (i, d) {
             interests[d.id] = d;
         });
+
         var w = 800,
             h = 800;
 
@@ -31,7 +32,7 @@ MC.personLayout = function () {
         //copies the interest node information--not sure why
         // perhaps this was to avoid radial coordinates
         interestNodes.each(function (d, i) {
-                var pos = pl.getTransformedPosition(svg[0][0], this, 0, 0);
+                var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
                 surrogates[d.id] = {
                     id: d.id,
                     fixed: true,  // interests cannot move
@@ -53,21 +54,40 @@ MC.personLayout = function () {
             ;
             return maxId;
         }
+
         //constructing data structure, grabs each person,
-        var personNodes = $.map(pl.model.getPeople(),
-            function (v, k) {
-                var p = { real: v };
+        $.each(people, function(i,p) {
                 var primary = surrogates[getPrimaryInterest(p)];
                 if (primary) {
                     p.x = primary.x + (0.5 - Math.random()) * 50;
                     p.y = primary.y + (0.5 - Math.random()) * 50;
                 }
-                return p;
-            });
+        });
+
+        var personNodes = $.map(people, function(p,id)
+        {
+            return p;
+           });
+        console.log(personNodes)
+            //get list of values for already made arrays
+
+
+
+//           var personNodes = $.map(pl.model.getPeople(),
+//            function (v, k) {
+//              var p = { real: v };
+//                var primary = surrogates[getPrimaryInterest(p)];
+//                if (primary) {
+//                    p.x = primary.x + (0.5 - Math.random()) * 50;
+//                    p.y = primary.y + (0.5 - Math.random()) * 50;
+//                }
+//                return p;
+//            });
 
         // create an edge between each person and the hubs the relate to.
         var links = [];
         personNodes.forEach(function (p) {
+            console.log(p)
             $.map(p.relevance, function (r, iid) {
                 if (iid != -1 && iid != 'overall') {
                     links.push({
@@ -78,7 +98,7 @@ MC.personLayout = function () {
                 }
             });
         });
-        var clusterMap = pl.getClusterMap();
+        var clusterMap = pl.model.getClusterMap();
         //places the person in relation to the surrogates
         var force = d3.layout.force()
             .nodes(d3.values(surrogates).concat(personNodes))
