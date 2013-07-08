@@ -22,7 +22,7 @@
     </td>
         <td><a href="#/?test5=test5&test6=test6">Link 3</a>
     </td>
-        <td><a href="#/?test7=test7&test8=test8">Link 4</a>
+        <td><a href="http://localhost:8080/Macademia/all/person/test/jit?random=-1468520699/#/?nodeId=p_16956&navVisibility=true&navFunction=person&institutions=all&personId=16956">Link 4</a>
     </td>
     </tr><tr>
         <td><button id="#b2">Go back two</button></td>

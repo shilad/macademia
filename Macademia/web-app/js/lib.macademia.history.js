@@ -51,10 +51,18 @@ MH.get = function(name) {
  * Sets the parameter to the specified value.
  */
 MH.setTempValue = function(name, value) {
+
     temp[name]=value;
 
 };
+MH.setTemp = function(map) {
+    temp=map;
 
+};
+MH.getTemp= function(){
+    return temp;
+
+};
 /*
  *  Gets the state back i indices
  *
@@ -89,10 +97,18 @@ MH.onUpdate = function(fn) {
  * @param anchors
  */
 MH.bindAnchors = function(anchors) {
-    History.Adapter.bind(anchors,"click",function(e){
-        temp = MH.parseUrl(e.target.hash);
-        e.preventDefault();
+//    History.Adapter.bind(anchors,"click",function(e){
+//        temp = MH.parseUrl(e.target.hash);
+//        e.preventDefault();
+//        MH.update();
+//    });
+    $(anchors).live("click",function(e){
+        console.log(e);
         MH.update();
+        temp = MH.parseUrl(e.target.hash);
+//        e.preventDefault();
+
+
     });
 };
 
@@ -102,7 +118,7 @@ MH.bindAnchors = function(anchors) {
 MH.update = function(){
     History.pushState(temp,'',MH.unparseUrl(temp));
 
-    console.log(temp);               //History.getStateByIndex(History.getCurrentIndex())
+                 //History.getStateByIndex(History.getCurrentIndex())
 };
 
 /*
@@ -130,7 +146,7 @@ MH.parseUrl= function(hashUrl){
     urlParams = {};
     while (match = search.exec(query))
         urlParams[decode(match[1])] = decode(match[2]);
-
+    //console.log(urlParams);
     return urlParams;
 };
 

@@ -10,12 +10,12 @@ macademia.density.initDensity = function() {
         $(this).removeClass('density');
         $(this).addClass('densityCur');
         var density = macademia.density.getValue();
-        $.address.parameter('density', density);
-        $.address.update();
+        macademia.history.setTempValue('density', density);
+        macademia.history.update();
     });
-    var density = $.address.parameter('density') || 3;
+    var density = macademia.history.get('density') || 3;
     $('#density'+density).click();
-    
+
     $('#density #less a').click(function () {
         var val = macademia.density.getValue();
         if (val > 1) {

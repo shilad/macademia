@@ -66,7 +66,7 @@ macademia.initIgFilter = function(){
             break;
         }
     }
-    if ($.address.parameter('institutions') == "all"){
+    if (macademia.history.get('institutions') == "all"){
       macademia.showSchools(igId);
     }
 };
@@ -90,14 +90,14 @@ macademia.getIgId = function(igAbbrev) {
 macademia.showColleges = function(){
     var igAbbrev = macademia.retrieveGroup();
     var igId = macademia.getIgId(igAbbrev);
-    if ($.address.parameter('institutions') == 'all' && igAbbrev == 'all'){
+    if (macademia.history.get('institutions') == 'all' && igAbbrev == 'all'){
         $(".collegeDiv").show();
-    } else if ($.address.parameter('institutions') == 'all') {
+    } else if (macademia.history.get('institutions') == 'all') {
         $.each(macademia.igMap[igId]["institutions"], function(index, inst) {
             $("#" + inst.id).show();
         });
     } else {
-        var collegeIds = $.address.parameter('institutions').split("+");
+        var collegeIds = macademia.history.get('institutions').split("+");
         for (var i = 0; i < collegeIds.length; i++) {
             $("#" + collegeIds[i]).show();
         }
@@ -118,7 +118,7 @@ macademia.collegeSelection = function() {
 
     var collegeString = macademia.createInstitutionString(colleges);
     newUrl = macademia.updateInstitutionsInUrl(newUrl, collegeString);
-    var institutionChanged = (collegeString != $.address.parameter('institutions'));
+    var institutionChanged = (collegeString != macademia.history.get('institutions'));
     macademia.showColleges();
 
     //Only log if one or neither has been changed.
@@ -245,16 +245,16 @@ macademia.changeCollegeString = function(institutionNames){
         $("#collegeFilterLink").html(results);
         macademia.wireupCollegeFilter();
     }
-    macademia.queryString.institutions = $.address.parameter('institutions');
+    macademia.queryString.institutions = macademia.history.get('institutions');
 };
 
 macademia.changeDisplayedColleges = function(){
 
-    if($.address.parameter('institutions') == 'all') {
+    if(macademia.history.get('institutions') == 'all') {
         macademia.changeCollegeString(['all']);
     } else if ($(".collegeDiv").size() > 0) {
 
-        var collegeIds = ($.address.parameter('institutions')).split("+");
+        var collegeIds = (macademia.history.get('institutions')).split("+");
         var collegeNames = new Array();
         var igId = macademia.getGroupId();
 
@@ -273,7 +273,7 @@ macademia.changeDisplayedColleges = function(){
         macademia.changeCollegeString(collegeNames);
 
     } else {
-        macademia.initiateCollegeString($.address.parameter('institutions'));
+        macademia.initiateCollegeString(macademia.history.get('institutions'));
     }
 
 };

@@ -122,11 +122,11 @@ macademia.autocomplete.initSearch = function() {
                 var type = ui.item.data[2];
                 var group = macademia.retrieveGroup();
 
-                $.address.parameter('nodeId', type.substring(0, 1) + "_" + id);
-                $.address.parameter('navFunction', type);
+                macademia.history.setTempValue('nodeId', type.substring(0, 1) + "_" + id);
+                macademia.history.setTempValue('navFunction', type);
                 macademia.sortParameters(type, id);
-                location.href = '/Macademia/' + group + '/person/jit/#' + $.address.value();
-                $.address.update();
+//                location.href = '/Macademia/' + group + '/person/jit/#' + $.address.value();
+                macademia.history.update();
                 $("#searchBox").val("");
                 window.setTimeout(function () {
                         $("#searchBox").blur();

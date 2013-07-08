@@ -38,10 +38,10 @@ macademia.pageLoad = function() {
         }
     });
 
-    // address only updates manually when a link/node is clicked
-    $.address.autoUpdate(false);
-    $.address.change(macademia.onAddressChange);
-    // MH.onUpdate(macademia.onAddressChange);
+
+    macademia.history.setTemp(macademia.history.parseUrl(History.getHash()));
+    macademia.history.onUpdate(macademia.onAddressChange);
+
     macademia.initLogoLink();
     macademia.initialSettings();
     macademia.initializeTopNav();
@@ -56,7 +56,6 @@ macademia.pageLoad = function() {
     macademia.initLogging();
     macademia.changeDisplayedColleges();
     macademia.initAsteroids();
-    History.options.html4Mode=true;
 };
 
 macademia.homePageLoad = function() {
@@ -91,36 +90,37 @@ macademia.getSelectedInstitutionGroup = function() {
 //sets macademia.queryString values and initial page settings
 macademia.initialSettings = function(){
     $("#show").hide();
-    if($.address.parameter('nodeId')){
-        macademia.queryString.nodeId = $.address.parameter('nodeId');
+    if(macademia.history.get('nodeId')){
+        macademia.queryString.nodeId = macademia.history.get('nodeId');
     }else{
-        $.address.parameter('nodeId',macademia.queryString.nodeId);
+        macademia.history.setTempValue('nodeId',macademia.queryString.nodeId);
     }
-    if(!$.address.parameter('navVisibility')){
-        $.address.parameter('navVisibility',macademia.queryString.navVisibility);
-    }if($.address.parameter('navFunction')){
-        macademia.queryString.navFunction = $.address.parameter('navFunction');
+    if(!macademia.history.get('navVisibility')){
+        macademia.history.setTempValue('navVisibility',macademia.queryString.navVisibility);
+    }if(macademia.history.get('navFunction')){
+        macademia.queryString.navFunction = macademia.history.get('navFunction');
     }else{
-        $.address.parameter('navFunction',macademia.queryString.navFunction);
+        macademia.history.setTempValue('navFunction',macademia.queryString.navFunction);
     }
-    if($.address.parameter('institutions')){
-        macademia.queryString.institutions = $.address.parameter('institutions');
+    if(macademia.history.get('institutions')){
+        macademia.queryString.institutions = macademia.history.get('institutions');
         if(macademia.queryString.institutions != "all"){
             macademia.initiateCollegeString(macademia.queryString.institutions);
         }
     }else{
-        $.address.parameter('institutions',macademia.queryString.institutions);
+        macademia.history.setTempValue('institutions',macademia.queryString.institutions);
     }
     macademia.sortParameters(macademia.queryString.navFunction);
-    $.address.update();
+    macademia.history.update();
 };
 
 //calls the init function in jitConfig
 macademia.initiateGraph = function() {
-    var param = $.address.parameter('nodeId');
+    var param = macademia.history.get('nodeId');
+    //console.log(param);
     var type = macademia.getType(param);
     var id = parseFloat(param.substr(2));
-    var density = $.address.parameter('density');
+    var density = macademia.history.get('density');
     macademia.jit.init(type, id, density);
 };
 
@@ -209,26 +209,26 @@ $.fn.clearDefault = function() {
 macademia.navInfovis = function(node) {
     var rootId = node.id;
     var type = macademia.getType(rootId);
-    $.address.parameter('nodeId', rootId);
-    if (type == 'person' && $.address.parameter('navFunction') != 'person') {
-        $.address.parameter('navFunction','person');
-    } else if (type == 'interest' && $.address.parameter('navFunction') != 'interest') {
-        $.address.parameter('navFunction','interest');
-    } else if (type == 'request' && $.address.parameter('navFunction') != 'request') {
-        $.address.parameter('navFunction','request');
+    macademia.history.setTempValue('nodeId', rootId);
+    if (type == 'person' && macademia.history.get('navFunction') != 'person') {
+        macademia.history.setTempValue('navFunction','person');
+    } else if (type == 'interest' && macademia.history.get('navFunction') != 'interest') {
+        macademia.history.setTempValue('navFunction','interest');
+    } else if (type == 'request' && macademia.history.get('navFunction') != 'request') {
+        macademia.history.setTempValue('navFunction','request');
     }
     macademia.sortParameters(type,rootId.substr(2));
-    $.address.update();
+    macademia.history.update();
 };
 
 
 macademia.logCurrentFragment = function() {
     // log the navigation
     var params = {};
-    var keys = $.address.parameterNames();
+    var keys = macademia.history.getTemp().keys();
     for (var i = 0; i < keys.length; i++) {
         var key = keys[i];
-        params[key] = $.address.parameter(key);
+        params[key] = macademia.history.get(key);
     }
     macademia.serverLog('nav', 'fragment', params);
 };
@@ -239,6 +239,7 @@ macademia.onAddressChange = function() {
         macademia.changeGraph(macademia.nodeId);
         macademia.changeDisplayedColleges();
         macademia.logCurrentFragment();
+
     } catch (err) {
         alert('error occured during state change: ' + err);
     }
@@ -247,34 +248,18 @@ macademia.onAddressChange = function() {
 // click navigation for the rightDiv
 macademia.nav = function() {
     macademia.wireupCollegeFilter();
-    $("a").address(function() {
-        if(macademia.jit.refreshNeeded){
-            var url = $(this).attr('href');
-            if (url && url.length > 1) {
-                if (url.indexOf("#") == 0) {
-                    macademia.changeQueryString(url);
-                } else {
-//                    return true;    // it's a normal href
-//                    window.location.href = url;
-                    return true;
-                }
-                macademia.sortParameters($.address.parameter('navFunction'));
-                $.address.update();
-                console.log("Case 2");
-            }
-        }
-    });
+    macademia.history.bindAnchors($("a"));
     $('#searchForm').submit(function(){
         var search =($('#searchBox').serialize()).split('=');
         if (search[1] != 'Search+people+or+interests' && search[1] != ""){
-            $.address.parameter('navFunction','search');
-            $.address.parameter('searchPage', 'all_0');
+            macademia.history.setTempValue('navFunction','search');
+            macademia.history.setTempValue('searchPage', 'all_0');
             macademia.sortParameters('search',search[1]);
-            $.address.update();
+            macademia.history.update();
         }
         else {
-            $.address.parameter('searchBox', null);
-            $.address.update();
+            macademia.history.setTempValue('searchBox', null);
+            macademia.history.update();
         }
         return false;
     });
@@ -290,10 +275,10 @@ macademia.nav = function() {
 // Changes the visualization to new root node
 macademia.changeGraph = function(nodeId){
     console.log("changeGraph function called");
-    if ($.address.parameter('nodeId') != macademia.queryString.nodeId && $.address.parameter('institutions') == macademia.queryString.institutions) {
+    if (macademia.history.get('nodeId') != macademia.queryString.nodeId && macademia.history.get('institutions') == macademia.queryString.institutions) {
         console.log("Case 1");
         if (macademia.rgraph){
-            var param = $.address.parameter('nodeId');
+            var param = macademia.history.get('nodeId');
             if (macademia.rgraph.graph.getNode(param)) {
                 // if the node is on the current graph
                 macademia.rgraph.onClick(param);
@@ -303,18 +288,18 @@ macademia.changeGraph = function(nodeId){
             }
             macademia.queryString.nodeId = param;
         }
-    }else if($.address.parameter('institutions') != undefined && $.address.parameter('institutions') != macademia.queryString.institutions){
+    }else if(macademia.history.get('institutions') != undefined && macademia.history.get('institutions') != macademia.queryString.institutions){
         //debug comment
         //this part is strange. The second and third are doing the same thing.
         console.log("Case 2");
-        console.log($.address.parameter('institutions'));
+        console.log(macademia.history.get('institutions'));
         macademia.initiateGraph();
-    } else if (macademia.rgraph && $.address.parameter('density') != macademia.queryString.density) {
+    } else if (macademia.rgraph && macademia.history.get('density') != macademia.queryString.density) {
         console.log("Case 3");
         macademia.initiateGraph();
-    } else if ($.address.parameter('institutions')==undefined){ //if institutions is undefined, try to give it an institution
+    } else if (macademia.history.get('institutions')==undefined){ //if institutions is undefined, try to give it an institution
         console.log("Case undefined");
-        $.address.parameter('institutions','all');
+        macademia.history.setTempValue('institutions','all');
         macademia.initiateGraph();
     }
 };
@@ -350,30 +335,30 @@ macademia.changeQueryString = function(query) {
     var params = queryString.split('&');
     for (var i = 0; i < params.length; i++) {
         var paramValue = params[i].split('=');
-        $.address.parameter(paramValue[0], paramValue[1]);
+        macademia.history.setTempValue(paramValue[0], paramValue[1]);
     }
 };
 
 
 // controls view of right nav (incomplete)
 macademia.updateNav = function(){
-    var navFunction = $.address.parameter('navFunction');
+    var navFunction = macademia.history.get('navFunction');
     macademia.showDivs(navFunction);
     if (navFunction == 'search'){
         macademia.submitSearch();
-        macademia.queryString.searchPage = $.address.parameter('searchPage');
+        macademia.queryString.searchPage = macademia.history.get('searchPage');
         // go to search page
-    }else if (navFunction == 'person' && $.address.parameter('personId') != macademia.queryString.personId){
-        var rootId = $.address.parameter('nodeId');
+    }else if (navFunction == 'person' && macademia.history.get('personId') != macademia.queryString.personId){
+        var rootId = macademia.history.get('nodeId');
         if (rootId != 'p_empty') {
             $('#rightContent').load(macademia.makeActionUrl('person', 'show') + '/' + rootId.slice(2));
         }
     }else if (navFunction == 'request'){
-        var rootId = $.address.parameter('nodeId');
+        var rootId = macademia.history.get('nodeId');
         $('#rightContent').load(macademia.makeActionUrl('request', 'show') + '/' + rootId.slice(2));
-        macademia.queryString.requestId = $.address.parameter('requestId');
+        macademia.queryString.requestId = macademia.history.get('requestId');
     }else if (navFunction == 'interest'){
-        var rootId = $.address.parameter('nodeId');
+        var rootId = macademia.history.get('nodeId');
         //debug comments:
         //after the user click the interest name on the rightContent, it will go to this case
         //this function is only responsible for the contents on the right, which works correctly.
@@ -388,17 +373,17 @@ macademia.sortParameters = function(type,value){
     for(var i = 0; i < queries.length; i++) {
         if (queries[i].indexOf(type) >= 0){
             if (value) {
-                $.address.parameter(queries[i],value);
+                macademia.history.setTempValue(queries[i],value);
             }
         } else {
-            if ($.address.parameter(queries[i]) || macademia.queryString[queries[i]]){
-                $.address.parameter(queries[i],null);
+            if (macademia.history.get(queries[i]) || macademia.queryString[queries[i]]){
+                macademia.history.setTempValue(queries[i],null);
                 macademia.queryString[queries[i]] = null;
             }
         }
     }
     if (type != 'search'){
-        $.address.parameter('searchPage', null);
+        macademia.history.setTempValue('searchPage', null);
         macademia.queryString.searchPage = null;
     }
 };
@@ -411,7 +396,7 @@ macademia.showDivs = function(type){
             $(divName).hide();
         }else{
             var divName = "#" + queries[i] + "Div";
-            if ($.address.parameter(queries[i])){
+            if (macademia.history.get(queries[i])){
                 $(divName).show();
             }else{
                 $(divName).hide();
@@ -423,12 +408,16 @@ macademia.showDivs = function(type){
 // submits the search query from the url
 macademia.submitSearch = function(){
     $("#searchBox").autocomplete("close");
-    if(($.address.parameter('institutions') != macademia.queryString.institutions || $.address.parameter('searchPage') != macademia.queryString.searchPage || $.address.parameter('searchBox') != macademia.queryString.searchBox || $('#searchResults').is(':empty')) && ($.address.parameter('searchBox') != undefined || macademia.queryString.searchBox != null)){
-        if($.address.parameter('searchBox') != undefined){
-            var searchBox = $.address.parameter('searchBox');
+    if((macademia.history.get('institutions') != macademia.queryString.institutions
+        || macademia.history.get('searchPage') != macademia.queryString.searchPage
+        || macademia.history.get('searchBox') != macademia.queryString.searchBox
+        || $('#searchResults').is(':empty')) && (macademia.history.get('searchBox') != undefined
+        || macademia.queryString.searchBox != null)){
+        if(macademia.history.get('searchBox') != undefined){
+            var searchBox = macademia.history.get('searchBox');
             var search = searchBox.replace('+', ' ');
-            var institutions = $.address.parameter('institutions');
-            var page = $.address.parameter('searchPage').split('_');
+            var institutions = macademia.history.get('institutions');
+            var page = macademia.history.get('searchPage').split('_');
             var type = page[0];
             var number = page[1];
             var url = macademia.makeActionUrl('search', 'search');
@@ -613,11 +602,11 @@ macademia.initHomeSearchSubmit = function() {
                 if (data.res) {
                     var type = data.res['class'].split(".")[2];
                     type = type.toLowerCase();
-                    $.address.parameter('nodeId', type.substring(0, 1) + "_" + data.res.id);
-                    $.address.parameter('navFunction', type);
+                    macademia.history.setTempValue('nodeId', type.substring(0, 1) + "_" + data.res.id);
+                    macademia.history.setTempValue('navFunction', type);
                     macademia.sortParameters(type, data.res.id);
-                    location.href = '/Macademia/acm/person/jit/#'+$.address.value();
-                    $.address.update();
+//                    location.href = '/Macademia/acm/person/jit/#'+$.address.value();
+                    macademia.history.update();
                 }
             }
         });
