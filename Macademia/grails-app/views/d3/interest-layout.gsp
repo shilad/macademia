@@ -30,7 +30,6 @@ svg {
 
 </style>
 <r:script>
-    //when I added parentID it caused the hilighted click to remain hilighted until next click
     var interests = [
 //        {"18": [1443, 16204, 323, 295, 3590, 227, 711]},
         {"id":18, "name":"WINNING", "cluster" : 18} ,
@@ -92,7 +91,7 @@ svg {
 //            .data([129483571])
 //            .enter()
 //            .append('g')
-            .attr('class', 'interests')
+//            .attr('class', 'interests')
             .data(interests)
             .enter()
             .call(interest)[0];
