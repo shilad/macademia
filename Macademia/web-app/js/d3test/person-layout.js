@@ -10,15 +10,18 @@ var MC = (window.MC = (window.MC || {}));
 MC.personLayout = function () {
     function pl(container) {
 
-        var interestNodes = pl.getInterests();
-        var people = {};
-        $.each(pl.getPeople(), function (i, d) {
-            people[d.id] = d;
-        });
+        // The d3 view (i.e. SVG elements)
+        var interestNodes = pl.getInterestNodes();
+        var peopleNodes = pl.getPeopleNodes();
 
+        // The d3 model (i.e. associative arrays)
+        var people = {};
         var interests = {};
-        $.each(interestNodes, function (i, d) {
+        interestNodes.each(function (d) {
             interests[d.id] = d;
+        });
+        peopleNodes.each(function (d) {
+            people[d.id] = d;
         });
 
         var w = 800,
@@ -41,6 +44,7 @@ MC.personLayout = function () {
                     real: d
                 };
             });
+        console.log(surrogates);
 
         var getPrimaryInterest = function (p) {
             var maxId = -1;
@@ -55,8 +59,8 @@ MC.personLayout = function () {
             return maxId;
         }
 
-        //constructing data structure, grabs each person,
-        $.each(people, function(i,p) {
+        //constructing data structure, sets x and y coords,
+        peopleNodes.each(function(p, i) {
                 var primary = surrogates[getPrimaryInterest(p)];
                 if (primary) {
                     p.x = primary.x + (0.5 - Math.random()) * 50;
@@ -64,11 +68,23 @@ MC.personLayout = function () {
                 }
         });
 
-        var personNodes = $.map(people, function(p,id)
-        {
-            return p;
-           });
-        console.log(personNodes)
+        // create an edge between each person and the hubs the relate to.
+        var links = [];
+        peopleNodes.each(function (p, i) {
+            console.log(p)
+            $.map(p.relevance, function (r, iid) {
+                console.log(iid);
+                if (iid != -1 && iid != 'overall') {
+                    links.push({
+                        source: p,
+                        target: surrogates[iid],
+                        strength: r * r
+                    });
+                }
+            });
+        });
+
+        console.log(links);
             //get list of values for already made arrays
 
 
@@ -84,20 +100,6 @@ MC.personLayout = function () {
 //                return p;
 //            });
 
-        // create an edge between each person and the hubs the relate to.
-        var links = [];
-        personNodes.forEach(function (p) {
-            console.log(p)
-            $.map(p.relevance, function (r, iid) {
-                if (iid != -1 && iid != 'overall') {
-                    links.push({
-                        source: p,
-                        target: surrogates[iid],
-                        strength: r * r
-                    });
-                }
-            });
-        });
         var clusterMap = pl.model.getClusterMap();
         //places the person in relation to the surrogates
         var force = d3.layout.force()
@@ -173,10 +175,10 @@ MC.personLayout = function () {
     }
 
 
-    MC.options.register(pl, 'people', function () {
+    MC.options.register(pl, 'peopleNodes', function () {
         throw('no people specified.')
     });
-    MC.options.register(pl, 'interests', function () {
+    MC.options.register(pl, 'interestNodes', function () {
         throw('no interests specified.')
     });
     return pl;
