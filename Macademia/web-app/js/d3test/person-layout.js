@@ -116,15 +116,15 @@ MC.personLayout = function () {
             })
             .gravity(grav)
             .linkDistance(linkDis)
-//            .charge(function (d) {
-//                if (d.id in clusterMap) {
-//                    return -600;
-//               } else if (d instanceof D3Person) {
-//                    return -600;
-//                } else {
-//                    return -50;
-//                }
-//            })
+            .charge(function (d) {
+                if (d.id in clusterMap) {
+                    return -800;
+               } else if (d instanceof person) {
+                    return -800;
+                } else {
+                    return -500;
+                }
+            })
             .friction(friction)
             .start();
         //creates a new g  for each new person
@@ -156,7 +156,7 @@ MC.personLayout = function () {
         // walk through iterations of convergence to final positions
         force.on("tick", function (e) {
 
-//        // Push different nodes in different directions for clustering.
+        // Push different nodes in different directions for clustering.
 //        var k = 6 * e.alpha;
 //        nodes.forEach(function(o, i) {
 //            o.y += i & 1 ? k : -k;
