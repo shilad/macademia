@@ -14,6 +14,7 @@ MC.personLayout = function () {
         var interestNodes = pl.getInterestNodes();
         var peopleNodes = pl.getPeopleNodes();
         var clusterMap = pl.getOrCallClusterMap();
+
         // The d3 model (i.e. associative arrays)
         var people = {};
         var interests = {};
@@ -100,10 +101,10 @@ MC.personLayout = function () {
 //                return p;
 //            });
 
-
+//        var clusterMap = pl.model.getClusterMap();
         //places the person in relation to the surrogates
         var force = d3.layout.force()
-            .nodes(d3.values(surrogates).concat(personNodes))
+            .nodes(d3.values(surrogates).concat(d3.values(people)))
             .links(links)
             .size([w, h])
             .linkStrength(function (l) {
@@ -111,38 +112,38 @@ MC.personLayout = function () {
             })
             .gravity(0.005)
             .linkDistance(50)
-            .charge(function (d) {
-                if (d.id in clusterMap) {
-                    return -600;
-                } else if (d instanceof D3Person) {
-                    return -600;
-                } else {
-                    return -50;
-                }
-            })
+//            .charge(function (d) {
+//                if (d.id in clusterMap) {
+//                    return -600;
+//               } else if (d instanceof D3Person) {
+//                    return -600;
+////                } else {
+//                    return -50;
+//                }
+//            })
             .friction(0.8)
             .start();
         //creates a new g  for each new person
-        var groups = svg.selectAll(".personNode")
-            .data(personNodes)
-            .enter()
-            .append("g")
-            .attr('class', 'personNode');
-        //works with each person as a unit and manipulates
-        groups.append("image")
-            .attr("xlink:href", function (d) {
-                console.log('doing ' + d.name);
-                return d.pic;
-            })
-            .attr("height", "28")
-            .attr("width", "28")
-            .attr("transform", "translate(-14,-14)");
-
-        //fade in
-        svg.style("opacity", 1e-6)
-            .transition()
-            .duration(1000)
-            .style("opacity", 1);
+//        var groups = svg.selectAll(".personNode")
+//            .data(personNodes)
+//            .enter()
+//            .append("g")
+//            .attr('class', 'personNode');
+//        //works with each person as a unit and manipulates
+//        groups.append("image")
+//            .attr("xlink:href", function (d) {
+//                console.log('doing ' + d.name);
+//                return d.pic;
+//            })
+//            .attr("height", "28")
+//            .attr("width", "28")
+//            .attr("transform", "translate(-14,-14)");
+//
+//        //fade in
+//        svg.style("opacity", 1e-6)
+//            .transition()
+//            .duration(1000)
+//            .style("opacity", 1);
         //keep with in the graph
         var pinch = function (x, min, max) {
             return (x < min) ? min : ((x > max) ? max : x);
@@ -158,7 +159,7 @@ MC.personLayout = function () {
 //            o.x += i & 2 ? k : -k;
 //        });
 
-            groups.attr("transform", function (d) {
+            personNodes.attr("transform", function (d) {
                 d.x = pinch(d.x, 50, 750);
                 d.y = pinch(d.y, 50, 750);
                 return "translate(" + d.x + "," + d.y + ")";
@@ -181,7 +182,7 @@ MC.personLayout = function () {
     MC.options.register(pl, 'interestNodes', function () {
         throw('no interests specified.')
     });
-
     MC.options.register(pl, 'clusterMap', function() { throw('no clusterMap specified'); });
+
     return pl;
 };
