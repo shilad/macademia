@@ -13,6 +13,10 @@ MC.personLayout = function () {
         // The d3 view (i.e. SVG elements)
         var interestNodes = pl.getInterestNodes();
         var peopleNodes = pl.getPeopleNodes();
+
+        var linkDis = pl.getOrCallLinkDistance();
+        var grav = pl.getOrCallGravity();
+        var friction = pl.getOrCallFriction();
         var clusterMap = pl.getOrCallClusterMap();
 
         // The d3 model (i.e. associative arrays)
@@ -110,18 +114,18 @@ MC.personLayout = function () {
             .linkStrength(function (l) {
                 return l.strength / 6;
             })
-            .gravity(0.005)
-            .linkDistance(50)
+            .gravity(grav)
+            .linkDistance(linkDis)
 //            .charge(function (d) {
 //                if (d.id in clusterMap) {
 //                    return -600;
 //               } else if (d instanceof D3Person) {
 //                    return -600;
-////                } else {
+//                } else {
 //                    return -50;
 //                }
 //            })
-            .friction(0.8)
+            .friction(friction)
             .start();
         //creates a new g  for each new person
 //        var groups = svg.selectAll(".personNode")
@@ -175,6 +179,9 @@ MC.personLayout = function () {
         });
     }
 
+    MC.options.register(pl, 'friction', 0.8);
+    MC.options.register(pl, 'gravity', 0.005);
+    MC.options.register(pl, 'linkDistance', 50);
 
     MC.options.register(pl, 'peopleNodes', function () {
         throw('no people specified.')

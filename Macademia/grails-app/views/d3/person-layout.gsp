@@ -31,7 +31,7 @@ svg {
 </style>
 <r:script>
      var people = [
-         {"id":15830, "type":person,"fid":250588901, "name":"Luther Rea",
+         {"id":15830, "fid":250588901, "name":"Luther Rea",
              'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9},
              //must have cleaned relavence to have the circle around the image
              'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
@@ -163,6 +163,9 @@ svg {
 
 
     var personLayout = MC.personLayout()
+            .setLinkDistance(50)
+            .setGravity(.005)
+            .setFriction(0.8)
             .setPeopleNodes(personNodes)
             .setClusterMap(clusterMap)
             .setInterestNodes(interestNodes);
