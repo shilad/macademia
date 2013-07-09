@@ -86,6 +86,13 @@ svg {
 //         {"id":711, "name":"artificial gum chewing", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
      ];
 
+     var clusterMap = {
+         "18": ["1443", "16204", "1501", "24", "976"],
+         "24":["323", "295"],
+         "976":["3590"],
+         "1501":["227", "711"]
+     };
+
 
     var i = 30;
     var person = MC.person()
@@ -141,6 +148,9 @@ svg {
                          .attr('fill', 'black');
              });
 
+
+
+
      d3.select('svg')
              .selectAll('g.interest')
              .data(interests)
@@ -153,7 +163,8 @@ svg {
 
     var personLayout = MC.personLayout()
             .setPeopleNodes(personNodes)
-            .setInterestNodes(interestNodes);
+            .setInterestNodes(interestNodes)
+            .setClusterMap(clusterMap);
 
      d3.select('svg')
             .selectAll('person-layouts')

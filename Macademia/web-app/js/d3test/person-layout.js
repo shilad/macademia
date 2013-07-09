@@ -13,7 +13,7 @@ MC.personLayout = function () {
         // The d3 view (i.e. SVG elements)
         var interestNodes = pl.getInterestNodes();
         var peopleNodes = pl.getPeopleNodes();
-
+        var clusterMap = pl.getOrCallClusterMap();
         // The d3 model (i.e. associative arrays)
         var people = {};
         var interests = {};
@@ -100,7 +100,7 @@ MC.personLayout = function () {
 //                return p;
 //            });
 
-        var clusterMap = pl.model.getClusterMap();
+
         //places the person in relation to the surrogates
         var force = d3.layout.force()
             .nodes(d3.values(surrogates).concat(personNodes))
@@ -181,5 +181,7 @@ MC.personLayout = function () {
     MC.options.register(pl, 'interestNodes', function () {
         throw('no interests specified.')
     });
+
+    MC.options.register(pl, 'clusterMap', function() { throw('no clusterMap specified'); });
     return pl;
 };
