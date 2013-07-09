@@ -33,29 +33,33 @@ svg {
      var people = [
          {"id":15830, "fid":250588901, "name":"Luther Rea",
              'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9},
+             //must have cleaned relavence to have the circle around the image
+             'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
              "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
              "relevance":{"-1":null, "4":1.1539017856121063, "5":1.23, "6":1.04,  "11":1.0947,
-             "overall":1.0769508928060532}, "count":{"-1":15, "976":2, "24":1, "overall":3},
-             "interests":[1223, 15, 17, 21, 20, 23, 22, 25, 601, 27, 1208, 1110, 30, 18, 19, 28, 24]},
+             "overall":1.0769508928060532}, "count":{"-1":5, "5":2, "6":1, "overall":3},
+             "interests":[5,6]},
 
      {"id":16, "fid":257, "name":"Donnie Burroughs",
             "pic":"/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
+            'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
 
             'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9},
             "relevance":{"-1":null, "4":1.1563, "5":1.323, "6":1.0334,  "11":1.3,
             "overall":1.2776578441262245},
 //            "count":{"-1":13, "18":3, "24":1, "overall":4},
-            "interests":[1223, 15, 17, 21, 20, 23, 22, 25, 601, 27, 1208, 1110, 30, 18, 19, 28, 24]},
+            "interests":[4,5,6,11]},
 //         {"id":2691, "fid":7241482, "name":"Diana Brooks",
 //            "pic":"/Macademia/all/image/fake?gender=female&img=00633_940928_fa.png",
 //            "relevance":{"18":1.3140089064836502, "-1":null, "976":1, "overall":1.157004453241825}, "count":{"18":3, "-1":5, "976":1, "overall":4},
 //            "interests":[2687, 19, 227, 2693, 2692, 2694, 1224, 2688, 976]},
          {"id":15680, "fid":245862401,
+             'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
              'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9},
-         "name":"Ed Sanborn", "pic":"/Macademia/all/image/fake?gender=male&img=00798_941205_fa.png",
+            "name":"Ed Sanborn", "pic":"/Macademia/all/image/fake?gender=male&img=00798_941205_fa.png",
              "relevance":{ "-1":null, "4":1.10563, "5":1.300023, "6":1.0330004,  "11":1.003,"overall":0.8551850477233529},
-             "count":{"18":6, "-1":1, "overall":6},
-             "interests":[18, 15677, 15679, 28, 15675, 15678, 15676]}
+//             "count":{"4":6, "-1":1, "overall":6},
+             "interests":[4,5,6]}
 //         {"id":17198, "fid":295771205, "name":"Emery Etheridge", "pic":"/Macademia/all/image/fake?gender=male&img=00460_940422_fa.png", "relevance":{"18":1.3189659714698792, "976":1.5695229321718216, "-1":null, "24":1, "overall":1.9442444518208504}, "count":{"18":2, "976":3, "-1":8, "24":1, "overall":6}, "interests":[18, 1221, 976, 402, 16597, 1438, 462, 1207, 17193, 17194, 17195, 63, 17196, 24]},
 //         {"id":12104, "fid":146506817, "name":"Mario Louis", "pic":"/Macademia/all/image/fake?gender=male&img=00155_940128_fa.png", "relevance":{"18":0.6376854777336121, "24":1, "976":1.604827418923378, "-1":null, "1501":0.661139726638794, "overall":1.951826311647892}, "count":{"18":1, "24":1, "976":3, "-1":2, "1501":1, "overall":6}, "interests":[295, 24, 976, 12103, 12102, 12099, 12101, 12100]},
 //         {"id":443, "fid":196250, "name":"Alana Seals", "pic":"/Macademia/all/image/fake?gender=female&img=00071_931230_fa.png", "relevance":{"-1":null, "24":1.5525153130292892, "18":0.6376854777336121, "1501":0.6479836702346802, "overall":1.4190922304987907}, "count":{"-1":15, "24":3, "18":1, "1501":1, "overall":5}, "interests":[444, 445, 446, 447, 948, 946, 947, 456, 455, 454, 453, 451, 450, 449, 448, 24, 457, 145, 295, 452]},
@@ -73,11 +77,11 @@ svg {
 ];
      var interests = [
 //        {"18": [1443, 16204, 323, 295, 3590, 227, 711]},
-         {"id":4, "name":"WINNING", "cluster" : 18,'x':290, 'y':290} ,
-         {"id":5, "name":"gum",  "cluster":18,"parentId":"18", "relevance":0.7576502561569214, "roles":[], 'color':'#000000', 'x':200, 'y':200},
-         {"id":6, "name":"shoe", "cluster":18,"parentId":"18", "relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':20, 'y':20},
-         {"id":11, "name":"ben hillman", "cluster":18,"parentId":"18", "relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':250, 'y':250},
-         {"id":14, "name":"Text mining", "cluster":18, "parentId":"18","relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':300, 'y':300},
+         {"id":4, "name":"WINNING", "cluster" : 4,'x':290, 'y':290} ,
+         {"id":5, "name":"gum",  "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'#000000', 'x':200, 'y':200},
+         {"id":6, "name":"shoe", "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':20, 'y':20},
+         {"id":11, "name":"ben hillman", "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':250, 'y':250},
+        // {"id":14, "name":"Text mining", "cluster":18, "parentId":"18","relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':300, 'y':300},
 //         {"id":16204, "name":" text analytics", "cluster":18, "parentId":"18","relevance":0.7576502561569214, "roles":[]},
 //         {"id":323, "name":"machine learning", "cluster":18, "parentId":"18","relevance":0.7538068890571594, "roles":[]},
 //         {"id":295, "name":" regression", "cluster":18,"parentId":"18", "relevance":0.7336868643760681, "roles":[]},
@@ -86,21 +90,28 @@ svg {
 //         {"id":711, "name":"artificial gum chewing", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
      ];
 
+     var clusterMap = {
+         "4": ["5"],
+         "5":["6"],
+         "6":["11"],
+        "11":["5"]
+     };
 
-    var i = 30;
+
+     var i = 30;
     var person = MC.person()
-        .setCy(function(d) {
-               i+= 80;
-               return i;
-        })
-    .addOnHover(
-        function (d) {
-            console.log('in ' + d.name);
-            d3.select(this)
-                .selectAll('text')
-                .transition()
-                .duration(200)
-               .attr('fill', 'black');
+//            .setCy(function (d) {
+//                i += 100;
+//                return i;
+//            })
+            .addOnHover(
+            function (d) {
+                console.log('in ' + d.name);
+                d3.select(this)
+                        .selectAll('text')
+                        .transition()
+                        .duration(200)
+                        .attr('fill', 'black');
             },
             function (d) {
                 console.log('out ' + d.name);
@@ -153,6 +164,7 @@ svg {
 
     var personLayout = MC.personLayout()
             .setPeopleNodes(personNodes)
+            .setClusterMap(clusterMap)
             .setInterestNodes(interestNodes);
 
      d3.select('svg')
