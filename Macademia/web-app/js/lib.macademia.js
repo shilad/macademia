@@ -238,10 +238,15 @@ macademia.logCurrentFragment = function() {
 
 macademia.onAddressChange = function() {
     try {
+        console.log('Here 1');
         macademia.updateNav();
+        console.log('Here 2');
         macademia.changeGraph(macademia.nodeId);
+        console.log('Here 3');
         macademia.changeDisplayedColleges();
+        console.log('Here 4');
         macademia.logCurrentFragment();
+        console.log('Here 5');
 
     } catch (err) {
         alert('error occured during state change: ' + err);
