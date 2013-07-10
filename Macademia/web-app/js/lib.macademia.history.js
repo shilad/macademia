@@ -74,12 +74,14 @@ MH.getTempValue= function(name){
  *
  */
 MH.getOld = function(key) {
-    var old = History.getStateByIndex(History.getCurrentIndex()-1);
-    if (key) {
-        return old[key];
-    } else {
-        return old;
-    }
+
+        var old = MH.parseUrl(History.getStateByIndex(History.getCurrentIndex()-1).hash);
+        if (key) {
+            return old[key];
+        } else {
+            return old;
+        }
+
 };
 
 /*
@@ -123,15 +125,21 @@ MH.bindAnchors = function(anchors) {
         console.log(temp);
         e.preventDefault();
         var targetMap=MH.parseUrl(e.target.hash);
+        var types = ['searchBox','interestId','personId','requestId'];
+        for(var i=0;i<types.length;i++){
+            delete temp[types[i]];
+        }
         for(var key in targetMap){
             MH.setTempValue(key,targetMap[key]);
         }
+
         console.log(temp);
 
 
         MH.update();
-
-
+         //after update before these consoles the states become correct... FIND WHERE
+        console.log(History.getState());
+        console.log(MH.getOld());
 
 
     });
@@ -142,7 +150,7 @@ MH.bindAnchors = function(anchors) {
  */
 MH.update = function(){
     History.pushState(temp,'',MH.unparseUrl(temp));
-    MH.setTemp(MH.parseUrl(History.getHash()));
+//    MH.setTemp(MH.parseUrl(History.getHash()));
 
 };
 
@@ -166,7 +174,7 @@ MH.parseUrl= function(hashUrl){
         pl     = /\+/g,  // Regex for replacing addition symbol with a space
         search = /([^&=]+)=?([^&]*)/g,
         decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
-        query  = hashUrl.substring(hashUrl.indexOf("?")+1);
+        query  = hashUrl.substring(hashUrl.lastIndexOf("?")+1);
 
     urlParams = {};
     while (match = search.exec(query))
