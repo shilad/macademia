@@ -113,6 +113,7 @@ svg {
     };
 
     var viz = new MC.BaseViz({clusterMap : clusterMap, people : people, interests : interests, svg : d3.select('svg')});
+
     viz.createPersonView().addOnHover(
             function (d) {
                 console.log('in ' + d.name);
@@ -133,7 +134,7 @@ svg {
     viz.createPeople();
 
     var i = 40;
-    var personView = MC.person()
+//    var personView = MC.person()
 //            .setCy(function (d) {
 //                i += 100;
 //                return i;
