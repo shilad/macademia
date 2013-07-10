@@ -41,8 +41,9 @@ MC.personLayout = function () {
         // perhaps this was to avoid radial coordinates
         interestNodes.each(function (d, i) {
             var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
+
             surrogates[d.id] = {
-                type: d.type,
+                type: (d.id in clusterMap) ? 'hub' : 'leaf',
                 id: d.id,
                 fixed: true,  // interests cannot move
                 x: pos.x,
@@ -67,6 +68,7 @@ MC.personLayout = function () {
 
         //constructing data structure, sets x and y coords,
         peopleNodes.each(function (p, i) {
+            p.type = 'person';
             var primary = surrogates[getPrimaryInterest(p)];
             if (primary) {
                 p.x = primary.x + (0.5 - Math.random()) * 50;
@@ -118,32 +120,7 @@ MC.personLayout = function () {
             })
             .gravity(grav)
             .linkDistance(linkDis)
-            .charge(function (d) {
-                console.log("clusterMap" + d.id);
-                //checks to see if it is a hub
-                if (clusterMap[d.id]) {
-//                  console.log("clusterMap"+ d.id);
-                    return -600;
-                }
-
-                //checks to see if it is of type person
-                else if (d.type == 'person') {
-//                    console.log("he" + d.type);
-                    return -600;
-                }
-                //other interests that are not hubs
-                else {
-//                   console.log("work" +d.id);
-                    return -50;
-                }
-
-
-//                interest check.  no write but works :)
-//                else if(d.type == "interest"){
-//                    return -600;
-//                }
-
-            })
+            .charge(pl.getCharge())
             .friction(friction)
             .start();
         //creates a new g  for each new person
@@ -210,6 +187,16 @@ MC.personLayout = function () {
     });
     MC.options.register(pl, 'clusterMap', function () {
         throw('no clusterMap specified');
+    });
+    MC.options.register(pl, 'charge', function(d) {
+        //checks to see if it is a hub
+        if (d.type == 'hub') {
+            return -600;
+        } else if (d.type == 'person') {
+            return -600;
+        } else {
+            return -50;
+        }
     });
 
     return pl;
