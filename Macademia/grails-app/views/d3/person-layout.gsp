@@ -77,7 +77,7 @@ svg {
 ];
      var interests = [
 //        {"18": [1443, 16204, 323, 295, 3590, 227, 711]},
-         {"id":4, "type": 'interest', "name":"WINNING", "cluster" : 4,'x':290, 'y':290} ,
+         {"id":4, "type": 'interest', "name":"WINNING", "cluster" : 4,'x':590, 'y':290} ,
          {"id":5, "type": 'interest', "name":"gum",  "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'#000000', 'x':200, 'y':200},
          {"id":6, "type":'interest', "name":"shoe", "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':20, 'y':20},
          {"id":11, "type":'interest', "name":"ben hillman", "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':250, 'y':250},
