@@ -111,13 +111,9 @@ svg {
         "976":["3590", "25"],
         "1501":["227", "711", "20", "7", "42"]
     };
-    var i = 40;
-    var person = MC.person()
-//            .setCy(function (d) {
-//                i += 100;
-//                return i;
-//            })
-            .addOnHover(
+
+    var viz = new MC.BaseViz({clusterMap : clusterMap, people : people, interests : interests, svg : d3.select('svg')});
+    viz.createPersonView().addOnHover(
             function (d) {
                 console.log('in ' + d.name);
                 d3.select(this)
@@ -134,15 +130,7 @@ svg {
                         .duration(200)
                         .attr('fill', '#DCDCDC');
             });
-
-    d3.select('svg')
-            .attr('width', 800)
-            .attr('height', 800)
-            .selectAll('g.person')
-            .data(people)
-            .enter()
-            .call(person);
-
+    viz.createPeople();
 
         var interest = MC.interest()
                 .setCx(0)
