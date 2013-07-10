@@ -132,7 +132,7 @@ svg {
                         .selectAll('text')
                         .transition()
                         .duration(200)
-                        .attr('fill', '#DCDCDC');
+                        .attr('fill', '#d4d4d4');
             });
 
     d3.select('svg')
