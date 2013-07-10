@@ -54,7 +54,9 @@ MH.get = function(name) {
  * Sets the parameter to the specified value.
  */
 MH.setTempValue = function(name, value) {
-
+    if(temp[name]){
+        delete temp[name];
+    }
     temp[name]=value;
 
 };
@@ -71,9 +73,13 @@ MH.getTempValue= function(name){
  *  Gets the state back i indices
  *
  */
-MH.getOld = function(i) {
-    return History.getStateByIndex(History.getCurrentIndex()-i);
-
+MH.getOld = function(key) {
+    var old = History.getStateByIndex(History.getCurrentIndex()-1);
+    if (key) {
+        return old[key];
+    } else {
+        return old;
+    }
 };
 
 /*
@@ -85,8 +91,12 @@ MH.getOld = function(i) {
 MH.onUpdate = function(fn) {
     var f = function(e) {
         console.log(e);
-//        MH.init();
+
+        MH.setTemp(MH.parseUrl(History.getHash()));
+
         if(fn){
+
+            console.log('onupdate!');
             fn.call(this);
         }
     };
@@ -109,11 +119,18 @@ MH.bindAnchors = function(anchors) {
 //        e.preventDefault();
 //        MH.update();
 //    });
-    $(document).on("click",$(anchors),function(e){
+    $(anchors).live("click",function(e){
         console.log(temp);
         e.preventDefault();
-        temp = MH.parseUrl(e.target.hash);
+        var targetMap=MH.parseUrl(e.target.hash);
+        for(var key in targetMap){
+            MH.setTempValue(key,targetMap[key]);
+        }
+        console.log(temp);
+
+
         MH.update();
+
 
 
 
@@ -125,7 +142,8 @@ MH.bindAnchors = function(anchors) {
  */
 MH.update = function(){
     History.pushState(temp,'',MH.unparseUrl(temp));
-//    MH.setTemp(MH.parseUrl(History.getHash()));
+    MH.setTemp(MH.parseUrl(History.getHash()));
+
 };
 
 /*
@@ -158,17 +176,17 @@ MH.parseUrl= function(hashUrl){
 };
 
 MH.init = function(){
-    MH.setTemp({
-    nodeId:'p_1',
-    navVisibility:'true',
-    navFunction:'search',
-    institutions:'all',
-    searchBox:null,
-    interestId:null,
-    personId:null,
-    requestId:null,
-    searchPage:null,
-    density:null
-});
+//    MH.setTemp({
+//    nodeId:'p_1',
+//    navVisibility:'true',
+//    navFunction:'search',
+//    institutions:'all',
+//    searchBox:null,
+//    interestId:null,
+//    personId:null,
+//    requestId:null,
+//    searchPage:null,
+//    density:null
+//});
 
 };

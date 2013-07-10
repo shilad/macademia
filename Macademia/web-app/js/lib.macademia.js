@@ -47,7 +47,7 @@ macademia.pageLoad = function() {
     macademia.initializeLogin();
     macademia.nav();
     macademia.updateNav();
-    macademia.initiateGraph();
+//    macademia.initiateGraph();
     macademia.autocomplete.initSearch();
     macademia.toggleAccountControls();
     macademia.setupRequestCreation();
@@ -283,33 +283,23 @@ macademia.nav = function() {
 // Changes the visualization to new root node
 macademia.changeGraph = function(nodeId){
     console.log("changeGraph function called");
-    if (macademia.history.get('nodeId') != macademia.history.getTempValue('nodeId')
-        && macademia.history.get('institutions') == macademia.history.getTempValue('institutions')) {
-        console.log("Case 1");
-        if (macademia.rgraph){
-            var param = macademia.history.get('nodeId');
-            if (macademia.rgraph.graph.getNode(param)) {
-                // if the node is on the current graph
-                macademia.rgraph.onClick(param);
-                //macademia.rgraph.refresh();
-            }else{
-                macademia.initiateGraph();
-            }
-            macademia.history.setTempValue("nodeId",param);
-        }
-    }else if(macademia.history.get('institutions') != undefined
-        && macademia.history.get('institutions') != macademia.history.getTempValue('institutions')){
-        //debug comment
-        //this part is strange. The second and third are doing the same thing.
-        console.log("Case 2");
-        console.log(macademia.history.get('institutions'));
-        macademia.initiateGraph();
-    } else if (macademia.rgraph && macademia.history.get('density') != macademia.history.getTempValue('density')) {
-        console.log("Case 3");
-        macademia.initiateGraph();
-    } else if (macademia.history.get('institutions')==undefined){ //if institutions is undefined, try to give it an institution
-        console.log("Case undefined");
-        macademia.history.setTempValue('institutions','all');
+    var lastRoot = macademia.history.getOld('nodeId');
+    var currentRoot = macademia.history.get('nodeId');
+    var lastInstitutions = macademia.history.getOld('institutions');
+    var currentInstitutions = macademia.history.get('institutions');
+    console.log(lastRoot);
+    console.log(currentRoot);
+    console.log(lastInstitutions);
+    console.log(currentInstitutions);
+
+
+    // If we can animate a transition to the new root, do it
+    if (currentInstitutions == lastInstitutions
+        && lastRoot != currentRoot
+        && macademia.rgraph
+        && macademia.rgraph.graph.getNode(currentRoot)) {
+        macademia.rgraph.onClick(currentRoot);
+    } else {
         macademia.initiateGraph();
     }
 };
