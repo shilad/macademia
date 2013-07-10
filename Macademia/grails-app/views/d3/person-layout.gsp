@@ -31,16 +31,16 @@ svg {
 </style>
 <r:script>
      var people = [
-         {"id":15830, "fid":250588901, "name":"Luther Rea",
+         {"id":15830, "type": 'person', "fid":250588901, "name":"Luther Rea",
              'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9},
              //must have cleaned relavence to have the circle around the image
              'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
              "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
              "relevance":{"-1":null, "4":1.1539017856121063, "5":1.23, "6":1.04,  "11":1.0947,
              "overall":1.0769508928060532}, "count":{"-1":5, "5":2, "6":1, "overall":3},
-             "interests":[5,6]},
+             "interests":[5,6,11, 23, 16]},
 
-     {"id":16, "type":person,"fid":257, "name":"Donnie Burroughs",
+     {"id":16, "type":'person',"fid":257, "name":"Donnie Burroughs",
             "pic":"/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
             'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
 
@@ -53,7 +53,7 @@ svg {
 //            "pic":"/Macademia/all/image/fake?gender=female&img=00633_940928_fa.png",
 //            "relevance":{"18":1.3140089064836502, "-1":null, "976":1, "overall":1.157004453241825}, "count":{"18":3, "-1":5, "976":1, "overall":4},
 //            "interests":[2687, 19, 227, 2693, 2692, 2694, 1224, 2688, 976]},
-         {"id":15680, "type":person,"fid":245862401,
+         {"id":15680, "type":'person',"fid":245862401,
              'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
              'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9},
             "name":"Ed Sanborn", "pic":"/Macademia/all/image/fake?gender=male&img=00798_941205_fa.png",
@@ -77,11 +77,11 @@ svg {
 ];
      var interests = [
 //        {"18": [1443, 16204, 323, 295, 3590, 227, 711]},
-         {"id":4, "type": interest, "name":"WINNING", "cluster" : 4,'x':290, 'y':290} ,
-         {"id":5, "type": interest, "name":"gum",  "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'#000000', 'x':200, 'y':200},
-         {"id":6, "type":interest, "name":"shoe", "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':20, 'y':20},
-         {"id":11, "type":interest, "name":"ben hillman", "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':250, 'y':250},
-        // {"id":14, "type": interest,"name":"Text mining", "cluster":18, "parentId":"18","relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':300, 'y':300},
+         {"id":4, "type": 'interest', "name":"WINNING", "cluster" : 4,'x':290, 'y':290} ,
+         {"id":5, "type": 'interest', "name":"gum",  "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'#000000', 'x':200, 'y':200},
+         {"id":6, "type":'interest', "name":"shoe", "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':20, 'y':20},
+         {"id":11, "type":'interest', "name":"ben hillman", "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':250, 'y':250},
+         {"id":14, "type": interest,"name":"Text mining", "cluster":18, "parentId":"18","relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':300, 'y':300},
 //         {"id":16204, "type": interest,"name":" text analytics", "cluster":18, "parentId":"18","relevance":0.7576502561569214, "roles":[]},
 //         {"id":323, "type": interest,"name":"machine learning", "cluster":18, "parentId":"18","relevance":0.7538068890571594, "roles":[]},
 //         {"id":295, "type": interest,"name":" regression", "cluster":18,"parentId":"18", "relevance":0.7336868643760681, "roles":[]},
@@ -92,7 +92,7 @@ svg {
 
      var clusterMap = {
          "4": ["5"],
-         "5":["6"],
+         "5":["6","14"],
          "6":["11"],
         "11":["5"]
      };
@@ -163,9 +163,9 @@ svg {
 
 
     var personLayout = MC.personLayout()
-            .setLinkDistance(50)
+            .setLinkDistance(10)
             .setGravity(.005)
-            .setFriction(0.8)
+            .setFriction(.8)
             .setPeopleNodes(personNodes)
             .setClusterMap(clusterMap)
             .setInterestNodes(interestNodes);
