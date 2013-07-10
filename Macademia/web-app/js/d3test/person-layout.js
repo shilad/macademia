@@ -40,15 +40,16 @@ MC.personLayout = function () {
         //copies the interest node information--not sure why
         // perhaps this was to avoid radial coordinates
         interestNodes.each(function (d, i) {
-                var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
-                surrogates[d.id] = {
-                    id: d.id,
-                    fixed: true,  // interests cannot move
-                    x: pos.x,
-                    y: pos.y,
-                    real: d
-                };
-            });
+            var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
+            surrogates[d.id] = {
+                type: d.type,
+                id: d.id,
+                fixed: true,  // interests cannot move
+                x: pos.x,
+                y: pos.y,
+                real: d
+            };
+        });
         console.log(surrogates);
 
         var getPrimaryInterest = function (p) {
@@ -65,12 +66,12 @@ MC.personLayout = function () {
         }
 
         //constructing data structure, sets x and y coords,
-        peopleNodes.each(function(p, i) {
-                var primary = surrogates[getPrimaryInterest(p)];
-                if (primary) {
-                    p.x = primary.x + (0.5 - Math.random()) * 50;
-                    p.y = primary.y + (0.5 - Math.random()) * 50;
-                }
+        peopleNodes.each(function (p, i) {
+            var primary = surrogates[getPrimaryInterest(p)];
+            if (primary) {
+                p.x = primary.x + (0.5 - Math.random()) * 50;
+                p.y = primary.y + (0.5 - Math.random()) * 50;
+            }
         });
 
         // create an edge between each person and the hubs the relate to.
@@ -90,8 +91,7 @@ MC.personLayout = function () {
         });
 
         console.log(links);
-            //get list of values for already made arrays
-
+        //get list of values for already made arrays
 
 
 //           var personNodes = $.map(pl.model.getPeople(),
@@ -106,6 +106,8 @@ MC.personLayout = function () {
 //            });
 
 //        var clusterMap = pl.model.getClusterMap();
+
+
         //places the person in relation to the surrogates
         var force = d3.layout.force()
             .nodes(d3.values(surrogates).concat(d3.values(people)))
@@ -117,13 +119,30 @@ MC.personLayout = function () {
             .gravity(grav)
             .linkDistance(linkDis)
             .charge(function (d) {
-                if (d.id in clusterMap) {
-                    return -800;
-               } else if (d instanceof person) {
-                    return -800;
-                } else {
-                    return -500;
+                console.log("clusterMap" + d.id);
+                //checks to see if it is a hub
+                if (clusterMap[d.id]) {
+//                  console.log("clusterMap"+ d.id);
+                    return -600;
                 }
+
+                //checks to see if it is of type person
+                else if (d.type == 'person') {
+//                    console.log("he" + d.type);
+                    return -600;
+                }
+                //other interests that are not hubs
+                else {
+//                   console.log("work" +d.id);
+                    return -50;
+                }
+
+
+//                interest check.  no write but works :)
+//                else if(d.type == "interest"){
+//                    return -600;
+//                }
+
             })
             .friction(friction)
             .start();
@@ -156,7 +175,7 @@ MC.personLayout = function () {
         // walk through iterations of convergence to final positions
         force.on("tick", function (e) {
 
-        // Push different nodes in different directions for clustering.
+//        // Push different nodes in different directions for clustering.
 //        var k = 6 * e.alpha;
 //        nodes.forEach(function(o, i) {
 //            o.y += i & 1 ? k : -k;
@@ -189,7 +208,9 @@ MC.personLayout = function () {
     MC.options.register(pl, 'interestNodes', function () {
         throw('no interests specified.')
     });
-    MC.options.register(pl, 'clusterMap', function() { throw('no clusterMap specified'); });
+    MC.options.register(pl, 'clusterMap', function () {
+        throw('no clusterMap specified');
+    });
 
     return pl;
 };
