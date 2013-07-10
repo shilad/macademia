@@ -44,24 +44,41 @@ svg {
         {"id":3590, "name":" information visualization", "cluster":18, "parentId":"18","relevance":0.724751889705658, "roles":[]},
         {"id":227, "name":"artificial intelligence", "cluster":18, "relevance":0.7178208231925964, "parentId":"18","roles":[] },
         {"id":711, "name":"artificial gum chewing", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+     ,   {"id":20, "name":"debugging", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+     ,   {"id":7, "name":"game of thrones", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+     ,   {"id":42, "name":"space", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+     ,   {"id":27, "name":"espeon", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+     ,   {"id":5, "name":"pikachu", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+     ,   {"id":150, "name":"mew", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+     ,   {"id":88, "name":"magic", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+     ,   {"id":25, "name":"dragons", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+     ,   {"id":43, "name":"cow", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+     ,   {"id":6, "name":"baseball", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+     ,   {"id":44, "name":"green", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+
     ];
 
+    var cloneInterests = $.extend(true, [], interests);
+
     var clusterMap = {
-        "18": ["1443", "16204", "1501", "24", "976"],
-        "24":["323", "295"],
-        "976":["3590"],
-        "1501":["227", "711"]
+        "18": ["1443", "16204", "1501", "24", "976", "43", "44"],
+        "44" : ["6"],
+        "24":["323", "295", "27", "5", "150", "88"],
+        "976":["3590", "25"],
+        "1501":["227", "711", "20", "7", "42"]
     };
 
 
     var i = 40;
 
     var interest = MC.interest()
-        .setCy(function (d) {
-                console.log('in ' + d.name);
-                i += 40;
-                return i;
-        })
+        .setCx(0)
+//        .setCy(function (d) {
+//                console.log('in ' + d.name);
+//                i += 40;
+//                return i;
+//        })
+        .setCy(0)
         .addOnHover(
             function (d) {
                 d3.select(this)
@@ -84,7 +101,7 @@ svg {
 //    d3.select(clusterMap)
 //            .values("18")
 ////     d3.entries(clusterMap)
-
+//
     d3.select('svg')
             .attr('width', 800)
             .attr('height', 800)
@@ -101,7 +118,7 @@ svg {
     var interestNodes = d3.selectAll('g.interest');
     var interestLayout = MC.interestLayout()
             .setDiameter(500)
-            .setInterests(interests)
+            .setInterests(cloneInterests)
             .setClusterMap(clusterMap)
             .setRootId('18')
             .setInterestNodes(interestNodes);

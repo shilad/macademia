@@ -35,7 +35,6 @@ var MC = (window.MC = (window.MC || {}));
  */
 MC.interest = function() {
     function interest(g) {
-        console.log(g);
 
         var g = g.append('g')
             .attr('class', interest.getCssClass())
