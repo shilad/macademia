@@ -130,7 +130,7 @@ macademia.getSelectedInstitutionGroup = function() {
 //calls the init function in jitConfig
 macademia.initiateGraph = function() {
     var param = macademia.history.get('nodeId');
-    //console.log(param);
+    console.log(param);
     var type = macademia.getType(param);
     var id = parseFloat(param.substr(2));
     var density = macademia.history.get('density');
