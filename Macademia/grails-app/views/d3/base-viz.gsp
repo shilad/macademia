@@ -132,6 +132,14 @@ svg {
             });
     viz.createPeople();
 
+    var i = 40;
+    var personView = MC.person()
+//            .setCy(function (d) {
+//                i += 100;
+//                return i;
+//            })
+
+
         var interest = MC.interest()
                 .setCx(0)
     //        .setCy(function (d) {

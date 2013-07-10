@@ -20,3 +20,20 @@ MC.BaseViz.prototype.createPeople = function() {
         .enter()
         .call(this.personView);
 };
+
+MC.BaseViz.prototype.createInterestView=function() {
+    this.interestView=MC.interest();
+    return this.interestView;
+}  ;
+
+
+MC.BaseViz.prototype.createInterests = function(){
+     this.svg
+         .attr('width', 800)
+                .attr('height', 800)
+                .selectAll('interests')
+                .data(this.interests)
+                .enter()
+                .call(this.interestView);
+}
+
