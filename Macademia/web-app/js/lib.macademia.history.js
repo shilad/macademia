@@ -60,7 +60,6 @@ MH.setTempValue = function(name, value) {
 };
 MH.setTemp = function(map) {
     temp=map;
-
 };
 MH.getTemp= function(){
     return temp;
@@ -110,11 +109,12 @@ MH.bindAnchors = function(anchors) {
 //        e.preventDefault();
 //        MH.update();
 //    });
-    $(anchors).live("click",function(e){
-        console.log(e);
-        MH.update();
+    $(document).on("click",$(anchors),function(e){
+        console.log(temp);
+        e.preventDefault();
         temp = MH.parseUrl(e.target.hash);
-//        e.preventDefault();
+        MH.update();
+
 
 
     });
@@ -125,7 +125,7 @@ MH.bindAnchors = function(anchors) {
  */
 MH.update = function(){
     History.pushState(temp,'',MH.unparseUrl(temp));
-    MH.setTemp(MH.parseUrl(History.getHash()));
+//    MH.setTemp(MH.parseUrl(History.getHash()));
 };
 
 /*

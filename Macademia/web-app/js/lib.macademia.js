@@ -354,7 +354,6 @@ macademia.updateNav = function(){
         macademia.history.setTempValue('searchPage',macademia.history.get('searchPage'));
         // go to search page
     }else if (navFunction == 'person' && macademia.history.get('personId') != macademia.history.getTempValue("personId")){
-        console.log("POOP");
         var rootId = macademia.history.get('nodeId');
         if (rootId != 'p_empty') {
             $('#rightContent').load(macademia.makeActionUrl('person', 'show') + '/' + rootId.slice(2));
