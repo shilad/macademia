@@ -32,13 +32,13 @@ svg {
 <r:script>
     var people = [
         {"id":15830, "type": 'person', "fid":250588901, "name":"Luther Rea",
-            'interestColors': {18 : 0.5, 27 : 0.3, 1501 : 0.2, 976 : 0.9},
+            'interestColors': {18 : 0.5},
             //must have cleaned relavence to have the circle around the image
-            'cleanedRelevance':  {18 : 3.0, 1501: 8.3, 976: 1.0},
+            'cleanedRelevance':  {18 : 3.0},
             "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
-            "relevance":{"-1":null, "18":1.1539017856121063, "27":1.23, "1501":1.04,  "976":1.0947,
-                "overall":1.0769508928060532}, "count":{"-1":5, "27":2, "1501":1, "overall":3},
-            "interests":[27,6,976, 23, 16]},
+            "relevance":{"-1":null, "18":1.1539017856121063,
+                "overall":1.0769508928060532},
+            "interests":[18]},
 
         {"id":16, "type":'person',"fid":257, "name":"Donnie Burroughs",
             "pic":"/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
@@ -111,20 +111,15 @@ svg {
         "976":["3590", "25"],
         "1501":["227", "711", "20", "7", "42"]
     };
-
-
     var i = 40;
-
-    var interest = MC.interest()
-            .setCx(0)
-//        .setCy(function (d) {
-//                console.log('in ' + d.name);
-//                i += 40;
+    var person = MC.person()
+//            .setCy(function (d) {
+//                i += 100;
 //                return i;
-//        })
-            .setCy(0)
+//            })
             .addOnHover(
             function (d) {
+                console.log('in ' + d.name);
                 d3.select(this)
                         .selectAll('text')
                         .transition()
@@ -140,26 +135,51 @@ svg {
                         .attr('fill', '#DCDCDC');
             });
 
-    //    var interestLayout = MC.interestLayout()
-    //
-    //    d3.select(clusterMap)
-    //            .values("18")
-    ////     d3.entries(clusterMap)
-    //
     d3.select('svg')
             .attr('width', 800)
             .attr('height', 800)
-            .selectAll('interests')
-//            .data([129483571])
-//            .enter()
-//            .append('g')
-//            .attr('class', 'interests')
-            .data(interests)
+            .selectAll('g.person')
+            .data(people)
             .enter()
-            .call(interest)[0];
+            .call(person);
 
+
+        var interest = MC.interest()
+                .setCx(0)
+    //        .setCy(function (d) {
+    //                console.log('in ' + d.name);
+    //                i += 40;
+    //                return i;
+    //        })
+                .setCy(0)
+                .addOnHover(
+                function (d) {
+                    d3.select(this)
+                            .selectAll('text')
+                            .transition()
+                            .duration(200)
+                            .attr('fill', 'black');
+                },
+                function (d) {
+                    console.log('out ' + d.name);
+                    d3.select(this)
+                            .selectAll('text')
+                            .transition()
+                            .duration(200)
+                            .attr('fill', '#DCDCDC');
+                });
+
+        d3.select('svg')
+                .attr('width', 800)
+                .attr('height', 800)
+                .selectAll('interests')
+                .data(interests)
+                .enter()
+                .call(interest)[0];
 
     var interestNodes = d3.selectAll('g.interest');
+    var personNodes  = d3.selectAll('g.person');
+
     var interestLayout = MC.interestLayout()
             .setDiameter(500)
             .setInterests(cloneInterests)
@@ -173,6 +193,19 @@ svg {
             .enter()
             .call(interestLayout);
 
+    var personLayout = MC.personLayout()
+            .setLinkDistance(10)
+            .setGravity(.005)
+            .setFriction(.8)
+            .setPeopleNodes(personNodes)
+            .setClusterMap(clusterMap)
+            .setInterestNodes(interestNodes);
+
+    d3.select('svg')
+            .selectAll('person-layouts')
+            .data([0])
+            .enter()
+            .call(personLayout);
 
 
 
