@@ -44,8 +44,8 @@ MH.get = function(name) {
 
 //  I am not sure whether I should use the current one or temp
 //  I think we should use temp
-//    return MH.parseUrl(History.getHash())[name];
-    return temp[name];
+    return MH.parseUrl(History.getHash())[name];
+//    return temp[name];
 
 
 };
@@ -84,7 +84,7 @@ MH.getOld = function(i) {
 MH.onUpdate = function(fn) {
     var f = function(e) {
         console.log(e);
-
+        MH.init();
         if(fn){
             fn.call(this);
         }
@@ -123,8 +123,7 @@ MH.bindAnchors = function(anchors) {
  */
 MH.update = function(){
     History.pushState(temp,'',MH.unparseUrl(temp));
-
-                 //History.getStateByIndex(History.getCurrentIndex())
+    MH.setTemp(MH.parseUrl(History.getHash()));
 };
 
 /*
@@ -156,3 +155,7 @@ MH.parseUrl= function(hashUrl){
     return urlParams;
 };
 
+MH.init = function(){
+    MH.setTemp(MH.parseUrl(History.getHash()));
+
+};

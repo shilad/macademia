@@ -17,18 +17,18 @@ macademia.size = function(obj) {
 
 
 //holds query string values
-macademia.queryString = {
-    nodeId:'p_1',
-    navVisibility:'true',
-    navFunction:'search',
-    institutions:'all',
-    searchBox:null,
-    interestId:null,
-    personId:null,
-    requestId:null,
-    searchPage:null,
-    density:null
-};
+//macademia.queryString = {
+//    nodeId:'p_1',
+//    navVisibility:'true',
+//    navFunction:'search',
+//    institutions:'all',
+//    searchBox:null,
+//    interestId:null,
+//    personId:null,
+//    requestId:null,
+//    searchPage:null,
+//    density:null
+//};
 
 // Initializes interactive page elements
 macademia.pageLoad = function() {
@@ -40,23 +40,34 @@ macademia.pageLoad = function() {
 
 
     //Setting temp to the current page
-    macademia.history.setTemp(macademia.history.parseUrl(History.getHash()));
+    macademia.history.init();
+    console.log("1");
     macademia.history.onUpdate(macademia.onAddressChange);
-//    $.address.change(macademia.onAddressChange);
+    console.log("2");
     macademia.initLogoLink();
-    macademia.initialSettings();
+    console.log("3");
     macademia.initializeTopNav();
+    console.log("4");
     macademia.initializeLogin();
+    console.log("5");
     macademia.nav();
-    macademia.updateNav();
-    macademia.initiateGraph();
+    console.log("6");
+//    macademia.updateNav();
+//    macademia.initiateGraph();
     macademia.autocomplete.initSearch();
+    console.log("7");
     macademia.toggleAccountControls();
+    console.log("8");
     macademia.setupRequestCreation();
+    console.log("9");
     macademia.density.initDensity();
+    console.log("10");
     macademia.initLogging();
-    macademia.changeDisplayedColleges();
+    console.log("11");
+//    macademia.changeDisplayedColleges();
     macademia.initAsteroids();
+    console.log("12");
+//    macademia.history.update();
 };
 
 macademia.homePageLoad = function() {
@@ -88,33 +99,33 @@ macademia.getSelectedInstitutionGroup = function() {
     return $('#consortia ul li input:checked').val();
 };
 
-//sets macademia.queryString values and initial page settings
-macademia.initialSettings = function(){
-    $("#show").hide();
-    if(macademia.history.get('nodeId')){
-        macademia.queryString.nodeId = macademia.history.get('nodeId');
-    }else{
-        macademia.history.setTempValue('nodeId',macademia.queryString.nodeId);
-    }
-    if(!macademia.history.get('navVisibility')){
-        macademia.history.setTempValue('navVisibility',macademia.queryString.navVisibility);
-    }
-    if(macademia.history.get('navFunction')){
-        macademia.queryString.navFunction = macademia.history.get('navFunction');
-    }else{
-        macademia.history.setTempValue('navFunction',macademia.queryString.navFunction);
-    }
-    if(macademia.history.get('institutions')){
-        macademia.queryString.institutions = macademia.history.get('institutions');
-        if(macademia.queryString.institutions != "all"){
-            macademia.initiateCollegeString(macademia.queryString.institutions);
-        }
-    }else{
-        macademia.history.setTempValue('institutions',macademia.queryString.institutions);
-    }
-//    macademia.sortParameters(macademia.queryString.navFunction);
-    macademia.history.update();
-};
+////sets macademia.queryString values and initial page settings
+//macademia.initialSettings = function(){
+//    $("#show").hide();
+//    if(macademia.history.get('nodeId')){
+//        macademia.queryString.nodeId = macademia.history.get('nodeId');
+//    }else{
+//        macademia.history.setTempValue('nodeId',macademia.queryString.nodeId);
+//    }
+//    if(!macademia.history.get('navVisibility')){
+//        macademia.history.setTempValue('navVisibility',macademia.queryString.navVisibility);
+//    }
+//    if(macademia.history.get('navFunction')){
+//        macademia.queryString.navFunction = macademia.history.get('navFunction');
+//    }else{
+//        macademia.history.setTempValue('navFunction',macademia.queryString.navFunction);
+//    }
+//    if(macademia.history.get('institutions')){
+//        macademia.queryString.institutions = macademia.history.get('institutions');
+//        if(macademia.queryString.institutions != "all"){
+//            macademia.initiateCollegeString(macademia.queryString.institutions);
+//        }
+//    }else{
+//        macademia.history.setTempValue('institutions',macademia.queryString.institutions);
+//    }
+////    macademia.sortParameters(macademia.queryString.navFunction);
+//    macademia.history.update();
+//};
 
 //calls the init function in jitConfig
 macademia.initiateGraph = function() {
@@ -219,7 +230,7 @@ macademia.navInfovis = function(node) {
     } else if (type == 'request' && macademia.history.get('navFunction') != 'request') {
         macademia.history.setTempValue('navFunction','request');
     }
-    macademia.sortParameters(type,rootId.substr(2));
+//    macademia.sortParameters(type,rootId.substr(2));
     macademia.history.update();
 };
 

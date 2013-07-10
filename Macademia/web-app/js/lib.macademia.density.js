@@ -14,7 +14,7 @@ macademia.density.initDensity = function() {
         macademia.history.update();
     });
     var density = macademia.history.get('density') || 3;
-    $('#density'+density).click();
+//    $('#density'+density).click();    put slider at the value
 
     $('#density #less a').click(function () {
         var val = macademia.density.getValue();
