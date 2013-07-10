@@ -129,7 +129,8 @@ macademia.jit.highlightInstitutionOff = function(institution) {
 };
 
 macademia.jit.init = function(rootType,id){
-
+    console.log(rootType);
+    console.log(id);
     if (macademia.jit.buildingGraph) {
         return;
     }

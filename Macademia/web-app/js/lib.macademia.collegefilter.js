@@ -246,7 +246,7 @@ macademia.changeCollegeString = function(institutionNames){
         $("#collegeFilterLink").html(results);
         macademia.wireupCollegeFilter();
     }
-    macademia.queryString.institutions = macademia.history.get('institutions');
+    macademia.history.setTempValue("institutions",macademia.history.get('institutions'));
 };
 
 macademia.changeDisplayedColleges = function(){
