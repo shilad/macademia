@@ -44,8 +44,9 @@ MH.get = function(name) {
 
 //  I am not sure whether I should use the current one or temp
 //  I think we should use temp
-    return MH.parseUrl(History.getHash())[name];
+//    return MH.parseUrl(History.getHash())[name];
 //    return temp[name];
+    return MH.parseUrl(History.getState().hash)[name];
 
 
 };
@@ -93,8 +94,16 @@ MH.getOld = function(key) {
 MH.onUpdate = function(fn) {
     var f = function(e) {
         console.log(e);
+        console.log("Getting State");
+        console.log(History.getState());
+        console.log("Getting Old");
+        console.log(MH.getOld());
+        console.log("Getting Hash");
+        console.log(History.getHash());
 
-        MH.setTemp(MH.parseUrl(History.getHash()));
+        MH.setTemp(MH.parseUrl(History.getState().hash));
+        console.log("Temp");
+        console.log(temp);
 
         if(fn){
 

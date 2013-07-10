@@ -238,15 +238,25 @@ macademia.logCurrentFragment = function() {
 
 macademia.onAddressChange = function() {
     try {
-        console.log('Here 1');
+        console.log("Address Change 1");
+        console.log(macademia.history.getOld());
+        console.log(History.getHash());
         macademia.updateNav();
-        console.log('Here 2');
+        console.log("Address Change 2");
+        console.log(macademia.history.getOld());
+        console.log(History.getHash());
         macademia.changeGraph(macademia.nodeId);
-        console.log('Here 3');
+        console.log("Address Change 3");
+        console.log(macademia.history.getOld());
+        console.log(History.getHash());
         macademia.changeDisplayedColleges();
-        console.log('Here 4');
+        console.log("Address Change 4");
+        console.log(macademia.history.getOld());
+        console.log(History.getHash());
         macademia.logCurrentFragment();
-        console.log('Here 5');
+        console.log("Address Change 5");
+        console.log(macademia.history.getOld());
+        console.log(History.getHash());
 
     } catch (err) {
         alert('error occured during state change: ' + err);
