@@ -44,22 +44,22 @@ svg {
             "pic":"/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
             'cleanedRelevance':  {18 : 3.0, 1501: 8.3, 976: 1.0},
 
-            'interestColors': {18 : 0.5, 27 : 0.3, 1501 : 0.2,976 : 0.9},
-            "relevance":{"-1":null, "18":1.1563, "27":1.323, "1501":1.0334,  "976":1.3,
+            'interestColors': {24 : 0.3},
+            "relevance":{"-1":null, "24":1.1563,
                 "overall":1.2776578441262245},
 //            "count":{"-1":13, "18":3, "24":1, "overall":4},
-            "interests":[18,27,6,976]},
+            "interests":[24]},
 //         {"id":2691, "type":person,"fid":7241482, "name":"Diana Brooks",
 //            "pic":"/Macademia/all/image/fake?gender=female&img=00633_940928_fa.png",
 //            "relevance":{"18":1.3140089064836502, "-1":null, "976":1, "overall":1.157004453241825}, "count":{"18":3, "-1":5, "976":1, "overall":4},
 //            "interests":[2687, 19, 227, 2693, 2692, 2694, 1224, 2688, 976]},
         {"id":15680, "type":'person',"fid":245862401,
-            'cleanedRelevance':  {18 : 3.0, 1501: 8.3, 976: 1.0},
-            'interestColors': {18 : 0.5, 27 : 0.3, 1501 : 0.2, 976 : 0.9},
+            'cleanedRelevance':  {20 : 8.3},
+            'interestColors': {20 : .15},
             "name":"Ed Sanborn", "pic":"/Macademia/all/image/fake?gender=male&img=00798_941205_fa.png",
-            "relevance":{ "-1":null, '18':1.10563, "27":1.300023, "1501":1.0330004,  "976":1.003,"overall":0.8551850477233529},
+            "relevance":{ "-1":null, '20':1.10563,"overall":0.8551850477233529},
 //             "count":{"4":6, "-1":1, "overall":6},
-            "interests":[18,27,1501]}
+            "interests":[20]}
 //         {"id":17198, "type":person,"fid":295771205, "name":"Emery Etheridge", "pic":"/Macademia/all/image/fake?gender=male&img=00460_940422_fa.png", "relevance":{"18":1.3189659714698792, "976":1.5695229321718216, "-1":null, "24":1, "overall":1.9442444518208504}, "count":{"18":2, "976":3, "-1":8, "24":1, "overall":6}, "interests":[18, 1221, 976, 402, 16597, 1438, 462, 1207, 17193, 17194, 17195, 63, 17196, 24]},
 //         {"id":12104, "type":person,"fid":146506817, "name":"Mario Louis", "pic":"/Macademia/all/image/fake?gender=male&img=00155_940128_fa.png", "relevance":{"18":0.6376854777336121, "24":1, "976":1.604827418923378, "-1":null, "1501":0.661139726638794, "overall":1.951826311647892}, "count":{"18":1, "24":1, "976":3, "-1":2, "1501":1, "overall":6}, "interests":[295, 24, 976, 12103, 12102, 12099, 12101, 12100]},
 //         {"id":443, "type":person,"fid":196250, "name":"Alana Seals", "pic":"/Macademia/all/image/fake?gender=female&img=00071_931230_fa.png", "relevance":{"-1":null, "24":1.5525153130292892, "18":0.6376854777336121, "1501":0.6479836702346802, "overall":1.4190922304987907}, "count":{"-1":15, "24":3, "18":1, "1501":1, "overall":5}, "interests":[444, 445, 446, 447, 948, 946, 947, 456, 455, 454, 453, 451, 450, 449, 448, 24, 457, 145, 295, 452]},
@@ -78,7 +78,7 @@ svg {
     var interests = [
 //        {"18": [1443, 16204, 323, 295, 3590, 227, 711]},
         {"id":18, "name":"WINNING", "cluster" : 18} ,
-        {"id":24, "name":"gum",  "cluster":18,"parentId":"18", "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
+        {"id":24, "name":"gum24",  "cluster":18,"parentId":"18", "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
         {"id":976, "name":"shoe", "cluster":18,"parentId":"18", "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
         {"id":1501, "name":"ben hillman", "cluster":18,"parentId":"18", "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
         {"id":1443, "name":"Text mining", "cluster":18, "parentId":"18","relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
@@ -88,7 +88,7 @@ svg {
         {"id":3590, "name":" information visualization", "cluster":18, "parentId":"18","relevance":0.724751889705658, "roles":[]},
         {"id":227, "name":"artificial intelligence", "cluster":18, "relevance":0.7178208231925964, "parentId":"18","roles":[] },
         {"id":711, "name":"artificial gum chewing", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
-        ,   {"id":20, "name":"debugging", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+        ,   {"id":20, "name":"debugging20", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
         ,   {"id":7, "name":"game of thrones", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
         ,   {"id":42, "name":"space", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
         ,   {"id":27, "name":"espeon", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
@@ -111,13 +111,9 @@ svg {
         "976":["3590", "25"],
         "1501":["227", "711", "20", "7", "42"]
     };
-    var i = 40;
-    var person = MC.person()
-//            .setCy(function (d) {
-//                i += 100;
-//                return i;
-//            })
-            .addOnHover(
+
+    var viz = new MC.BaseViz({clusterMap : clusterMap, people : people, interests : interests, svg : d3.select('svg')});
+    viz.createPersonView().addOnHover(
             function (d) {
                 console.log('in ' + d.name);
                 d3.select(this)
@@ -134,15 +130,7 @@ svg {
                         .duration(200)
                         .attr('fill', '#d4d4d4');
             });
-
-    d3.select('svg')
-            .attr('width', 800)
-            .attr('height', 800)
-            .selectAll('g.person')
-            .data(people)
-            .enter()
-            .call(person);
-
+    viz.createPeople();
 
         var interest = MC.interest()
                 .setCx(0)
