@@ -41,32 +41,20 @@ macademia.pageLoad = function() {
 
     //Setting temp to the current page
     macademia.history.init();
-    console.log("1");
     macademia.history.onUpdate(macademia.onAddressChange);
-    console.log("2");
     macademia.initLogoLink();
-    console.log("3");
     macademia.initializeTopNav();
-    console.log("4");
     macademia.initializeLogin();
-    console.log("5");
     macademia.nav();
-    console.log("6");
-//    macademia.updateNav();
-//    macademia.initiateGraph();
+    macademia.updateNav();
+    macademia.initiateGraph();
     macademia.autocomplete.initSearch();
-    console.log("7");
     macademia.toggleAccountControls();
-    console.log("8");
     macademia.setupRequestCreation();
-    console.log("9");
     macademia.density.initDensity();
-    console.log("10");
     macademia.initLogging();
-    console.log("11");
-//    macademia.changeDisplayedColleges();
+    macademia.changeDisplayedColleges();
     macademia.initAsteroids();
-    console.log("12");
 //    macademia.history.update();
 };
 
@@ -290,7 +278,8 @@ macademia.nav = function() {
 // Changes the visualization to new root node
 macademia.changeGraph = function(nodeId){
     console.log("changeGraph function called");
-    if (macademia.history.get('nodeId') != macademia.queryString.nodeId && macademia.history.get('institutions') == macademia.queryString.institutions) {
+    if (macademia.history.get('nodeId') != macademia.history.getTempValue('nodeId')
+        && macademia.history.get('institutions') == macademia.history.getTempValue('institutions')) {
         console.log("Case 1");
         if (macademia.rgraph){
             var param = macademia.history.get('nodeId');
@@ -301,15 +290,16 @@ macademia.changeGraph = function(nodeId){
             }else{
                 macademia.initiateGraph();
             }
-            macademia.queryString.nodeId = param;
+            macademia.history.setTempValue("nodeId",param);
         }
-    }else if(macademia.history.get('institutions') != undefined && macademia.history.get('institutions') != macademia.queryString.institutions){
+    }else if(macademia.history.get('institutions') != undefined
+        && macademia.history.get('institutions') != macademia.history.getTempValue('institutions')){
         //debug comment
         //this part is strange. The second and third are doing the same thing.
         console.log("Case 2");
         console.log(macademia.history.get('institutions'));
         macademia.initiateGraph();
-    } else if (macademia.rgraph && macademia.history.get('density') != macademia.queryString.density) {
+    } else if (macademia.rgraph && macademia.history.get('density') != macademia.history.getTempValue('density')) {
         console.log("Case 3");
         macademia.initiateGraph();
     } else if (macademia.history.get('institutions')==undefined){ //if institutions is undefined, try to give it an institution
@@ -361,9 +351,10 @@ macademia.updateNav = function(){
     macademia.showDivs(navFunction);
     if (navFunction == 'search'){
         macademia.submitSearch();
-        macademia.queryString.searchPage = macademia.history.get('searchPage');
+        macademia.history.setTempValue('searchPage',macademia.history.get('searchPage'));
         // go to search page
-    }else if (navFunction == 'person' && macademia.history.get('personId') != macademia.queryString.personId){
+    }else if (navFunction == 'person' && macademia.history.get('personId') != macademia.history.getTempValue("personId")){
+        console.log("POOP");
         var rootId = macademia.history.get('nodeId');
         if (rootId != 'p_empty') {
             $('#rightContent').load(macademia.makeActionUrl('person', 'show') + '/' + rootId.slice(2));
@@ -371,7 +362,7 @@ macademia.updateNav = function(){
     }else if (navFunction == 'request'){
         var rootId = macademia.history.get('nodeId');
         $('#rightContent').load(macademia.makeActionUrl('request', 'show') + '/' + rootId.slice(2));
-        macademia.queryString.requestId = macademia.history.get('requestId');
+        macademia.history.setTempValue('requestId',macademia.history.get('requestId'));
     }else if (navFunction == 'interest'){
         var rootId = macademia.history.get('nodeId');
         //debug comments:
@@ -379,7 +370,7 @@ macademia.updateNav = function(){
         //this function is only responsible for the contents on the right, which works correctly.
         $('#rightContent').load(macademia.makeActionUrl('interest', 'show') + '/' + rootId.slice(2));
     }//else if etc...
-    macademia.queryString.navFunction = navFunction;
+    macademia.history.setTempValue('navFunction',navFunction);
 };
 
 // removes unused parameters and updates used parameters
@@ -391,19 +382,18 @@ macademia.sortParameters = function(type,value){
                 macademia.history.setTempValue(queries[i],value);
             }
         } else {
-            if (macademia.history.get(queries[i]) || macademia.queryString[queries[i]]){
+            if (macademia.history.get(queries[i]) || macademia.history.getTempValue(queries[i])){
                 macademia.history.setTempValue(queries[i],null);
-                macademia.queryString[queries[i]] = null;
             }
         }
     }
     if (type != 'search'){
         macademia.history.setTempValue('searchPage', null);
-        macademia.queryString.searchPage = null;
     }
 };
 // hides and shows appropriate divs in right content div
 macademia.showDivs = function(type){
+
     var queries = ['searchBox','interestId','personId','requestId'];
     for(var i = 0; i < queries.length; i++){
         if (queries[i].indexOf(type) < 0){
@@ -682,43 +672,43 @@ macademia.initAsteroids = function() {
 /**
  * FIXME: handle lists of params
  */
-macademia.getQueryParams = function() {
-    var params = {};
-    var value = $.address.queryString();
-    if (value) {
-        var tokens = value.split('&');
-        for (var i = 0; i < tokens.length; i++) {
-            var p = tokens[i].split('=');
-            params[p[0]] = p[1];
-        }
-    }
-    return params;
-};
+//macademia.getQueryParams = function() {
+//    var params = {};
+//    var value = $.address.queryString();
+//    if (value) {
+//        var tokens = value.split('&');
+//        for (var i = 0; i < tokens.length; i++) {
+//            var p = tokens[i].split('=');
+//            params[p[0]] = p[1];
+//        }
+//    }
+//    return params;
+//};
 
 /**
  * FIXME: handle lists of params
  */
-macademia.setQueryParams = function(params) {
-    var currentNames = $.address.parameterNames();
-    var tokens = [];
-    var appendParam = function(k, v) {
-        tokens.push(k + '=' + ((v == null) ? '' : v));
-    }
-    // make sure existing keys retain the ordering
-    for (var i = 0; i < currentNames.length; i++) {
-        var key = currentNames[i];
-        if (key in params) {
-            appendParam(key, params[key]);
-        }
-    }
-    // add new keys
-    for (key in params) {
-        if (currentNames.indexOf(key) < 0) {
-            appendParam(key, params[key]);
-        }
-    }
-    $.address.queryString(tokens.join('&'));
-};
+//macademia.setQueryParams = function(params) {
+//    var currentNames = $.address.parameterNames();
+//    var tokens = [];
+//    var appendParam = function(k, v) {
+//        tokens.push(k + '=' + ((v == null) ? '' : v));
+//    }
+//    // make sure existing keys retain the ordering
+//    for (var i = 0; i < currentNames.length; i++) {
+//        var key = currentNames[i];
+//        if (key in params) {
+//            appendParam(key, params[key]);
+//        }
+//    }
+//    // add new keys
+//    for (key in params) {
+//        if (currentNames.indexOf(key) < 0) {
+//            appendParam(key, params[key]);
+//        }
+//    }
+//    $.address.queryString(tokens.join('&'));
+//};
 
 
 macademia.getCookie = function (c_name) {

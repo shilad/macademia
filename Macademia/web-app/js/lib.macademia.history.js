@@ -64,7 +64,9 @@ MH.setTemp = function(map) {
 };
 MH.getTemp= function(){
     return temp;
-
+};
+MH.getTempValue= function(name){
+    return temp[name];
 };
 /*
  *  Gets the state back i indices
@@ -84,7 +86,7 @@ MH.getOld = function(i) {
 MH.onUpdate = function(fn) {
     var f = function(e) {
         console.log(e);
-        MH.init();
+//        MH.init();
         if(fn){
             fn.call(this);
         }
@@ -156,6 +158,17 @@ MH.parseUrl= function(hashUrl){
 };
 
 MH.init = function(){
-    MH.setTemp(MH.parseUrl(History.getHash()));
+    MH.setTemp({
+    nodeId:'p_1',
+    navVisibility:'true',
+    navFunction:'search',
+    institutions:'all',
+    searchBox:null,
+    interestId:null,
+    personId:null,
+    requestId:null,
+    searchPage:null,
+    density:null
+});
 
 };
