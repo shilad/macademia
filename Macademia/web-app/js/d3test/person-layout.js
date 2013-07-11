@@ -14,6 +14,7 @@ MC.personLayout = function () {
         var interestNodes = pl.getInterestNodes();
         var peopleNodes = pl.getPeopleNodes();
 
+
         var linkDis = pl.getOrCallLinkDistance();
         var grav = pl.getOrCallGravity();
         var friction = pl.getOrCallFriction();
@@ -37,20 +38,23 @@ MC.personLayout = function () {
 
         var surrogates = {};
 
+
         //copies the interest node information--not sure why
         // perhaps this was to avoid radial coordinates
         interestNodes.each(function (d, i) {
             var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
+
             surrogates[d.id] = {
-                type: d.type,
+                type: (d.id in clusterMap) ? 'hub' : 'leaf',
                 id: d.id,
                 fixed: true,  // interests cannot move
                 x: pos.x,
                 y: pos.y,
                 real: d
             };
+
         });
-        console.log(surrogates);
+
 
         var getPrimaryInterest = function (p) {
             var maxId = -1;
@@ -67,6 +71,7 @@ MC.personLayout = function () {
 
         //constructing data structure, sets x and y coords,
         peopleNodes.each(function (p, i) {
+            p.type = 'person';
             var primary = surrogates[getPrimaryInterest(p)];
             if (primary) {
                 p.x = primary.x + (0.5 - Math.random()) * 50;
@@ -77,7 +82,7 @@ MC.personLayout = function () {
         // create an edge between each person and the hubs the relate to.
         var links = [];
         peopleNodes.each(function (p, i) {
-            console.log(p)
+//            console.log(p)
             $.map(p.relevance, function (r, iid) {
                 console.log(iid);
                 if (iid != -1 && iid != 'overall') {
@@ -90,7 +95,7 @@ MC.personLayout = function () {
             });
         });
 
-        console.log(links);
+//        console.log(links);
         //get list of values for already made arrays
 
 
@@ -118,32 +123,7 @@ MC.personLayout = function () {
             })
             .gravity(grav)
             .linkDistance(linkDis)
-            .charge(function (d) {
-                console.log("clusterMap" + d.id);
-                //checks to see if it is a hub
-                if (clusterMap[d.id]) {
-//                  console.log("clusterMap"+ d.id);
-                    return -600;
-                }
-
-                //checks to see if it is of type person
-                else if (d.type == 'person') {
-//                    console.log("he" + d.type);
-                    return -600;
-                }
-                //other interests that are not hubs
-                else {
-//                   console.log("work" +d.id);
-                    return -50;
-                }
-
-
-//                interest check.  no write but works :)
-//                else if(d.type == "interest"){
-//                    return -600;
-//                }
-
-            })
+            .charge(pl.getCharge)
             .friction(friction)
             .start();
         //creates a new g  for each new person
@@ -182,7 +162,7 @@ MC.personLayout = function () {
 //            o.x += i & 2 ? k : -k;
 //        });
 
-            personNodes.attr("transform", function (d) {
+            peopleNodes.attr("transform", function (d) {
                 d.x = pinch(d.x, 50, 750);
                 d.y = pinch(d.y, 50, 750);
                 return "translate(" + d.x + "," + d.y + ")";
@@ -190,7 +170,7 @@ MC.personLayout = function () {
         });
 
         d3.select("body").on("click", function () {
-            personNodes.forEach(function (o, i) {
+            peopleNodes.forEach(function (o, i) {
                 o.x += (Math.random() - .5) * 40;
                 o.y += (Math.random() - .5) * 40;
             });
@@ -210,6 +190,16 @@ MC.personLayout = function () {
     });
     MC.options.register(pl, 'clusterMap', function () {
         throw('no clusterMap specified');
+    });
+    MC.options.register(pl, 'charge', function(d) {
+        //checks to see if it is a hub
+        if (d.type == 'hub') {
+            return -50;
+        } else if (d.type == 'person') {
+            return -600;
+        } else {
+            return -50;
+        }
     });
 
     return pl;
