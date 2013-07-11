@@ -62,7 +62,7 @@ modules = {
         defaultBundle 'macademia.js.nbrviz'
 
         resource url: '/js/nbrviz/jquery-ui-1.8.16.custom.min.js'
-        resource url: '/js/jquery/jquery.address-1.6.js'
+//        resource url: '/js/jquery/jquery.address-1.6.js'
         resource url: '/js/lib.macademia.js'
         resource url: '/js/lib.macademia.json.js'
         resource url: '/js/lib.macademia.jit.js'

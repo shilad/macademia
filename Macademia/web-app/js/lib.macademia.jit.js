@@ -19,7 +19,8 @@ macademia.jit.buildingGraph = false;
 
 macademia.makeJsonUrl = function(type, id) {
     // TODO: should this really go here?
-    var density = macademia.history.get('density');
+    var density = macademia.history.get('density') || 3;
+//    console.log("Density in makeJsonUrl: "+density);
     if (!density || density == undefined || density == 'undefined') {
         density = 3; 
     }
@@ -129,8 +130,8 @@ macademia.jit.highlightInstitutionOff = function(institution) {
 };
 
 macademia.jit.init = function(rootType,id){
-    console.log(rootType);
-    console.log(id);
+//    console.log(rootType);
+//    console.log(id);
     if (macademia.jit.buildingGraph) {
         return;
     }

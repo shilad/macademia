@@ -40,13 +40,19 @@ var temp = {};
 /*
  * Returns the parameter with the specified name.
  */
-MH.get = function(name) {
+MH.get = function(key) {
 
 //  I am not sure whether I should use the current one or temp
 //  I think we should use temp
 //    return MH.parseUrl(History.getHash())[name];
 //    return temp[name];
-    return MH.parseUrl(History.getState().hash)[name];
+    var map=MH.parseUrl(History.getState().hash);
+    if (key) {
+        return map[key];
+    } else {
+        return map;
+    }
+
 
 
 };
@@ -93,23 +99,32 @@ MH.getOld = function(key) {
  */
 MH.onUpdate = function(fn) {
     var f = function(e) {
-        console.log(e);
-        console.log("Getting State");
-        console.log(History.getState());
-        console.log("Getting Old");
-        console.log(MH.getOld());
-        console.log("Getting Hash");
-        console.log(History.getHash());
+//        console.log(e);
+//        console.log("Getting State");
+//        console.log(History.getStateByIndex(History.getCurrentIndex()));
+//        console.log("Getting Old");
+//        console.log(MH.getOld());
 
-        MH.setTemp(MH.parseUrl(History.getState().hash));
-        console.log("Temp");
-        console.log(temp);
+
+
+//        var targetMap=MH.get();
+//        console.log("targetMap");
+//        console.log(targetMap);
+//        for(var key in targetMap){
+//            MH.setTempValue(key,targetMap[key]);
+//        }
+
+//        console.log("Temp");
+//        console.log(temp);
 
         if(fn){
 
-            console.log('onupdate!');
+//           console.log('onupdate!');
+//           console.log(History.getState());
             fn.call(this);
         }
+
+        console.log(temp);
     };
 
     History.Adapter.bind(window,'statechange',f);
@@ -131,7 +146,7 @@ MH.bindAnchors = function(anchors) {
 //        MH.update();
 //    });
     $(anchors).live("click",function(e){
-        console.log(temp);
+//        console.log(temp);
         e.preventDefault();
         var targetMap=MH.parseUrl(e.target.hash);
         var types = ['searchBox','interestId','personId','requestId'];
@@ -142,13 +157,13 @@ MH.bindAnchors = function(anchors) {
             MH.setTempValue(key,targetMap[key]);
         }
 
-        console.log(temp);
+//        console.log(temp);
 
 
         MH.update();
-         //after update before these consoles the states become correct... FIND WHERE
-        console.log(History.getState());
-        console.log(MH.getOld());
+         //after update before these logs the states become correct... FIND WHERE
+//        console.log(History.getState());
+//        console.log(MH.getOld());
 
 
     });
@@ -158,8 +173,10 @@ MH.bindAnchors = function(anchors) {
  * Push the changes in temp to the history stack
  */
 MH.update = function(){
-    History.pushState(temp,'',MH.unparseUrl(temp));
-//    MH.setTemp(MH.parseUrl(History.getHash()));
+//    console.log('pushing state ' + MH.unparseUrl(temp));  //correct
+    var urlhash = MH.unparseUrl(temp);
+    console.log(urlhash);
+    History.pushState(temp,null,urlhash);
 
 };
 
@@ -170,7 +187,12 @@ MH.update = function(){
  * ?test1=test1
  */
 MH.unparseUrl= function(map){
+//    console.log("unparse map");              //correct
+//    console.log(map);                        //correct
     var s="?"+decodeURIComponent($.param(map));
+//    console.log("Unparsed string");          //correct
+//    console.log(s);                          //correct
+
     return s;
 };
 
