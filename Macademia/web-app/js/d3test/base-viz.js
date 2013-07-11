@@ -72,8 +72,9 @@ MC.BaseViz.prototype.createInterestLayout = function(){
 MC.BaseViz.prototype.createPersonLayoutView = function(){
     this.personLayoutView = MC.personLayout()
         .setLinkDistance(10)
-            .setGravity(.005)
-            .setFriction(.8)
+        .setGravity(.005)
+        .setFriction(.8)
+
         .setPeopleNodes(this.getD3People())
         .setClusterMap(this.clusterMap)
         .setInterestNodes(this.getD3Interests());
