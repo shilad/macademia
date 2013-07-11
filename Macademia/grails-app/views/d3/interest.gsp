@@ -33,45 +33,58 @@ svg {
     var i = 0;
 
     var interests = [
-        {'name' : 'Rock climbing', 'color' : 0.3},
-        {'name' : 'Squash', 'color' : 0.7}
+        {'name' : 'Espeon', 'color' : 0.5, 'r': 15},
+        {'name' : 'Umbreon', 'color' : 0.69, 'r': 5}
     ];
 
-    var interest = MC.interest()
-        .setCy(function (d) {
-            i += 40;
-            return i;
-        })
-        .addOnHover(
+    var interest = MC.interestZ()
+            .setCy(function (d) {
+                i += 40;
+                return i;
+            })
+            .addOnHover(
             function (d) {
-                console.log('in ' + d.name);
                 d3.select(this)
-                    .selectAll('text')
-                    .transition()
-                    .duration(200)
-                    .attr('fill', 'red');
+                        .selectAll('text')
+                        .transition()
+                        .duration(200)
+                        .attr('fill', 'red');
             },
             function (d) {
-                console.log('out ' + d.name);
                 d3.select(this)
                         .selectAll('text')
                         .transition()
                         .duration(200)
                         .attr('fill', 'black');
+            })
+            .setEnterTransition(function() {
+                this.attr('opacity', 1)
+                    .duration(1000);
             });
 
     d3.select('svg')
             .attr('width', 500)
             .attr('height', 500)
-            .selectAll('interests')
-            .data([0])
-            .append('g')
-            .attr('class', 'interests')
-            .data(interests)
-            .enter()
+            .datum(interests)
             .call(interest);
+
+
+    window.setTimeout(function() {
+        interests[0].r *= 2;
+        var interest = MC.interestZ()
+                .setUpdateTransition(function () {
+                    this.duration(1000);
+                });
+        d3.select('svg')
+                .datum(interests)
+                .call(interest);
+
+    }, 1000);
+
+
 </r:script>
 
-<svg></svg>
+<svg>
+</svg>
 </body>
 </html>
