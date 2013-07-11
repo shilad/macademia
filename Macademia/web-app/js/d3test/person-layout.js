@@ -14,6 +14,7 @@ MC.personLayout = function () {
         var interestNodes = pl.getInterestNodes();
         var peopleNodes = pl.getPeopleNodes();
 
+
         var linkDis = pl.getOrCallLinkDistance();
         var grav = pl.getOrCallGravity();
         var friction = pl.getOrCallFriction();
@@ -37,6 +38,7 @@ MC.personLayout = function () {
 
         var surrogates = {};
 
+
         //copies the interest node information--not sure why
         // perhaps this was to avoid radial coordinates
         interestNodes.each(function (d, i) {
@@ -50,8 +52,9 @@ MC.personLayout = function () {
                 y: pos.y,
                 real: d
             };
+
         });
-        console.log(surrogates);
+
 
         var getPrimaryInterest = function (p) {
             var maxId = -1;
@@ -79,7 +82,7 @@ MC.personLayout = function () {
         // create an edge between each person and the hubs the relate to.
         var links = [];
         peopleNodes.each(function (p, i) {
-            console.log(p)
+//            console.log(p)
             $.map(p.relevance, function (r, iid) {
                 console.log(iid);
                 if (iid != -1 && iid != 'overall') {
@@ -92,7 +95,7 @@ MC.personLayout = function () {
             });
         });
 
-        console.log(links);
+//        console.log(links);
         //get list of values for already made arrays
 
 
@@ -120,7 +123,7 @@ MC.personLayout = function () {
             })
             .gravity(grav)
             .linkDistance(linkDis)
-            .charge(pl.getCharge())
+            .charge(pl.getCharge)
             .friction(friction)
             .start();
         //creates a new g  for each new person
@@ -159,7 +162,7 @@ MC.personLayout = function () {
 //            o.x += i & 2 ? k : -k;
 //        });
 
-            personNodes.attr("transform", function (d) {
+            peopleNodes.attr("transform", function (d) {
                 d.x = pinch(d.x, 50, 750);
                 d.y = pinch(d.y, 50, 750);
                 return "translate(" + d.x + "," + d.y + ")";
@@ -167,7 +170,7 @@ MC.personLayout = function () {
         });
 
         d3.select("body").on("click", function () {
-            personNodes.forEach(function (o, i) {
+            peopleNodes.forEach(function (o, i) {
                 o.x += (Math.random() - .5) * 40;
                 o.y += (Math.random() - .5) * 40;
             });
