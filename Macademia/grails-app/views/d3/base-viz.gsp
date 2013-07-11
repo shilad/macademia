@@ -131,14 +131,24 @@ svg {
                         .duration(200)
                         .attr('fill', '#d4d4d4');
             });
-    viz.createPeople();
 
-    var i = 40;
 //    var personView = MC.person()
 //            .setCy(function (d) {
 //                i += 100;
 //                return i;
 //            })
+
+
+
+    viz.createPeople();
+
+    viz.createInterestView()
+
+
+
+
+    var i = 40;
+
 
 
         var interest = MC.interest()
