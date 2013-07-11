@@ -112,96 +112,80 @@ svg {
         "1501":["227", "711", "20", "7", "42"]
     };
 
-    var viz = new MC.BaseViz({clusterMap : clusterMap, people : people, interests : interests, svg : d3.select('svg')});
-    viz.createPersonView().addOnHover(
-            function (d) {
-                console.log('in ' + d.name);
-                d3.select(this)
-                        .selectAll('text')
-                        .transition()
-                        .duration(200)
-                        .attr('fill', 'black');
-            },
-            function (d) {
-                console.log('out ' + d.name);
-                d3.select(this)
-                        .selectAll('text')
-                        .transition()
-                        .duration(200)
-                        .attr('fill', '#DCDCDC');
-            });
+    var viz = new MC.BaseViz({
+        cloneInterests: cloneInterests,
+        clusterMap : clusterMap,
+        people : people,
+        interests : interests, svg : d3.select('svg')});
+
+    viz.createPersonView()
+//            .addOnHover(
+//            function (d) {
+//                console.log('in ' + d.name);
+//                d3.select(this)
+//                        .selectAll('text')
+//                        .transition()
+//                        .duration(200)
+//                        .attr('fill', 'black');
+//            },
+//            function (d) {
+//                console.log('out ' + d.name);
+//                d3.select(this)
+//                        .selectAll('text')
+//                        .transition()
+//                        .duration(200)
+//                        .attr('fill', '#DCDCDC');
+//            });
     viz.createPeople();
+    viz.createInterestView();
+    viz.createInterests();
+//            .addOnHover(
+//                function (d) {
+//                    d3.select(this)
+//                            .selectAll('text')
+//                            .transition()
+//                            .duration(200)
+//                            .attr('fill', 'black');
+//                },
+//                function (d) {
+//                    console.log('out ' + d.name);
+//                    d3.select(this)
+//                            .selectAll('text')
+//                            .transition()
+//                            .duration(200)
+//                            .attr('fill', '#DCDCDC');
+//                });
 
-    var i = 40;
-    var personView = MC.person()
-//            .setCy(function (d) {
-//                i += 100;
-//                return i;
-//            })
-
-
-        var interest = MC.interest()
-                .setCx(0)
-    //        .setCy(function (d) {
-    //                console.log('in ' + d.name);
-    //                i += 40;
-    //                return i;
-    //        })
-                .setCy(0)
-                .addOnHover(
-                function (d) {
-                    d3.select(this)
-                            .selectAll('text')
-                            .transition()
-                            .duration(200)
-                            .attr('fill', 'black');
-                },
-                function (d) {
-                    console.log('out ' + d.name);
-                    d3.select(this)
-                            .selectAll('text')
-                            .transition()
-                            .duration(200)
-                            .attr('fill', '#DCDCDC');
-                });
-
-        d3.select('svg')
-                .attr('width', 800)
-                .attr('height', 800)
-                .selectAll('interests')
-                .data(interests)
-                .enter()
-                .call(interest)[0];
+//        d3.select('svg')
+//                .attr('width', 800)
+//                .attr('height', 800)
+//                .selectAll('interests')
+//                .data(interests)
+//                .enter()
+//                .call(interest)[0];
 
     var interestNodes = d3.selectAll('g.interest');
     var personNodes  = d3.selectAll('g.person');
 
-    var interestLayout = MC.interestLayout()
-            .setDiameter(500)
-            .setInterests(cloneInterests)
-            .setClusterMap(clusterMap)
-            .setRootId('18')
-            .setInterestNodes(interestNodes);
+    viz.createInterestLayoutView();
+    viz.createInterestLayout();
+    viz.createPersonLayoutView();
+    viz.createPersonLayout();
 
-    d3.select('svg')
-            .selectAll('interest-layouts')
-            .data([0])
-            .enter()
-            .call(interestLayout);
 
-    var personLayout = MC.personLayout()
-            .setLinkDistance(10)
-            .setGravity(.005)
-            .setFriction(.8)
-            .setPeopleNodes(personNodes)
-            .setClusterMap(clusterMap)
-            .setInterestNodes(interestNodes);
-
-    d3.select('svg')
-            .selectAll('person-layouts')
-            .data([0])
-            .enter()
-            .call(personLayout);
+//    var personLayout = MC.personLayout()
+//            .setLinkDistance(10)
+//            .setGravity(.005)
+//            .setFriction(.8)
+//            .setPeopleNodes(personNodes)
+//            .setClusterMap(clusterMap)
+//            .setInterestNodes(interestNodes);
+//
+//    d3.select('svg')
+//            .selectAll('person-layouts')
+//            .data([0])
+//            .enter()
+//            .call(personLayout);
 
 
 
