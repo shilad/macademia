@@ -295,7 +295,7 @@ macademia.changeGraph = function(nodeId){
     var currentRoot = macademia.history.get('nodeId');
     var lastInstitutions = macademia.history.getOld('institutions');
     var currentInstitutions = macademia.history.get('institutions');
-    var lastDensity = macademia.history.getOld('density');
+    var lastDensity = macademia.history.getOld('density') || 3;
     var currentDensity = macademia.history.get('density');
 //    console.log("lastRoot");
 //    console.log(lastRoot);
@@ -305,6 +305,10 @@ macademia.changeGraph = function(nodeId){
 //    console.log(lastInstitutions);
 //    console.log("currentInstitutions");
 //    console.log(currentInstitutions);
+//    console.log("lastDensity");
+//    console.log(lastDensity);
+//    console.log("currentDensity");
+//    console.log(currentDensity);
 
 
     // If we can animate a transition to the new root, do it

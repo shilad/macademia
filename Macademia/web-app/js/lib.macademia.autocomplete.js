@@ -124,7 +124,7 @@ macademia.autocomplete.initSearch = function() {
 
                 macademia.history.setTempValue('nodeId', type.substring(0, 1) + "_" + id);
                 macademia.history.setTempValue('navFunction', type);
-                macademia.sortParameters(type, id);
+//                macademia.sortParameters(type, id);
 //                location.href = '/Macademia/' + group + '/person/jit/#' + $.address.value();
                 macademia.history.update();
                 $("#searchBox").val("");

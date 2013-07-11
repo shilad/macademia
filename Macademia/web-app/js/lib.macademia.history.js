@@ -101,18 +101,17 @@ MH.onUpdate = function(fn) {
     var f = function(e) {
 //        console.log(e);
 //        console.log("Getting State");
-//        console.log(History.getStateByIndex(History.getCurrentIndex()));
 //        console.log("Getting Old");
 //        console.log(MH.getOld());
 
 
 
-//        var targetMap=MH.get();
-//        console.log("targetMap");
+        var targetMap=MH.get();
+//        console.log(History.getState());
 //        console.log(targetMap);
-//        for(var key in targetMap){
-//            MH.setTempValue(key,targetMap[key]);
-//        }
+        for(var key in targetMap){
+            MH.setTempValue(key,targetMap[key]);
+        }
 
 //        console.log("Temp");
 //        console.log(temp);
@@ -124,7 +123,7 @@ MH.onUpdate = function(fn) {
             fn.call(this);
         }
 
-        console.log(temp);
+//        console.log(temp);
     };
 
     History.Adapter.bind(window,'statechange',f);
@@ -175,8 +174,8 @@ MH.bindAnchors = function(anchors) {
 MH.update = function(){
 //    console.log('pushing state ' + MH.unparseUrl(temp));  //correct
     var urlhash = MH.unparseUrl(temp);
-    console.log(urlhash);
-    History.pushState(temp,null,urlhash);
+//    console.log(urlhash);
+    History.pushState(null,null,urlhash);
 
 };
 
@@ -210,6 +209,7 @@ MH.parseUrl= function(hashUrl){
     urlParams = {};
     while (match = search.exec(query))
         urlParams[decode(match[1])] = decode(match[2]);
+    delete urlParams._suid;
     //console.log(urlParams);
     return urlParams;
 };
