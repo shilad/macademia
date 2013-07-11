@@ -40,11 +40,11 @@ MC.BaseViz.prototype.createInterests = function(){
                 .data(this.interests)
                 .enter()
                 .call(this.interestView);
-}
+};
 
 MC.BaseViz.prototype.getD3Interests = function() {
     return this.svg.selectAll('g.interest');
-}
+};
 
 MC.BaseViz.prototype.getD3People = function() {
     return this.svg.selectAll('g.person');
@@ -59,7 +59,15 @@ MC.BaseViz.prototype.createInterestLayoutView = function(){
           .setInterestNodes(this.getD3Interests());
              //makes a public variable
       return this.interestLayoutView;
-}
+};
+
+MC.BaseViz.prototype.createPersonLayoutView = function(){
+    this.personLayoutView = MC.personLayout()
+        .setPeopleNodes(this.getD3People())
+        .setClusterMap(this.clusterMap)
+        .setInterestNodes(this.getD3Interests());
+    return this.personLayoutView;
+};
 
 MC.BaseViz.prototype.createInterestLayout = function(){
     this.svg
@@ -67,20 +75,7 @@ MC.BaseViz.prototype.createInterestLayout = function(){
         .data([0])
         .enter()
         .call(this.interestLayoutView);
-}
-
-MC.BaseViz.prototype.createPersonLayoutView = function(){
-    this.personLayoutView = MC.personLayout()
-        .setLinkDistance(10)
-        .setGravity(.005)
-        .setFriction(.8)
-
-        .setPeopleNodes(this.getD3People())
-        .setClusterMap(this.clusterMap)
-        .setInterestNodes(this.getD3Interests());
-    return this.personLayoutView;
-}
-
+} ;
 
 MC.BaseViz.prototype.createPersonLayout = function(){
     this.svg
@@ -88,4 +83,4 @@ MC.BaseViz.prototype.createPersonLayout = function(){
         .data([0])
         .enter()
         .call(this.personLayoutView);
-}
+} ;

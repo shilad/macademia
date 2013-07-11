@@ -164,12 +164,12 @@ svg {
 //                .enter()
 //                .call(interest)[0];
 
-    var interestNodes = d3.selectAll('g.interest');
-    var personNodes  = d3.selectAll('g.person');
+//    var interestNodes = d3.selectAll('g.interest');
+//    var personNodes  = d3.selectAll('g.person');
 
     viz.createInterestLayoutView();
-    viz.createInterestLayout();
     viz.createPersonLayoutView();
+    viz.createInterestLayout();
     viz.createPersonLayout();
 
 
@@ -180,7 +180,7 @@ svg {
 //            .setPeopleNodes(personNodes)
 //            .setClusterMap(clusterMap)
 //            .setInterestNodes(interestNodes);
-//
+////
 //    d3.select('svg')
 //            .selectAll('person-layouts')
 //            .data([0])
