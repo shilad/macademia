@@ -102,8 +102,6 @@ svg {
 
     ];
 
-    var cloneInterests = $.extend(true, [], interests);
-
     var clusterMap = {
         "18": ["1443", "16204", "1501", "24", "976", "43", "44"],
         "44" : ["6"],
@@ -113,59 +111,15 @@ svg {
     };
 
     var viz = new MC.BaseViz({
-        cloneInterests: cloneInterests,
         clusterMap : clusterMap,
         people : people,
         interests : interests, svg : d3.select('svg')});
 
-    viz.createPersonView()
-//            .addOnHover(
-//            function (d) {
-//                console.log('in ' + d.name);
-//                d3.select(this)
-//                        .selectAll('text')
-//                        .transition()
-//                        .duration(200)
-//                        .attr('fill', 'black');
-//            },
-//            function (d) {
-//                console.log('out ' + d.name);
-//                d3.select(this)
-//                        .selectAll('text')
-//                        .transition()
-//                        .duration(200)
-//                        .attr('fill', '#DCDCDC');
-//            });
+    viz.createPersonView();
+
     viz.createPeople();
     viz.createInterestView();
     viz.createInterests();
-//            .addOnHover(
-//                function (d) {
-//                    d3.select(this)
-//                            .selectAll('text')
-//                            .transition()
-//                            .duration(200)
-//                            .attr('fill', 'black');
-//                },
-//                function (d) {
-//                    console.log('out ' + d.name);
-//                    d3.select(this)
-//                            .selectAll('text')
-//                            .transition()
-//                            .duration(200)
-//                            .attr('fill', '#DCDCDC');
-//                });
-
-//        d3.select('svg')
-//                .attr('width', 800)
-//                .attr('height', 800)
-//                .selectAll('interests')
-//                .data(interests)
-//                .enter()
-//                .call(interest)[0];
-
-//    var interestNodes = d3.selectAll('g.interest');
-//    var personNodes  = d3.selectAll('g.person');
 
     viz.createInterestLayoutView();
     viz.createPersonLayoutView();
@@ -173,19 +127,19 @@ svg {
     viz.createPersonLayout();
 
 
-//    var personLayout = MC.personLayout()
-//            .setLinkDistance(10)
-//            .setGravity(.005)
-//            .setFriction(.8)
-//            .setPeopleNodes(personNodes)
-//            .setClusterMap(clusterMap)
-//            .setInterestNodes(interestNodes);
-////
-//    d3.select('svg')
-//            .selectAll('person-layouts')
-//            .data([0])
-//            .enter()
-//            .call(personLayout);
+    //    var personLayout = MC.personLayout()
+    //            .setLinkDistance(10)
+    //            .setGravity(.005)
+    //            .setFriction(.8)
+    //            .setPeopleNodes(personNodes)
+    //            .setClusterMap(clusterMap)
+    //            .setInterestNodes(interestNodes);
+    ////
+    //    d3.select('svg')
+    //            .selectAll('person-layouts')
+    //            .data([0])
+    //            .enter()
+    //            .call(personLayout);
 
 
 
