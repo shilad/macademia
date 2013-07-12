@@ -6,21 +6,21 @@ MC.BaseViz = function(params) {
     this.people = params.people;
     this.interests = params.interests;
     this.svg = params.svg;
-//    this.cloneInterests = params.cloneInterests;    // REMOVE ME
+    this.cloneInterests = params.cloneInterests;    // REMOVE ME
 };
 
-MC.BaseViz.prototype.getCloneInterests = function(){
-    this.cloneInterests={};
-    $.each(this.interests, function (i, d) {
-        var clone = $.extend(true, {}, d);
-        interests[clone.id] = clone;
-        this.cloneInterests.add(clone);
-    })
-
-    return this.cloneInterests;
-
-
-}
+//MC.BaseViz.prototype.getCloneInterests = function(){
+//    this.cloneInterests={};
+//    $.each(this.interests, function (i, d) {
+//        var clone = $.extend(true, {}, d);
+//        interests[clone.id] = clone;
+//        this.cloneInterests.add(clone);
+//    })
+//
+//    return this.cloneInterests;
+//
+//
+//}
 
 
 
@@ -68,7 +68,7 @@ MC.BaseViz.prototype.createInterestLayoutView = function(){
       this.interestLayoutView = MC.interestLayout()
           .setDiameter(500)
           .setRootId('18')
-          .setInterests(this.getCloneInterests)//.setInterests(this.cloneInterests)
+          .setInterests(this.cloneInterests)//.setInterests(this.cloneInterests)
           .setClusterMap(this.clusterMap)
           .setInterestNodes(this.getD3Interests());
              //makes a public variable
