@@ -32,17 +32,17 @@ svg {
 <r:script>
     var interests = [
 //        {"18": [1443, 16204, 323, 295, 3590, 227, 711]},
-        {"id":18, "name":"WINNING", "cluster" : 18} ,
-        {"id":24, "name":"gum",  "cluster":18,"parentId":"18", "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
-        {"id":976, "name":"shoe", "cluster":18,"parentId":"18", "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
-        {"id":1501, "name":"ben hillman", "cluster":18,"parentId":"18", "relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
-        {"id":1443, "name":"Text mining", "cluster":18, "parentId":"18","relevance":0.7576502561569214, "roles":[], 'color':'#000000'},
+        {"id":18, "name":"WINNING", "cluster" : 18, "color": "#ff4444"} ,
+        {"id":24, "name":"gum",  "cluster":18,"parentId":"18", "relevance":0.7576502561569214, "roles":[], "color": "#9a679f"},
+        {"id":976, "name":"shoe", "cluster":18,"parentId":"18", "relevance":0.7576502561569214, "roles":[], "color": "#81a3d0"},
+        {"id":1501, "name":"ben hillman", "cluster":18,"parentId":"18", "relevance":0.7576502561569214, "roles":[], "color": "#ffbd55"},
+        {"id":1443, "name":"Text mining", "cluster":18, "parentId":"18","relevance":0.7576502561569214, "roles":[]},
         {"id":16204, "name":" text analytics", "cluster":18, "parentId":"18","relevance":0.7576502561569214, "roles":[]},
         {"id":323, "name":"machine learning", "cluster":18, "parentId":"18","relevance":0.7538068890571594, "roles":[]},
         {"id":295, "name":" regression", "cluster":18,"parentId":"18", "relevance":0.7336868643760681, "roles":[]},
         {"id":3590, "name":" information visualization", "cluster":18, "parentId":"18","relevance":0.724751889705658, "roles":[]},
         {"id":227, "name":"artificial intelligence", "cluster":18, "relevance":0.7178208231925964, "parentId":"18","roles":[] },
-        {"id":711, "name":"artificial gum chewing", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+        {"id":711, "name":"kittens", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
      ,   {"id":20, "name":"debugging", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
      ,   {"id":7, "name":"game of thrones", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
      ,   {"id":42, "name":"space", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
@@ -52,19 +52,20 @@ svg {
      ,   {"id":88, "name":"magic", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
      ,   {"id":25, "name":"dragons", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
      ,   {"id":43, "name":"cow", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
-     ,   {"id":6, "name":"baseball", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
-     ,   {"id":44, "name":"green", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
-
+     ,   {"id":77, "name":"blastoise", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+     ,   {"id":993, "name":"charmander", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+     ,   {"id":543, "name":"ninjas", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+     ,   {"id":9001, "name":"world domination", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
+     ,   {"id":99405, "name":"bunnies", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
     ];
 
     var cloneInterests = $.extend(true, [], interests);
 
     var clusterMap = {
-        "18": ["1443", "16204", "1501", "24", "976", "43", "44"],
-        "44" : ["6"],
+        "18": ["1443", "16204", "1501", "24", "976", "43"],
         "24":["323", "295", "27", "5", "150", "88"],
-        "976":["3590", "25"],
-        "1501":["227", "711", "20", "7", "42"]
+        "976":["3590", "25", "993", "543", "9001", "99405"],
+        "1501":["227", "711", "20", "7", "42", "77"]
     };
 
 
@@ -87,13 +88,13 @@ svg {
                     .attr('fill', 'black');
             },
             function (d) {
-                console.log('out ' + d.name);
                 d3.select(this)
                         .selectAll('text')
                         .transition()
                         .duration(200)
                         .attr('fill', '#DCDCDC');
-            });
+            })
+            .setColor(function(d) {return d.color});
 
 //    var interestLayout = MC.interestLayout()
 //
@@ -127,10 +128,6 @@ svg {
             .data([0])
             .enter()
             .call(interestLayout);
-
-
-
-
 </r:script>
 
 <svg>

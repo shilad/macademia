@@ -45,7 +45,7 @@ MC.interest = function() {
             });
 
         var c = g.append('circle')
-                .attr('fill', function (d) { return MC.hueToColor(d.color); })
+                .attr('fill', interest.getColor())
                 .attr('r', interest.getR());
 
         interest.getOrCallOnHover().forEach(function (v) {
@@ -57,15 +57,17 @@ MC.interest = function() {
             .setText(interest.getText())
             .setAlign('middle');
 
+
         g.call(l);
 
         return g;
     }
 
     MC.options.register(interest, 'text', function (d) { return d.name; });
+    MC.options.register(interest, 'color', function (d) { return MC.hueToColor(d.color); })
     MC.options.register(interest, 'cx', 100);
     MC.options.register(interest, 'cy', 100);
-    MC.options.register(interest, 'r', 10);
+    MC.options.register(interest, 'r', function(d) { return d.r; });
     MC.options.register(interest, 'onHover', [], MC.options.TYPE_LIST);
     MC.options.register(interest, 'cssClass', 'interest');
 

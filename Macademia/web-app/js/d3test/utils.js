@@ -27,6 +27,7 @@ MC.getTransformedPosition = function(svg, shape, x, y) {
  * @return {*} D3 color.
  */
 MC.hueToColor = function(h) {
+//    console.log(h);
     return d3.hsl(h * 359, 0.8, 0.8);
 };
 
