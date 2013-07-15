@@ -111,8 +111,6 @@ macademia.showColleges = function(){
 
 // puts the selected colleges from the college filter into the address bar
 macademia.collegeSelection = function() {
-    var newUrl = macademia.updateIgInURL();
-    var groupChanged = macademia.checkForGroupChange(newUrl);
 
     var colleges = new Array();
     $("#selectedColleges li").each(function() {
@@ -121,6 +119,8 @@ macademia.collegeSelection = function() {
         }
     });
 
+    var newUrl = macademia.makeConsortiumUrl();
+    var groupChanged = macademia.checkForGroupChange(newUrl);
     var collegeString = macademia.createInstitutionString(colleges);
     newUrl = macademia.updateInstitutionsInUrl(newUrl, collegeString);
     var institutionChanged = (collegeString != macademia.history.get('institutions'));
@@ -128,8 +128,10 @@ macademia.collegeSelection = function() {
 
     //Only log if one or neither has been changed.
     // Logging when both have been changed throws the "Logging error" alert.
-    if (!(groupChanged && institutionChanged)) {
-
+    if (groupChanged && institutionChanged) {
+        window.location.replace(newUrl);
+        $('#filterDialog').jqmHide();
+    } else {
         var replaceUrl = function() {
             window.location.replace(newUrl);
         };
@@ -137,16 +139,12 @@ macademia.collegeSelection = function() {
         macademia.serverLog('dialog', 'close',
             {'name' : 'collegeFilter', count : colleges.length}, replaceUrl);
         $('#filterDialog').jqmHide();
-
-    } else {
-        window.location.replace(newUrl);
-        $('#filterDialog').jqmHide();
     }
 
 };
 
 //returns a new url with the consortia selector changed
-macademia.updateIgInURL = function(){
+macademia.makeConsortiumUrl = function(){
 
     var marker = '/Macademia/';     // string appearing before group
     var url = window.location.href;

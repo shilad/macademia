@@ -38,7 +38,6 @@ macademia.pageLoad = function() {
         }
     });
 
-
     //Setting temp to the current page
     macademia.history.onUpdate(macademia.onAddressChange);
     macademia.initLogoLink();

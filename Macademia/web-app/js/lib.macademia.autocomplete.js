@@ -117,6 +117,7 @@ macademia.autocomplete.initSearch = function() {
         {
             multiple : false,
             select : function (event, ui) {
+                console.log(ui);
                 var id = ui.item.data[0];
                 var name = ui.item.data[1];
                 var type = ui.item.data[2];
@@ -124,9 +125,8 @@ macademia.autocomplete.initSearch = function() {
 
                 macademia.history.setTempValue('nodeId', type.substring(0, 1) + "_" + id);
                 macademia.history.setTempValue('navFunction', type);
-//                macademia.sortParameters(type, id);
-//                location.href = '/Macademia/' + group + '/person/jit/#' + $.address.value();
-                macademia.history.update();
+                macademia.history.setTempValue('institutions', 'all');
+                location.href = '/Macademia/' + group + '/person/jit/#/'+ macademia.history.unparseUrl( macademia.history.getTemp() );  //gets the url plus the hash made from the current temp
                 $("#searchBox").val("");
                 window.setTimeout(function () {
                         $("#searchBox").blur();
