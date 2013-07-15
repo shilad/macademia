@@ -33,43 +33,68 @@ var MC = (window.MC = (window.MC || {}));
  *
  * @return {Function}
  */
-MC.interest = function() {
-    function interest(g) {
+MC.interestZ = function() {
+    function interest(selection) {
+        selection.each(function(data) {
+            var klass = interest.getCssClass();
 
-        var g = g.append('g')
-            .attr('class', interest.getCssClass())
-            .attr('transform', function (d, i) {
+            var allGs = d3.select(this).selectAll("g." + klass).data(data, function (d) { return d.id; });
+
+            // setup g with circle and label for new elements.
+            // Set the initial opacity to 0. You will want to change this through a transition.
+            var newGs = allGs.enter().append('g')
+                .attr('class', klass)
+                .attr('opacity', 0.0);
+
+            //fades out out dated g's
+            if(allGs.exit().transition().remove()){
+                allGs.exit().transition().remove()
+                    .attr('opacity', 0.0)
+                    .duration(500);
+            }
+
+
+            newGs.append('circle');
+            var l = MC.label()
+                .setText(interest.getText())
+                .setAlign('middle');
+            newGs.call(l);
+
+            // position both existing and new elements.
+            allGs.transition().delay(500).duration(500).attr('transform', function (d, i) {
                 var cx = interest.getOrCallCx(d, i);
                 var cy = interest.getOrCallCy(d, i);
                 return 'translate(' + cx + ', ' + cy + ')';
             });
 
-        var c = g.append('circle')
+            //fade in new g's
+            newGs.transition()
+                .delay(1000)
+                .attr('opacity', 1.0)
+                .duration(500);
+
+            // Change fill for both existing and new elements
+            allGs.select('circle')
                 .attr('fill', interest.getColor())
                 .attr('r', interest.getR());
 
-        interest.getOrCallOnHover().forEach(function (v) {
-                g.on('mouseover', v[0]);
-                g.on('mouseout', v[1]);
-            });
-
-        var l = MC.label()
-            .setText(interest.getText())
-            .setAlign('middle');
-
-
-        g.call(l);
-
-        return g;
+//            interest.getOrCallOnHover().forEach(function (v) {
+//                    g.on('mouseover', v[0]);
+//                    g.on('mouseout', v[1]);
+//                });
+        });
     }
 
     MC.options.register(interest, 'text', function (d) { return d.name; });
     MC.options.register(interest, 'color', function (d) { return MC.hueToColor(d.color); })
-    MC.options.register(interest, 'cx', 100);
-    MC.options.register(interest, 'cy', 100);
+    MC.options.register(interest, 'cx', function (d) { return d.cx; });
+    MC.options.register(interest, 'cy', function (d) { return d.cy; });
     MC.options.register(interest, 'r', function(d) { return d.r; });
     MC.options.register(interest, 'onHover', [], MC.options.TYPE_LIST);
     MC.options.register(interest, 'cssClass', 'interest');
+    MC.options.register(interest, 'enterTransition', function() { return this.attr('opacity', 1.0); });
+    MC.options.register(interest, 'updateTransition', null);
+    MC.options.register(interest, 'exitTransition', null);
 
     return interest;
 };

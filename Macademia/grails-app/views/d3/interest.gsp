@@ -74,7 +74,7 @@ svg {
                 .datum(interests2)
                 .call(interest);
 
-    }, 1000);
+    }, 1500);
 
 
 </r:script>

@@ -47,9 +47,11 @@ MC.interestZ = function() {
                 .attr('opacity', 0.0);
 
             //fades out out dated g's
+            if(allGs.exit().transition().remove()){
             allGs.exit().transition().remove()
                 .attr('opacity', 0.0)
-                .duration(2000);
+                .duration(500);
+            }
 
 
             newGs.append('circle');
@@ -58,26 +60,23 @@ MC.interestZ = function() {
                 .setAlign('middle');
             newGs.call(l);
 
-            allGs.transition()
-                .attr('opac')
-
-            //fade in new g's
-            allGs.transition()
-                .attr('opacity', 1.0)
-                .duration(2000);
-
             // position both existing and new elements.
-            allGs.attr('transform', function (d, i) {
-                    var cx = interest.getOrCallCx(d, i);
-                    var cy = interest.getOrCallCy(d, i);
-                    return 'translate(' + cx + ', ' + cy + ')';
+            allGs.transition().delay(500).duration(500).attr('transform', function (d, i) {
+                var cx = interest.getOrCallCx(d, i);
+                var cy = interest.getOrCallCy(d, i);
+                return 'translate(' + cx + ', ' + cy + ')';
             });
 
+            //fade in new g's
+            newGs.transition()
+                .delay(1000)
+                .attr('opacity', 1.0)
+                .duration(500);
 
             // Change fill for both existing and new elements
             allGs.select('circle')
-                    .attr('fill', interest.getColor())
-                    .attr('r', interest.getR());
+                .attr('fill', interest.getColor())
+                .attr('r', interest.getR());
 
 //            interest.getOrCallOnHover().forEach(function (v) {
 //                    g.on('mouseover', v[0]);
