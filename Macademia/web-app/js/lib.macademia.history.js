@@ -38,27 +38,26 @@ var MH = macademia.history = {};
 
 var temp = {};
 /*
- * Returns the parameter with the specified name.
+ * Returns the parameter with the specified key.
+ * The value of the parameter comes from the current
+ * url on the page(History.getState().hash())
+ *
+ * If the key does not exist, return the whole map of
+ * parameters encoded in the current url.
  */
 MH.get = function(key) {
-
-//  I am not sure whether I should use the current one or temp
-//  I think we should use temp
-//    return MH.parseUrl(History.getHash())[name];
-//    return temp[name];
     var map=MH.parseUrl(History.getState().hash);
     if (key) {
         return map[key];
     } else {
         return map;
     }
-
-
-
 };
 
 /*
- * Sets the parameter to the specified value.
+ * Sets one temp parameter to the specified value.
+ * Notice that we delete the old value first if the
+ * key exists.
  */
 MH.setTempValue = function(name, value) {
     if(temp[name]){
@@ -67,18 +66,34 @@ MH.setTempValue = function(name, value) {
     temp[name]=value;
 
 };
-MH.setTemp = function(map) {
-    temp=map;
-};
-MH.getTemp= function(){
-    return temp;
-};
+
+/*
+ * Gets one temp parameter to the specific value.
+ */
 MH.getTempValue= function(name){
     return temp[name];
 };
+
 /*
- *  Gets the state back i indices
- *
+ * Setter for the temp map
+ */
+MH.setTemp = function(map) {
+    temp=map;
+};
+
+/*
+ * Getter for the temp map
+ */
+MH.getTemp= function(){
+    return temp;
+};
+
+/*
+ *  Gets the previous state
+ *  if the key exists,
+ *  return the value according to the key
+ *  if the key does not exist,
+ *  return the map containing all the values
  */
 MH.getOld = function(key) {
 
@@ -88,7 +103,6 @@ MH.getOld = function(key) {
         } else {
             return old;
         }
-
 };
 
 /*
@@ -103,8 +117,6 @@ MH.onUpdate = function(fn) {
 //        console.log("Getting State");
 //        console.log("Getting Old");
 //        console.log(MH.getOld());
-
-
 
         var targetMap=MH.get();
 //        console.log(History.getState());
@@ -136,7 +148,6 @@ MH.onUpdate = function(fn) {
  * URL encoded parameters in the anchor text into the
  * current state when the text is clicked.
  *
- * @param anchors
  */
 MH.bindAnchors = function(anchors) {
 //    History.Adapter.bind(anchors,"click",function(e){
@@ -170,6 +181,7 @@ MH.bindAnchors = function(anchors) {
 
 /*
  * Push the changes in temp to the history stack
+ * using History.push method
  */
 MH.update = function(){
 //    console.log('pushing state ' + MH.unparseUrl(temp));  //correct
