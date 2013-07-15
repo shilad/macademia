@@ -33,12 +33,14 @@ var MC = (window.MC = (window.MC || {}));
  *
  * @return {Function}
  */
-MC.interestZ = function() {
+MC.interest = function() {
     function interest(selection) {
         selection.each(function(data) {
             var klass = interest.getCssClass();
 
-            var allGs = d3.select(this).selectAll("g." + klass).data(data, function (d) { return d.id; });
+            var allGs = d3.select(this).selectAll("g." + klass).data(data, function (d) { console.log(d); return d.id; });
+
+            console.log('newGs size is ' + allGs.size());
 
             // setup g with circle and label for new elements.
             // Set the initial opacity to 0. You will want to change this through a transition.
@@ -47,12 +49,13 @@ MC.interestZ = function() {
                 .attr('opacity', 0.0);
 
             //fades out out dated g's
-            if(allGs.exit().transition().remove()){
+            if(allGs.exit().size() > 0){
                 allGs.exit().transition().remove()
                     .attr('opacity', 0.0)
                     .duration(500);
             }
 
+            console.log('allGs size is ' + newGs.size());
 
             newGs.append('circle');
             var l = MC.label()
@@ -64,11 +67,12 @@ MC.interestZ = function() {
             allGs.transition().delay(500).duration(500).attr('transform', function (d, i) {
                 var cx = interest.getOrCallCx(d, i);
                 var cy = interest.getOrCallCy(d, i);
+                console.log('setting cx to ' + cx);
                 return 'translate(' + cx + ', ' + cy + ')';
             });
 
             //fade in new g's
-            newGs.transition()
+            allGs.transition()
                 .delay(1000)
                 .attr('opacity', 1.0)
                 .duration(500);
