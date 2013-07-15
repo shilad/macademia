@@ -70,10 +70,14 @@ svg {
 
 
     window.setTimeout(function() {
-        interests[0].r *= 2;
+        interests[0].r *= 2
         var interest = MC.interestZ()
                 .setUpdateTransition(function () {
                     this.duration(1000);
+                })
+                .setCy(function (d) {
+                    i += 40;
+                    return i;
                 });
         d3.select('svg')
                 .datum(interests)
