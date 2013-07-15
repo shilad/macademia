@@ -71,7 +71,7 @@ svg {
 
     var i = 40;
 
-    var interest = MC.interest()
+    var interest = MC.interestZ()
         .setCx(0)
 //        .setCy(function (d) {
 //                console.log('in ' + d.name);
