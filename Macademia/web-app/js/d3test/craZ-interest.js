@@ -46,7 +46,7 @@ MC.interestZ = function() {
                 .attr('class', klass)
                 .attr('opacity', 0.0);
 
-            allGs.exit().remove();
+            var oldGs= allGs.exit().remove();
 
 
             newGs.append('circle');
@@ -57,7 +57,32 @@ MC.interestZ = function() {
 
             allGs.transition()
                 .attr('opacity', 1.0)
-                .duration(1000);
+                .duration(1000)
+
+//            allGs.slideTo(
+//
+//            )
+
+            var sameGs;
+            for(var node in allGs){
+                if(!node in newGs && !node in oldGs){
+                    sameGs.add(node);
+
+
+                }
+
+
+
+            }
+            sameGs
+                .transition()
+                .attr("x",320);
+
+
+
+
+
+
 
             // position both existing and new elements.
             allGs.attr('transform', function (d, i) {
