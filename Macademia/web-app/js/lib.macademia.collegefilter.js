@@ -6,6 +6,7 @@ macademia.wireupCollegeFilter = function() {
         modal: false});
 };
 
+//Called by _collegeFilterDialog to init college filter and wire up event handler
 macademia.initCollegeFilter = function() {
 
     $(document).ready(macademia.initIgFilter());
@@ -18,12 +19,14 @@ macademia.initCollegeFilter = function() {
         macademia.serverLog('dialog', 'cancel', {'name' : 'collegeFilter'});
         return false;
     });
-    $(".college a").click(function() {
+    $(".college a").click(function() { //are we still using this?
         $(this).parent().parent().hide();
         return false;
     });
     $("#addCollege").click(function() {
         var college = $("#collegeSearchAuto").val();
+        // notice that we do not delete the colleges from our view
+        // we simple hide/show them
         $("#filterModal .collegeDiv").each(function(){
             if ($(this).text().indexOf(college) >= 0){
                 $(this).show();
@@ -56,7 +59,8 @@ macademia.initCollegeFilter = function() {
 
 };
 
-
+//Initialize the drapdown menu for 'Select consorita' on the top of the college filter
+//macademia.retrieveGroup() returns the current group contained in the url
 macademia.initIgFilter = function(){
     macademia.hideAllSchools();
     var igId = macademia.getIgId(macademia.retrieveGroup());
@@ -71,6 +75,7 @@ macademia.initIgFilter = function(){
     }
 };
 
+//helper class for initIgFilter function
 macademia.getIgId = function(igAbbrev) {
     var igId = null;
     $.each(macademia.igMap, function(key, value){
