@@ -221,23 +221,7 @@ MH.parseUrl= function(hashUrl){
     urlParams = {};
     while (match = search.exec(query))
         urlParams[decode(match[1])] = decode(match[2]);
-    delete urlParams._suid;
+    delete urlParams._suid; //remove the suid. Otherwise, there will be a problem.
     //console.log(urlParams);
     return urlParams;
-};
-
-MH.init = function(){
-//    MH.setTemp({
-//    nodeId:'p_1',
-//    navVisibility:'true',
-//    navFunction:'search',
-//    institutions:'all',
-//    searchBox:null,
-//    interestId:null,
-//    personId:null,
-//    requestId:null,
-//    searchPage:null,
-//    density:null
-//});
-
 };
