@@ -235,7 +235,6 @@ MH.parseUrl= function(hashUrl){
     urlParams = {};
     while (match = search.exec(query))
         urlParams[decode(match[1])] = decode(match[2]);
-    delete urlParams._suid; //remove the suid. Otherwise, there will be a problem.
-    //console.log(urlParams);
+    delete urlParams._suid; //remove the suid! Otherwise, the hash gets truncated to include only as far as the suid.
     return urlParams;
 };

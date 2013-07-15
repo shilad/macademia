@@ -206,7 +206,7 @@ $.fn.clearDefault = function() {
 macademia.navInfovis = function(node) {
     var rootId = node.id;
     var type = macademia.getType(rootId);
-    console.log('setting root to ' + rootId);
+//    console.log('setting root to ' + rootId);
     macademia.history.setTempValue('nodeId', rootId);
     if (type == 'person' && macademia.history.get('navFunction') != 'person') {
         macademia.history.setTempValue('navFunction','person');

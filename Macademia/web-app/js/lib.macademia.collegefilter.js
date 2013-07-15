@@ -222,7 +222,6 @@ macademia.collegesInGroup = function(collegeArray){
 
 
 macademia.initiateCollegeString = function(ids){
-    console.log(ids);
     $.getJSON(macademia.makeActionUrl('institution', 'idsToNames'), {ids: ids.replace(/\+/g, " ")}, function(institutionList) {
         macademia.changeCollegeString(institutionList);
     });
@@ -313,7 +312,7 @@ macademia.initCollegeSearch = function(igId) {
                     });
         }
     );
-    console.log('source is ' + source);
+//    console.log('source is ' + source);
     $('#collegeSearchAuto').autocomplete({
 			minLength: 0,
             delay : 50,
