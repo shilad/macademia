@@ -282,10 +282,10 @@ macademia.nav = function() {
 
     $(".clearDefault").clearDefault();
 
-    $(".sidebarSection li.more").live('click', function () {
-        $(this).hide();
-        $(".sidebarSection div.more").slideDown('medium');
-    });
+//    $(".sidebarSection li.more").live('click', function () {
+//        $(this).hide();
+//        $(".sidebarSection div.more").slideDown('medium');
+//    });
 };
 
 // Changes the visualization to new root node

@@ -16,7 +16,6 @@ macademia.density.initDensity = function() {
 
 
         var density = macademia.density.getValue();
-//        console.log("Density in density.js: "+density)
         macademia.history.setTempValue('density', density);
         macademia.history.update();
     });

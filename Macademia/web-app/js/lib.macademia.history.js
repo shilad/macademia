@@ -97,12 +97,12 @@ MH.getTemp= function(){
  */
 MH.getOld = function(key) {
 
-        var old = MH.parseUrl(History.getStateByIndex(History.getCurrentIndex()-1).hash);
-        if (key) {
-            return old[key];
-        } else {
-            return old;
-        }
+    var old = MH.parseUrl(History.getStateByIndex(History.getCurrentIndex()-1).hash);
+    if (key) {
+        return old[key];
+    } else {
+        return old;
+    }
 };
 
 /*
@@ -155,28 +155,42 @@ MH.bindAnchors = function(anchors) {
 //        e.preventDefault();
 //        MH.update();
 //    });
+
+
+
     $(anchors).live("click",function(e){
-//        console.log(temp);
-        e.preventDefault();
-        var targetMap=MH.parseUrl(e.target.hash);
-        var types = ['searchBox','interestId','personId','requestId'];
-        for(var i=0;i<types.length;i++){
-            delete temp[types[i]];
+        if(this.href.indexOf("#/?")>0){
+            e.preventDefault();
+            var targetMap=MH.parseUrl(e.target.hash);
+            var types = ['searchBox','interestId','personId','requestId'];
+            for(var i=0;i<types.length;i++){
+                delete temp[types[i]];
+            }
+            for(var key in targetMap){
+                MH.setTempValue(key,targetMap[key]);
+            }
+
+            MH.update();
+
+
+        }else{
+
+            if($(this).parent().hasClass("more")){
+                e.preventDefault();
+                $(this).hide();
+                $(".sidebarSection div.more").slideDown('medium');
+            }
+            return true;
         }
-        for(var key in targetMap){
-            MH.setTempValue(key,targetMap[key]);
-        }
-
-//        console.log(temp);
-
-
-        MH.update();
-         //after update before these logs the states become correct... FIND WHERE
-//        console.log(History.getState());
-//        console.log(MH.getOld());
-
-
     });
+
+
+
+
+//        console.log(temp);
+
+
+
 };
 
 /*
