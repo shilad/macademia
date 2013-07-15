@@ -46,7 +46,10 @@ MC.interestZ = function() {
                 .attr('class', klass)
                 .attr('opacity', 0.0);
 
-            allGs.exit().remove();
+            //fades out out dated g's
+            allGs.exit().transition().remove()
+                .attr('opacity', 0.0)
+                .duration(2000);
 
 
             newGs.append('circle');
@@ -56,15 +59,20 @@ MC.interestZ = function() {
             newGs.call(l);
 
             allGs.transition()
+                .attr('opac')
+
+            //fade in new g's
+            allGs.transition()
                 .attr('opacity', 1.0)
-                .duration(1000);
+                .duration(2000);
 
             // position both existing and new elements.
             allGs.attr('transform', function (d, i) {
                     var cx = interest.getOrCallCx(d, i);
                     var cy = interest.getOrCallCy(d, i);
                     return 'translate(' + cx + ', ' + cy + ')';
-                });
+            });
+
 
             // Change fill for both existing and new elements
             allGs.select('circle')
