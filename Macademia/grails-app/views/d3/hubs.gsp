@@ -9,13 +9,15 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-  <title></title>
+    <title></title>
+    <meta name="layout" content="main"/>
+    <r:require modules="d3js"/>
 </head>
 <body>
 
 <r:script>
 
-    var root = {"id": 7, "name":"Stark", "type":"interest"};
+    var root = {"id": 7, "name":"Stark", "type":"interest","cx":300,"cy":300};
 
     var interests = [
         {"id": 1, "name": "Robb", "cluster": 7, "parentId": "7", "relevance": 0.7576502561569214, "roles": []},
@@ -35,9 +37,15 @@
     var template = MC.hub();
 
     d3.select('svg')
+            .attr('width', 500)
+            .attr('height', 500)
             .datum(hubModel)
             .call(template);
 </r:script>
+
+<svg>
+
+</svg>
 
 </body>
 </html>
