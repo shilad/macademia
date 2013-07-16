@@ -2,12 +2,12 @@
 <html>
   <head>
     <title>Raphael Play</title>
-    <g:javascript library="jquery" plugin="jquery"/>
-    <g:javascript src="nbrviz/raphael-min.js"/>
-    <g:javascript src="nbrviz/shared.js"/>
-    <g:javascript src="nbrviz/sphere.js"/>
-    <g:javascript src="nbrviz/person.js"/>
-    <g:javascript src="nbrviz/interest.js"/>
+    <r:script library="jquery" plugin="jquery"/>
+    <r:script src="nbrviz/raphael-min.js"/>
+    <r:script src="nbrviz/shared.js"/>
+    <r:script src="nbrviz/sphere.js"/>
+    <r:script src="nbrviz/person.js"/>
+    <r:script src="nbrviz/interest.js"/>
     <style type="text/css">
       #holder {
         width: 1173px;
@@ -19,7 +19,7 @@
   <body>
     <div id="holder"></div>
 
-  <g:javascript>
+  <r:script>
     macademia.nbrviz.initPaper("holder", 1173, 800);
 
     var interestCluster1 = new InterestCluster({
@@ -51,7 +51,7 @@
     interestCluster1.setPosition(300, 300);
     interestCluster2.setPosition(600, 300);
 
-  </g:javascript>
+  </r:script>
 
   </body>
 </html>

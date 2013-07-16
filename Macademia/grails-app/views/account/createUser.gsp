@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <r:require modules="core"/>
+    <r:require modules="profile"/>
 
   <title>
     <g:if test="${user.id}">Edit Macademia Profile</g:if>
@@ -15,17 +15,9 @@
   </title>
 
   <g:render template="/layouts/headers"/>
-  %{--<g:javascript src="uploadify/swfobject"/>--}%
-  %{--<g:javascript src="uploadify/jquery.uploadify.v2.1.0.min"/>--}%
-  %{--<g:javascript src="lib.macademia.upload"/>--}%
-  <r:script dir='js' file='uploadify/swfobject'></r:script>
-  <r:script dir='js' file='uploadify/jquery.uploadify.v2.1.0.min'></r:script>
-  <r:script dir='js' file='lib.macademia.upload'></r:script>
 
 
-  %{--TODO: Convert this link to a p:css link (unfortunately, it is in a js directory)--}%
-  <link type="text/css" rel="stylesheet" href="${createLinkTo(dir: "js", file: "/uploadify/uploadify.css")}">
-  <g:javascript>
+  <r:script>
     $(document).ready(function() {
         macademia.otherInstitutions = ${otherInstitutions};
         macademia.allInstitutions = ${allInstitutions};
@@ -38,7 +30,7 @@
         macademia.serverLog('page', 'load', params);
         $(".clearDefault").clearDefault();
     });
-  </g:javascript>
+  </r:script>
   
 </head>
 <body>
@@ -129,7 +121,7 @@
                   <div class="institutionNumber">1.</div>
                   <div class="otherInstitutionField"><input type="text" class="clearDefault otherInstitutionInput" prompt="institution name" value="institution name"></div>
                   <div class="otherInstitutionURL"><input type="text" class="clearDefault otherInstitutionUrlInput" prompt="institution url" value="institution url"></div>
-                  <div class="removeLink"><a href="#" class="removeLink"><r:img dir='images' file="close_icon.gif"/></a></div>
+                  <div class="removeLink"><a href="#" class="removeLink"><r:img dir="images" file="close_icon.gif"/></a></div>
                 </div>
 
                 <div class="customLinkCaption">
@@ -152,7 +144,7 @@
                   <div class="linkNumber">1.</div>
                   <div class="linkField"><input type="text" class="clearDefault" prompt="link name" value="link name"></div>
                   <div class="linkValue"><input type="text" class="clearDefault" prompt="link url" value="link url"></div>
-                  <div class="removeLink"><a href="#" class="removeLink"><r:img dir='images' file="close_icon.gif"/></a></div>
+                  <div class="removeLink"><a href="#" class="removeLink"><r:img dir="images" file="close_icon.gif"/></a></div>
                 </div>
 
                 <div class="customLinkCaption">

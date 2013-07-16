@@ -565,37 +565,105 @@
         };
     })();
 
+//    $.fn.address = function(fn) {
+//        if (!this.data('address')) {
+//            this.on('click', function(e) {
+//                if (e.shiftKey || e.ctrlKey || e.metaKey || e.which == 2) {
+//                    return true;
+//                }
+//                var target = e.currentTarget;
+//                if ($(target).is('a')) {
+//                    var value = fn ? fn.call(target) :
+//                        /address:/.test($(target).attr('rel')) ? $(target).attr('rel').split('address:')[1].split(' ')[0] :
+//                            $.address.state() !== undefined && !/^\/?$/.test($.address.state()) ?
+//                                $(target).attr('href').replace(new RegExp('^(.*' + $.address.state() + '|\\.)'), '') :
+//                                $(target).attr('href').replace(/^(#\!?|\.)/, '');
+//                    //$.address.value(value);                    // SWS: added conditional wrapper
+//                    if (value != true) {
+//                        $.address.value(value);
+//                        e.preventDefault();
+//                    }
+//                }
+//            }).on('submit', function(e) {
+//                    var target = e.currentTarget;
+//                    if ($(target).is('form')) {
+//                        e.preventDefault();
+//                        var action = $(target).attr('action'),
+//                            value = fn ? fn.call(target) : (action.indexOf('?') != -1 ? action.replace(/&$/, '') : action + '?') +
+//                                $(target).serialize();
+//                        $.address.value(value);
+//                    }
+//                }).data('address', true);
+//        }
+//        return this;
+//    };
+
+//    $.fn.address = function(fn) {
+//        if (!$(this).attr('address')) {
+//            var f = function(e) {
+//                console.log("Address plugin 1");
+//                console.log(e);
+//                if (e.shiftKey || e.ctrlKey || e.metaKey) {
+//                    return true;
+//                }
+//                if ($(this).is('a')) {
+//                    var value = fn ? fn.call(this) :
+//                        /address:/.test($(this).attr('rel')) ? $(this).attr('rel').split('address:')[1].split(' ')[0] :
+//                        $.address.state() !== undefined && $.address.state() != '/' ?
+//                                $(this).attr('href').replace(new RegExp('^(.*' + $.address.state() + '|\\.)'), '') :
+//                                $(this).attr('href').replace(/^(#\!?|\.)/, '');
+//                    // SWS: added conditional wrapper
+//                    if (value != true) {
+//                        $.address.value(value);
+//                        e.preventDefault();
+//                    }
+//                }
+//            };
+//            $(this).click(f).live('click', f).live('submit', function(e) {
+//                console.log("Address plugin 2");
+//                console.log(e);
+//                if ($(this).is('form')) {
+//                    var action = $(this).attr('action'),
+//                        value = fn ? fn.call(this) : (action.indexOf('?') != -1 ? action.replace(/&$/, '') : action + '?') +
+//                            $(this).serialize();
+//                    $.address.value(value);
+//                    e.preventDefault();
+//                }
+//            }).attr('address', true);
+//        }
+//        return this;
+//    };
+
     $.fn.address = function(fn) {
-        if (!this.data('address')) {
-            this.on('click', function(e) {
+        console.log("Address function is called");
+            $(document).on('click', this.selector, function(e) {
                 if (e.shiftKey || e.ctrlKey || e.metaKey || e.which == 2) {
                     return true;
                 }
                 var target = e.currentTarget;
                 if ($(target).is('a')) {
+                    e.preventDefault();
                     var value = fn ? fn.call(target) :
                         /address:/.test($(target).attr('rel')) ? $(target).attr('rel').split('address:')[1].split(' ')[0] :
-                            $.address.state() !== undefined && !/^\/?$/.test($.address.state()) ?
+                        $.address.state() !== undefined && !/^\/?$/.test($.address.state()) ?
                                 $(target).attr('href').replace(new RegExp('^(.*' + $.address.state() + '|\\.)'), '') :
                                 $(target).attr('href').replace(/^(#\!?|\.)/, '');
-                    //$.address.value(value);                    // SWS: added conditional wrapper
-                    if (value != true) {
-                        $.address.value(value);
-                        e.preventDefault();
-                    }
+                    $.address.value(value);
                 }
             }).on('submit', function(e) {
-                    var target = e.currentTarget;
-                    if ($(target).is('form')) {
-                        e.preventDefault();
-                        var action = $(target).attr('action'),
-                            value = fn ? fn.call(target) : (action.indexOf('?') != -1 ? action.replace(/&$/, '') : action + '?') +
-                                $(target).serialize();
-                        $.address.value(value);
-                    }
-                }).data('address', true);
-        }
+                var target = e.currentTarget;
+                if ($(target).is('form')) {
+                    e.preventDefault();
+                    var action = $(target).attr('action'),
+                        value = fn ? fn.call(target) : (action.indexOf('?') != -1 ? action.replace(/&$/, '') : action + '?') +
+                            $(target).serialize();
+                    $.address.value(value);
+                }
+            });
+
         return this;
     };
+
+
 
 })(jQuery);

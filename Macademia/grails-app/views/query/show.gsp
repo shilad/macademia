@@ -7,7 +7,7 @@
   <p:javascript src='macademia.js.nbrviz'/>
   <p:css name="queryViz" media="all"/>
 </head>
-<g:javascript>
+<r:script>
   $().ready(function() {
     macademia.serverLog('nav', 'initial', {'url' : location.href });
     var viz = new QueryViz({
@@ -17,7 +17,7 @@
       height : $(window).height()
     });
   });
-</g:javascript>
+</r:script>
 <body>
     %{--<div id="graph">&nbsp;</div>--}%
     <div id="queryWidget"><g:render template="addInterest"/></div>

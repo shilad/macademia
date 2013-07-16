@@ -4,10 +4,15 @@ class InstitutionGroupService {
 
     def institutionService
 
+
     static transactional = true
 
     Collection<InstitutionGroup> findAll() {
         return InstitutionGroup.list()
+    }
+
+    void update(InstitutionGroup ig) {
+        ig.save()
     }
 
     Collection<InstitutionGroup> findAllByInstitution(Institution i) {

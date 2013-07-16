@@ -7,7 +7,7 @@
   <p:javascript src='macademia.js.nbrviz'/>
   <link rel="stylesheet" type="text/css" href="../css/queryViz.css" />
 </head>
-<g:javascript>
+<r:script>
   $().ready(function() {
     var paper = macademia.nbrviz.initPaper( "graph",
                                             $("#graph").width(),
@@ -23,7 +23,7 @@
             paper : paper
     });
   });
-</g:javascript>
+</r:script>
 <body>
     <div id="graph">&nbsp;</div>
 </body>

@@ -3,12 +3,13 @@ package org.macademia
 //import grails.plugin.springcache.annotations.Cacheable
 
 class HomeController {
-    public static int NUM_PEOPLE = 28
+    public static int NUM_PEOPLE = 26
     public static int NUM_RANDOM_LISTS = 20
 
     def institutionGroupService
     def personService
     def springcacheService
+    def imageService
     def random = new Random()
 
     def index = {
@@ -26,7 +27,7 @@ class HomeController {
         [people : people, igs : igs]
     }
 
-    def getInstitutionGroupCounts() {
+    private def getInstitutionGroupCounts() {
         return springcacheService.doWithCache(
                 'homeCache',
                 'institutionGroupCounts',
@@ -42,11 +43,11 @@ class HomeController {
         )
     }
 
-    def getRandomPeopleWithImages(int numPeople, int randomNum) {
+    private def getRandomPeopleWithImages(int numPeople, int randomNum) {
         return springcacheService.doWithCache(
                 'homeCache',
                 'getRandomPeople' + randomNum,
-                {personService.findRandomPeopleWithImage(numPeople)}
+                {personService.findRandomPeopleWithImage(numPeople, null)}
         )
     }
 }

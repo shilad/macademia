@@ -324,6 +324,7 @@ The Macademia Team
                     model: [
                             defaultImageUrl : getDefaultImageUrl(),
                             user: person,
+                            imgOwner: person,
                             interests : allInterests,
                             primaryInstitution: person.retrievePrimaryInstitution(),
                             otherInstitutions: jsonService.makeJsonForNonPrimaryInstitutions(person) as JSON,
@@ -334,7 +335,7 @@ The Macademia Team
 
     def getDefaultImageUrl() {
 //        String l = r.imageLink(src : MacademiaConstants.DEFAULT_IMG)
-        String l = r.img(dir:'images', file:MacademiaConstants.DEFAULT_IMG)
+        String l = r.resource(dir:'images', file:MacademiaConstants.DEFAULT_IMG)
         if (l[0] == "'") {
             l = l[1..-1]
         }

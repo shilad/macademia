@@ -1,0 +1,284 @@
+#consortiaHome {
+
+  header {
+    background: url("../images/headerBackgroundHome.png");
+    height: 147px;
+    @include box-shadow();
+
+    #headerWrapper {
+      width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+
+      #logo {
+        position:absolute;
+        background:url(../images/macademiaRibbon.png) no-repeat;
+        height: 214px;
+        width: 163px;
+        left:-16px;
+        text-indent: -9999px;
+        z-index:1;
+      }
+
+      h1 {
+        text-indent: -9999px;
+        background:url(../images/macademiaLogotype.png) no-repeat;
+        height: 57px;
+        width: 280px;
+        position: absolute;
+        left: 166px;
+        top: 35px;
+      }
+
+      h2 {
+        @include single-text-shadow(#000, 0, 2px, 3px);
+        color: $font-color-light;
+        position: absolute;
+        left: 172px;
+        top: 98px;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-size: 19px;
+        font-weight: normal;
+      }
+      #login {
+        float: right;
+        position: relative;
+        top: 30px;
+        left: 170px;
+        .login_input {
+          border: 1px solid gray;
+          @include border-radius(5px);
+          display: block;
+          float: right;
+          margin-bottom: 7px;
+          margin-top: 2px;
+          min-height: 15px;
+          padding: 5px 2px;
+          width: 167px;
+        }
+        .login_submit {
+          clear: both;
+          display: block;
+          float: left;
+          margin-bottom: 5px;
+          margin-left: 80px;
+        }
+        .forgot_password {
+          display: block;
+          float: left;
+          margin-left: 10px;
+          margin-top: 5px;
+        }
+        label {
+          color: $font-color-light;
+          clear: both;
+          display: block;
+          float: left;
+          margin: 3px;
+          padding-top: 9px;
+          text-align: right;
+          width: 67px;
+        }
+      }
+    }
+  }
+  #main {
+    width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 0px;//20px;
+    padding-left:0px;
+
+    #mainSearchBox {
+      padding: 37px 0 32px 21px;
+      //margin-bottom: 25px;
+      position: relative;
+
+      #searchBox, #searchSubmit {
+
+      }
+      #searchBox {
+        font-size: 18px;
+        padding: 14px 10px 12px 10px;
+        width: 543px;
+        @include border-radius(8px);
+        @include box-shadow(inset 0px 2px 2px 1px #ACACAC);
+        border: 1px solid #999;
+
+      }
+      #searchSubmit {
+        position: absolute;
+        top: 47px;
+        left: 482px;
+        font-size: 14px;
+        padding: 7px 14px 5px;
+      }
+      #consortia {
+
+        font-size: 14px;
+        margin-left: -180px;
+
+        ul {
+          list-style-type: none;
+          width: 90px;
+          margin-left : 13em;
+          text-align:left;
+          div.more {
+            display : none;
+            text-align : left;
+          }
+
+          li {
+            @include inline-block;
+            vertical-align: bottom;
+            margin: 3px 20px;
+            white-space: nowrap;
+
+            a {
+              color : blue;
+              &:hover{
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    h4{
+      padding-top: 2em;
+      font-size: 216%;
+      text-align: 10%;
+
+    }
+    // #cLogo{
+      // padding-left: 29%;
+     //}
+
+    #slideshow {
+      @include clearfix();
+      width: 500px;
+
+     // border-bottom: 1px solid #CCC;
+      padding-bottom: 9px;
+      //margin-bottom: 25px;
+
+      .slide {
+        width: 500px;
+
+        #graphThumb {
+        float: left;
+        margin-right: 40px;
+        }
+
+        h3 {
+          padding-top: 15px;
+          font-size: 20px;
+          font-weight: normal;
+          color: #000;
+          margin-bottom: 10px;
+        }
+
+        p {
+          font-size: 16px;
+          font-weight: normal;
+          color: #666;
+        }
+        #entrancePortal {
+          /*text-align: center;*/
+          font-size: 3px;
+          margin-top: 10px;
+          margin-bottom: 10px;
+
+          li {
+            @include inline-block;
+            margin: 3px;
+            padding: 0;
+            border: 0;
+            width : 30px;
+            height : 30px;
+            overflow : hidden;
+            background-color : black;
+            img {
+              max-width: 30px;
+            }
+          }
+
+        }
+      }
+    }
+
+    #sponsors {
+      text-align: center;
+      margin-bottom: 10px;
+      padding-bottom: 20px;
+
+      h3 {
+        font-size: 16px;
+        font-weight: normal;
+        margin-bottom: 10px;
+
+      }
+
+      ul {
+        list-style-type: none;
+        width: 960px;
+        margin: 0 auto;
+
+        li {
+          display: inline;
+          vertical-align: bottom;
+          margin: 0 20px;
+          img {
+            max-width: 150px;
+            max-height: 125px;
+          }
+        }
+      }
+
+
+    }
+
+
+  }
+
+  .macaButton {
+
+      width: 163px;
+      height:18px;
+      float:left;
+      background: url('../images/consortia/button_background.png') no-repeat;
+
+    /*background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fe1a00), color-stop(1, #ce0100) );
+    background:-moz-linear-gradient( center top, #fe1a00 5%, #ce0100 100% );*/
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:5px;
+    display:inline-block;
+    color:#ffffff;
+    font-family:arial;
+    font-size:15px;
+    font-weight:bold;
+    padding:7px 5px;
+    margin-left: 45em;
+  }
+  .macaButton:hover {
+     background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ce0100), color-stop(1, #fe1a00) );
+     background:-moz-linear-gradient( center top, #ce0100 5%, #fe1a00 100% );
+     filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ce0100', endColorstr='#fe1a00');
+     background-color:#ce0100;
+   }
+  .macaButton:active {
+      position:relative;
+      top:1px;
+    }
+
+  #cLogo{
+    padding-left: 6em;
+    padding-top: 3em;
+  }
+  h6{
+    font-size: 16px;
+  }
+}

@@ -11,11 +11,11 @@
 
   <g:render template="/layouts/headers"/>
 
-  <g:javascript>
+  <r:script>
       $(document).ready(function() {
           macademia.initLogoLink();
       });
-  </g:javascript>
+  </r:script>
 </head>
 
 <body>
