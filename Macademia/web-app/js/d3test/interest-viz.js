@@ -19,6 +19,7 @@ MC.interestViz = function(params) {
 //Position the hubs and the root
 MC.interestViz.prototype.createInterestViz = function(){
 
+
 };
 
 
