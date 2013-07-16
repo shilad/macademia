@@ -8,8 +8,7 @@ MC.interestLayout = function() {
         var interestNodes =  il.getInterestNodes();
         var interests = {};
         $.each(il.getOrCallInterests(), function (i, d) {
-            var clone = $.extend(true, {}, d);
-            interests[clone.id] = clone;
+            interests[d.id] = d;
         });
 
         var rootId = il.getOrCallRootId();
@@ -113,7 +112,6 @@ MC.interestLayout = function() {
         var group = container.append("g")
             .attr("transform", "translate(" + diam / 2 + "," + diam / 2 + ")")
 
-
         var link = group.selectAll(".link")
             .data(links)
             .enter().append("path")
@@ -153,16 +151,20 @@ MC.interestLayout = function() {
             interestNodesById[d.id] = this;
         });
         positions.each(function (d, i) {
-            var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
-            if (interestNodesById[d.id]) {
-                d3.select(interestNodesById[d.id]).attr('transform', 'translate(' + pos.x + ',' + pos.y + ')');
+            var node = interestNodesById[d.id];
+            if (node) {
+                var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
+                console.log(pos);
+                d.cx = pos.x;
+                d.cy = pos.y;
             }
         });
 
-        interestNodes.attr("class",
-            function(d) {
-                return (d.id in cm) ? 'hub' : 'leaf'
-            });
+        svg.datum(il.getOrCallInterests())
+            .call(MC.interest());
+
+        interestNodes.classed("hub", function(d) { return (d.id in cm); });
+        interestNodes.classed("leaf", function(d) { return !(d.id in cm); });
     }
 
     MC.options.register(il, 'cssClass', 'label');
