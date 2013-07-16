@@ -168,7 +168,7 @@ MC.interestLayout = function() {
     }
 
     MC.options.register(il, 'cssClass', 'label');
-    MC.options.register(il, 'diameter', 800);
+    MC.options.register(il, 'diameter', 1000);
     MC.options.register(il, 'rootId', null);
     MC.options.register(il, 'clusterMap', function() { throw('no clusterMap specified'); });
     MC.options.register(il, 'interests', function() { throw('no interests specified.')});
