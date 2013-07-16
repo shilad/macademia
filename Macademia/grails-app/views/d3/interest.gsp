@@ -51,7 +51,7 @@ svg {
                         .transition()
                         .duration(200)
                         .attr('fill', 'red');
-            },
+//            },
             function (d) {
                 d3.select(this)
                         .selectAll('text')
