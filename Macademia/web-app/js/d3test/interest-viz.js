@@ -69,6 +69,9 @@ MC.InterestViz.prototype.createInterestLabels = function(){
 
 
 
+
+
+
 /*
  * Methods for the people heads are below here-----
  */
