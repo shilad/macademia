@@ -42,15 +42,16 @@ svg {
                 d3.select(this)
                     .transition()
                     .duration(500)
-                    .attr('fill', 'black');
+                    .attr('fill', 'gray');
             },
             function (d) {
                 d3.select(this)
                         .transition()
                         .duration(500)
-                        .attr('fill', 'gray');
+                        .attr('fill', 'black');
             }
     );
+            ;
 
     d3.select('svg')
             .attr('width', 500)
