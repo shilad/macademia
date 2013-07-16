@@ -1,6 +1,6 @@
 <%@ page import="org.macademia.Wikipedia" %>
 <div id="interest_info">
-  <h1 id="currentFocus"><p:image id="tagPicture" src='int_tag.png'/>&nbsp;${interest.text}</h1>
+  <h1 id="currentFocus"><r:img dir="images" id="tagPicture" file='int_tag.png'/>&nbsp;${interest.text}</h1>
 
   <div class="sidebarSection">
     <h2>People with this interest:</h2>
@@ -40,6 +40,8 @@
             </li>
           </g:if>
         </g:each>
+      </ul>
+      <ul>
         <g:if test="${relatedInterests.size() > maxInterests}">
           <li class="more"><a href="#">show ${relatedInterests.size() - maxInterests} more related interests&nbsp;...</a></li>
           <div class="more">
@@ -58,3 +60,4 @@
     </div>
   </g:if>
 </div>
+

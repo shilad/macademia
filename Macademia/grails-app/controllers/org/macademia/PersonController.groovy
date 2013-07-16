@@ -159,6 +159,8 @@ class  PersonController{
         def interests = person.interests.sort({it.normalizedText})
 
         def collaboratorRequests = collaboratorRequestService.findAllByCreator(person)
+
+
         render(view : 'show', model : [
                 person: person,
                 interests: interests,
@@ -166,5 +168,9 @@ class  PersonController{
                 authenticatedUser:request.authenticated,
                 auth: auth
         ])
+    }
+
+    def test = {
+
     }
 }

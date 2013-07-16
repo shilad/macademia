@@ -1,11 +1,14 @@
 package org.macademia
 
+import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
+
 /**
  * Authors: Nathaniel Miller and Alex Schneeman
  */
 class PersonService {
 
-    boolean transactional = true
+    boolean transactional = false
+
     def MAX_DEPTH = 5
     def interestService
     def userService
@@ -13,6 +16,8 @@ class PersonService {
     def autocompleteService
     def collaboratorRequestService
     def membershipService
+    def institutionGroupService
+    def institutionService
 
     public void cleanupPeople(){
         Set<Long> validIds = new HashSet<Long>(Person.list().collect({it.id}))
@@ -41,14 +46,40 @@ class PersonService {
         this.save(person, person.memberships.institution)
     }
 
-    public Collection<Person> findRandomPeopleWithImage(int n) {
-        List<Long> ids = Person.findAllByImageSubpathNotIsNull().id as ArrayList<Long>
+
+    public Collection<Person> findRandomPeopleWithImage(int n, ArrayList<Long> allowableIds) {
+        List<Long> ids
+        if (allowableIds == null){
+            ids = Person.findAllByImageSubpathNotIsNull().id as ArrayList<Long>
+        } else {
+            ids = Person.findAllByImageSubpathNotIsNullAndIdInList(allowableIds).id as ArrayList<Long>
+        }
         Collections.shuffle(ids)
         if (ids.size() > n) {
             ids = ids.subList(0, n)
         }
         return Person.getAll(ids)
     }
+//  Don't mess with this method
+//    public Collection<Person> findRandomPeopleWithImage(int n) {
+//        List<Long> ids = Person.findAllByImageSubpathNotIsNull().id as ArrayList<Long>
+//        Collections.shuffle(ids)
+//        if (ids.size() > n) {
+//            ids = ids.subList(0, n)
+//        }
+//        return Person.getAll(ids)
+//    }
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Saves the parameter person. Requires that all of the parameter
@@ -147,5 +178,30 @@ class PersonService {
             igCounts[ig] = countMemberships(ig)
         }
         return igCounts
+    }
+
+    List<Long> getPeopleInInstitutionFilter(InstitutionFilter filter, GrailsParameterMap params) {
+        List<Long> ids = new ArrayList<Long>()
+        InstitutionFilter institutions =  institutionGroupService.getInstitutionFilterFromParams(params)
+        if (institutions == null) {
+            ids.addAll(Person.findAll().collect({it.id}))
+        }
+        else if (institutions.requiredInstitutionId) {
+            Institution req = institutionService.get(institutions.requiredInstitutionId)
+            Set<Person> people = findAllInInstitution(req)
+            ids.addAll(people.findAll({it.isMatch(institutions)}).collect({it.id}))
+        }
+        else {
+            for (Institution i : institutions.institutionIds.collect {Institution.get(it)}) {
+                ids.addAll(findAllInInstitution(i).collect({it.id}))
+            }
+        }
+        return ids
+//        Random r = new Random()
+//        def id = 'empty'
+//        if (ids) {
+//            id = ids[r.nextInt(ids.size())]
+//        }
+//        redirect(uri: "/${params.group}/person/jit/#/?nodeId=p_${id}&navVisibility=true&navFunction=person&institutions=all&personId=${id}")
     }
 }

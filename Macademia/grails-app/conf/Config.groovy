@@ -99,6 +99,9 @@ log4j = {
 
     info  'grails.app'
 
+//    debug 'org.hibernate.SQL'
+//    trace 'org.hibernate.type'
+
     // more detailed searchable debug logging
 //    debug 'org.codehaus.groovy.grails.plugins.searchable'
 //    trace 'org.compass'

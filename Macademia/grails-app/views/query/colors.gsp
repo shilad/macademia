@@ -18,7 +18,7 @@
 </head>
 
 
-<g:javascript>
+<r:script>
 var NVC = macademia.nbrviz.colors;
 
 function appendColoredSpan(parentDiv, content, hue) {
@@ -62,7 +62,7 @@ $().ready(function() {
   foo();
 });
 
-</g:javascript>
+</r:script>
 
 
 <body>

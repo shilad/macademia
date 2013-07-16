@@ -4,6 +4,7 @@
 <!--[if IE 7]>    <html lang="en" class="no-js ie7"> <![endif]-->
 <!--[if IE 8]>    <html lang="en" class="no-js ie8"> <![endif]-->
 <!--[if gt IE 8]><!-->
+%{--Testing--}%
 <html class='no-js' lang='en'>
   <!--<![endif]-->
   <head>
@@ -13,13 +14,13 @@
     <meta content='IE=edge,chrome=1' http-equiv='X-UA-Compatible' />
     <meta content='width=device-width, initial-scale=1.0' name='viewport' />
     <g:render template="/layouts/headers"/>
-    <title>Macademia - Connecting colleagues who share research interests.</title>
-    <g:javascript>
+    %{--<title>Macademia - Connecting colleagues who share research interests.</title>--}%
+    <r:script>
       $(document).ready(function() {
             macademia.homePageLoad();
             macademia.serverLog('page', 'load', {'page' : 'home'});
       });
-    </g:javascript>
+    </r:script>
   </head>
   <body>
     <div id="homePage">

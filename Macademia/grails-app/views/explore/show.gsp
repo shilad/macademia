@@ -6,7 +6,7 @@
     <meta name="layout" content="main">
     <r:require modules="queryViz"/>
 </head>
-<g:javascript>
+<r:script>
   $().ready(function() {
     macademia.serverLog('nav', 'initial', {'url' : location.href });
     var offset = $("#graph").offset();
@@ -16,10 +16,10 @@
     var height = $(window).height();
     var viz = new ExploreViz({ x : x, y : 0, width : width, height : height });
     $("#matches ol").sortable().disableSelection();
-  $.address.update();
+      macademia.history.update();
   });
 
-</g:javascript>
+</r:script>
 <body>
   <table><tbody><tr>
     <td id="nav">

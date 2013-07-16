@@ -1,0 +1,149 @@
+#consortiaEdit {
+
+  header {
+    background: url("../images/headerBackgroundHome.png");
+    height: 147px;
+    @include box-shadow();
+
+    #headerWrapper {
+      width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+
+      #logo {
+        position: absolute;
+        background: url(../images/macademiaRibbon.png) no-repeat;
+        height: 214px;
+        width: 163px;
+        left: -16px;
+        text-indent: -9999px;
+        z-index: 1;
+      }
+
+      h1 {
+        text-indent: -9999px;
+        background: url(../images/macademiaLogotype.png) no-repeat;
+        height: 57px;
+        width: 280px;
+        position: absolute;
+        left: 166px;
+        top: 35px;
+      }
+
+      h2 {
+        @include single-text-shadow(#000, 0, 2px, 3px);
+        color: $font-color-light;
+        position: absolute;
+        left: 172px;
+        top: 98px;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-size: 19px;
+        font-weight: normal;
+      }
+      #login {
+        float: right;
+        position: relative;
+        top: 30px;
+        left: 170px;
+        .login_input {
+          border: 1px solid gray;
+          @include border-radius(5px);
+          display: block;
+          float: right;
+          margin-bottom: 7px;
+          margin-top: 2px;
+          min-height: 15px;
+          padding: 5px 2px;
+          width: 167px;
+        }
+        .login_submit {
+          clear: both;
+          display: block;
+          float: left;
+          margin-bottom: 5px;
+          margin-left: 80px;
+        }
+        .forgot_password {
+          display: block;
+          float: left;
+          margin-left: 10px;
+          margin-top: 5px;
+        }
+        label {
+          color: $font-color-light;
+          clear: both;
+          display: block;
+          float: left;
+          margin: 3px;
+          padding-top: 9px;
+          text-align: right;
+          width: 67px;
+        }
+      }
+    }
+  }
+  #main {
+    width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 0px;
+    //20px;
+    padding-left: 0px;
+
+    .editPicture {
+      text-align: center;
+      line-height: 1.25em;
+      float: left;
+
+      .links {
+        position: relative;
+        a {
+          z-index: -1;
+        }
+      }
+    }
+
+    #imgUploaderUploader {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100px;
+      height: 25px;
+      z-index: 100;
+    }
+
+    .center {
+      text-align: center;
+
+    }
+
+  }
+
+  #searchSubmit {
+    // position: absolute;
+    margin-top: 100em;
+    //left: 482px;
+    font-size: 14px;
+    //padding: 7px 14px 5px;
+  }
+
+  #text-area {
+
+    margin: 10px 1px 0px 81px;
+    width: 500px;
+    height: 248px;
+    background-color: whitesmoke;
+    resize: none;
+    border: 2.4px solid #000000;
+  }
+
+  h4 {
+    padding-top: 2em;
+    font-size: 216%;
+    text-align: 10%;
+
+  }
+}
+
+

@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<g:javascript>
-</g:javascript>
+<r:script>
+</r:script>
 
 
