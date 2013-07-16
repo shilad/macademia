@@ -38,12 +38,7 @@ MC.interestZ = function() {
         selection.each(function(data) {
             var klass = interest.getCssClass();
 
-            var allGs = d3.select(this).selectAll("g." + klass).data(data);
-            var updateGs = allGs;
-
-            if (interest.getUpdateTransition() != null) {
-                updateGs = allGs.transition().call(interest.getUpdateTransition());
-            }
+            var allGs = d3.select(this).selectAll("g." + klass).data(data, function (d) { return d.id; });
 
             // setup g with circle and label for new elements.
             // Set the initial opacity to 0. You will want to change this through a transition.
@@ -51,26 +46,30 @@ MC.interestZ = function() {
                 .attr('class', klass)
                 .attr('opacity', 0.0);
 
+            allGs.exit().remove();
+
+
             newGs.append('circle');
             var l = MC.label()
                 .setText(interest.getText())
                 .setAlign('middle');
             newGs.call(l);
 
-            // change attributes for both existing and new elements.
-            updateGs.attr('transform', function (d, i) {
+            allGs.transition()
+                .attr('opacity', 1.0)
+                .duration(1000);
+
+            // position both existing and new elements.
+            allGs.attr('transform', function (d, i) {
                     var cx = interest.getOrCallCx(d, i);
                     var cy = interest.getOrCallCy(d, i);
                     return 'translate(' + cx + ', ' + cy + ')';
                 });
 
-            updateGs.select('circle')
+            // Change fill for both existing and new elements
+            allGs.select('circle')
                     .attr('fill', interest.getColor())
                     .attr('r', interest.getR());
-
-            if (interest.getEnterTransition() != null) {
-                newGs.transition().call(interest.getEnterTransition());
-            }
 
 //            interest.getOrCallOnHover().forEach(function (v) {
 //                    g.on('mouseover', v[0]);
@@ -81,8 +80,8 @@ MC.interestZ = function() {
 
     MC.options.register(interest, 'text', function (d) { return d.name; });
     MC.options.register(interest, 'color', function (d) { return MC.hueToColor(d.color); })
-    MC.options.register(interest, 'cx', 100);
-    MC.options.register(interest, 'cy', 100);
+    MC.options.register(interest, 'cx', function (d) { return d.cx; });
+    MC.options.register(interest, 'cy', function (d) { return d.cy; });
     MC.options.register(interest, 'r', function(d) { return d.r; });
     MC.options.register(interest, 'onHover', [], MC.options.TYPE_LIST);
     MC.options.register(interest, 'cssClass', 'interest');

@@ -6,10 +6,8 @@ MC.BaseViz = function(params) {
     this.people = params.people;
     this.interests = params.interests;
     this.svg = params.svg;
-    this.cloneInterests = params.cloneInterests;    // REMOVE ME
 
 };
-
 
 MC.BaseViz.prototype.createPersonView = function() {
     this.personView = MC.person();
@@ -33,13 +31,13 @@ MC.BaseViz.prototype.createInterestView=function() {
 MC.BaseViz.prototype.createInterests = function(){
     // uses the interest view and the interest model to create the
     // svg interest elements and their d3 wrapper.
-     this.svg
-         .attr('width', 800)
-                .attr('height', 800)
-                .selectAll('interests')
-                .data(this.interests)
-                .enter()
-                .call(this.interestView);
+    this.svg
+        .attr('width', 800)
+        .attr('height', 800)
+        .selectAll('interests')
+        .data(this.interests)
+        .enter()
+        .call(this.interestView);
 };
 
 MC.BaseViz.prototype.getD3Interests = function() {
@@ -51,14 +49,14 @@ MC.BaseViz.prototype.getD3People = function() {
 }
 
 MC.BaseViz.prototype.createInterestLayoutView = function(){
-      this.interestLayoutView = MC.interestLayout()
-          .setDiameter(500)
-          .setRootId('18')
-          .setInterests(this.cloneInterests)
-          .setClusterMap(this.clusterMap)
-          .setInterestNodes(this.getD3Interests());
-             //makes a public variable
-      return this.interestLayoutView;
+    this.interestLayoutView = MC.interestLayout()
+        .setDiameter(500)
+        .setRootId('18')
+        .setInterests(jQuery.extend(true, {}, this.interests))
+        .setClusterMap(this.clusterMap)
+        .setInterestNodes(this.getD3Interests());
+    //makes a public variable
+    return this.interestLayoutView;
 };
 
 MC.BaseViz.prototype.createPersonLayoutView = function(){

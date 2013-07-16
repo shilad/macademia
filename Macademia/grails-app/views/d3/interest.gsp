@@ -32,16 +32,18 @@ svg {
 <r:script>
     var i = 0;
 
-    var interests = [
-        {'name' : 'Espeon', 'color' : 0.5, 'r': 15},
-        {'name' : 'Umbreon', 'color' : 0.69, 'r': 5}
+    var interests1 = [
+        {'id' : 34, 'name' : 'Espeon', 'color' : 0.5, 'r': 15, 'cx' : 50, 'cy' : 200},
+        {'id' : 31, 'name' : 'Umbreon', 'color' : 0.69, 'r': 5, 'cx' : 150, 'cy' : 200}
     ];
 
+    var interests2 = [
+        {'id' : 34, 'name' : 'Espeon', 'color' : 0.5, 'r': 15, 'cx' : 150, 'cy' : 200},
+        {'id' : 39, 'name' : 'Squirtle', 'color' : 0.3, 'r': 10, 'cx' : 100, 'cy' : 199}
+    ];
+
+    // Create d3 template that knows how to create svg elements for data
     var interest = MC.interestZ()
-            .setCy(function (d) {
-                i += 40;
-                return i;
-            })
             .addOnHover(
             function (d) {
                 d3.select(this)
@@ -56,31 +58,20 @@ svg {
                         .transition()
                         .duration(200)
                         .attr('fill', 'black');
-            })
-            .setEnterTransition(function() {
-                this.attr('opacity', 1)
-                    .duration(1000);
             });
 
+    // Ask d3 to create svg elements by applying the template to interest data
     d3.select('svg')
             .attr('width', 500)
             .attr('height', 500)
-            .datum(interests)
+            .datum(interests1)
             .call(interest);
 
 
     window.setTimeout(function() {
-        interests[0].r *= 2
-        var interest = MC.interestZ()
-                .setUpdateTransition(function () {
-                    this.duration(1000);
-                })
-                .setCy(function (d) {
-                    i += 40;
-                    return i;
-                });
+        var interest = MC.interestZ();
         d3.select('svg')
-                .datum(interests)
+                .datum(interests2)
                 .call(interest);
 
     }, 1000);
