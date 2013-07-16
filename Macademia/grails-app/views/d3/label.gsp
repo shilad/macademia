@@ -21,7 +21,7 @@
 
 .testLabel {
     font: 20px Georgia;
-    fill: #00b;
+    fill: gray;
 }
 svg {
     height : 90%;
@@ -42,22 +42,25 @@ svg {
                 d3.select(this)
                     .transition()
                     .duration(500)
-                    .attr('fill', 'red');
+                    .attr('fill', 'black');
             },
             function (d) {
                 d3.select(this)
                         .transition()
                         .duration(500)
-                        .attr('fill', 'black');
-            });
+                        .attr('fill', 'gray');
+            }
+    );
 
     d3.select('svg')
             .attr('width', 500)
             .attr('height', 500)
             .selectAll('labels')
+            .data([0])
             .attr('class', 'labels')
-            .data(['foo', 'bar', 'baz'])
-            .enter().call(label);
+            .data(labels)
+            .enter()
+            .call(label);
 </r:script>
 
 <svg></svg>

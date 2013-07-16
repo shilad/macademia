@@ -17,6 +17,7 @@
 </head>
 <body>
 
+
 <style type="text/css">
 .node circle {
     stroke: #ddf;
@@ -32,6 +33,7 @@
 }
 .personNode {
     font: 13px Georgia;
+    fill: #DCDCDC;
     /*fill: #aaa;*/
 }
 
@@ -45,5 +47,8 @@
 }
 
 </style>
+
+
+
 </body>
 </html>

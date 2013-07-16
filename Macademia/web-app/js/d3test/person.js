@@ -54,7 +54,7 @@ MC.person = function() {
             .setText(person.getText())
             .setY(function (d, i) {
                 var r = person.getOrCallR(d, i);
-                return "" + (r+5) + "px";
+                return "" + (r+11) + "px";
             })
             .setAlign('middle');
 

@@ -36,7 +36,6 @@ svg {
         {
             'name' : 'Shilad Sen',
             'pic' : '/Macademia/all/image/randomFake?foo',
-            'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
             'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7}
         }
 //        {
@@ -47,19 +46,19 @@ svg {
 //        }
     ];
 
-    var person = MC.person()
-        .setCy(function (d) {
-            i += 100;
-            return i;
-        })
-        .addOnHover(
+    var personCenter = MC.personCenter()
+            .setCy(function (d) {
+                i += 100;
+                return i;
+            })
+            .addOnHover(
             function (d) {
                 console.log('in ' + d.name);
                 d3.select(this)
-                    .selectAll('text')
-                    .transition()
-                    .duration(200)
-                    .attr('fill', 'black');
+                        .selectAll('text')
+                        .transition()
+                        .duration(200)
+                        .attr('fill', 'black');
             },
             function (d) {
                 console.log('out ' + d.name);
@@ -76,10 +75,10 @@ svg {
             .selectAll('people')
             .data([0])
             .append('g')
-            .attr('class', 'people')
+//            .attr('class', 'people')
             .data(people)
             .enter()
-            .call(person);
+            .call(personCenter);
 </r:script>
 
 <svg></svg>

@@ -42,18 +42,33 @@ modules = {
 
     }
     d3js {
-        dependsOn 'nbrviz'
+        dependsOn 'core'
         resource url: '/js/d3test/d3.v3.js'
         resource url: '/js/d3test/utils.js'
         resource url: '/js/d3test/label.js'
         resource url: '/js/d3test/interest.js'
+//        resource url: '/js/d3test/craZ-interest.js'
         resource url: '/js/d3test/person.js'
+        resource url: 'js/d3test/person-layout.js'
+        resource url: '/js/d3test/interest-layout.js'
+        resource url: '/js/d3test/base-viz.js'
+        resource url: '/js/d3test/person-center.js'
     }
 
     d3demo {
         dependsOn 'd3js'
+        dependsOn 'nbrviz'
         resource url: '/js/d3test/d3play.js'
     }
+
+    darth{
+
+           dependsOn 'd3js'
+        resource url: '/js/d3test/d3play.js'
+
+
+    }
+
 
     nbrviz {
         dependsOn 'jquery'
