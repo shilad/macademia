@@ -34,7 +34,7 @@ svg {
 }
 
 </style>
-<r:script>
+<r:script>        //here
     var interests = [
         {"id": 18, "name": "WINNING", "cluster": 18, "color": "#ff4444"} ,
         {"id": 24, "name": "gum", "cluster": 18, "parentId": "18", "relevance": 0.7576502561569214, "roles": [], "color": "#9a679f"},
