@@ -45,22 +45,7 @@ svg {
     ];
 
     // Create d3 template that knows how to create svg elements for data
-    var interest = MC.interestZ()
-            .addOnHover(
-            function (d) {
-                d3.select(this)
-                        .selectAll('text')
-                        .transition()
-                        .duration(200)
-                        .attr('fill', 'red');
-//            },
-            function (d) {
-                d3.select(this)
-                        .selectAll('text')
-                        .transition()
-                        .duration(200)
-                        .attr('fill', 'black');
-            });
+    var interest = MC.interest();
 
     // Ask d3 to create svg elements by applying the template to interest data
     d3.select('svg')
@@ -71,12 +56,12 @@ svg {
 
 
     window.setTimeout(function() {
-        var interest = MC.interestZ();
+        var interest = MC.interest();
         d3.select('svg')
                 .datum(interests2)
                 .call(interest);
 
-    }, 1000);
+    }, 1500);
 
 
 </r:script>
