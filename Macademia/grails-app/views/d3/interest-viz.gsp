@@ -32,10 +32,10 @@ svg {
 <r:script>
 
     var hubCircles = [
-        {'id' : 34, 'name' : 'Espeon', 'color' : "red", 'r': 50, 'cx' : 50, 'cy' : 200},
-        {'id' : 31, 'name' : 'Umbreon', 'color' : "pink", 'r': 50, 'cx' : 150, 'cy' : 200},
-        {'id' : 10, 'name' : 'Vaporeon', 'color' : "yellow", 'r': 50, 'cx' : 500, 'cy' : 200},
-        {'id' : 19, 'name' : 'Jolteon', 'color' : "green", 'r': 50, 'cx' : 700, 'cy' : 200}
+        {'id' : 34, 'type' : "person", 'name' : 'Eevee', 'color' : "pink", 'r': 50, 'cx' : 375, 'cy' : 425},
+        {'id' : 31, 'type' : "person",'name' : 'Umbreon', 'color' : "black", 'r': 50, 'cx' : 375, 'cy' : 150},
+        {'id' : 10, 'type' : "person",'name' : 'Jolteon', 'color' : "yellow", 'r': 50, 'cx' : 150, 'cy' : 600},
+        {'id' : 19, 'type' : "person",'name' : 'Vaporeon', 'color' : "blue", 'r': 50, 'cx' : 600, 'cy' : 600}
     ];
 
     var viz = new MC.InterestViz({
@@ -44,6 +44,7 @@ svg {
     });
 
     viz.createsCircles();
+    viz.createInterestLabels();
 
 
 </r:script>

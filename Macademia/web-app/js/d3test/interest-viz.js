@@ -13,7 +13,7 @@ MC.InterestViz = function(params) {
 //    this.hubs = params.hubs;
 //    this.people = params.people;
 //    this.root = params.root;
-    console.log(params);
+//    console.log(params);
     this.svg = params.svg;
     this.circles = params.circles;
 };
@@ -40,13 +40,19 @@ MC.InterestViz.prototype.createsCircles = function(){
 //Position the hubs and the root
 MC.InterestViz.prototype.createInterestViz = function(){
 
-
 };
 
-var l = MC.label()
-    .setText("hi")
-    .setAlign('middle');
-this.circles.call(l);
+//Create interest labels
+MC.InterestViz.prototype.createInterestLabels = function(){
+    this.svg
+        .selectAll("circle")
+        .data(this.circles)
+        .enter()
+        .attr()
+
+
+
+};
 
 
 
@@ -82,3 +88,5 @@ MC.InterestViz.prototype.createPersonLayoutView = function(){
         .setInterestNodes(this.getD3Interests());
     return this.personLayoutView;
 };
+
+
