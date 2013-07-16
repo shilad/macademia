@@ -49,7 +49,7 @@ MC.InterestViz.prototype.createInterestLabels = function(){
         .data(this.circles)
         .enter()
         .append("text")
-        .attr("fill","white")
+        .attr("fill","green")
         .text(function(d){
             return d.name;
         })
@@ -61,10 +61,39 @@ MC.InterestViz.prototype.createInterestLabels = function(){
             return d.cy;
         })
         .attr("font-family", "sans-serif")
-        .attr("font-size", "16px")
+        .attr("font-size", "20px")
+        .attr("stroke","black")
+        .attr("stroke-width",".25");
 
 
 
+};
+
+MC.InterestViz.prototype.setGradients = function(){
+    var defs = this.svg.append('svg:defs');
+
+    defs.append('svg:linearGradient')
+        .attr('gradientUnits', 'userSpaceOnUse')
+        .attr('x1', 0).attr('y1', 0).attr('x2', 20).attr('y2', 0)
+        .attr('id', 'master').call(
+        function(gradient) {
+            gradient.append('svg:stop').attr('offset', '0%').attr('style', 'stop-color:rgb(0,0,0);stop-opacity:1');
+            gradient.append('svg:stop').attr('offset', '100%').attr('style', 'stop-color:rgb(0,0,0);stop-opacity:0');
+        });
+
+
+    defs.selectAll('.gradient').data(this.circles)
+        .enter().append('svg:linearGradient')
+        .attr('id', function(d, i) { return 'gradient' + i; })
+        .attr('class', 'gradient')
+        .attr('xlink:href', '#master')
+        .attr('gradientTransform', function(d) { return 'translate(' + d[1] + ')'; });
+
+    this.svg.selectAll('circles').data(this.circles)
+        .enter().append('circles')
+        .attr('fill', function(d, i) { return 'url(#gradient' + i + ')'; })
+        .attr('x', 0)
+        .attr('y', function(d, i) { return (i+1) * 20; });
 };
 
 
