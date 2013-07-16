@@ -45,10 +45,23 @@ MC.InterestViz.prototype.createInterestViz = function(){
 //Create interest labels
 MC.InterestViz.prototype.createInterestLabels = function(){
     this.svg
-        .selectAll("circle")
+        .selectAll("text")
         .data(this.circles)
         .enter()
-        .attr()
+        .append("text")
+        .attr("fill","white")
+        .text(function(d){
+            return d.name;
+        })
+        .attr("text-anchor", "middle")
+        .attr("x", function(d) {
+            return d.cx;
+        })
+        .attr("y", function(d) {
+            return d.cy;
+        })
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "16px")
 
 
 
