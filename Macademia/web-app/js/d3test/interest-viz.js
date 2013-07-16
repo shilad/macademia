@@ -70,30 +70,43 @@ MC.InterestViz.prototype.createInterestLabels = function(){
 };
 
 MC.InterestViz.prototype.setGradients = function(){
-    var defs = this.svg.append('svg:defs');
-
-    defs.append('svg:linearGradient')
-        .attr('gradientUnits', 'userSpaceOnUse')
-        .attr('x1', 0).attr('y1', 0).attr('x2', 20).attr('y2', 0)
-        .attr('id', 'master').call(
-        function(gradient) {
-            gradient.append('svg:stop').attr('offset', '0%').attr('style', 'stop-color:rgb(0,0,0);stop-opacity:1');
-            gradient.append('svg:stop').attr('offset', '100%').attr('style', 'stop-color:rgb(0,0,0);stop-opacity:0');
+    var defs = this.svg
+        .selectAll("defs")
+        .data(this.svg[0])
+        .enter()
+        .append('defs');
+    var stops=[{"p":"0%","g":"stop-color:rgb(0,0,0);stop-opacity:1"},{"p":"100%","g":"stop-color:rgb(0,0,0);stop-opacity:0"}];
+    var rGs = defs
+        .selectAll("radialGradient")
+        .data(this.circles)
+        .enter()
+        .append('radialGradient')
+        .attr("id",function(d){
+            return "gradient"+ d.id;
+        });
+    rGs
+        .selectAll("stop")
+        .data(stops)
+        .enter()
+        .append("stop")
+        .attr("offset", function(d){
+            return d.p;
+        })
+        .attr("style", function(d){
+            return d.g;
         });
 
-
-    defs.selectAll('.gradient').data(this.circles)
-        .enter().append('svg:linearGradient')
-        .attr('id', function(d, i) { return 'gradient' + i; })
-        .attr('class', 'gradient')
-        .attr('xlink:href', '#master')
-        .attr('gradientTransform', function(d) { return 'translate(' + d[1] + ')'; });
-
-    this.svg.selectAll('circles').data(this.circles)
-        .enter().append('circles')
-        .attr('fill', function(d, i) { return 'url(#gradient' + i + ')'; })
-        .attr('x', 0)
-        .attr('y', function(d, i) { return (i+1) * 20; });
+    this.svg.selectAll('circle')
+        .data(this.circles)
+        .attr('fill', function(d) {
+            return 'url(#gradient' + d.id + ')';
+        })
+        .attr('cx', function(d) {
+            return d.cx;
+        })
+        .attr('cy', function(d) {
+            return d.cy;
+        });
 };
 
 
