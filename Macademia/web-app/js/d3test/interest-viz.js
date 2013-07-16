@@ -43,6 +43,11 @@ MC.InterestViz.prototype.createInterestViz = function(){
 
 };
 
+var l = MC.label()
+    .setText("hi")
+    .setAlign('middle');
+this.circles.call(l);
+
 
 
 /*
