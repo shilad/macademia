@@ -22,6 +22,9 @@ MC.hub = function() {
             var rootY = data.root[0].cy;
             var color = data.root[0].color;
             var distance = 50;
+            if(data.root[0]["distance"]){ //if the root specifies its distance from the children
+               distance = data.root[0]["distance"];
+            }
 
             var cloneChildren = $.extend(true,[],data.children);//clone the children array
             var n = cloneChildren.length;
@@ -30,7 +33,9 @@ MC.hub = function() {
             $.each(cloneChildren,function(i,v){
                 v["cx"] = rootX + distance * Math.cos((i+1)*2*Math.PI/n);
                 v["cy"] = rootY - distance * Math.sin((i+1)*2*Math.PI/n);
-                v["color"] = color;
+                if(!v["color"]){ //if the child does not have its own color
+                    v["color"] = color; //assign the color of the parent
+                }
             });
             var children = MC.interest("Child");
             d3.select('svg').datum(cloneChildren).call(children);
