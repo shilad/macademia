@@ -69,14 +69,11 @@ MC.InterestViz.prototype.createInterestLabels = function(){
 
 };
 
-MC.InterestViz.prototype.getStops = function(id,c){
-    console.log(id);
-    for(var i in c){
-        if(c[i].id==id){
-            return [{"p":"0%","g":"stop-color:"+c[i].color+";stop-opacity:1"},{"p":"100%","g":"stop-color:"+c[i].color+";stop-opacity:0"}];
-        }
-    }
-    return null;
+MC.InterestViz.prototype.getStops = function(){
+    return this.svg.selectAll("g.interest");
+//            return [{"p":"0%","g":"stop-color:"+ d.id.color+";stop-opacity:1"},
+//                {"p":"100%","g":"stop-color:"+ d.id.color+";stop-opacity:0"}];
+
 };
 MC.InterestViz.prototype.setGradients = function(){
     var defs = this.svg
@@ -94,8 +91,8 @@ MC.InterestViz.prototype.setGradients = function(){
             return "gradient_"+ d.id;
         });
     rGs
-        .select("radialGradient#gradient_19")
-        .data(this.getStops(rGs.select("radialGradient#gradient_19"),this.circles))
+//        .select("radialGradient#gradient_19")
+        .data(this.getStops())
         .enter()
         .append("stop")
         .attr("offset", function(d){

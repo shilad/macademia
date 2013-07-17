@@ -51,6 +51,13 @@ svg {
 </r:script>
 
 <svg>
+
+        %{--<radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">--}%
+            %{--<stop offset="0%" style="stop-color:blue;stop-opacity:0" />--}%
+            %{--<stop offset="100%" style="stop-color:red;stop-opacity:1" />--}%
+        %{--</radialGradient>--}%
+
+    %{--<ellipse cx="375" cy="425" rx="65" ry="65" fill="url(#grad1)" />--}%
 </svg>
 </body>
 </html>
