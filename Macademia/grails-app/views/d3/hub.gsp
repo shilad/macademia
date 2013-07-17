@@ -28,6 +28,7 @@ svg {
 
 <r:script>
 
+    //TODO: r doesn't adjust size for person
     var root = [{
         "id":7,
         'name':'Daenerys Targaryen',
@@ -35,17 +36,17 @@ svg {
         'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
         'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
         'type':'person',
-        'r': 20,
+        'r': 30,
         'color': 0.2
     }];
 
     var interests = [
-        {"id": 1, "name": "Drogon","r":5},
-        {"id": 2, "name": "Rhaegal","r":5},
-        {"id": 3, "name": "Viserion","r":5},
-        {"id": 4, "name": "Jorah", "r":5},
-        {"id": 5, "name": "Barristan", "r":5},
-        {"id": 6, "name": "Daario", "r":5,"color":0.8}
+        {"id": 1, "name": "Drogon","r":10},
+        {"id": 2, "name": "Rhaegal","r":10},
+        {"id": 3, "name": "Viserion","r":10},
+        {"id": 4, "name": "Jorah", "r":10},
+        {"id": 5, "name": "Barristan", "r":10},
+        {"id": 6, "name": "Daario", "r":10}
     ];
 
     var hubmodel = {
@@ -55,7 +56,7 @@ svg {
         root : root,
         children : interests,
         color : 0.7,
-        distance: 50
+        distance: 55
     };
 
     var template = MC.hub();
@@ -65,7 +66,7 @@ svg {
     svg.datum(hubmodel)
             .call(template);
 
-    var root2 = [{"id": 8, "name":"stark", "type":"interest", "r":20,"color":0.5}];
+    var root2 = [{"id": 8, "name":"stark", "type":"interest", "r":30,"color":0.5}];
 
     var hubmodel2 = {
         id:8,
@@ -74,7 +75,7 @@ svg {
         root : root2,
         children : interests,
         color : 0.7,
-        distance: 50
+        distance: 55
     };
 
     window.setTimeout(function() {

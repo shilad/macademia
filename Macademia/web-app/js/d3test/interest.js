@@ -61,7 +61,7 @@ MC.interest = function() {
             newGs.append('circle');
             var l = MC.label()
                 .setText(interest.getText())
-                .setAlign('right');
+                .setAlign('middle');
             newGs.call(l);
 
             // position both existing and new elements.
