@@ -18,24 +18,24 @@ MC.InterestViz = function(params) {
     this.circles = params.circles;
 };
 
-MC.InterestViz.prototype.createsCircles = function(){             //NO LONGER USED
-    this.svg.selectAll("circle.solid")
-        .data(this.circles)
-        .enter()
-        .append("circle")
-        .attr("fill",function(d){
-            return d.color;
-        })
-        .attr("r",function(d){
-            return d.r;
-        })
-        .attr("cx",function(d){
-            return d.cx;
-        })
-        .attr("cy",function(d){
-            return d.cy;
-        })
-        .attr("class","solid");
+//MC.InterestViz.prototype.createsCircles = function(){             //NO LONGER USED
+//    this.svg.selectAll("circle.solid")
+//        .data(this.circles)
+//        .enter()
+//        .append("circle")
+//        .attr("fill",function(d){
+//            return d.color;
+//        })
+//        .attr("r",function(d){
+//            return d.r;
+//        })
+//        .attr("cx",function(d){
+//            return d.cx;
+//        })
+//        .attr("cy",function(d){
+//            return d.cy;
+//        })
+//        .attr("class","solid");
 };
 MC.InterestViz.prototype.createsGradientCircles = function(){
     this.svg.selectAll('circle.gradient')

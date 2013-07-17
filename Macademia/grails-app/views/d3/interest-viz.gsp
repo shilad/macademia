@@ -32,7 +32,7 @@ svg {
 <r:script>
 
     var hubCircles = [
-        {'id' : 34, 'type' : "person", 'name' : 'Eevee', 'color' : "pink", 'r': 30, 'cx' : 375, 'cy' : 425},
+        {'id' : 34, 'type' : "person", 'name' : 'Eevee', 'color' : "tan", 'r': 30, 'cx' : 375, 'cy' : 425},
         {'id' : 31, 'type' : "person",'name' : 'Umbreon', 'color' : "black", 'r': 30, 'cx' : 375, 'cy' : 150},
         {'id' : 10, 'type' : "person",'name' : 'Jolteon', 'color' : "yellow", 'r': 30, 'cx' : 150, 'cy' : 600},
         {'id' : 19, 'type' : "person",'name' : 'Vaporeon', 'color' : "blue", 'r': 30, 'cx' : 600, 'cy' : 600}
@@ -43,20 +43,12 @@ svg {
     });
 
 
-//    viz.createsCircles();
     viz.setGradients();
     viz.createsGradientCircles();
     viz.createInterestLabels();
 </r:script>
 
 <svg>
-
-        %{--<radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">--}%
-            %{--<stop offset="0%" style="stop-color:blue;stop-opacity:0" />--}%
-            %{--<stop offset="100%" style="stop-color:red;stop-opacity:1" />--}%
-        %{--</radialGradient>--}%
-
-    %{--<ellipse cx="375" cy="425" rx="65" ry="65" fill="url(#grad1)" />--}%
 </svg>
 </body>
 </html>
