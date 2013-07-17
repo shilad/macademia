@@ -15,6 +15,17 @@
 </head>
 <body>
 
+<style type="text/css">
+.hub {
+    font: 13px Georgia;
+    fill: #000;
+}
+svg {
+    height : 90%;
+    width : 90%;
+}
+</style>
+
 <r:script>
 
     var root = {"id": 7, "name":"Stark", "type":"interest","cx":300,"cy":300,"r":20};

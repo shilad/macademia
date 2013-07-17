@@ -31,6 +31,23 @@ MC.hub = function() {
             var rootG = d3.select("g." + klass).data(data.root);
             var children = d3.selectAll("g." + klass).data(cloneChildren); //this is an array
 
+            var newChildren = children.enter().append('g')
+                .attr('class',klass);
+
+            newChildren.append('circle');
+
+            children.transition().delay(500).duration(500).attr('transform', function (d, i) {
+                var cx = hub.getOrCallCx(d, i);
+                var cy = hub.getOrCallCy(d, i);
+                console.log('setting cx to ' + cx);
+                return 'translate(' + cx + ', ' + cy + ')';
+            });
+
+            children.select('circle')
+                .attr('r',hub.getR());
+
+
+
             //drawing root
 //            console.log(rootG[0]);
 //            console.log(children);
@@ -46,21 +63,21 @@ MC.hub = function() {
 //            });
 
             //drawing children
-            children.attr('transform', function (d, i) {
-                var cx = hub.getOrCallCx(d, i);
-                var cy = hub.getOrCallCy(d, i);
-                console.log('setting cx to ' + cx);
-                return 'translate(' + cx + ', ' + cy + ')';
-            });
-                        //fade in new g's
-            children.transition()
-                .delay(1000)
-                .attr('opacity', 1.0)
-                .duration(500);
+//            children.attr('transform', function (d, i) {
+//                var cx = hub.getOrCallCx(d, i);
+//                var cy = hub.getOrCallCy(d, i);
+//                console.log('setting cx to ' + cx);
+//                return 'translate(' + cx + ', ' + cy + ')';
+//            });
+//                        fade in new g's
+//            children.transition()
+//                .delay(1000)
+//                .attr('opacity', 1.0)
+//                .duration(500);
 
             // Change fill for both existing and new elements
-            children.select('circle')
-                .attr('r', hub.getR());
+//            children.select('circle')
+//                .attr('r', hub.getR());
 
         });
     }
