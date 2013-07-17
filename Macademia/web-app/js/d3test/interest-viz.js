@@ -36,7 +36,7 @@ MC.InterestViz = function(params) {
 //            return d.cy;
 //        })
 //        .attr("class","solid");
-};
+//};
 MC.InterestViz.prototype.createsGradientCircles = function(){
     this.svg.selectAll('circle.gradient')
         .data(this.circles)
