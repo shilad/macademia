@@ -64,7 +64,7 @@ MC.interest = function(type) {
             newGs.append('circle');
             var l = MC.label()
                 .setText(interest.getText())
-                .setAlign('middle');
+                .setAlign('right');
             newGs.call(l);
 
             // position both existing and new elements.
@@ -86,10 +86,10 @@ MC.interest = function(type) {
                 .attr('fill', interest.getColor())
                 .attr('r', interest.getR());
 
-//            interest.getOrCallOnHover().forEach(function (v) {
-//                    g.on('mouseover', v[0]);
-//                    g.on('mouseout', v[1]);
-//                });
+            interest.getOrCallOnHover().forEach(function (v) {
+                    g.on('mouseover', v[0]);
+                    g.on('mouseout', v[1]);
+                });
         });
     }
 
