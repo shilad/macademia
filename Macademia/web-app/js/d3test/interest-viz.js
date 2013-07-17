@@ -69,24 +69,33 @@ MC.InterestViz.prototype.createInterestLabels = function(){
 
 };
 
+MC.InterestViz.prototype.getStops = function(id,c){
+    console.log(id);
+    for(var i in c){
+        if(c[i].id==id){
+            return [{"p":"0%","g":"stop-color:"+c[i].color+";stop-opacity:1"},{"p":"100%","g":"stop-color:"+c[i].color+";stop-opacity:0"}];
+        }
+    }
+    return null;
+};
 MC.InterestViz.prototype.setGradients = function(){
     var defs = this.svg
         .selectAll("defs")
         .data(this.svg[0])
         .enter()
         .append('defs');
-    var stops=[{"p":"0%","g":"stop-color:rgb(0,0,0);stop-opacity:1"},{"p":"100%","g":"stop-color:rgb(0,0,0);stop-opacity:0"}];
+
     var rGs = defs
         .selectAll("radialGradient")
         .data(this.circles)
         .enter()
         .append('radialGradient')
         .attr("id",function(d){
-            return "gradient"+ d.id;
+            return "gradient_"+ d.id;
         });
     rGs
-        .selectAll("stop")
-        .data(stops)
+        .select("radialGradient#gradient_19")
+        .data(this.getStops(rGs.select("radialGradient#gradient_19"),this.circles))
         .enter()
         .append("stop")
         .attr("offset", function(d){
