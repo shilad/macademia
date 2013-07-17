@@ -60,12 +60,10 @@ svg {
 
     var template = MC.hub();
 
-    var svg = d3.select('svg');
+    var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
-    svg.attr('width', 1000)
-       .attr('height', 1000)
-       .datum(hubmodel)
-       .call(template);
+    svg.datum(hubmodel)
+            .call(template);
 
     var root2 = [{"id": 8, "name":"stark", "type":"interest", "r":20,"color":0.5}];
 
@@ -79,10 +77,11 @@ svg {
         distance: 50
     };
 
-    svg.attr('width', 1000)
-            .attr('height', 1000)
-            .datum(hubmodel2)
-            .call(template);
+    window.setTimeout(function() {
+        svg.datum(hubmodel2)
+                .call(template);
+
+    }, 1500);
 
 </r:script>
 
