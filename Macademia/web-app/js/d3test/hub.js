@@ -13,13 +13,32 @@ MC.hub = function() {
     function hub(selection) {
         selection.each(function(data) {
             //The following code draws interests based on data
+
+            //Getting basic info
+            var root  = data.root[0];
+
             var color = 0.5; //default color for children
             if(data['color'])
                 color = data['color'];
-            else if (data.root['color'])
-                color = data.root['color'];
+            else if (root['color'])
+                color = root['color'];
 
-            var id = data.root[0].id;
+            var id = 0; //default id for the hub
+            if(data['id'])
+                id = data.id;
+            else if (root['id'])
+                id = root.id;
+
+            var cx = 0;
+            var cy = 0; //default cx and cy for the center of the hub
+            if(data['cx'] && data['cy']){
+                cx = data.cx;
+                cy = data.cy;
+            } else if(root['cx'] && root['cy']){
+                cx = root.cx;
+                cy = root.cy;
+            }
+
             //use d3Group to put everything into one g
             var d3Group = d3.select(this).append('g').attr('id','hub'+id);
 
@@ -27,13 +46,13 @@ MC.hub = function() {
             var rootType = data.root[0].type;
 
             if(rootType == "interest"){
-                var interestRoot = MC.interest().setCssClass("interestRoot"+id);
-                d3Group.datum(data.root).call(interestRoot);
+                var interestTemplate = MC.interest().setCssClass("interestRoot"+id).setCx(cx).setCy(cy);
+                d3Group.datum(data.root).call(interestTemplate);
             }
             else{
                 var personRoot = MC.person()
-                    .setCx(data.root[0].cx)
-                    .setCy(data.root[0].cy)
+                    .setCx(cx)
+                    .setCy(cy)
                     .setCssClass('personRoot'+id) //setting the class name of the root
                 d3Group
                     .selectAll('personRoot'+id)
@@ -46,12 +65,10 @@ MC.hub = function() {
             }
 
             //drawing children
-            var rootX = data.root[0].cx;
-            var rootY = data.root[0].cy;
 
             var distance = 50;
             if(data["distance"]){ //if the distance between the root and children is specified
-               distance = data["distance"];
+                distance = data["distance"];
             }
 
             var cloneChildren = $.extend(true,[],data.children);//clone the children array
@@ -59,8 +76,8 @@ MC.hub = function() {
 
             //the children need to be told where to go (setting the cx and cy).
             $.each(cloneChildren,function(i,v){
-                v["cx"] = rootX + distance * Math.cos((i+1)*2*Math.PI/n);
-                v["cy"] = rootY - distance * Math.sin((i+1)*2*Math.PI/n);
+                v["cx"] = cx + distance * Math.cos((i+1)*2*Math.PI/n);
+                v["cy"] = cy - distance * Math.sin((i+1)*2*Math.PI/n);
                 if(!v["color"]){ //if the child does not have its own color
                     v["color"] = color; //assign the color of the parent
                 }
