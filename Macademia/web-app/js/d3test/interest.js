@@ -33,11 +33,14 @@ var MC = (window.MC = (window.MC || {}));
  *
  * @return {Function}
  */
-MC.interest = function() {
+MC.interest = function(type) {
     function interest(selection) {
 
         selection.each(function(data) {
             var klass = interest.getCssClass();
+            if (type){
+                klass += type;
+            }
 
             var allGs = d3.select(this).selectAll("g." + klass).data(data, function (d) { console.log(d); return d.id; });
 

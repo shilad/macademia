@@ -12,75 +12,77 @@ var MC =  (window.MC = (window.MC || {}));
 MC.hub = function() {
     function hub(selection) {
         selection.each(function(data) {
-            console.log("Inside Each");
-            var klass = hub.getCssClass();
+            //The following code draws interests based on data
+            //drawing root
+            var root = MC.interest("Root");
+            d3.select('svg').datum(data.root).call(root);
 
-            var rootX = data.root.cx;
-            var rootY = data.root.cy;
-            var distance = 100;
+            //drawing children
+            var rootX = data.root[0].cx;
+            var rootY = data.root[0].cy;
+            var color = data.root[0].color;
+            var distance = 50;
+            if(data.root[0]["distance"]){ //if the root specifies its distance from the children
+               distance = data.root[0]["distance"];
+            }
 
             var cloneChildren = $.extend(true,[],data.children);//clone the children array
-            console.log(data.children);
             var n = cloneChildren.length;
 
             //the children need to be told where to go (setting the cx and cy).
             $.each(cloneChildren,function(i,v){
-                v["cx"] = rootX + (i+1) * distance * Math.cos(2*Math.PI/n);
-                v["cy"] = rootX - (i+1) * distance * Math.sin(2*Math.PI/n);
+                v["cx"] = rootX + distance * Math.cos((i+1)*2*Math.PI/n);
+                v["cy"] = rootY - distance * Math.sin((i+1)*2*Math.PI/n);
+                if(!v["color"]){ //if the child does not have its own color
+                    v["color"] = color; //assign the color of the parent
+                }
             });
-
-            var rootG = d3.selectAll("g." + klass).data(data.root);
-            console.log(rootG);
-            var children = d3.selectAll("g." + klass).data(cloneChildren); //this is an array
-
-            var newChildren = children.enter().append('g')
-                .attr('class',klass);
-
-            newChildren.append('circle');
-
-            children.transition().delay(500).duration(500).attr('transform', function (d, i) {
-                var cx = hub.getOrCallCx(d, i);
-                var cy = hub.getOrCallCy(d, i);
-                console.log('setting cx to ' + cx);
-                return 'translate(' + cx + ', ' + cy + ')';
-            });
-
-            children.select('circle')
-                .attr('r', hub.getR());
+            var children = MC.interest("Child");
+            d3.select('svg').datum(cloneChildren).call(children);
 
 
-
-            //drawing root
-//            console.log(rootG[0]);
-//            console.log(children);
-//            rootG.enter().append('p').text("Where are my dragons?!?!?!?!");
-//                .attr('class', klass);
-
-//            rootG.attr('transform', function(d,i){
+            //The following code draws plain circles based on data
+//            //drawing root
+//            var klassRoot = hub.getCssClass()+"Root";
+//            console.log(data.root);
+//            console.log(data.children);
+//            var allRoot = d3.select(this).selectAll("g." + klassRoot).data(data.root);
+//            console.log(allRoot);
+//            allRoot.enter().append('g').attr('class',klassRoot).append('circle').attr('r',data.root[0].r);
+//            allRoot.transition().attr('transform', function (d, i) {
 //                var cx = hub.getOrCallCx(d, i);
 //                var cy = hub.getOrCallCy(d, i);
 //                console.log('setting cx to ' + cx);
 //                console.log('setting cy to ' + cy);
 //                return 'translate(' + cx + ', ' + cy + ')';
 //            });
-
-            //drawing children
-//            children.attr('transform', function (d, i) {
+//
+//            //drawing children
+//            var rootX = data.root[0].cx;
+//            var rootY = data.root[0].cy;
+//            var distance = 50;
+//
+//            var cloneChildren = $.extend(true,[],data.children);//clone the children array
+//            var n = cloneChildren.length;
+//
+//            //the children need to be told where to go (setting the cx and cy).
+//            $.each(cloneChildren,function(i,v){
+//                v["cx"] = rootX + distance * Math.cos((i+1)*2*Math.PI/n);
+//                v["cy"] = rootY - distance * Math.sin((i+1)*2*Math.PI/n);
+//            });
+//
+//            var klassChild = hub.getCssClass()+"Child";
+//            var allChildren = d3.select(this).selectAll("g." + klassChild).data(cloneChildren, function (d) { console.log(d); return d.id; });
+//
+//            allChildren.enter().append('g').attr('class',klassChild).append('circle').attr('r',5);
+//
+//            allChildren.transition().attr('transform', function (d, i) {
 //                var cx = hub.getOrCallCx(d, i);
 //                var cy = hub.getOrCallCy(d, i);
 //                console.log('setting cx to ' + cx);
+//                console.log('setting cy to ' + cy);
 //                return 'translate(' + cx + ', ' + cy + ')';
 //            });
-//                        fade in new g's
-//            children.transition()
-//                .delay(1000)
-//                .attr('opacity', 1.0)
-//                .duration(500);
-
-            // Change fill for both existing and new elements
-//            children.select('circle')
-//                .attr('r', hub.getR());
-
         });
     }
 

@@ -9,9 +9,9 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
+    <title></title>
     <meta name="layout" content="main"/>
     <r:require modules="d3js"/>
-    <title></title>
 </head>
 <body>
 
@@ -28,18 +28,20 @@ svg {
 
 <r:script>
 
-    var root = {"id": 7, "name":"Stark", "type":"interest","cx":300,"cy":300,"r":20};
+    var root = [{"id": 7, "name":"stark", "type":"interest", "distance":200, "cx":300,"cy":300,"r":20,"color":0.5}];
 
     var interests = [
-        {"id": 1, "name": "Robb", "cluster": 7, "parentId": "7", "relevance": 0.7576502561569214, "roles": [], "r":5},
-        {"id": 2, "name": "Sansa", "cluster": 7, "parentId": "7", "relevance": 0.7576502561569214, "roles": [], "r":5},
-        {"id": 3, "name": "Arya", "cluster": 7, "parentId": "7", "relevance": 0.7576502561569214, "roles": [],"r":5},
-        {"id": 4, "name": "Bran", "cluster": 7, "parentId": "7", "relevance": 0.7576502561569214, "roles": [],"r":5},
-        {"id": 5, "name": "Rickon", "cluster": 7, "parentId": "7", "relevance": 0.7576502561569214, "roles": [],"r":5},
-        {"id": 6, "name": "Jon Snow", "cluster": 7, "parentId": "7", "relevance": 0.7576502561569214, "roles": [],"r":5}
+        {"id": 1, "name": "robb","r":5},
+        {"id": 2, "name": "sansa","r":5},
+        {"id": 3, "name": "arya","r":5},
+        {"id": 4, "name": "bran", "r":5},
+        {"id": 5, "name": "rickon", "r":5},
+        {"id": 6, "name": "jon snow", "r":5,"color":0.8},
+        {"id": 7, "name": "catlyn", "r":5},
+        {"id": 8, "name": "ned", "r":5}
     ];
 
-    var hubModel = {
+    var hubmodel = {
         root : root,
         children : interests,
         color : 0.4
@@ -47,14 +49,18 @@ svg {
 
     var template = MC.hub();
 
-    d3.select('svg')
-            .attr('width', 1000)
-            .attr('height', 1000)
-            .datum(hubModel)
-            .call(template);
+    var svg = d3.select('svg');
+
+    svg.attr('width', 1000)
+       .attr('height', 1000)
+       .datum(hubmodel)
+       .call(template);
+
 </r:script>
 
 <svg>
+
 </svg>
+
 </body>
 </html>
