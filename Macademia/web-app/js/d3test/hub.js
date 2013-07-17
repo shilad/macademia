@@ -13,7 +13,6 @@ MC.hub = function() {
     function hub(selection) {
         selection.each(function(data) {
             //The following code draws interests based on data
-
             var color = 0.5; //default color for children
             if(data['color'])
                 color = data['color'];
@@ -21,20 +20,22 @@ MC.hub = function() {
                 color = data.root['color'];
 
             var id = data.root[0].id;
+            //use d3Group to put everything into one g
+            var d3Group = d3.select(this).append('g').attr('id','hub'+id);
 
             //drawing root
             var rootType = data.root[0].type;
 
             if(rootType == "interest"){
                 var interestRoot = MC.interest().setCssClass("interestRoot"+id);
-                d3.select(this).datum(data.root).call(interestRoot);
+                d3Group.datum(data.root).call(interestRoot);
             }
             else{
                 var personRoot = MC.person()
                     .setCx(data.root[0].cx)
                     .setCy(data.root[0].cy)
                     .setCssClass('personRoot'+id) //setting the class name of the root
-                d3.select(this)
+                d3Group
                     .selectAll('personRoot'+id)
                     .data([0])
                     .append('g')
@@ -65,11 +66,7 @@ MC.hub = function() {
                 }
             });
             var childrenTemplate = MC.interest().setCssClass("child"+id);
-            d3.select('svg').datum(data.children).call(childrenTemplate);
-            window.setTimeout(function(){
-                var childrenTemplate = MC.interest().setCssClass("child"+id);
-                d3.select('svg').datum(cloneChildren).call(childrenTemplate);
-            },1500);
+            d3Group.datum(cloneChildren).call(childrenTemplate);
 
 
             //The following code draws plain circles based on data

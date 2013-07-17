@@ -28,7 +28,6 @@ svg {
 
 <r:script>
 
-//    var root = [{"id": 7, "name":"stark", "type":"interest", "cx":300,"cy":300,"r":20,"color":0.5}];
     var root = [{
         "id":7,
         'name':'Daenerys Targaryen',
@@ -55,7 +54,7 @@ svg {
         root : root,
         children : interests,
         color : 0.7,
-        distance: 100
+        distance: 50
     };
 
     var template = MC.hub();
@@ -66,6 +65,20 @@ svg {
        .attr('height', 1000)
        .datum(hubmodel)
        .call(template);
+
+    var root2 = [{"id": 8, "name":"stark", "type":"interest", "cx":500,"cy":200,"r":20,"color":0.5}];
+
+    var hubmodel2 = {
+        root : root2,
+        children : interests,
+        color : 0.7,
+        distance: 50
+    };
+
+    svg.attr('width', 1000)
+            .attr('height', 1000)
+            .datum(hubmodel2)
+            .call(template);
 
 </r:script>
 
