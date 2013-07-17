@@ -24,14 +24,14 @@ MC.InterestViz.prototype.createsCircles = function(){
         .enter()
         .append("circle")
         .attr("fill",function(d){
-             return d.color;
+            return d.color;
         })
-       .attr("r",function(d){
+        .attr("r",function(d){
             return d.r;
         })
-       .attr("cx",function(d){
+        .attr("cx",function(d){
             return d.cx;
-       })
+        })
         .attr("cy",function(d){
             return d.cy;
         });
@@ -69,15 +69,6 @@ MC.InterestViz.prototype.createInterestLabels = function(){
 
 };
 
-MC.InterestViz.prototype.getStops = function(id,c){
-    console.log(id);
-    for(var i in c){
-        if(c[i].id==id){
-            return [{"p":"0%","g":"stop-color:"+c[i].color+";stop-opacity:1"},{"p":"100%","g":"stop-color:"+c[i].color+";stop-opacity:0"}];
-        }
-    }
-    return null;
-};
 MC.InterestViz.prototype.setGradients = function(){
     var defs = this.svg
         .selectAll("defs")
@@ -93,22 +84,33 @@ MC.InterestViz.prototype.setGradients = function(){
         .attr("id",function(d){
             return "gradient_"+ d.id;
         });
-    rGs
-        .select("radialGradient#gradient_19")
-        .data(this.getStops(rGs.select("radialGradient#gradient_19"),this.circles))
-        .enter()
-        .append("stop")
-        .attr("offset", function(d){
-            return d.p;
-        })
-        .attr("style", function(d){
-            return d.g;
+
+    var c=this.circles;
+    jQuery(document).ready(function(){
+        jQuery.each(jQuery("radialGradient"),function(){
+            for(var i = 0; i < c.length; i++){
+                if(c[i].id==this.id.split("_")[1]){
+                    console.log("here");
+                    jQuery(this).append("<stop offset='0%' />");
+                    jQuery(this).children().last().css("stop-color",c[i].color).css("stop-opacity","1");
+                    jQuery(this).append("<stop offset='100%' />");
+                    jQuery(this).children().last().css("stop-color",c[i].color).css("stop-opacity","0");
+                }
+            }
+
+
         });
+        jQuery("body").html(jQuery("body").html());
+        jQuery.each(jQuery("radialGradient"),function(){
+            jQuery(this).children()
+
+        });
+    });
 
     this.svg.selectAll('circle')
         .data(this.circles)
         .attr('fill', function(d) {
-            return 'url(#gradient' + d.id + ')';
+            return 'url(#gradient_' + d.id + ')';
         })
         .attr('cx', function(d) {
             return d.cx;
