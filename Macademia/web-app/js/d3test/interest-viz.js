@@ -18,13 +18,29 @@ MC.InterestViz = function(params) {
     this.circles = params.circles;
 };
 
+
+//var canvas = document.getElementById('myCanvas');
+//var context = canvas.getContext('2d');
+
+var grd = this.svg.radial
+//light blue
+//grd.addColorStop(0, '#8ED6FF');
+//// dark blue
+//grd.addColorStop(1, '#004CB3');
+
+
+
+
+
+
+
 MC.InterestViz.prototype.createsCircles = function(){
     this.svg.selectAll("circle")
         .data(this.circles)
         .enter()
         .append("circle")
         .attr("fill",function(d){
-             return d.color;
+            return d.color;
         })
        .attr("r",function(d){
             return d.r;
@@ -34,8 +50,13 @@ MC.InterestViz.prototype.createsCircles = function(){
        })
         .attr("cy",function(d){
             return d.cy;
-        });
+        })
+
+
+    ;
 }
+
+
 
 //Position the hubs and the root
 MC.InterestViz.prototype.createInterestViz = function(){
@@ -64,56 +85,86 @@ MC.InterestViz.prototype.createInterestLabels = function(){
         .attr("font-size", "20px")
         .attr("stroke","black")
         .attr("stroke-width",".25");
-
-
-
 };
 
-MC.InterestViz.prototype.getStops = function(){
-    return this.svg.selectAll("g.interest");
+
+//MC.InterestViz.prototype.getStops = function(){
+//    return this.svg.selectAll("g.interest");
 //            return [{"p":"0%","g":"stop-color:"+ d.id.color+";stop-opacity:1"},
 //                {"p":"100%","g":"stop-color:"+ d.id.color+";stop-opacity:0"}];
+//};
 
-};
-MC.InterestViz.prototype.setGradients = function(){
-    var defs = this.svg
-        .selectAll("defs")
-        .data(this.svg[0])
-        .enter()
-        .append('defs');
 
-    var rGs = defs
-        .selectAll("radialGradient")
-        .data(this.circles)
-        .enter()
-        .append('radialGradient')
-        .attr("id",function(d){
-            return "gradient_"+ d.id;
-        });
-    rGs
-//        .select("radialGradient#gradient_19")
-        .data(this.getStops())
-        .enter()
-        .append("stop")
-        .attr("offset", function(d){
-            return d.p;
-        })
-        .attr("style", function(d){
-            return d.g;
-        });
 
-    this.svg.selectAll('circle')
-        .data(this.circles)
-        .attr('fill', function(d) {
-            return 'url(#gradient' + d.id + ')';
-        })
-        .attr('cx', function(d) {
-            return d.cx;
-        })
-        .attr('cy', function(d) {
-            return d.cy;
-        });
-};
+//MC.InterestViz.prototype.setGradients = function(){
+//    var defs = this.svg
+//        .selectAll("defs")
+//        .data(this.svg[0])
+//        .enter()
+//        .append('defs');
+//
+//    var rGs = defs
+////        .selectAll("radialGradient")
+//        .data(this.circles)
+//        .enter()
+//        .append('radialGradient')
+//        .attr("id",function(d){
+//            return "gradient_"+ d.id;
+//        });
+//    rGs
+////        .select("radialGradient#gradient_19")
+//        .data(this.getStops())
+//        .enter()
+//        .append("stop")
+//        .attr("offset", function(d){
+//            return d.p;
+//        })
+//        .attr("style", function(d){
+//            return d.g;
+//        });
+//
+//    this.svg.selectAll('circle')
+//        .data(this.circles)
+//        .attr('fill', function(d) {
+//            return 'url(#gradient' + d.id + ')';
+//        })
+//        .attr('cx', function(d) {
+//            return d.cx;
+//        })
+//        .attr('cy', function(d) {
+//            return d.cy;
+//        });
+//};
+
+
+//MC.InterestViz.prototype.getRadGradient = function(){
+//    var radialGradient=this.svg.selectAll("defs").data(this.circles).enter().append("radialGradient")
+//        .selectAll("radialGradient")
+//        .attr("cx", "50%")
+//        .attr("cy", "50%")
+//        .attr("r", "50%")
+//        .attr("fx", "100%")
+//        .attr("fy", "100%")
+//        .selectAll("stop")
+//        .attr("offset", "0%")
+//        .attr("stop-color", "red")
+//        .attr("offset","50%")
+//        .attr("stop-color","blue")
+//        .attr("offset","100%")
+//        .attr("stop-color","green");
+//    return radialGradient;
+//}
+
+//<radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+//    <stop offset="0%" style="stop-color:rgb(255,255,255);
+//      stop-opacity:0" />
+//    <stop offset="100%" style="stop-color:rgb(0,0,255);stop-opacity:1" />
+//</radialGradient>
+
+//<stop offset="0%" stop-color="red" />
+//<stop offset="50%" stop-color="blue" />
+//    <stop offset="100%" stop-color="red" />
+
 
 
 
