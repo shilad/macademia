@@ -28,15 +28,17 @@ svg {
 
 <r:script>
 
-    var root = [{"id": 7, "name":"stark", "type":"interest","cx":300,"cy":300,"r":20}];
+    var root = [{"id": 7, "name":"stark", "type":"interest","cx":300,"cy":300,"r":20,"color":0.5}];
 
     var interests = [
-        {"id": 1, "name": "robb", "cluster": 7, "parentid": "7", "relevance": 0.7576502561569214, "roles": [], "r":5},
-        {"id": 2, "name": "sansa", "cluster": 7, "parentid": "7", "relevance": 0.7576502561569214, "roles": [], "r":5},
-        {"id": 3, "name": "arya", "cluster": 7, "parentid": "7", "relevance": 0.7576502561569214, "roles": [],"r":5},
-        {"id": 4, "name": "bran", "cluster": 7, "parentid": "7", "relevance": 0.7576502561569214, "roles": [],"r":5},
-        {"id": 5, "name": "rickon", "cluster": 7, "parentid": "7", "relevance": 0.7576502561569214, "roles": [],"r":5},
-        {"id": 6, "name": "jon snow", "cluster": 7, "parentid": "7", "relevance": 0.7576502561569214, "roles": [],"r":5}
+        {"id": 1, "name": "robb","r":5},
+        {"id": 2, "name": "sansa","r":5},
+        {"id": 3, "name": "arya","r":5},
+        {"id": 4, "name": "bran", "r":5},
+        {"id": 5, "name": "rickon", "r":5},
+        {"id": 6, "name": "jon snow", "r":5},
+        {"id": 7, "name": "catlyn", "r":5},
+        {"id": 8, "name": "ned", "r":5},
     ];
 
     var hubmodel = {
