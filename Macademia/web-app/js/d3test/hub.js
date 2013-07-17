@@ -13,34 +13,62 @@ MC.hub = function() {
     function hub(selection) {
         selection.each(function(data) {
             //The following code draws interests based on data
+
+            //Getting basic info
+            var root  = data.root[0];
+
+            var color = 0.5; //default color for children
+            if(data['color'])
+                color = data['color'];
+            else if (root['color'])
+                color = root['color'];
+
+            var id = 0; //default id for the hub
+            if(data['id'])
+                id = data.id;
+            else if (root['id'])
+                id = root.id;
+
+            var cx = 0;
+            var cy = 0; //default cx and cy for the center of the hub
+            if(data['cx'] && data['cy']){
+                cx = data.cx;
+                cy = data.cy;
+            } else if(root['cx'] && root['cy']){
+                cx = root.cx;
+                cy = root.cy;
+            }
+
+            //use d3Group to put everything into one g
+            var d3Group = d3.select(this).append('g').attr('id','hub'+id);
+
             //drawing root
             var rootType = data.root[0].type;
 
             if(rootType == "interest"){
-                var interestRoot = MC.interest("Root");
-                d3.select(this).datum(data.root).call(interestRoot);
+                var interestTemplate = MC.interest().setCssClass("interestRoot"+id).setCx(cx).setCy(cy);
+                d3Group.datum(data.root).call(interestTemplate);
             }
             else{
                 var personRoot = MC.person()
-                    .setCx(data.root[0].cx)
-                    .setCy(data.root[0].cy);
-                d3.select(this)
-                    .selectAll('people')
+                    .setCx(cx)
+                    .setCy(cy)
+                    .setCssClass('personRoot'+id) //setting the class name of the root
+                d3Group
+                    .selectAll('personRoot'+id)
                     .data([0])
                     .append('g')
-                    .attr('class', 'people')
+                    .attr('class', 'personRoot'+id)
                     .data(data.root)
                     .enter()
                     .call(personRoot);
             }
 
             //drawing children
-            var rootX = data.root[0].cx;
-            var rootY = data.root[0].cy;
-            var color = data.root[0].color;
+
             var distance = 50;
-            if(data.root[0]["distance"]){ //if the root specifies its distance from the children
-               distance = data.root[0]["distance"];
+            if(data["distance"]){ //if the distance between the root and children is specified
+                distance = data["distance"];
             }
 
             var cloneChildren = $.extend(true,[],data.children);//clone the children array
@@ -48,14 +76,14 @@ MC.hub = function() {
 
             //the children need to be told where to go (setting the cx and cy).
             $.each(cloneChildren,function(i,v){
-                v["cx"] = rootX + distance * Math.cos((i+1)*2*Math.PI/n);
-                v["cy"] = rootY - distance * Math.sin((i+1)*2*Math.PI/n);
+                v["cx"] = cx + distance * Math.cos((i+1)*2*Math.PI/n);
+                v["cy"] = cy - distance * Math.sin((i+1)*2*Math.PI/n);
                 if(!v["color"]){ //if the child does not have its own color
                     v["color"] = color; //assign the color of the parent
                 }
             });
-            var children = MC.interest("Child");
-            d3.select('svg').datum(cloneChildren).call(children);
+            var childrenTemplate = MC.interest().setCssClass("child"+id);
+            d3Group.datum(cloneChildren).call(childrenTemplate);
 
 
             //The following code draws plain circles based on data

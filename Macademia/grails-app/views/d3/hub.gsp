@@ -28,7 +28,6 @@ svg {
 
 <r:script>
 
-//    var root = [{"id": 7, "name":"stark", "type":"interest", "distance":200, "cx":300,"cy":300,"r":20,"color":0.5}];
     var root = [{
         "id":7,
         'name':'Daenerys Targaryen',
@@ -36,10 +35,7 @@ svg {
         'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
         'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
         'type':'person',
-        'cx':300,
-        'cy': 300,
         'r': 20,
-        'distance':100,
         'color': 0.2
     }];
 
@@ -53,19 +49,39 @@ svg {
     ];
 
     var hubmodel = {
+        id:7,
+        cx:300,
+        cy:300,
         root : root,
         children : interests,
-        color : 0.4
+        color : 0.7,
+        distance: 50
     };
 
     var template = MC.hub();
 
-    var svg = d3.select('svg');
+    var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
-    svg.attr('width', 1000)
-       .attr('height', 1000)
-       .datum(hubmodel)
-       .call(template);
+    svg.datum(hubmodel)
+            .call(template);
+
+    var root2 = [{"id": 8, "name":"stark", "type":"interest", "r":20,"color":0.5}];
+
+    var hubmodel2 = {
+        id:8,
+        cx:500,
+        cy:200,
+        root : root2,
+        children : interests,
+        color : 0.7,
+        distance: 50
+    };
+
+    window.setTimeout(function() {
+        svg.datum(hubmodel2)
+                .call(template);
+
+    }, 1500);
 
 </r:script>
 
