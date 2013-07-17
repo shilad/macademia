@@ -49,7 +49,7 @@ MC.InterestViz.prototype.createInterestLabels = function(){
         .data(this.circles)
         .enter()
         .append("text")
-        .attr("fill","white")
+        .attr("fill","green")
         .text(function(d){
             return d.name;
         })
@@ -61,10 +61,61 @@ MC.InterestViz.prototype.createInterestLabels = function(){
             return d.cy;
         })
         .attr("font-family", "sans-serif")
-        .attr("font-size", "16px")
+        .attr("font-size", "20px")
+        .attr("stroke","black")
+        .attr("stroke-width",".25");
 
 
 
+};
+
+MC.InterestViz.prototype.getStops = function(id,c){
+    console.log(id);
+    for(var i in c){
+        if(c[i].id==id){
+            return [{"p":"0%","g":"stop-color:"+c[i].color+";stop-opacity:1"},{"p":"100%","g":"stop-color:"+c[i].color+";stop-opacity:0"}];
+        }
+    }
+    return null;
+};
+MC.InterestViz.prototype.setGradients = function(){
+    var defs = this.svg
+        .selectAll("defs")
+        .data(this.svg[0])
+        .enter()
+        .append('defs');
+
+    var rGs = defs
+        .selectAll("radialGradient")
+        .data(this.circles)
+        .enter()
+        .append('radialGradient')
+        .attr("id",function(d){
+            return "gradient_"+ d.id;
+        });
+    rGs
+        .select("radialGradient#gradient_19")
+        .data(this.getStops(rGs.select("radialGradient#gradient_19"),this.circles))
+        .enter()
+        .append("stop")
+        .attr("offset", function(d){
+            return d.p;
+        })
+        .attr("style", function(d){
+            return d.g;
+        });
+
+    this.svg.selectAll('circle')
+        .data(this.circles)
+        .attr('fill', function(d) {
+            return 'url(#gradient' + d.id + ')';
+        })
+        .attr('cx', function(d) {
+            return d.cx;
+        })
+        .attr('cy', function(d) {
+            return d.cy;
+        });
 };
 
 

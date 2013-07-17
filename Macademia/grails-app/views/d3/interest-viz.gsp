@@ -45,6 +45,7 @@ svg {
 
     viz.createsCircles();
     viz.createInterestLabels();
+    viz.setGradients();
 
 
     var canvas = document.getElementById('myCanvas');
