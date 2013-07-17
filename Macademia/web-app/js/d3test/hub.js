@@ -40,7 +40,7 @@ MC.hub = function() {
             }
 
             //use d3Group to put everything into one g
-            var d3Group = d3.select(this).append('g').attr('id','hub'+id);
+            var d3Group = d3.select(this).append('g').attr('id','hub'+id).attr('class','hub');
 
             //drawing root
             var rootType = data.root[0].type;
