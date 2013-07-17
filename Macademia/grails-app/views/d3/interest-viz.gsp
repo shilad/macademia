@@ -48,33 +48,16 @@ svg {
     viz.setGradients();
 
 
-    var canvas = document.getElementById('myCanvas');
-    var context = canvas.getContext('2d');
-    context.rect(0, 0, canvas.width, canvas.height);
-
-    // create radial gradient
-    var grd = context.createRadialGradient(238, 50, 10, 238, 50, 300);
-    // light blue
-    grd.addColorStop(0, '#8ED6FF');
-    // dark blue
-    grd.addColorStop(1, '#004CB3');
-
-    context.fillStyle = grd;
-    context.fill();+
-
-
-
 </r:script>
 
-<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-    <defs>
-        <radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-            <stop offset="0%" style="stop-color:rgb(255,255,255);
-            stop-opacity:0" />
-            <stop offset="100%" style="stop-color:rgb(0,0,255);stop-opacity:1" />
-        </radialGradient>
-    </defs>
-    <ellipse cx="200" cy="70" rx="85" ry="55" fill="url(#grad1)" />
+<svg>
+
+        %{--<radialGradient id="grad1" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">--}%
+            %{--<stop offset="0%" style="stop-color:blue;stop-opacity:0" />--}%
+            %{--<stop offset="100%" style="stop-color:red;stop-opacity:1" />--}%
+        %{--</radialGradient>--}%
+
+    %{--<ellipse cx="375" cy="425" rx="65" ry="65" fill="url(#grad1)" />--}%
 </svg>
 </body>
 </html>
