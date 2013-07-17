@@ -28,18 +28,18 @@ svg {
 
 <r:script>
 
-    var root = {"id": 7, "name":"Stark", "type":"interest","cx":300,"cy":300,"r":20};
+    var root = [{"id": 7, "name":"stark", "type":"interest","cx":300,"cy":300,"r":20}];
 
     var interests = [
-        {"id": 1, "name": "Robb", "cluster": 7, "parentId": "7", "relevance": 0.7576502561569214, "roles": [], "r":5},
-        {"id": 2, "name": "Sansa", "cluster": 7, "parentId": "7", "relevance": 0.7576502561569214, "roles": [], "r":5},
-        {"id": 3, "name": "Arya", "cluster": 7, "parentId": "7", "relevance": 0.7576502561569214, "roles": [],"r":5},
-        {"id": 4, "name": "Bran", "cluster": 7, "parentId": "7", "relevance": 0.7576502561569214, "roles": [],"r":5},
-        {"id": 5, "name": "Rickon", "cluster": 7, "parentId": "7", "relevance": 0.7576502561569214, "roles": [],"r":5},
-        {"id": 6, "name": "Jon Snow", "cluster": 7, "parentId": "7", "relevance": 0.7576502561569214, "roles": [],"r":5}
+        {"id": 1, "name": "robb", "cluster": 7, "parentid": "7", "relevance": 0.7576502561569214, "roles": [], "r":5},
+        {"id": 2, "name": "sansa", "cluster": 7, "parentid": "7", "relevance": 0.7576502561569214, "roles": [], "r":5},
+        {"id": 3, "name": "arya", "cluster": 7, "parentid": "7", "relevance": 0.7576502561569214, "roles": [],"r":5},
+        {"id": 4, "name": "bran", "cluster": 7, "parentid": "7", "relevance": 0.7576502561569214, "roles": [],"r":5},
+        {"id": 5, "name": "rickon", "cluster": 7, "parentid": "7", "relevance": 0.7576502561569214, "roles": [],"r":5},
+        {"id": 6, "name": "jon snow", "cluster": 7, "parentid": "7", "relevance": 0.7576502561569214, "roles": [],"r":5}
     ];
 
-    var hubModel = {
+    var hubmodel = {
         root : root,
         children : interests,
         color : 0.4
@@ -51,7 +51,7 @@ svg {
 
     svg.attr('width', 1000)
        .attr('height', 1000)
-       .datum(hubModel)
+       .datum(hubmodel)
        .call(template);
 
 </r:script>
