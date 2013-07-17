@@ -64,7 +64,10 @@ MC.hub = function() {
                     .call(personRoot);
             }
 
-            //drawing children
+            //drawing children with animation
+            var cloneChildrenOld = $.extend(true,[],data.children);//clone the children array
+            var childrenTemplateOld = MC.interest().setCssClass("child"+id).setCx(cx).setCy(cy);
+            d3Group.datum(cloneChildrenOld).call(childrenTemplateOld);
 
             var distance = 50;
             if(data["distance"]){ //if the distance between the root and children is specified
@@ -82,8 +85,11 @@ MC.hub = function() {
                     v["color"] = color; //assign the color of the parent
                 }
             });
-            var childrenTemplate = MC.interest().setCssClass("child"+id);
-            d3Group.datum(cloneChildren).call(childrenTemplate);
+
+            window.setTimeout(function() {
+                var childrenTemplate = MC.interest().setCssClass("child"+id);
+                d3Group.datum(cloneChildren).call(childrenTemplate);
+            },1000);
 
 
             //The following code draws plain circles based on data
