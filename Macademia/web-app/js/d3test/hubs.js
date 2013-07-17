@@ -12,6 +12,7 @@ var MC =  (window.MC = (window.MC || {}));
 MC.hub = function() {
     function hub(selection) {
         selection.each(function(data) {
+            console.log("Inside Each");
             var klass = hub.getCssClass();
 
             var rootX = data.root.cx;
@@ -28,21 +29,60 @@ MC.hub = function() {
             });
 
             var rootG = d3.select("g." + klass).data(data.root);
-            var children = d3.select("g." + klass).data(cloneChildren); //this is an array
+            var children = d3.selectAll("g." + klass).data(cloneChildren); //this is an array
 
-            //drawing root
-            rootG.attr('transform', function(d,i){
+            var newChildren = children.enter().append('g')
+                .attr('class',klass);
+
+            newChildren.append('circle');
+
+            children.transition().delay(500).duration(500).attr('transform', function (d, i) {
                 var cx = hub.getOrCallCx(d, i);
                 var cy = hub.getOrCallCy(d, i);
                 console.log('setting cx to ' + cx);
-                console.log('setting cy to ' + cy);
                 return 'translate(' + cx + ', ' + cy + ')';
             });
+
+            children.select('circle')
+                .attr('r',hub.getR());
+
+
+
+            //drawing root
+//            console.log(rootG[0]);
+//            console.log(children);
+//            rootG.enter().append('p').text("Where are my dragons?!?!?!?!");
+//                .attr('class', klass);
+
+//            rootG.attr('transform', function(d,i){
+//                var cx = hub.getOrCallCx(d, i);
+//                var cy = hub.getOrCallCy(d, i);
+//                console.log('setting cx to ' + cx);
+//                console.log('setting cy to ' + cy);
+//                return 'translate(' + cx + ', ' + cy + ')';
+//            });
+
+            //drawing children
+//            children.attr('transform', function (d, i) {
+//                var cx = hub.getOrCallCx(d, i);
+//                var cy = hub.getOrCallCy(d, i);
+//                console.log('setting cx to ' + cx);
+//                return 'translate(' + cx + ', ' + cy + ')';
+//            });
+//                        fade in new g's
+//            children.transition()
+//                .delay(1000)
+//                .attr('opacity', 1.0)
+//                .duration(500);
+
+            // Change fill for both existing and new elements
+//            children.select('circle')
+//                .attr('r', hub.getR());
 
         });
     }
 
-    MC.options.register(hub, 'rootId', function(d){return d.id});
+    MC.options.register(hub, 'id', function(d){return d.id});
     MC.options.register(hub, 'cx', function (d) { return d.cx; });
     MC.options.register(hub, 'cy', function (d) { return d.cy; });
     MC.options.register(hub, 'r', function(d) { return d.r; });
