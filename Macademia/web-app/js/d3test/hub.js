@@ -16,11 +16,23 @@ MC.hub = function() {
             //drawing root
             var rootType = data.root[0].type;
 
-            if(rootType == "interest")
-                var root = MC.interest("Root");
-            else
-                var root = MC.person();
-            d3.select('svg').datum(data.root).call(root);
+            if(rootType == "interest"){
+                var interestRoot = MC.interest("Root");
+                d3.select(this).datum(data.root).call(interestRoot);
+            }
+            else{
+                var personRoot = MC.person()
+                    .setCx(data.root[0].cx)
+                    .setCy(data.root[0].cy);
+                d3.select(this)
+                    .selectAll('people')
+                    .data([0])
+                    .append('g')
+                    .attr('class', 'people')
+                    .data(data.root)
+                    .enter()
+                    .call(personRoot);
+            }
 
             //drawing children
             var rootX = data.root[0].cx;

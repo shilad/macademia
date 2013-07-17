@@ -30,6 +30,7 @@ svg {
 
 //    var root = [{"id": 7, "name":"stark", "type":"interest", "distance":200, "cx":300,"cy":300,"r":20,"color":0.5}];
     var root = [{
+        "id":7,
         'name':'Daenerys Targaryen',
         'pic' : '/Macademia/all/image/randomFake?foo',
         'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
@@ -37,7 +38,9 @@ svg {
         'type':'person',
         'cx':300,
         'cy': 300,
-        'r': 20
+        'r': 20,
+        'distance':100,
+        'color': 0.2
     }];
 
     var interests = [
@@ -46,7 +49,7 @@ svg {
         {"id": 3, "name": "Viserion","r":5},
         {"id": 4, "name": "Jorah", "r":5},
         {"id": 5, "name": "Barristan", "r":5},
-        {"id": 6, "name": "Daario", "r":5,"color":0.8},
+        {"id": 6, "name": "Daario", "r":5,"color":0.8}
     ];
 
     var hubmodel = {
