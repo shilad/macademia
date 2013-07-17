@@ -14,7 +14,12 @@ MC.hub = function() {
         selection.each(function(data) {
             //The following code draws interests based on data
             //drawing root
-            var root = MC.interest("Root");
+            var rootType = data.root[0].type;
+
+            if(rootType == "interest")
+                var root = MC.interest("Root");
+            else
+                var root = MC.person();
             d3.select('svg').datum(data.root).call(root);
 
             //drawing children
