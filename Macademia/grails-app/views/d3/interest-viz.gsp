@@ -43,7 +43,7 @@ svg {
     });
 
 
-    viz.createsCircles();
+//    viz.createsCircles();
     viz.setGradients();
     viz.createsGradientCircles();
     viz.createInterestLabels();

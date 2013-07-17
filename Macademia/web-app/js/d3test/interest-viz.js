@@ -18,7 +18,7 @@ MC.InterestViz = function(params) {
     this.circles = params.circles;
 };
 
-MC.InterestViz.prototype.createsCircles = function(){
+MC.InterestViz.prototype.createsCircles = function(){             //NO LONGER USED
     this.svg.selectAll("circle.solid")
         .data(this.circles)
         .enter()
@@ -52,7 +52,7 @@ MC.InterestViz.prototype.createsGradientCircles = function(){
             return d.cy;
         })
         .attr('r', function(d) {
-            return d.r+40;
+            return d.r+100;
         })
         .attr("class","gradient");
 };
@@ -103,19 +103,19 @@ MC.InterestViz.prototype.setGradients = function(){
         .attr("id",function(d){
             return "gradient_"+ d.id;
         });
-
+    rGs
+        .append("stop")
+        .attr("offset","20%")
+        .attr("style",function(d){
+            return "stop-color:"+d.color+";stop-opacity:1;";
+        });
     rGs
         .append("stop")
         .attr("offset","100%")
         .attr("style",function(d){
             return "stop-color:"+d.color+";stop-opacity:0;";
         });
-    rGs
-        .append("stop")
-        .attr("offset","0%")
-        .attr("style",function(d){
-            return "stop-color:"+d.color+";stop-opacity:1;";
-        });
+
 
 };
 
