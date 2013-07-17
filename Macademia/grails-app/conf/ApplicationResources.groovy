@@ -62,7 +62,7 @@ modules = {
 
     darth{
 
-           dependsOn 'd3js'
+        dependsOn 'd3js'
         resource url: '/js/d3test/d3play.js'
 
 

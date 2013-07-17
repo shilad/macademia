@@ -48,15 +48,13 @@ svg {
     var template = MC.hub();
 
     d3.select('svg')
-            .attr('width', 500)
-            .attr('height', 500)
+            .attr('width', 1000)
+            .attr('height', 1000)
             .datum(hubModel)
             .call(template);
 </r:script>
 
 <svg>
-
 </svg>
-
 </body>
 </html>

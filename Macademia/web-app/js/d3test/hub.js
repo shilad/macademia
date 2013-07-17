@@ -20,6 +20,7 @@ MC.hub = function() {
             var distance = 100;
 
             var cloneChildren = $.extend(true,[],data.children);//clone the children array
+            console.log(data.children);
             var n = cloneChildren.length;
 
             //the children need to be told where to go (setting the cx and cy).
@@ -28,7 +29,8 @@ MC.hub = function() {
                 v["cy"] = rootX - (i+1) * distance * Math.sin(2*Math.PI/n);
             });
 
-            var rootG = d3.select("g." + klass).data(data.root);
+            var rootG = d3.selectAll("g." + klass).data(data.root);
+            console.log(rootG);
             var children = d3.selectAll("g." + klass).data(cloneChildren); //this is an array
 
             var newChildren = children.enter().append('g')
@@ -44,7 +46,7 @@ MC.hub = function() {
             });
 
             children.select('circle')
-                .attr('r',hub.getR());
+                .attr('r', hub.getR());
 
 
 
