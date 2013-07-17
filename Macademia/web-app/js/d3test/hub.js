@@ -13,22 +13,32 @@ MC.hub = function() {
     function hub(selection) {
         selection.each(function(data) {
             //The following code draws interests based on data
+
+            var color = 0.5; //default color for children
+            if(data['color'])
+                color = data['color'];
+            else if (data.root['color'])
+                color = data.root['color'];
+
+            var id = data.root[0].id;
+
             //drawing root
             var rootType = data.root[0].type;
 
             if(rootType == "interest"){
-                var interestRoot = MC.interest("Root");
+                var interestRoot = MC.interest().setCssClass("interestRoot"+id);
                 d3.select(this).datum(data.root).call(interestRoot);
             }
             else{
                 var personRoot = MC.person()
                     .setCx(data.root[0].cx)
-                    .setCy(data.root[0].cy);
+                    .setCy(data.root[0].cy)
+                    .setCssClass('personRoot'+id) //setting the class name of the root
                 d3.select(this)
-                    .selectAll('people')
+                    .selectAll('personRoot'+id)
                     .data([0])
                     .append('g')
-                    .attr('class', 'people')
+                    .attr('class', 'personRoot'+id)
                     .data(data.root)
                     .enter()
                     .call(personRoot);
@@ -37,10 +47,10 @@ MC.hub = function() {
             //drawing children
             var rootX = data.root[0].cx;
             var rootY = data.root[0].cy;
-            var color = data.root[0].color;
+
             var distance = 50;
-            if(data.root[0]["distance"]){ //if the root specifies its distance from the children
-               distance = data.root[0]["distance"];
+            if(data["distance"]){ //if the distance between the root and children is specified
+               distance = data["distance"];
             }
 
             var cloneChildren = $.extend(true,[],data.children);//clone the children array
@@ -54,8 +64,12 @@ MC.hub = function() {
                     v["color"] = color; //assign the color of the parent
                 }
             });
-            var children = MC.interest("Child");
-            d3.select('svg').datum(cloneChildren).call(children);
+            var childrenTemplate = MC.interest().setCssClass("child"+id);
+            d3.select('svg').datum(data.children).call(childrenTemplate);
+            window.setTimeout(function(){
+                var childrenTemplate = MC.interest().setCssClass("child"+id);
+                d3.select('svg').datum(cloneChildren).call(childrenTemplate);
+            },1500);
 
 
             //The following code draws plain circles based on data

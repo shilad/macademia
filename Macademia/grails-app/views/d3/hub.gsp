@@ -28,7 +28,7 @@ svg {
 
 <r:script>
 
-//    var root = [{"id": 7, "name":"stark", "type":"interest", "distance":200, "cx":300,"cy":300,"r":20,"color":0.5}];
+//    var root = [{"id": 7, "name":"stark", "type":"interest", "cx":300,"cy":300,"r":20,"color":0.5}];
     var root = [{
         "id":7,
         'name':'Daenerys Targaryen',
@@ -39,7 +39,6 @@ svg {
         'cx':300,
         'cy': 300,
         'r': 20,
-        'distance':100,
         'color': 0.2
     }];
 
@@ -55,7 +54,8 @@ svg {
     var hubmodel = {
         root : root,
         children : interests,
-        color : 0.4
+        color : 0.7,
+        distance: 100
     };
 
     var template = MC.hub();
