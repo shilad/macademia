@@ -72,13 +72,13 @@ svg {
             .call(interest);
 
 
-    window.setTimeout(function() {
-        var interest = MC.interest();
-        d3.select('svg')
-                .datum(interests2)
-                .call(interest);
-
-    }, 1500);
+//    window.setTimeout(function() {
+//        var interest = MC.interest();
+//        d3.select('svg')
+//                .datum(interests2)
+//                .call(interest);
+//
+//    }, 1500);
 
 
 </r:script>
