@@ -77,31 +77,62 @@ MC.hub = function() {
             }
 
             //drawing children with animation
-            var cloneChildrenOld = $.extend(true,[],data.children);//clone the children array
-            var childrenTemplateOld = MC.interest().setCssClass("child"+id).setCx(cx).setCy(cy);
-            d3Group.datum(cloneChildrenOld).call(childrenTemplateOld);
 
-            var distance = 50;
+            var childrenTemplate = MC.interest().setCssClass("child"+id).setCx(cx).setCy(cy).setOpacity(1.0);
+            var child = d3Group.datum(data.children).call(childrenTemplate);
+            var n = data.children.length;
+            var distance = 50; //default distance
             if(data["distance"]){ //if the distance between the root and children is specified
                 distance = data["distance"];
             }
 
-            var cloneChildren = $.extend(true,[],data.children);//clone the children array
-            var n = cloneChildren.length;
-
-            //the children need to be told where to go (setting the cx and cy).
-            $.each(cloneChildren,function(i,v){
-                v["cx"] = cx + distance * Math.cos((i+1)*2*Math.PI/n);
-                v["cy"] = cy - distance * Math.sin((i+1)*2*Math.PI/n);
-                if(!v["color"]){ //if the child does not have its own color
-                    v["color"] = color; //assign the color of the parent
-                }
-            });
+            childrenTemplate = MC.interest()
+                .setCssClass("child"+id)
+                .setCx(function(d,i){
+                    return cx + distance * Math.cos((i+1)*2*Math.PI/n);
+                })
+                .setCy(function(d,i){
+                    return cy - distance * Math.sin((i+1)*2*Math.PI/n);
+                })
+                .setColor(function(d){
+                    if(d.color){
+                        return MC.hueToColor(d.color);
+                    } else {
+                        return MC.hueToColor(color);
+                    }
+                });
 
             window.setTimeout(function() {
-                var childrenTemplate = MC.interest().setCssClass("child"+id);
-                d3Group.datum(cloneChildren).call(childrenTemplate);
+                child.transition().call(childrenTemplate);
             },1000);
+
+
+
+//            var cloneChildrenOld = $.extend(true,[],data.children);//clone the children array
+//            var childrenTemplateOld = MC.interest().setCssClass("childOld"+id).setCx(cx).setCy(cy);
+//            d3Group.datum(cloneChildrenOld).call(childrenTemplateOld);
+//
+//            var distance = 50; //default distance
+//            if(data["distance"]){ //if the distance between the root and children is specified
+//                distance = data["distance"];
+//            }
+//
+//            var cloneChildren = $.extend(true,[],data.children);//clone the children array
+//            var n = cloneChildren.length;
+//
+//            //the children need to be told where to go (setting the cx and cy).
+//            $.each(cloneChildren,function(i,v){
+//                v["cx"] = cx + distance * Math.cos((i+1)*2*Math.PI/n);
+//                v["cy"] = cy - distance * Math.sin((i+1)*2*Math.PI/n);
+//                if(!v["color"]){ //if the child does not have its own color
+//                    v["color"] = color; //assign the color of the parent
+//                }
+//            });
+//
+//            window.setTimeout(function() {
+//                var childrenTemplate = MC.interest().setCssClass("child"+id);
+//                d3Group.datum(cloneChildren).call(childrenTemplate);
+//            },1000);
 
 
             //The following code draws plain circles based on data
