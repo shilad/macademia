@@ -113,7 +113,7 @@ svg {
         cy:425,
         hubRoot : root,
         children : root[0].interests,
-        color: 0.1,
+        color: 'hsl(0, 0%, 55%)',
         distance: 100
     };
 

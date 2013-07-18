@@ -28,7 +28,10 @@ MC.getTransformedPosition = function(svg, shape, x, y) {
  */
 MC.hueToColor = function(h) {
 //    console.log(h);
-    return d3.hsl(h * 359, 0.8, 0.8);
+    if(typeof h === "number")
+        return d3.hsl(h * 359, 0.8, 0.8);
+    else
+        return d3.rgb(h);
 };
 
 /**
