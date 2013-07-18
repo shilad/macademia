@@ -182,11 +182,11 @@ svg {
 
     viz.setGradients();
     viz.createsGradientCircles();
-  viz.createPersonView();
-            viz.createPersonLayoutView()
-            viz.createPersonLayout();
+
     //  viz.createInterestLabels();
     viz.createInterestViz();
+
+    viz.createClusterMap();
 
 </r:script>
 
