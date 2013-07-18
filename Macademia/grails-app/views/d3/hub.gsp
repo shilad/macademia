@@ -28,7 +28,6 @@ svg {
 
 <r:script>
 
-    //TODO: r doesn't adjust size for person
     var root = [{
         "id":7,
         'name':'Daenerys Targaryen',
