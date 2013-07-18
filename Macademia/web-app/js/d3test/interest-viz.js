@@ -140,6 +140,11 @@ MC.InterestViz.prototype.setGradients = function(){
  * Methods for the people heads are below here-----
  */
 
+
+MC.InterestViz.prototype.getD3Interests = function() {
+    return this.svg.selectAll('g.interest');
+};
+
 //return a person view
 MC.InterestViz.prototype.createPersonView = function() {
     this.personView = MC.person();
@@ -158,7 +163,7 @@ MC.InterestViz.prototype.createPeople = function() {
 //Grabs all the people in svg
 MC.InterestViz.prototype.getD3People = function() {
     return this.svg.selectAll('g.person');
-}
+};
 
 //Sets the locations of the person heads
 MC.InterestViz.prototype.createPersonLayoutView = function(){
@@ -167,7 +172,16 @@ MC.InterestViz.prototype.createPersonLayoutView = function(){
         .setClusterMap(this.clusterMap)
         .setInterestNodes(this.getD3Interests());
     return this.personLayoutView;
-};
+}  ;
+
+MC.InterestViz.prototype.createPersonLayout = function(){
+    this.svg
+        .selectAll('person-layouts')
+        .data([0])
+        .enter()
+        .call(this.personLayoutView);
+} ;
+
 
 MC.InterestViz.prototype.createClusterMap = function(){
     var clusterMap = {};
