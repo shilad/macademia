@@ -28,7 +28,6 @@ svg {
 
 <r:script>
 
-    //TODO: r doesn't adjust size for person
     var root1 = [{
         "id":7,
         'name':'Shilad Sen',
