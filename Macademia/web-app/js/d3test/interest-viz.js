@@ -10,9 +10,9 @@ var MC = (window.MC = (window.MC || {}));
 
 
 MC.InterestViz = function(params) {
-//    this.hubs = params.hubs;
+    this.hubs = params.hubs;
 //    this.people = params.people;
-//    this.root = params.root;
+    this.root = params.root;
     this.svg = params.svg;
     this.hubModel = params.hubModel;
     this.circles = params.circles;
@@ -21,22 +21,49 @@ MC.InterestViz = function(params) {
 
 //Position the hubs and the root
 MC.InterestViz.prototype.createInterestViz = function(){
+    //Create root
+    this.createHub();
 
-}
+    for(var i = 0; i < this.hubs.length; i++){
+        //alter model for each hub
+        console.log(this.hubs[i]);
+        this.hubModel.id=this.hubs[i].id;
+        this.hubModel.cx=this.hubs[i].cx;
+        this.hubModel.cy=this.hubs[i].cy;
+        this.hubModel.hubRoot=this.hubs[i];
+        this.hubModel.children=this.hubs[i][0].interests;
+        this.hubModel.color=this.hubs[i].color;
+        this.createHub();
+    }
 
-MC.InterestViz.prototype.createHubView=function(){
-    this.hubview=MC.hub();
-    return this.hubview;
-}
+};
 
+//var hubCircles = [
+//    {'id' : 34, 'type' : "person", 'name' : 'Eevee', 'color' : "tan", 'r': 30, 'cx' : 375, 'cy' : 425},
+//    {'id' : 31, 'type' : "person",'name' : 'Flareon', 'color' : "red", 'r': 30, 'cx' : 375, 'cy' : 150},
+//    {'id' : 10, 'type' : "person",'name' : 'Jolteon', 'color' : "yellow", 'r': 30, 'cx' : 150, 'cy' : 600},
+//    {'id' : 19, 'type' : "person",'name' : 'Vaporeon', 'color' : "blue", 'r': 30, 'cx' : 600, 'cy' : 600}
+//];
+//var hubModel = {
+//    id:7,
+//    cx:375,
+//    cy:425,
+//    hubRoot : root,
+//    children : root[0].interests,
+//    color : 0.7,
+//    distance: 100
+//};
 MC.InterestViz.prototype.createHub = function(){
+    this.svg
+        .datum(this.hubModel)
+        .call(this.createHubView());
+};
 
-}
+MC.InterestViz.prototype.createHubView = function(){
+    this.hubView = MC.hub();
+    return this.hubView;
 
-
-
-
-
+};
 
 MC.InterestViz.prototype.createsGradientCircles = function(){
     this.svg.selectAll('circle.gradient')
@@ -116,6 +143,8 @@ MC.InterestViz.prototype.setGradients = function(){
 
 };
 
+
+
 /*
  * Methods for the people heads are below here-----
  */
@@ -147,7 +176,6 @@ MC.InterestViz.prototype.createPersonLayoutView = function(){
         .setClusterMap(this.clusterMap)
         .setInterestNodes(this.getD3Interests());
     return this.personLayoutView;
-}
-
+};
 
 

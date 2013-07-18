@@ -31,8 +31,6 @@ svg {
 </style>
 <r:script>
 
-    var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
-
     var hubCircles = [
         {'id' : 34, 'type' : "person", 'name' : 'Eevee', 'color' : "tan", 'r': 30, 'cx' : 375, 'cy' : 425},
         {'id' : 31, 'type' : "person",'name' : 'Flareon', 'color' : "red", 'r': 30, 'cx' : 375, 'cy' : 150},
@@ -57,14 +55,16 @@ svg {
             {"id": 6, "name": "Daario", "r":10}
         ]
     }];
-    var hubs = [{
+    var hubs = [[{
         "id":17,
         'name':'Jay',
         'pic' : '/Macademia/all/image/randomFake?foo',
         'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
         'type':'interest',
         'r': 30,
-        'color': 0.2,
+        'color': "red",
+        'cx' : 375,
+        'cy' : 150,
         'interests': [
             {"id": 10, "name": "Music","r":10},
             {"id": 20, "name": "Loitering","r":10},
@@ -72,15 +72,17 @@ svg {
             {"id": 40, "name": "Girls", "r":10},
             {"id": 50, "name": "Mary Jane", "r":10}
         ]
-    },
-        {
+    }],
+        [{
             "id":10,
             'name':'Silent Bob',
             'pic' : '/Macademia/all/image/randomFake?foo',
             'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
             'type':'interest',
             'r': 30,
-            'color': 0.2,
+            'color': "yellow",
+            'cx' : 150,
+            'cy' : 600,
             'interests': [
                 {"id": 11, "name": "...","r":10},
                 {"id": 22, "name": "...","r":10},
@@ -89,16 +91,17 @@ svg {
                 {"id": 52, "name": "...", "r":10},
                 {"id": 62, "name": "...", "r":10}
             ]
-        }
-        ,
-        {
+        }],
+        [{
             "id":10,
             'name':'Randall',
             'pic' : '/Macademia/all/image/randomFake?foo',
             'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
             'type':'interest',
             'r': 30,
-            'color': 0.2,
+            'color': "blue",
+            'cx' : 600,
+            'cy' : 600,
             'interests': [
                 {"id": 13, "name": "Magazines","r":10},
                 {"id": 23, "name": "Jokes","r":10},
@@ -107,26 +110,24 @@ svg {
                 {"id": 53, "name": "Reclaiming Words", "r":10},
                 {"id": 63, "name": "Life", "r":10}
             ]
-        }];
+        }]];
 
-
-    var hubmodel = {
+    var hubModel = {
         id:7,
-        cx:300,
-        cy:300,
+        cx:375,
+        cy:425,
         hubRoot : root,
-        children : root.interests,
+        children : root[0].interests,
         color : 0.7,
-        distance: 55
+        distance: 100
     };
 
-//    var template = MC.hub();
-//    var hubs = svg.datum(hubmodel)
-//            .call(template);
 
+
+    var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
     var viz = new MC.InterestViz({
-      hubModel: hubmodel,
+      hubModel: hubModel,
       hubs: hubs,
       root: root,
       circles: hubCircles,
@@ -134,13 +135,10 @@ svg {
     });
 
 
-
-
     viz.setGradients();
     viz.createsGradientCircles();
-    viz.createInterestLabels();
-    viz.createHub();
-
+//    viz.createInterestLabels();
+    viz.createInterestViz();
 </r:script>
 
 <svg>
