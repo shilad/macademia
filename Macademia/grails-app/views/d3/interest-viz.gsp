@@ -107,24 +107,22 @@ svg {
             ]
         }];
 
-
-    var hubmodel = {
+    var hubModel = {
         id:7,
-        cx:300,
-        cy:300,
+        cx:375,
+        cy:425,
         hubRoot : root,
-        children : root.interests,
+        children : root[0].interests,
         color : 0.7,
-        distance: 55
+        distance: 100
     };
 
-//    var template = MC.hub();
-//    var hubs = svg.datum(hubmodel)
-//            .call(template);
 
+
+    var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
     var viz = new MC.InterestViz({
-      hubModel: hubmodel,
+      hubModel: hubModel,
       hubs: hubs,
       root: root,
       circles: hubCircles,
@@ -134,7 +132,8 @@ svg {
 
     viz.setGradients();
     viz.createsGradientCircles();
-    viz.createInterestLabels();
+//    viz.createInterestLabels();
+    viz.createInterestViz();
 </r:script>
 
 <svg>

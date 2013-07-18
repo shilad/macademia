@@ -21,6 +21,29 @@ MC.InterestViz = function(params) {
 
 //Position the hubs and the root
 MC.InterestViz.prototype.createInterestViz = function(){
+    this.createRoot();
+
+    for(var i = 0; i < this.hubs.length; i++){
+        //alter model for each hub
+//        this.createHub();
+    }
+
+};
+MC.InterestViz.prototype.createRoot = function(){
+    console.log("poo");
+    this.svg
+        .datum(this.hubModel)
+        .call(this.createHubView());
+
+
+};
+MC.InterestViz.prototype.createHub = function(){
+
+
+};
+MC.InterestViz.prototype.createHubView = function(){
+    this.hubView = MC.hub();
+    return this.hubView;
 
 };
 

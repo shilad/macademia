@@ -12,6 +12,8 @@ var MC =  (window.MC = (window.MC || {}));
 MC.hub = function() {
     function hub(selection) {
         selection.each(function(data) {
+
+            console.log(data.children);
             //The following code draws interests based on data
 
             //Getting basic info
