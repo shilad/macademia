@@ -124,6 +124,9 @@ svg {
 
 
 
+
+
+
     var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
     var viz = new MC.InterestViz({
@@ -131,7 +134,10 @@ svg {
       hubs: hubs,
       root: root,
       circles: gradientCircles,
-      svg : svg
+      svg : svg,
+
+
+
     });
 
 
@@ -139,6 +145,15 @@ svg {
     viz.createsGradientCircles();
 //    viz.createInterestLabels();
     viz.createInterestViz();
+
+    viz.createPersonView();
+
+    viz.createPeople();
+    viz.getD3People();
+    viz.createPersonLayoutView();
+    viz.createClusterMap();
+
+
 </r:script>
 
 <svg>

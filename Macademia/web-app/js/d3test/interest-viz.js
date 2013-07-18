@@ -11,7 +11,7 @@ var MC = (window.MC = (window.MC || {}));
 
 MC.InterestViz = function(params) {
     this.hubs = params.hubs;
-//    this.people = params.people;
+    this.people = params.people;
     this.root = params.root;
     this.svg = params.svg;
     this.hubModel = params.hubModel;
@@ -168,5 +168,20 @@ MC.InterestViz.prototype.createPersonLayoutView = function(){
         .setInterestNodes(this.getD3Interests());
     return this.personLayoutView;
 };
+
+MC.InterestViz.prototype.createClusterMap = function(){
+    var clusterMap = {};
+    clusterMap[this.root[0].id]=this.root[0].interests;
+    for(var i = 0; i < this.hubs.length; i++){
+        clusterMap[this.hubs[i][0].id] = this.hubs[i][0].interests;
+
+        };
+    console.log(clusterMap);
+    return clusterMap;
+
+
+
+
+}
 
 
