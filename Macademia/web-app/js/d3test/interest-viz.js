@@ -44,7 +44,6 @@ MC.InterestViz.prototype.createInterestViz = function(){
 };
 
 MC.InterestViz.prototype.createHub = function(){
-    console.log(this.hubModel);
     this.svg
         .datum(this.hubModel)
         .call(this.createHubView());
@@ -134,7 +133,26 @@ MC.InterestViz.prototype.setGradients = function(){
 
 };
 
-
+MC.InterestViz.prototype.createClusterMap = function(){
+    var clusterMap={};
+    var temp=[];
+    var id;
+    for(var j = 0; j < this.root[0].interests.length; j++){
+        id = this.root[0].interests[j].id;
+        temp.push(id);
+    }
+    clusterMap[this.root[0].id]=temp;
+    temp=[];
+    for(var i = 0; i < this.hubs.length; i++){
+        for(var j = 0; j < this.hubs[i][0].interests.length; j++){
+            var id = this.hubs[i][0].interests[j].id;
+            temp.push(id);
+        }
+        clusterMap[this.hubs[i][0].id]=temp;
+        temp=[];
+    }
+    this.clusterMap=clusterMap;
+};
 
 /*
  * Methods for the people heads are below here-----
@@ -167,12 +185,13 @@ MC.InterestViz.prototype.getD3People = function() {
 
 //Sets the locations of the person heads
 MC.InterestViz.prototype.createPersonLayoutView = function(){
+    console.log(this.getD3Interests());
     this.personLayoutView = MC.personLayout()
         .setPeopleNodes(this.getD3People())
         .setClusterMap(this.clusterMap)
         .setInterestNodes(this.getD3Interests());
     return this.personLayoutView;
-}  ;
+};
 
 MC.InterestViz.prototype.createPersonLayout = function(){
     this.svg
@@ -180,7 +199,7 @@ MC.InterestViz.prototype.createPersonLayout = function(){
         .data([0])
         .enter()
         .call(this.personLayoutView);
-} ;
+};
 
 
 MC.InterestViz.prototype.createClusterMap = function(){

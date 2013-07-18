@@ -98,8 +98,7 @@ MC.personLayout = function () {
 //        console.log(links);
         //get list of values for already made arrays
 
-
-           var personNodes = $.map(pl.model.getPeople(),
+           var personNodes = jQuery.map(pl.model.getPeople(),
             function (v, k) {
               var p = { real: v };
                 var primary = surrogates[getPrimaryInterest(p)];
