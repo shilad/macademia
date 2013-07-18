@@ -55,14 +55,16 @@ svg {
             {"id": 6, "name": "Daario", "r":10}
         ]
     }];
-    var hubs = [{
+    var hubs = [[{
         "id":17,
         'name':'Jay',
         'pic' : '/Macademia/all/image/randomFake?foo',
         'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
         'type':'interest',
         'r': 30,
-        'color': 0.2,
+        'color': "red",
+        'cx' : 375,
+        'cy' : 150,
         'interests': [
             {"id": 10, "name": "Music","r":10},
             {"id": 20, "name": "Loitering","r":10},
@@ -70,15 +72,17 @@ svg {
             {"id": 40, "name": "Girls", "r":10},
             {"id": 50, "name": "Mary Jane", "r":10}
         ]
-    },
-        {
+    }],
+        [{
             "id":10,
             'name':'Silent Bob',
             'pic' : '/Macademia/all/image/randomFake?foo',
             'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
             'type':'interest',
             'r': 30,
-            'color': 0.2,
+            'color': "yellow",
+            'cx' : 150,
+            'cy' : 600,
             'interests': [
                 {"id": 11, "name": "...","r":10},
                 {"id": 22, "name": "...","r":10},
@@ -87,16 +91,17 @@ svg {
                 {"id": 52, "name": "...", "r":10},
                 {"id": 62, "name": "...", "r":10}
             ]
-        }
-        ,
-        {
+        }],
+        [{
             "id":10,
             'name':'Randall',
             'pic' : '/Macademia/all/image/randomFake?foo',
             'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
             'type':'interest',
             'r': 30,
-            'color': 0.2,
+            'color': "blue",
+            'cx' : 600,
+            'cy' : 600,
             'interests': [
                 {"id": 13, "name": "Magazines","r":10},
                 {"id": 23, "name": "Jokes","r":10},
@@ -105,7 +110,7 @@ svg {
                 {"id": 53, "name": "Reclaiming Words", "r":10},
                 {"id": 63, "name": "Life", "r":10}
             ]
-        }];
+        }]];
 
     var hubModel = {
         id:7,
