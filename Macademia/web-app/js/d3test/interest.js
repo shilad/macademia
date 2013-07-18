@@ -35,6 +35,7 @@ var MC = (window.MC = (window.MC || {}));
  */
 MC.interest = function() {
     function interest(selection) {
+
         selection.each(function(data) {
             var klass = interest.getCssClass();
 
@@ -82,10 +83,10 @@ MC.interest = function() {
                 .attr('fill', interest.getColor())
                 .attr('r', interest.getR());
 
-//            interest.getOrCallOnHover().forEach(function (v) {
-//                    g.on('mouseover', v[0]);
-//                    g.on('mouseout', v[1]);
-//                });
+            interest.getOrCallOnHover().forEach(function (v) {
+                    g.on('mouseover', v[0]);
+                    g.on('mouseout', v[1]);
+                });
         });
     }
 
