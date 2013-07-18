@@ -31,6 +31,8 @@ svg {
 </style>
 <r:script>
 
+    var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
+
     var hubCircles = [
         {'id' : 34, 'type' : "person", 'name' : 'Eevee', 'color' : "tan", 'r': 30, 'cx' : 375, 'cy' : 425},
         {'id' : 31, 'type' : "person",'name' : 'Flareon', 'color' : "red", 'r': 30, 'cx' : 375, 'cy' : 150},
@@ -132,9 +134,13 @@ svg {
     });
 
 
+
+
     viz.setGradients();
     viz.createsGradientCircles();
     viz.createInterestLabels();
+    viz.createHub();
+
 </r:script>
 
 <svg>

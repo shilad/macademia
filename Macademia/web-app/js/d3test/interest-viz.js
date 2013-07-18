@@ -22,7 +22,21 @@ MC.InterestViz = function(params) {
 //Position the hubs and the root
 MC.InterestViz.prototype.createInterestViz = function(){
 
-};
+}
+
+MC.InterestViz.prototype.createHubView=function(){
+    this.hubview=MC.hub();
+    return this.hubview;
+}
+
+MC.InterestViz.prototype.createHub = function(){
+
+}
+
+
+
+
+
 
 MC.InterestViz.prototype.createsGradientCircles = function(){
     this.svg.selectAll('circle.gradient')
@@ -135,13 +149,5 @@ MC.InterestViz.prototype.createPersonLayoutView = function(){
     return this.personLayoutView;
 }
 
-MC.InterestViz.prototype.createHubView = function(){
-    this.hubView = MC.hub();
-    return this.hubView;
-}
 
-MC.InterestViz.prototype.createHub = function(){
-
-}
-;
 
