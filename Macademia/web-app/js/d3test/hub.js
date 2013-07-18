@@ -45,7 +45,7 @@ MC.hub = function() {
             var d3Group = d3.select(this).append('g').attr('id','hub'+id).attr('class','hub');
 
             //drawing children with animation
-            var childrenTemplate = MC.interest().setCssClass("child"+id)
+            var childrenTemplate = MC.interest().setCssClass("interest")
                 .setColor(function(d){
                     if(d.color){
                         return MC.hueToColor(d.color);
@@ -55,7 +55,7 @@ MC.hub = function() {
                 });
             d3Group.datum(data.children).call(childrenTemplate); //drawing child nodes
 
-            var childGs = d3Group.selectAll("g."+"child"+id);
+            var childGs = d3Group.selectAll("g."+"interest");
             console.log("g.child"+id);
             childGs.attr('opacity', 1.0).transition()  //setting the group to the root position first
                 .duration(10)
@@ -120,7 +120,7 @@ MC.hub = function() {
             var rootType = data.hubRoot[0].type;
 
             if(rootType == "interest"){
-                var interestTemplate = MC.interest().setCssClass("interestRoot"+id).setCx(cx).setCy(cy);
+                var interestTemplate = MC.interest().setCssClass("interestHubRoot").setCx(cx).setCy(cy);
                 d3Group.datum(data.hubRoot).call(interestTemplate);
             }
             else{
@@ -130,7 +130,7 @@ MC.hub = function() {
 //                    .setR(25*1.5)
 //                    .setImageWidth(28*1.5)
 //                    .setImageHeight(42*1.5)
-                    .setCssClass('personRoot'+id) //setting the class name of the root
+                    .setCssClass('personHubRoot') //setting the class name of the root
 
                 var personR = personRoot.getR();
                 var personImageWidth = personRoot.getImageWidth();
@@ -141,10 +141,10 @@ MC.hub = function() {
                 personRoot.setImageHeight(personImageHeight*scale);
 
                 d3Group
-                    .selectAll('personRoot'+id)
+                    .selectAll('personHubRoot')
                     .data([0])
                     .append('g')
-                    .attr('class', 'personRoot'+id)
+                    .attr('class', 'personHubRoot')
                     .data(data.hubRoot)
                     .enter()
                     .call(personRoot);
