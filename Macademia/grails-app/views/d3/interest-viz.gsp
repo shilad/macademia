@@ -56,23 +56,56 @@ svg {
         ]
     }];
     var hubs = [{
-        "id":7,
-        'name':'Daenerys Targaryen',
+        "id":17,
+        'name':'Jay',
         'pic' : '/Macademia/all/image/randomFake?foo',
-        'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
         'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
-        'type':'person',
+        'type':'interest',
         'r': 30,
         'color': 0.2,
         'interests': [
-            {"id": 1, "name": "Drogon","r":10},
-            {"id": 2, "name": "Rhaegal","r":10},
-            {"id": 3, "name": "Viserion","r":10},
-            {"id": 4, "name": "Jorah", "r":10},
-            {"id": 5, "name": "Barristan", "r":10},
-            {"id": 6, "name": "Daario", "r":10}
+            {"id": 10, "name": "Music","r":10},
+            {"id": 20, "name": "Loitering","r":10},
+            {"id": 30, "name": "Hats","r":10},
+            {"id": 40, "name": "Girls", "r":10},
+            {"id": 50, "name": "Mary Jane", "r":10}
         ]
-    }];
+    },
+        {
+            "id":10,
+            'name':'Silent Bob',
+            'pic' : '/Macademia/all/image/randomFake?foo',
+            'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
+            'type':'interest',
+            'r': 30,
+            'color': 0.2,
+            'interests': [
+                {"id": 11, "name": "...","r":10},
+                {"id": 22, "name": "...","r":10},
+                {"id": 32, "name": "...","r":10},
+                {"id": 42, "name": "hmmfph", "r":10},
+                {"id": 52, "name": "...", "r":10},
+                {"id": 62, "name": "...", "r":10}
+            ]
+        }
+        ,
+        {
+            "id":10,
+            'name':'Randall',
+            'pic' : '/Macademia/all/image/randomFake?foo',
+            'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
+            'type':'interest',
+            'r': 30,
+            'color': 0.2,
+            'interests': [
+                {"id": 13, "name": "Magazines","r":10},
+                {"id": 23, "name": "Jokes","r":10},
+                {"id": 33, "name": "Star Wars","r":10},
+                {"id": 43, "name": "Movies", "r":10},
+                {"id": 53, "name": "Reclaiming Words", "r":10},
+                {"id": 63, "name": "Life", "r":10}
+            ]
+        }];
 
 
     var hubmodel = {
