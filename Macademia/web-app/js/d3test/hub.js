@@ -53,7 +53,19 @@ MC.hub = function() {
                 var personRoot = MC.person()
                     .setCx(cx)
                     .setCy(cy)
+//                    .setR(25*1.5)
+//                    .setImageWidth(28*1.5)
+//                    .setImageHeight(42*1.5)
                     .setCssClass('personRoot'+id) //setting the class name of the root
+
+                var personR = personRoot.getR();
+                var personImageWidth = personRoot.getImageWidth();
+                var personImageHeight = personRoot.getImageHeight();
+                var scale = 1.5;
+                personRoot.setR(personR*scale);
+                personRoot.setImageWidth(personImageWidth*scale);
+                personRoot.setImageHeight(personImageHeight*scale);
+
                 d3Group
                     .selectAll('personRoot'+id)
                     .data([0])
