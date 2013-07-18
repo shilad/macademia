@@ -43,6 +43,35 @@ MC.hub = function() {
             //use d3Group to put everything into one g
             var d3Group = d3.select(this).append('g').attr('id','hub'+id).attr('class','hub');
 
+            //drawing children with animation
+
+//            var childrenTemplate = MC.interest().setCssClass("child"+id).setCx(cx).setCy(cy).setOpacity(1.0);
+            var childrenTemplate = MC.interest().setCssClass("child"+id).setCx(cx).setCy(cy);
+            var child = d3Group.datum(data.children).call(childrenTemplate);
+            var n = data.children.length;
+            var distance = 50; //default distance
+            if(data["distance"]){ //if the distance between the root and children is specified
+                distance = data["distance"];
+            }
+
+            childrenTemplate = MC.interest()
+                .setCssClass("child"+id)
+                .setCx(function(d,i){
+                    return cx + distance * Math.cos((i+1)*2*Math.PI/n);
+                })
+                .setCy(function(d,i){
+                    return cy - distance * Math.sin((i+1)*2*Math.PI/n);
+                })
+                .setColor(function(d){
+                    if(d.color){
+                        return MC.hueToColor(d.color);
+                    } else {
+                        return MC.hueToColor(color);
+                    }
+                });
+
+            child.transition().call(childrenTemplate);
+
             //drawing root
             var rootType = data.hubRoot[0].type;
 
@@ -54,7 +83,19 @@ MC.hub = function() {
                 var personRoot = MC.person()
                     .setCx(cx)
                     .setCy(cy)
+//                    .setR(25*1.5)
+//                    .setImageWidth(28*1.5)
+//                    .setImageHeight(42*1.5)
                     .setCssClass('personRoot'+id) //setting the class name of the root
+
+                var personR = personRoot.getR();
+                var personImageWidth = personRoot.getImageWidth();
+                var personImageHeight = personRoot.getImageHeight();
+                var scale = 1.5;
+                personRoot.setR(personR*scale);
+                personRoot.setImageWidth(personImageWidth*scale);
+                personRoot.setImageHeight(personImageHeight*scale);
+
                 d3Group
                     .selectAll('personRoot'+id)
                     .data([0])
@@ -65,32 +106,33 @@ MC.hub = function() {
                     .call(personRoot);
             }
 
-            //drawing children with animation
-            var cloneChildrenOld = $.extend(true,[],data.children);//clone the children array
-            var childrenTemplateOld = MC.interest().setCssClass("child"+id).setCx(cx).setCy(cy);
-            d3Group.datum(cloneChildrenOld).call(childrenTemplateOld);
 
-            var distance = 50;
-            if(data["distance"]){ //if the distance between the root and children is specified
-                distance = data["distance"];
-            }
 
-            var cloneChildren = $.extend(true,[],data.children);//clone the children array
-            var n = cloneChildren.length;
-
-            //the children need to be told where to go (setting the cx and cy).
-            $.each(cloneChildren,function(i,v){
-                v["cx"] = cx + distance * Math.cos((i+1)*2*Math.PI/n);
-                v["cy"] = cy - distance * Math.sin((i+1)*2*Math.PI/n);
-                if(!v["color"]){ //if the child does not have its own color
-                    v["color"] = color; //assign the color of the parent
-                }
-            });
-
-            window.setTimeout(function() {
-                var childrenTemplate = MC.interest().setCssClass("child"+id);
-                d3Group.datum(cloneChildren).call(childrenTemplate);
-            },1000);
+//            var cloneChildrenOld = $.extend(true,[],data.children);//clone the children array
+//            var childrenTemplateOld = MC.interest().setCssClass("childOld"+id).setCx(cx).setCy(cy);
+//            d3Group.datum(cloneChildrenOld).call(childrenTemplateOld);
+//
+//            var distance = 50; //default distance
+//            if(data["distance"]){ //if the distance between the root and children is specified
+//                distance = data["distance"];
+//            }
+//
+//            var cloneChildren = $.extend(true,[],data.children);//clone the children array
+//            var n = cloneChildren.length;
+//
+//            //the children need to be told where to go (setting the cx and cy).
+//            $.each(cloneChildren,function(i,v){
+//                v["cx"] = cx + distance * Math.cos((i+1)*2*Math.PI/n);
+//                v["cy"] = cy - distance * Math.sin((i+1)*2*Math.PI/n);
+//                if(!v["color"]){ //if the child does not have its own color
+//                    v["color"] = color; //assign the color of the parent
+//                }
+//            });
+//
+//            window.setTimeout(function() {
+//                var childrenTemplate = MC.interest().setCssClass("child"+id);
+//                d3Group.datum(cloneChildren).call(childrenTemplate);
+//            },1000);
 
 
             //The following code draws plain circles based on data

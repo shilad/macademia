@@ -55,8 +55,8 @@ svg {
         cy:300,
         hubRoot : root,
         children : interests,
-        color : 0.7,
-        distance: 55
+        color : 0.9,
+        distance: 80
     };
 
     var template = MC.hub();
