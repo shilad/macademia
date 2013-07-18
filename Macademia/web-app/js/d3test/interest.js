@@ -39,9 +39,9 @@ MC.interest = function() {
         selection.each(function(data) {
             var klass = interest.getCssClass();
 
-            var allGs = d3.select(this).selectAll("g." + klass).data(data, function (d) { console.log(d); return d.id; });
-
-            console.log('newGs size is ' + allGs.size());
+            var allGs = d3.select(this)
+                .selectAll("g." + klass)
+                .data(data, function (d) { return d.id; });
 
             // setup g with circle and label for new elements.
             // Set the initial opacity to 0. You will want to change this through a transition.
@@ -65,15 +65,15 @@ MC.interest = function() {
             newGs.call(l);
 
             // position both existing and new elements.
-            allGs.transition().delay(500).duration(500).attr('transform', function (d, i) {
-                var cx = interest.getOrCallCx(d, i);
-                var cy = interest.getOrCallCy(d, i);
-                console.log('setting cx to ' + cx);
-                return 'translate(' + cx + ', ' + cy + ')';
-            });
-
-            //fade in new g's
             allGs.transition()
+                .delay(500)
+                .duration(500)
+                .attr('transform', function (d, i) {
+                    var cx = interest.getOrCallCx(d, i);
+                    var cy = interest.getOrCallCy(d, i);
+                    return 'translate(' + cx + ', ' + cy + ')';
+                })
+                .transition()
                 .delay(1000)
                 .attr('opacity', 1.0)
                 .duration(500);
@@ -83,10 +83,10 @@ MC.interest = function() {
                 .attr('fill', interest.getColor())
                 .attr('r', interest.getR());
 
-//            interest.getOrCallOnHover().forEach(function (v) {
-//                    g.on('mouseover', v[0]);
-//                    g.on('mouseout', v[1]);
-//                });
+            interest.getOrCallOnHover().forEach(function (v) {
+                    g.on('mouseover', v[0]);
+                    g.on('mouseout', v[1]);
+                });
         });
     }
 

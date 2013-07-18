@@ -20,7 +20,7 @@
 <style type="text/css">
 
 .person {
-    font: 17px Helvetica;
+    font: 17px Georgia;
     fill: #DCDCDC;
 }
 svg {

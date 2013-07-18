@@ -74,12 +74,12 @@ MC.interestLayout = function() {
             }
         };
 
-        var tree = d3.layout.tree()
-            .sort(null)
-            .size([360, diam / 2 - 50])
-            .children(getChildren);
+//        var tree = d3.layout.tree()
+//            .sort(null)
+//            .size([360, diam / 2 - 50])
+//            .children(getChildren);
 
-        var nodes = tree.nodes(interests[rootId])
+        var nodes = getChildren(interests);
 
 
         // adjust the radial layout.
@@ -104,7 +104,15 @@ MC.interestLayout = function() {
             console.log(this.name + ": " + this.r);
         });
 
-        var links = tree.links(nodes);
+        var links=[];
+        console.log("Nodes");
+        console.log(nodes);
+
+        for(var node in nodes){
+//             links.push({"id":nodes[node].id,"source":nodes[node].parentId,"target":nodes[node].clusterId});
+            links.push(node);
+            console.log(node);
+        }
 
         var diagonal = d3.svg.diagonal.radial()
             .projection(function(d) { return [d.y, d.x / 180 * Math.PI]; });
@@ -119,16 +127,20 @@ MC.interestLayout = function() {
             .style("stroke", "#bbb")
             .style('fill', 'none')
             .style("stroke-dasharray", function(d) {
-                if (d.source.id in cm && d.target.id in cm) {
+                console.log(d);
+                if(d.source ==undefined && d.target == undefined){
+                    return "0";
+                }else if (d.source in cm && d.target in cm) {
                     return "0";
                 } else {
                     return "2,3";
                 }
             })
             .attr("d", function (d) {
-                if (d.source.id in cm && d.target.id in cm) {
+
+                if (d.source in cm && d.target in cm) {
                     return null;
-                }else if (d.source.id==rootId && !(d.target.id in cm)){
+                }else if (d.source==rootId && !(d.target in cm)){
                     return diagonal(d);
                 } else {
                     return diagonal(d);
