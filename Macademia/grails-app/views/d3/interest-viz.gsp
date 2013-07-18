@@ -30,7 +30,7 @@ svg {
 
 </style>
 <r:script>
-    var people = [
+    var peeps = [
         {"id":15830, "type": 'person', "fid":250588901, "name":"Luther Rea",
             'interestColors': {18 : 0.5},
             //must have cleaned relavence to have the circle around the image
@@ -137,7 +137,7 @@ svg {
             ]
         }],
         [{
-            "id":10,
+            "id":14,
             'name':'Randall',
 //            'pic' : '/Macademia/all/image/randomFake?foo',
             'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
@@ -171,22 +171,26 @@ svg {
     var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
     var viz = new MC.InterestViz({
-      hubModel: hubModel,
-      hubs: hubs,
-      root: root,
-      people: people,
-      circles: gradientCircles,
-      svg : svg
+        hubModel: hubModel,
+        hubs: hubs,
+        root: root,
+        people: peeps,
+        circles: gradientCircles,
+        svg : svg
     });
 
 
     viz.setGradients();
     viz.createsGradientCircles();
-  viz.createPersonView();
-            viz.createPersonLayoutView()
-            viz.createPersonLayout();
-    //  viz.createInterestLabels();
     viz.createInterestViz();
+    viz.createClusterMap();
+
+    viz.createPersonView();
+    viz.createPeople();
+    viz.createPersonLayoutView()
+    viz.createPersonLayout();
+
+    //  viz.createInterestLabels();
 
 </r:script>
 
