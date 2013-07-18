@@ -129,9 +129,9 @@ MC.InterestViz.prototype.setGradients = function(){
         });
     rGs
         .append("stop")
-        .attr("offset","20%")
+        .attr("offset","20%") //20%
         .attr("style",function(d){
-            return "stop-color:"+d.color+";stop-opacity:1;";
+            return "stop-color:"+d.color+";stop-opacity:.5;";
         });
     rGs
         .append("stop")
