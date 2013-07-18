@@ -56,7 +56,7 @@ MC.interest = function() {
                     .duration(500);
             }
 
-            console.log('allGs size is ' + newGs.size());
+//            console.log('allGs size is ' + newGs.size());
 
             newGs.append('circle');
             var l = MC.label()
