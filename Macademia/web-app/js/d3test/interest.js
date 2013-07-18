@@ -62,6 +62,10 @@ MC.interest = function() {
             newGs.append('circle').attr('class',klass+"Inner"); //inner circle
             var l = MC.label()
                 .setText(interest.getText())
+                .setY(function (d, i) {
+                    var r = interest.getOrCallR(d, i);
+                    return "" + (r+11) + "px";
+                })
                 .setAlign('middle');
             newGs.call(l);
 
