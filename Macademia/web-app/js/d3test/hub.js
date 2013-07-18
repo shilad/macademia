@@ -12,15 +12,16 @@ var MC =  (window.MC = (window.MC || {}));
 MC.hub = function() {
     function hub(selection) {
         selection.each(function(data) {
-
             //The following code draws interests based on data
 
             //Getting basic info
             var root  = data.hubRoot[0];
 
-            var color = 0.5; //default color for children
-            if(data['color'])
+            var color = data.color; //default color for children
+            if(data['color']){
                 color = data['color'];
+                console.log(data['color']);
+            }
             else if (root['color'])
                 color = root['color'];
 
