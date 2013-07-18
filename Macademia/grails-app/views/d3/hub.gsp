@@ -28,6 +28,7 @@ svg {
 
 <r:script>
 
+    //TODO: r doesn't adjust size for person
     var root = [{
         "id":7,
         'name':'Daenerys Targaryen',
@@ -55,7 +56,7 @@ svg {
         root : root,
         children : interests,
         color : 0.7,
-        distance: 75
+        distance: 55
     };
 
     var template = MC.hub();
@@ -65,7 +66,7 @@ svg {
     svg.datum(hubmodel)
             .call(template);
 
-    var root2 = [{"id": 8, "name":"stark", "type":"interest", "r":38,"color":0.5}];
+    var root2 = [{"id": 8, "name":"stark", "type":"interest", "r":30,"color":0.5}];
 
     var hubmodel2 = {
         id:8,
@@ -74,7 +75,7 @@ svg {
         root : root2,
         children : interests,
         color : 0.7,
-        distance: 75
+        distance: 55
     };
 
     window.setTimeout(function() {
