@@ -10,9 +10,9 @@ var MC = (window.MC = (window.MC || {}));
 
 
 MC.InterestViz = function(params) {
-    this.hubs = params.hubs;
+//    this.hubs = params.hubs;
 //    this.people = params.people;
-    this.root = params.root;
+//    this.root = params.root;
     this.svg = params.svg;
     this.hubModel = params.hubModel;
     this.circles = params.circles;
@@ -125,8 +125,6 @@ MC.InterestViz.prototype.setGradients = function(){
 
 };
 
-
-
 /*
  * Methods for the people heads are below here-----
  */
@@ -158,6 +156,15 @@ MC.InterestViz.prototype.createPersonLayoutView = function(){
         .setClusterMap(this.clusterMap)
         .setInterestNodes(this.getD3Interests());
     return this.personLayoutView;
-};
+}
 
+MC.InterestViz.prototype.createHubView = function(){
+    this.hubView = MC.hub();
+    return this.hubView;
+}
+
+MC.InterestViz.prototype.createHub = function(){
+
+}
+;
 
