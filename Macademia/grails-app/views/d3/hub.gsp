@@ -28,7 +28,6 @@ svg {
 
 <r:script>
 
-    //TODO: r doesn't adjust size for person
     var root1 = [{
         "id":7,
         'name':'Shilad Sen',
@@ -53,7 +52,7 @@ svg {
         id:7,
         cx:300,
         cy:300,
-        root : root1,
+        hubRoot : root1,
         children : interests1,
         color : 0.6,
         distance: 75
@@ -81,17 +80,15 @@ svg {
         id:8,
         cx:500,
         cy:200,
-        root : root2,
+        hubRoot : root2,
         children : interests2,
         color : 0.6,
         distance: 75
     };
 
-    window.setTimeout(function() {
-        svg.datum(hubmodel2)
-                .call(template);
+    svg.datum(hubmodel2)
+       .call(template);
 
-    }, 1500);
 
 </r:script>
 
