@@ -53,12 +53,12 @@ MC.interest = function() {
             if(allGs.exit().size() > 0){
                 allGs.exit().transition().remove()
                     .attr('opacity', 0.0)
-                    .duration(500);
+                    .duration(100);
             }
 
 //            console.log('allGs size is ' + newGs.size());
 
-            newGs.append('circle').attr('class',klass+"Outer"); //Outer circle
+            newGs.append('circle').attr('class',klass+"Outer");//Outer circle
             newGs.append('circle').attr('class',klass+"Inner"); //inner circle
             var l = MC.label()
                 .setText(interest.getText())
@@ -71,17 +71,16 @@ MC.interest = function() {
 
             // position both existing and new elements.
             allGs.transition()
-                .delay(500)
-                .duration(500)
+                .duration(200)
                 .attr('transform', function (d, i) {
                     var cx = interest.getOrCallCx(d, i);
                     var cy = interest.getOrCallCy(d, i);
                     return 'translate(' + cx + ', ' + cy + ')';
                 })
                 .transition()
-                .delay(1000)
+                .delay(200)
                 .attr('opacity', 1.0)
-                .duration(500);
+                .duration(100);
 
             // Change fill for both existing and new elements
             allGs.select('circle.'+klass+"Inner")
@@ -106,7 +105,7 @@ MC.interest = function() {
     MC.options.register(interest, 'cy', function (d,i) { return d.cy; });
     MC.options.register(interest, 'r', function(d) { return d.r; });
     MC.options.register(interest, 'rInner', function(d) { return d.r*0.85; }); //get the radius of the inner circle
-//    MC.options.register(interest, 'opacity', 1.0);
+    MC.options.register(interest, 'opacity', 1.0);
     MC.options.register(interest, 'onHover', [], MC.options.TYPE_LIST);
     MC.options.register(interest, 'cssClass', 'interest');
     MC.options.register(interest, 'enterTransition', function() { return this.attr('opacity', 1.0); });

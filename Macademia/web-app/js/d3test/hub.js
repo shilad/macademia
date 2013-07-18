@@ -45,33 +45,69 @@ MC.hub = function() {
             var d3Group = d3.select(this).append('g').attr('id','hub'+id).attr('class','hub');
 
             //drawing children with animation
+            var childrenTemplate = MC.interest().setCssClass("child"+id);
+            d3Group.datum(data.children).call(childrenTemplate); //drawing child nodes
 
-//            var childrenTemplate = MC.interest().setCssClass("child"+id).setCx(cx).setCy(cy).setOpacity(1.0);
-            var childrenTemplate = MC.interest().setCssClass("child"+id).setCx(cx).setCy(cy);
-            var child = d3Group.datum(data.children).call(childrenTemplate);
+            var childGs = d3Group.selectAll("g."+"child"+id);
+            console.log("g.child"+id);
+            childGs.attr('opacity', 1.0).transition()  //setting the group to the root position first
+                .duration(10)
+                .attr('transform', function (d, i) {
+                    return 'translate(' + cx + ', ' + cy + ')';
+                });
+
             var n = data.children.length;
             var distance = 50; //default distance
             if(data["distance"]){ //if the distance between the root and children is specified
                 distance = data["distance"];
             }
 
-            childrenTemplate = MC.interest()
-                .setCssClass("child"+id)
-                .setCx(function(d,i){
-                    return cx + distance * Math.cos((i+1)*2*Math.PI/n);
-                })
-                .setCy(function(d,i){
-                    return cy - distance * Math.sin((i+1)*2*Math.PI/n);
-                })
-                .setColor(function(d){
-                    if(d.color){
-                        return MC.hueToColor(d.color);
-                    } else {
-                        return MC.hueToColor(color);
-                    }
-                });
 
-            child.transition().call(childrenTemplate);
+            childGs.attr('opacity', 1.0).transition() //then move the circles
+                .duration(function(d,i){
+                    return 1000/n*(i+1);
+                })
+                .attr('transform', function (d, i) {
+                    var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n);
+                    var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
+                    return 'translate(' + cx_child + ', ' + cy_child + ')';
+                });
+//                .transition()
+//                .delay(1000)
+//                .attr('opacity',1.0)
+//                .duration(200);
+
+//            d3Group.selectAll("g.")
+//                .transition()
+//                .attr("cx", function(d,i){
+//                    return cx + distance * Math.cos((i+1)*2*Math.PI/n);
+//                })
+//                .attr("cy", function(d,i){
+//                    return cy - distance * Math.sin((i+1)*2*Math.PI/n);
+//                });
+//            var n = data.children.length;
+//            var distance = 50; //default distance
+//            if(data["distance"]){ //if the distance between the root and children is specified
+//                distance = data["distance"];
+//            }
+//
+//            childrenTemplate = MC.interest()
+//                .setCssClass("child"+id)
+//                .setCx(function(d,i){
+//                    return cx + distance * Math.cos((i+1)*2*Math.PI/n);
+//                })
+//                .setCy(function(d,i){
+//                    return cy - distance * Math.sin((i+1)*2*Math.PI/n);
+//                })
+//                .setColor(function(d){
+//                    if(d.color){
+//                        return MC.hueToColor(d.color);
+//                    } else {
+//                        return MC.hueToColor(color);
+//                    }
+//                });
+//
+//            child.call(childrenTemplate);
 
             //drawing root
             var rootType = data.hubRoot[0].type;
