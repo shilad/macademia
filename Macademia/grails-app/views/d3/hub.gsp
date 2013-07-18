@@ -87,11 +87,9 @@ svg {
         distance: 75
     };
 
-    window.setTimeout(function() {
         svg.datum(hubmodel2)
                 .call(template);
 
-    }, 1500);
 
 </r:script>
 
