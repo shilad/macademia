@@ -106,7 +106,7 @@ MC.interest = function() {
     MC.options.register(interest, 'cy', function (d,i) { return d.cy; });
     MC.options.register(interest, 'r', function(d) { return d.r; });
     MC.options.register(interest, 'rInner', function(d) { return d.r*0.85; }); //get the radius of the inner circle
-    MC.options.register(interest, 'opacity', 1.0);
+//    MC.options.register(interest, 'opacity', 1.0);
     MC.options.register(interest, 'onHover', [], MC.options.TYPE_LIST);
     MC.options.register(interest, 'cssClass', 'interest');
     MC.options.register(interest, 'enterTransition', function() { return this.attr('opacity', 1.0); });

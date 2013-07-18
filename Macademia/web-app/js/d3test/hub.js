@@ -42,6 +42,35 @@ MC.hub = function() {
             //use d3Group to put everything into one g
             var d3Group = d3.select(this).append('g').attr('id','hub'+id).attr('class','hub');
 
+            //drawing children with animation
+
+//            var childrenTemplate = MC.interest().setCssClass("child"+id).setCx(cx).setCy(cy).setOpacity(1.0);
+            var childrenTemplate = MC.interest().setCssClass("child"+id).setCx(cx).setCy(cy);
+            var child = d3Group.datum(data.children).call(childrenTemplate);
+            var n = data.children.length;
+            var distance = 50; //default distance
+            if(data["distance"]){ //if the distance between the root and children is specified
+                distance = data["distance"];
+            }
+
+            childrenTemplate = MC.interest()
+                .setCssClass("child"+id)
+                .setCx(function(d,i){
+                    return cx + distance * Math.cos((i+1)*2*Math.PI/n);
+                })
+                .setCy(function(d,i){
+                    return cy - distance * Math.sin((i+1)*2*Math.PI/n);
+                })
+                .setColor(function(d){
+                    if(d.color){
+                        return MC.hueToColor(d.color);
+                    } else {
+                        return MC.hueToColor(color);
+                    }
+                });
+
+            child.transition().call(childrenTemplate);
+
             //drawing root
             var rootType = data.root[0].type;
 
@@ -75,36 +104,6 @@ MC.hub = function() {
                     .enter()
                     .call(personRoot);
             }
-
-            //drawing children with animation
-
-            var childrenTemplate = MC.interest().setCssClass("child"+id).setCx(cx).setCy(cy).setOpacity(1.0);
-            var child = d3Group.datum(data.children).call(childrenTemplate);
-            var n = data.children.length;
-            var distance = 50; //default distance
-            if(data["distance"]){ //if the distance between the root and children is specified
-                distance = data["distance"];
-            }
-
-            childrenTemplate = MC.interest()
-                .setCssClass("child"+id)
-                .setCx(function(d,i){
-                    return cx + distance * Math.cos((i+1)*2*Math.PI/n);
-                })
-                .setCy(function(d,i){
-                    return cy - distance * Math.sin((i+1)*2*Math.PI/n);
-                })
-                .setColor(function(d){
-                    if(d.color){
-                        return MC.hueToColor(d.color);
-                    } else {
-                        return MC.hueToColor(color);
-                    }
-                });
-
-            window.setTimeout(function() {
-                child.transition().call(childrenTemplate);
-            },1000);
 
 
 
