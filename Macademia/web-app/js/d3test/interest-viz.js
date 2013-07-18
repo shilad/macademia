@@ -185,7 +185,7 @@ MC.InterestViz.prototype.getD3People = function() {
 
 //Sets the locations of the person heads
 MC.InterestViz.prototype.createPersonLayoutView = function(){
-    console.log(this.getD3People());
+    console.log(this.getD3Interests());
     this.personLayoutView = MC.personLayout()
         .setPeopleNodes(this.getD3People())
         .setClusterMap(this.clusterMap)
