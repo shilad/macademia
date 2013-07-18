@@ -62,7 +62,7 @@ svg {
         'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
         'type':'interest',
         'r': 30,
-        'color': 0.2,
+        'color': 0.0,
         'cx' : 375,
         'cy' : 150,
         'interests': [
@@ -80,7 +80,7 @@ svg {
             'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
             'type':'interest',
             'r': 30,
-            'color': 0.9,
+            'color': 0.16666,
             'cx' : 150,
             'cy' : 600,
             'interests': [
