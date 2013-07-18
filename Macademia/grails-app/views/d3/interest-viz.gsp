@@ -28,34 +28,27 @@ svg {
     width : 90%;
 }
 
-
-
 </style>
 <r:script>
 
     var hubCircles = [
-        {'id' : 34, 'type' : "person", 'name' : 'Eevee', 'color' : "pink", 'r': 50, 'cx' : 375, 'cy' : 425},
-        {'id' : 31, 'type' : "person",'name' : 'Umbreon', 'color' : "black", 'r': 50, 'cx' : 375, 'cy' : 150},
-        {'id' : 10, 'type' : "person",'name' : 'Jolteon', 'color' : "yellow", 'r': 50, 'cx' : 150, 'cy' : 600},
-        {'id' : 19, 'type' : "person",'name' : 'Vaporeon', 'color' : "blue", 'r': 50, 'cx' : 600, 'cy' : 600}
+        {'id' : 34, 'type' : "person", 'name' : 'Eevee', 'color' : "tan", 'r': 30, 'cx' : 375, 'cy' : 425},
+        {'id' : 31, 'type' : "person",'name' : 'Umbreon', 'color' : "black", 'r': 30, 'cx' : 375, 'cy' : 150},
+        {'id' : 10, 'type' : "person",'name' : 'Jolteon', 'color' : "yellow", 'r': 30, 'cx' : 150, 'cy' : 600},
+        {'id' : 19, 'type' : "person",'name' : 'Vaporeon', 'color' : "blue", 'r': 30, 'cx' : 600, 'cy' : 600}
     ];
-
     var viz = new MC.InterestViz({
       circles: hubCircles,
       svg : d3.select('svg')
     });
 
-    viz.createsCircles();
+
+    viz.setGradients();
+    viz.createsGradientCircles();
     viz.createInterestLabels();
-//    viz.setGradients();
-
-
-
-
 </r:script>
 
 <svg>
-
 </svg>
 </body>
 </html>
