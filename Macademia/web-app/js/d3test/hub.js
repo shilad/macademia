@@ -45,7 +45,14 @@ MC.hub = function() {
             var d3Group = d3.select(this).append('g').attr('id','hub'+id).attr('class','hub');
 
             //drawing children with animation
-            var childrenTemplate = MC.interest().setCssClass("child"+id);
+            var childrenTemplate = MC.interest().setCssClass("child"+id)
+                .setColor(function(d){
+                    if(d.color){
+                        return MC.hueToColor(d.color);
+                    } else {
+                        return MC.hueToColor(color);
+                    }
+                });
             d3Group.datum(data.children).call(childrenTemplate); //drawing child nodes
 
             var childGs = d3Group.selectAll("g."+"child"+id);
