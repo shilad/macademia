@@ -31,10 +31,18 @@ MC.label = function() {
         var g = g.append('g')
             .attr('class', label.getCssClass());
 
+        var cleanedText = label.getText();
+        if (cleanedText.length > 15){
+            if(cleanedText.indexOf(" ") !== -1)
+                cleanedText.replace(" ", "\n");
+            else
+                cleanedText.substr(0, 15) + "\n" + cleanedText.substr(15);
+        }
+
         var t = g.append('text')
             .attr('x', label.getX())
             .attr('y', label.getY())
-            .text(label.getText())
+            .text(cleanedText)
             .attr('text-anchor', label.getAlign());
 
         label.getOnHover().forEach(

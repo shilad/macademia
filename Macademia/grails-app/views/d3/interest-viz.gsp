@@ -76,83 +76,78 @@ svg {
 //         {"id":18134, "type":person,"fid":328841957, "name":"Carmelo Looney", "pic":"/Macademia/all/image/fake?gender=male&img=00230_940128_fa.png", "relevance":{"24":1.4297183435410261, "-1":null, "18":1.0485795140266418, "overall":1.239148928783834}, "count":{"24":6, "-1":7, "18":2, "overall":8}, "interests":[18131, 18133, 10779, 18130, 18132, 18125, 18127, 1124, 18126, 18431, 287, 18129, 11334, 18128, 977]},
     ];
     var gradientCircles = [
-        {'id' : 31, 'color' : "red", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.3},
-        {'id' : 10, 'color' : "yellow", 'r': 170, 'cx' : 150, 'cy' : 600, "stop-opacity":.3},
-        {'id' : 19, 'color' : "blue", 'r': 170, 'cx' : 600, 'cy' : 600, "stop-opacity":.3},
-        {'id' : 34, 'color' : "tan", 'r': 300, 'cx' : 375, 'cy' : 425, "stop-opacity":.5}
+        {'id' : 31, 'color' : "#A8C4E5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.3},
+        {'id' : 10, 'color' : "#b4f5a3", 'r': 170, 'cx' : 150, 'cy' : 600, "stop-opacity":.3},
+        {'id' : 19, 'color' : "#e3a3f5", 'r': 170, 'cx' : 600, 'cy' : 600, "stop-opacity":.3},
+        {'id' : 34, 'color' : "#f16d95", 'r': 300, 'cx' : 375, 'cy' : 425, "stop-opacity":.5}
     ];
     var root = [{
         "id":7,
-        'name':'Daenerys Targaryen',
+        'name':'Shilad Sen',
         'pic' : '/Macademia/all/image/randomFake?foo',
         'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
-        'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
+        'interestColors': {4 : 0.5, 6 : 0.2, 11 : 0.9},
         'type':'person',
-        'r': 30,
-        'color': 0.2,
+        'r': 45,
+        'color': '#f16d95',
         'interests': [
-            {"id": 1, "name": "Drogon","r":10},
-            {"id": 2, "name": "Rhaegal","r":10},
-            {"id": 3, "name": "Viserion","r":10},
-            {"id": 4, "name": "Jorah", "r":10},
-            {"id": 5, "name": "Barristan", "r":10},
-            {"id": 6, "name": "Daario", "r":10}
+            {"id": 3, "name": "Online Communities","r":18, "color":0.6},
+            {"id": 6, "name": "web2.0", "r":18, "color":0.6},
+            {"id": 1, "name": "Machine Learning", "r":18},
+            {"id": 4, "name": "Jazz","r":18, "color": 0.3},
+            {"id": 5, "name": "Statistics", "r":18, "color": 0.8},
+            {"id": 2, "name": "Data Mining","r":18}
         ]
     }];
     var hubs = [[{
-        "id":17,
-        'name':'Jay',
-//        'pic' : '/Macademia/all/image/randomFake?foo',
-        'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
-        'type':'interest',
-        'r': 30,
-        'color': 0.0,
-        'cx' : 375,
-        'cy' : 150,
+        "id": 8,
+        "name":"web2.0",
+        "type":"interest",
+        "r": 45,
+        "cx":375,
+        "cy":150,
+        "color":0.6,
         'interests': [
-            {"id": 10, "name": "Music","r":10},
-            {"id": 20, "name": "Loitering","r":10},
-            {"id": 30, "name": "Hats","r":10},
-            {"id": 40, "name": "Girls", "r":10},
-            {"id": 50, "name": "Mary Jane", "r":10}
+            {"id": 11, "name": "html5","r":18},
+            {"id": 12, "name": "javascript","r":18},
+            {"id": 13, "name": "Web Development","r":18},
+            {"id": 14, "name": "wikis", "r":18},
+            {"id": 15, "name": "Web Spam", "r":18},
+            {"id": 16, "name": "Semantic Web", "r":18}
         ]
     }],
         [{
-            "id":10,
-            'name':'Silent Bob',
-//            'pic' : '/Macademia/all/image/randomFake?foo',
-            'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
+            "id":9,
+            'name':'Jazz',
             'type':'interest',
-            'r': 30,
-            'color': 0.16666,
+            'r': 45,
+            'color': 0.3,
             'cx' : 150,
             'cy' : 600,
             'interests': [
-                {"id": 11, "name": "...","r":10},
-                {"id": 22, "name": "...","r":10},
-                {"id": 32, "name": "...","r":10},
-                {"id": 42, "name": "hmmfph", "r":10},
-                {"id": 52, "name": "...", "r":10},
-                {"id": 62, "name": "...", "r":10}
+                {"id": 21, "name": "Miles Davis","r":18},
+                {"id": 22, "name": "Jazz History","r":18},
+                {"id": 23, "name": "Every Day","r":18},
+                {"id": 24, "name": "Duke Ellington", "r":18},
+                {"id": 25, "name": "Jazz Performance", "r":18},
+                {"id": 26, "name": "Mary Lou Williams", "r":18}
             ]
         }],
         [{
-            "id":14,
-            'name':'Randall',
-//            'pic' : '/Macademia/all/image/randomFake?foo',
-            'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
+            "id":10,
+            'name':'Mathematics',
             'type':'interest',
-            'r': 30,
-            'color':.66,
+            'r': 45,
+            'color':0.8,
             'cx' : 600,
             'cy' : 600,
             'interests': [
-                {"id": 13, "name": "Magazines","r":10},
-                {"id": 23, "name": "Jokes","r":10},
-                {"id": 33, "name": "Star Wars","r":10},
-                {"id": 43, "name": "Movies", "r":10},
-                {"id": 53, "name": "Reclaiming Words", "r":10},
-                {"id": 63, "name": "Life", "r":10}
+                {"id": 13, "name": "Mathematical Methods","r":18},
+                {"id": 23, "name": "Philosophy of Mathematics","r":18},
+                {"id": 33, "name": "Geometry","r":18},
+                {"id": 43, "name": "Algebra", "r":18},
+                {"id": 53, "name": "Calculus", "r":18},
+                {"id": 63, "name": "Discrete Mathematics", "r":18}
             ]
         }]];
 
@@ -162,7 +157,7 @@ svg {
         cy:425,
         hubRoot : root,
         children : root[0].interests,
-        color : 0.7,
+        color: '#f16d95',
         distance: 100
     };
 
@@ -171,12 +166,11 @@ svg {
     var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
     var viz = new MC.InterestViz({
-        hubModel: hubModel,
-        hubs: hubs,
-        root: root,
-        people: peeps,
-        circles: gradientCircles,
-        svg : svg
+      hubModel: hubModel,
+      hubs: hubs,
+      root: root,
+      circles: gradientCircles,
+      svg : svg
     });
 
 

@@ -12,15 +12,16 @@ var MC =  (window.MC = (window.MC || {}));
 MC.hub = function() {
     function hub(selection) {
         selection.each(function(data) {
-
             //The following code draws interests based on data
 
             //Getting basic info
             var root  = data.hubRoot[0];
 
-            var color = 0.5; //default color for children
-            if(data['color'])
+            var color = data.color; //default color for children
+            if(data['color']){
                 color = data['color'];
+                console.log(data['color']);
+            }
             else if (root['color'])
                 color = root['color'];
 
@@ -44,24 +45,7 @@ MC.hub = function() {
             var d3Group = d3.select(this).append('g').attr('id','hub'+id).attr('class','hub');
 
             //drawing children with animation
-
-//            var childrenTemplate = MC.interest().setCssClass("child"+id).setCx(cx).setCy(cy).setOpacity(1.0);
-            var childrenTemplate = MC.interest().setCssClass("child"+id).setCx(cx).setCy(cy);
-            var child = d3Group.datum(data.children).call(childrenTemplate);
-            var n = data.children.length;
-            var distance = 50; //default distance
-            if(data["distance"]){ //if the distance between the root and children is specified
-                distance = data["distance"];
-            }
-
-            childrenTemplate = MC.interest()
-                .setCssClass("child"+id)
-                .setCx(function(d,i){
-                    return cx + distance * Math.cos((i+1)*2*Math.PI/n);
-                })
-                .setCy(function(d,i){
-                    return cy - distance * Math.sin((i+1)*2*Math.PI/n);
-                })
+            var childrenTemplate = MC.interest().setCssClass("interest")
                 .setColor(function(d){
                     if(d.color){
                         return MC.hueToColor(d.color);
@@ -69,14 +53,74 @@ MC.hub = function() {
                         return MC.hueToColor(color);
                     }
                 });
+            d3Group.datum(data.children).call(childrenTemplate); //drawing child nodes
 
-            child.transition().call(childrenTemplate);
+            var childGs = d3Group.selectAll("g."+"interest");
+            console.log("g.child"+id);
+            childGs.attr('opacity', 1.0).transition()  //setting the group to the root position first
+                .duration(10)
+                .attr('transform', function (d, i) {
+                    return 'translate(' + cx + ', ' + cy + ')';
+                });
+
+            var n = data.children.length;
+            var distance = 50; //default distance
+            if(data["distance"]){ //if the distance between the root and children is specified
+                distance = data["distance"];
+            }
+
+
+            childGs.attr('opacity', 1.0).transition() //then move the circles
+                .duration(function(d,i){
+                    return 1000/n*(i+1);
+                })
+                .attr('transform', function (d, i) {
+                    var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n);
+                    var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
+                    return 'translate(' + cx_child + ', ' + cy_child + ')';
+                });
+//                .transition()
+//                .delay(1000)
+//                .attr('opacity',1.0)
+//                .duration(200);
+
+//            d3Group.selectAll("g.")
+//                .transition()
+//                .attr("cx", function(d,i){
+//                    return cx + distance * Math.cos((i+1)*2*Math.PI/n);
+//                })
+//                .attr("cy", function(d,i){
+//                    return cy - distance * Math.sin((i+1)*2*Math.PI/n);
+//                });
+//            var n = data.children.length;
+//            var distance = 50; //default distance
+//            if(data["distance"]){ //if the distance between the root and children is specified
+//                distance = data["distance"];
+//            }
+//
+//            childrenTemplate = MC.interest()
+//                .setCssClass("child"+id)
+//                .setCx(function(d,i){
+//                    return cx + distance * Math.cos((i+1)*2*Math.PI/n);
+//                })
+//                .setCy(function(d,i){
+//                    return cy - distance * Math.sin((i+1)*2*Math.PI/n);
+//                })
+//                .setColor(function(d){
+//                    if(d.color){
+//                        return MC.hueToColor(d.color);
+//                    } else {
+//                        return MC.hueToColor(color);
+//                    }
+//                });
+//
+//            child.call(childrenTemplate);
 
             //drawing root
             var rootType = data.hubRoot[0].type;
 
             if(rootType == "interest"){
-                var interestTemplate = MC.interest().setCssClass("interestRoot"+id).setCx(cx).setCy(cy);
+                var interestTemplate = MC.interest().setCssClass("interestHubRoot").setCx(cx).setCy(cy);
                 d3Group.datum(data.hubRoot).call(interestTemplate);
             }
             else{
@@ -86,7 +130,7 @@ MC.hub = function() {
 //                    .setR(25*1.5)
 //                    .setImageWidth(28*1.5)
 //                    .setImageHeight(42*1.5)
-                    .setCssClass('personRoot'+id) //setting the class name of the root
+                    .setCssClass('personHubRoot') //setting the class name of the root
 
                 var personR = personRoot.getR();
                 var personImageWidth = personRoot.getImageWidth();
@@ -97,10 +141,10 @@ MC.hub = function() {
                 personRoot.setImageHeight(personImageHeight*scale);
 
                 d3Group
-                    .selectAll('personRoot'+id)
+                    .selectAll('personHubRoot')
                     .data([0])
                     .append('g')
-                    .attr('class', 'personRoot'+id)
+                    .attr('class', 'personHubRoot')
                     .data(data.hubRoot)
                     .enter()
                     .call(personRoot);
