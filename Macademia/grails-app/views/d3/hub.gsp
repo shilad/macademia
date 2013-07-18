@@ -52,7 +52,7 @@ svg {
         id:7,
         cx:300,
         cy:300,
-        root : root1,
+        hubRoot : root1,
         children : interests1,
         color : 0.6,
         distance: 75
@@ -80,14 +80,14 @@ svg {
         id:8,
         cx:500,
         cy:200,
-        root : root2,
+        hubRoot : root2,
         children : interests2,
         color : 0.6,
         distance: 75
     };
 
-        svg.datum(hubmodel2)
-                .call(template);
+    svg.datum(hubmodel2)
+       .call(template);
 
 
 </r:script>
