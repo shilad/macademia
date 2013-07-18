@@ -98,18 +98,19 @@ MC.personLayout = function () {
 //        console.log(links);
         //get list of values for already made arrays
 
-           var personNodes = jQuery.map(pl.model.getPeople(),
-            function (v, k) {
-              var p = { real: v };
-                var primary = surrogates[getPrimaryInterest(p)];
-                if (primary) {
-                    p.x = primary.x + (0.5 - Math.random()) * 50;
-                    p.y = primary.y + (0.5 - Math.random()) * 50;
-                }
-                return p;
-            });
 
-        var clusterMap = pl.model.getClusterMap();
+//           var personNodes = $.map(pl.model.getPeople(),
+//            function (v, k) {
+//              var p = { real: v };
+//                var primary = surrogates[getPrimaryInterest(p)];
+//                if (primary) {
+//                    p.x = primary.x + (0.5 - Math.random()) * 50;
+//                    p.y = primary.y + (0.5 - Math.random()) * 50;
+//                }
+//                return p;
+//            });
+
+//        var clusterMap = pl.model.getClusterMap();
 
 
         //places the person in relation to the surrogates
@@ -126,26 +127,26 @@ MC.personLayout = function () {
             .friction(friction)
             .start();
         //creates a new g  for each new person
-        var groups = svg.selectAll(".personNode")
-            .data(personNodes)
-            .enter()
-            .append("g")
-            .attr('class', 'personNode');
-        //works with each person as a unit and manipulates
-        groups.append("image")
-            .attr("xlink:href", function (d) {
-                console.log('doing ' + d.name);
-                return d.pic;
-            })
-            .attr("height", "28")
-            .attr("width", "28")
-            .attr("transform", "translate(-14,-14)");
+//        var groups = svg.selectAll(".personNode")
+//            .data(personNodes)
+//            .enter()
+//            .append("g")
+//            .attr('class', 'personNode');
+//        //works with each person as a unit and manipulates
+//        groups.append("image")
+//            .attr("xlink:href", function (d) {
+//                console.log('doing ' + d.name);
+//                return d.pic;
+//            })
+//            .attr("height", "28")
+//            .attr("width", "28")
+//            .attr("transform", "translate(-14,-14)");
 //
-        //fade in
-        svg.style("opacity", 1e-6)
-            .transition()
-            .duration(1000)
-            .style("opacity", 1);
+//        //fade in
+//        svg.style("opacity", 1e-6)
+//            .transition()
+//            .duration(1000)
+//            .style("opacity", 1);
         //keep with in the graph
         var pinch = function (x, min, max) {
             return (x < min) ? min : ((x > max) ? max : x);
@@ -154,12 +155,12 @@ MC.personLayout = function () {
         // walk through iterations of convergence to final positions
         force.on("tick", function (e) {
 
-        // Push different nodes in different directions for clustering.
-        var k = 6 * e.alpha;
-        nodes.forEach(function(o, i) {
-            o.y += i & 1 ? k : -k;
-            o.x += i & 2 ? k : -k;
-        });
+//        // Push different nodes in different directions for clustering.
+//        var k = 6 * e.alpha;
+//        nodes.forEach(function(o, i) {
+//            o.y += i & 1 ? k : -k;
+//            o.x += i & 2 ? k : -k;
+//        });
 
             peopleNodes.attr("transform", function (d) {
                 d.x = pinch(d.x, 50, 750);
@@ -177,7 +178,7 @@ MC.personLayout = function () {
         });
     }
 
-    MC.options.register(pl, 'friction',.8);
+    MC.options.register(pl, 'friction', 0.8);
     MC.options.register(pl, 'gravity', 0.005);
     MC.options.register(pl, 'linkDistance', 50);
 
