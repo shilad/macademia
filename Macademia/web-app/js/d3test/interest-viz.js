@@ -10,33 +10,20 @@ var MC = (window.MC = (window.MC || {}));
 
 
 MC.InterestViz = function(params) {
-//    this.hubs = params.hubs;
+    this.hubs = params.hubs;
 //    this.people = params.people;
-//    this.root = params.root;
-//    console.log(params);
+    this.root = params.root;
     this.svg = params.svg;
+    this.hubModel = params.hubModel;
     this.circles = params.circles;
 };
 
-//MC.InterestViz.prototype.createsCircles = function(){             //NO LONGER USED
-//    this.svg.selectAll("circle.solid")
-//        .data(this.circles)
-//        .enter()
-//        .append("circle")
-//        .attr("fill",function(d){
-//            return d.color;
-//        })
-//        .attr("r",function(d){
-//            return d.r;
-//        })
-//        .attr("cx",function(d){
-//            return d.cx;
-//        })
-//        .attr("cy",function(d){
-//            return d.cy;
-//        })
-//        .attr("class","solid");
-//};
+
+//Position the hubs and the root
+MC.InterestViz.prototype.createInterestViz = function(){
+
+};
+
 MC.InterestViz.prototype.createsGradientCircles = function(){
     this.svg.selectAll('circle.gradient')
         .data(this.circles)
@@ -55,10 +42,6 @@ MC.InterestViz.prototype.createsGradientCircles = function(){
             return d.r+100;
         })
         .attr("class","gradient");
-};
-//Position the hubs and the root
-MC.InterestViz.prototype.createInterestViz = function(){
-
 };
 
 //Create interest labels

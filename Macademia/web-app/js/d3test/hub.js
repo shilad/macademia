@@ -15,7 +15,7 @@ MC.hub = function() {
             //The following code draws interests based on data
 
             //Getting basic info
-            var root  = data.root[0];
+            var root  = data.hubRoot[0];
 
             var color = 0.5; //default color for children
             if(data['color'])
@@ -43,11 +43,11 @@ MC.hub = function() {
             var d3Group = d3.select(this).append('g').attr('id','hub'+id).attr('class','hub');
 
             //drawing root
-            var rootType = data.root[0].type;
+            var rootType = data.hubRoot[0].type;
 
             if(rootType == "interest"){
                 var interestTemplate = MC.interest().setCssClass("interestRoot"+id).setCx(cx).setCy(cy);
-                d3Group.datum(data.root).call(interestTemplate);
+                d3Group.datum(data.hubRoot).call(interestTemplate);
             }
             else{
                 var personRoot = MC.person()
@@ -59,7 +59,7 @@ MC.hub = function() {
                     .data([0])
                     .append('g')
                     .attr('class', 'personRoot'+id)
-                    .data(data.root)
+                    .data(data.hubRoot)
                     .enter()
                     .call(personRoot);
             }

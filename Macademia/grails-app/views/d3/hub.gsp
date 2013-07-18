@@ -53,7 +53,7 @@ svg {
         id:7,
         cx:300,
         cy:300,
-        root : root,
+        hubRoot : root,
         children : interests,
         color : 0.7,
         distance: 55
@@ -72,7 +72,7 @@ svg {
         id:8,
         cx:500,
         cy:200,
-        root : root2,
+        hubRoot : root2,
         children : interests,
         color : 0.7,
         distance: 55
