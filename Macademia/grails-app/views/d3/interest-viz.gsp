@@ -31,11 +31,11 @@ svg {
 </style>
 <r:script>
 
-    var hubCircles = [
-        {'id' : 34, 'type' : "person", 'name' : 'Eevee', 'color' : "tan", 'r': 30, 'cx' : 375, 'cy' : 425},
-        {'id' : 31, 'type' : "person",'name' : 'Flareon', 'color' : "red", 'r': 30, 'cx' : 375, 'cy' : 150},
-        {'id' : 10, 'type' : "person",'name' : 'Jolteon', 'color' : "yellow", 'r': 30, 'cx' : 150, 'cy' : 600},
-        {'id' : 19, 'type' : "person",'name' : 'Vaporeon', 'color' : "blue", 'r': 30, 'cx' : 600, 'cy' : 600}
+    var gradientCircles = [
+        {'id' : 31, 'color' : "red", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.3},
+        {'id' : 10, 'color' : "yellow", 'r': 170, 'cx' : 150, 'cy' : 600, "stop-opacity":.3},
+        {'id' : 19, 'color' : "blue", 'r': 170, 'cx' : 600, 'cy' : 600, "stop-opacity":.3},
+        {'id' : 34, 'color' : "tan", 'r': 300, 'cx' : 375, 'cy' : 425, "stop-opacity":.5}
     ];
     var root = [{
         "id":7,
@@ -58,11 +58,11 @@ svg {
     var hubs = [[{
         "id":17,
         'name':'Jay',
-        'pic' : '/Macademia/all/image/randomFake?foo',
+//        'pic' : '/Macademia/all/image/randomFake?foo',
         'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
         'type':'interest',
         'r': 30,
-        'color': "red",
+        'color': 0.0,
         'cx' : 375,
         'cy' : 150,
         'interests': [
@@ -76,11 +76,11 @@ svg {
         [{
             "id":10,
             'name':'Silent Bob',
-            'pic' : '/Macademia/all/image/randomFake?foo',
+//            'pic' : '/Macademia/all/image/randomFake?foo',
             'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
             'type':'interest',
             'r': 30,
-            'color': "yellow",
+            'color': 0.16666,
             'cx' : 150,
             'cy' : 600,
             'interests': [
@@ -95,11 +95,11 @@ svg {
         [{
             "id":10,
             'name':'Randall',
-            'pic' : '/Macademia/all/image/randomFake?foo',
+//            'pic' : '/Macademia/all/image/randomFake?foo',
             'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7},
             'type':'interest',
             'r': 30,
-            'color': "blue",
+            'color':.66,
             'cx' : 600,
             'cy' : 600,
             'interests': [
@@ -130,7 +130,7 @@ svg {
       hubModel: hubModel,
       hubs: hubs,
       root: root,
-      circles: hubCircles,
+      circles: gradientCircles,
       svg : svg
     });
 

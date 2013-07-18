@@ -26,34 +26,25 @@ MC.InterestViz.prototype.createInterestViz = function(){
 
     for(var i = 0; i < this.hubs.length; i++){
         //alter model for each hub
-        console.log(this.hubs[i]);
-        this.hubModel.id=this.hubs[i].id;
-        this.hubModel.cx=this.hubs[i].cx;
-        this.hubModel.cy=this.hubs[i].cy;
-        this.hubModel.hubRoot=this.hubs[i];
-        this.hubModel.children=this.hubs[i][0].interests;
-        this.hubModel.color=this.hubs[i].color;
+        this.hubModel=hubModel = {
+            id:this.hubs[i][0].id,
+            cx:this.hubs[i][0].cx,
+            cy:this.hubs[i][0].cy,
+            hubRoot : this.hubs[i],
+            children : this.hubs[i][0].interests,
+            color : this.hubs[i][0].color,
+            distance: 100
+        };
+
+
+
         this.createHub();
     }
 
 };
 
-//var hubCircles = [
-//    {'id' : 34, 'type' : "person", 'name' : 'Eevee', 'color' : "tan", 'r': 30, 'cx' : 375, 'cy' : 425},
-//    {'id' : 31, 'type' : "person",'name' : 'Flareon', 'color' : "red", 'r': 30, 'cx' : 375, 'cy' : 150},
-//    {'id' : 10, 'type' : "person",'name' : 'Jolteon', 'color' : "yellow", 'r': 30, 'cx' : 150, 'cy' : 600},
-//    {'id' : 19, 'type' : "person",'name' : 'Vaporeon', 'color' : "blue", 'r': 30, 'cx' : 600, 'cy' : 600}
-//];
-//var hubModel = {
-//    id:7,
-//    cx:375,
-//    cy:425,
-//    hubRoot : root,
-//    children : root[0].interests,
-//    color : 0.7,
-//    distance: 100
-//};
 MC.InterestViz.prototype.createHub = function(){
+    console.log(this.hubModel);
     this.svg
         .datum(this.hubModel)
         .call(this.createHubView());
@@ -80,12 +71,12 @@ MC.InterestViz.prototype.createsGradientCircles = function(){
             return d.cy;
         })
         .attr('r', function(d) {
-            return d.r+100;
+            return d.r;
         })
         .attr("class","gradient");
 };
 
-//Create interest labels
+//Create interest labels                        NO LONGER USED
 MC.InterestViz.prototype.createInterestLabels = function(){
     this.svg
         .selectAll("text")
@@ -129,9 +120,9 @@ MC.InterestViz.prototype.setGradients = function(){
         });
     rGs
         .append("stop")
-        .attr("offset","20%") //20%
+        .attr("offset","20%")
         .attr("style",function(d){
-            return "stop-color:"+d.color+";stop-opacity:.5;";
+            return "stop-color:"+d.color+";stop-opacity:"+ d['stop-opacity']+";";
         });
     rGs
         .append("stop")
