@@ -10,33 +10,52 @@ var MC = (window.MC = (window.MC || {}));
 
 
 MC.InterestViz = function(params) {
-//    this.hubs = params.hubs;
+    this.hubs = params.hubs;
 //    this.people = params.people;
-//    this.root = params.root;
-//    console.log(params);
+    this.root = params.root;
     this.svg = params.svg;
+    this.hubModel = params.hubModel;
     this.circles = params.circles;
 };
 
-//MC.InterestViz.prototype.createsCircles = function(){             //NO LONGER USED
-//    this.svg.selectAll("circle.solid")
-//        .data(this.circles)
-//        .enter()
-//        .append("circle")
-//        .attr("fill",function(d){
-//            return d.color;
-//        })
-//        .attr("r",function(d){
-//            return d.r;
-//        })
-//        .attr("cx",function(d){
-//            return d.cx;
-//        })
-//        .attr("cy",function(d){
-//            return d.cy;
-//        })
-//        .attr("class","solid");
-//};
+
+//Position the hubs and the root
+MC.InterestViz.prototype.createInterestViz = function(){
+    //Create root
+    this.createHub();
+
+    for(var i = 0; i < this.hubs.length; i++){
+        //alter model for each hub
+        this.hubModel=hubModel = {
+            id:this.hubs[i][0].id,
+            cx:this.hubs[i][0].cx,
+            cy:this.hubs[i][0].cy,
+            hubRoot : this.hubs[i],
+            children : this.hubs[i][0].interests,
+            color : this.hubs[i][0].color,
+            distance: 100
+        };
+
+
+
+        this.createHub();
+    }
+
+};
+
+MC.InterestViz.prototype.createHub = function(){
+    console.log(this.hubModel);
+    this.svg
+        .datum(this.hubModel)
+        .call(this.createHubView());
+};
+
+MC.InterestViz.prototype.createHubView = function(){
+    this.hubView = MC.hub();
+    return this.hubView;
+
+};
+
 MC.InterestViz.prototype.createsGradientCircles = function(){
     this.svg.selectAll('circle.gradient')
         .data(this.circles)
@@ -52,16 +71,12 @@ MC.InterestViz.prototype.createsGradientCircles = function(){
             return d.cy;
         })
         .attr('r', function(d) {
-            return d.r+100;
+            return d.r;
         })
         .attr("class","gradient");
 };
-//Position the hubs and the root
-MC.InterestViz.prototype.createInterestViz = function(){
 
-};
-
-//Create interest labels
+//Create interest labels                        NO LONGER USED
 MC.InterestViz.prototype.createInterestLabels = function(){
     this.svg
         .selectAll("text")
@@ -107,7 +122,7 @@ MC.InterestViz.prototype.setGradients = function(){
         .append("stop")
         .attr("offset","20%")
         .attr("style",function(d){
-            return "stop-color:"+d.color+";stop-opacity:1;";
+            return "stop-color:"+d.color+";stop-opacity:"+ d['stop-opacity']+";";
         });
     rGs
         .append("stop")
