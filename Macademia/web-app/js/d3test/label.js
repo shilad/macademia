@@ -31,25 +31,17 @@ MC.label = function() {
         var g = g.append('g')
             .attr('class', label.getCssClass());
 
-        var cleanedText = label.getText();
-        if (cleanedText.length > 15){
-            if(cleanedText.indexOf(" ") !== -1)
-                cleanedText.replace(" ", "\n");
-            else
-                cleanedText.substr(0, 15) + "\n" + cleanedText.substr(15);
-        }
-
         var t = g.append('text')
             .attr('x', label.getX())
             .attr('y', label.getY())
-            .text(cleanedText)
+            .text(label.getText())
             .attr('text-anchor', label.getAlign());
 
-        label.getOnHover().forEach(
-            function (v) {
-                t.on('mouseover', v[0]);
-                t.on('mouseout', v[1]);
-            });
+//        label.getOnHover().forEach(
+//            function (v) {
+//                t.on('mouseover', v[0]);
+//                t.on('mouseout', v[1]);
+//            });
 
         return g;
     }

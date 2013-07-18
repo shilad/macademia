@@ -19,9 +19,9 @@
 
 <style type="text/css">
 
-.interest {
-    font: 13px Helvetica;
-    fill: #DCDCDC;
+.hub {
+    font: 13px Georgia;
+    fill: #C0C0C0;
 }
 svg {
     height : 90%;
@@ -35,7 +35,7 @@ svg {
         {'id' : 31, 'color' : "#A8C4E5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.3},
         {'id' : 10, 'color' : "#b4f5a3", 'r': 170, 'cx' : 150, 'cy' : 600, "stop-opacity":.3},
         {'id' : 19, 'color' : "#e3a3f5", 'r': 170, 'cx' : 600, 'cy' : 600, "stop-opacity":.3},
-        {'id' : 34, 'color' : "#f16d95", 'r': 300, 'cx' : 375, 'cy' : 425, "stop-opacity":.5}
+        {'id' : 34, 'color' : "#D3D3D3", 'r': 300, 'cx' : 375, 'cy' : 425, "stop-opacity":.5}
     ];
     var root = [{
         "id":7,
@@ -45,7 +45,7 @@ svg {
         'interestColors': {4 : 0.5, 6 : 0.2, 11 : 0.9},
         'type':'person',
         'r': 45,
-        'color': '#f16d95',
+        'color': '#D3D3D3',
         'interests': [
             {"id": 3, "name": "Online Communities","r":18, "color":0.6},
             {"id": 6, "name": "web2.0", "r":18, "color":0.6},
@@ -113,7 +113,7 @@ svg {
         cy:425,
         hubRoot : root,
         children : root[0].interests,
-        color: '#f16d95',
+        color: 0.1,
         distance: 100
     };
 
