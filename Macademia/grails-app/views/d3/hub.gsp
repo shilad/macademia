@@ -55,7 +55,7 @@ svg {
         cy:300,
         root : root,
         children : interests,
-        color : 0.7,
+        color : 0.9,
         distance: 80
     };
 
