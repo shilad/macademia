@@ -75,6 +75,19 @@ svg {
 //         {"id":10493, "type":person,"fid":110103050, "name":"Sonja Lord", "pic":"/Macademia/all/image/fake?gender=female&img=00609_940928_fa.png", "relevance":{"-1":null, "1501":0.9457209408283234, "18":1.3581135645508766, "overall":1.1519172526896}, "count":{"-1":3, "1501":2, "18":5, "overall":7}, "interests":[10492, 10490, 10491, 3130, 10487, 10486, 227, 323, 10488, 10489]},
 //         {"id":18134, "type":person,"fid":328841957, "name":"Carmelo Looney", "pic":"/Macademia/all/image/fake?gender=male&img=00230_940128_fa.png", "relevance":{"24":1.4297183435410261, "-1":null, "18":1.0485795140266418, "overall":1.239148928783834}, "count":{"24":6, "-1":7, "18":2, "overall":8}, "interests":[18131, 18133, 10779, 18130, 18132, 18125, 18127, 1124, 18126, 18431, 287, 18129, 11334, 18128, 977]},
     ];
+
+
+
+
+
+
+
+
+
+
+
+
+
     var gradientCircles = [
         {'id' : 31, 'color' : "#A8C4E5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.3},
         {'id' : 10, 'color' : "#b4f5a3", 'r': 170, 'cx' : 150, 'cy' : 600, "stop-opacity":.3},
@@ -169,6 +182,7 @@ svg {
       hubModel: hubModel,
       hubs: hubs,
       root: root,
+      people: peeps,
       circles: gradientCircles,
       svg : svg
     });
