@@ -56,7 +56,7 @@ MC.interest = function() {
                     .duration(500);
             }
 
-            console.log('allGs size is ' + newGs.size());
+//            console.log('allGs size is ' + newGs.size());
 
             newGs.append('circle').attr('class',klass+"Outer"); //Outer circle
             newGs.append('circle').attr('class',klass+"Inner"); //inner circle
