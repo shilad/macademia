@@ -32,7 +32,7 @@ svg {
 <r:script>
     var peeps = [
         {"id":15830, "type": 'person', "fid":250588901, "name":"Luther Rea",
-            'interestColors': {3 : 0.5},
+            'interestColors': {3 : 0.9},
             //must have cleaned relavence to have the circle around the image
             'cleanedRelevance':  {3 : 3.0},
             "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
@@ -44,7 +44,7 @@ svg {
             "pic":"/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
             'cleanedRelevance':  {3 : 3.0, 6: 8.3, 11: 1.0},
 
-            'interestColors': {11 : 0.3},
+            'interestColors': {11 : 0.9},
             "relevance":{ "11":1.1563,
                 "overall":1.2776578441262245},
 //            "count":{"-1":13, "18":3, "24":1, "overall":4},
