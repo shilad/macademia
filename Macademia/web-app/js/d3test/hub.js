@@ -116,7 +116,10 @@ MC.hub = function() {
                     .select('g.hubRoot')
                     .attr("class","vizRoot");
             }
+
             //building user interactions
+
+            //mouseover the interest node hightlight itself and its hub root
             d3Group.selectAll("g .interest").on('mouseover',function(e){
                 d3Group.select("g .hubRoot").attr('opacity',1.0).classed('active',true);
                 d3Group.select("g .vizRoot").attr('opacity',1.0).classed('active',true);
@@ -132,6 +135,16 @@ MC.hub = function() {
                 d3.select(this).attr('class','interest');
             });
 
+            //mouseover the hub root hightlight everything in the hub
+            d3Group.selectAll("g .hubRoot").on('mouseover',function(e){
+                d3.select(this).attr('opacity',1.0).classed('active',true);
+                d3Group.selectAll("g .interest").attr('class','activeInterest');
+            });
+
+            d3Group.selectAll("g .hubRoot").on('mouseout',function(e){
+                d3.select(this).classed('active',false);
+                d3Group.selectAll("g .activeInterest").attr('class','interest');
+            });
 
 
 
