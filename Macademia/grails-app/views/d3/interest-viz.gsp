@@ -25,7 +25,6 @@
 }
 
 .active {
-    font: 13px Georgia;
     fill: black;
 }
 
@@ -33,6 +32,16 @@
     font: 13px Georgia;
     fill: #C0C0C0;
 }
+
+.activeInterest{
+    /*
+    This should have the same css style as interest except we are using
+    a different fill
+    */
+    font: 13px Georgia;
+    fill: black;
+}
+
 
 svg {
     height : 90%;

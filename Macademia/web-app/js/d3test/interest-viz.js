@@ -48,7 +48,7 @@ MC.InterestViz.prototype.createInterestViz = function() {
             cy:this.hubs[i][0].cy,
             hubRoot : this.hubs[i],
             children : this.hubs[i][0].interests,
-            color : this.makeColorful(),
+//            color : this.makeColorful(),
             distance: 100
         });
     }
