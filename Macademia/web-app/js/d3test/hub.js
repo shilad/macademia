@@ -12,6 +12,7 @@ var MC =  (window.MC = (window.MC || {}));
 MC.hub = function() {
     function hub(selection) {
         selection.each(function(data) {
+            console.log(data);
             //The following code draws interests based on data
 
             //Getting basic info
@@ -69,16 +70,17 @@ MC.hub = function() {
                 distance = data["distance"];
             }
 
-
+            var duration=hub.getDuration();
             childGs.attr('opacity', 1.0).transition() //then move the circles
                 .duration(function(d,i){
-                    return 1000/n*(i+1);
+                    return duration/n*(i+1);
                 })
                 .attr('transform', function (d, i) {
                     var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n);
                     var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
                     return 'translate(' + cx_child + ', ' + cy_child + ')';
-                });
+                })
+                .transition();
 //                .transition()
 //                .delay(1000)
 //                .attr('opacity',1.0)
@@ -228,6 +230,7 @@ MC.hub = function() {
     MC.options.register(hub, 'cx', function (d) { return d.cx; });
     MC.options.register(hub, 'cy', function (d) { return d.cy; });
     MC.options.register(hub, 'r', function(d) { return d.r; });
+    MC.options.register(hub, 'duration', 1000);
     MC.options.register(hub, 'cssClass', 'hub');
 
     return hub;

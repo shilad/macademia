@@ -36,16 +36,16 @@ svg {
             //must have cleaned relavence to have the circle around the image
             'cleanedRelevance':  {3 : 3.0},
             "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
-            "relevance":{"-1":null, "3":1.1539017856121063,
+            "relevance":{ "3":1.1539017856121063,
                 "overall":1.0769508928060532},
-            "interests":[8]},
+            "interests":[8,11]},
 
         {"id":16, "type":'person',"fid":257, "name":"Donnie Burroughs",
             "pic":"/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
             'cleanedRelevance':  {3 : 3.0, 6: 8.3, 11: 1.0},
 
             'interestColors': {11 : 0.3},
-            "relevance":{"-1":null, "11":1.1563,
+            "relevance":{ "11":1.1563,
                 "overall":1.2776578441262245},
 //            "count":{"-1":13, "18":3, "24":1, "overall":4},
             "interests":[11]},
@@ -57,7 +57,7 @@ svg {
             'cleanedRelevance':  {6 : 8.3},
             'interestColors': {6 : .15},
             "name":"Ed Sanborn", "pic":"/Macademia/all/image/fake?gender=male&img=00798_941205_fa.png",
-            "relevance":{ "-1":null, '6':1.10563,"overall":0.8551850477233529},
+            "relevance":{  '6':1.10563,"overall":0.8551850477233529},
 //             "count":{"4":6, "-1":1, "overall":6},
             "interests":[6]}
 //         {"id":17198, "type":person,"fid":295771205, "name":"Emery Etheridge", "pic":"/Macademia/all/image/fake?gender=male&img=00460_940422_fa.png", "relevance":{"18":1.3189659714698792, "976":1.5695229321718216, "-1":null, "24":1, "overall":1.9442444518208504}, "count":{"18":2, "976":3, "-1":8, "24":1, "overall":6}, "interests":[18, 1221, 976, 402, 16597, 1438, 462, 1207, 17193, 17194, 17195, 63, 17196, 24]},
@@ -176,17 +176,8 @@ svg {
     });
 
 
-    viz.setGradients();
-    viz.createsGradientCircles();
-    viz.createInterestViz();
-//    viz.createClusterMap();
 
-    viz.createPersonView();
-    viz.createPeople();
-    viz.createPersonLayoutView()
-    viz.createPersonLayout();
 
-    //  viz.createInterestLabels();
 
 </r:script>
 

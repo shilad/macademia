@@ -14,19 +14,35 @@ MC.InterestViz = function(params) {
     this.people = params.people;
     this.root = params.root;
     this.svg = params.svg;
-    this.hubModel = params.hubModel;
-    this.circles = params.circles;
-};
 
+    // construct the hubModel here based on other parameters
+    this.hubModel = params.hubModel;
+
+    this.circles = params.circles;
+
+    this.setGradients();
+    this.createsGradientCircles();
+    this.createInterestViz();
+    this.startPeople();
+
+};
+MC.InterestViz.prototype.startPeople = function() {
+
+    window.setTimeout( jQuery.proxy(function() {
+        this.createPersonView();
+        this.createPeople();
+        this.createPersonLayoutView()
+        this.createPersonLayout();
+    }, this), MC.hub().getDuration());
+
+}
 
 //Position the hubs and the root
-MC.InterestViz.prototype.createInterestViz = function(){
-    //Create root
-    this.createHub();
-
+MC.InterestViz.prototype.createInterestViz = function() {
+    this.createHub(this.hubModel);
     for(var i = 0; i < this.hubs.length; i++){
         //alter model for each hub
-        this.hubModel=hubModel = {
+        this.createHub({
             id:this.hubs[i][0].id,
             cx:this.hubs[i][0].cx,
             cy:this.hubs[i][0].cy,
@@ -34,25 +50,14 @@ MC.InterestViz.prototype.createInterestViz = function(){
             children : this.hubs[i][0].interests,
             color : this.hubs[i][0].color,
             distance: 100
-        };
-
-
-
-        this.createHub();
+        });
     }
-
 };
 
-MC.InterestViz.prototype.createHub = function(){
+MC.InterestViz.prototype.createHub = function(model){
     this.svg
-        .datum(this.hubModel)
-        .call(this.createHubView());
-};
-
-MC.InterestViz.prototype.createHubView = function(){
-    this.hubView = MC.hub();
-    return this.hubView;
-
+        .datum(model)
+        .call(MC.hub());
 };
 
 MC.InterestViz.prototype.createsGradientCircles = function(){
@@ -185,7 +190,6 @@ MC.InterestViz.prototype.getD3People = function() {
 
 //Sets the locations of the person heads
 MC.InterestViz.prototype.createPersonLayoutView = function(){
-    console.log(this.getD3Interests());
     this.personLayoutView = MC.personLayout()
         .setPeopleNodes(this.getD3People())
         .setClusterMap(this.createClusterMap())

@@ -19,11 +19,7 @@ MC.personLayout = function () {
         var grav = pl.getOrCallGravity();
         var friction = pl.getOrCallFriction();
         var clusterMap = pl.getOrCallClusterMap();
-        console.log("Debugging");
-        console.log(linkDis);
-        console.log(grav);
-        console.log(friction);
-        console.log(clusterMap);
+
         // The d3 model (i.e. associative arrays)
         var people = {};
         var interests = {};
@@ -45,9 +41,11 @@ MC.personLayout = function () {
 
         //copies the interest node information--not sure why
         // perhaps this was to avoid radial coordinates
-        interestNodes.each(function (d, i) {
+        console.log("Interest Nodes");
+        console.log(interestNodes);
+        interestNodes.each(function (d,i) {
             var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
-
+            console.log(this);
             surrogates[d.id] = {
                 type: (d.id in clusterMap) ? 'hub' : 'leaf',
                 id: d.id,
@@ -88,7 +86,7 @@ MC.personLayout = function () {
         peopleNodes.each(function (p, i) {
 //            console.log(p)
             $.map(p.relevance, function (r, iid) {
-                console.log(iid);
+//                console.log(surrogates[iid]);
                 if (iid != -1 && iid != 'overall') {
                     links.push({
                         source: p,
