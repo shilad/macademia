@@ -15,6 +15,7 @@ MC.InterestViz = function(params) {
     this.root = params.root;
     this.svg = params.svg;
     this.circles = params.circles;
+    this.colors = params.colors;
 
     // construct the hubModel here based on other parameters
     this.hubModel = params.hubModel;
@@ -185,11 +186,11 @@ MC.InterestViz.prototype.createClusterMap = function(){
     for(var i = 0; i < this.hubs.length; i++){
         clusterMap[this.hubs[i][0].id] = this.hubs[i][0].interests;
     };
+    console.log("clustermap");
+    console.log(clusterMap);
     return clusterMap;
+};
 
 
-
-
-}
 
 
