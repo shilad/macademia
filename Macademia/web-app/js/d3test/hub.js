@@ -114,17 +114,16 @@ MC.hub = function() {
 
             //building user interactions
             d3Group.selectAll("g .interest").on('mouseover',function(e){
-                d3Group.select("g .hubRoot").attr('opacity',1.0).attr('class',"active");
-                d3.select(this).select('g .label text').text("");
+                d3Group.select("g .hubRoot").attr('opacity',1.0).classed('active',true);
                 d3.select(this).select('g .label text').text(MC.interest().getText());
-                d3.select(this).style('fill',hub.getHighlightedFill());
+                d3.select(this).classed('active',true);
             });
 
             d3Group.selectAll("g .interest").on('mouseout',function(){
 //                d3Group.selectAll("g .hubRoot").style('fill',hub.getRegularFill());
-                d3Group.selectAll("g .hubRoot").classed('active', false);
+                d3Group.select("g .hubRoot").classed('active',false);
                 d3.select(this).select('g .label text').text(MC.interest().getCleanedText());
-                $(this).css('fill',hub.getRegularFill());
+                d3.select(this).classed('active',false);
             });
 
 
