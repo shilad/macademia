@@ -59,6 +59,7 @@ MC.BaseViz.prototype.createInterestLayoutView = function(){
     return this.interestLayoutView;
 };
 
+//Layout is the part that adds the repulsion/attraction
 MC.BaseViz.prototype.createPersonLayoutView = function(){
     this.personLayoutView = MC.personLayout()
         .setPeopleNodes(this.getD3People())
