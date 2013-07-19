@@ -16,9 +16,10 @@ MC.InterestViz = function(params) {
     this.svg = params.svg;
     this.circles = params.circles;
     this.colors = params.colors;
-
     // construct the hubModel here based on other parameters
     this.hubModel = params.hubModel;
+    this.currentColors = [];
+
 
     this.setGradients();
     this.createsGradientCircles();
@@ -193,17 +194,19 @@ MC.InterestViz.prototype.createClusterMap = function(){
 //I could not think of a better name it sets both the hub and interest colors from the color scheme
 MC.InterestViz.prototype.makeColorful = function(){
     var color;
-    var currentColors = {};  //the colors already on the page
+     //the colors already on the page
+
     for(var i = 0; i < this.colors.length; i++){
-        if(!(this.colors[i] in (currentColors))){
+        if(this.currentColors.indexOf(this.colors[i])<0){
             color=this.colors[i];
-            currentColors.push(color);
-                    }
-        else
-            return "blue";
+            this.currentColors.push(color);
+            console.log((!(this.colors[i] in this.currentColors)));
+            return color;
+        };
+//
     };
-    console.log(color);
-    return color;
+//    return color;
+
 };
 
 

@@ -224,7 +224,6 @@ svg {
 
 
     var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
-    var colors = [];
     var viz = new MC.InterestViz({
       hubModel: hubModel,
       hubs: hubs,
