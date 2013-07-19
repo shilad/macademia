@@ -16,10 +16,10 @@ MC.InterestViz = function(params) {
     this.svg = params.svg;
     this.circles = params.circles;
     this.colors = params.colors;
+    this.svg=this.svg.append("g").attr("class","viz");
     // construct the hubModel here based on other parameters
     this.hubModel = params.hubModel;
     this.currentColors = [];
-
 
     this.setGradients();
     this.createsGradientCircles();
