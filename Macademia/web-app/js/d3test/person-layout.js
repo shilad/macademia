@@ -125,7 +125,7 @@ MC.personLayout = function () {
             })
             .gravity(grav)
             .linkDistance(linkDis)
-            .charge(pl.getCharge)
+            .charge(pl.getCharge())
             .friction(friction)
             .start();
         //creates a new g  for each new person
