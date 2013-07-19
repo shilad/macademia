@@ -23,6 +23,12 @@
     font: 13px Georgia;
     fill: #C0C0C0;
 }
+
+.interest{
+    font: 13px Georgia;
+    fill: #C0C0C0;
+}
+
 svg {
     height : 90%;
     width : 90%;
@@ -140,7 +146,7 @@ svg {
         'name':'Shilad Sen',
         'pic' : '/Macademia/all/image/randomFake?foo',
         'cleanedRelevance':  {8 : 8.0, 9: 5.0, 10: 5.0, 7: 8.0},
-        'interestColors': {8 : 'hsl(0, 0%, 82.7%)', 9 : 0.3, 10 : 0.9, 7: 0.7},
+        'interestColors': {8 : 'hsl(0, 0, 82.7)', 9 : 0.3, 10 : 0.9, 7: 0.7},
         'type':'person',
         'r': 45,
         'color': '#D3D3D3',
@@ -211,7 +217,7 @@ svg {
         cy:425,
         hubRoot : root,
         children : root[0].interests,
-        color: 'hsl(0, 0%, 82.7%)',
+        color: 'hsl(0, 0, 82.7)',
         distance: 100
     };
 
