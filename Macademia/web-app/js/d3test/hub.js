@@ -111,7 +111,11 @@ MC.hub = function() {
                     .enter()
                     .call(personRoot);
             }
-
+            if(data.hubRoot[0]['isVizRoot']){
+                d3Group
+                    .select('g.hubRoot')
+                    .attr("class","vizRoot");
+            }
             //building user interactions
             d3Group.selectAll("g .interest").on('mouseover',function(e){
                 d3Group.select("g .hubRoot").attr('opacity',1.0).style('fill',hub.getHighlightedFill());
