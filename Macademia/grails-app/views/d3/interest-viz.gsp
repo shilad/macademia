@@ -23,6 +23,12 @@
     font: 13px Georgia;
     fill: #C0C0C0;
 }
+
+.interest{
+    font: 13px Georgia;
+    fill: #C0C0C0;
+}
+
 svg {
     height : 90%;
     width : 90%;
