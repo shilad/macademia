@@ -179,7 +179,7 @@ MC.personLayout = function () {
             force.resume();
         });
     }
-
+                                        //just so I u
     MC.options.register(pl, 'friction', 0.8);
     MC.options.register(pl, 'gravity', 0.005);
     MC.options.register(pl, 'linkDistance', 50);
