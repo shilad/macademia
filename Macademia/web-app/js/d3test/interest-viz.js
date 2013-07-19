@@ -14,11 +14,10 @@ MC.InterestViz = function(params) {
     this.people = params.people;
     this.root = params.root;
     this.svg = params.svg;
+    this.circles = params.circles;
 
     // construct the hubModel here based on other parameters
     this.hubModel = params.hubModel;
-
-    this.circles = params.circles;
 
     this.setGradients();
     this.createsGradientCircles();
@@ -80,32 +79,6 @@ MC.InterestViz.prototype.createsGradientCircles = function(){
         .attr("class","gradient");
 };
 
-//Create interest labels                        NO LONGER USED
-MC.InterestViz.prototype.createInterestLabels = function(){
-    this.svg
-        .selectAll("text")
-        .data(this.circles)
-        .enter()
-        .append("text")
-        .attr("fill","green")
-        .text(function(d){
-            return d.name;
-        })
-        .attr("text-anchor", "middle")
-        .attr("x", function(d) {
-            return d.cx;
-        })
-        .attr("y", function(d) {
-            return d.cy;
-        })
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "20px")
-        .attr("stroke","black")
-        .attr("stroke-width",".25");
-
-
-
-};
 
 MC.InterestViz.prototype.setGradients = function(){
     var defs = this.svg
