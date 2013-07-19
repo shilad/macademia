@@ -35,7 +35,7 @@ svg {
     var i = 0;
 
     var interests1 = [
-        {'id' : 34, 'name' : 'Espeon', 'color' : 0.5, 'r': 15, 'cx' : 50, 'cy' : 200},
+        {'id' : 34, 'name' : 'Espeon is a Pokemon', 'color' : 0.5, 'r': 15, 'cx' : 50, 'cy' : 200},
         {'id' : 31, 'name' : 'Umbreon', 'color' : 0.69, 'r': 5, 'cx' : 150, 'cy' : 200}
     ];
 

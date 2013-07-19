@@ -18,7 +18,7 @@ MC.hub = function() {
             //Getting basic info
             var root  = data.hubRoot[0];
 
-            var color = data.color; //default color for children
+            var color = 0.5; //default color for children
             if(data['color']){
                 color = data['color'];
                 console.log(data['color']);

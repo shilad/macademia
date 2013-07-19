@@ -61,7 +61,7 @@ MC.interest = function() {
             newGs.append('circle').attr('class',klass+"Outer");//Outer circle
             newGs.append('circle').attr('class',klass+"Inner"); //inner circle
             var l = MC.label()
-                .setText(interest.getText())
+                .setText(interest.getCleanedText())
                 .setY(function (d, i) {
                     var r = interest.getOrCallR(d, i);
                     return "" + (r+11) + "px";
@@ -92,14 +92,22 @@ MC.interest = function() {
                 .attr('fill', interest.getColor())
                 .attr('r', interest.getR());
 
-            interest.getOrCallOnHover().forEach(function (v) {
-                    g.on('mouseover', v[0]);
-                    g.on('mouseout', v[1]);
-                });
+//            interest.getOrCallOnHover().forEach(function (v) {
+//                    g.on('mouseover', v[0]);
+//                    g.on('mouseout', v[1]);
+//                });
         });
     }
 
     MC.options.register(interest, 'text', function (d) { return d.name; });
+    MC.options.register(interest, 'cleanedText', function (d) {
+        var cleanedText = d.name;
+        if (cleanedText.length > 15){
+             cleanedText = cleanedText.substr(0, 10) + " ...";
+        }
+        console.log(cleanedText)
+        return cleanedText;
+    });
     MC.options.register(interest, 'color', function (d) { return MC.hueToColor(d.color); })
     MC.options.register(interest, 'cx', function (d,i) { return d.cx; });
     MC.options.register(interest, 'cy', function (d,i) { return d.cy; });
