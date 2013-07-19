@@ -186,10 +186,8 @@ MC.InterestViz.prototype.createClusterMap = function(){
         clusterMap[this.hubs[i][0].id] = this.hubs[i][0].interests;
     };
     return clusterMap;
+};
 
 
-
-
-}
 
 

@@ -37,7 +37,7 @@ svg {
             "name":"Luther Rea",
             'interestColors': {
                 11:0.7,
-                22:0.3},
+                22:"hsl(30, 83, 69)"},
             //must have cleaned relavence to have the circle around the image
             'cleanedRelevance':  {11 : 3.0,22:7.0},
             "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
@@ -94,7 +94,7 @@ svg {
             "interests":[
                 11,
                 13,
-                33]},
+                33]}
 //         {"id":2691, "type":person,"fid":7241482, "name":"Diana Brooks",
 //            "pic":"/Macademia/all/image/fake?gender=female&img=00633_940928_fa.png",
 //            "relevance":{"18":1.3140089064836502, "-1":null, "976":1, "overall":1.157004453241825}, "count":{"18":3, "-1":5, "976":1, "overall":4},
@@ -122,6 +122,13 @@ svg {
 //         {"id":18134, "type":person,"fid":328841957, "name":"Carmelo Looney", "pic":"/Macademia/all/image/fake?gender=male&img=00230_940128_fa.png", "relevance":{"24":1.4297183435410261, "-1":null, "18":1.0485795140266418, "overall":1.239148928783834}, "count":{"24":6, "-1":7, "18":2, "overall":8}, "interests":[18131, 18133, 10779, 18130, 18132, 18125, 18127, 1124, 18126, 18431, 287, 18129, 11334, 18128, 977]},
     ];
 
+    var colors =[
+        "hsl(30, 83, 69)",
+        0.9,
+        0.7,
+        0.6,
+        0.3
+    ];
     var gradientCircles = [
         {'id' : 31, 'color' : "#b2a3f5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.5},
         {'id' : 10, 'color' : "#b4f5a3", 'r': 170, 'cx' : 150, 'cy' : 600, "stop-opacity":.5},
