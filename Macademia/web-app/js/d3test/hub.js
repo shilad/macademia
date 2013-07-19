@@ -79,58 +79,19 @@ MC.hub = function() {
                     var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
                     return 'translate(' + cx_child + ', ' + cy_child + ')';
                 });
-//                .transition()
-//                .delay(1000)
-//                .attr('opacity',1.0)
-//                .duration(200);
-
-//            d3Group.selectAll("g.")
-//                .transition()
-//                .attr("cx", function(d,i){
-//                    return cx + distance * Math.cos((i+1)*2*Math.PI/n);
-//                })
-//                .attr("cy", function(d,i){
-//                    return cy - distance * Math.sin((i+1)*2*Math.PI/n);
-//                });
-//            var n = data.children.length;
-//            var distance = 50; //default distance
-//            if(data["distance"]){ //if the distance between the root and children is specified
-//                distance = data["distance"];
-//            }
-//
-//            childrenTemplate = MC.interest()
-//                .setCssClass("child"+id)
-//                .setCx(function(d,i){
-//                    return cx + distance * Math.cos((i+1)*2*Math.PI/n);
-//                })
-//                .setCy(function(d,i){
-//                    return cy - distance * Math.sin((i+1)*2*Math.PI/n);
-//                })
-//                .setColor(function(d){
-//                    if(d.color){
-//                        return MC.hueToColor(d.color);
-//                    } else {
-//                        return MC.hueToColor(color);
-//                    }
-//                });
-//
-//            child.call(childrenTemplate);
 
             //drawing root
             var rootType = data.hubRoot[0].type;
 
             if(rootType == "interest"){
-                var interestTemplate = MC.interest().setCssClass("interestHubRoot").setCx(cx).setCy(cy);
+                var interestTemplate = MC.interest().setCssClass("hubRoot").setCx(cx).setCy(cy);
                 d3Group.datum(data.hubRoot).call(interestTemplate);
             }
             else{
                 var personRoot = MC.person()
                     .setCx(cx)
                     .setCy(cy)
-//                    .setR(25*1.5)
-//                    .setImageWidth(28*1.5)
-//                    .setImageHeight(42*1.5)
-                    .setCssClass('personHubRoot') //setting the class name of the root
+                    .setCssClass('hubRoot') //setting the class name of the root
 
                 var personR = personRoot.getR();
                 var personImageWidth = personRoot.getImageWidth();
@@ -141,14 +102,60 @@ MC.hub = function() {
                 personRoot.setImageHeight(personImageHeight*scale);
 
                 d3Group
-                    .selectAll('personHubRoot')
+                    .selectAll('hubRoot')
                     .data([0])
                     .append('g')
-                    .attr('class', 'personHubRoot')
+                    .attr('class', 'hubRoot')
                     .data(data.hubRoot)
                     .enter()
                     .call(personRoot);
             }
+
+            //building user interactions
+            d3Group.selectAll("g .interest").on('mouseover',function(e){
+                d3Group.select("g .hubRoot").attr('opacity',1.0).style('fill',hub.getHighlightedFill());
+                d3.select(this).select('g .label text').text("");
+                d3.select(this).select('g .label text').text(MC.interest().getText());
+                d3.select(this).style('fill',hub.getHighlightedFill());
+            });
+
+            d3Group.selectAll("g .interest").on('mouseout',function(){
+                d3Group.selectAll("g .hubRoot").style('fill',hub.getRegularFill());
+                d3.select(this).select('g .label text').text(MC.interest().getCleanedText());
+                $(this).css('fill',hub.getRegularFill());
+            });
+
+
+
+
+//            var cloneChildrenOld = $.extend(true,[],data.children);//clone the children array
+//            var childrenTemplateOld = MC.interest().setCssClass("childOld"+id).setCx(cx).setCy(cy);
+//            d3Group.datum(cloneChildrenOld).call(childrenTemplateOld);
+//
+//            var distance = 50; //default distance
+//            if(data["distance"]){ //if the distance between the root and children is specified
+//                distance = data["distance"];
+//            }
+//
+//            var cloneChildren = $.extend(true,[],data.children);//clone the children array
+//            var n = cloneChildren.length;
+//
+//            //the children need to be told where to go (setting the cx and cy).
+//            $.each(cloneChildren,function(i,v){
+//                v["cx"] = cx + distance * Math.cos((i+1)*2*Math.PI/n);
+//                v["cy"] = cy - distance * Math.sin((i+1)*2*Math.PI/n);
+//                if(!v["color"]){ //if the child does not have its own color
+//                    v["color"] = color; //assign the color of the parent
+//                }
+//            });
+//
+//            window.setTimeout(function() {
+//                var childrenTemplate = MC.interest().setCssClass("child"+id);
+//                d3Group.datum(cloneChildren).call(childrenTemplate);
+//            },1000);
+
+
+
 
 
 
@@ -229,6 +236,14 @@ MC.hub = function() {
     MC.options.register(hub, 'cy', function (d) { return d.cy; });
     MC.options.register(hub, 'r', function(d) { return d.r; });
     MC.options.register(hub, 'cssClass', 'hub');
+    MC.options.register(hub, 'regularFill', '#C0C0C0');
+    MC.options.register(hub, 'highlightedFill', 'black');
+    MC.options.register(hub, 'selectHub',function(){
+        d3Group.style('fill', hub.getRegularFill());
+    });
+    MC.options.register(hub, 'deselectHub',function(){
+        d3Group.style('fill', hub.getHighlightedFill());
+    });
 
     return hub;
 };
