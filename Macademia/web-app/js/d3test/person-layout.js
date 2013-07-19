@@ -19,7 +19,11 @@ MC.personLayout = function () {
         var grav = pl.getOrCallGravity();
         var friction = pl.getOrCallFriction();
         var clusterMap = pl.getOrCallClusterMap();
-
+        console.log("Debugging");
+        console.log(linkDis);
+        console.log(grav);
+        console.log(friction);
+        console.log(clusterMap);
         // The d3 model (i.e. associative arrays)
         var people = {};
         var interests = {};
