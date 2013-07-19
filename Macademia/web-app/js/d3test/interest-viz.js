@@ -188,7 +188,7 @@ MC.InterestViz.prototype.createPersonLayoutView = function(){
     console.log(this.getD3Interests());
     this.personLayoutView = MC.personLayout()
         .setPeopleNodes(this.getD3People())
-        .setClusterMap(this.clusterMap)
+        .setClusterMap(this.createClusterMap())
         .setInterestNodes(this.getD3Interests());
     return this.personLayoutView;
 };
@@ -207,9 +207,7 @@ MC.InterestViz.prototype.createClusterMap = function(){
     clusterMap[this.root[0].id]=this.root[0].interests;
     for(var i = 0; i < this.hubs.length; i++){
         clusterMap[this.hubs[i][0].id] = this.hubs[i][0].interests;
-
-        };
-    console.log(clusterMap);
+    };
     return clusterMap;
 
 

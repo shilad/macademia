@@ -32,34 +32,34 @@ svg {
 <r:script>
     var peeps = [
         {"id":15830, "type": 'person', "fid":250588901, "name":"Luther Rea",
-            'interestColors': {18 : 0.5},
+            'interestColors': {3 : 0.5},
             //must have cleaned relavence to have the circle around the image
-            'cleanedRelevance':  {18 : 3.0},
+            'cleanedRelevance':  {3 : 3.0},
             "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
-            "relevance":{"-1":null, "18":1.1539017856121063,
+            "relevance":{"-1":null, "3":1.1539017856121063,
                 "overall":1.0769508928060532},
-            "interests":[18]},
+            "interests":[8]},
 
         {"id":16, "type":'person',"fid":257, "name":"Donnie Burroughs",
             "pic":"/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
-            'cleanedRelevance':  {18 : 3.0, 1501: 8.3, 976: 1.0},
+            'cleanedRelevance':  {3 : 3.0, 6: 8.3, 11: 1.0},
 
-            'interestColors': {24 : 0.3},
-            "relevance":{"-1":null, "24":1.1563,
+            'interestColors': {11 : 0.3},
+            "relevance":{"-1":null, "11":1.1563,
                 "overall":1.2776578441262245},
 //            "count":{"-1":13, "18":3, "24":1, "overall":4},
-            "interests":[24]},
+            "interests":[11]},
 //         {"id":2691, "type":person,"fid":7241482, "name":"Diana Brooks",
 //            "pic":"/Macademia/all/image/fake?gender=female&img=00633_940928_fa.png",
 //            "relevance":{"18":1.3140089064836502, "-1":null, "976":1, "overall":1.157004453241825}, "count":{"18":3, "-1":5, "976":1, "overall":4},
 //            "interests":[2687, 19, 227, 2693, 2692, 2694, 1224, 2688, 976]},
         {"id":15680, "type":'person',"fid":245862401,
-            'cleanedRelevance':  {20 : 8.3},
-            'interestColors': {20 : .15},
+            'cleanedRelevance':  {6 : 8.3},
+            'interestColors': {6 : .15},
             "name":"Ed Sanborn", "pic":"/Macademia/all/image/fake?gender=male&img=00798_941205_fa.png",
-            "relevance":{ "-1":null, '20':1.10563,"overall":0.8551850477233529},
+            "relevance":{ "-1":null, '6':1.10563,"overall":0.8551850477233529},
 //             "count":{"4":6, "-1":1, "overall":6},
-            "interests":[20]}
+            "interests":[6]}
 //         {"id":17198, "type":person,"fid":295771205, "name":"Emery Etheridge", "pic":"/Macademia/all/image/fake?gender=male&img=00460_940422_fa.png", "relevance":{"18":1.3189659714698792, "976":1.5695229321718216, "-1":null, "24":1, "overall":1.9442444518208504}, "count":{"18":2, "976":3, "-1":8, "24":1, "overall":6}, "interests":[18, 1221, 976, 402, 16597, 1438, 462, 1207, 17193, 17194, 17195, 63, 17196, 24]},
 //         {"id":12104, "type":person,"fid":146506817, "name":"Mario Louis", "pic":"/Macademia/all/image/fake?gender=male&img=00155_940128_fa.png", "relevance":{"18":0.6376854777336121, "24":1, "976":1.604827418923378, "-1":null, "1501":0.661139726638794, "overall":1.951826311647892}, "count":{"18":1, "24":1, "976":3, "-1":2, "1501":1, "overall":6}, "interests":[295, 24, 976, 12103, 12102, 12099, 12101, 12100]},
 //         {"id":443, "type":person,"fid":196250, "name":"Alana Seals", "pic":"/Macademia/all/image/fake?gender=female&img=00071_931230_fa.png", "relevance":{"-1":null, "24":1.5525153130292892, "18":0.6376854777336121, "1501":0.6479836702346802, "overall":1.4190922304987907}, "count":{"-1":15, "24":3, "18":1, "1501":1, "overall":5}, "interests":[444, 445, 446, 447, 948, 946, 947, 456, 455, 454, 453, 451, 450, 449, 448, 24, 457, 145, 295, 452]},
@@ -75,18 +75,6 @@ svg {
 //         {"id":10493, "type":person,"fid":110103050, "name":"Sonja Lord", "pic":"/Macademia/all/image/fake?gender=female&img=00609_940928_fa.png", "relevance":{"-1":null, "1501":0.9457209408283234, "18":1.3581135645508766, "overall":1.1519172526896}, "count":{"-1":3, "1501":2, "18":5, "overall":7}, "interests":[10492, 10490, 10491, 3130, 10487, 10486, 227, 323, 10488, 10489]},
 //         {"id":18134, "type":person,"fid":328841957, "name":"Carmelo Looney", "pic":"/Macademia/all/image/fake?gender=male&img=00230_940128_fa.png", "relevance":{"24":1.4297183435410261, "-1":null, "18":1.0485795140266418, "overall":1.239148928783834}, "count":{"24":6, "-1":7, "18":2, "overall":8}, "interests":[18131, 18133, 10779, 18130, 18132, 18125, 18127, 1124, 18126, 18431, 287, 18129, 11334, 18128, 977]},
     ];
-
-
-
-
-
-
-
-
-
-
-
-
 
     var gradientCircles = [
         {'id' : 31, 'color' : "#A8C4E5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.3},
@@ -191,7 +179,7 @@ svg {
     viz.setGradients();
     viz.createsGradientCircles();
     viz.createInterestViz();
-    viz.createClusterMap();
+//    viz.createClusterMap();
 
     viz.createPersonView();
     viz.createPeople();
