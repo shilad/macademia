@@ -32,26 +32,26 @@ svg {
 <r:script>
 
     var gradientCircles = [
-        {'id' : 31, 'color' : "#A8C4E5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.3},
+        {'id' : 31, 'color' : "#b2a3f5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.3},
         {'id' : 10, 'color' : "#b4f5a3", 'r': 170, 'cx' : 150, 'cy' : 600, "stop-opacity":.3},
-        {'id' : 19, 'color' : "#e3a3f5", 'r': 170, 'cx' : 600, 'cy' : 600, "stop-opacity":.3},
+        {'id' : 19, 'color' : "#f5a3d6", 'r': 170, 'cx' : 600, 'cy' : 600, "stop-opacity":.3},
         {'id' : 34, 'color' : "#D3D3D3", 'r': 300, 'cx' : 375, 'cy' : 425, "stop-opacity":.5}
     ];
     var root = [{
         "id":7,
         'name':'Shilad Sen',
         'pic' : '/Macademia/all/image/randomFake?foo',
-        'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
-        'interestColors': {4 : 0.5, 6 : 0.2, 11 : 0.9},
+        'cleanedRelevance':  {8 : 12.0, 9: 5.0, 10: 8.0, 7: 8.0},
+        'interestColors': {8 : 'hsl(0, 0%, 82.7%)', 9 : 0.3, 10 : 0.9, 7: 0.7},
         'type':'person',
         'r': 45,
         'color': '#D3D3D3',
         'interests': [
-            {"id": 3, "name": "Online Communities","r":18, "color":0.6},
-            {"id": 6, "name": "web2.0", "r":18, "color":0.6},
+            {"id": 3, "name": "Online Communities","r":18, "color":0.7},
+            {"id": 6, "name": "web2.0", "r":18, "color":0.7},
             {"id": 1, "name": "Machine Learning", "r":18},
             {"id": 4, "name": "Jazz","r":18, "color": 0.3},
-            {"id": 5, "name": "Statistics", "r":18, "color": 0.8},
+            {"id": 5, "name": "Statistics", "r":18, "color": 0.9},
             {"id": 2, "name": "Data Mining","r":18}
         ]
     }];
@@ -62,7 +62,7 @@ svg {
         "r": 45,
         "cx":375,
         "cy":150,
-        "color":0.6,
+        "color":0.7,
         'interests': [
             {"id": 11, "name": "html5","r":18},
             {"id": 12, "name": "javascript","r":18},
@@ -94,7 +94,7 @@ svg {
             'name':'Mathematics',
             'type':'interest',
             'r': 45,
-            'color':0.8,
+            'color':0.9,
             'cx' : 600,
             'cy' : 600,
             'interests': [
