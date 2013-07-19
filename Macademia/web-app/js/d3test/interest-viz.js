@@ -15,7 +15,7 @@ MC.InterestViz = function(params) {
     this.root = params.root;
     this.svg = params.svg;
     this.circles = params.circles;
-    this.svg=this.svg.append("g").attr("class","viz");
+    this.svg=this.svg.append("g").attr("class","viz").attr('width', 1000).attr('height', 1000);
     // construct the hubModel here based on other parameters
     this.hubModel = params.hubModel;
 
@@ -48,7 +48,7 @@ MC.InterestViz.prototype.createInterestViz = function() {
             cy:this.hubs[i][0].cy,
             hubRoot : this.hubs[i],
             children : this.hubs[i][0].interests,
-            color : this.makeColorful(),
+//            color : this.makeColorful(),
             distance: 100
         });
     }

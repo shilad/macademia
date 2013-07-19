@@ -30,25 +30,29 @@ MC.MainViz = function(params) {
 };
 
 MC.MainViz.prototype.setInterestEventHandler = function(){
+    window.setTimeout( jQuery.proxy(function() {
+
     this.svg
-        .selectAll("g.interest")
+        .selectAll("g.interest, g.hubRoot")
         .on("click",jQuery.proxy(function(e){
             //
+//            console.log(e);
+            var i;
+            if(!e.interests){
+                i=this.root[0].interests;
+            }
+            else{
+                i= e.interests;
+            }
+            console.log(this.hubModel);
             this.root = [{
                 "isVizRoot":true,
                 "id": e.id,
                 'name': e.name,
                 'type':'interest',
                 'r': 45,
-                'color': '#D3D3D3',     //get color from hub
-                'interests': [
-                    {"id": 3, "name": "Online Communities","r":18, "color":0.7},
-                    {"id": 6, "name": "web2.0", "r":18, "color":0.7},
-                    {"id": 1, "name": "Machine Learning", "r":18},
-                    {"id": 4, "name": "Jazz","r":18, "color": 0.3},
-                    {"id": 5, "name": "Statistics", "r":18, "color": 0.9},
-                    {"id": 2, "name": "Data Mining","r":18}
-                ]
+                'color': '#D3D3D3',
+                'interests' : i
             }];
             this.hubModel = {
                 id: e.id,
@@ -59,7 +63,9 @@ MC.MainViz.prototype.setInterestEventHandler = function(){
                 color: 'hsl(0, 0, 82.7)',
                 distance: 100
             };
+
             this.svg.select("g.viz").remove();
+//            console.log(this.hubModel);
             this.viz = new MC.InterestViz({
                 hubModel: this.hubModel,
                 hubs: this.hubs,
@@ -68,6 +74,8 @@ MC.MainViz.prototype.setInterestEventHandler = function(){
                 circles: this.circles,
                 svg : this.svg
             });
+//            console.log(e);
             this.setInterestEventHandler();
         },this));
+    }, this), MC.hub().getDuration());
 };

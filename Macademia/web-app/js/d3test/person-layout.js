@@ -41,8 +41,8 @@ MC.personLayout = function () {
 
         //copies the interest node information--not sure why
         // perhaps this was to avoid radial coordinates
-        console.log("Interest Nodes");
-        console.log(interestNodes);
+//        console.log("Interest Nodes");
+//        console.log(interestNodes);
         interestNodes.each(function (d,i) {
             var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
             surrogates[d.id] = {
