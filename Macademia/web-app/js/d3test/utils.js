@@ -13,9 +13,11 @@ var MC = (window.MC = (window.MC || {}));
  */
 MC.getTransformedPosition = function(svg, shape, x, y) {
     var matrix = shape.getCTM();
-
+    console.log(shape);
     // transform a point using the transformed matrix
     var position = svg.createSVGPoint();
+//    console.log(position);
+//    console.log(matrix);
     position.x = x;
     position.y = y;
     return position.matrixTransform(matrix);
