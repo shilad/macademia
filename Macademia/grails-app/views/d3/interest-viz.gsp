@@ -31,35 +31,81 @@ svg {
 </style>
 <r:script>
     var peeps = [
-        {"id":15830, "type": 'person', "fid":250588901, "name":"Luther Rea",
-            'interestColors': {3 : 0.9},
+        {"id":15830,
+            "type": 'person',
+            "fid":250588901,
+            "name":"Luther Rea",
+            'interestColors': {
+                11:0.7,
+                22:0.3},
             //must have cleaned relavence to have the circle around the image
-            'cleanedRelevance':  {3 : 3.0},
+            'cleanedRelevance':  {11 : 3.0,22:7.0},
             "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
-            "relevance":{ "3":1.1539017856121063,
+            "relevance":{
+                "22":1.1539017856121063,
+                "11":1.07,
                 "overall":1.0769508928060532},
-            "interests":[8,11]},
+            "interests":[
+                11,
+                22]},
 
-        {"id":16, "type":'person',"fid":257, "name":"Donnie Burroughs",
+        {"id":16,
+            "type":'person',
+            "fid":257,
+            "name":"Donnie Burroughs",
             "pic":"/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
-            'cleanedRelevance':  {3 : 3.0, 6: 8.3, 11: 1.0},
-
-            'interestColors': {11 : 0.9},
-            "relevance":{ "11":1.1563,
+            'cleanedRelevance':  {
+                13 : 3.0,
+                33: 2.3,
+                11: 1.0},
+            'interestColors': {
+                13 : 0.9,
+                11:0.3,
+                33:0.9
+            },
+            "relevance":{
+                "11":1.1563,
+                "13":1.6563,
+                "33":0.9563,
                 "overall":1.2776578441262245},
-//            "count":{"-1":13, "18":3, "24":1, "overall":4},
-            "interests":[11]},
+            "interests":[
+                11,
+                13,
+                33]},
+        {"id":336,
+            "type":'person',
+            "fid":2537,
+            "name":"Thomas Hanks",
+            "pic":"/Macademia/all/image/fake?gender=male&img=00287_940422_fa.png",
+            'cleanedRelevance':  {
+                23 : 3.0,
+                21: 3.3,
+                16: 1.7},
+            'interestColors': {
+                23 : 0.3,
+                21 : 0.3,
+                16 : 0.7
+            },
+            "relevance":{
+                "21":1.1563,
+                "23":1.6563,
+                "16":1.9563,
+                "overall":1.1776578441262245},
+            "interests":[
+                11,
+                13,
+                33]},
 //         {"id":2691, "type":person,"fid":7241482, "name":"Diana Brooks",
 //            "pic":"/Macademia/all/image/fake?gender=female&img=00633_940928_fa.png",
 //            "relevance":{"18":1.3140089064836502, "-1":null, "976":1, "overall":1.157004453241825}, "count":{"18":3, "-1":5, "976":1, "overall":4},
 //            "interests":[2687, 19, 227, 2693, 2692, 2694, 1224, 2688, 976]},
-        {"id":15680, "type":'person',"fid":245862401,
-            'cleanedRelevance':  {6 : 8.3},
-            'interestColors': {6 : .15},
-            "name":"Ed Sanborn", "pic":"/Macademia/all/image/fake?gender=male&img=00798_941205_fa.png",
-            "relevance":{  '6':1.10563,"overall":0.8551850477233529},
-//             "count":{"4":6, "-1":1, "overall":6},
-            "interests":[6]}
+//        {"id":15680, "type":'person',"fid":245862401,
+//            'cleanedRelevance':  {6 : 8.3},
+//            'interestColors': {6 : .15},
+//            "name":"Ed Sanborn", "pic":"/Macademia/all/image/fake?gender=male&img=00798_941205_fa.png",
+//            "relevance":{  '6':1.10563,"overall":0.8551850477233529},
+////             "count":{"4":6, "-1":1, "overall":6},
+//            "interests":[6]}
 //         {"id":17198, "type":person,"fid":295771205, "name":"Emery Etheridge", "pic":"/Macademia/all/image/fake?gender=male&img=00460_940422_fa.png", "relevance":{"18":1.3189659714698792, "976":1.5695229321718216, "-1":null, "24":1, "overall":1.9442444518208504}, "count":{"18":2, "976":3, "-1":8, "24":1, "overall":6}, "interests":[18, 1221, 976, 402, 16597, 1438, 462, 1207, 17193, 17194, 17195, 63, 17196, 24]},
 //         {"id":12104, "type":person,"fid":146506817, "name":"Mario Louis", "pic":"/Macademia/all/image/fake?gender=male&img=00155_940128_fa.png", "relevance":{"18":0.6376854777336121, "24":1, "976":1.604827418923378, "-1":null, "1501":0.661139726638794, "overall":1.951826311647892}, "count":{"18":1, "24":1, "976":3, "-1":2, "1501":1, "overall":6}, "interests":[295, 24, 976, 12103, 12102, 12099, 12101, 12100]},
 //         {"id":443, "type":person,"fid":196250, "name":"Alana Seals", "pic":"/Macademia/all/image/fake?gender=female&img=00071_931230_fa.png", "relevance":{"-1":null, "24":1.5525153130292892, "18":0.6376854777336121, "1501":0.6479836702346802, "overall":1.4190922304987907}, "count":{"-1":15, "24":3, "18":1, "1501":1, "overall":5}, "interests":[444, 445, 446, 447, 948, 946, 947, 456, 455, 454, 453, 451, 450, 449, 448, 24, 457, 145, 295, 452]},
@@ -165,14 +211,15 @@ svg {
 
 
     var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
-
+    var colors = [];
     var viz = new MC.InterestViz({
       hubModel: hubModel,
       hubs: hubs,
       root: root,
       people: peeps,
       circles: gradientCircles,
-      svg : svg
+      svg : svg,
+      colors: colors
     });
 
 
