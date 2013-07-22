@@ -116,11 +116,7 @@ MC.MainViz.prototype.setInterestEventHandler = function(){
                     MH.setTempValue(key,targetMap[key]);
                 }
                 macademia.history.update();
-                d3
-                    .select(this)
-                    .transition()
-                    .duration(100)
-                    .translate()
+//                d3.select(this);
             });
     }, this), MC.hub().getDuration());
 };
@@ -143,8 +139,8 @@ MC.MainViz.prototype.setPeopleEventHandler = function(){
                     MH.setTempValue(key,targetMap[key]);
                 }
                 macademia.history.update();
-            });
-    }, this), MC.hub().getDuration());
+            },this));
+    }, MC.hub().getDuration());
 };
 MC.MainViz.prototype.transitionRoot = function(){
     //Move root to center
