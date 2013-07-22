@@ -12,7 +12,7 @@
     <meta name="layout" content="main"/>
 
     <r:require modules="d3js"/>
-
+    %{--<r:require modules="core"/>--}%
     <title></title>
 </head>
 <body>

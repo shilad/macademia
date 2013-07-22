@@ -3085,6 +3085,7 @@ if (typeof JSON !== 'object') {
 				}
 
 				// Handle Queueing
+
 				if ( queue !== false && History.busy() ) {
 					// Wait + Push to Queue
 					//History.debug('History.replaceState: we must wait', arguments);
