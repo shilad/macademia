@@ -42,10 +42,11 @@ MC.InterestViz.prototype.startPeople = function() {
 //Position the hubs and the root
 MC.InterestViz.prototype.createInterestViz = function() {
     this.createHub(this.hubModel);
+//    console.log(this.hubModel);
     for(var i = 0; i < this.hubs.length; i++){
 
         //alter model for each hub
-        var color = this.makeColorful()
+        var color = this.makeColorful();
         this.hubs[i][0].color = color;  //sets the center circle color
 
         this.createHub({
@@ -57,7 +58,31 @@ MC.InterestViz.prototype.createInterestViz = function() {
             color : color,    //sets the little circles to the center circles color
             distance: 100
         });
+//        console.log(this.hubModel);
     }
+};
+
+MC.InterestViz.prototype.createInterestColors = function(){
+    var interestColors ={};
+
+    for(var i = 0; i < this.people.length; i++){
+        for(var j = 0; j< this.people[i].interests.length; j++){
+            for(var k = 0; k< this.hubs.length; k++){
+                for(var l =0; l< this.hubs[k][0].interests.length;l++){
+                    console.log(this.hubs[k][0].interests[j].id);
+
+                    if(this.people[i].interests[j] == this.hubs[i][0].interests[j].id){
+                        interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
+                    }
+
+//            if(this.hubs[i][0].interests)
+//            if{this.hubs[i][0]==}
+//            interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
+                };
+            };
+        };
+    };
+
 };
 
 MC.InterestViz.prototype.createHub = function(model){
@@ -198,7 +223,7 @@ MC.InterestViz.prototype.createClusterMap = function(){
 //I could not think of a better name it sets both the hub and interest colors from the color scheme
 MC.InterestViz.prototype.makeColorful = function(){
     var color;
-     //the colors already on the page
+    //the colors already on the page
 
     for(var i = 0; i < this.colors.length; i++){
         if(this.currentColors.indexOf(this.colors[i])<0){
@@ -209,75 +234,9 @@ MC.InterestViz.prototype.makeColorful = function(){
 
     };
 
-};
 
-MC.InterestViz.prototype.createInterestColors = function(){
-    var interestColors ={};
-    var cluster =this.createClusterMap();
-    for(var hubKey in cluster){
-        for(var i = 0;i<cluster[hubKey].length;i++){
-            cluster[hubKey][i]
-
-        }
-    }
-    for(var i = 0; i < this.people.length; i++){
-        for(var j = 0; j< this.people[i].interests.length; j++){
-            var temp =   this.people[i].interests[j];
-                   console.log(temp);
-//            if(temp = this.hubs[i][0].interests)
-//            if(personInterest.indexOf(this.people[i].interests[j])){
-//                personInterest.push( this.people[i].interests[j]);
-//            };
-
-
-//                for(var k = 0; k< this.hubs.length; k++){
-//                    var l = 0;
-//                    while(l<this.hubs[k][0].interests.length)
-//                    {
-//                        if(this.people[i].interests[j] == this.hubs[i][0].interests[j].id){
-//                            interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
-//                        }
-//                        l++;
-//                    }
-//                };
-//                while(l<this.hubs[k][0].interests.length)
-//               {
-//
-//
-//                   if(this.people[i].interests[j] == this.hubs[i][0].interests[j].id){
-//                       interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
-//
-//                   }
-//                   l++;
-//               }
-
-//            if(this.people[i].interests[j] == this.hubs[i][0].interests[j].id){
-//              interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
-//            }
-
-//            if(this.hubs[i][0].interests)
-//            if{this.hubs[i][0]==}
-//            interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
-        };
-    };
-
-//    for(var k = 0; k< this.hubs.length; k++){
-//        for(var l =0; l<this.hubs[k][0].interests.length; l++){
-//            console.log(personInterest);
-//            console.log(this.createClusterMap());
-//            console.log(this.hubs[k][0].interests[l].id); //personInterest
-//        };
-//    };
-//    for(var p = 0; p< personInterest.length; p++){
-//       console.log(personInterest[p])
-//    };
-//    };
 
 };
-
-//MC.InterestViz.prototype.findHub = function(){
-//
-//};
 
 
 
