@@ -34,10 +34,10 @@
     fill: #C0C0C0;
 }
 
-svg {
-    height : 90%;
-    width : 90%;
-}
+/*svg {*/
+    /*height : 90%;*/
+    /*width : 90%;*/
+/*}*/
 
 </style>
 <r:script>
@@ -72,7 +72,7 @@ svg {
             'interestColors': {
                 13 : 0.9,
                 11:0.3,
-                33:0.9
+                33: 0.6
             },
             "relevance":{
                 "11":1.1563,
@@ -94,7 +94,7 @@ svg {
                 16: 1.7},
             'interestColors': {
                 23 : 0.3,
-                21 : 0.3,
+                21 : 0.6,
                 16 : 0.7
             },
             "relevance":{
@@ -150,69 +150,71 @@ svg {
         "id":7,
         'name':'Shilad Sen',
         'pic' : '/Macademia/all/image/randomFake?foo',
-        'cleanedRelevance':  {8 : 8.0, 9: 5.0, 10: 5.0, 7: 8.0},
+        'cleanedRelevance':  {8 : 4.0, 9: 1.0, 10: 1.0, 7: 2.0},
         'interestColors': {8 : 'hsl(0, 0, 82.7)', 9 : 0.3, 10 : 0.9, 7: 0.7},
         'type':'person',
-        'r': 45,
+        'r': 30,
         'color': '#D3D3D3',
         'interests': [
-            {"id": 3, "name": "Online Communities","r":18, "color":0.7},
-            {"id": 6, "name": "web2.0", "r":18, "color":0.7},
-            {"id": 1, "name": "Machine Learning", "r":18},
-            {"id": 4, "name": "Jazz","r":18, "color": 0.3},
-            {"id": 5, "name": "Statistics", "r":18, "color": 0.9},
-            {"id": 2, "name": "Data Mining","r":18}
+            {"id": 3, "name": "Online Communities","r":10, "color":0.7},
+            {"id": 6, "name": "web2.0", "r":10, "color":0.7},
+            {"id": 1, "name": "Machine Learning", "r":10},
+            {"id": 8, "name": "Human-Computer Interaction","r":10},
+            {"id": 4, "name": "Jazz","r":10, "color": 0.3},
+            {"id": 5, "name": "Statistics", "r":10, "color": 0.9},
+            {"id": 2, "name": "Data Mining","r":10},
+            {"id": 9, "name": "Politics","r":10}
         ]
     }];
     var hubs = [[{
         "id": 8,
         "name":"web2.0",
         "type":"interest",
-        "r": 45,
+        "r": 30,
         "cx":375,
         "cy":150,
         "color":0.7,
         'interests': [
-            {"id": 11, "name": "html5","r":18},
-            {"id": 12, "name": "javascript","r":18},
-            {"id": 13, "name": "Web Development","r":18},
-            {"id": 14, "name": "wikis", "r":18},
-            {"id": 15, "name": "Web Spam", "r":18},
-            {"id": 16, "name": "Semantic Web", "r":18}
+            {"id": 11, "name": "html5","r":10},
+            {"id": 12, "name": "javascript","r":10},
+            {"id": 13, "name": "Web Development","r":10},
+            {"id": 14, "name": "wikis", "r":10},
+            {"id": 15, "name": "Web Spam", "r":10},
+            {"id": 16, "name": "Semantic Web", "r":10}
         ]
     }],
         [{
             "id":9,
             'name':'Jazz',
             'type':'interest',
-            'r': 45,
+            'r': 30,
             'color': 0.3,
             'cx' : 150,
             'cy' : 600,
             'interests': [
-                {"id": 21, "name": "Miles Davis","r":18},
-                {"id": 22, "name": "Jazz History","r":18},
-                {"id": 23, "name": "Every Day","r":18},
-                {"id": 24, "name": "Duke Ellington", "r":18},
-                {"id": 25, "name": "Jazz Performance", "r":18},
-                {"id": 26, "name": "Mary Lou Williams", "r":18}
+                {"id": 21, "name": "Miles Davis","r":10},
+                {"id": 22, "name": "Jazz History","r":10},
+                {"id": 23, "name": "Every Day","r":10},
+                {"id": 24, "name": "Duke Ellington", "r":10},
+                {"id": 25, "name": "Jazz Performance", "r":10},
+                {"id": 26, "name": "Mary Lou Williams", "r":10}
             ]
         }],
         [{
             "id":10,
             'name':'Mathematics',
             'type':'interest',
-            'r': 45,
+            'r': 30,
             'color':0.9,
             'cx' : 600,
             'cy' : 600,
             'interests': [
-                {"id": 13, "name": "Mathematical Methods","r":18},
-                {"id": 23, "name": "Philosophy of Mathematics","r":18},
-                {"id": 33, "name": "Geometry","r":18},
-                {"id": 43, "name": "Algebra", "r":18},
-                {"id": 53, "name": "Calculus", "r":18},
-                {"id": 63, "name": "Discrete Mathematics", "r":18}
+                {"id": 13, "name": "Mathematical Methods","r":10},
+                {"id": 23, "name": "Philosophy of Mathematics","r":10},
+                {"id": 33, "name": "Geometry","r":10},
+                {"id": 43, "name": "Algebra", "r":10},
+                {"id": 53, "name": "Calculus", "r":10},
+                {"id": 63, "name": "Discrete Mathematics", "r":10}
             ]
         }]];
 
@@ -223,12 +225,12 @@ svg {
         hubRoot : root,
         children : root[0].interests,
         color: 'hsl(0, 0, 82.7)',
-        distance: 100
+        distance: 125
     };
 
 
 
-    var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
+    var svg = d3.select('svg').attr('width', 1024).attr('height', 768);
     var colors = [];
     var viz = new MC.InterestViz({
       hubModel: hubModel,
