@@ -189,7 +189,7 @@ svg {
             {"id": 15, "name": "Web Spam", "r":18},
             {"id": 16, "name": "Semantic Web", "r":18}
         ]
-    }],
+        }],
         [{
             "id":9,
             'name':'Jazz',
@@ -235,8 +235,8 @@ svg {
         distance: 100
     };
 
-//    var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
-    var svg = d3.select('svg').attr('viewBox','0 0 1024 960'); //viewBox has
+    var svg = d3.select('svg').attr('width', 1024).attr('height', 960);
+    //    var svg = d3.select('svg').attr('viewBox','0 0 1024 960'); //viewBox has
     var colors = [];
     var viz = new MC.MainViz({
         hubModel: hubModel,

@@ -13,11 +13,18 @@ MC.InterestViz = function(params) {
     this.hubs = params.hubs;
     this.people = params.people;
     this.root = params.root;
+    console.log(this.root);
     this.svg = params.svg;
+
+    this.svgWidth = this.svg.attr("width");
+    this.svgHeight = this.svg.attr("height");
+
     this.circles = params.circles;
     this.svg=this.svg.append("g").attr("class","viz");
+
     // construct the hubModel here based on other parameters
     this.hubModel = params.hubModel;
+    this.positionHubModel();
 
     this.setGradients();
     this.createsGradientCircles();
@@ -25,6 +32,21 @@ MC.InterestViz = function(params) {
     this.startPeople();
 
 };
+
+// Position the hubs around the visRoot
+MC.InterestViz.prototype.postionHubs = function(){
+
+}
+
+// Position the center of the hubModel(visRoot) to the enter of the SVG canvas
+MC.InterestViz.prototype.positionHubModel = function(){
+    var x = this.svgWidth/2;
+    var y = this.svgHeight/2;
+
+    this.hubModel.cx = x;
+    this.hubModel.cy = y;
+}
+
 MC.InterestViz.prototype.startPeople = function() {
 
     window.setTimeout( jQuery.proxy(function() {
