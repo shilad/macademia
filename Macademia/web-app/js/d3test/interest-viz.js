@@ -30,6 +30,7 @@ MC.InterestViz = function(params) {
 MC.InterestViz.prototype.startPeople = function() {
 
     window.setTimeout( jQuery.proxy(function() {
+        this.createInterestColors();
         this.createPersonView();
         this.createPeople();
         this.createPersonLayoutView()
@@ -60,12 +61,25 @@ MC.InterestViz.prototype.createInterestViz = function() {
 };
 
 MC.InterestViz.prototype.createInterestColors = function(){
-    for(var i = 0; i < this.people.length; i++){
-        for(var j = 0; i< this.people.length; i++){
+    var interestColors ={};
 
+    for(var i = 0; i < this.people.length; i++){
+        for(var j = 0; j< this.people[i].interests.length; j++){
+            for(var k = 0; k< this.hubs.length; k++){
+                for(var l =0; l< this.hubs[k][0].interests.length.){
+            console.log(this.hubs[k][0].interests[j].id);
+
+            if(this.people[i].interests[j] == this.hubs[i][0].interests[j].id){
+              interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
+            }
+
+//            if(this.hubs[i][0].interests)
+//            if{this.hubs[i][0]==}
+//            interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
         };
     };
-
+    };
+    };
 
 };
 
@@ -180,7 +194,6 @@ MC.InterestViz.prototype.getD3People = function() {
 //Sets the locations of the person heads
 MC.InterestViz.prototype.createPersonLayoutView = function(){
     this.personLayoutView = MC.personLayout()
-        .setInterestColors(this.createInterestColors())
         .setPeopleNodes(this.getD3People())
         .setClusterMap(this.createClusterMap())
         .setInterestNodes(this.getD3Interests());
