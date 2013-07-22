@@ -46,7 +46,7 @@ MC.InterestViz.prototype.createInterestViz = function() {
     for(var i = 0; i < this.hubs.length; i++){
 
         //alter model for each hub
-        var color = this.makeColorful()
+        var color = this.makeColorful();
         this.hubs[i][0].color = color;  //sets the center circle color
 
         this.createHub({
@@ -68,19 +68,19 @@ MC.InterestViz.prototype.createInterestColors = function(){
     for(var i = 0; i < this.people.length; i++){
         for(var j = 0; j< this.people[i].interests.length; j++){
             for(var k = 0; k< this.hubs.length; k++){
-                for(var l =0; l< this.hubs[k][0].interests.length.){
-            console.log(this.hubs[k][0].interests[j].id);
+                for(var l =0; l< this.hubs[k][0].interests.length;l++){
+                    console.log(this.hubs[k][0].interests[j].id);
 
-            if(this.people[i].interests[j] == this.hubs[i][0].interests[j].id){
-              interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
-            }
+                    if(this.people[i].interests[j] == this.hubs[i][0].interests[j].id){
+                        interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
+                    }
 
 //            if(this.hubs[i][0].interests)
 //            if{this.hubs[i][0]==}
 //            interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
+                };
+            };
         };
-    };
-    };
     };
 
 };
@@ -223,7 +223,7 @@ MC.InterestViz.prototype.createClusterMap = function(){
 //I could not think of a better name it sets both the hub and interest colors from the color scheme
 MC.InterestViz.prototype.makeColorful = function(){
     var color;
-     //the colors already on the page
+    //the colors already on the page
 
     for(var i = 0; i < this.colors.length; i++){
         if(this.currentColors.indexOf(this.colors[i])<0){
