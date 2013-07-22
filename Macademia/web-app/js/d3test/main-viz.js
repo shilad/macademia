@@ -73,7 +73,8 @@ MC.MainViz.prototype.setInterestEventHandler = function(){
                 root: this.root,
                 people: this.people,
                 circles: this.circles,
-                svg : this.svg
+                svg : this.svg,
+                colors : this.colors
             });
 //            console.log(e);
             this.setInterestEventHandler();
