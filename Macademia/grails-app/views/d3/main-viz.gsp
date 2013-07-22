@@ -24,6 +24,19 @@
     fill: #C0C0C0;
 }
 
+.active {
+    fill: black;
+}
+
+.activeInterest{
+    /*
+    This should have the same css style as interest except we are using
+    a different fill
+    */
+    font: 13px Georgia;
+    fill: black;
+}
+
 .interest{
     font: 13px Georgia;
     fill: #C0C0C0;
@@ -167,7 +180,7 @@ svg {
         "r": 45,
         "cx":375,
         "cy":150,
-//        "color":0.7,
+        "color":0.7,
         'interests': [
             {"id": 11, "name": "html5","r":18},
             {"id": 12, "name": "javascript","r":18},
@@ -182,7 +195,7 @@ svg {
             'name':'Jazz',
             'type':'interest',
             'r': 45,
-//            'color': 0.3,
+            'color': 0.3,
             'cx' : 150,
             'cy' : 600,
             'interests': [
@@ -199,7 +212,7 @@ svg {
             'name':'Mathematics',
             'type':'interest',
             'r': 45,
-//            'color':0.9,
+            'color':0.9,
             'cx' : 600,
             'cy' : 600,
             'interests': [

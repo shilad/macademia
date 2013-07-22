@@ -42,6 +42,7 @@ MC.InterestViz.prototype.startPeople = function() {
 //Position the hubs and the root
 MC.InterestViz.prototype.createInterestViz = function() {
     this.createHub(this.hubModel);
+//    console.log(this.hubModel);
     for(var i = 0; i < this.hubs.length; i++){
 
         //alter model for each hub
@@ -57,6 +58,7 @@ MC.InterestViz.prototype.createInterestViz = function() {
             color : color,    //sets the little circles to the center circles color
             distance: 100
         });
+//        console.log(this.hubModel);
     }
 };
 
