@@ -16,7 +16,6 @@ MC.InterestViz = function(params) {
     this.svg = params.svg;
     this.circles = params.circles;
     this.colors = params.colors;
-    this.svg=this.svg.append("g").attr("class","viz");
     this.svg=this.svg.append("g").attr("class","viz").attr('width', 1000).attr('height', 1000);
     // construct the hubModel here based on other parameters
     this.hubModel = params.hubModel;
