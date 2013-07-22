@@ -43,8 +43,8 @@
 }
 
 svg {
-    height : 90%;
-    width : 90%;
+    /*height : 90%;*/
+    /*width : 90%;*/
 }
 
 </style>
@@ -235,9 +235,8 @@ svg {
         distance: 100
     };
 
-
-
-    var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
+//    var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
+    var svg = d3.select('svg').attr('viewBox','0 0 1024 960'); //viewBox has
     var colors = [];
     var viz = new MC.MainViz({
         hubModel: hubModel,
