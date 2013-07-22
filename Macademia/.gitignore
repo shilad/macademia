@@ -17,4 +17,3 @@ stacktrace.log
 /target-eclipse/
 .idea/
 *.iml
-*.properties
