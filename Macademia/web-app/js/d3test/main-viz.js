@@ -23,7 +23,8 @@ MC.MainViz = function(params) {
         root: this.root,
         people: this.people,
         circles: this.circles,
-        svg : this.svg
+        svg : this.svg,
+        colors : this.colors
     });
 
     this.setInterestEventHandler();

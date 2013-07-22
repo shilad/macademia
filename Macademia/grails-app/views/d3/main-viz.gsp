@@ -223,16 +223,15 @@ svg {
     };
 
 
-
     var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
-    var colors = [];
     var viz = new MC.MainViz({
         hubModel: hubModel,
         hubs: hubs,
         root: root,
         people: peeps,
         circles: gradientCircles,
-        svg : svg
+        svg : svg,
+        colors : colors
     });
 
 
