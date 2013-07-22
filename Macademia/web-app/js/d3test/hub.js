@@ -20,7 +20,7 @@ MC.hub = function() {
             var color = 0.5; //default color for children
             if(data['color']){
                 color = data['color'];
-                console.log(data['color']);
+//                console.log(data['color']);
             }
             else if (root['color'])
                 color = root['color'];
@@ -56,7 +56,7 @@ MC.hub = function() {
             d3Group.datum(data.children).call(childrenTemplate); //drawing child nodes
 
             var childGs = d3Group.selectAll("g."+"interest");
-            console.log("g.child"+id);
+//            console.log("g.child"+id);
             childGs.attr('opacity', 1.0).transition()  //setting the group to the root position first
                 .duration(10)
                 .attr('transform', function (d, i) {
