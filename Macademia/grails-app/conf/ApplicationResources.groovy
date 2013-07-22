@@ -8,11 +8,11 @@ modules = {
         resource url: '/css/ui-lightness/jquery-ui-1.8.2.custom.css'
         resource url: '/css/style.css'
         resource url: '/js/jquery/jquery.qtip-1.0.0-rc3.js'
-        resource url: '/js/jquery/jquery.address-1.6.js'
         resource url: '/js/jquery/jqModal.js'
         resource url: '/js/ba-debug.js'
         resource url: '/js/jit/jit.js'
         resource url: '/js/stacktrace.js'
+
 
         resource url: '/js/lib.macademia.js'
         resource url: '/js/lib.macademia.json.js'
@@ -21,6 +21,8 @@ modules = {
         resource url: '/js/lib.macademia.autocomplete.js'
         resource url: '/js/lib.macademia.profile.js'
         resource url: '/js/lib.macademia.density.js'
+        resource url: '/js/lib.macademia.history.js'
+        resource url: '/js/jquery/history.js'     //DO NOT CHANGE ORDER!! This must be loaded after lib.macademia.js
     }
     profile {
         dependsOn 'core'
@@ -47,10 +49,13 @@ modules = {
         resource url: '/js/d3test/utils.js'
         resource url: '/js/d3test/label.js'
         resource url: '/js/d3test/interest.js'
+        resource url: '/js/d3test/hub.js'
         resource url: '/js/d3test/person.js'
         resource url: 'js/d3test/person-layout.js'
         resource url: '/js/d3test/interest-layout.js'
         resource url: '/js/d3test/base-viz.js'
+        resource url: '/js/d3test/interest-viz.js'
+        resource url: '/js/d3test/main-viz.js'
     }
 
     d3demo {
@@ -61,7 +66,7 @@ modules = {
 
     darth{
 
-           dependsOn 'd3js'
+        dependsOn 'd3js'
         resource url: '/js/d3test/d3play.js'
 
 
@@ -73,7 +78,7 @@ modules = {
         defaultBundle 'macademia.js.nbrviz'
 
         resource url: '/js/nbrviz/jquery-ui-1.8.16.custom.min.js'
-        resource url: '/js/jquery/jquery.address-1.6.js'
+//        resource url: '/js/jquery/jquery.address-1.6.js'
         resource url: '/js/lib.macademia.js'
         resource url: '/js/lib.macademia.json.js'
         resource url: '/js/lib.macademia.jit.js'

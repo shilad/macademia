@@ -42,7 +42,7 @@ MC.person = function() {
             .enter()
             .append("path")
             .attr("d", arc)
-            .attr("stroke", "#888")
+            .attr("stroke", "#FFFFFF")
             .attr("fill", function (d, i) { return d.data.color; });
 
         person.getOrCallOnHover().forEach(function (v) {

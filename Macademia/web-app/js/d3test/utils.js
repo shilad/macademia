@@ -13,9 +13,10 @@ var MC = (window.MC = (window.MC || {}));
  */
 MC.getTransformedPosition = function(svg, shape, x, y) {
     var matrix = shape.getCTM();
-
     // transform a point using the transformed matrix
     var position = svg.createSVGPoint();
+//    console.log(position);
+//    console.log(matrix);
     position.x = x;
     position.y = y;
     return position.matrixTransform(matrix);
@@ -28,7 +29,10 @@ MC.getTransformedPosition = function(svg, shape, x, y) {
  */
 MC.hueToColor = function(h) {
 //    console.log(h);
-    return d3.hsl(h * 359, 0.8, 0.8);
+    if(typeof h === "number")
+        return d3.hsl(h * 359, 0.8, 0.8);
+    else
+        return d3.rgb(h);
 };
 
 /**

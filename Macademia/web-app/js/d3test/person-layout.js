@@ -41,9 +41,10 @@ MC.personLayout = function () {
 
         //copies the interest node information--not sure why
         // perhaps this was to avoid radial coordinates
-        interestNodes.each(function (d, i) {
+//        console.log("Interest Nodes");
+//        console.log(interestNodes);
+        interestNodes.each(function (d,i) {
             var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
-
             surrogates[d.id] = {
                 type: (d.id in clusterMap) ? 'hub' : 'leaf',
                 id: d.id,
@@ -84,7 +85,7 @@ MC.personLayout = function () {
         peopleNodes.each(function (p, i) {
 //            console.log(p)
             $.map(p.relevance, function (r, iid) {
-                console.log(iid);
+//                console.log(surrogates[iid]);
                 if (iid != -1 && iid != 'overall') {
                     links.push({
                         source: p,
@@ -123,7 +124,7 @@ MC.personLayout = function () {
             })
             .gravity(grav)
             .linkDistance(linkDis)
-            .charge(pl.getCharge)
+            .charge(pl.getCharge())
             .friction(friction)
             .start();
         //creates a new g  for each new person
@@ -177,8 +178,8 @@ MC.personLayout = function () {
             force.resume();
         });
     }
-
-    MC.options.register(pl, 'friction',.8);
+                                        //just so I u
+    MC.options.register(pl, 'friction', 0.8);
     MC.options.register(pl, 'gravity', 0.005);
     MC.options.register(pl, 'linkDistance', 50);
 

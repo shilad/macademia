@@ -214,7 +214,7 @@ D3.initInterests = function() {
 
 D3.getTransformedPosition = function(svg, shape, x, y) {
     var matrix = shape.getCTM();
-
+//    console.log(shape);
     // transform a point using the transformed matrix
     var position = svg.createSVGPoint();
     position.x = x;

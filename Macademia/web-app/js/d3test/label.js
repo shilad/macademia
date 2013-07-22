@@ -37,11 +37,11 @@ MC.label = function() {
             .text(label.getText())
             .attr('text-anchor', label.getAlign());
 
-        label.getOnHover().forEach(
-            function (v) {
-                t.on('mouseover', v[0]);
-                t.on('mouseout', v[1]);
-            });
+//        label.getOnHover().forEach(
+//            function (v) {
+//                t.on('mouseover', v[0]);
+//                t.on('mouseout', v[1]);
+//            });
 
         return g;
     }

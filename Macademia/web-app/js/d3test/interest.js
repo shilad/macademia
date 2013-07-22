@@ -35,6 +35,7 @@ var MC = (window.MC = (window.MC || {}));
  */
 MC.interest = function() {
     function interest(selection) {
+
         selection.each(function(data) {
             var klass = interest.getCssClass();
 
@@ -52,33 +53,42 @@ MC.interest = function() {
             if(allGs.exit().size() > 0){
                 allGs.exit().transition().remove()
                     .attr('opacity', 0.0)
-                    .duration(500);
+                    .duration(100);
             }
 
-            console.log('allGs size is ' + newGs.size());
+//            console.log('allGs size is ' + newGs.size());
 
-            newGs.append('circle');
+            newGs.append('circle').attr('class',klass+"Outer");//Outer circle
+            newGs.append('circle').attr('class',klass+"Inner"); //inner circle
             var l = MC.label()
-                .setText(interest.getText())
+                .setText(interest.getCleanedText())
+                .setY(function (d, i) {
+                    var r = interest.getOrCallR(d, i);
+                    return "" + (r+11) + "px";
+                })
                 .setAlign('middle');
             newGs.call(l);
 
             // position both existing and new elements.
             allGs.transition()
-                .delay(500)
-                .duration(500)
+                .duration(200)
                 .attr('transform', function (d, i) {
                     var cx = interest.getOrCallCx(d, i);
                     var cy = interest.getOrCallCy(d, i);
                     return 'translate(' + cx + ', ' + cy + ')';
                 })
                 .transition()
-                .delay(1000)
+                .delay(200)
                 .attr('opacity', 1.0)
-                .duration(500);
+                .duration(100);
 
             // Change fill for both existing and new elements
-            allGs.select('circle')
+            allGs.select('circle.'+klass+"Inner")
+                .attr('fill', 'none')
+                .attr('stroke','white')
+                .attr('r', interest.getRInner());
+
+            allGs.select('circle.'+klass+"Outer")
                 .attr('fill', interest.getColor())
                 .attr('r', interest.getR());
 
@@ -90,10 +100,21 @@ MC.interest = function() {
     }
 
     MC.options.register(interest, 'text', function (d) { return d.name; });
+    MC.options.register(interest, 'cleanedText', function (d) {
+        var cleanedText = d.name;
+//        console.log(d);
+        if (cleanedText.length > 15){
+             cleanedText = cleanedText.substr(0, 10) + " ...";
+        }
+//        console.log(cleanedText)
+        return cleanedText;
+    });
     MC.options.register(interest, 'color', function (d) { return MC.hueToColor(d.color); })
-    MC.options.register(interest, 'cx', function (d) { return d.cx; });
-    MC.options.register(interest, 'cy', function (d) { return d.cy; });
+    MC.options.register(interest, 'cx', function (d,i) { return d.cx; });
+    MC.options.register(interest, 'cy', function (d,i) { return d.cy; });
     MC.options.register(interest, 'r', function(d) { return d.r; });
+    MC.options.register(interest, 'rInner', function(d) { return d.r*0.85; }); //get the radius of the inner circle
+    MC.options.register(interest, 'opacity', 1.0);
     MC.options.register(interest, 'onHover', [], MC.options.TYPE_LIST);
     MC.options.register(interest, 'cssClass', 'interest');
     MC.options.register(interest, 'enterTransition', function() { return this.attr('opacity', 1.0); });

@@ -169,4 +169,8 @@ class  PersonController{
                 auth: auth
         ])
     }
+
+    def test = {
+
+    }
 }
