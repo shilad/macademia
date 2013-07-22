@@ -24,7 +24,10 @@ MC.InterestViz = function(params) {
 
     // construct the hubModel here based on other parameters
     this.hubModel = params.hubModel;
+
+    //Positioning hubModel(visRoot) and hubs around it
     this.positionHubModel();
+    this.postionHubs();
 
     this.setGradients();
     this.createsGradientCircles();
@@ -35,6 +38,54 @@ MC.InterestViz = function(params) {
 
 // Position the hubs around the visRoot
 MC.InterestViz.prototype.postionHubs = function(){
+    var n = this.hubs.length;
+
+    if(n == 3){
+        //Setting the first hub on the top
+        this.hubs[0][0].cx = this.svgWidth/2;
+        this.hubs[0][0].cy = 0;
+
+        //Setting the second hub
+        this.hubs[1][0].cx = 0;
+        this.hubs[1][0].cy = this.svgHeight;
+
+        //Setting the third hub
+        this.hubs[2][0].cx = this.svgWidth;
+        this.hubs[2][0].cy = this.svgHeight;
+
+        console.log(this.hubs);
+    }
+
+    // applying the padding
+    var dist = this.hubModel.distance; //use the distance between the root and child as padding
+    var padL = dist * 1.5; //left
+    var padR = this.svgWidth - dist * 1.5; //right
+    var padT = dist * 1.5; //top
+    var padB = this.svgHeight - dist * 1.5; //bottom
+
+    for(var i=0; i<n; i++){
+
+        //Left
+        if(this.hubs[i][0].cx < padL){
+            this.hubs[i][0].cx = padL;
+        }
+
+        //Right
+        if(this.hubs[i][0].cx > padR){
+            this.hubs[i][0].cx = padR;
+        }
+
+        //Top
+        if(this.hubs[i][0].cy < padT){
+            this.hubs[i][0].cy = padT;
+        }
+
+        //Bottom
+        if(this.hubs[i][0].cy > padB){
+            this.hubs[i][0].cy = padB;
+        }
+
+    }
 
 }
 

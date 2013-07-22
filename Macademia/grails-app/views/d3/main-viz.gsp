@@ -235,7 +235,7 @@ svg {
         distance: 100
     };
 
-    var svg = d3.select('svg').attr('width', 1024).attr('height', 960);
+    var svg = d3.select('svg').attr('width', 800).attr('height', 600);
     //    var svg = d3.select('svg').attr('viewBox','0 0 1024 960'); //viewBox has
     var colors = [];
     var viz = new MC.MainViz({
