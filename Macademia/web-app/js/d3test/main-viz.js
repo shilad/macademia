@@ -37,26 +37,29 @@ MC.MainViz.prototype.setInterestEventHandler = function(){
         .selectAll("g.interest, g.hubRoot")
         .on("click",jQuery.proxy(function(e){
             //
-//            console.log(e);
-            var i;
+            console.log(e);
+            var i={};
             if(!e.interests){
-                i=this.root[0].interests;
+                i['interests']=this.root[0].interests;
+                i['id']=this.root[0].id;
+                i['name']=this.root[0].name;
             }
             else{
-                i= e.interests;
+                i['interests']= e.interests;
+                i['id']= e.id;
+                i['name']= e.name;
             }
-            console.log(this.hubModel);
             this.root = [{
                 "isVizRoot":true,
-                "id": e.id,
-                'name': e.name,
+                "id": 9999,
+                'name': i.name,
                 'type':'interest',
                 'r': 45,
                 'color': '#D3D3D3',
-                'interests' : i
+                'interests' : i.interests
             }];
             this.hubModel = {
-                id: e.id,
+                id: 9999,
                 cx:375,
                 cy:425,
                 hubRoot : this.root,
@@ -66,7 +69,7 @@ MC.MainViz.prototype.setInterestEventHandler = function(){
             };
 
             this.svg.select("g.viz").remove();
-//            console.log(this.hubModel);
+//            console.log(e.name);
             this.viz = new MC.InterestViz({
                 hubModel: this.hubModel,
                 hubs: this.hubs,
