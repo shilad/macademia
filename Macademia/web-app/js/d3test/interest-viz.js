@@ -42,7 +42,10 @@ MC.InterestViz.prototype.startPeople = function() {
 MC.InterestViz.prototype.createInterestViz = function() {
     this.createHub(this.hubModel);
     for(var i = 0; i < this.hubs.length; i++){
+
         //alter model for each hub
+        var color = this.makeColorful()
+        this.hubs[i][0].color = color;  //sets the center circle color
 
         this.createHub({
             id:this.hubs[i][0].id,
@@ -50,7 +53,7 @@ MC.InterestViz.prototype.createInterestViz = function() {
             cy:this.hubs[i][0].cy,
             hubRoot : this.hubs[i],
             children : this.hubs[i][0].interests,
-            color : this.makeColorful(),
+            color : color,    //sets the little circles to the center circles color
             distance: 100
         });
     }
