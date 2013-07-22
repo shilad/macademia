@@ -111,9 +111,9 @@ svg {
                 "16":1.9563,
                 "overall":1.1776578441262245},
             "interests":[
-                11,
-                13,
-                33]}
+                21,
+                33,
+                16]}
 //         {"id":2691, "type":person,"fid":7241482, "name":"Diana Brooks",
 //            "pic":"/Macademia/all/image/fake?gender=female&img=00633_940928_fa.png",
 //            "relevance":{"18":1.3140089064836502, "-1":null, "976":1, "overall":1.157004453241825}, "count":{"18":3, "-1":5, "976":1, "overall":4},

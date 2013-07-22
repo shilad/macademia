@@ -26,61 +26,121 @@ MC.MainViz = function(params) {
         svg : this.svg,
         colors : this.colors
     });
+    this.setEventHandlers();
 
-    this.setInterestEventHandler();
 };
 
+MC.MainViz.prototype.setEventHandlers = function(){
+    this.setInterestEventHandler();
+    this.setPeopleEventHandler();
+}
 MC.MainViz.prototype.setInterestEventHandler = function(){
     window.setTimeout( jQuery.proxy(function() {
 
-    this.svg
-        .selectAll("g.interest, g.hubRoot")
-        .on("click",jQuery.proxy(function(e){
-            //
-            console.log(e);
-            var i={};
-            if(!e.interests){
-                i['interests']=this.root[0].interests;
-                i['id']=this.root[0].id;
-                i['name']=this.root[0].name;
-            }
-            else{
-                i['interests']= e.interests;
+        this.svg
+            .selectAll("g.interest, g.hubRoot")
+            .on("click",jQuery.proxy(function(e){
+                //
+                console.log(e);
+                //This if else should be removed once we have real data
+                var i={};
+                if(!e.interests){
+                    i['interests']=this.root[0].interests;
+
+                }
+                else{
+                    i['interests']= e.interests;
+
+                }
                 i['id']= e.id;
                 i['name']= e.name;
-            }
-            this.root = [{
-                "isVizRoot":true,
-                "id": 9999,
-                'name': i.name,
-                'type':'interest',
-                'r': 45,
-                'color': '#D3D3D3',
-                'interests' : i.interests
-            }];
-            this.hubModel = {
-                id: 9999,
-                cx:375,
-                cy:425,
-                hubRoot : this.root,
-                children : this.root[0].interests,
-                color: 'hsl(0, 0, 82.7)',
-                distance: 100
-            };
+                this.root = [{
+                    "isVizRoot":true,
+                    "id": i.id,
+                    'name': i.name,
+                    'type':'interest',
+                    'r': 45,
+                    'color': '#D3D3D3',
+                    'interests' : i.interests
+                }];
+                this.hubModel = {
+                    id: i.id,
+                    cx:375,
+                    cy:425,
+                    hubRoot : this.root,
+                    children : this.root[0].interests,
+                    color: 'hsl(0, 0, 82.7)',
+                    distance: 100
+                };
 
-            this.svg.select("g.viz").remove();
+                this.svg.select("g.viz").remove();
 //            console.log(e.name);
-            this.viz = new MC.InterestViz({
-                hubModel: this.hubModel,
-                hubs: this.hubs,
-                root: this.root,
-                people: this.people,
-                circles: this.circles,
-                svg : this.svg,
-                colors : this.colors
-            });
+                this.viz = new MC.InterestViz({
+                    hubModel: this.hubModel,
+                    hubs: this.hubs,
+                    root: this.root,
+                    people: this.people,
+                    circles: this.circles,
+                    svg : this.svg,
+                    colors : this.colors
+                });
 //            console.log(e);
-            this.setInterestEventHandler();
-        },this));
+                this.setEventHandlers();
+            },this));
+    }, this), MC.hub().getDuration());
+};
+MC.MainViz.prototype.setPeopleEventHandler = function(){
+    window.setTimeout( jQuery.proxy(function() {
+
+        this.svg
+            .selectAll("g.person")
+            .on("click",jQuery.proxy(function(e){
+                //
+                console.log(e);
+                //This if else should be removed once we have real data
+                var i={};
+
+                i['interests']= this.root[0].interests;
+                i['id']= e.id;
+                i['name']= e.name;
+                i['cleanedRelevance']= e.cleanedRelevance;
+                i['relevance']= e.relevance;
+                i['interestColors']= e.interestColors;
+
+                this.root = [{
+                    "isVizRoot":true,
+                    "id": i.id,
+                    'name': i.name,
+                    'pic' : '/Macademia/all/image/randomFake?foo',
+                    'cleanedRelevance': i.cleanedRelevance,
+                    'interestColors': i.interestColors,
+                    'type':'person',
+                    'r': 45,
+                    'interests': i.interests
+                }];
+                this.hubModel = {
+                    id: i.id,
+                    cx:375,
+                    cy:425,
+                    hubRoot : this.root,
+                    children : this.root[0].interests,
+                    color: 'hsl(0, 0, 82.7)',
+                    distance: 100
+                };
+
+                this.svg.select("g.viz").remove();
+//            console.log(this.root);
+                this.viz = new MC.InterestViz({
+                    hubModel: this.hubModel,
+                    hubs: this.hubs,
+                    root: this.root,
+                    people: this.people,
+                    circles: this.circles,
+                    svg : this.svg,
+                    colors : this.colors
+                });
+//            console.log(e);
+                this.setEventHandlers();
+            },this));
     }, this), MC.hub().getDuration());
 };

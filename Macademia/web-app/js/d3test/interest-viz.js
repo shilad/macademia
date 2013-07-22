@@ -61,16 +61,6 @@ MC.InterestViz.prototype.createInterestViz = function() {
     }
 };
 
-MC.InterestViz.prototype.createInterestColors = function(){
-    for(var i = 0; i < this.people.length; i++){
-        for(var j = 0; i< this.people.length; i++){
-
-        };
-    };
-
-
-};
-
 MC.InterestViz.prototype.createHub = function(model){
     this.svg
         .datum(model)
@@ -182,7 +172,6 @@ MC.InterestViz.prototype.getD3People = function() {
 //Sets the locations of the person heads
 MC.InterestViz.prototype.createPersonLayoutView = function(){
     this.personLayoutView = MC.personLayout()
-        .setInterestColors(this.createInterestColors())
         .setPeopleNodes(this.getD3People())
         .setClusterMap(this.createClusterMap())
         .setInterestNodes(this.getD3Interests());
@@ -218,10 +207,9 @@ MC.InterestViz.prototype.makeColorful = function(){
             this.currentColors.push(color);
             return color;
         };
-
+//
     };
-
-
+//    return color;
 
 };
 
