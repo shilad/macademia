@@ -41,9 +41,9 @@ svg {
             "type": 'person',
             "fid":250588901,
             "name":"Luther Rea",
-            'interestColors': {
-                11:0.7,
-                22:"hsl(30, 83, 69)"},
+//            'interestColors': {
+//                11:0.7,
+//                22:"hsl(30, 83, 69)"},
             //must have cleaned relavence to have the circle around the image
             'cleanedRelevance':  {11 : 3.0,22:7.0},
             "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
@@ -64,11 +64,11 @@ svg {
                 13 : 3.0,
                 33: 2.3,
                 11: 1.0},
-            'interestColors': {
-                13 : 0.9,
-                11:0.3,
-                33:0.9
-            },
+//            'interestColors': {
+//                13 : 0.9,
+//                11:0.3,
+//                33:0.9
+//            },
             "relevance":{
                 "11":1.1563,
                 "13":1.6563,
@@ -87,11 +87,11 @@ svg {
                 21 : 3.0,
                 23: 3.3,
                 16: 1.7},
-            'interestColors': {
-                21 : 0.3,
-                23 : 0.3,
-                16 : 0.7
-            },
+//            'interestColors': {
+//                21 : 0.3,
+//                23 : 0.3,
+//                16 : 0.7
+//            },
             "relevance":{
                 "21":1.1563,
                 "23":1.6563,
@@ -221,7 +221,8 @@ svg {
 
 
     var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
-    console.log(colors);
+//    console.log(colors);
+
     var viz = new MC.InterestViz({
       hubModel: hubModel,
       hubs: hubs,
@@ -231,6 +232,8 @@ svg {
       svg : svg,
       colors: colors
     });
+
+
 
 
 

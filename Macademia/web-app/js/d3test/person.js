@@ -71,7 +71,9 @@ MC.person = function() {
             pieces.push({
                 id : iid,
                 weight :d.cleanedRelevance[iid],
-                color :MC.hueToColor(d.interestColors[iid])
+//                color :MC.hueToColor(d.interestColors[iid])
+//                color :MC.hueToColor(MC.InterestViz.findInterestColor(iid))
+
             })
         }
         return pieces;
