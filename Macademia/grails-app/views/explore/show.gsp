@@ -16,7 +16,7 @@
     var height = $(window).height();
     var viz = new ExploreViz({ x : x, y : 0, width : width, height : height });
     $("#matches ol").sortable().disableSelection();
-  $.address.update();
+      macademia.history.update();
   });
 
 </r:script>
