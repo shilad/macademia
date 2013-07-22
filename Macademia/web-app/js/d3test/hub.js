@@ -111,22 +111,40 @@ MC.hub = function() {
                     .enter()
                     .call(personRoot);
             }
+            if(data.hubRoot[0]['isVizRoot']){
+                d3Group
+                    .select('g.hubRoot')
+                    .attr("class","vizRoot");
+            }
 
             //building user interactions
+
+            //mouseover the interest node hightlight itself and its hub root
             d3Group.selectAll("g .interest").on('mouseover',function(e){
-                d3Group.select("g .hubRoot").attr('opacity',1.0).attr('class',"active");
-                d3.select(this).select('g .label text').text("");
+                d3Group.select("g .hubRoot").attr('opacity',1.0).classed('active',true);
+                d3Group.select("g .vizRoot").attr('opacity',1.0).classed('active',true);
                 d3.select(this).select('g .label text').text(MC.interest().getText());
-                d3.select(this).style('fill',hub.getHighlightedFill());
+                // notice that we are replacing class interest with active
+                d3.select(this).attr('class','activeInterest');
             });
 
             d3Group.selectAll("g .interest").on('mouseout',function(){
-//                d3Group.selectAll("g .hubRoot").style('fill',hub.getRegularFill());
-                d3Group.selectAll("g .hubRoot").classed('active', false);
+                d3Group.select("g .hubRoot").classed('active',false);
+                d3Group.select("g .vizRoot").classed('active',false);
                 d3.select(this).select('g .label text').text(MC.interest().getCleanedText());
-                $(this).css('fill',hub.getRegularFill());
+                d3.select(this).attr('class','interest');
             });
 
+            //mouseover the hub root hightlight everything in the hub
+            d3Group.selectAll("g .hubRoot").on('mouseover',function(e){
+                d3.select(this).attr('opacity',1.0).classed('active',true);
+                d3Group.selectAll("g .interest").attr('class','activeInterest');
+            });
+
+            d3Group.selectAll("g .hubRoot").on('mouseout',function(e){
+                d3.select(this).classed('active',false);
+                d3Group.selectAll("g .activeInterest").attr('class','interest');
+            });
 
 
 
