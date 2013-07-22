@@ -75,21 +75,21 @@ svg {
                 "33":0.9563,
                 "overall":1.2776578441262245},
             "interests":[
-                11,
                 13,
-                33]},
+                33,
+                11]},
         {"id":336,
             "type":'person',
             "fid":2537,
             "name":"Thomas Hanks",
             "pic":"/Macademia/all/image/fake?gender=male&img=00287_940422_fa.png",
             'cleanedRelevance':  {
-                23 : 3.0,
-                21: 3.3,
+                21 : 3.0,
+                23: 3.3,
                 16: 1.7},
             'interestColors': {
-                23 : 0.3,
                 21 : 0.3,
+                23 : 0.3,
                 16 : 0.7
             },
             "relevance":{
@@ -98,9 +98,9 @@ svg {
                 "16":1.9563,
                 "overall":1.1776578441262245},
             "interests":[
-                11,
-                13,
-                33]}
+                21,
+                23,
+                16]}
 //         {"id":2691, "type":person,"fid":7241482, "name":"Diana Brooks",
 //            "pic":"/Macademia/all/image/fake?gender=female&img=00633_940928_fa.png",
 //            "relevance":{"18":1.3140089064836502, "-1":null, "976":1, "overall":1.157004453241825}, "count":{"18":3, "-1":5, "976":1, "overall":4},
