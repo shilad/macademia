@@ -33,16 +33,12 @@ MC.personLayout = function () {
         var w = 800,
             h = 800;
 
-
         var svg = d3.select('svg');
 
         var surrogates = {};
 
-
         //copies the interest node information--not sure why
         // perhaps this was to avoid radial coordinates
-//        console.log("Interest Nodes");
-//        console.log(interestNodes);
         interestNodes.each(function (d,i) {
             var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
             surrogates[d.id] = {
@@ -53,9 +49,7 @@ MC.personLayout = function () {
                 y: pos.y,
                 real: d
             };
-
         });
-
 
         var getPrimaryInterest = function (p) {
             var maxId = -1;

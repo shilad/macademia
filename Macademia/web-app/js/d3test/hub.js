@@ -15,7 +15,7 @@ MC.hub = function() {
             //The following code draws interests based on data
 
             //Getting basic info
-            var root  = data.hubRoot[0];
+            var root  = data.root;
 
             var color = 0.5; //default color for children
             if(data['color']){
@@ -47,11 +47,7 @@ MC.hub = function() {
             //drawing children with animation
             var childrenTemplate = MC.interest().setCssClass("interest")
                 .setColor(function(d){
-                    if(d.color){
-                        return MC.hueToColor(d.color);
-                    } else {
-                        return MC.hueToColor(color);
-                    }
+                    return d.color ? d.color : color;
                 });
             d3Group.datum(data.children).call(childrenTemplate); //drawing child nodes
 
@@ -87,11 +83,16 @@ MC.hub = function() {
                 });
 
             //drawing root
-            var rootType = data.hubRoot[0].type;
+            var rootType = data.root.type;
 
             if(rootType == "interest"){
-                var interestTemplate = MC.interest().setCssClass("hubRoot").setCx(cx).setCy(cy);
-                d3Group.datum(data.hubRoot).call(interestTemplate);
+                var interestTemplate = MC.interest()
+                    .setCssClass("hubRoot")
+                    .setCx(cx).setCy(cy)
+                    .setColor(function(d){
+                        return d.color ? d.color : color;
+                    });
+                d3Group.datum([data.root]).call(interestTemplate);
             }
             else{
                 var personRoot = MC.person()
@@ -112,11 +113,11 @@ MC.hub = function() {
                     .data([0])
                     .append('g')
                     .attr('class', 'hubRoot')
-                    .data(data.hubRoot)
+                    .data([data.root])
                     .enter()
                     .call(personRoot);
             }
-            if(data.hubRoot[0]['isVizRoot']){
+            if(data.root['isVizRoot']){
                 d3Group
                     .select('g.hubRoot')
                     .attr("class","vizRoot");
@@ -244,7 +245,9 @@ MC.hub = function() {
     MC.options.register(hub, 'id', function(d){return d.id});
     MC.options.register(hub, 'cx', function (d) { return d.cx; });
     MC.options.register(hub, 'cy', function (d) { return d.cy; });
-    MC.options.register(hub, 'r', function(d) { return d.r; });
+    MC.options.register(hub, 'r', function(d) {
+        return d.r;
+    });
     MC.options.register(hub, 'duration', 1000);
     MC.options.register(hub, 'cssClass', 'hub');
     MC.options.register(hub, 'regularFill', '#C0C0C0');
