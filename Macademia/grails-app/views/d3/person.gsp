@@ -39,6 +39,13 @@ svg {
             'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
             // TODO: interestColors goes away, replaced with hashtable of interest ids to interest objects
             'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7}
+        },
+        {
+            'name' : 'Shilad Sen',
+            'pic' : '/Macademia/all/image/randomFake?foo',
+            'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
+            // TODO: interestColors goes away, replaced with hashtable of interest ids to interest objects
+            'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7}
         }
 //        {
 //             ,

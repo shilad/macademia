@@ -4,6 +4,7 @@ var MC = (window.MC = (window.MC || {}));
 MC.person = function() {
 
     function person(g) {
+        g.call(function (d) { console.log(d)});
         var g = g.append('g')
             .attr('class', person.getCssClass())
             .attr('transform', function (d, i) {
@@ -32,13 +33,25 @@ MC.person = function() {
 
         var pieLayout = d3.layout.pie()
             .sort(null)
-            .value(function(d) { return d.weight; });
+            .value(function(d) {
+                return d.weight;
+            });
+
+        var personToWedges = function(d) {
+            var wedges = [];
+            for (var iid in d.cleanedRelevance) {
+                wedges.push({
+                    weight :d.cleanedRelevance[iid],
+                    color : 'pink'
+
+                });
+            }
+            return pieLayout(wedges);
+        };
 
         var pie = g.append("g")
             .selectAll("path")
-            .data(function (d, i) {
-                return pieLayout(person.getOrCallPie(d, i));
-            })
+            .data(personToWedges)
             .enter()
             .append("path")
             .attr("d", arc)
@@ -60,24 +73,15 @@ MC.person = function() {
 
         g.call(l);
 
+        var interests = {};
+
         return g;
     }
 
+
+    MC.options.register(person, 'interests', function (d,i){return d.interests});
     MC.options.register(person, 'text', function (d, i) { return d.name; });
     MC.options.register(person, 'pic', function (d, i) { return d.pic; });
-    MC.options.register(person, 'pie', function (d, i) {
-        var pieces = [];
-        for (var iid in d.cleanedRelevance) {
-            pieces.push({
-                id : iid,
-                weight :d.cleanedRelevance[iid],
-//                color :MC.hueToColor(d.interestColors[iid])
-//                color :MC.hueToColor(MC.InterestViz.findInterestColor(iid))
-
-            })
-        }
-        return pieces;
-    });
     MC.options.register(person, 'cx', 100);
     MC.options.register(person, 'cy', 100);
     MC.options.register(person, 'imageWidth', 28);
