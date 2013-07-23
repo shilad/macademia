@@ -42,8 +42,7 @@ MC.person = function() {
             for (var iid in d.cleanedRelevance) {
                 wedges.push({
                     weight :d.cleanedRelevance[iid],
-                    color :  person.getInterests(d, i)[iid].color
-
+                    color :  console.log(person.getInterests())
                 });
             }
             return pieLayout(wedges);
@@ -79,7 +78,7 @@ MC.person = function() {
     }
 
 
-    MC.options.register(person, 'interests', function (d,i){return d.interests});
+    MC.options.register(person, 'interests', function (){throw('no interests specivied')});
     MC.options.register(person, 'text', function (d, i) { return d.name; });
     MC.options.register(person, 'pic', function (d, i) { return d.pic; });
     MC.options.register(person, 'cx', 100);

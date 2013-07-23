@@ -59,7 +59,7 @@ svg {
         {"id":5, "type": 'interest', "name":"gum",  "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'#000000', 'x':200, 'y':200},
         {"id":6, "type":'interest', "name":"shoe", "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':20, 'y':20},
         {"id":11, "type":'interest', "name":"ben hillman", "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':250, 'y':250},
-        {"id":14, "type": interest,"name":"Text mining", "cluster":18, "parentId":"18","relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':300, 'y':300}
+        {"id":14, "type": 'interest',"name":"Text mining", "cluster":18, "parentId":"18","relevance":0.7576502561569214, "roles":[], 'color':'#000000','x':300, 'y':300}
 //         {"id":16204, "type": interest,"name":" text analytics", "cluster":18, "parentId":"18","relevance":0.7576502561569214, "roles":[]},
 //         {"id":323, "type": interest,"name":"machine learning", "cluster":18, "parentId":"18","relevance":0.7538068890571594, "roles":[]},
 //         {"id":295, "type": interest,"name":" regression", "cluster":18,"parentId":"18", "relevance":0.7336868643760681, "roles":[]},
@@ -120,6 +120,7 @@ svg {
         }]];
 
     var person = MC.person()
+        .setInterests(interests)
         .setCy(function (d) {
             i += 100;
             return i;
@@ -142,6 +143,7 @@ svg {
                         .attr('fill', '#DCDCDC');
             });
 
+
     d3.select('svg')
             .attr('width', 500)
             .attr('height', 500)
@@ -150,7 +152,7 @@ svg {
             .append('g')
             .attr('class', 'people')
             .data(people)
-            .enter()
+               .enter()
             .call(person);
 </r:script>
 
