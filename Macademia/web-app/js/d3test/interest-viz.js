@@ -27,12 +27,21 @@ MC.InterestViz = function(params) {
     // construct the hubModel here based on other parameters
     this.currentColors = [];
     this.calculatePositions();
+    this.setHubRadii(40);
     this.calculateColors();
     this.setGradients();
     this.createsGradientCircles();
     this.createInterestViz();
     this.startPeople();
 
+};
+
+MC.InterestViz.prototype.setHubRadii = function(r) {
+    for(var i = 0; i < this.hubs.length; i++){
+        this.hubs[i]['r']=r;
+        console.log(this.hubs[i]);
+    }
+    this.root['r']=r;
 };
 
 MC.InterestViz.prototype.calculatePositions = function() {
@@ -117,7 +126,7 @@ MC.InterestViz.prototype.createHub = function(model) {
     }
     var rootModel = model.type == 'person' ? this.people[model.id] : this.interests[model.id];
     rootModel.type = model.type;
-
+    rootModel.r=model.r;
     this.container
         .datum({
             id : model.id,

@@ -84,11 +84,12 @@ MC.hub = function() {
 
             //drawing root
             var rootType = data.root.type;
-
+            console.log(data);
             if(rootType == "interest"){
                 var interestTemplate = MC.interest()
                     .setCssClass("hubRoot")
                     .setCx(cx).setCy(cy)
+                    .setR(root.r)
                     .setColor(function(d){
                         return d.color ? d.color : color;
                     });

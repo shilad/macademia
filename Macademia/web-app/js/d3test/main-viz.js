@@ -60,7 +60,7 @@ MC.MainViz.prototype.onLoad = function(){
             'name': macademia.history.get("name"),
             'type':'person',
             'pic' : '/Macademia/all/image/randomFake?foo',
-            'cleanedRelevance': this.peeps[macademia.history.get("personId")].cleanedRelevance,
+            'relevance': this.people[macademia.history.get("personId")].relevance,
             'children' : [11,12,14,24,43,63]
         };
 
