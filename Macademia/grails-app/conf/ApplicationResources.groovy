@@ -1,6 +1,10 @@
 modules = {
+    consolelog {
+        resource url: '/js/consolelog.js'
+    }
     core {
         dependsOn 'jquery'
+        dependsOn 'consolelog'
         defaultBundle 'macademia.js.all'
 
         resource url: '/js/jquery/jquery-ui-1.8.2.custom.min.js'
@@ -44,6 +48,7 @@ modules = {
 
     }
     d3js {
+        dependsOn 'consolelog'
         dependsOn 'core'
         resource url: '/js/d3test/d3.v3.js'
         resource url: '/js/d3test/utils.js'
