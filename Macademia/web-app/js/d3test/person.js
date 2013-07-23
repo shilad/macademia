@@ -32,13 +32,26 @@ MC.person = function() {
 
         var pieLayout = d3.layout.pie()
             .sort(null)
-            .value(function(d) { return d.weight; });
+            .value(function(d) {
+                return d.weight;
+            });
+
+        var personToWedges = function(d) {
+            var wedges = [];
+            for (var iid in d.relevance) {
+                if (iid != 'overall' && iid != -1) {
+                    wedges.push({
+                        weight :d.relevance[iid],
+                        color : d.interestColors[iid]
+                    })
+                }
+             }
+            return pieLayout(wedges);
+        };
 
         var pie = g.append("g")
             .selectAll("path")
-            .data(function (d, i) {
-                return pieLayout(person.getOrCallPie(d, i));
-            })
+            .data(personToWedges)
             .enter()
             .append("path")
             .attr("d", arc)
@@ -60,24 +73,17 @@ MC.person = function() {
 
         g.call(l);
 
+        var interests = {};
+
         return g;
     }
 
+
+    MC.options.register(person, 'interests', function (){throw('no interests specivied')});
     MC.options.register(person, 'text', function (d, i) { return d.name; });
     MC.options.register(person, 'pic', function (d, i) { return d.pic; });
-    MC.options.register(person, 'pie', function (d, i) {
-        var pieces = [];
-        for (var iid in d.cleanedRelevance) {
-            pieces.push({
-                id : iid,
-                weight :d.cleanedRelevance[iid],
-                color :MC.hueToColor(d.interestColors[iid])
-            })
-        }
-        return pieces;
-    });
-    MC.options.register(person, 'cx', 100);
-    MC.options.register(person, 'cy', 100);
+    MC.options.register(person, 'cx', function (d) { return d.cx; });
+    MC.options.register(person, 'cy', function (d) { return d.cy; });
     MC.options.register(person, 'imageWidth', 28);
     MC.options.register(person, 'imageHeight', 42);
     MC.options.register(person, 'r', 25);
