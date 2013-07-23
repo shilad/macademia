@@ -64,10 +64,10 @@ MC.hub = function() {
 
             if(rootType == "person"){
                 var gradient = d3Group.append("defs")
-                    .append("linearGradient")
+                    .append("radialGradient")
                     .attr("id", "connection-gradient")
-                    .attr("x1", cx)
-                    .attr("y1", cy);
+//                    .attr("x1", cx)
+//                    .attr("y1", cy);
 
                     gradient.append("stop")
                     .attr("offset", "3%")
@@ -76,7 +76,7 @@ MC.hub = function() {
 
                     gradient.append("stop")
                     .attr("offset", "97%")
-                    .attr("stop-color", "#FFFFFF")
+                    .attr("stop-color", "#FF0000")
                     .attr("stop-opacity", 1);
 
 
@@ -92,12 +92,11 @@ MC.hub = function() {
                         var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
                         return cy_child;
                     })
-                    .attr("fill", "none")
-                    .attr("stroke-width", 10)
+                    .attr("stroke-width", 15)
                     .attr("stroke-linecap", "round")
                     .attr("stroke-dasharray", "1, 15")
-                    .attr("stroke", 'green');
 //                    .attr("stroke", 'url(#connection-gradient)');
+                    .attr("stroke", 'green');
             }
 
             //drawing children with animation
