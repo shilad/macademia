@@ -102,7 +102,6 @@ MC.interest = function() {
     MC.options.register(interest, 'text', function (d) { return d.name; });
     MC.options.register(interest, 'cleanedText', function (d) {
         var cleanedText = d.name;
-//        console.log(d);
         if (cleanedText.length > 15){
              cleanedText = cleanedText.substr(0, 10) + " ...";
         }

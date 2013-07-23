@@ -95,8 +95,8 @@ MC.hub = function() {
                     .attr("stroke-width", 15)
                     .attr("stroke-linecap", "round")
                     .attr("stroke-dasharray", "1, 15")
-//                    .attr("stroke", 'url(#connection-gradient)');
-                    .attr("stroke", 'green');
+                    .attr("stroke", 'url(#connection-gradient)');
+//                    .attr("stroke", 'black');
             }
 
             //drawing children with animation
