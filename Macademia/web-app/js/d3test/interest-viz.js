@@ -37,12 +37,13 @@ MC.InterestViz = function(params) {
 };
 
 MC.InterestViz.prototype.setRadii = function(hubRadius,interestRadius) {
-    for(var i = 0; i < this.interests.length; i++){
+    for(var i in this.interests){
         this.interests[i]['r']=interestRadius;
+//        console.log(this.interests[i].r);
     }
     for(var i = 0; i < this.hubs.length; i++){
         this.hubs[i]['r']=hubRadius;
-        console.log(this.hubs[i]);
+//        console.log(this.hubs[i]);
     }
     this.root['r']=hubRadius;
 //    this.svg
@@ -136,6 +137,7 @@ MC.InterestViz.prototype.createHub = function(model) {
     var rootModel = model.type == 'person' ? this.people[model.id] : this.interests[model.id];
     rootModel.type = model.type;
     rootModel.r=model.r;
+//    console.log(hubInterests);
     this.container
         .datum({
             id : model.id,

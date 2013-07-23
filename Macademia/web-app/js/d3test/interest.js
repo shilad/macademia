@@ -52,8 +52,8 @@ MC.interest = function() {
             //fades out out dated g's
             if(allGs.exit().size() > 0){
                 allGs.exit().transition().remove()
-                    .attr('opacity', 0.0)
-                    .duration(100);
+                    .attr('opacity', 0.0);
+//                    .duration(100);
             }
 
 //            console.log('allGs size is ' + newGs.size());
@@ -70,17 +70,24 @@ MC.interest = function() {
             newGs.call(l);
 
             // position both existing and new elements.
-            allGs.transition()
-                .duration(200)
+//            allGs.transition()
+//                .duration(200)
+//                .attr('transform', function (d, i) {
+//                    var cx = interest.getOrCallCx(d, i);
+//                    var cy = interest.getOrCallCy(d, i);
+//                    return 'translate(' + cx + ', ' + cy + ')';
+//                })
+//                .transition()
+////                .delay(200)
+//                .attr('opacity', 1.0)
+//                .duration(100);
+            allGs
                 .attr('transform', function (d, i) {
                     var cx = interest.getOrCallCx(d, i);
                     var cy = interest.getOrCallCy(d, i);
                     return 'translate(' + cx + ', ' + cy + ')';
                 })
-                .transition()
-                .delay(200)
-                .attr('opacity', 1.0)
-                .duration(100);
+                .attr('opacity', 1.0);
 
             // Change fill for both existing and new elements
             allGs.select('circle.'+klass+"Inner")

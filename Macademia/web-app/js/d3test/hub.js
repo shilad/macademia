@@ -84,7 +84,7 @@ MC.hub = function() {
 
             //drawing root
             var rootType = data.root.type;
-            console.log(data);
+//            console.log(data);
             if(rootType == "interest"){
                 var interestTemplate = MC.interest()
                     .setCssClass("hubRoot")
@@ -118,7 +118,7 @@ MC.hub = function() {
                     .enter()
                     .call(personRoot);
             }
-            if(data.root['isVizRoot']){
+            if(data['isVizRoot']){
                 d3Group
                     .select('g.hubRoot')
                     .attr("class","vizRoot");

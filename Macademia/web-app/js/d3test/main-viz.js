@@ -168,13 +168,16 @@ MC.MainViz.prototype.transitionRoot = function(){
             .selectAll('circle')
             .transition()
             .duration(1000)
-            .attr("transform","scale(2.5)");
+            .attr("transform",function(){
+                if(d3.select(this))
+                return "scale(2)";
+            });
         this.tRoot
             .select('text')
             .transition()
             .duration(1000)
             .attr("y",function(){
-                return 56;
+                return 42;
             });
         this.svg
             .select('g.vizRoot')
@@ -188,7 +191,6 @@ MC.MainViz.prototype.transitionRoot = function(){
             .duration(1000)
             .style('opacity',function(){
                 if(d3.select(this) === newRoot){
-                    console.log("true");
                     return 1.0;
                 }else{
                     return 0.0;
