@@ -42,7 +42,7 @@ MC.person = function() {
             for (var iid in d.cleanedRelevance) {
                 wedges.push({
                     weight :d.cleanedRelevance[iid],
-                    color : 'pink'
+                    color :  person.getInterests(d, i)[iid].color
 
                 });
             }
