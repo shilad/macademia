@@ -7,7 +7,6 @@
  */
 var MC = (window.MC = (window.MC || {}));
 //window.History = {options: {html4Mode: true} };
-
 MC.MainViz = function(params) {
     this.hubs = params.hubs;
     this.people = params.people;
@@ -17,15 +16,15 @@ MC.MainViz = function(params) {
     this.colors = params.colors;
     this.hubModel = params.hubModel;
 
-    this.viz = new MC.InterestViz({
-        hubModel: this.hubModel,
-        hubs: this.hubs,
-        root: this.root,
-        people: this.people,
-        circles: this.circles,
-        svg : this.svg,
-        colors : this.colors
-    });
+//    this.viz = new MC.InterestViz({
+//        hubModel: this.hubModel,
+//        hubs: this.hubs,
+//        root: this.root,
+//        people: this.people,
+//        circles: this.circles,
+//        svg : this.svg,
+//        colors : this.colors
+//    });
 
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
     this.setEventHandlers();
@@ -50,7 +49,6 @@ MC.MainViz.prototype.createModel = function(root){
     return model;
 };
 MC.MainViz.prototype.onLoad = function(){
-
     if(macademia.history.get("navFunction")=="interest"){
 
         this.root = [{
@@ -63,9 +61,6 @@ MC.MainViz.prototype.onLoad = function(){
             'interests' : this.root[0].interests
         }];
         var hubModel = this.createModel(this.root);
-
-
-
     }
     else if(macademia.history.get("navFunction")=="person"){
         this.root = [{
@@ -82,10 +77,24 @@ MC.MainViz.prototype.onLoad = function(){
         }];
 
         var hubModel = this.createModel(this.root);
-
-
     }
-    this.svg.select("g.viz").remove();
+    if(this.tRoot){
+        this.transitionRoot();
+
+        window.setTimeout(jQuery.proxy(function(){
+
+            this.svg.select("g.viz").remove();
+            this.createViz(hubModel);
+            this.setEventHandlers();
+        },this),2500);
+    }
+    else{
+        this.createViz(hubModel);
+        this.setEventHandlers();
+    }
+};
+
+MC.MainViz.prototype.createViz = function(hubModel){
     this.viz = new MC.InterestViz({
         hubModel: hubModel,
         hubs: this.hubs,
@@ -95,7 +104,7 @@ MC.MainViz.prototype.onLoad = function(){
         svg : this.svg,
         colors : this.colors
     });
-    this.setEventHandlers();
+    console.log("after viz create");
 };
 MC.MainViz.prototype.setInterestEventHandler = function(){
     window.setTimeout( jQuery.proxy(function() {
@@ -115,16 +124,19 @@ MC.MainViz.prototype.setInterestEventHandler = function(){
                 for(var key in targetMap){
                     MH.setTempValue(key,targetMap[key]);
                 }
+
+                MC.MainViz.prototype.setTransitionRoot(d3.select(this));
+
                 macademia.history.update();
-//                d3.select(this);
+
             });
     }, this), MC.hub().getDuration());
 };
 MC.MainViz.prototype.setPeopleEventHandler = function(){
-    window.setTimeout( function() {
+    window.setTimeout( jQuery.proxy(function() {
         this.svg
             .selectAll("g.person")
-            .on("click",jQuery.proxy(function(e){
+            .on("click",function(e){
                 var targetMap = {
                     "nodeId":"p_"+ e.id,
                     "personId": e.id,
@@ -138,12 +150,66 @@ MC.MainViz.prototype.setPeopleEventHandler = function(){
                 for(var key in targetMap){
                     MH.setTempValue(key,targetMap[key]);
                 }
+
+                MC.MainViz.prototype.setTransitionRoot(d3.select(this));
+
                 macademia.history.update();
-            },this));
-    }, MC.hub().getDuration());
+            });
+    },this), MC.hub().getDuration());
+};
+MC.MainViz.prototype.setTransitionRoot = function(d3Root){
+    this.tRoot=d3Root;
+    d3Root
+        .attr("class","nextRoot");
 };
 MC.MainViz.prototype.transitionRoot = function(){
     //Move root to center
+    if(this.tRoot){
+        var newRoot=this.svg.select('g.nextRoot');
+        this.svg
+            .select('g.nextRoot')
+            .attr('class','g.interest'); //Doesn't matter if it is a person or interest or hub
+        this.tRoot
+            .transition()
+            .duration(1000)
+            .attr("transform",function(){
+                return "translate(375,425)";
+            });
+        this.tRoot
+            .selectAll('circle')
+            .transition()
+            .duration(1000)
+            .attr("transform","scale(2.5)");
+        this.tRoot
+            .select('text')
+            .transition()
+            .duration(1000)
+            .attr("y",function(){
+                return 56;
+            });
+        this.svg
+            .select('g.vizRoot')
+            .transition()
+            .duration(1000)
+            .style('opacity',0);
+        this.svg
+            .selectAll('g.interest, g.hubRoot, g.person')
+            .transition()
+            .delay(1500)
+            .duration(1000)
+            .style('opacity',function(){
+                if(d3.select(this) === newRoot){
+                    console.log("true");
+                    return 1.0;
+                }else{
+                    return 0.0;
+                }
+            });
 
+
+    }
 };
+
+
+
 
