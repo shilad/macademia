@@ -39,12 +39,18 @@ MC.person = function() {
 
         var personToWedges = function(d) {
             var wedges = [];
+            var interests = person.getInterests();
             for (var iid in d.cleanedRelevance) {
+                for(var i = 0; i < interests.length; i++){
+                    if(interests[i].id==iid && !(interests[i].color in wedges) )
+                        var color = interests[i].color
+                };
                 wedges.push({
                     weight :d.cleanedRelevance[iid],
-                    color :  console.log(person.getInterests())
-                });
-            }
+                    color : color
+                })
+             }
+            console.log(wedges);
             return pieLayout(wedges);
         };
 
