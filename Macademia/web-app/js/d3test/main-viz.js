@@ -13,8 +13,8 @@ MC.MainViz = function(params) {
     this.root = params.root;
     this.svg = params.svg;
     this.circles = params.circles;
+    this.interests = params.interests;
     this.colors = params.colors;
-    this.hubModel = params.hubModel;
 
 
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
@@ -44,56 +44,51 @@ MC.MainViz.prototype.createModel = function(root){
 MC.MainViz.prototype.onLoad = function(){
     if(macademia.history.get("navFunction")=="interest"){
 
-        this.root = [{
+        this.root = {
             "isVizRoot":true,
             "id": macademia.history.get("interestId"),
             'name': macademia.history.get("name"),
             'type':'interest',
-            'r': 45,
-            'color': '#D3D3D3',
-            'interests' : this.root[0].interests
-        }];
-        var hubModel = this.createModel(this.root);
+            'children' : [11,12,14,24,43,63]
+        };
+//        var hubModel = this.createModel(this.root);
     }
     else if(macademia.history.get("navFunction")=="person"){
-        this.root = [{
+        this.root = {
             "isVizRoot":true,
             "id": macademia.history.get("personId"),
             'name': macademia.history.get("name"),
             'type':'person',
             'pic' : '/Macademia/all/image/randomFake?foo',
-            'cleanedRelevance': this.root[0].cleanedRelevance,
-            'interestColors': this.root[0].interestColors,
-            'r': 45,
-            'color': '#D3D3D3',
-            'interests' : this.root[0].interests
-        }];
+            'cleanedRelevance': this.peeps[macademia.history.get("personId")].cleanedRelevance,
+            'children' : [11,12,14,24,43,63]
+        };
 
-        var hubModel = this.createModel(this.root);
+//        var hubModel = this.createModel(this.root);
     }
     if(this.tRoot){
         this.transitionRoot();
         window.setTimeout(jQuery.proxy(function(){
             this.svg.select("g.viz").remove();
-            this.createViz(hubModel);
+            this.createViz();
             this.setEventHandlers();
         },this),2500);
     }
     else{
-        this.createViz(hubModel);
+        this.createViz();
         this.setEventHandlers();
     }
 };
 
-MC.MainViz.prototype.createViz = function(hubModel){
+MC.MainViz.prototype.createViz = function(){
     this.viz = new MC.InterestViz({
-        hubModel: hubModel,
         hubs: this.hubs,
         root: this.root,
         people: this.people,
         circles: this.circles,
         svg : this.svg,
-        colors : this.colors
+        colors : this.colors,
+        interests:this.interests
     });
 };
 
