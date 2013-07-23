@@ -44,8 +44,8 @@
 
 
 svg {
-    height : 90%;
-    width : 90%;
+    /*height : 90%;*/
+    /*width : 90%;*/
 }
 
 </style>
@@ -144,7 +144,7 @@ var peeps = {
         {type : 'interest', id : 33, children : [23,43,53,63]}
     ];
 
-    var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
+    var svg = d3.select('svg').attr('width', 800).attr('height', 600);
 
     var viz = new MC.InterestViz({
       hubs: hubs,
