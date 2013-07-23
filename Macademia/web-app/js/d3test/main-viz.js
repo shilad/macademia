@@ -95,7 +95,6 @@ MC.MainViz.prototype.createViz = function(hubModel){
         svg : this.svg,
         colors : this.colors
     });
-    console.log("after viz create");
 };
 
 MC.MainViz.prototype.setInterestEventHandler = function(){

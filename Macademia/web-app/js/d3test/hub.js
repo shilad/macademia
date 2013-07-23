@@ -91,7 +91,6 @@ MC.hub = function() {
 
             if(rootType == "interest"){
                 var interestTemplate = MC.interest().setCssClass("hubRoot").setCx(cx).setCy(cy);
-
                 d3Group.datum(data.hubRoot).call(interestTemplate);
             }
             else{
