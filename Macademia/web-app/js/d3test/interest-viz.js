@@ -8,12 +8,18 @@
 
 var MC = (window.MC = (window.MC || {}));
 
+MC.postions = [
+    [], // 1 hub case
+    [], // 2 hub case
+    [{x:0.5,y:0.5},{x:0,y:1},{x:1,y:1},{x:1,y:0}], // 3 hub case (root, hub1, hub2, hub3)
+    [] // 4 hub case
+];
+
 
 MC.InterestViz = function(params) {
     this.hubs = params.hubs;
     this.people = params.people;
     this.root = params.root;
-    console.log(this.root);
     this.svg = params.svg;
 
     this.svgWidth = this.svg.attr("width");
@@ -26,15 +32,17 @@ MC.InterestViz = function(params) {
     this.hubModel = params.hubModel;
 
     //Positioning hubModel(visRoot) and hubs around it
-    this.positionHubModel();
-    this.postionHubs();
+//    this.positionHubModel();
+//    this.postionHubs();
 
-    this.setGradients();
-    this.createsGradientCircles();
+//    this.setGradients();
+//    this.createsGradientCircles();
     this.createInterestViz();
-    this.startPeople();
+//    this.startPeople();
 
 };
+
+
 
 // Position the hubs around the visRoot
 MC.InterestViz.prototype.postionHubs = function(){
@@ -58,10 +66,11 @@ MC.InterestViz.prototype.postionHubs = function(){
 
     // applying the padding
     var dist = this.hubModel.distance; //use the distance between the root and child as padding
-    var padL = dist * 1.5; //left
-    var padR = this.svgWidth - dist * 1.5; //right
-    var padT = dist * 1.5; //top
-    var padB = this.svgHeight - dist * 1.5; //bottom
+    var scale = 1.5;
+    var padL = dist * scale; //left
+    var padR = this.svgWidth - dist * scale; //right
+    var padT = dist * scale; //top
+    var padB = this.svgHeight - dist * scale; //bottom
 
     for(var i=0; i<n; i++){
 
@@ -122,7 +131,7 @@ MC.InterestViz.prototype.createInterestViz = function() {
             hubRoot : this.hubs[i],
             children : this.hubs[i][0].interests,
 //            color : this.makeColorful(),
-            distance: 100
+            distance: 80
         });
     }
 };

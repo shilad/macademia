@@ -64,7 +64,7 @@ MC.hub = function() {
                 });
 
             var n = data.children.length;
-            var distance = 50; //default distance
+            var distance = 30; //default distance
             if(data["distance"]){ //if the distance between the root and children is specified
                 distance = data["distance"];
             }
