@@ -55,7 +55,7 @@ svg {
         hubRoot : root1,
         children : interests1,
         color : 0.6,
-        distance: 75
+        distance: 115
     };
 
     var template = MC.hub();
@@ -65,29 +65,29 @@ svg {
     svg.datum(hubmodel)
             .call(template);
 
-    var root2 = [{"id": 8, "name":"web2.0", "type":"interest", "r":38,"color":0.6}];
-
-    var interests2 = [
-        {"id": 1, "name": "html5","r":13},
-        {"id": 2, "name": "javascript","r":13},
-        {"id": 3, "name": "Web Development","r":13},
-        {"id": 4, "name": "wikis", "r":13},
-        {"id": 5, "name": "Web Spam", "r":13},
-        {"id": 6, "name": "Semantic Web", "r":13}
-    ];
-
-    var hubmodel2 = {
-        id:8,
-        cx:500,
-        cy:200,
-        hubRoot : root2,
-        children : interests2,
-        color : 0.6,
-        distance: 75
-    };
-
-    svg.datum(hubmodel2)
-       .call(template);
+//    var root2 = [{"id": 8, "name":"web2.0", "type":"interest", "r":38,"color":0.6}];
+//
+//    var interests2 = [
+//        {"id": 1, "name": "html5","r":13},
+//        {"id": 2, "name": "javascript","r":13},
+//        {"id": 3, "name": "Web Development","r":13},
+//        {"id": 4, "name": "wikis", "r":13},
+//        {"id": 5, "name": "Web Spam", "r":13},
+//        {"id": 6, "name": "Semantic Web", "r":13}
+//    ];
+//
+//    var hubmodel2 = {
+//        id:8,
+//        cx:500,
+//        cy:200,
+//        hubRoot : root2,
+//        children : interests2,
+//        color : 0.6,
+//        distance: 115
+//    };
+//
+//    svg.datum(hubmodel2)
+//       .call(template);
 
 
 </r:script>

@@ -44,6 +44,62 @@ MC.hub = function() {
             //use d3Group to put everything into one g
             var d3Group = d3.select(this).append('g').attr('id','hub'+id).attr('class','hub');
 
+//                        <defs>
+//                            <linearGradient id="grad">
+//                                <stop offset="3%" stop-color="#b2b2b2"/>
+//                                <stop offset="97%" stop-color="#FFFFFF"/>
+//                            </linearGradient>
+//                        </defs>
+//
+//            <line x1="20" y1="20" x2="200" y2="200" fill="none" stroke-width="20" stroke-linecap="round" stroke-dasharray="1, 30"
+//            stroke="url(#grad)"/>
+
+            //drawing connections between person and their interests
+            var rootType = data.hubRoot[0].type;
+            var distance = 30; //default distance
+            if(data["distance"]){ //if the distance between the root and children is specified
+                distance = data["distance"];
+            }
+            var n = data.children.length;
+
+            if(rootType == "person"){
+                var gradient = d3Group.append("defs")
+                    .append("linearGradient")
+                    .attr("id", "connection-gradient")
+                    .attr("x1", cx)
+                    .attr("y1", cy);
+
+                    gradient.append("stop")
+                    .attr("offset", "3%")
+                    .attr("stop-color", "#b2b2b2")
+                    .attr("stop-opacity", 1);
+
+                    gradient.append("stop")
+                    .attr("offset", "97%")
+                    .attr("stop-color", "#FFFFFF")
+                    .attr("stop-opacity", 1);
+
+
+
+                d3Group.selectAll("connectionPaths").data(new Array(n)).enter().append("line")
+                    .attr("x1", cx)
+                    .attr("y1", cy)
+                    .attr("x2", function(d, i){
+                        var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n);
+                        return cx_child;
+                    })
+                    .attr("y2", function(d, i){
+                        var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
+                        return cy_child;
+                    })
+                    .attr("fill", "none")
+                    .attr("stroke-width", 10)
+                    .attr("stroke-linecap", "round")
+                    .attr("stroke-dasharray", "1, 15")
+                    .attr("stroke", 'green');
+//                    .attr("stroke", 'url(#connection-gradient)');
+            }
+
             //drawing children with animation
             var childrenTemplate = MC.interest().setCssClass("interest")
                 .setColor(function(d){
@@ -63,12 +119,6 @@ MC.hub = function() {
                     return 'translate(' + cx + ', ' + cy + ')';
                 });
 
-            var n = data.children.length;
-            var distance = 30; //default distance
-            if(data["distance"]){ //if the distance between the root and children is specified
-                distance = data["distance"];
-            }
-
             var duration=hub.getDuration();
             childGs.attr('opacity', 1.0).transition() //then move the circles
                 .duration(function(d,i){
@@ -82,8 +132,6 @@ MC.hub = function() {
                 .transition();
 
             //drawing root
-            var rootType = data.hubRoot[0].type;
-
             if(rootType == "interest"){
                 var interestTemplate = MC.interest().setCssClass("hubRoot").setCx(cx).setCy(cy);
                 d3Group.datum(data.hubRoot).call(interestTemplate);
@@ -116,6 +164,7 @@ MC.hub = function() {
                     .select('g.hubRoot')
                     .attr("class","vizRoot");
             }
+
 
             //building user interactions
 
