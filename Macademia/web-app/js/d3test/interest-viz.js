@@ -14,6 +14,11 @@ MC.postions = [
     [{x:0.5,y:0.5},{x:0,y:1},{x:1,y:1},{x:1,y:0}], // 3 hub case (root, hub1, hub2, hub3)
     [] // 4 hub case
 ];
+/**
+ * TODO: calculate circles instead of passing them in.
+ * @param params
+ * @constructor
+ */
 
 
 MC.InterestViz = function(params) {
@@ -26,8 +31,10 @@ MC.InterestViz = function(params) {
     this.svgHeight = this.svg.attr("height");
 
     this.circles = params.circles;
-    this.svg=this.svg.append("g").attr("class","viz");
+    this.interests = params.interests;
+    this.colors = params.colors;
 
+    this.container=this.svg.append("g").attr("class","viz").attr('width', 1000).attr('height', 1000);
     // construct the hubModel here based on other parameters
     this.hubModel = params.hubModel;
 
@@ -37,8 +44,13 @@ MC.InterestViz = function(params) {
 
 //    this.setGradients();
 //    this.createsGradientCircles();
+    this.currentColors = [];
+    this.calculatePositions();
+    this.calculateColors();
+    this.setGradients();
+    this.createsGradientCircles();
     this.createInterestViz();
-//    this.startPeople();
+    this.startPeople();
 
 };
 
@@ -107,9 +119,43 @@ MC.InterestViz.prototype.positionHubModel = function(){
     this.hubModel.cy = y;
 }
 
+
+MC.InterestViz.prototype.calculatePositions = function() {
+    this.root.cx = 375;
+    this.root.cy = 425;
+    this.hubs[0].cx = 375;
+    this.hubs[0].cy = 150;
+    this.hubs[1].cx = 150;
+    this.hubs[1].cy = 600;
+    this.hubs[2].cx = 600;
+    this.hubs[2].cy = 600;
+};
+
+MC.InterestViz.prototype.calculateColors = function() {
+    // assign interest colors to hubs
+    var interestColors = {};
+    if (this.root.color) {
+        this.currentColors.push(this.root.color);
+    } else {
+        this.root.color = this.makeColorful();
+    }
+
+    interestColors[this.root.id] = this.root.color;
+    for (var i = 0; i < this.hubs.length; i++) {
+        this.hubs[i].color = this.makeColorful();
+        interestColors[this.hubs[i].id] = this.hubs[i].color;
+    }
+
+    // assign interest colors to people
+    for (var pid in this.people) {
+        this.people[pid].interestColors = interestColors;
+    }
+};
+
 MC.InterestViz.prototype.startPeople = function() {
 
     window.setTimeout( jQuery.proxy(function() {
+        this.createInterestColors();
         this.createPersonView();
         this.createPeople();
         this.createPersonLayoutView()
@@ -120,30 +166,59 @@ MC.InterestViz.prototype.startPeople = function() {
 
 //Position the hubs and the root
 MC.InterestViz.prototype.createInterestViz = function() {
-    this.createHub(this.hubModel);
-    for(var i = 0; i < this.hubs.length; i++){
-        //alter model for each hub
-
-        this.createHub({
-            id:this.hubs[i][0].id,
-            cx:this.hubs[i][0].cx,
-            cy:this.hubs[i][0].cy,
-            hubRoot : this.hubs[i],
-            children : this.hubs[i][0].interests,
-//            color : this.makeColorful(),
-            distance: 80
-        });
+    this.createHub(this.root);
+    for(var i = 0; i < this.hubs.length; i++) {
+        this.createHub(this.hubs[i]);
     }
 };
 
-MC.InterestViz.prototype.createHub = function(model){
-    this.svg
-        .datum(model)
+MC.InterestViz.prototype.createInterestColors = function(){
+    var interestColors ={};
+
+    for(var i = 0; i < this.people.length; i++){
+        for(var j = 0; j< this.people[i].interests.length; j++){
+            for(var k = 0; k< this.hubs.length; k++){
+                for(var l =0; l< this.hubs[k][0].interests.length;l++){
+
+                    if(this.people[i].interests[j] == this.hubs[i][0].interests[j].id){
+                        interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
+                    }
+
+//            if(this.hubs[i][0].interests)
+//            if{this.hubs[i][0]==}
+//            interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
+                };
+            };
+        };
+    };
+
+};
+
+MC.InterestViz.prototype.createHub = function(model) {
+    var hubInterests = [];
+    for (var i = 0; i < model.children.length; i++) {
+        var childId = model.children[i];
+        hubInterests.push(this.interests[childId]);
+    }
+    var rootModel = model.type == 'person' ? this.people[model.id] : this.interests[model.id];
+    rootModel.type = model.type;
+
+    this.container
+        .datum({
+            id : model.id,
+            children : hubInterests,
+            root : rootModel,
+            color : model.color,
+            isVizRoot : (model == this.root),
+            cx : model.cx,
+            cy : model.cy,
+            distance : 100
+        })
         .call(MC.hub());
 };
 
 MC.InterestViz.prototype.createsGradientCircles = function(){
-    this.svg.selectAll('circle.gradient')
+    this.container.selectAll('circle.gradient')
         .data(this.circles)
         .enter()
         .append("circle")
@@ -164,9 +239,9 @@ MC.InterestViz.prototype.createsGradientCircles = function(){
 
 
 MC.InterestViz.prototype.setGradients = function(){
-    var defs = this.svg
+    var defs = this.container
         .selectAll("defs")
-        .data(this.svg[0])
+        .data(this.container[0])
         .enter()
         .append('defs');
 
@@ -194,34 +269,13 @@ MC.InterestViz.prototype.setGradients = function(){
 
 };
 
-MC.InterestViz.prototype.createClusterMap = function(){
-    var clusterMap={};
-    var temp=[];
-    var id;
-    for(var j = 0; j < this.root[0].interests.length; j++){
-        id = this.root[0].interests[j].id;
-        temp.push(id);
-    }
-    clusterMap[this.root[0].id]=temp;
-    temp=[];
-    for(var i = 0; i < this.hubs.length; i++){
-        for(var j = 0; j < this.hubs[i][0].interests.length; j++){
-            var id = this.hubs[i][0].interests[j].id;
-            temp.push(id);
-        }
-        clusterMap[this.hubs[i][0].id]=temp;
-        temp=[];
-    }
-    this.clusterMap=clusterMap;
-};
-
 /*
  * Methods for the people heads are below here-----
  */
 
 
 MC.InterestViz.prototype.getD3Interests = function() {
-    return this.svg.selectAll('g.interest');
+    return this.container.selectAll('g.interest');
 };
 
 //return a person view
@@ -232,7 +286,7 @@ MC.InterestViz.prototype.createPersonView = function() {
 
 //Creates the floating people heads
 MC.InterestViz.prototype.createPeople = function() {
-    this.svg
+    this.container
         .selectAll('g.person')
         .data(this.people)
         .enter()
@@ -241,7 +295,7 @@ MC.InterestViz.prototype.createPeople = function() {
 
 //Grabs all the people in svg
 MC.InterestViz.prototype.getD3People = function() {
-    return this.svg.selectAll('g.person');
+    return this.container.selectAll('g.person');
 };
 
 //Sets the locations of the person heads
@@ -254,7 +308,7 @@ MC.InterestViz.prototype.createPersonLayoutView = function(){
 };
 
 MC.InterestViz.prototype.createPersonLayout = function(){
-    this.svg
+    this.container
         .selectAll('person-layouts')
         .data([0])
         .enter()
@@ -264,9 +318,9 @@ MC.InterestViz.prototype.createPersonLayout = function(){
 
 MC.InterestViz.prototype.createClusterMap = function(){
     var clusterMap = {};
-    clusterMap[this.root[0].id]=this.root[0].interests;
+    clusterMap[this.root.id] = this.root.children;
     for(var i = 0; i < this.hubs.length; i++){
-        clusterMap[this.hubs[i][0].id] = this.hubs[i][0].interests;
+        clusterMap[this.hubs[i].id] = this.hubs[i].children;
     };
 
     return clusterMap;
@@ -274,17 +328,19 @@ MC.InterestViz.prototype.createClusterMap = function(){
 //I could not think of a better name it sets both the hub and interest colors from the color scheme
 MC.InterestViz.prototype.makeColorful = function(){
     var color;
-    var currentColors = {};  //the colors already on the page
+    //the colors already on the page
+
     for(var i = 0; i < this.colors.length; i++){
-        if(!(this.colors[i] in (currentColors))){
+        if(this.currentColors.indexOf(this.colors[i])<0){
             color=this.colors[i];
-            currentColors.push(color);
-                    }
-        else
-            return "blue";
+            this.currentColors.push(color);
+            return color;
+        };
+
     };
-    console.log(color);
-    return color;
+
+
+
 };
 
 

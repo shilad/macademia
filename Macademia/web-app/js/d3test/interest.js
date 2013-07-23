@@ -108,11 +108,11 @@ MC.interest = function() {
 //        console.log(cleanedText)
         return cleanedText;
     });
-    MC.options.register(interest, 'color', function (d) { return MC.hueToColor(d.color); })
+    MC.options.register(interest, 'color', function (d) { return d.color; })
     MC.options.register(interest, 'cx', function (d,i) { return d.cx; });
     MC.options.register(interest, 'cy', function (d,i) { return d.cy; });
-    MC.options.register(interest, 'r', function(d) { return d.r; });
-    MC.options.register(interest, 'rInner', function(d) { return d.r*0.85; }); //get the radius of the inner circle
+    MC.options.register(interest, 'r', function(d) { return d.r || 10; });
+    MC.options.register(interest, 'rInner', function(d) { return (d.r|| 10) *0.85; }); //get the radius of the inner circle
     MC.options.register(interest, 'opacity', 1.0);
     MC.options.register(interest, 'onHover', [], MC.options.TYPE_LIST);
     MC.options.register(interest, 'cssClass', 'interest');
