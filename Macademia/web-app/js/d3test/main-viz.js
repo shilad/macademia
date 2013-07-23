@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 var MC = (window.MC = (window.MC || {}));
-//window.History = {options: {html4Mode: true} };
+
 MC.MainViz = function(params) {
     this.hubs = params.hubs;
     this.people = params.people;
@@ -16,15 +16,6 @@ MC.MainViz = function(params) {
     this.colors = params.colors;
     this.hubModel = params.hubModel;
 
-//    this.viz = new MC.InterestViz({
-//        hubModel: this.hubModel,
-//        hubs: this.hubs,
-//        root: this.root,
-//        people: this.people,
-//        circles: this.circles,
-//        svg : this.svg,
-//        colors : this.colors
-//    });
 
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
     this.setEventHandlers();
@@ -36,6 +27,7 @@ MC.MainViz.prototype.setEventHandlers = function(){
     this.setInterestEventHandler();
     this.setPeopleEventHandler();
 };
+
 MC.MainViz.prototype.createModel = function(root){
     var model  = {
         id: root[0].id,
@@ -48,6 +40,7 @@ MC.MainViz.prototype.createModel = function(root){
     };
     return model;
 };
+
 MC.MainViz.prototype.onLoad = function(){
     if(macademia.history.get("navFunction")=="interest"){
 
@@ -80,9 +73,7 @@ MC.MainViz.prototype.onLoad = function(){
     }
     if(this.tRoot){
         this.transitionRoot();
-
         window.setTimeout(jQuery.proxy(function(){
-
             this.svg.select("g.viz").remove();
             this.createViz(hubModel);
             this.setEventHandlers();
@@ -106,6 +97,7 @@ MC.MainViz.prototype.createViz = function(hubModel){
     });
     console.log("after viz create");
 };
+
 MC.MainViz.prototype.setInterestEventHandler = function(){
     window.setTimeout( jQuery.proxy(function() {
         this.svg
@@ -132,6 +124,7 @@ MC.MainViz.prototype.setInterestEventHandler = function(){
             });
     }, this), MC.hub().getDuration());
 };
+
 MC.MainViz.prototype.setPeopleEventHandler = function(){
     window.setTimeout( jQuery.proxy(function() {
         this.svg
@@ -157,11 +150,13 @@ MC.MainViz.prototype.setPeopleEventHandler = function(){
             });
     },this), MC.hub().getDuration());
 };
+
 MC.MainViz.prototype.setTransitionRoot = function(d3Root){
     this.tRoot=d3Root;
     d3Root
         .attr("class","nextRoot");
 };
+
 MC.MainViz.prototype.transitionRoot = function(){
     //Move root to center
     if(this.tRoot){
@@ -205,8 +200,6 @@ MC.MainViz.prototype.transitionRoot = function(){
                     return 0.0;
                 }
             });
-
-
     }
 };
 

@@ -55,9 +55,12 @@ MC.hub = function() {
                 });
             d3Group.datum(data.children).call(childrenTemplate); //drawing child nodes
 
-            var childGs = d3Group.selectAll("g."+"interest");
-//            console.log("g.child"+id);
-            childGs.attr('opacity', 1.0).transition()  //setting the group to the root position first
+            var childGs = d3Group
+                .selectAll("g.interest");
+
+            childGs
+                .transition()    //setting the group to the root position first
+                .attr('opacity', 1.0)
                 .duration(10)
                 .attr('transform', function (d, i) {
                     return 'translate(' + cx + ', ' + cy + ')';
@@ -70,7 +73,10 @@ MC.hub = function() {
             }
 
             var duration=hub.getDuration();
-            childGs.attr('opacity', 1.0).transition() //then move the circles
+
+            childGs
+                .attr('opacity', 1.0)
+                .transition() //then move the circles
                 .duration(function(d,i){
                     return duration/n*(i+1);
                 })
@@ -78,21 +84,21 @@ MC.hub = function() {
                     var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n);
                     var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
                     return 'translate(' + cx_child + ', ' + cy_child + ')';
-                })
-                .transition();
+                });
 
             //drawing root
             var rootType = data.hubRoot[0].type;
 
             if(rootType == "interest"){
                 var interestTemplate = MC.interest().setCssClass("hubRoot").setCx(cx).setCy(cy);
+
                 d3Group.datum(data.hubRoot).call(interestTemplate);
             }
             else{
                 var personRoot = MC.person()
                     .setCx(cx)
                     .setCy(cy)
-                    .setCssClass('hubRoot') //setting the class name of the root
+                    .setCssClass('hubRoot'); //setting the class name of the root
 
                 var personR = personRoot.getR();
                 var personImageWidth = personRoot.getImageWidth();

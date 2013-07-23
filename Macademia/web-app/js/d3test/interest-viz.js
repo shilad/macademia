@@ -37,7 +37,7 @@ MC.InterestViz.prototype.startPeople = function() {
         this.createPersonLayout();
     }, this), MC.hub().getDuration());
 
-}
+};
 
 //Position the hubs and the root
 MC.InterestViz.prototype.createInterestViz = function() {
