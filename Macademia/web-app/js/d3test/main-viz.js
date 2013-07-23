@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 var MC = (window.MC = (window.MC || {}));
-
+//window.History = {options: {html4Mode: true} };
 
 MC.MainViz = function(params) {
     this.hubs = params.hubs;
@@ -23,51 +23,127 @@ MC.MainViz = function(params) {
         root: this.root,
         people: this.people,
         circles: this.circles,
-        svg : this.svg
+        svg : this.svg,
+        colors : this.colors
     });
 
-    this.setInterestEventHandler();
+    macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
+    this.setEventHandlers();
+
+
 };
 
-MC.MainViz.prototype.setInterestEventHandler = function(){
-    this.svg
-        .selectAll("g.interest")
-        .on("click",jQuery.proxy(function(e){
-            //
-            this.root = [{
-                "isVizRoot":true,
-                "id": e.id,
-                'name': e.name,
-                'type':'interest',
-                'r': 45,
-                'color': '#D3D3D3',     //get color from hub
-                'interests': [
-                    {"id": 3, "name": "Online Communities","r":18, "color":0.7},
-                    {"id": 6, "name": "web2.0", "r":18, "color":0.7},
-                    {"id": 1, "name": "Machine Learning", "r":18},
-                    {"id": 4, "name": "Jazz","r":18, "color": 0.3},
-                    {"id": 5, "name": "Statistics", "r":18, "color": 0.9},
-                    {"id": 2, "name": "Data Mining","r":18}
-                ]
-            }];
-            this.hubModel = {
-                id: e.id,
-                cx:375,
-                cy:425,
-                hubRoot : this.root,
-                children : this.root[0].interests,
-                color: 'hsl(0, 0, 82.7)',
-                distance: 100
-            };
-            this.svg.select("g.viz").remove();
-            this.viz = new MC.InterestViz({
-                hubModel: this.hubModel,
-                hubs: this.hubs,
-                root: this.root,
-                people: this.people,
-                circles: this.circles,
-                svg : this.svg
-            });
-            this.setInterestEventHandler();
-        },this));
+MC.MainViz.prototype.setEventHandlers = function(){
+    this.setInterestEventHandler();
+    this.setPeopleEventHandler();
 };
+MC.MainViz.prototype.createModel = function(root){
+    var model  = {
+        id: root[0].id,
+        cx:375,
+        cy:425,
+        hubRoot : this.root,
+        children : this.root[0].interests,
+        color: 'hsl(0, 0, 82.7)',
+        distance: 100
+    };
+    return model;
+};
+MC.MainViz.prototype.onLoad = function(){
+
+    if(macademia.history.get("navFunction")=="interest"){
+
+        this.root = [{
+            "isVizRoot":true,
+            "id": macademia.history.get("interestId"),
+            'name': macademia.history.get("name"),
+            'type':'interest',
+            'r': 45,
+            'color': '#D3D3D3',
+            'interests' : this.root[0].interests
+        }];
+        var hubModel = this.createModel(this.root);
+
+
+
+    }
+    else if(macademia.history.get("navFunction")=="person"){
+        this.root = [{
+            "isVizRoot":true,
+            "id": macademia.history.get("personId"),
+            'name': macademia.history.get("name"),
+            'type':'person',
+            'pic' : '/Macademia/all/image/randomFake?foo',
+            'cleanedRelevance': this.root[0].cleanedRelevance,
+            'interestColors': this.root[0].interestColors,
+            'r': 45,
+            'color': '#D3D3D3',
+            'interests' : this.root[0].interests
+        }];
+
+        var hubModel = this.createModel(this.root);
+
+
+    }
+    this.svg.select("g.viz").remove();
+    this.viz = new MC.InterestViz({
+        hubModel: hubModel,
+        hubs: this.hubs,
+        root: this.root,
+        people: this.people,
+        circles: this.circles,
+        svg : this.svg,
+        colors : this.colors
+    });
+    this.setEventHandlers();
+};
+MC.MainViz.prototype.setInterestEventHandler = function(){
+    window.setTimeout( jQuery.proxy(function() {
+        this.svg
+            .selectAll("g.interest, g.hubRoot")
+            .on("click",function(e){
+                var targetMap = {
+                    "nodeId":"i_"+ e.id,
+                    "interestId": e.id,
+                    "navFunction":"interest",
+                    "name": e.name
+                };
+                var types = ['searchBox','interestId','personId','requestId'];
+                for(var i=0;i<types.length;i++){
+                    delete temp[types[i]];
+                }
+                for(var key in targetMap){
+                    MH.setTempValue(key,targetMap[key]);
+                }
+                macademia.history.update();
+//                d3.select(this);
+            });
+    }, this), MC.hub().getDuration());
+};
+MC.MainViz.prototype.setPeopleEventHandler = function(){
+    window.setTimeout( function() {
+        this.svg
+            .selectAll("g.person")
+            .on("click",jQuery.proxy(function(e){
+                var targetMap = {
+                    "nodeId":"p_"+ e.id,
+                    "personId": e.id,
+                    "navFunction":"person",
+                    "name": e.name
+                };
+                var types = ['searchBox','interestId','personId','requestId'];
+                for(var i=0;i<types.length;i++){
+                    delete temp[types[i]];
+                }
+                for(var key in targetMap){
+                    MH.setTempValue(key,targetMap[key]);
+                }
+                macademia.history.update();
+            },this));
+    }, MC.hub().getDuration());
+};
+MC.MainViz.prototype.transitionRoot = function(){
+    //Move root to center
+
+};
+

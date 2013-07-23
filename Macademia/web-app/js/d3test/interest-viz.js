@@ -26,10 +26,15 @@ MC.InterestViz = function(params) {
     this.svgHeight = this.svg.attr("height");
 
     this.circles = params.circles;
+    this.colors = params.colors;
+
     this.svg=this.svg.append("g").attr("class","viz");
 
     // construct the hubModel here based on other parameters
     this.hubModel = params.hubModel;
+    this.currentColors = [];
+    this.setGradients();
+    this.createsGradientCircles();
 
     //Positioning hubModel(visRoot) and hubs around it
 //    this.positionHubModel();
@@ -38,7 +43,7 @@ MC.InterestViz = function(params) {
 //    this.setGradients();
 //    this.createsGradientCircles();
     this.createInterestViz();
-//    this.startPeople();
+    this.startPeople();
 
 };
 
@@ -110,6 +115,7 @@ MC.InterestViz.prototype.positionHubModel = function(){
 MC.InterestViz.prototype.startPeople = function() {
 
     window.setTimeout( jQuery.proxy(function() {
+        this.createInterestColors();
         this.createPersonView();
         this.createPeople();
         this.createPersonLayoutView()
@@ -121,8 +127,12 @@ MC.InterestViz.prototype.startPeople = function() {
 //Position the hubs and the root
 MC.InterestViz.prototype.createInterestViz = function() {
     this.createHub(this.hubModel);
+//    console.log(this.hubModel);
     for(var i = 0; i < this.hubs.length; i++){
+
         //alter model for each hub
+        var color = this.makeColorful();
+        this.hubs[i][0].color = color;  //sets the center circle color
 
         this.createHub({
             id:this.hubs[i][0].id,
@@ -132,8 +142,33 @@ MC.InterestViz.prototype.createInterestViz = function() {
             children : this.hubs[i][0].interests,
 //            color : this.makeColorful(),
             distance: 80
+            color : color,    //sets the little circles to the center circles color
+            distance: 100
         });
+//        console.log(this.hubModel);
     }
+};
+
+MC.InterestViz.prototype.createInterestColors = function(){
+    var interestColors ={};
+
+    for(var i = 0; i < this.people.length; i++){
+        for(var j = 0; j< this.people[i].interests.length; j++){
+            for(var k = 0; k< this.hubs.length; k++){
+                for(var l =0; l< this.hubs[k][0].interests.length;l++){
+
+                    if(this.people[i].interests[j] == this.hubs[i][0].interests[j].id){
+                        interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
+                    }
+
+//            if(this.hubs[i][0].interests)
+//            if{this.hubs[i][0]==}
+//            interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
+                };
+            };
+        };
+    };
+
 };
 
 MC.InterestViz.prototype.createHub = function(model){
@@ -274,17 +309,19 @@ MC.InterestViz.prototype.createClusterMap = function(){
 //I could not think of a better name it sets both the hub and interest colors from the color scheme
 MC.InterestViz.prototype.makeColorful = function(){
     var color;
-    var currentColors = {};  //the colors already on the page
+    //the colors already on the page
+
     for(var i = 0; i < this.colors.length; i++){
-        if(!(this.colors[i] in (currentColors))){
+        if(this.currentColors.indexOf(this.colors[i])<0){
             color=this.colors[i];
-            currentColors.push(color);
-                    }
-        else
-            return "blue";
+            this.currentColors.push(color);
+            return color;
+        };
+
     };
-    console.log(color);
-    return color;
+
+
+
 };
 
 

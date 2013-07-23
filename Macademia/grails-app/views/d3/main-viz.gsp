@@ -238,13 +238,15 @@ svg {
     var svg = d3.select('svg').attr('width', 800).attr('height', 600);
     //    var svg = d3.select('svg').attr('viewBox','0 0 1024 960'); //viewBox has
     var colors = [];
+
     var viz = new MC.MainViz({
         hubModel: hubModel,
         hubs: hubs,
         root: root,
         people: peeps,
         circles: gradientCircles,
-        svg : svg
+        svg : svg,
+        colors : colors
     });
 
 

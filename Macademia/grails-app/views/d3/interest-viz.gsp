@@ -24,24 +24,10 @@
     fill: #C0C0C0;
 }
 
-.active {
-    fill: black;
-}
-
 .interest{
     font: 13px Georgia;
     fill: #C0C0C0;
 }
-
-.activeInterest{
-    /*
-    This should have the same css style as interest except we are using
-    a different fill
-    */
-    font: 13px Georgia;
-    fill: black;
-}
-
 
 svg {
     height : 90%;
@@ -81,7 +67,7 @@ svg {
             'interestColors': {
                 13 : 0.9,
                 11:0.3,
-                33: 0.6
+                33:0.9
             },
             "relevance":{
                 "11":1.1563,
@@ -89,21 +75,21 @@ svg {
                 "33":0.9563,
                 "overall":1.2776578441262245},
             "interests":[
-                11,
                 13,
-                33]},
+                33,
+                11]},
         {"id":336,
             "type":'person',
             "fid":2537,
             "name":"Thomas Hanks",
             "pic":"/Macademia/all/image/fake?gender=male&img=00287_940422_fa.png",
             'cleanedRelevance':  {
-                23 : 3.0,
-                21: 3.3,
+                21 : 3.0,
+                23: 3.3,
                 16: 1.7},
             'interestColors': {
+                21 : 0.3,
                 23 : 0.3,
-                21 : 0.6,
                 16 : 0.7
             },
             "relevance":{
@@ -112,9 +98,9 @@ svg {
                 "16":1.9563,
                 "overall":1.1776578441262245},
             "interests":[
-                11,
-                13,
-                33]}
+                21,
+                23,
+                16]}
 //         {"id":2691, "type":person,"fid":7241482, "name":"Diana Brooks",
 //            "pic":"/Macademia/all/image/fake?gender=female&img=00633_940928_fa.png",
 //            "relevance":{"18":1.3140089064836502, "-1":null, "976":1, "overall":1.157004453241825}, "count":{"18":3, "-1":5, "976":1, "overall":4},
@@ -159,71 +145,66 @@ svg {
         "id":7,
         'name':'Shilad Sen',
         'pic' : '/Macademia/all/image/randomFake?foo',
-        'cleanedRelevance':  {8 : 4.0, 9: 1.0, 10: 1.0, 7: 2.0},
+        'cleanedRelevance':  {8 : 8.0, 9: 5.0, 10: 5.0, 7: 8.0},
         'interestColors': {8 : 'hsl(0, 0, 82.7)', 9 : 0.3, 10 : 0.9, 7: 0.7},
         'type':'person',
-        'r': 30,
+        'r': 45,
         'color': '#D3D3D3',
         'interests': [
-            {"id": 3, "name": "Online Communities","r":10, "color":0.7},
-            {"id": 6, "name": "web2.0", "r":10, "color":0.7},
-            {"id": 1, "name": "Machine Learning", "r":10},
-            {"id": 8, "name": "Human-Computer Interaction","r":10},
-            {"id": 4, "name": "Jazz","r":10, "color": 0.3},
-            {"id": 5, "name": "Statistics", "r":10, "color": 0.9},
-            {"id": 2, "name": "Data Mining","r":10},
-            {"id": 9, "name": "Politics","r":10}
+            {"id": 3, "name": "Online Communities","r":18, "color":0.7},
+            {"id": 6, "name": "web2.0", "r":18, "color":0.7},
+            {"id": 1, "name": "Machine Learning", "r":18},
+            {"id": 4, "name": "Jazz","r":18, "color": 0.3},
+            {"id": 5, "name": "Statistics", "r":18, "color": 0.9},
+            {"id": 2, "name": "Data Mining","r":18}
         ]
     }];
     var hubs = [[{
         "id": 8,
         "name":"web2.0",
         "type":"interest",
-        "r": 30,
+        "r": 45,
         "cx":375,
         "cy":150,
-        "color":0.7,
         'interests': [
-            {"id": 11, "name": "html5","r":10},
-            {"id": 12, "name": "javascript","r":10},
-            {"id": 13, "name": "Web Development","r":10},
-            {"id": 14, "name": "wikis", "r":10},
-            {"id": 15, "name": "Web Spam", "r":10},
-            {"id": 16, "name": "Semantic Web", "r":10}
+            {"id": 11, "name": "html5","r":18},
+            {"id": 12, "name": "javascript","r":18},
+            {"id": 13, "name": "Web Development","r":18},
+            {"id": 14, "name": "wikis", "r":18},
+            {"id": 15, "name": "Web Spam", "r":18},
+            {"id": 16, "name": "Semantic Web", "r":18}
         ]
     }],
         [{
             "id":9,
             'name':'Jazz',
             'type':'interest',
-            'r': 30,
-            'color': 0.3,
+            'r': 45,
             'cx' : 150,
             'cy' : 600,
             'interests': [
-                {"id": 21, "name": "Miles Davis","r":10},
-                {"id": 22, "name": "Jazz History","r":10},
-                {"id": 23, "name": "Every Day","r":10},
-                {"id": 24, "name": "Duke Ellington", "r":10},
-                {"id": 25, "name": "Jazz Performance", "r":10},
-                {"id": 26, "name": "Mary Lou Williams", "r":10}
+                {"id": 21, "name": "Miles Davis","r":18},
+                {"id": 22, "name": "Jazz History","r":18},
+                {"id": 23, "name": "Every Day","r":18},
+                {"id": 24, "name": "Duke Ellington", "r":18},
+                {"id": 25, "name": "Jazz Performance", "r":18},
+                {"id": 26, "name": "Mary Lou Williams", "r":18}
             ]
         }],
         [{
             "id":10,
             'name':'Mathematics',
             'type':'interest',
-            'r': 30,
-            'color':0.9,
+            'r': 45,
             'cx' : 600,
             'cy' : 600,
             'interests': [
-                {"id": 13, "name": "Mathematical Methods","r":10},
-                {"id": 23, "name": "Philosophy of Mathematics","r":10},
-                {"id": 33, "name": "Geometry","r":10},
-                {"id": 43, "name": "Algebra", "r":10},
-                {"id": 53, "name": "Calculus", "r":10},
-                {"id": 63, "name": "Discrete Mathematics", "r":10}
+                {"id": 13, "name": "Mathematical Methods","r":18},
+                {"id": 23, "name": "Philosophy of Mathematics","r":18},
+                {"id": 33, "name": "Geometry","r":18},
+                {"id": 43, "name": "Algebra", "r":18},
+                {"id": 53, "name": "Calculus", "r":18},
+                {"id": 63, "name": "Discrete Mathematics", "r":18}
             ]
         }]];
 
@@ -234,13 +215,13 @@ svg {
         hubRoot : root,
         children : root[0].interests,
         color: 'hsl(0, 0, 82.7)',
-        distance: 125
+        distance: 100
     };
 
 
 
-    var svg = d3.select('svg').attr('width', 1024).attr('height', 768);
-    var colors = [];
+    var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
+    console.log(colors);
     var viz = new MC.InterestViz({
       hubModel: hubModel,
       hubs: hubs,
