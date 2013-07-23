@@ -40,17 +40,15 @@ MC.person = function() {
         var personToWedges = function(d) {
             var wedges = [];
             var interests = person.getInterests();
-            for (var iid in d.cleanedRelevance) {
-                for(var i = 0; i < interests.length; i++){
-                    if(interests[i].id==iid && !(interests[i].color in wedges) )
-                        var color = interests[i].color
-                };
-                wedges.push({
-                    weight :d.cleanedRelevance[iid],
-                    color : color
-                })
+            console.log(d.interestColors);
+            for (var iid in d.relevance) {
+                if (iid != 'overall' && iid != -1) {
+                    wedges.push({
+                        weight :d.relevance[iid],
+                        color : d.interestColors[iid]
+                    })
+                }
              }
-            console.log(wedges);
             return pieLayout(wedges);
         };
 
@@ -87,8 +85,8 @@ MC.person = function() {
     MC.options.register(person, 'interests', function (){throw('no interests specivied')});
     MC.options.register(person, 'text', function (d, i) { return d.name; });
     MC.options.register(person, 'pic', function (d, i) { return d.pic; });
-    MC.options.register(person, 'cx', 100);
-    MC.options.register(person, 'cy', 100);
+    MC.options.register(person, 'cx', function (d) { return d.cx; });
+    MC.options.register(person, 'cy', function (d) { return d.cy; });
     MC.options.register(person, 'imageWidth', 28);
     MC.options.register(person, 'imageHeight', 42);
     MC.options.register(person, 'r', 25);

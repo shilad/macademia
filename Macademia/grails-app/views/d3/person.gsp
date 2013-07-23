@@ -32,27 +32,6 @@ svg {
 <r:script>
     var i = 0;
 
-    var people = [
-        {
-            'name' : 'Shilad Sen',
-            'pic' : '/Macademia/all/image/randomFake?foo',
-            'cleanedRelevance':  {4 : 3.0, 6: 8.3, 14: 1.0, 5: 1.0}
-                    }
-//        {
-//            'name' : 'Shilad Sen',
-//            'pic' : '/Macademia/all/image/randomFake?foo',
-//            'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
-//            // TODO: interestColors goes away, replaced with hashtable of interest ids to interest objects
-//            'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7}
-//        }
-//        {
-//             ,
-//            'pic' : '/Macademia/all/image/randomFake?bar',
-//            'cleanedRelevance':  {5 : 1.0, 6: 3.0, 14: 5.0},
-//            'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7}
-//        }
-    ];
-
     var interests = [
 //        {"18": [1443, 16204, 323, 295, 3590, 227, 711]},
         {"id":4, "type": 'interest', "name":"WINNING", "cluster" : 4,'color':'deepPink','x':590, 'y':290} ,
@@ -67,8 +46,6 @@ svg {
 //         {"id":227, "type": interest,"name":"artificial intelligence", "cluster":18, "relevance":0.7178208231925964, "parentId":"18","roles":[] },
 //         {"id":711, "type": interest,"name":"artificial gum chewing", "cluster":18, "relevance":0.718208231925964, "parentId":"18","roles":[] }
     ];
-
-
 
     var hubs = [[{
         "id": 8,
@@ -119,12 +96,42 @@ svg {
             ]
         }]];
 
+    var people = [
+        {
+            'name' : 'Shilad Sen',
+            'pic' : '/Macademia/all/image/randomFake?foo',
+            'relevance':  {4 : 3.0, 6: 8.3, 14: 1.0, 5: 1.0, 'overall' : 34},
+            'cx' : 50,
+            'cy' : 100,
+            'interestColors': {4 : "purple", 5 : "#f00", 6 : "pink", 14 : "blue"}
+        },
+        {
+            'name' : 'Shilad Sen',
+            'pic' : '/Macademia/all/image/randomFake?foo',
+            'relevance':  {4 : 3.0, 6: 8.3, 14: 1.0, 5: 1.0, 'overall' : 34},
+            'cx' : 150,
+            'cy' : 200,
+            'interestColors': {4 : "purple", 5 : "#f00", 6 : "pink", 14 : "blue"}
+        }
+//        {
+//            'name' : 'Shilad Sen',
+//            'pic' : '/Macademia/all/image/randomFake?foo',
+//            'cleanedRelevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
+//            // TODO: interestColors goes away, replaced with hashtable of interest ids to interest objects
+//            'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7}
+//        }
+//        {
+//             ,
+//            'pic' : '/Macademia/all/image/randomFake?bar',
+//            'cleanedRelevance':  {5 : 1.0, 6: 3.0, 14: 5.0},
+//            'interestColors': {4 : 0.5, 5 : 0.3, 6 : 0.2, 11 : 0.9, 14 : 0.7}
+//        }
+    ];
+
+
+
+
     var person = MC.person()
-        .setInterests(interests)
-        .setCy(function (d) {
-            i += 100;
-            return i;
-        })
         .addOnHover(
             function (d) {
                 console.log('in ' + d.name);

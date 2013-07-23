@@ -109,7 +109,7 @@ MC.interest = function() {
 //        console.log(cleanedText)
         return cleanedText;
     });
-    MC.options.register(interest, 'color', function (d) { return MC.hueToColor(d.color); })
+    MC.options.register(interest, 'color', function (d) { return d.color; })
     MC.options.register(interest, 'cx', function (d,i) { return d.cx; });
     MC.options.register(interest, 'cy', function (d,i) { return d.cy; });
     MC.options.register(interest, 'r', function(d) { return d.r; });
