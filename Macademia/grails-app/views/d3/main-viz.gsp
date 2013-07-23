@@ -74,7 +74,11 @@ svg {
         33: {"id": 33, "name": "Geometry"},
         43: {"id": 43, "name": "Algebra"},
         53: {"id": 53, "name": "Calculus"},
-        63: {"id": 63, "name": "Discrete Mathematics"}
+        63: {"id": 63, "name": "Discrete Mathematics"},
+        99: {"id": 99, "name": "Politics"},
+        98: {"id": 98, "name": "Drones"},
+        97: {"id": 97, "name": "Hacktivism"},
+        96: {"id": 96, "name": "Ethics"}
     };
     var peeps = {
         15830: {"id":15830,
