@@ -4,7 +4,6 @@ var MC = (window.MC = (window.MC || {}));
 MC.person = function() {
 
     function person(g) {
-        g.call(function (d) { console.log(d)});
         var g = g.append('g')
             .attr('class', person.getCssClass())
             .attr('transform', function (d, i) {
@@ -39,8 +38,6 @@ MC.person = function() {
 
         var personToWedges = function(d) {
             var wedges = [];
-            var interests = person.getInterests();
-            console.log(d.interestColors);
             for (var iid in d.relevance) {
                 if (iid != 'overall' && iid != -1) {
                     wedges.push({

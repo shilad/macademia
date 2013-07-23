@@ -41,7 +41,6 @@ MC.personLayout = function () {
         // perhaps this was to avoid radial coordinates
         interestNodes.each(function (d,i) {
             var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
-            console.log(d, this, pos);
             surrogates[d.id] = {
                 type: (d.id in clusterMap) ? 'hub' : 'leaf',
                 id: d.id,

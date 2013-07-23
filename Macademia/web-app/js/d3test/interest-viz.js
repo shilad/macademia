@@ -8,6 +8,11 @@
 
 var MC = (window.MC = (window.MC || {}));
 
+/**
+ * TODO: calculate circles instead of passing them in.
+ * @param params
+ * @constructor
+ */
 
 MC.InterestViz = function(params) {
     this.hubs = params.hubs;
@@ -15,18 +20,53 @@ MC.InterestViz = function(params) {
     this.root = params.root;
     this.svg = params.svg;
     this.circles = params.circles;
+    this.interests = params.interests;
     this.colors = params.colors;
 
-    this.svg=this.svg.append("g").attr("class","viz").attr('width', 1000).attr('height', 1000);
+    this.container=this.svg.append("g").attr("class","viz").attr('width', 1000).attr('height', 1000);
     // construct the hubModel here based on other parameters
-    this.hubModel = params.hubModel;
     this.currentColors = [];
+    this.calculatePositions();
+    this.calculateColors();
     this.setGradients();
     this.createsGradientCircles();
     this.createInterestViz();
     this.startPeople();
 
 };
+
+MC.InterestViz.prototype.calculatePositions = function() {
+    this.root.cx = 375;
+    this.root.cy = 425;
+    this.hubs[0].cx = 375;
+    this.hubs[0].cy = 150;
+    this.hubs[1].cx = 150;
+    this.hubs[1].cy = 600;
+    this.hubs[2].cx = 600;
+    this.hubs[2].cy = 600;
+};
+
+MC.InterestViz.prototype.calculateColors = function() {
+    // assign interest colors to hubs
+    var interestColors = {};
+    if (this.root.color) {
+        this.currentColors.push(this.root.color);
+    } else {
+        this.root.color = this.makeColorful();
+    }
+
+    interestColors[this.root.id] = this.root.color;
+    for (var i = 0; i < this.hubs.length; i++) {
+        this.hubs[i].color = this.makeColorful();
+        interestColors[this.hubs[i].id] = this.hubs[i].color;
+    }
+
+    // assign interest colors to people
+    for (var pid in this.people) {
+        this.people[pid].interestColors = interestColors;
+    }
+};
+
 MC.InterestViz.prototype.startPeople = function() {
 
     window.setTimeout( jQuery.proxy(function() {
@@ -41,24 +81,9 @@ MC.InterestViz.prototype.startPeople = function() {
 
 //Position the hubs and the root
 MC.InterestViz.prototype.createInterestViz = function() {
-    this.createHub(this.hubModel);
-//    console.log(this.hubModel);
-    for(var i = 0; i < this.hubs.length; i++){
-
-        //alter model for each hub
-        var color = this.makeColorful();
-        this.hubs[i][0].color = color;  //sets the center circle color
-
-        this.createHub({
-            id:this.hubs[i][0].id,
-            cx:this.hubs[i][0].cx,
-            cy:this.hubs[i][0].cy,
-            hubRoot : this.hubs[i],
-            children : this.hubs[i][0].interests,
-            color : color,    //sets the little circles to the center circles color
-            distance: 100
-        });
-//        console.log(this.hubModel);
+    this.createHub(this.root);
+    for(var i = 0; i < this.hubs.length; i++) {
+        this.createHub(this.hubs[i]);
     }
 };
 
@@ -84,14 +109,31 @@ MC.InterestViz.prototype.createInterestColors = function(){
 
 };
 
-MC.InterestViz.prototype.createHub = function(model){
-    this.svg
-        .datum(model)
+MC.InterestViz.prototype.createHub = function(model) {
+    var hubInterests = [];
+    for (var i = 0; i < model.children.length; i++) {
+        var childId = model.children[i];
+        hubInterests.push(this.interests[childId]);
+    }
+    var rootModel = model.type == 'person' ? this.people[model.id] : this.interests[model.id];
+    rootModel.type = model.type;
+
+    this.container
+        .datum({
+            id : model.id,
+            children : hubInterests,
+            root : rootModel,
+            color : model.color,
+            isVizRoot : (model == this.root),
+            cx : model.cx,
+            cy : model.cy,
+            distance : 100
+        })
         .call(MC.hub());
 };
 
 MC.InterestViz.prototype.createsGradientCircles = function(){
-    this.svg.selectAll('circle.gradient')
+    this.container.selectAll('circle.gradient')
         .data(this.circles)
         .enter()
         .append("circle")
@@ -112,9 +154,9 @@ MC.InterestViz.prototype.createsGradientCircles = function(){
 
 
 MC.InterestViz.prototype.setGradients = function(){
-    var defs = this.svg
+    var defs = this.container
         .selectAll("defs")
-        .data(this.svg[0])
+        .data(this.container[0])
         .enter()
         .append('defs');
 
@@ -142,34 +184,13 @@ MC.InterestViz.prototype.setGradients = function(){
 
 };
 
-MC.InterestViz.prototype.createClusterMap = function(){
-    var clusterMap={};
-    var temp=[];
-    var id;
-    for(var j = 0; j < this.root[0].interests.length; j++){
-        id = this.root[0].interests[j].id;
-        temp.push(id);
-    }
-    clusterMap[this.root[0].id]=temp;
-    temp=[];
-    for(var i = 0; i < this.hubs.length; i++){
-        for(var j = 0; j < this.hubs[i][0].interests.length; j++){
-            var id = this.hubs[i][0].interests[j].id;
-            temp.push(id);
-        }
-        clusterMap[this.hubs[i][0].id]=temp;
-        temp=[];
-    }
-    this.clusterMap=clusterMap;
-};
-
 /*
  * Methods for the people heads are below here-----
  */
 
 
 MC.InterestViz.prototype.getD3Interests = function() {
-    return this.svg.selectAll('g.interest');
+    return this.container.selectAll('g.interest');
 };
 
 //return a person view
@@ -180,7 +201,7 @@ MC.InterestViz.prototype.createPersonView = function() {
 
 //Creates the floating people heads
 MC.InterestViz.prototype.createPeople = function() {
-    this.svg
+    this.container
         .selectAll('g.person')
         .data(this.people)
         .enter()
@@ -189,7 +210,7 @@ MC.InterestViz.prototype.createPeople = function() {
 
 //Grabs all the people in svg
 MC.InterestViz.prototype.getD3People = function() {
-    return this.svg.selectAll('g.person');
+    return this.container.selectAll('g.person');
 };
 
 //Sets the locations of the person heads
@@ -202,7 +223,7 @@ MC.InterestViz.prototype.createPersonLayoutView = function(){
 };
 
 MC.InterestViz.prototype.createPersonLayout = function(){
-    this.svg
+    this.container
         .selectAll('person-layouts')
         .data([0])
         .enter()
@@ -212,9 +233,9 @@ MC.InterestViz.prototype.createPersonLayout = function(){
 
 MC.InterestViz.prototype.createClusterMap = function(){
     var clusterMap = {};
-    clusterMap[this.root[0].id]=this.root[0].interests;
+    clusterMap[this.root.id] = this.root.children;
     for(var i = 0; i < this.hubs.length; i++){
-        clusterMap[this.hubs[i][0].id] = this.hubs[i][0].interests;
+        clusterMap[this.hubs[i].id] = this.hubs[i].children;
     };
 
     return clusterMap;
