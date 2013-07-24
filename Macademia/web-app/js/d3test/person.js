@@ -122,6 +122,7 @@ MC.person = function() {
                 return pieLayout(wedges);
             };
             newGs.append("g")
+                .attr('class','pie')
                 .selectAll("path")
                 .data(personToWedges)
                 .enter()
