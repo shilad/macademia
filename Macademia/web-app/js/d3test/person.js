@@ -1,5 +1,51 @@
 var MC = (window.MC = (window.MC || {}));
 
+/**
+ * Creates a pie around a picture of the person with the persons name.
+ *
+ * A person MUST be an object with fields:
+ * id, name, pic, relevance, interests
+ *
+ * Example usage:
+ *   var peeps = {
+        15830: {"id":15830,
+            "name":"Luther Rea",
+            "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
+            "relevance":{
+                "11":1.77,
+                "overall":1.0769508928060532},
+            "interests":[
+                11,
+                22]}
+ *
+ * var person = MC.person()
+ * d3.select('svg')
+            .attr('width', 500)
+            .attr('height', 500)
+            .selectAll('people')
+            .data([0])
+            .append('g')
+            .attr('class', 'people')
+            .data(people)
+               .enter()
+            .call(person);
+ *
+ * Available attributes:
+ *
+ *  r: radius to the the outer edge of the pie. Also influences repositioning of label(name)
+ *  cx: center x position
+ *  cy: center y position
+ *  text: persons name
+ *  pic: persons picture
+ *  onHover: A list option that takes two parameters.
+ *               The first is called on mouseOver, the second on mouseOut.
+ *               Both function take two arguments: the person and key.
+ *  imageWidth: width of the persons picture
+ *  imageHeight: height of the persons picture
+ *  cssClass: class for <g> enclosing the label
+ *
+ * @return {Function}
+ */
 
 MC.person = function() {
     function person(selection) {
@@ -110,7 +156,6 @@ MC.person = function() {
     }
 
 
-    MC.options.register(person, 'interests', function (){throw('no interests specivied')});
     MC.options.register(person, 'text', function (d, i) { return d.name; });
     MC.options.register(person, 'pic', function (d, i) { return d.pic; });
     MC.options.register(person, 'cx', function (d) { return d.cx; });
@@ -120,6 +165,7 @@ MC.person = function() {
     MC.options.register(person, 'r', 25);
     MC.options.register(person, 'onHover', [], MC.options.TYPE_LIST);
     MC.options.register(person, 'cssClass', 'person');
+    //    MC.options.register(person, 'interests', function (){throw('no interests specivied')});
 
     return person;
 };

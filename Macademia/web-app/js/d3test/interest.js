@@ -1,36 +1,46 @@
 var MC = (window.MC = (window.MC || {}));
 
 /**
- * Adds a single circle with a label corresponding to an interest.
- * An interest must be an object with fields:
- * id, name, and color (actually a hue in [0,1]).
+ *
+ * Adds two circles, one that has color and one that is just a white rimed circle inside the other.
+ * The circles have a label corresponding to an interest.
+ *
+ * An interest MUST be an object with fields:
+ * id, name
  *
  * Example usage:
  *
- * var interests = [
- *      {'name' : 'Rock climbing', 'color' : 0.3},
- *      {'name' : 'Squash', 'color' : 0.7}
- * ];
+ * var interests = {
+        3: {"id": 3, "name": "Louisville"},
+        53: {"id": 53, "name": "Cardinal"},
+        63: {"id": 63, "name": "Basketball"}
+    };
  *
  * var interest = MC.interest()
- *    .setCx(343)
- *    .setR(function (d) { return d.name.length() / 5; };
  *
- * g.data(interests)
- *     .enter()
- *     .call(interest);
+    d3.select('svg')
+        .attr('width', 500)
+        .attr('height', 500)
+        .datum(interests1)
+        .call(interest);
  *
  * Available attributes:
  *      text: text of the label
  *      cx: center x position
  *      cy: center y position
- *      r: radius of interest circle
  *      align: text align, one of (left, middle, right)
  *      cssClass: class for <g> enclosing the label
  *      onHover: A list option that takes two parameters.
  *               The first is called on mouse in, the second on mouse out.
  *               Both function take two arguments: the interest and key.
- *
+ *      color: color of the interest node
+ *      r : the radius of the interest node
+ *      rInner: the radius of the white ring in the interest node
+ *      opacity: how opaque the interest node is
+        cleanedText:  Takes in an object and extracts a name.
+                If the name is greater than 15 in length it appears on the display
+                as 10 in length with a "..."
+
  * @return {Function}
  */
 MC.interest = function() {
@@ -102,11 +112,12 @@ MC.interest = function() {
     MC.options.register(interest, 'text', function (d) { return d.name; });
     MC.options.register(interest, 'cleanedText', function (d) {
         var cleanedText = d.name;
-//        console.log(d);
+        console.log("here is the function");
+        console.log(d);
         if (cleanedText.length > 15){
              cleanedText = cleanedText.substr(0, 10) + " ...";
         }
-//        console.log(cleanedText)
+        console.log(cleanedText)
         return cleanedText;
     });
     MC.options.register(interest, 'color', function (d) { return d.color; })
@@ -117,8 +128,8 @@ MC.interest = function() {
     MC.options.register(interest, 'opacity', 1.0);
     MC.options.register(interest, 'onHover', [], MC.options.TYPE_LIST);
     MC.options.register(interest, 'cssClass', 'interest');
-    MC.options.register(interest, 'enterTransition', function() { return this.attr('opacity', 1.0); });
-    MC.options.register(interest, 'updateTransition', null);
+//    MC.options.register(interest, 'enterTransition', function() { return this.attr('opacity', 1.0); });
+//    MC.options.register(interest, 'updateTransition', null);
     MC.options.register(interest, 'exitTransition', null);
 
     return interest;

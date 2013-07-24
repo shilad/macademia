@@ -41,8 +41,53 @@ MC.hub = function() {
                 cy = root.cy;
             }
 
+            var rootType = data.root.type;
+            var distance = 30; //default distance
+            if(data["distance"]){ //if the distance between the root and children is specified
+                distance = data["distance"];
+            }
+            var n = data.children.length;
+
             //use d3Group to put everything into one g
             var d3Group = d3.select(this).append('g').attr('id','hub'+id).attr('class','hub');
+
+            //drawing lines between person and their interests (not working)
+//            if(rootType == "person"){
+//                var gradient = d3Group.append("defs")
+//                    .append("radialGradient")
+//                    .attr("id", "connection-gradient")
+////                    .attr("x1", cx)
+////                    .attr("y1", cy);
+//
+//                    gradient.append("stop")
+//                    .attr("offset", "3%")
+//                    .attr("stop-color", "#b2b2b2")
+//                    .attr("stop-opacity", 1);
+//
+//                    gradient.append("stop")
+//                    .attr("offset", "97%")
+//                    .attr("stop-color", "#FF0000")
+//                    .attr("stop-opacity", 1);
+//
+//
+//
+//                d3Group.selectAll("connectionPaths").data(new Array(n)).enter().append("line")
+//                    .attr("x1", cx)
+//                    .attr("y1", cy)
+//                    .attr("x2", function(d, i){
+//                        var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n);
+//                        return cx_child;
+//                    })
+//                    .attr("y2", function(d, i){
+//                        var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
+//                        return cy_child;
+//                    })
+//                    .attr("stroke-width", 15)
+//                    .attr("stroke-linecap", "round")
+//                    .attr("stroke-dasharray", "1, 15")
+//                    .attr("stroke", 'url(#connection-gradient)');
+////                    .attr("stroke", 'black');
+//            }
 
             //drawing children with animation
             var childrenTemplate = MC.interest().setCssClass("interest")
@@ -59,12 +104,6 @@ MC.hub = function() {
                     return 'translate(' + cx + ', ' + cy + ')';
                 });
 
-            var n = data.children.length;
-            var distance = 50; //default distance
-            if(data["distance"]){ //if the distance between the root and children is specified
-                distance = data["distance"];
-            }
-
             var duration=hub.getDuration();
             childGs.attr('opacity', 1.0).transition() //then move the circles
                 .duration(function(d,i){
@@ -78,8 +117,6 @@ MC.hub = function() {
                 .transition();
 
             //drawing root
-            var rootType = data.root.type;
-
             if(rootType == "interest"){
                 var interestTemplate = MC.interest()
                     .setCssClass("hubRoot")
@@ -117,20 +154,36 @@ MC.hub = function() {
                     .select('g.hubRoot')
                     .attr("class","vizRoot");
             }
-            //building user interactions
-//            d3Group.selectAll(".interestOuter").on('mouseover',function(e){
-//                d3Group.select("g .hubRoot").attr('opacity',1.0).style('fill',hub.getHighlightedFill());
-//                d3.select(this.parentNode).select('g .label text').text("");
-//                d3.select(this.parentNode).select('g .label text').text(MC.interest().getText());
-//                d3.select(this.parentNode).style('fill',hub.getHighlightedFill());
-//            });
-//
-//            d3Group.selectAll(".interestOuter").on('mouseout',function(){
-//                d3Group.selectAll("g .hubRoot").style('fill',hub.getRegularFill());
-//                d3.select(this.parentNode).select('g .label text').text(MC.interest().getCleanedText());
-//                $(this.parentNode).css('fill',hub.getRegularFill());
-//            });
 
+
+            //building user interactions
+
+            //mouseover the interest node hightlight itself and its hub root
+            d3Group.selectAll(".interestOuter").on('mouseover',function(e){
+                d3Group.select("g .hubRoot").attr('opacity',1.0).classed('active',true);
+                d3Group.select("g .vizRoot").attr('opacity',1.0).classed('active',true);
+                d3.select(this.parentNode).select('g .label text').text(MC.interest().getText());
+                // notice that we are replacing class interest with active
+                d3.select(this.parentNode).attr('class','activeInterest');
+            });
+
+            d3Group.selectAll(".interestOuter").on('mouseout',function(){
+                d3Group.select("g .hubRoot").classed('active',false);
+                d3Group.select("g .vizRoot").classed('active',false);
+                d3.select(this.parentNode).select('g .label text').text(MC.interest().getCleanedText());
+                d3.select(this.parentNode).attr('class','interest');
+            });
+
+            //mouseover the hub root hightlight everything in the hub
+            d3Group.selectAll("g .hubRoot").on('mouseover',function(e){
+                d3.select(this).attr('opacity',1.0).classed('active',true);
+                d3Group.selectAll("g .interest").attr('class','activeInterest');
+            });
+
+            d3Group.selectAll("g .hubRoot").on('mouseout',function(e){
+                d3.select(this).classed('active',false);
+                d3Group.selectAll("g .activeInterest").attr('class','interest');
+            });
 
 
 
