@@ -70,28 +70,11 @@
  Available attributes:
  friction: the amount of jiggle the person does before finding its location
  gravity: pulls nodes to the center of the visualization
- people n
- MC.options.register(pl, 'linkDistance', 50);
-
- MC.options.register(pl, 'peopleNodes', function () {
-        throw('no people specified.')
-    });
- MC.options.register(pl, 'interestNodes', function () {
-        throw('no interests specified.')
-    });
- MC.options.register(pl, 'clusterMap', function () {
-        throw('no clusterMap specified');
-    });
- MC.options.register(pl, 'charge', function(d) {
-        //checks to see if it is a hub
-        if (d.type == 'hub') {
-            return -50;
-        } else if (d.type == 'person') {
-            return -600;
-        } else {
-            return -50;
-        }
-    });
+ peopleNodes: creates the person visualization
+ interestNodes: creates the interest node visualization
+ clusterMap: decifers weather an interest is a leaf or a hub
+ linkDistance: distance of the person form the interests they are attracted to
+ charge: the level of repulsion of a person with hub/person/interest
 
  * @return {Function}
  *
@@ -280,9 +263,9 @@ MC.personLayout = function () {
     MC.options.register(pl, 'charge', function(d) {
         //checks to see if it is a hub
         if (d.type == 'hub') {
-            return -50;
+            return -500;
         } else if (d.type == 'person') {
-            return -600;
+            return -6000;
         } else {
             return -50;
         }
