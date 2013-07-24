@@ -117,7 +117,7 @@ MC.MainViz.prototype.setInterestEventHandler = function(){
                 macademia.history.update();
 
             });
-    }, this), MC.hub().getDuration());
+    }, this), 2504);
 };
 
 MC.MainViz.prototype.setPeopleEventHandler = function(){
@@ -143,7 +143,7 @@ MC.MainViz.prototype.setPeopleEventHandler = function(){
 
                 macademia.history.update();
             });
-    },this), MC.hub().getDuration());
+    },this), 2504);
 };
 
 MC.MainViz.prototype.setTransitionRoot = function(d3Root){

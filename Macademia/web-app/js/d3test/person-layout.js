@@ -259,9 +259,9 @@ MC.personLayout = function () {
         });
     }
                                         //just so I u
-    MC.options.register(pl, 'friction', 0.8);
+    MC.options.register(pl, 'friction', 0.005);
     MC.options.register(pl, 'gravity', 10.005);
-    MC.options.register(pl, 'linkDistance', 500);
+    MC.options.register(pl, 'linkDistance', 50);
 
     MC.options.register(pl, 'peopleNodes', function () {
         throw('no people specified.')
