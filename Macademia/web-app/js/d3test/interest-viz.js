@@ -224,10 +224,20 @@ MC.InterestViz.prototype.createPersonView = function() {
 
 //Creates the floating people heads
 MC.InterestViz.prototype.createPeople = function() {
-    console.log(this.people);
+
+    var people_array = [];
+
+    for (var key in this.people) {
+        if(this.root.id != key){//check the root
+            people_array.push(this.people[key]);
+        }
+    }
+
+    console.log(people_array);
+
     this.container
         .selectAll('g.person')
-        .data(this.people)
+        .data(people_array)
         .enter()
         .call(this.personView);
 };
