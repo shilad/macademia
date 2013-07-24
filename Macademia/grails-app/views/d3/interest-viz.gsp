@@ -62,11 +62,7 @@ svg {
 
 </style>
 
-<span class="tooltip"><a href="#">unfetter</a>
 
-    <div>
-        <div class="tooltipContent">Content.</div>
-    </div></span>
 
 <r:script>   //sdf
 var interests = {
@@ -180,6 +176,7 @@ $(function () {
     $(".tooltip").hover(function () {
         var tooltip = $("> div", this).show();
         var pos = tooltip.offset();
+        console.log(tooltip);
         tooltip.hide();
         var right = pos.left + tooltip.width();
         var pageWidth = $(document).width();
@@ -197,14 +194,20 @@ $(function () {
     });
 });
 
+var tip = document.getElementById("hub11");
 
-
-
-
+console.log(btn);
 
 </r:script>
 
 <svg>
+    <span class="tooltip"><a href="#">tip</a>
+
+        <div>
+            <div class="tooltipContent">Content</div>
+        </div></span>
+
+
 </svg>
 </body>
 </html>
