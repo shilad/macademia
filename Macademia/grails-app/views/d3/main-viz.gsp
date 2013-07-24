@@ -54,7 +54,7 @@
         5: {"id": 5, "name": "Statistics"},
         8: {"id": 8, "name": "Web2.0"},
         9: {"id": 9, "name": "Jay-Z"},
-        10: {"id": 10, "name": "Mathh"},
+        10: {"id": 10, "name": "Math"},
         11: {"id": 11, "name": "html5"},
         12: {"id": 12, "name": "javascript"},
         13: {"id": 13, "name": "Web Development"},

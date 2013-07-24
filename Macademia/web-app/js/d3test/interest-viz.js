@@ -127,7 +127,7 @@ MC.InterestViz.prototype.postionHubs = function(){
         var pos = coordinates[i+1]; //start with 1 because 0 is root
         this.hubs[i].cx = this.svgWidth * pos.x;
         this.hubs[i].cy = this.svgHeight * pos.y;
-        console.log(this.hubs[i]);
+//        console.log(this.hubs[i]);
     }
 
     // applying the padding
@@ -353,7 +353,7 @@ MC.InterestViz.prototype.setGradients = function(){
 
 
 MC.InterestViz.prototype.getD3Interests = function() {
-    return this.container.selectAll('g.interest');
+    return this.container.selectAll('g.interest,g.hubRoot');
 };
 
 //return a person view

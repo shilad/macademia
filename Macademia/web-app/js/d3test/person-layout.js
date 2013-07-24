@@ -110,21 +110,32 @@ MC.personLayout = function () {
         var svg = d3.select('svg');
 
         var surrogates = {};
-
+        console.log(interestNodes);
         //copies the interest node information--not sure why
         // perhaps this was to avoid radial coordinates
         interestNodes.each(function (d,i) {
             var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
+            if(d.id){
             surrogates[d.id] = {
-                type: (d.id in clusterMap) ? 'hub' : 'leaf',
+                type: 'leaf',
                 id: d.id,
                 fixed: true,  // interests cannot move
                 x: pos.x,
                 y: pos.y,
                 real: d
             };
+            }else if(d[0].id){
+                surrogates[d[0].id] = {
+                    type: 'hub',
+                    id: d.id,
+                    fixed: true,  // interests cannot move
+                    x: pos.x,
+                    y: pos.y,
+                    real: d
+                };
+            }
         });
-
+        console.log(surrogates);
         var getPrimaryInterest = function (p) {
             var maxId = -1;
             var maxRel = -1;
@@ -152,13 +163,15 @@ MC.personLayout = function () {
         peopleNodes.each(function (p, i) {
 //            console.log(p)
             $.map(p.relevance, function (r, iid) {
-//                console.log(surrogates[iid]);
                 if (iid != -1 && iid != 'overall') {
                     links.push({
                         source: p,
                         target: surrogates[iid],
                         strength: r * r
                     });
+//                    console.log(p);
+//                    console.log(surrogates[iid]);
+//                    console.log(r*r);
                 }
             });
         });
