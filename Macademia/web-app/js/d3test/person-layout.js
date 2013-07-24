@@ -70,7 +70,7 @@
  Available attributes:
  friction: the amount of jiggle the person does before finding its location
  gravity: pulls nodes to the center of the visualization
-
+ people n
  MC.options.register(pl, 'linkDistance', 50);
 
  MC.options.register(pl, 'peopleNodes', function () {
