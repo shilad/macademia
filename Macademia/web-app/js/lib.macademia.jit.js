@@ -19,11 +19,12 @@ macademia.jit.buildingGraph = false;
 
 macademia.makeJsonUrl = function(type, id) {
     // TODO: should this really go here?
-    var density = $.address.parameter('density');
+    var density = macademia.history.get('density') || 3;
+//    console.log("Density in makeJsonUrl: "+density);
     if (!density || density == undefined || density == 'undefined') {
         density = 3; 
     }
-    return macademia.makeActionUrl(type, 'json') + "/" + id + "?institutions="+$.address.parameter('institutions') + "&density=" + density;
+    return macademia.makeActionUrl(type, 'json') + "/" + id + "?institutions="+macademia.history.get('institutions') + "&density=" + density;
 };
 
 macademia.checkBrowser = function() {
@@ -282,7 +283,7 @@ macademia.jit.init = function(rootType,id){
                             var params = {};
                             if (node.data.type == 'person'|| node.data.type == 'request') {
                                 var rootId =macademia.rgraph.graph.getNode(macademia.rgraph.root).id;
-                                var institutionStr = $.address.parameter('institutions');
+                                var institutionStr = macademia.history.get('institutions');
                                 params = {node : node.id, root: rootId, institutions : institutionStr};
                             }
                             this.loadContent(url, params, 'post');

@@ -202,8 +202,6 @@ MH.update = function(){
     var urlhash = MH.unparseUrl(temp);
 //    console.log(urlhash);
     History.pushState(null,null,urlhash);
-//    console.log(History.pushState(null,null,urlhash));
-//    console.log(urlhash);
 
 };
 
