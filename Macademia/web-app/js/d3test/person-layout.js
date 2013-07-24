@@ -135,6 +135,8 @@ MC.personLayout = function () {
             }
         });
 
+//        console.log(surrogates);
+
         var getPrimaryInterest = function (p) {
             var maxId = -1;
             var maxRel = -1;
