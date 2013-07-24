@@ -24,14 +24,28 @@
     fill: #C0C0C0;
 }
 
+.active {
+    fill: black;
+}
+
 .interest{
     font: 13px Georgia;
     fill: #C0C0C0;
 }
 
+.activeInterest{
+    /*
+    This should have the same css style as interest except we are using
+    a different fill
+    */
+    font: 13px Georgia;
+    fill: black;
+}
+
+
 svg {
-    height : 90%;
-    width : 90%;
+    /*height : 90%;*/
+    /*width : 90%;*/
 }
 
 </style>
@@ -63,7 +77,7 @@ svg {
         53: {"id": 53, "name": "Calculus"},
         63: {"id": 63, "name": "Discrete Mathematics"}
     };
-    var peeps = {
+var peeps = {
         15830: {"id":15830,
             "name":"Luther Rea",
             "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
@@ -130,7 +144,7 @@ svg {
         {type : 'interest', id : 33, children : [23,43,53,63]}
     ];
 
-    var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
+    var svg = d3.select('svg').attr('width', 800).attr('height', 600);
 
     var viz = new MC.InterestViz({
       hubs: hubs,
@@ -141,6 +155,7 @@ svg {
       svg : svg,
       colors: colors
     });
+
 
 
 

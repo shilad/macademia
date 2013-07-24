@@ -75,17 +75,35 @@ var MC = (window.MC = (window.MC || {}));
  *
  */
 
+
 MC.InterestViz = function(params) {
+    this.positions = [
+        [], // 1 hub case
+        [], // 2 hub case
+        [{x:0.5,y:0.6},{x:0.2,y:1},{x:0.8,y:1},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
+        [] // 4 hub case
+    ];
+
     this.hubs = params.hubs;
     this.people = params.people;
     this.root = params.root;
     this.svg = params.svg;
+
+    this.svgWidth = this.svg.attr("width");
+    this.svgHeight = this.svg.attr("height");
+    this.distance = 80;
+
     this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
 
-    this.container=this.svg.append("g").attr("class","viz").attr('width', 1000).attr('height', 1000);
+    this.container=this.svg.append("g").attr("class","viz");
     // construct the hubModel here based on other parameters
+    this.hubModel = params.hubModel;
+
+    //Positioning hubModel(visRoot) and hubs around it
+//    this.positionHubModel();
+//    this.postionHubs();
     this.currentColors = [];
     this.calculatePositions();
     this.calculateColors();
@@ -96,15 +114,80 @@ MC.InterestViz = function(params) {
 
 };
 
+
+
+// Position the hubs around the visRoot
+MC.InterestViz.prototype.postionHubs = function(){
+    var n = this.hubs.length;
+    var coordinates = this.positions[n-1];
+    var posRoot = coordinates[0];
+
+    //Setting the root
+    this.root.cx = this.svgWidth * posRoot.x;
+    this.root.cy = this.svgHeight * posRoot.y;
+
+    //Setting the hubs
+    for(var i=0;i<hubs.length;i++){
+        var pos = coordinates[i+1]; //start with 1 because 0 is root
+        this.hubs[i].cx = this.svgWidth * pos.x;
+        this.hubs[i].cy = this.svgHeight * pos.y;
+        console.log(this.hubs[i]);
+    }
+
+    // applying the padding
+    var dist = this.distance; //use the distance between the root and child as padding
+    var scale = 1.5;
+    var padL = dist * scale; //left
+    var padR = this.svgWidth - dist * scale; //right
+    var padT = dist * scale; //top
+    var padB = this.svgHeight - dist * scale; //bottom
+
+    for(var i=0; i<n; i++){
+
+        //Left
+        if(this.hubs[i].cx < padL){
+            this.hubs[i].cx = padL;
+        }
+
+        //Right
+        if(this.hubs[i].cx > padR){
+            this.hubs[i].cx = padR;
+        }
+
+        //Top
+        if(this.hubs[i].cy < padT){
+            this.hubs[i].cy = padT;
+        }
+
+        //Bottom
+        if(this.hubs[i].cy > padB){
+            this.hubs[i].cy = padB;
+        }
+
+    }
+
+}
+
+// Position the center of the hubModel(visRoot) to the enter of the SVG canvas
+MC.InterestViz.prototype.positionHubModel = function(){
+    var x = this.svgWidth/2;
+    var y = this.svgHeight/2;
+
+    this.hubModel.cx = x;
+    this.hubModel.cy = y;
+}
+
+
 MC.InterestViz.prototype.calculatePositions = function() {
-    this.root.cx = 375;
-    this.root.cy = 425;
-    this.hubs[0].cx = 375;
-    this.hubs[0].cy = 150;
-    this.hubs[1].cx = 150;
-    this.hubs[1].cy = 600;
-    this.hubs[2].cx = 600;
-    this.hubs[2].cy = 600;
+//    this.root.cx = 375;
+//    this.root.cy = 425;
+//    this.hubs[0].cx = 375;
+//    this.hubs[0].cy = 150;
+//    this.hubs[1].cx = 150;
+//    this.hubs[1].cy = 600;
+//    this.hubs[2].cx = 600;
+//    this.hubs[2].cy = 600;
+    this.postionHubs();
 };
 
 MC.InterestViz.prototype.calculateColors = function() {
@@ -188,7 +271,7 @@ MC.InterestViz.prototype.createHub = function(model) {
             isVizRoot : (model == this.root),
             cx : model.cx,
             cy : model.cy,
-            distance : 100
+            distance : this.distance
         })
         .call(MC.hub());
 };
