@@ -86,9 +86,7 @@ MC.InterestViz = function(params) {
     this.root = params.root;
     this.svg = params.svg;
 
-    this.svgWidth = this.svg.attr("width");
-    this.svgHeight = this.svg.attr("height");
-    this.distance = 80;
+
 
 //    this.circles = params.circles;
     this.interests = params.interests;
@@ -96,7 +94,9 @@ MC.InterestViz = function(params) {
     this.container=this.svg.append("g").attr("class","viz");
     // construct the hubModel here based on other parameters
     this.currentColors = [];
-
+    this.svgWidth = this.container.attr("width");
+    this.svgHeight = this.container.attr("height");
+    this.distance = 80;
     this.gCircle = [this.hubs.length]; //same number as the hubs
 
     this.calculateColors();
