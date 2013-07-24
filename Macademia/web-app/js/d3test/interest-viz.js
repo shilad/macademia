@@ -353,7 +353,7 @@ MC.InterestViz.prototype.setGradients = function(){
 
 
 MC.InterestViz.prototype.getD3Interests = function() {
-    return this.container.selectAll('g.interest,g.hubRoot');
+    return this.container.selectAll('g.interest,g.hubRoot,g.vizRoot');
 };
 
 //return a person view

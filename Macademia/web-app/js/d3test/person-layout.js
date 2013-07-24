@@ -196,7 +196,8 @@ MC.personLayout = function () {
 
         //places the person in relation to the surrogates
         var force = d3.layout.force()
-            .nodes(d3.values(surrogates).concat(d3.values(people)))
+            .nodes(d3.values(surrogates)
+            .concat(d3.values(people)))
             .links(links)
             .size([w, h])
             .linkStrength(function (l) {
@@ -260,7 +261,7 @@ MC.personLayout = function () {
     }
                                         //just so I u
     MC.options.register(pl, 'friction', 0.005);
-    MC.options.register(pl, 'gravity', 10.005);
+    MC.options.register(pl, 'gravity', 0.005);
     MC.options.register(pl, 'linkDistance', 50);
 
     MC.options.register(pl, 'peopleNodes', function () {
@@ -279,7 +280,7 @@ MC.personLayout = function () {
         } else if (d.type == 'person') {
             return -600;
         } else {
-            return -50;
+            return -85000;
         }
     });
 
