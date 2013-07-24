@@ -49,7 +49,7 @@ svg {
 }
 
 </style>
-<r:script>
+<r:script>   //sdf
     var interests = {
         3: {"id": 3, "name": "Online Communities"},
         6: {"id": 6, "name": "web2.0"},
