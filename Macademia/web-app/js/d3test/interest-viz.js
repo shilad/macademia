@@ -394,6 +394,7 @@ MC.InterestViz.prototype.makeColorful = function(){
         };
 
     };
+
 };
 
 

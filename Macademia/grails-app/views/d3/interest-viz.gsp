@@ -36,13 +36,8 @@
 }
 
 .tooltip {
-    position: relative;
-}
-
-.tooltip > div {
     display: none;
     position: absolute;
-    bottom: 100%;
     left: 50%;
     margin-left: -150px;
     width: 300px;
@@ -62,13 +57,10 @@ svg {
 
 </style>
 
-<span class="tooltip"><a href="#">unfetter</a>
 
-    <div>
-        <div class="tooltipContent">Content.</div>
-    </div></span>
 
-<r:script>   //sdf
+
+<r:script>
 var interests = {
     3: {"id": 3, "name": "Online Communities"},
     6: {"id": 6, "name": "web2.0"},
@@ -163,7 +155,7 @@ var hubs = [
     {type: 'interest', id: 33, children: [23, 43, 53, 63]}
 ];
 
-var svg = d3.select('svg').attr('width', 800).attr('height', 600);
+var svg = d3.select('svg').attr('width', 900).attr('height', 900);
 
 var viz = new MC.InterestViz({
     hubs: hubs,
@@ -176,20 +168,22 @@ var viz = new MC.InterestViz({
 });
 
 
-$(function () {
-    $(".tooltip").hover(function () {
-        var tooltip = $("> div", this).show();
-        var pos = tooltip.offset();
-        tooltip.hide();
-        var right = pos.left + tooltip.width();
-        var pageWidth = $(document).width();
-        if (pos.left < 0) {
-            tooltip.css("marginLeft", "+=" + (-pos.left) + "px");
-        }
-        else if (right > pageWidth) {
-            tooltip.css("marginLeft", "-=" + (right - pageWidth));
-        }
-        tooltip.fadeIn();
+$().ready(function () {
+
+    $("g.interest").hover(function () {
+//        alert('hi');
+        var tooltip = $(".tooltip").show();
+//        var pos = {left: 100 , top: 100};
+//        tooltip.hide();
+//        var right = pos.left;
+//        var pageWidth = $(document).width();
+//        if (pos.left < 0) {
+//            tooltip.css("marginLeft", "+=" + "px");
+//        }
+//        else if (right > pageWidth) {
+//            tooltip.css("marginLeft", "-=" + (right - pageWidth));
+//        }
+//        tooltip.fadeIn();
     }, function () {
         $("> div", this).fadeOut(function () {
             $(this).css("marginLeft", "");
@@ -203,8 +197,11 @@ $(function () {
 
 
 </r:script>
-
+    <div class="tooltip">
+        <div class="tooltipContent" >Content.fkasjdfhlakjscndjksbfasdjkfhsldfjkh</div>
+    </div>
 <svg>
+
 </svg>
 </body>
 </html>
