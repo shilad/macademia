@@ -46,23 +46,23 @@ svg {
 
     // Create d3 template that knows how to create svg elements for data
     var interest = MC.interest()
-        .addOnHover(
-                function (d) {
-                    console.log('in ' + d.name);
-                    d3.select(this)
-                            .selectAll('text')
-                            .transition()
-                            .duration(200)
-                            .attr('fill', 'black');
-                },
-                function (d) {
-                    console.log('out ' + d.name);
-                    d3.select(this)
-                            .selectAll('text')
-                            .transition()
-                            .duration(200)
-                            .attr('fill', '#DCDCDC');
-                });
+//        .addOnHover(
+//                function (d) {
+//                    console.log('in ' + d.name);
+//                    d3.select(this)
+//                            .selectAll('text')
+//                            .transition()
+//                            .duration(200)
+//                            .attr('fill', 'black');
+//                },
+//                function (d) {
+//                    console.log('out ' + d.name);
+//                    d3.select(this)
+//                            .selectAll('text')
+//                            .transition()
+//                            .duration(200)
+//                            .attr('fill', '#DCDCDC');
+//                });
 
     // Ask d3 to create svg elements by applying the template to interest data
     d3.select('svg')

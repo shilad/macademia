@@ -9,9 +9,70 @@
 var MC = (window.MC = (window.MC || {}));
 
 /**
- * TODO: calculate circles instead of passing them in.
- * @param params
- * @constructor
+ *
+ * Creates a layout integrating interest.js, person.js, and hubs.js into one visualization.
+ *
+ * An interest-viz is a constructor needing the following params:
+ * hubs, root, interests, people, circles, svg, and colors
+ *
+ * Example usage:
+ *
+ var interests = {
+        3: {"id": 3, "name": "Senegal"},
+        6: {"id": 6, "name": "UofL"},
+        2: {"id": 2, "name": "Warm weather"},
+        1: {"id": 1, "name": "his parents"},
+        4: {"id": 4, "name": "Makeing Patino Smile"},
+        5: {"id": 5, "name": "Timberwolves"},
+        2: {"id": 2, "name": "NBA"},
+        10: {"id": 10, "name": "Siva"},
+        11: {"id": 11, "name": "Behanan"},
+        12: {"id": 12, "name": "Steven Van Treesee"},
+        13: {"id": 13, "name": "Rusdiculous"},
+        14: {"id": 14, "name": "Chris Smith"},
+        15: {"id": 15, "name": "Luke"},
+        31: {"id": 31, "name": "Basketball"},
+        22: {"id": 22, "name": "Soccer"},
+
+    };
+ var peeps = {
+        15830: {"id":15830,
+            "name":"Gorgui Dieng",
+            "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
+            "relevance":{
+                "11":1.77,
+                "overall":1.0769508928060532},
+            "interests":[
+                11,
+                22]},
+        }
+    };
+
+ var colors =[
+ "#b2a3f5",
+  ];
+ var gradientCircles = [
+ {'id' : 31, 'color' : "#b2a3f5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.5},
+  ];
+
+ var root = {type : 'person', id: 7, children : [3,6,1,4,5,2]};
+
+  var hubs = [
+ {type : 'interest', id : 11, children : [12,14,15,16]},
+  ];
+
+ var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
+
+ var viz = new MC.InterestViz({
+      hubs: hubs,
+      root: root,
+      interests: interests,
+      people: peeps,
+      circles: gradientCircles,
+      svg : svg,
+      colors: colors
+    });
+ *
  */
 
 MC.InterestViz = function(params) {

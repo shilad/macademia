@@ -43,7 +43,7 @@ svg {
         1: {"id": 1, "name": "Machine Learning"},
         4: {"id": 4, "name": "Jazz"},
         5: {"id": 5, "name": "Statistics"},
-        8: {"id": 8, "name": "Web2.0"},
+//        8: {"id": 8, "name": "Web2.0"},
         9: {"id": 9, "name": "Jay-Z"},
         10: {"id": 10, "name": "Mathh"},
         11: {"id": 11, "name": "html5"},

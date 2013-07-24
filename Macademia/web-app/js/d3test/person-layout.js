@@ -5,6 +5,97 @@
  * Time: 12:48 PM
  * To change this template use File | Settings | File Templates.
  */
+
+/**
+ *
+ * Creates a layout integrating interest.js and person.js into one visualization.
+ *
+ * A person-layout MUST be an object with fields:
+ *  interest, clusterMap, person
+ *
+ * Example usage:
+ *
+ var people = [
+ {"id":15830, "type": 'person', "fid":250588901, "name":"Luther Rea",
+     'interestColors': {4 : 'pink', 5 : d3.hsl(180, 0.5, 0.5), 6 : "#ea0", 11 : "#707"},
+     'relevance':  {4 : 3.0, 6: 8.3, 11: 1.0},
+     "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
+     "relevance":{"-1":null, "4":1.9539017856121063, "5":1.23, "6":1.04,  "11":1.0947,
+         "overall":1.0769508928060532}
+ } ];
+
+ var interests = [
+ {"id":4, "type": 'interest', "name":"WINNING", "cluster" : 4,'color':'deepPink','cx':590, 'cy':290, 'r': 34} ,
+ {"id":5, "type": 'interest', "name":"gum",  "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'black', 'cx':200, 'cy':200, 'r': 34},
+ {"id":6, "type":'interest', "name":"shoe", "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'green','cx':50, 'cy': 60, 'r': 34},
+ {"id":11, "type":'interest', "name":"ben hillman", "cluster":18,"parentId":"4", "relevance":0.7576502561569214, "roles":[], 'color':'brown','cx':250, 'cy':250, 'r': 34},
+ {"id":14, "type": 'interest',"name":"Text mining", "cluster":18, "parentId":"18","relevance":0.7576502561569214, "roles":[], 'color':'black','cx':300, 'cy':300, 'r': 34}];
+
+ var clusterMap = {
+        "4": ["5"],
+        "5":["6","14"],
+        "6":["11"],
+        "11":["5"]
+    };
+
+ var interest = MC.interest();
+
+ d3.select('svg')
+ .datum(interests)
+ .call(interest);
+
+ var person = MC.person();
+
+ d3.select('svg')
+ .selectAll('g.person')
+ .data(people)
+ .enter()
+ .call(person);
+
+ window.setTimeout(function() {
+        var personLayout = MC.personLayout()
+                .setPeopleNodes(d3.selectAll('g.person'))
+                .setClusterMap(clusterMap)
+                .setInterestNodes(d3.selectAll('g.interest'));
+
+        d3.select('svg')
+                .selectAll('person-layouts')
+                .data([0])
+                .enter()
+                .call(personLayout);
+
+    }, 1000);
+     });
+
+ Available attributes:
+ friction: the amount of jiggle the person does before finding its location
+ gravity: pulls nodes to the center of the visualization
+
+ MC.options.register(pl, 'linkDistance', 50);
+
+ MC.options.register(pl, 'peopleNodes', function () {
+        throw('no people specified.')
+    });
+ MC.options.register(pl, 'interestNodes', function () {
+        throw('no interests specified.')
+    });
+ MC.options.register(pl, 'clusterMap', function () {
+        throw('no clusterMap specified');
+    });
+ MC.options.register(pl, 'charge', function(d) {
+        //checks to see if it is a hub
+        if (d.type == 'hub') {
+            return -50;
+        } else if (d.type == 'person') {
+            return -600;
+        } else {
+            return -50;
+        }
+    });
+
+ * @return {Function}
+ *
+ */
 var MC = (window.MC = (window.MC || {}));
 
 MC.personLayout = function () {
@@ -174,7 +265,7 @@ MC.personLayout = function () {
     }
                                         //just so I u
     MC.options.register(pl, 'friction', 0.8);
-    MC.options.register(pl, 'gravity', 0.005);
+    MC.options.register(pl, 'gravity', 10.005);
     MC.options.register(pl, 'linkDistance', 50);
 
     MC.options.register(pl, 'peopleNodes', function () {
