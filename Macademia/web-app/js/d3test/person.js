@@ -79,7 +79,7 @@ MC.person = function() {
     }
 
 
-    MC.options.register(person, 'interests', function (){throw('no interests specivied')});
+    MC.options.register(person, 'interests', function (){throw('no interests specified')});
     MC.options.register(person, 'text', function (d, i) { return d.name; });
     MC.options.register(person, 'pic', function (d, i) { return d.pic; });
     MC.options.register(person, 'cx', function (d) { return d.cx; });

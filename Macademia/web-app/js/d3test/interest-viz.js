@@ -89,12 +89,12 @@ MC.InterestViz.prototype.calculateColors = function() {
 MC.InterestViz.prototype.startPeople = function() {
 
     window.setTimeout( jQuery.proxy(function() {
-        this.createInterestColors();
+//        this.createInterestColors();
         this.createPersonView();
         this.createPeople();
         this.createPersonLayoutView()
         this.createPersonLayout();
-    }, this), MC.hub().getDuration());
+    }, this), 5003);
 
 };
 
@@ -102,7 +102,7 @@ MC.InterestViz.prototype.startPeople = function() {
 MC.InterestViz.prototype.createInterestViz = function() {
     this.createHub(this.root);
     for(var i = 0; i < this.hubs.length; i++) {
-        this.createHub(this.hubs[i]);
+            this.createHub(this.hubs[i],i);
     }
 };
 
@@ -128,7 +128,8 @@ MC.InterestViz.prototype.createInterestColors = function(){
 
 };
 
-MC.InterestViz.prototype.createHub = function(model) {
+MC.InterestViz.prototype.createHub = function(model,i) {
+    var calculatedDelay=(i+1)*500;
     var hubInterests = [];
     for (var i = 0; i < model.children.length; i++) {
         var childId = model.children[i];
@@ -147,9 +148,11 @@ MC.InterestViz.prototype.createHub = function(model) {
             isVizRoot : (model == this.root),
             cx : model.cx,
             cy : model.cy,
-            distance : 100
+            distance : 100,
+            delay : calculatedDelay
         })
         .call(MC.hub());
+
 };
 
 MC.InterestViz.prototype.createsGradientCircles = function(){
@@ -221,6 +224,7 @@ MC.InterestViz.prototype.createPersonView = function() {
 
 //Creates the floating people heads
 MC.InterestViz.prototype.createPeople = function() {
+    console.log(this.people);
     this.container
         .selectAll('g.person')
         .data(this.people)
