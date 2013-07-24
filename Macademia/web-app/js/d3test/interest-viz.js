@@ -96,7 +96,6 @@ MC.InterestViz = function(params) {
     this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
-
     this.container=this.svg.append("g").attr("class","viz");
     // construct the hubModel here based on other parameters
     this.currentColors = [];
@@ -127,7 +126,7 @@ MC.InterestViz.prototype.postionHubs = function(){
         var pos = coordinates[i+1]; //start with 1 because 0 is root
         this.hubs[i].cx = this.svgWidth * pos.x;
         this.hubs[i].cy = this.svgHeight * pos.y;
-        console.log(this.hubs[i]);
+//        console.log(this.hubs[i]);
     }
 
     // applying the padding
@@ -373,7 +372,7 @@ MC.InterestViz.prototype.createPeople = function() {
         }
     }
 
-    console.log(people_array);
+//    console.log(people_array);
 
     this.container
         .datum(people_array)
