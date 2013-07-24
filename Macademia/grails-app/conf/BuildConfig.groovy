@@ -49,6 +49,7 @@ grails.project.dependency.resolution = {
         runtime ":springcache:1.3.1"
         runtime ":resources:1.2"
         runtime ":jquery:1.8.3"
+        compile ":jquery-ui:1.8.24"
         runtime ":compass-sass:0.7"
         runtime ":database-migration:1.3.3"
 

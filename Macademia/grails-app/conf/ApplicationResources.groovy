@@ -48,6 +48,7 @@ modules = {
     d3js {
         dependsOn 'consolelog'
         dependsOn 'core'
+        dependsOn 'jquery-ui'
         resource url: '/js/d3test/d3.v3.js'
         resource url: '/js/d3test/utils.js'
         resource url: '/js/d3test/label.js'
