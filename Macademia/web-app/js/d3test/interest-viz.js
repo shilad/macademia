@@ -7,7 +7,7 @@
  */
 
 var MC = (window.MC = (window.MC || {}));
-
+ //hi
 /**
  *
  * Creates a layout integrating interest.js, person.js, and hubs.js into one visualization.
@@ -346,9 +346,7 @@ MC.InterestViz.prototype.createPersonView = function() {
 //Creates the floating people heads
 MC.InterestViz.prototype.createPeople = function() {
     this.container
-        .selectAll('g.person')
-        .data(this.people)
-        .enter()
+        .datum(this.people)
         .call(this.personView);
 };
 
@@ -397,9 +395,6 @@ MC.InterestViz.prototype.makeColorful = function(){
         };
 
     };
-
-
-
 };
 
 
