@@ -51,9 +51,6 @@ var MC = (window.MC = (window.MC || {}));
  var colors =[
  "#b2a3f5",
   ];
- var gradientCircles = [
- {'id' : 31, 'color' : "#b2a3f5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.5},
-  ];
 
  var root = {type : 'person', id: 7, children : [3,6,1,4,5,2]};
 
@@ -93,26 +90,29 @@ MC.InterestViz = function(params) {
     this.svgHeight = this.svg.attr("height");
     this.distance = 80;
 
-    this.circles = params.circles;
+//    this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
     this.container=this.svg.append("g").attr("class","viz");
     // construct the hubModel here based on other parameters
     this.currentColors = [];
-    this.calculatePositions();
-    this.setRadii(30,15);
+
+    this.gCircle = [this.hubs.length]; //same number as the hubs
+
     this.calculateColors();
+    this.postionHubsGradientCirlces();
+    this.setRadii(30,15);
+
     this.setGradients();
-    this.createsGradientCircles();
+    this.drawGradientCircles();
+
     this.createInterestViz();
     this.startPeople();
 
 };
 
-
-
-// Position the hubs around the visRoot
-MC.InterestViz.prototype.postionHubs = function(){
+// Position the hubs and their gradient circles around the visRoot
+MC.InterestViz.prototype.postionHubsGradientCirlces = function(){
     var n = this.hubs.length;
     var coordinates = this.positions[n-1];
     var posRoot = coordinates[0];
@@ -161,17 +161,29 @@ MC.InterestViz.prototype.postionHubs = function(){
 
     }
 
+    //Setting the gradient circles
+    var circle = {};
+    circle['cx'] = this.root.cx;
+    circle['cy'] = this.root.cy;
+    circle['id'] = this.root.id;
+    circle['color'] = this.root.color;
+    circle['stop-opacity'] = .5;
+    this.gCircle[0] = circle;
+
+    for (var i=0; i<n; i++){
+        var circle = {};
+        circle['cx'] = this.hubs[i].cx;
+        circle['cy'] = this.hubs[i].cy;
+        circle['id'] = this.hubs[i].id;
+        circle['color'] = this.hubs[i].color;
+        circle['stop-opacity'] = .5;
+        this.gCircle[i+1] = circle;
+    }
+
+    console.log(this.gCircle);
+
+
 }
-
-// Position the center of the hubModel(visRoot) to the enter of the SVG canvas
-MC.InterestViz.prototype.positionHubModel = function(){
-    var x = this.svgWidth/2;
-    var y = this.svgHeight/2;
-
-    this.hubModel.cx = x;
-    this.hubModel.cy = y;
-}
-
 
 MC.InterestViz.prototype.setRadii = function(hubRadius,interestRadius) {
     for(var i in this.interests){
@@ -183,24 +195,16 @@ MC.InterestViz.prototype.setRadii = function(hubRadius,interestRadius) {
 //        console.log(this.hubs[i]);
     }
     this.root['r']=hubRadius;
+
+    for(var i=0; i < this.gCircle.length; i++){
+        this.gCircle[i]['r'] = hubRadius * 8;
+    }
 //    this.svg
 //        .selectAll('g.interest')
 //        .attr('r',interestRadius);
 //    this.svg
 //        .selectAll('g.hubRoot')
 //        .attr('r',hubRadius);
-};
-
-MC.InterestViz.prototype.calculatePositions = function() {
-//    this.root.cx = 375;
-//    this.root.cy = 425;
-//    this.hubs[0].cx = 375;
-//    this.hubs[0].cy = 150;
-//    this.hubs[1].cx = 150;
-//    this.hubs[1].cy = 600;
-//    this.hubs[2].cx = 600;
-//    this.hubs[2].cy = 600;
-    this.postionHubs();
 };
 
 MC.InterestViz.prototype.calculateColors = function() {
@@ -294,9 +298,15 @@ MC.InterestViz.prototype.createHub = function(model,i) {
 
 };
 
-MC.InterestViz.prototype.createsGradientCircles = function(){
+MC.InterestViz.prototype.drawGradientCircles = function(){
+    //Creating gradientCircles
+//    var gradientCircles = [
+//        {'id' : 31, 'color' : "#b2a3f5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.5},
+//    ];
+
+
     this.container.selectAll('circle.gradient')
-        .data(this.circles)
+        .data(this.gCircle)
         .enter()
         .append("circle")
         .attr('fill', function(d) {
@@ -324,7 +334,7 @@ MC.InterestViz.prototype.setGradients = function(){
 
     var rGs = defs
         .selectAll("radialGradient")
-        .data(this.circles)
+        .data(this.gCircle)
         .enter()
         .append('radialGradient')
         .attr("id",function(d){

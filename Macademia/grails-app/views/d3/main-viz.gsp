@@ -128,12 +128,12 @@
         "#a8c4e5",
         "#b4f5a3"
     ];
-    var gradientCircles = [
-        {'id' : 31, 'color' : "#b2a3f5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.5},
-        {'id' : 10, 'color' : "#b4f5a3", 'r': 170, 'cx' : 150, 'cy' : 600, "stop-opacity":.5},
-        {'id' : 19, 'color' : "#f5a3d6", 'r': 170, 'cx' : 600, 'cy' : 600, "stop-opacity":.5},
-        {'id' : 34, 'color' : "#D3D3D3", 'r': 300, 'cx' : 375, 'cy' : 425, "stop-opacity":.5}
-    ];
+//    var gradientCircles = [
+//        {'id' : 31, 'color' : "#b2a3f5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.5},
+//        {'id' : 10, 'color' : "#b4f5a3", 'r': 170, 'cx' : 150, 'cy' : 600, "stop-opacity":.5},
+//        {'id' : 19, 'color' : "#f5a3d6", 'r': 170, 'cx' : 600, 'cy' : 600, "stop-opacity":.5},
+//        {'id' : 34, 'color' : "#D3D3D3", 'r': 300, 'cx' : 375, 'cy' : 425, "stop-opacity":.5}
+//    ];
 
     var root = {type : 'person', id: 7, children : [3,6,1,4,5,2]};
 
@@ -151,7 +151,6 @@
         root: root,
         interests: interests,
         people: peeps,
-        circles: gradientCircles,
         svg : svg,
         colors: colors
     });
