@@ -6,13 +6,6 @@
     <r:require modules="d3js"/>
 
     <title></title>
-
-    <span class="tooltip"><a href="#">unfetter</a><div>
-        <div class="tooltipContent">Conceptualizing random endpoints in an access matrix provides reach extensions enterprise wide. Respective divisions historically insignificant, upscale trendlines in a management inventory analysis survivability format.</div>
-    </div></span>
-
-
-
 </head>
 
 <body>
@@ -45,6 +38,7 @@
 .tooltip {
     position: relative;
 }
+
 .tooltip > div {
     display: none;
     position: absolute;
@@ -52,8 +46,8 @@
     left: 50%;
     margin-left: -150px;
     width: 300px;
-
 }
+
 .tooltipContent {
     background-color: #eee;
     border: 1px solid #555;
@@ -61,15 +55,19 @@
     padding: 5px;
 }
 
-
-
-
 svg {
     /*height : 90%;*/
     /*width : 90%;*/
 }
 
 </style>
+
+<span class="tooltip"><a href="#">unfetter</a>
+
+    <div>
+        <div class="tooltipContent">Content.</div>
+    </div></span>
+
 <r:script>   //sdf
 var interests = {
     3: {"id": 3, "name": "Online Communities"},
