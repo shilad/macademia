@@ -180,7 +180,7 @@ MC.InterestViz.prototype.postionHubsGradientCirlces = function(){
         this.gCircle[i+1] = circle;
     }
 
-    console.log(this.gCircle);
+    //console.log(this.gCircle);
 
 
 }
@@ -236,7 +236,7 @@ MC.InterestViz.prototype.startPeople = function() {
         this.createPeople();
         this.createPersonLayoutView()
         this.createPersonLayout();
-    }, this), 3503);
+    }, this), 2503);
 
 };
 
@@ -299,12 +299,6 @@ MC.InterestViz.prototype.createHub = function(model,i) {
 };
 
 MC.InterestViz.prototype.drawGradientCircles = function(){
-    //Creating gradientCircles
-//    var gradientCircles = [
-//        {'id' : 31, 'color' : "#b2a3f5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.5},
-//    ];
-
-
     this.container.selectAll('circle.gradient')
         .data(this.gCircle)
         .enter()
@@ -362,7 +356,7 @@ MC.InterestViz.prototype.setGradients = function(){
 
 
 MC.InterestViz.prototype.getD3Interests = function() {
-    return this.container.selectAll('g.interest');
+    return this.container.selectAll('g.interest,g.hubRoot');
 };
 
 //return a person view
@@ -373,17 +367,12 @@ MC.InterestViz.prototype.createPersonView = function() {
 
 //Creates the floating people heads
 MC.InterestViz.prototype.createPeople = function() {
-
     var people_array = [];
-
     for (var key in this.people) {
         if(this.root.id != key){//check the root
             people_array.push(this.people[key]);
         }
     }
-
-//    console.log(people_array);
-
     this.container
         .datum(people_array)
         .call(this.personView);

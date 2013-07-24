@@ -110,19 +110,29 @@ MC.personLayout = function () {
         var svg = d3.select('svg');
 
         var surrogates = {};
-
         //copies the interest node information--not sure why
         // perhaps this was to avoid radial coordinates
         interestNodes.each(function (d,i) {
             var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
+            if(d.id){
             surrogates[d.id] = {
-                type: (d.id in clusterMap) ? 'hub' : 'leaf',
+                type: 'leaf',
                 id: d.id,
                 fixed: true,  // interests cannot move
                 x: pos.x,
                 y: pos.y,
                 real: d
             };
+            }else if(d[0].id){
+                surrogates[d[0].id] = {
+                    type: 'hub',
+                    id: d[0].id,
+                    fixed: true,  // interests cannot move
+                    x: pos.x,
+                    y: pos.y,
+                    real: d
+                };
+            }
         });
 
 //        console.log(surrogates);
@@ -154,13 +164,16 @@ MC.personLayout = function () {
         peopleNodes.each(function (p, i) {
 //            console.log(p)
             $.map(p.relevance, function (r, iid) {
-//                console.log(surrogates[iid]);
                 if (iid != -1 && iid != 'overall') {
+//                    console.log(r*r);
                     links.push({
                         source: p,
                         target: surrogates[iid],
                         strength: r * r
                     });
+//                    console.log(p);
+//                    console.log(surrogates[iid]);
+//                    console.log(r*r);
                 }
             });
         });
@@ -248,7 +261,7 @@ MC.personLayout = function () {
         });
     }
                                         //just so I u
-    MC.options.register(pl, 'friction', 0.8);
+    MC.options.register(pl, 'friction', 0.005);
     MC.options.register(pl, 'gravity', 10.005);
     MC.options.register(pl, 'linkDistance', 50);
 
@@ -266,7 +279,7 @@ MC.personLayout = function () {
         if (d.type == 'hub') {
             return -500;
         } else if (d.type == 'person') {
-            return -6000;
+            return -600;
         } else {
             return -50;
         }

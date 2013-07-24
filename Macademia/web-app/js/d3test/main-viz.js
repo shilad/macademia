@@ -75,6 +75,7 @@ MC.MainViz.prototype.onLoad = function(){
         },this),2500);
     }
     else{
+        this.svg.select("g.viz").remove();
         this.createViz();
         this.setEventHandlers();
     }
@@ -116,7 +117,7 @@ MC.MainViz.prototype.setInterestEventHandler = function(){
                 macademia.history.update();
 
             });
-    }, this), MC.hub().getDuration());
+    }, this), 2504);
 };
 
 MC.MainViz.prototype.setPeopleEventHandler = function(){
@@ -142,7 +143,7 @@ MC.MainViz.prototype.setPeopleEventHandler = function(){
 
                 macademia.history.update();
             });
-    },this), MC.hub().getDuration());
+    },this), 2504);
 };
 
 MC.MainViz.prototype.setTransitionRoot = function(d3Root){
