@@ -9,21 +9,95 @@
 var MC = (window.MC = (window.MC || {}));
 
 /**
- * TODO: calculate circles instead of passing them in.
- * @param params
- * @constructor
+ *
+ * Creates a layout integrating interest.js, person.js, and hubs.js into one visualization.
+ *
+ * An interest-viz is a constructor needing the following params:
+ * hubs, root, interests, people, circles, svg, and colors
+ *
+ * Example usage:
+ *
+ var interests = {
+        3: {"id": 3, "name": "Senegal"},
+        6: {"id": 6, "name": "UofL"},
+        2: {"id": 2, "name": "Warm weather"},
+        1: {"id": 1, "name": "his parents"},
+        4: {"id": 4, "name": "Makeing Patino Smile"},
+        5: {"id": 5, "name": "Timberwolves"},
+        2: {"id": 2, "name": "NBA"},
+        10: {"id": 10, "name": "Siva"},
+        11: {"id": 11, "name": "Behanan"},
+        12: {"id": 12, "name": "Steven Van Treesee"},
+        13: {"id": 13, "name": "Rusdiculous"},
+        14: {"id": 14, "name": "Chris Smith"},
+        15: {"id": 15, "name": "Luke"},
+        31: {"id": 31, "name": "Basketball"},
+        22: {"id": 22, "name": "Soccer"},
+
+    };
+ var peeps = {
+        15830: {"id":15830,
+            "name":"Gorgui Dieng",
+            "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
+            "relevance":{
+                "11":1.77,
+                "overall":1.0769508928060532},
+            "interests":[
+                11,
+                22]},
+        }
+    };
+
+ var colors =[
+ "#b2a3f5",
+  ];
+ var gradientCircles = [
+ {'id' : 31, 'color' : "#b2a3f5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.5},
+  ];
+
+ var root = {type : 'person', id: 7, children : [3,6,1,4,5,2]};
+
+  var hubs = [
+ {type : 'interest', id : 11, children : [12,14,15,16]},
+  ];
+
+ var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
+
+ var viz = new MC.InterestViz({
+      hubs: hubs,
+      root: root,
+      interests: interests,
+      people: peeps,
+      circles: gradientCircles,
+      svg : svg,
+      colors: colors
+    });
+ *
  */
 
+
 MC.InterestViz = function(params) {
+    this.positions = [
+        [], // 1 hub case
+        [], // 2 hub case
+        [{x:0.5,y:0.6},{x:0.2,y:1},{x:0.8,y:1},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
+        [] // 4 hub case
+    ];
+
     this.hubs = params.hubs;
     this.people = params.people;
     this.root = params.root;
     this.svg = params.svg;
+
+    this.svgWidth = this.svg.attr("width");
+    this.svgHeight = this.svg.attr("height");
+    this.distance = 80;
+
     this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
 
-    this.container=this.svg.append("g").attr("class","viz").attr('width', 1000).attr('height', 1000);
+    this.container=this.svg.append("g").attr("class","viz");
     // construct the hubModel here based on other parameters
     this.currentColors = [];
     this.calculatePositions();
@@ -35,6 +109,70 @@ MC.InterestViz = function(params) {
     this.startPeople();
 
 };
+
+
+
+// Position the hubs around the visRoot
+MC.InterestViz.prototype.postionHubs = function(){
+    var n = this.hubs.length;
+    var coordinates = this.positions[n-1];
+    var posRoot = coordinates[0];
+
+    //Setting the root
+    this.root.cx = this.svgWidth * posRoot.x;
+    this.root.cy = this.svgHeight * posRoot.y;
+
+    //Setting the hubs
+    for(var i=0;i<hubs.length;i++){
+        var pos = coordinates[i+1]; //start with 1 because 0 is root
+        this.hubs[i].cx = this.svgWidth * pos.x;
+        this.hubs[i].cy = this.svgHeight * pos.y;
+        console.log(this.hubs[i]);
+    }
+
+    // applying the padding
+    var dist = this.distance; //use the distance between the root and child as padding
+    var scale = 1.5;
+    var padL = dist * scale; //left
+    var padR = this.svgWidth - dist * scale; //right
+    var padT = dist * scale; //top
+    var padB = this.svgHeight - dist * scale; //bottom
+
+    for(var i=0; i<n; i++){
+
+        //Left
+        if(this.hubs[i].cx < padL){
+            this.hubs[i].cx = padL;
+        }
+
+        //Right
+        if(this.hubs[i].cx > padR){
+            this.hubs[i].cx = padR;
+        }
+
+        //Top
+        if(this.hubs[i].cy < padT){
+            this.hubs[i].cy = padT;
+        }
+
+        //Bottom
+        if(this.hubs[i].cy > padB){
+            this.hubs[i].cy = padB;
+        }
+
+    }
+
+}
+
+// Position the center of the hubModel(visRoot) to the enter of the SVG canvas
+MC.InterestViz.prototype.positionHubModel = function(){
+    var x = this.svgWidth/2;
+    var y = this.svgHeight/2;
+
+    this.hubModel.cx = x;
+    this.hubModel.cy = y;
+}
+
 
 MC.InterestViz.prototype.setRadii = function(hubRadius,interestRadius) {
     for(var i in this.interests){
@@ -55,14 +193,15 @@ MC.InterestViz.prototype.setRadii = function(hubRadius,interestRadius) {
 };
 
 MC.InterestViz.prototype.calculatePositions = function() {
-    this.root.cx = 375;
-    this.root.cy = 425;
-    this.hubs[0].cx = 375;
-    this.hubs[0].cy = 150;
-    this.hubs[1].cx = 150;
-    this.hubs[1].cy = 600;
-    this.hubs[2].cx = 600;
-    this.hubs[2].cy = 600;
+//    this.root.cx = 375;
+//    this.root.cy = 425;
+//    this.hubs[0].cx = 375;
+//    this.hubs[0].cy = 150;
+//    this.hubs[1].cx = 150;
+//    this.hubs[1].cy = 600;
+//    this.hubs[2].cx = 600;
+//    this.hubs[2].cy = 600;
+    this.postionHubs();
 };
 
 MC.InterestViz.prototype.calculateColors = function() {
@@ -149,7 +288,8 @@ MC.InterestViz.prototype.createHub = function(model,i) {
             cx : model.cx,
             cy : model.cy,
             distance : 100,
-            delay : calculatedDelay
+            delay : calculatedDelay,
+            distance : this.distance
         })
         .call(MC.hub());
 
@@ -236,9 +376,7 @@ MC.InterestViz.prototype.createPeople = function() {
     console.log(people_array);
 
     this.container
-        .selectAll('g.person')
-        .data(people_array)
-        .enter()
+        .datum(people_array)
         .call(this.personView);
 };
 
