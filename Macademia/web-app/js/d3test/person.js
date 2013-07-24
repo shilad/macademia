@@ -20,14 +20,7 @@ var MC = (window.MC = (window.MC || {}));
  *
  * var person = MC.person()
  * d3.select('svg')
-            .attr('width', 500)
-            .attr('height', 500)
-            .selectAll('people')
-            .data([0])
-            .append('g')
-            .attr('class', 'people')
-            .data(people)
-               .enter()
+            .datum(people)
             .call(person);
  *
  * Available attributes:
