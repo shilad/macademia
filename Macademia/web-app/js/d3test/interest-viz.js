@@ -77,7 +77,7 @@ MC.InterestViz = function(params) {
     this.positions = [
         [], // 1 hub case
         [], // 2 hub case
-        [{x:0.5,y:0.6},{x:0.2,y:1},{x:0.8,y:1},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
+        [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
         [] // 4 hub case
     ];
 
@@ -86,22 +86,23 @@ MC.InterestViz = function(params) {
     this.root = params.root;
     this.svg = params.svg;
 
-
-
 //    this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
-    this.container=this.svg.append("g").attr("class","viz");
+    this.container=this.svg.append("g").attr("class","viz").attr("width",800).attr("height",600);
     // construct the hubModel here based on other parameters
     this.currentColors = [];
-    this.svgWidth = this.container.attr("width");
-    this.svgHeight = this.container.attr("height");
+
+    this.svgWidth = this.container.attr("width"); //container provides a padding
+    this.svgHeight = this.container.attr("height"); //container provides a padding
     this.distance = 80;
+
+
     this.gCircle = [this.hubs.length]; //same number as the hubs
 
     this.calculateColors();
     this.postionHubsGradientCirlces();
-    this.setRadii(30,15);
+    this.setRadii(30,12);
 
     this.setGradients();
     this.drawGradientCircles();
@@ -197,7 +198,7 @@ MC.InterestViz.prototype.setRadii = function(hubRadius,interestRadius) {
     this.root['r']=hubRadius;
 
     for(var i=0; i < this.gCircle.length; i++){
-        this.gCircle[i]['r'] = hubRadius * 8;
+        this.gCircle[i]['r'] = this.svgWidth * 0.3;
     }
 //    this.svg
 //        .selectAll('g.interest')

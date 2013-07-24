@@ -145,7 +145,7 @@
     ];
 
 
-    var svg = d3.select('svg').attr('width', 800).attr('height', 600);
+    var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
     var viz = new MC.MainViz({
         hubs: hubs,
