@@ -42,8 +42,6 @@
     fill: #C0C0C0;
 }
 
-svg {
-}
 
 </style>
 <r:script>
