@@ -167,7 +167,7 @@ MC.InterestViz.prototype.postionHubsGradientCirlces = function(){
     circle['cy'] = this.root.cy;
     circle['id'] = this.root.id;
     circle['color'] = this.root.color;
-    circle['stop-opacity'] = .5;
+    circle['stop-opacity'] = .3;
     this.gCircle[0] = circle;
 
     for (var i=0; i<n; i++){
@@ -176,7 +176,7 @@ MC.InterestViz.prototype.postionHubsGradientCirlces = function(){
         circle['cy'] = this.hubs[i].cy;
         circle['id'] = this.hubs[i].id;
         circle['color'] = this.hubs[i].color;
-        circle['stop-opacity'] = .5;
+        circle['stop-opacity'] = .3;
         this.gCircle[i+1] = circle;
     }
 
