@@ -75,6 +75,7 @@ MC.MainViz.prototype.onLoad = function(){
         },this),2500);
     }
     else{
+        this.svg.select("g.viz").remove();
         this.createViz();
         this.setEventHandlers();
     }

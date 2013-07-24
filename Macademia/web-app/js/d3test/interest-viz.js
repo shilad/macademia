@@ -233,7 +233,7 @@ MC.InterestViz.prototype.startPeople = function() {
         this.createPeople();
         this.createPersonLayoutView()
         this.createPersonLayout();
-    }, this), 3503);
+    }, this), 2503);
 
 };
 
@@ -364,17 +364,12 @@ MC.InterestViz.prototype.createPersonView = function() {
 
 //Creates the floating people heads
 MC.InterestViz.prototype.createPeople = function() {
-
     var people_array = [];
-
     for (var key in this.people) {
         if(this.root.id != key){//check the root
             people_array.push(this.people[key]);
         }
     }
-
-    console.log(people_array);
-
     this.container
         .datum(people_array)
         .call(this.personView);

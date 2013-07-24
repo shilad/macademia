@@ -110,7 +110,6 @@ MC.personLayout = function () {
         var svg = d3.select('svg');
 
         var surrogates = {};
-        console.log(interestNodes);
         //copies the interest node information--not sure why
         // perhaps this was to avoid radial coordinates
         interestNodes.each(function (d,i) {
@@ -127,7 +126,7 @@ MC.personLayout = function () {
             }else if(d[0].id){
                 surrogates[d[0].id] = {
                     type: 'hub',
-                    id: d.id,
+                    id: d[0].id,
                     fixed: true,  // interests cannot move
                     x: pos.x,
                     y: pos.y,
@@ -135,7 +134,7 @@ MC.personLayout = function () {
                 };
             }
         });
-        console.log(surrogates);
+
         var getPrimaryInterest = function (p) {
             var maxId = -1;
             var maxRel = -1;
@@ -164,6 +163,7 @@ MC.personLayout = function () {
 //            console.log(p)
             $.map(p.relevance, function (r, iid) {
                 if (iid != -1 && iid != 'overall') {
+//                    console.log(r*r);
                     links.push({
                         source: p,
                         target: surrogates[iid],
@@ -261,7 +261,7 @@ MC.personLayout = function () {
                                         //just so I u
     MC.options.register(pl, 'friction', 0.8);
     MC.options.register(pl, 'gravity', 10.005);
-    MC.options.register(pl, 'linkDistance', 50);
+    MC.options.register(pl, 'linkDistance', 500);
 
     MC.options.register(pl, 'peopleNodes', function () {
         throw('no people specified.')
@@ -277,7 +277,7 @@ MC.personLayout = function () {
         if (d.type == 'hub') {
             return -500;
         } else if (d.type == 'person') {
-            return -6000;
+            return -600;
         } else {
             return -50;
         }
