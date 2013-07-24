@@ -94,7 +94,7 @@ MC.InterestViz.prototype.startPeople = function() {
         this.createPeople();
         this.createPersonLayoutView()
         this.createPersonLayout();
-    }, this), 5003);
+    }, this), 3503);
 
 };
 

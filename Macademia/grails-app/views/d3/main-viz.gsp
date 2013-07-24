@@ -42,10 +42,6 @@
     fill: #C0C0C0;
 }
 
-svg {
-    height : 90%;
-    width : 90%;
-}
 
 </style>
 <r:script>
