@@ -4,6 +4,33 @@
  * Date: 7/16/13
  * Time: 10:41 AM
  * To change this template use File | Settings | File Templates.
+ *
+ * Creates a hub object.  A hub consists of a type (interest or person), id, and an array of its children.
+ *
+ * Example usage:
+ *
+ * var hubs = [
+ * {type : 'interest', id : 11, children : [12,14,15,16]},
+ * {type : 'interest', id : 13, children : [21,22,23,24,25,26]},
+ * {type : 'interest', id : 33, children : [23,43,53,63]}
+ * ];
+ *
+ * var hub = MC.hub()
+ *      .setName("Data Mining");
+ *
+ * Available attributes:
+ *      id: the identification number
+ *      cx: center x position
+ *      cy: center y position
+ *      r: radius of hub
+ *      duration: ?
+ *      cssClass: class for <g> enclosing the label
+ *      regularFill: I don't think we use this anymore...
+ *      highlightedFill: I don't think we use this...
+ *      selectHub: used when a hub is selected by making it regular filled
+ *      deselectHub: used when a hub is not selected by making it highlighted filled
+ *
+ * @return {Function}
  */
 
 
@@ -298,7 +325,7 @@ MC.hub = function() {
     });
     MC.options.register(hub, 'duration', 1000);
     MC.options.register(hub, 'cssClass', 'hub');
-    MC.options.register(hub, 'regularFill', '#C0C0C0');
+    MC.options.register(hub, 'regularFill', 'green');
     MC.options.register(hub, 'highlightedFill', 'black');
     MC.options.register(hub, 'selectHub',function(){
         d3Group.style('fill', hub.getRegularFill());
