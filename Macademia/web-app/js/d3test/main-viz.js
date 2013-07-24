@@ -156,6 +156,7 @@ MC.MainViz.prototype.transitionRoot = function(){
     //Move root to center
     if(this.tRoot){
         var newRoot=this.svg.select('g.nextRoot');
+        var oldRoot=this.svg.select('g.vizRoot');
         this.svg
             .select('g.nextRoot')
             .attr('class','g.interest'); //Doesn't matter if it is a person or interest or hub
@@ -163,7 +164,7 @@ MC.MainViz.prototype.transitionRoot = function(){
             .transition()
             .duration(1000)
             .attr("transform",function(){
-                return "translate(375,425)";
+                return oldRoot.attr('transform');
             });
         this.tRoot
             .selectAll('circle')
