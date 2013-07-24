@@ -4,46 +4,72 @@ var MC = (window.MC = (window.MC || {}));
 MC.person = function() {
     function person(selection) {
         selection.each(function(data) {
-            var klass = interest.getCssClass();
-
+            var klass = person.getCssClass();
             var allGs = d3.select(this)
                 .selectAll("g." + klass)
                 .data(data, function (d) { return d.id; });
 
-            var newGs = allGs.enter().append('g')
-                .attr('class', klass)
-                .attr('opacity', 0.0);
-
+            // remove old people.
             if(allGs.exit().size() > 0){
                 allGs.exit().transition().remove()
                     .attr('opacity', 0.0)
                     .duration(100);
             }
 
-            var img = newGs.append("image")
-                .attr("xlink:href", person.getPic())
-                .attr("height", person.getImageHeight())
-                .attr("width", person.getImageWidth())
-                .attr("transform", function (d, i) {
-                    var w = person.getOrCallImageWidth(d, i);
-                    var h = person.getOrCallImageHeight(d, i);
-                    return 'translate(-' + (w/2) + ', -' + (h/2) + ')';
+            // helper functions: set the position and size of elements
+            // used for a transition in existing objects and initial
+            // setting in new objects.
+            var setAttrs = function(g) {
+                // enclosing g position
+                g.attr('transform', function (d, i) {
+                    var cx = person.getOrCallCx(d, i);
+                    var cy = person.getOrCallCy(d, i);
+                    return 'translate(' + cx + ', ' + cy + ')';
                 });
 
-            var arc = d3.svg.arc()
-                .innerRadius(function (d, i) {
-                    var w = person.getOrCallImageWidth(d, i);
-                    var h = person.getOrCallImageHeight(d, i);
-                    return Math.min(w, h) / 2;
-                })
-                .outerRadius(person.getR());
+                // image attributes
+                g.select('image')
+                    .attr("height", person.getImageHeight())
+                    .attr("width", person.getImageWidth())
+                    .attr("transform", function (d, i) {
+                        var w = person.getOrCallImageWidth(d, i);
+                        var h = person.getOrCallImageHeight(d, i);
+                        return ('translate(-' + (w/2) + ', -' + (h/2) + ')');
+                    });
 
+                var arc = d3.svg.arc()
+                    .innerRadius(function (d, i) {
+                        var w = person.getOrCallImageWidth(d, i);
+                        var h = person.getOrCallImageHeight(d, i);
+                        return Math.min(w, h) / 2;
+                    })
+                    .outerRadius(person.getR());
+
+                // path attributes
+                g.selectAll('path')
+                    .attr("d", arc)
+                    .attr("stroke", "#FFFFFF")
+                    .attr("fill", function (d, i) { return d.data.color; })
+            };
+
+            // animate existing nodes
+            setAttrs(allGs.transition(500));
+
+            // create new container, but make it transparent.
+            var newGs = allGs.enter().append('g')
+                .attr('class', klass)
+                .attr('opacity', 0.0);
+
+            // new image in center
+            newGs.append("image")
+                .attr("xlink:href", person.getPic());
+
+            // add the wedges around the image
             var pieLayout = d3.layout.pie()
                 .sort(null)
                 .value(function(d) {
                     return d.weight;
                 });
-
             var personToWedges = function(d) {
                 var wedges = [];
                 for (var iid in d.relevance) {
@@ -56,21 +82,14 @@ MC.person = function() {
                 }
                 return pieLayout(wedges);
             };
-
-            var pie = g.append("g")
+            newGs.append("g")
                 .selectAll("path")
                 .data(personToWedges)
                 .enter()
-                .append("path")
-                .attr("d", arc)
-                .attr("stroke", "#FFFFFF")
-                .attr("fill", function (d, i) { return d.data.color; });
+                .append("path");
 
-            person.getOrCallOnHover().forEach(function (v) {
-                g.on('mouseover', v[0]);
-                g.on('mouseout', v[1]);
-            });
-
+            // create the label on the bottom of the person
+            // TODO: make this animatible.
             var l = MC.label()
                 .setText(person.getText())
                 .setY(function (d, i) {
@@ -80,14 +99,13 @@ MC.person = function() {
                 .setAlign('middle');
 
             newGs.call(l);
+            setAttrs(newGs);
+            newGs.transition().duration(500).attr('opacity', 1.0);
 
-            allGs.transition()
-                .duration(200)
-                .attr('transform', function (d, i) {
-                    var cx = person.getOrCallCx(d, i);
-                    var cy = person.getOrCallCy(d, i);
-                    return 'translate(' + cx + ', ' + cy + ')';
-                });
+            person.getOrCallOnHover().forEach(function (v) {
+                allGs.on('mouseover', v[0]);
+                allGs.on('mouseout', v[1]);
+            });
         });
     }
 

@@ -58,7 +58,7 @@ MC.interest = function() {
 
 //            console.log('allGs size is ' + newGs.size());
 
-            newGs.append('circle').attr('class',klass+"Outer");//Outer circle
+            newGs.append('circle').attr('class',klass+"Outer"); //Outer circle
             newGs.append('circle').attr('class',klass+"Inner"); //inner circle
             var l = MC.label()
                 .setText(interest.getCleanedText())
