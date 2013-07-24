@@ -346,9 +346,7 @@ MC.InterestViz.prototype.createPersonView = function() {
 //Creates the floating people heads
 MC.InterestViz.prototype.createPeople = function() {
     this.container
-        .selectAll('g.person')
-        .data(this.people)
-        .enter()
+        .datum(this.people)
         .call(this.personView);
 };
 
@@ -397,9 +395,6 @@ MC.InterestViz.prototype.makeColorful = function(){
         };
 
     };
-
-
-
 };
 
 

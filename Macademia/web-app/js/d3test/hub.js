@@ -141,12 +141,7 @@ MC.hub = function() {
                 personRoot.setImageHeight(personImageHeight*scale);
 
                 d3Group
-                    .selectAll('hubRoot')
-                    .data([0])
-                    .append('g')
-                    .attr('class', 'hubRoot')
-                    .data([data.root])
-                    .enter()
+                    .datum([data.root])
                     .call(personRoot);
             }
             if(data.root['isVizRoot']){
