@@ -60,7 +60,6 @@ MC.personLayout = function () {
                     maxRel = p.relevance[id];
                 }
             }
-            ;
             return maxId;
         }
 
