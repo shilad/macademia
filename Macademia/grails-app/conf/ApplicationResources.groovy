@@ -48,8 +48,9 @@ modules = {
     d3js {
         dependsOn 'consolelog'
         dependsOn 'core'
-        dependsOn 'jquery-ui'
 
+        resource url: '/js/jquery-ui-1.10.3.custom/css/ui-lightness/jquery-ui-1.10.3.custom.css'
+        resource url: '/js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js'
         resource url: '/js/d3test/d3.v3.js'
         resource url: '/js/d3test/utils.js'
         resource url: '/js/d3test/label.js'
@@ -60,6 +61,7 @@ modules = {
         resource url: '/js/d3test/interest-layout.js'
         resource url: '/js/d3test/base-viz.js'
         resource url: '/js/d3test/interest-viz.js'
+
         resource url: '/js/d3test/main-viz.js'
     }
 

@@ -44,10 +44,12 @@
 }
 
 .tooltipContent {
-    background-color: #eee;
-    border: 1px solid #555;
+    background-color: #eaeaea;
+    border: 3px dotted #ffffff;
+    font: 13px Georgia;
+    color: #474747;
     border-radius: 5px;
-    padding: 5px;
+    padding: 20px 10px;
 }
 
 svg {
@@ -212,7 +214,8 @@ $().ready(function () {
 
 </r:script>
     <div class="tooltip">
-        <div class="tooltipContent" >Content.fkasjdfhlakjscndjksbfasdjkfhsldfjkh</div>
+        <div class="tooltipContent" ><b>Interests:</b><br/>
+        bioinformatics, combinatorics, complexity, discrete mathematics, foundations of mathematics, genomics, graph theory, Logic, Markov chains, mathematics, networks, probability</div>
     </div>
 <svg>
 
