@@ -104,18 +104,25 @@ MC.person = function() {
                 .attr("xlink:href", person.getPic());
 
             // add the wedges around the image
+
             var pieLayout = d3.layout.pie()
-                .sort(null)
+                .sort(function(a, b) {
+                    return a.weight - b.weight;
+                })
+                .startAngle(0)
+                .endAngle(2*Math.PI)
                 .value(function(d) {
                     return d.weight;
                 });
+
             var personToWedges = function(d) {
                 var wedges = [];
                 for (var iid in d.relevance) {
                     if (iid != 'overall' && iid != -1) {
                         wedges.push({
                             weight :d.relevance[iid],
-                            color : d.interestColors[iid]
+                            color : d.interestColors[iid],
+                            id:iid
                         })
                     }
                 }

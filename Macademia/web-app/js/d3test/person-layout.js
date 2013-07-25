@@ -210,6 +210,10 @@ MC.personLayout = function () {
             .charge(pl.getCharge())
             .friction(friction)
             .start();
+
+
+
+
         //creates a new g  for each new person
 //        var groups = svg.selectAll(".personNode")
 //            .data(personNodes)
@@ -236,6 +240,30 @@ MC.personLayout = function () {
             return (x < min) ? min : ((x > max) ? max : x);
         };
 
+
+
+        var findHubLocations = function(){
+            var hubLocs = {};
+            for(var i in surrogates){
+                if(surrogates[i].type=='hub'){
+                    hubLocs[surrogates[i].id]={id:surrogates[i].id,x:surrogates[i].x,y:surrogates[i].y};
+                }
+            }
+            return hubLocs;
+        };
+
+        var calculateAngle = function(personId,hubId,personLocs,hubLocs){
+            //Unsure whether to use px & py or x & y in person locations
+            var personLoc=personLocs[personId];
+            var hubLoc = hubLocs[hubId];
+            var m = (hubLoc.y-personLoc.py)/(personLoc.px-hubLoc.x);
+            var theta = Math.atan(m);
+            return Math.PI-theta;
+        };
+
+        var hubLocations = findHubLocations();
+
+        var personLocations={};
         // walk through iterations of convergence to final positions
         force.on("tick", function (e) {
 
@@ -249,8 +277,12 @@ MC.personLayout = function () {
             peopleNodes.attr("transform", function (d) {
                 d.x = pinch(d.x, 50, 750);
                 d.y = pinch(d.y, 50, 750);
+                personLocations[d.id]={id: d.id,px: d.px, py: d.py, x: d.x, y: d.y};
                 return "translate(" + d.x + "," + d.y + ")";
             });
+
+//            console.log(calculateAngle(336,11,personLocations,hubLocations));
+
         });
 
         d3.select("body").on("click", function () {

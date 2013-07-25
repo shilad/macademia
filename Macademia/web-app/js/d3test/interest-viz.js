@@ -109,7 +109,6 @@ MC.InterestViz = function(params) {
 
     this.createInterestViz();
     this.startPeople();
-
 };
 
 // Position the hubs and their gradient circles around the visRoot
@@ -237,6 +236,9 @@ MC.InterestViz.prototype.startPeople = function() {
         this.createPeople();
         this.createPersonLayoutView()
         this.createPersonLayout();
+
+
+
     }, this), 2503);
 
 };
@@ -372,6 +374,7 @@ MC.InterestViz.prototype.createPeople = function() {
     for (var key in this.people) {
         if(this.root.id != key){//check the root
             people_array.push(this.people[key]);
+//            console.log(this.people[key]);
         }
     }
     this.container
@@ -424,12 +427,5 @@ MC.InterestViz.prototype.makeColorful = function(){
         };
 
     };
-
-
-
 };
-
-
-
-
 
