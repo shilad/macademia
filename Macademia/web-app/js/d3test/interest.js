@@ -61,9 +61,7 @@ MC.interest = function() {
 
             //fades out out dated g's
             if(allGs.exit().size() > 0){
-                allGs.exit().transition().remove()
-                    .attr('opacity', 0.0);
-//                    .duration(100);
+                allGs.exit().transition().attr('opacity', 0.0).remove();
             }
 
 //            console.log('allGs size is ' + newGs.size());

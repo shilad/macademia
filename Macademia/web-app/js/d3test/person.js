@@ -130,14 +130,17 @@ MC.person = function() {
             // create the label on the bottom of the person
             // TODO: make this animatible.
             var l = MC.label()
-                .setText(person.getText())
+                .setText(function(d) { return d.name; })
+                .setX(0)
                 .setY(function (d, i) {
+                    console.log(d);
                     var r = person.getOrCallR(d, i);
                     return "" + (r+11) + "px";
                 })
                 .setAlign('middle');
 
             newGs.call(l);
+
             setAttrs(newGs);
             newGs.transition().duration(500).attr('opacity', 1.0);
 
