@@ -108,14 +108,15 @@ MC.person = function() {
                 .sort(null)
                 .value(function(d) {
                     return d.weight;
-                });
+                })
             var personToWedges = function(d) {
                 var wedges = [];
                 for (var iid in d.relevance) {
                     if (iid != 'overall' && iid != -1) {
                         wedges.push({
                             weight :d.relevance[iid],
-                            color : d.interestColors[iid]
+                            color : d.interestColors[iid],
+                            id: iid
                         })
                     }
                 }
@@ -126,7 +127,11 @@ MC.person = function() {
                 .selectAll("path")
                 .data(personToWedges)
                 .enter()
-                .append("path");
+                .append("path")
+                .attr("id",function(d){
+                    console.log(d);
+                    return 'path'+ d.data.id;
+                });
 
             // create the label on the bottom of the person
             // TODO: make this animatible.
