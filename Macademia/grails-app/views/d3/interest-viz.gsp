@@ -171,25 +171,39 @@ var viz = new MC.InterestViz({
 $().ready(function () {
 
     $("g.interest").hover(function () {
-//        alert('hi');
         var tooltip = $(".tooltip").show();
-//        var pos = {left: 100 , top: 100};
-//        tooltip.hide();
-//        var right = pos.left;
-//        var pageWidth = $(document).width();
-//        if (pos.left < 0) {
-//            tooltip.css("marginLeft", "+=" + "px");
-//        }
-//        else if (right > pageWidth) {
-//            tooltip.css("marginLeft", "-=" + (right - pageWidth));
-//        }
-//        tooltip.fadeIn();
+        var offset = $(this).offset();
+        var width = $(this).outerWidth();
+        $(".tooltip").css({top:offset.top+110, left:offset.left + width + 315}).show();
     }, function () {
-        $("> div", this).fadeOut(function () {
+        $(".tooltip").fadeOut(function () {
+            $(this).css("marginLeft", "");
+        });
+    });
+
+
+    $("g.hub").hover(function () {
+
+        var tooltip = $(".tooltip").show();
+        var offset = $(this).offset();
+        var width = $(this).outerWidth();
+        $(".tooltip").css({top:offset.top+110, left:offset.left + width + 315}).show();
+
+
+
+
+    }, function () {
+        $(".tooltip").fadeOut(function () {
             $(this).css("marginLeft", "");
         });
     });
 });
+
+
+
+
+
+
 
 
 
