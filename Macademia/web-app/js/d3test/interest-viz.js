@@ -414,17 +414,16 @@ MC.InterestViz.prototype.toolTipHover = function(){
 //    console.log(div);
 
     this.svg.selectAll("g.interest")
-        .on("mouseover", function(d){
-            d3.selectAll("div")
-                .style("opacity",0)
+        .on("mouseover", jQuery.proxy(function(d){
+            d3.select('body').selectAll("#interestToolTip")
                 .transition()
                 .duration(200)
-                .style("opacity", .9);
-        })
-        .on("mouseout", function(d){
-            d3.select("div").transition()
-                .duration(500)
-                .style("opacity", 0)
-        });
+                .style("display", "block");
+        },this));
+//        .on("mouseout", jQuery.proxy(function(d){
+//            this.container.select("div").transition()
+//                .duration(500)
+//                .style("opacity", 0)
+//        },this));
 };
 
