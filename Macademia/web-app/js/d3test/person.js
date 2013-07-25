@@ -134,7 +134,6 @@ MC.person = function() {
                 .enter()
                 .append("path")
                 .attr("id",function(d){
-//                    console.log(d);
                     return 'path'+ d.data.id;
                 });
 
