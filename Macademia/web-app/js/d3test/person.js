@@ -138,23 +138,25 @@ MC.person = function() {
                     return 'path'+ d.data.id;
                 });
 
-            var maxWeight={};
-            paths
-                .each(function(d){
-                    if(maxWeight < d.data.weight){
-                        maxWeight = d.data.weight;
-                    }
-                });
-            paths
-                .attr('class',function(d){
-                    console.log(d)
-                    if(maxWeight == d.data.weight){
-                        return "mine";
-                    }
-                    else{
-                        return "yours";
-                    }
-                });
+
+//            var sortedPaths = paths
+//                .sort(function(a,b){
+//                    return b.value- a.value;
+//                });
+//            sortedPaths
+//                .each(function(d){
+//                    console.log(d);
+//                });
+////            paths
+////                .attr('class',function(d){
+////                    console.log(d)
+////                    if(maxWeight == d.data.weight){
+////                        return "mine";
+////                    }
+////                    else{
+////                        return "yours";
+////                    }
+////                });
             maxWeight=0;
             // create the label on the bottom of the person
             // TODO: make this animatible.

@@ -264,6 +264,16 @@ MC.personLayout = function () {
         var hubLocations = findHubLocations();
 
         var personLocations={};
+
+        var personID;
+        var hubToPersonAngle;
+        var halfArcAngle;
+        var rotationDegree;
+        var peoplePaths;
+        var peoplePies = d3.
+            select('svg')
+            .selectAll('g.person')
+            .selectAll('g.pie');
         // walk through iterations of convergence to final positions
         force.on("tick", function (e) {
 
@@ -282,16 +292,30 @@ MC.personLayout = function () {
             });
 
 //            console.log(calculateAngle(336,11,personLocations,hubLocations));
-            var peoplePies = d3.
+
+
+            peoplePaths = d3.
                 select('svg')
                 .selectAll('g.person')
-                .selectAll('g.pie');
-//            console.log(peoplePies);
-            peoplePies
-                .select('path.mine')
-                .call(function(d){
-//                    console.log(d);
+                .selectAll('g.pie')
+                .selectAll('path')
+                .sort(function(a,b){
+                    return b.value- a.value;
+                });
+            peoplePaths
+                .each(function(d,i){
+                    if(i==0){
+                        personID = d3.select(this.parentNode).data()[0].id;
+                        hubToPersonAngle = calculateAngle(personID, d.data.id,personLocations,hubLocations);
+                        halfArcAngle = (d.endAngle - d.startAngle) ;
+                        rotationDegree = (hubToPersonAngle + halfArcAngle)*(180/Math.PI);
 
+                        d3.select(this.parentNode)
+                            .transition()
+                            .attr('transform',function(){
+                                return "rotate("+(rotationDegree)+")";
+                            });
+                    }
                 });
 //
 
