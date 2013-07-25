@@ -191,6 +191,7 @@ $().ready(function () {
             var offset = $(this).offset();
             var width = $(this).outerWidth();
             $(".tooltip").css({top:offset.top+110, left:offset.left + width + 315}).show();
+
         }, function () {
             $(".tooltip").fadeOut(function () {
                 $(this).css("marginLeft", "");
