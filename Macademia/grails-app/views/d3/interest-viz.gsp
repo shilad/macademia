@@ -171,34 +171,34 @@ var viz = new MC.InterestViz({
 });
 
 
-$().ready(function () {
-   if($("g.hub").hover()){
-        $("g.hub").hover(function () {
-
-        var tooltip = $(".tooltip").show();
-        var offset = $(this).offset();
-        var width = $(this).outerWidth();
-        $(".tooltip").css({top:offset.top+110, left:offset.left + width + 315}).show();
-    },
-    function () {
-
-        $(".tooltip").fadeOut(function () {
-            $(this).css("marginLeft", "");
-        });
-    });}
-    else if( $("g.interest").hover){
-        $("g.interest").hover(function () {
-            var tooltip = $(".tooltip").show();
-            var offset = $(this).offset();
-            var width = $(this).outerWidth();
-            $(".tooltip").css({top:offset.top+110, left:offset.left + width + 315}).show();
-        }, function () {
-            $(".tooltip").fadeOut(function () {
-                $(this).css("marginLeft", "");
-            });
-        });
-    }
-});
+//$().ready(function () {
+//   if($("g.hub").hover()){
+//        $("g.hub").hover(function () {
+//
+//        var tooltip = $(".tooltip").show();
+//        var offset = $(this).offset();
+//        var width = $(this).outerWidth();
+//        $(".tooltip").css({top:offset.top+110, left:offset.left + width + 315}).show();
+//    },
+//    function () {
+//
+//        $(".tooltip").fadeOut(function () {
+//            $(this).css("marginLeft", "");
+//        });
+//    });}
+//    else if( $("g.interest").hover){
+//        $("g.interest").hover(function () {
+//            var tooltip = $(".tooltip").show();
+//            var offset = $(this).offset();
+//            var width = $(this).outerWidth();
+//            $(".tooltip").css({top:offset.top+110, left:offset.left + width + 315}).show();
+//        }, function () {
+//            $(".tooltip").fadeOut(function () {
+//                $(this).css("marginLeft", "");
+//            });
+//        });
+//    }
+//});
 
 
 
@@ -212,7 +212,7 @@ $().ready(function () {
 
 
 </r:script>
-    <div class="tooltip">
+    <div id="interestToolTip" class="tooltip">
         <div class="tooltipContent" ><b>Interests:</b><br/>
         bioinformatics, combinatorics, complexity, discrete mathematics, foundations of mathematics, genomics, graph theory, Logic, Markov chains, mathematics, networks, probability</div>
     </div>
