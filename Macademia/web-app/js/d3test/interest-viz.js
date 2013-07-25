@@ -408,14 +408,14 @@ MC.InterestViz.prototype.toolTipHover = function(){
 //    $("#interestToolTip")
 
 
-    var div = d3.select("div")
-        .style("opacity", 0);
+//    var div = d3.select("div")
+//        .style("opacity", 0);
 
-    console.log(div);
+//    console.log(div);
 
     this.svg.selectAll("g.interest")
         .on("mouseover", function(d){
-            d3.select("div").transition()
+            d3.select("div").style("opacity", 0).transition()
                 .duration(200)
                 .style("opacity", .9);
         })
@@ -423,6 +423,6 @@ MC.InterestViz.prototype.toolTipHover = function(){
             d3.select("div").transtion()
                 .duration(500)
                 .style("opacity", 0)
-        })
+        });
 };
 
