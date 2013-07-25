@@ -104,7 +104,6 @@ MC.person = function() {
                 .attr("xlink:href", person.getPic());
 
             // add the wedges around the image
-
             var pieLayout = d3.layout.pie()
                 .sort(function(a, b) {
                     return a.weight - b.weight;
@@ -133,7 +132,11 @@ MC.person = function() {
                 .selectAll("path")
                 .data(personToWedges)
                 .enter()
-                .append("path");
+                .append("path")
+                .attr("id",function(d){
+                    console.log(d);
+                    return 'path'+ d.data.id;
+                });
 
             // create the label on the bottom of the person
             // TODO: make this animatible.
