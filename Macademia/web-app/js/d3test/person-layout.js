@@ -282,6 +282,18 @@ MC.personLayout = function () {
             });
 
 //            console.log(calculateAngle(336,11,personLocations,hubLocations));
+            var peoplePies = d3.
+                select('svg')
+                .selectAll('g.person')
+                .selectAll('g.pie');
+//            console.log(peoplePies);
+            peoplePies
+                .select('path.mine')
+                .call(function(d){
+//                    console.log(d);
+
+                });
+//
 
         });
 
