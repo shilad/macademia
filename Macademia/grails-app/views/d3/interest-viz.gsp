@@ -201,16 +201,6 @@ var viz = new MC.InterestViz({
 //});
 
 
-
-
-
-
-
-
-
-
-
-
 </r:script>
     <div id="interestToolTip" class="tooltip">
         <div class="tooltipContent" ><b>Interests:</b><br/>
