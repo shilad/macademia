@@ -52,6 +52,31 @@
     padding: 20px 10px;
 }
 
+
+
+.tooltipInterest {
+    display: none;
+    position: absolute;
+    left: 50%;
+    margin-left: -150px;
+    width: 300px;
+}
+
+.tooltipContentInterest {
+    background-color: #eaeaea;
+    border: 3px dotted #ffffff;
+    font: 13px Georgia;
+    color: #474747;
+    border-radius: 5px;
+    padding: 20px 10px;
+}
+
+
+
+
+
+
+
 svg {
     /*height : 90%;*/
     /*width : 90%;*/
@@ -173,12 +198,12 @@ var viz = new MC.InterestViz({
 $().ready(function () {
 
     $("g.interest").hover(function () {
-        var tooltip = $(".tooltip").show();
+        var tooltipInterest = $(".tooltipInterest").show();
         var offset = $(this).offset();
         var width = $(this).outerWidth();
-        $(".tooltip").css({top:offset.top+110, left:offset.left + width + 315}).show();
+        $(".tooltipInterest").css({top:offset.top+30, left:offset.left + width + 200}).show();
     }, function () {
-        $(".tooltip").fadeOut(function () {
+        $(".tooltipInterest").fadeOut(function () {
             $(this).css("marginLeft", "");
         });
     });
@@ -202,21 +227,21 @@ $().ready(function () {
 });
 
 
-
-
-
-
-
-
-
-
-
-
 </r:script>
     <div class="tooltip">
         <div class="tooltipContent" ><b>Interests:</b><br/>
         bioinformatics, combinatorics, complexity, discrete mathematics, foundations of mathematics, genomics, graph theory, Logic, Markov chains, mathematics, networks, probability</div>
     </div>
+
+
+<div class="tooltipInterest">
+    <div class="tooltipContentInterest" ><b>Interests:</b><br/>
+        bioinformatics, combinatorics, complexity, discrete mathematics, foundations of mathematics, genomics, graph theory, Logic, Markov chains, mathematics, networks, probability</div>
+</div>
+
+
+
+
 <svg>
 
 </svg>
