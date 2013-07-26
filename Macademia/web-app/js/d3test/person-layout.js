@@ -329,7 +329,7 @@ MC.personLayout = function () {
                 });
         };
         // walk through iterations of convergence to final positions
-        force.on("tick", function (e) {
+        force.on("tick", function (e) {                   //POOOp
 
 //        // Push different nodes in different directions for clustering.
 //        var k = 6 * e.alpha;
