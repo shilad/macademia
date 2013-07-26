@@ -307,7 +307,7 @@ MC.personLayout = function () {
                     if(i==0){
                         personID = d3.select(this.parentNode).data()[0].id;
                         hubToPersonAngle = calculateAngle(personID, d.data.id,personLocations,hubLocations);
-                        halfArcAngle = (d.endAngle - d.startAngle) ;
+                        halfArcAngle = (d.endAngle - d.startAngle)/2 ;
                         rotationDegree = (hubToPersonAngle + halfArcAngle)*(180/Math.PI);
 
                         d3.select(this.parentNode)
