@@ -284,7 +284,7 @@ MC.personLayout = function () {
             select('svg')
             .selectAll('g.person')
             .selectAll('g.pie');
-
+        var counter=0;
         // walk through iterations of convergence to final positions
         force.on("tick", function (e) {
 
@@ -302,7 +302,7 @@ MC.personLayout = function () {
                 personLocations[d.id]={id: d.id,px: d.px, py: d.py, x: d.x, y: d.y};
                 return "translate(" + d.x + "," + d.y + ")";
             });
-
+            if(counter%3==0){
             //Rotating the pie of the person towards the hub that has most weight
             peoplePaths = d3.
                 select('svg')
@@ -344,8 +344,8 @@ MC.personLayout = function () {
                             });
                     }
                 });
-//
-
+          }
+            counter++;
         });
 
         d3.select("body").on("click", function () {
