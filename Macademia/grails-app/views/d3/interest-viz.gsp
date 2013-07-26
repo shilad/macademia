@@ -53,6 +53,8 @@
 }
 
 svg {
+    position: absolute;
+    top: 300px;
     /*height : 90%;*/
     /*width : 90%;*/
 }
@@ -201,12 +203,8 @@ var viz = new MC.InterestViz({
 
 
 </r:script>
-    <div id="interestToolTip" class="tooltip">
-        <div class="tooltipContent" ><b>Interests:</b><br/>
-        bioinformatics, combinatorics, complexity, discrete mathematics,
-        foundations of mathematics, genomics, graph theory, Logic,
-        Markov chains, mathematics, networks, probability</div>
-    </div>
+<div>
+</div>
 <svg>
 
 </svg>
