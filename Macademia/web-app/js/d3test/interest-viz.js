@@ -422,15 +422,52 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 .style("display", "block")
                 .style("left",MC.getTransformedPosition(svg[0][0], this, 0, 0).x)
                 .style("top",MC.getTransformedPosition(svg[0][0], this, 0, 0).y)
+
             ;
 //            console.log(MC.getTransformedPosition(svg, this, 0, 0));
         })
+
+
         .on("mouseout", function(d){
             d3.select('body').selectAll("#interestToolTip")
                  .transition()
                  .duration(200)
                  .style("display", "none");
         });
-    this.container.selectAll('.temp').remove('circle');
+
+    var duration = document.getElementById("interestToolTip");
+    duration.hover(function(){
+        $(this)
+            .transition()
+            .duration(200)
+            .style("display", "block")
+            .style("left",MC.getTransformedPosition(svg[0][0], this, 0, 0).x)
+            .style("top",MC.getTransformedPosition(svg[0][0], this, 0, 0).y)
+    })
+
+
+
+
+
+    $("#interestToolTip")
+        .on("hover", function(d){
+            d3.select('body').selectAll("#interestToolTip")
+                .transition()
+                .duration(5000)
+                .style("display", "block")
+                .style("left",MC.getTransformedPosition(svg[0][0], this, 0, 0).x)
+                .style("top",MC.getTransformedPosition(svg[0][0], this, 0, 0).y)
+
+            ;
+//            console.log(MC.getTransformedPosition(svg, this, 0, 0));
+        })
+
+
+
+
+
+//    this.container.selectAll('.temp').remove('circle');
+
+
 };
 
