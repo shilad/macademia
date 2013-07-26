@@ -1,11 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: shilad
-  Date: 5/10/13
-  Time: 3:38 PM
-  To change this template use File | Settings | File Templates.
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -31,12 +23,13 @@ svg {
 </style>
 <r:script>
     var i = 0;
+    var labels = [
+        {text : 'foo', x : 100, y : 200},
+        {text : 'bar', x : 150, y : 100},
+        {text : 'baz', x : 50,  y : 50}
+    ];
     var label = MC.label()
         .setCssClass('testlabel')
-        .setText(function (d) { return d; })
-        .setY(function (d) {
-            return (++i) + 'em';
-        })
         .addOnHover(
             function (d) {
                 d3.select(this)
@@ -51,16 +44,9 @@ svg {
                         .attr('fill', 'black');
             }
     );
-            ;
 
     d3.select('svg')
-            .attr('width', 500)
-            .attr('height', 500)
-            .selectAll('labels')
-            .data([0])
-            .attr('class', 'labels')
-            .data(labels)
-            .enter()
+            .datum(labels)
             .call(label);
 </r:script>
 

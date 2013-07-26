@@ -38,7 +38,7 @@
 .tooltip {
     display: none;
     position:absolute;
-       margin-left: -150px;
+    margin-left: -150px;
     width: 300px;
     pointer-events: none;
 }
@@ -47,9 +47,9 @@
     background-color: #eaeaea;
     border: 3px dotted #ffffff;
     font: 13px Georgia;
-    color: #474747;
+    color: #606060;
     border-radius: 5px;
-    padding: 20px 10px;
+    padding: 10px 15px;
 }
 
 
@@ -182,7 +182,7 @@ var viz = new MC.InterestViz({
     svg: svg,
     colors: colors
 });
-
+    //sames fiel
 
 //$().ready(function () {
 //   if($("g.hub").hover()){

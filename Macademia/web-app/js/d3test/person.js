@@ -105,39 +105,73 @@ MC.person = function() {
 
             // add the wedges around the image
             var pieLayout = d3.layout.pie()
-                .sort(null)
+                .sort(function(a, b) {
+                    return a.weight - b.weight;
+                })
+                .startAngle(0)
+                .endAngle(2*Math.PI)
                 .value(function(d) {
                     return d.weight;
                 });
+
             var personToWedges = function(d) {
                 var wedges = [];
                 for (var iid in d.relevance) {
                     if (iid != 'overall' && iid != -1) {
                         wedges.push({
                             weight :d.relevance[iid],
-                            color : d.interestColors[iid]
+                            color : d.interestColors[iid],
+                            id:iid
                         })
                     }
                 }
                 return pieLayout(wedges);
             };
-            newGs.append("g")
+            var paths = newGs.append("g")
+                .attr('class','pie')
                 .selectAll("path")
                 .data(personToWedges)
                 .enter()
-                .append("path");
+                .append("path")
+                .attr("id",function(d){
+//                    console.log(d);
+                    return 'path'+ d.data.id;
+                });
 
+
+//            var sortedPaths = paths
+//                .sort(function(a,b){
+//                    return b.value- a.value;
+//                });
+//            sortedPaths
+//                .each(function(d){
+//                    console.log(d);
+//                });
+////            paths
+////                .attr('class',function(d){
+////                    console.log(d)
+////                    if(maxWeight == d.data.weight){
+////                        return "mine";
+////                    }
+////                    else{
+////                        return "yours";
+////                    }
+////                });
+            maxWeight=0;
             // create the label on the bottom of the person
             // TODO: make this animatible.
             var l = MC.label()
-                .setText(person.getText())
+                .setText(function(d) { return d.name; })
+                .setX(0)
                 .setY(function (d, i) {
+                    console.log(d);
                     var r = person.getOrCallR(d, i);
                     return "" + (r+11) + "px";
                 })
                 .setAlign('middle');
 
             newGs.call(l);
+
             setAttrs(newGs);
             newGs.transition().duration(500).attr('opacity', 1.0);
 
