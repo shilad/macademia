@@ -221,7 +221,40 @@ var viz = new MC.InterestViz({
         foundations of mathematics, genomics, graph theory, Logic,
         Markov chains, mathematics, networks, probability</div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <svg>
+
+    <div>
+        <p>
+            Hi
+        </p>
+    </div>
+
+
+
 
 </svg>
 </body>
