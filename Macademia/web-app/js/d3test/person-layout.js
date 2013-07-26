@@ -260,18 +260,15 @@ MC.personLayout = function () {
             var m = (personLoc.py-hubLoc.y)/(personLoc.px-hubLoc.x);
 //            var theta = Math.atan(m);
             var theta = Math.atan2(personLoc.py-hubLoc.y,personLoc.px-hubLoc.x);
-            if(theta > Math.PI/2){
-               theta = Math.PI - theta;
-            }
-//            console.log("Person ID");
-//            console.log(personId);
+            console.log("Person ID");
+            console.log(personId);
 //            console.log("Hub ID");
 //            console.log(hubId);
-//            console.log("Slope");
-//            console.log(m);
-//            console.log("Theta");
-//            console.log(theta * 180 / Math.PI);
-            return theta;
+            console.log("Slope");
+            console.log(m);
+            console.log("Theta");
+            console.log(theta * 180 / Math.PI);
+            return Math.abs(theta);
         };
 
         var hubLocations = findHubLocations();
@@ -321,7 +318,6 @@ MC.personLayout = function () {
                         personID = d3.select(this.parentNode).data()[0].id;
                         hubID = d.data.id;
 
-//                        var m = (personLoc.py-hubLoc.y)/(personLoc.px-hubLoc.x);
                         var angle = calculateAngle(personID, hubID,personLocations,hubLocations);
                         var px = personLocations[personID].px;
                         var py = personLocations[personID].py;
