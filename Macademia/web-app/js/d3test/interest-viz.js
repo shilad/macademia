@@ -456,12 +456,11 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 .transition()
                 .duration(200)
                 .style("display", "block")
-                .style("left",pos.left+25)
-                .style("top",pos.top+25)
+                .style("left",pos.left+20)
+                .style("top",pos.top+324)
+
             ;
 //            console.log(MC.getTransformedPosition(svg, this, 0, 0));
-            console.log(div);
-
         })
         .on("mouseout", function(d){
             d3.select('body').select("#interestToolTip")
