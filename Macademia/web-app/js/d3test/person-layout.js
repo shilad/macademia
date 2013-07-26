@@ -355,6 +355,8 @@ MC.personLayout = function () {
             pieSpinning(); //To ensure that the last value is used, call once more
             console.log("hub locations");
             console.log(hubLocations);
+            console.log("person locations");
+            console.log(personLocations);
         });
 //        d3.select("body").on("click", function () {      //Creates error when updating simultaneously
 //            peopleNodes.forEach(function (o, i) {
