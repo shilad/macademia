@@ -7,7 +7,7 @@
  */
 
 var MC = (window.MC = (window.MC || {}));
-
+//hi
 /**
  *
  * Creates a layout integrating interest.js, person.js, and hubs.js into one visualization.
@@ -412,28 +412,25 @@ MC.InterestViz.prototype.toolTipHover = function(){
 //        .style("opacity", 0);
 
 //    console.log(div);
-    var svg=this.svg;
-    console.log(this.svg)
-    //this.container.selectAll("g.interest").select('.interestOuter')
-    d3.selectAll('g.interest')
-        .on("mouseover", function(d, i){
-            console.log(this);
-            console.log(typeof this);
-            var pos= MC.getTransformedPosition(svg, this, 0, 0);
-
+    var svg= this.svg;
+    this.container.selectAll('g.interest').append('circle').attr('class','temp');
+    this.svg.selectAll("g.interest")
+       .on("mouseover", function(d){
             d3.select('body').selectAll("#interestToolTip")
                 .transition()
                 .duration(200)
                 .style("display", "block")
-//                .style("left","pos")
-//                .style("top","svg, this, 0, 0")
+                .style("left",MC.getTransformedPosition(svg[0][0], this, 0, 0).x)
+                .style("top",MC.getTransformedPosition(svg[0][0], this, 0, 0).y)
             ;
+//            console.log(MC.getTransformedPosition(svg, this, 0, 0));
         })
         .on("mouseout", function(d){
             d3.select('body').selectAll("#interestToolTip")
-                .transition()
-                .duration(200)
-                .style("display", "none");
+                 .transition()
+                 .duration(200)
+                 .style("display", "none");
         });
+    this.container.selectAll('.temp').remove('circle');
 };
 
