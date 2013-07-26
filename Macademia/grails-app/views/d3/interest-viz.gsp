@@ -35,22 +35,47 @@
     fill: black;
 }
 
-.tooltip {
-    display: none;
-    position:absolute;
-       margin-left: -150px;
-    width: 300px;
+/*.tooltip {*/
+    /*display: none;*/
+    /*position:absolute;*/
+       /*margin-left: -150px;*/
+    /*width: 300px;*/
+    /*pointer-events: none;*/
+/*}*/
+
+/*.tooltipContent {*/
+    /*background-color: #eaeaea;*/
+    /*border: 3px dotted #ffffff;*/
+    /*font: 13px Georgia;*/
+    /*color: #474747;*/
+    /*border-radius: 5px;*/
+    /*padding: 20px 10px;*/
+/*}*/
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 60px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
     pointer-events: none;
 }
 
-.tooltipContent {
-    background-color: #eaeaea;
-    border: 3px dotted #ffffff;
-    font: 13px Georgia;
-    color: #474747;
-    border-radius: 5px;
-    padding: 20px 10px;
-}
+
+
+
+
+
+
+
+
+
+
+
 
 svg {
     /*height : 90%;*/
