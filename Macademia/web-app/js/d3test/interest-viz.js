@@ -445,7 +445,15 @@ MC.InterestViz.prototype.toolTipHover = function(){
 //    console.log(div);
     var svg= this.svg;
 
-   var div =  d3.selectAll("body").append("div").attr("id","div1").text("hellow wowrkde").style("position", "absolute");
+
+    var interestName = "interest";
+
+    for(interest in this.interests){
+
+    }
+
+
+    var div =  d3.selectAll("body").append("div").attr("id","div1").text("hellow wowrkde").style("position", "absolute");
 //    div.id = 'interestToolTip'
 //    div.textContent = 'ORANGE';
 //      console.log(d3.select("body").select("#div1"));
