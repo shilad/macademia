@@ -256,8 +256,16 @@ MC.personLayout = function () {
             //Unsure whether to use px & py or x & y in person locations
             var personLoc=personLocs[personId];
             var hubLoc = hubLocs[hubId];
-            var m = (hubLoc.y-personLoc.py)/(personLoc.px-hubLoc.x);
+            var m = (personLoc.py-hubLoc.y)/(personLoc.px-hubLoc.x);
             var theta = Math.atan(m);
+            console.log("Person ID");
+            console.log(personId);
+            console.log("Hub ID");
+            console.log(hubId);
+            console.log("Slope");
+            console.log(m);
+            console.log("Theta");
+            console.log(theta*(180/Math.PI));
             return Math.PI-theta;
         };
 
