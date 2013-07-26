@@ -37,9 +37,8 @@
 
 .tooltip {
     display: none;
-    position: absolute;
-    left: 50%;
-    margin-left: -150px;
+    position:absolute;
+       margin-left: -150px;
     width: 300px;
     pointer-events: none;
 }
