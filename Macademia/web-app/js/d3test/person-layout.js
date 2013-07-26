@@ -351,7 +351,7 @@ MC.personLayout = function () {
             }
             counter++;
         });
-//        pieSpinning(); //To ensure that the last value is used, call once more
+        pieSpinning(); //To ensure that the last value is used, call once more
         d3.select("body").on("click", function () {
             peopleNodes.forEach(function (o, i) {
                 o.x += (Math.random() - .5) * 40;
