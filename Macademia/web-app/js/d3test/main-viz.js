@@ -153,6 +153,7 @@ MC.MainViz.prototype.setTransitionRoot = function(d3Root){
 };
 
 MC.MainViz.prototype.transitionRoot = function(){
+    //TODO: Check out the code on the buttom of person.gsp, we can ask the template to redraw the data
     //Move root to center
     if(this.tRoot){
         var newRoot=this.svg.select('g.nextRoot');
