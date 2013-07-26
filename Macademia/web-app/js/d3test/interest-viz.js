@@ -414,13 +414,14 @@ MC.InterestViz.prototype.toolTipHover = function(){
 //    console.log(div);
     var svg= this.svg;
     this.svg.selectAll("g.interest")
-        .on("mouseover", function(d){
+       var pos= MC.getTransformedPosition(svg, this, 0, 0)
+           console.log(pos)
+       .on("mouseover", function(d){
             d3.select('body').selectAll("#interestToolTip")
                 .transition()
                 .duration(200)
                 .style("display", "block")
-//            MC.getTransformedPosition(svg[0][0], this, 0, 0)
-                .style("left","MC.getTransformedPosition(svg, this, 0, 0)")
+                .style("left","pos")
                 .style("top","svg, this, 0, 0")
             ;
         })
