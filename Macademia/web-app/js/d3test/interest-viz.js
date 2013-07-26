@@ -214,7 +214,7 @@ MC.InterestViz.prototype.calculateColors = function() {
 MC.InterestViz.prototype.startPeople = function() {
 
     window.setTimeout( jQuery.proxy(function() {
-        this.createInterestColors();
+//        this.createInterestColors();
         this.createPersonView();
         this.createPeople();
         this.createPersonLayoutView()
@@ -398,7 +398,7 @@ MC.InterestViz.prototype.makeColorful = function(){
 };
 
 
-//MC.InterestViz.prototype.toolTipHover = function(){
+MC.InterestViz.prototype.toolTipHover = function(){
 //Mouseover events involving tooltips
 //    var div = d3.select("body")
 //        .append("div")
@@ -406,58 +406,31 @@ MC.InterestViz.prototype.makeColorful = function(){
 //        .style("opacity", 0);
 //
 //    $("#interestToolTip")
-//
-//
+
+
 //    var div = d3.select("div")
 //        .style("opacity", 0);
-//
+
 //    console.log(div);
-//    var svg= this.svg;
-//    this.svg.selectAll("g.interest")
-//       var pos= MC.getTransformedPosition(svg, this, 0, 0)
-//           console.log(pos)
-//       .on("mouseover", function(d){
-//            d3.select('body').selectAll("#interestToolTip")
-//                .transition()
-//                .duration(200)
-//                .style("display", "block")
-//                .style("left","pos")
-//                .style("top","svg, this, 0, 0")
-//            ;
-//        })
-//        .on("mouseout", function(d){
-//            d3.select('body').selectAll("#interestToolTip")
-//                 .transition()
-//                 .duration(200)
-//                 .style("display", "none");
-//        });
-//};
-
-
-MC.InterestViz.prototype.toolTipHover = function(){
-    var div = d3.select("body").append("div").attr("class", "tooltip").style("opacity",0);
-
-    svg.selectAll("g.interest")
-        .on("mouseover", function(d) {
-            div.transition()
+    var svg= this.svg;
+    this.container.selectAll('g.interest').append('circle').attr('class','temp');
+    this.svg.selectAll("g.interest")
+       .on("mouseover", function(d){
+            d3.select('body').selectAll("#interestToolTip")
+                .transition()
                 .duration(200)
-                .style("opacity", .9);})
-
-        .on("mouseout", function(d) {
-            div.transition()
-                .duration(500)
-                .style("opacity", 0);
+                .style("display", "block")
+                .style("left",MC.getTransformedPosition(svg[0][0], this, 0, 0).x)
+                .style("top",MC.getTransformedPosition(svg[0][0], this, 0, 0).y)
+            ;
+//            console.log(MC.getTransformedPosition(svg, this, 0, 0));
+        })
+        .on("mouseout", function(d){
+            d3.select('body').selectAll("#interestToolTip")
+                 .transition()
+                 .duration(200)
+                 .style("display", "none");
         });
-
-
-
-
-
-
-
-
-
-}
-
-
+    this.container.selectAll('.temp').remove('circle');
+};
 
