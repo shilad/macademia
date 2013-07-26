@@ -214,7 +214,7 @@ MC.InterestViz.prototype.calculateColors = function() {
 MC.InterestViz.prototype.startPeople = function() {
 
     window.setTimeout( jQuery.proxy(function() {
-        this.createInterestColors();
+//        this.createInterestColors();
         this.createPersonView();
         this.createPeople();
         this.createPersonLayoutView()
@@ -413,17 +413,17 @@ MC.InterestViz.prototype.toolTipHover = function(){
 
 //    console.log(div);
     var svg= this.svg;
+    this.container.selectAll('g.interest').append('circle').attr('class','temp');
     this.svg.selectAll("g.interest")
-       var pos= MC.getTransformedPosition(svg, this, 0, 0)
-           console.log(pos)
        .on("mouseover", function(d){
             d3.select('body').selectAll("#interestToolTip")
                 .transition()
                 .duration(200)
                 .style("display", "block")
-                .style("left","pos")
-                .style("top","svg, this, 0, 0")
+                .style("left",MC.getTransformedPosition(svg[0][0], this, 0, 0).x)
+                .style("top",MC.getTransformedPosition(svg[0][0], this, 0, 0).y)
             ;
+//            console.log(MC.getTransformedPosition(svg, this, 0, 0));
         })
         .on("mouseout", function(d){
             d3.select('body').selectAll("#interestToolTip")
@@ -431,5 +431,6 @@ MC.InterestViz.prototype.toolTipHover = function(){
                  .duration(200)
                  .style("display", "none");
         });
+    this.container.selectAll('.temp').remove('circle');
 };
 
