@@ -340,7 +340,7 @@ MC.personLayout = function () {
                         d3.select(this.parentNode)
                             .transition()
                             .attr('transform',function(){
-                                return "rotate("+(rotationDegree)+")";
+                                return "rotate("+(rotationDegree+90)+")";
                             });
                     }
                 });
