@@ -431,7 +431,7 @@ MC.InterestViz.prototype.makeColorful = function(){
 
 MC.InterestViz.prototype.toolTipHover = function(){
 //Mouseover events involving tooltips
-//    var div = d3.select("bodfgy")
+//    var div = d3.select("body")
 //        .append("div")
 //        .attr("class", "tooltip")
 //        .style("opacity", 0);
@@ -444,16 +444,22 @@ MC.InterestViz.prototype.toolTipHover = function(){
 
 //    console.log(div);
     var svg= this.svg;
-//    this.container.selectAll('g.interest').append('circle').attr('class','temp');
 
+   var div =  d3.selectAll("body").append("div").attr("id","div1").text("hellow wowrkde").style("position", "absolute");
+//    div.id = 'interestToolTip'
+//    div.textContent = 'ORANGE';
+//      console.log(d3.select("body").select("#div1"));
+
+//    this.container.selectAll('g.interest');
     this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person")
         .on("mouseover", function(d){
-            d3.select('body').select("#interestToolTip")  //set to be dynamic # information
+            var pos = this.getBoundingClientRect();
+                div
                 .transition()
                 .duration(200)
                 .style("display", "block")
-                .style("left",MC.getTransformedPosition(svg[0][0], this, 0, 0).x+125)
-                .style("top",MC.getTransformedPosition(svg[0][0], this, 0, 0).y+25)
+                .style("left",pos.left+25)
+                .style("top",pos.top+25)
             ;
 //            console.log(MC.getTransformedPosition(svg, this, 0, 0));
         })
@@ -463,6 +469,6 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 .duration(200)
                 .style("display", "none");
         });
-//    this.container.selectAll('.temp').remove('circle');
+    this.container.selectAll('.temp').remove('circle');
 };
 
