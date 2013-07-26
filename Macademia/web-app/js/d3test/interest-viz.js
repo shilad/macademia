@@ -7,7 +7,7 @@
  */
 
 var MC = (window.MC = (window.MC || {}));
- //hi
+//hi
 /**
  *
  * Creates a layout integrating interest.js, person.js, and hubs.js into one visualization.
@@ -46,20 +46,20 @@ var MC = (window.MC = (window.MC || {}));
                 11,
                 22]},
         }
-    };
+ };
 
  var colors =[
  "#b2a3f5",
-  ];
+ ];
  var gradientCircles = [
  {'id' : 31, 'color' : "#b2a3f5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.5},
-  ];
+ ];
 
  var root = {type : 'person', id: 7, children : [3,6,1,4,5,2]};
 
-  var hubs = [
+ var hubs = [
  {type : 'interest', id : 11, children : [12,14,15,16]},
-  ];
+ ];
 
  var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
@@ -111,6 +111,7 @@ MC.InterestViz = function(params) {
     this.createsGradientCircles();
     this.createInterestViz();
     this.startPeople();
+    this.toolTipHover();
 
 };
 
@@ -394,10 +395,36 @@ MC.InterestViz.prototype.makeColorful = function(){
         };
 
     };
-
 };
 
 
+MC.InterestViz.prototype.toolTipHover = function(){
+//Mouseover events involving tooltips
+//    var div = d3.select("body")
+//        .append("div")
+//        .attr("class", "tooltip")
+//        .style("opacity", 0);
+
+//    $("#interestToolTip")
 
 
+//    var div = d3.select("div")
+//        .style("opacity", 0);
+
+//    console.log(div);
+
+    this.svg.selectAll("g.interest")
+        .on("mouseover", function(d){
+            d3.selectAll("div")
+                .style("opacity",0)
+                .transition()
+                .duration(200)
+                .style("opacity", .9);
+        })
+        .on("mouseout", function(d){
+            d3.select("div").transition()
+                .duration(500)
+                .style("opacity", 0)
+        });
+};
 
