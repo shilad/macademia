@@ -338,8 +338,8 @@ MC.personLayout = function () {
 
                         halfArcAngle = (d.endAngle - d.startAngle)/2 ;
                         rotationDegree = (hubToPersonAngle)*(180/Math.PI);
-                        console.log("Rotation Degree");
-                        console.log(rotationDegree);
+//                        console.log("Rotation Degree");
+//                        console.log(rotationDegree);
 
                         d3.select(this.parentNode)
                             .transition()
