@@ -51,9 +51,6 @@ var MC = (window.MC = (window.MC || {}));
  var colors =[
  "#b2a3f5",
   ];
- var gradientCircles = [
- {'id' : 31, 'color' : "#b2a3f5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.5},
-  ];
 
  var root = {type : 'person', id: 7, children : [3,6,1,4,5,2]};
 
@@ -80,7 +77,7 @@ MC.InterestViz = function(params) {
     this.positions = [
         [], // 1 hub case
         [], // 2 hub case
-        [{x:0.5,y:0.6},{x:0.2,y:1},{x:0.8,y:1},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
+        [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
         [] // 4 hub case
     ];
 
@@ -89,31 +86,33 @@ MC.InterestViz = function(params) {
     this.root = params.root;
     this.svg = params.svg;
 
-    this.svgWidth = this.svg.attr("width");
-    this.svgHeight = this.svg.attr("height");
-    this.distance = 80;
-
-    this.circles = params.circles;
+//    this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
-
-    this.container=this.svg.append("g").attr("class","viz");
+    this.container=this.svg.append("g").attr("class","viz").attr("width",800).attr("height",600);
     // construct the hubModel here based on other parameters
     this.currentColors = [];
-    this.calculatePositions();
-    this.setRadii(30,15);
+
+    this.svgWidth = this.container.attr("width"); //container provides a padding
+    this.svgHeight = this.container.attr("height"); //container provides a padding
+    this.distance = 80;
+
+
+    this.gCircle = [this.hubs.length]; //same number as the hubs
+
     this.calculateColors();
+    this.postionHubsGradientCirlces();
+    this.setRadii(30,12);
+
     this.setGradients();
-    this.createsGradientCircles();
+    this.drawGradientCircles();
+
     this.createInterestViz();
     this.startPeople();
-
 };
 
-
-
-// Position the hubs around the visRoot
-MC.InterestViz.prototype.postionHubs = function(){
+// Position the hubs and their gradient circles around the visRoot
+MC.InterestViz.prototype.postionHubsGradientCirlces = function(){
     var n = this.hubs.length;
     var coordinates = this.positions[n-1];
     var posRoot = coordinates[0];
@@ -127,7 +126,7 @@ MC.InterestViz.prototype.postionHubs = function(){
         var pos = coordinates[i+1]; //start with 1 because 0 is root
         this.hubs[i].cx = this.svgWidth * pos.x;
         this.hubs[i].cy = this.svgHeight * pos.y;
-        console.log(this.hubs[i]);
+//        console.log(this.hubs[i]);
     }
 
     // applying the padding
@@ -162,17 +161,29 @@ MC.InterestViz.prototype.postionHubs = function(){
 
     }
 
+    //Setting the gradient circles
+    var circle = {};
+    circle['cx'] = this.root.cx;
+    circle['cy'] = this.root.cy;
+    circle['id'] = this.root.id;
+    circle['color'] = this.root.color;
+    circle['stop-opacity'] = .3;
+    this.gCircle[0] = circle;
+
+    for (var i=0; i<n; i++){
+        var circle = {};
+        circle['cx'] = this.hubs[i].cx;
+        circle['cy'] = this.hubs[i].cy;
+        circle['id'] = this.hubs[i].id;
+        circle['color'] = this.hubs[i].color;
+        circle['stop-opacity'] = .3;
+        this.gCircle[i+1] = circle;
+    }
+
+    //console.log(this.gCircle);
+
+
 }
-
-// Position the center of the hubModel(visRoot) to the enter of the SVG canvas
-MC.InterestViz.prototype.positionHubModel = function(){
-    var x = this.svgWidth/2;
-    var y = this.svgHeight/2;
-
-    this.hubModel.cx = x;
-    this.hubModel.cy = y;
-}
-
 
 MC.InterestViz.prototype.setRadii = function(hubRadius,interestRadius) {
     for(var i in this.interests){
@@ -184,24 +195,16 @@ MC.InterestViz.prototype.setRadii = function(hubRadius,interestRadius) {
 //        console.log(this.hubs[i]);
     }
     this.root['r']=hubRadius;
+
+    for(var i=0; i < this.gCircle.length; i++){
+        this.gCircle[i]['r'] = this.svgWidth * 0.3;
+    }
 //    this.svg
 //        .selectAll('g.interest')
 //        .attr('r',interestRadius);
 //    this.svg
 //        .selectAll('g.hubRoot')
 //        .attr('r',hubRadius);
-};
-
-MC.InterestViz.prototype.calculatePositions = function() {
-//    this.root.cx = 375;
-//    this.root.cy = 425;
-//    this.hubs[0].cx = 375;
-//    this.hubs[0].cy = 150;
-//    this.hubs[1].cx = 150;
-//    this.hubs[1].cy = 600;
-//    this.hubs[2].cx = 600;
-//    this.hubs[2].cy = 600;
-    this.postionHubs();
 };
 
 MC.InterestViz.prototype.calculateColors = function() {
@@ -233,7 +236,10 @@ MC.InterestViz.prototype.startPeople = function() {
         this.createPeople();
         this.createPersonLayoutView()
         this.createPersonLayout();
-    }, this), 3503);
+
+
+
+    }, this), 2503);
 
 };
 
@@ -295,9 +301,9 @@ MC.InterestViz.prototype.createHub = function(model,i) {
 
 };
 
-MC.InterestViz.prototype.createsGradientCircles = function(){
+MC.InterestViz.prototype.drawGradientCircles = function(){
     this.container.selectAll('circle.gradient')
-        .data(this.circles)
+        .data(this.gCircle)
         .enter()
         .append("circle")
         .attr('fill', function(d) {
@@ -325,7 +331,7 @@ MC.InterestViz.prototype.setGradients = function(){
 
     var rGs = defs
         .selectAll("radialGradient")
-        .data(this.circles)
+        .data(this.gCircle)
         .enter()
         .append('radialGradient')
         .attr("id",function(d){
@@ -353,7 +359,7 @@ MC.InterestViz.prototype.setGradients = function(){
 
 
 MC.InterestViz.prototype.getD3Interests = function() {
-    return this.container.selectAll('g.interest');
+    return this.container.selectAll('g.interest,g.hubRoot,g.vizRoot');
 };
 
 //return a person view
@@ -364,17 +370,13 @@ MC.InterestViz.prototype.createPersonView = function() {
 
 //Creates the floating people heads
 MC.InterestViz.prototype.createPeople = function() {
-
     var people_array = [];
-
     for (var key in this.people) {
         if(this.root.id != key){//check the root
             people_array.push(this.people[key]);
+//            console.log(this.people[key]);
         }
     }
-
-    console.log(people_array);
-
     this.container
         .datum(people_array)
         .call(this.personView);
@@ -425,12 +427,5 @@ MC.InterestViz.prototype.makeColorful = function(){
         };
 
     };
-
-
-
 };
-
-
-
-
 

@@ -110,20 +110,32 @@ MC.personLayout = function () {
         var svg = d3.select('svg');
 
         var surrogates = {};
-
         //copies the interest node information--not sure why
         // perhaps this was to avoid radial coordinates
         interestNodes.each(function (d,i) {
             var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
+            if(d.id){
             surrogates[d.id] = {
-                type: (d.id in clusterMap) ? 'hub' : 'leaf',
+                type: 'leaf',
                 id: d.id,
                 fixed: true,  // interests cannot move
                 x: pos.x,
                 y: pos.y,
                 real: d
             };
+            }else if(d[0].id){
+                surrogates[d[0].id] = {
+                    type: 'hub',
+                    id: d[0].id,
+                    fixed: true,  // interests cannot move
+                    x: pos.x,
+                    y: pos.y,
+                    real: d
+                };
+            }
         });
+
+//        console.log(surrogates);
 
         var getPrimaryInterest = function (p) {
             var maxId = -1;
@@ -152,13 +164,16 @@ MC.personLayout = function () {
         peopleNodes.each(function (p, i) {
 //            console.log(p)
             $.map(p.relevance, function (r, iid) {
-//                console.log(surrogates[iid]);
                 if (iid != -1 && iid != 'overall') {
+//                    console.log(r*r);
                     links.push({
                         source: p,
                         target: surrogates[iid],
                         strength: r * r
                     });
+//                    console.log(p);
+//                    console.log(surrogates[iid]);
+//                    console.log(r*r);
                 }
             });
         });
@@ -183,7 +198,8 @@ MC.personLayout = function () {
 
         //places the person in relation to the surrogates
         var force = d3.layout.force()
-            .nodes(d3.values(surrogates).concat(d3.values(people)))
+            .nodes(d3.values(surrogates)
+            .concat(d3.values(people)))
             .links(links)
             .size([w, h])
             .linkStrength(function (l) {
@@ -194,6 +210,10 @@ MC.personLayout = function () {
             .charge(pl.getCharge())
             .friction(friction)
             .start();
+
+
+
+
         //creates a new g  for each new person
 //        var groups = svg.selectAll(".personNode")
 //            .data(personNodes)
@@ -220,6 +240,54 @@ MC.personLayout = function () {
             return (x < min) ? min : ((x > max) ? max : x);
         };
 
+
+
+        var findHubLocations = function(){
+            var hubLocs = {};
+            for(var i in surrogates){
+                if(surrogates[i].type=='hub'){
+                    hubLocs[surrogates[i].id]={id:surrogates[i].id,x:surrogates[i].x,y:surrogates[i].y};
+                }
+            }
+            return hubLocs;
+        };
+
+        //Find the slope of the line formed by the hub and person node
+        var calculateAngle = function(personId,hubId,personLocs,hubLocs){
+            //Unsure whether to use px & py or x & y in person locations
+            var personLoc=personLocs[personId];
+            var hubLoc = hubLocs[hubId];
+            var m = (personLoc.py-hubLoc.y)/(personLoc.px-hubLoc.x);
+//            var theta = Math.atan(m);
+            var theta = Math.atan2(personLoc.py-hubLoc.y,personLoc.px-hubLoc.x);
+            if(theta > Math.PI/2){
+               theta = Math.PI - theta;
+            }
+//            console.log("Person ID");
+//            console.log(personId);
+//            console.log("Hub ID");
+//            console.log(hubId);
+//            console.log("Slope");
+//            console.log(m);
+//            console.log("Theta");
+//            console.log(theta * 180 / Math.PI);
+            return theta;
+        };
+
+        var hubLocations = findHubLocations();
+
+        var personLocations={};
+
+        var personID;
+        var hubToPersonAngle;
+        var halfArcAngle;
+        var rotationDegree;
+        var peoplePaths;
+        var peoplePies = d3.
+            select('svg')
+            .selectAll('g.person')
+            .selectAll('g.pie');
+
         // walk through iterations of convergence to final positions
         force.on("tick", function (e) {
 
@@ -230,11 +298,58 @@ MC.personLayout = function () {
 //            o.x += i & 2 ? k : -k;
 //        });
 
+            //Changing the location of person nodes based on the force
             peopleNodes.attr("transform", function (d) {
                 d.x = pinch(d.x, 50, 750);
                 d.y = pinch(d.y, 50, 750);
+                personLocations[d.id]={id: d.id,px: d.px, py: d.py, x: d.x, y: d.y};
                 return "translate(" + d.x + "," + d.y + ")";
             });
+
+            //Rotating the pie of the person towards the hub that has most weight
+            peoplePaths = d3.
+                select('svg')
+                .selectAll('g.person')
+                .selectAll('g.pie')
+                .selectAll('path')
+                .sort(function(a,b){
+                    return b.value- a.value;
+                });
+            peoplePaths
+                .each(function(d,i){
+                    if(i==0){
+                        personID = d3.select(this.parentNode).data()[0].id;
+                        hubID = d.data.id;
+
+//                        var m = (personLoc.py-hubLoc.y)/(personLoc.px-hubLoc.x);
+                        var angle = calculateAngle(personID, hubID,personLocations,hubLocations);
+                        var px = personLocations[personID].px;
+                        var py = personLocations[personID].py;
+                        var hx = hubLocations[hubID].x;
+                        var hy = hubLocations[hubID].y;
+                        if(px < hx && py > hy)//quadrant 1
+                           hubToPersonAngle = -(Math.PI/2-angle);
+                        else if(px > hx && py > hy)//quadrant 2
+                            hubToPersonAngle = Math.PI/2-angle;
+                        else if(px > hx && py < hy)//quadrant 3
+                            hubToPersonAngle = Math.PI/2+angle;
+                        else if(px < hx && py < hy)//quadrant 4
+                            hubToPersonAngle = -(Math.PI/2+angle);
+
+                        halfArcAngle = (d.endAngle - d.startAngle)/2 ;
+                        rotationDegree = (hubToPersonAngle)*(180/Math.PI);
+                        console.log("Rotation Degree");
+                        console.log(rotationDegree);
+
+                        d3.select(this.parentNode)
+                            .transition()
+                            .attr('transform',function(){
+                                return "rotate("+(rotationDegree)+")";
+                            });
+                    }
+                });
+//
+
         });
 
         d3.select("body").on("click", function () {
@@ -246,8 +361,8 @@ MC.personLayout = function () {
         });
     }
                                         //just so I u
-    MC.options.register(pl, 'friction', 0.8);
-    MC.options.register(pl, 'gravity', 10.005);
+    MC.options.register(pl, 'friction', 0.005);
+    MC.options.register(pl, 'gravity', 0.005);
     MC.options.register(pl, 'linkDistance', 50);
 
     MC.options.register(pl, 'peopleNodes', function () {
@@ -264,9 +379,9 @@ MC.personLayout = function () {
         if (d.type == 'hub') {
             return -500;
         } else if (d.type == 'person') {
-            return -6000;
+            return -600;
         } else {
-            return -50;
+            return -85000;
         }
     });
 

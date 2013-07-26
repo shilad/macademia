@@ -54,7 +54,7 @@
         5: {"id": 5, "name": "Statistics"},
         8: {"id": 8, "name": "Web2.0"},
         9: {"id": 9, "name": "Jay-Z"},
-        10: {"id": 10, "name": "Mathh"},
+        10: {"id": 10, "name": "Math"},
         11: {"id": 11, "name": "html5"},
         12: {"id": 12, "name": "javascript"},
         13: {"id": 13, "name": "Web Development"},
@@ -81,7 +81,8 @@
             "name":"Luther Rea",
             "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
             "relevance":{
-                "11":1.77,
+                "11":0.985,
+                "13":0.832,
                 "overall":1.0769508928060532},
             "interests":[
                 11,
@@ -90,7 +91,7 @@
             "name":"Donnie Burroughs",
             "pic":"/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
             "relevance":{
-                "11":1.1563,
+                "11":0.3563,
                 "13":1.6563,
                 "33":0.9563,
                 "overall":1.2776578441262245},
@@ -128,12 +129,12 @@
         "#a8c4e5",
         "#b4f5a3"
     ];
-    var gradientCircles = [
-        {'id' : 31, 'color' : "#b2a3f5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.5},
-        {'id' : 10, 'color' : "#b4f5a3", 'r': 170, 'cx' : 150, 'cy' : 600, "stop-opacity":.5},
-        {'id' : 19, 'color' : "#f5a3d6", 'r': 170, 'cx' : 600, 'cy' : 600, "stop-opacity":.5},
-        {'id' : 34, 'color' : "#D3D3D3", 'r': 300, 'cx' : 375, 'cy' : 425, "stop-opacity":.5}
-    ];
+//    var gradientCircles = [
+//        {'id' : 31, 'color' : "#b2a3f5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.5},
+//        {'id' : 10, 'color' : "#b4f5a3", 'r': 170, 'cx' : 150, 'cy' : 600, "stop-opacity":.5},
+//        {'id' : 19, 'color' : "#f5a3d6", 'r': 170, 'cx' : 600, 'cy' : 600, "stop-opacity":.5},
+//        {'id' : 34, 'color' : "#D3D3D3", 'r': 300, 'cx' : 375, 'cy' : 425, "stop-opacity":.5}
+//    ];
 
     var root = {type : 'person', id: 7, children : [3,6,1,4,5,2]};
 
@@ -144,14 +145,13 @@
     ];
 
 
-    var svg = d3.select('svg').attr('width', 800).attr('height', 600);
+    var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
     var viz = new MC.MainViz({
         hubs: hubs,
         root: root,
         interests: interests,
         people: peeps,
-        circles: gradientCircles,
         svg : svg,
         colors: colors
     });
