@@ -431,7 +431,7 @@ MC.InterestViz.prototype.makeColorful = function(){
 
 MC.InterestViz.prototype.toolTipHover = function(){
 //Mouseover events involving tooltips
-//    var div = d3.select("body")
+//    var div = d3.select("bodfgy")
 //        .append("div")
 //        .attr("class", "tooltip")
 //        .style("opacity", 0);
