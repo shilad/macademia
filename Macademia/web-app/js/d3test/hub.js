@@ -200,6 +200,33 @@ MC.hub = function() {
                     .duration(data['delay'])
                     .attr('opacity',1.0);
             }
+
+            //mouseover the interest node hightlight itself and its hub root
+            d3Group.selectAll(".interestOuter").on('mouseover',function(e){
+                d3Group.select("g .hubRoot").attr('opacity',1.0).classed('active',true);
+                d3Group.select("g .vizRoot").attr('opacity',1.0).classed('active',true);
+                d3.select(this.parentNode).select('g .label text').text(MC.interest().getText());
+                // notice that we are replacing class interest with active
+                d3.select(this.parentNode).attr('class','activeInterest');
+            });
+
+            d3Group.selectAll(".interestOuter").on('mouseout',function(){
+                d3Group.select("g .hubRoot").classed('active',false);
+                d3Group.select("g .vizRoot").classed('active',false);
+                d3.select(this.parentNode).select('g .label text').text(MC.interest().getCleanedText());
+                d3.select(this.parentNode).attr('class','interest');
+            });
+
+            //mouseover the hub root hightlight everything in the hub
+            d3Group.selectAll("g .hubRoot").on('mouseover',function(e){
+                d3.select(this).attr('opacity',1.0).classed('active',true);
+                d3Group.selectAll("g .interest").attr('class','activeInterest');
+            });
+
+            d3Group.selectAll("g .hubRoot").on('mouseout',function(e){
+                d3.select(this).classed('active',false);
+                d3Group.selectAll("g .activeInterest").attr('class','interest');
+            });
         });
     }
 
