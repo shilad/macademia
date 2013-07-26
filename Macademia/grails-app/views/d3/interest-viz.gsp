@@ -47,9 +47,9 @@
     background-color: #eaeaea;
     border: 3px dotted #ffffff;
     font: 13px Georgia;
-    color: #474747;
+    color: #606060;
     border-radius: 5px;
-    padding: 20px 10px;
+    padding: 10px 15px;
 }
 
 svg {

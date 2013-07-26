@@ -415,21 +415,21 @@ MC.InterestViz.prototype.toolTipHover = function(){
     var svg= this.svg;
     this.container.selectAll('g.interest').append('circle').attr('class','temp');
     this.svg.selectAll("g.interest")
-       .on("mouseover", function(d){
+        .on("mouseover", function(d){
             d3.select('body').selectAll("#interestToolTip")
                 .transition()
                 .duration(200)
                 .style("display", "block")
-                .style("left",MC.getTransformedPosition(svg[0][0], this, 0, 0).x)
-                .style("top",MC.getTransformedPosition(svg[0][0], this, 0, 0).y)
+                .style("left",MC.getTransformedPosition(svg[0][0], this, 0, 0).x+125)
+                .style("top",MC.getTransformedPosition(svg[0][0], this, 0, 0).y+25)
             ;
 //            console.log(MC.getTransformedPosition(svg, this, 0, 0));
         })
         .on("mouseout", function(d){
             d3.select('body').selectAll("#interestToolTip")
-                 .transition()
-                 .duration(200)
-                 .style("display", "none");
+                .transition()
+                .duration(200)
+                .style("display", "none");
         });
     this.container.selectAll('.temp').remove('circle');
 };
