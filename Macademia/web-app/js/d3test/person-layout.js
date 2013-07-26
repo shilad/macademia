@@ -65,7 +65,7 @@
                 .call(personLayout);
 
     }, 1000);
-     });
+ });
 
  Available attributes:
  friction: the amount of jiggle the person does before finding its location
@@ -115,14 +115,14 @@ MC.personLayout = function () {
         interestNodes.each(function (d,i) {
             var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
             if(d.id){
-            surrogates[d.id] = {
-                type: 'leaf',
-                id: d.id,
-                fixed: true,  // interests cannot move
-                x: pos.x,
-                y: pos.y,
-                real: d
-            };
+                surrogates[d.id] = {
+                    type: 'leaf',
+                    id: d.id,
+                    fixed: true,  // interests cannot move
+                    x: pos.x,
+                    y: pos.y,
+                    real: d
+                };
             }else if(d[0].id){
                 surrogates[d[0].id] = {
                     type: 'hub',
@@ -199,7 +199,7 @@ MC.personLayout = function () {
         //places the person in relation to the surrogates
         var force = d3.layout.force()
             .nodes(d3.values(surrogates)
-            .concat(d3.values(people)))
+                .concat(d3.values(people)))
             .links(links)
             .size([w, h])
             .linkStrength(function (l) {
@@ -256,19 +256,21 @@ MC.personLayout = function () {
         var calculateAngle = function(personId,hubId,personLocs,hubLocs){
             //Unsure whether to use px & py or x & y in person locations
             var personLoc=personLocs[personId];
+            console.log("personLoc");
+            console.log(personLoc);
+            console.log("personId");
+            console.log(personId);
+            console.log("personLocs");
+            console.log(personLocs);
+
             var hubLoc = hubLocs[hubId];
             var m = (personLoc.py-hubLoc.y)/(personLoc.px-hubLoc.x);
-//            var theta = Math.atan(m);
-            var theta = Math.atan2(personLoc.py-hubLoc.y,personLoc.px-hubLoc.x);
-            console.log("Person ID");
-            console.log(personId);
-//            console.log("Hub ID");
-//            console.log(hubId);
-            console.log("Slope");
-            console.log(m);
-            console.log("Theta");
-            console.log(theta * 180 / Math.PI);
-            return Math.abs(theta);
+            var theta = Math.abs(Math.atan2(personLoc.py-hubLoc.y,personLoc.px-hubLoc.x));
+            if(theta > (Math.PI / 2) ){
+                return Math.PI-theta;
+            }else{
+                return theta;
+            }
         };
 
         var hubLocations = findHubLocations();
@@ -285,25 +287,7 @@ MC.personLayout = function () {
             .selectAll('g.person')
             .selectAll('g.pie');
         var counter=0;
-        // walk through iterations of convergence to final positions
-        force.on("tick", function (e) {
-
-//        // Push different nodes in different directions for clustering.
-//        var k = 6 * e.alpha;
-//        nodes.forEach(function(o, i) {
-//            o.y += i & 1 ? k : -k;
-//            o.x += i & 2 ? k : -k;
-//        });
-
-            //Changing the location of person nodes based on the force
-            peopleNodes.attr("transform", function (d) {
-                d.x = pinch(d.x, 50, 750);
-                d.y = pinch(d.y, 50, 750);
-                personLocations[d.id]={id: d.id,px: d.px, py: d.py, x: d.x, y: d.y};
-                return "translate(" + d.x + "," + d.y + ")";
-            });
-            if(counter%3==0){
-            //Rotating the pie of the person towards the hub that has most weight
+        var pieSpinning = function(){
             peoplePaths = d3.
                 select('svg')
                 .selectAll('g.person')
@@ -323,8 +307,9 @@ MC.personLayout = function () {
                         var py = personLocations[personID].py;
                         var hx = hubLocations[hubID].x;
                         var hy = hubLocations[hubID].y;
+
                         if(px < hx && py > hy)//quadrant 1
-                           hubToPersonAngle = -(Math.PI/2-angle);
+                            hubToPersonAngle = -(Math.PI/2-angle);
                         else if(px > hx && py > hy)//quadrant 2
                             hubToPersonAngle = Math.PI/2-angle;
                         else if(px > hx && py < hy)//quadrant 3
@@ -333,9 +318,7 @@ MC.personLayout = function () {
                             hubToPersonAngle = -(Math.PI/2+angle);
 
                         halfArcAngle = (d.endAngle - d.startAngle)/2 ;
-                        rotationDegree = (hubToPersonAngle)*(180/Math.PI);
-                        console.log("Rotation Degree");
-                        console.log(rotationDegree);
+                        rotationDegree = (halfArcAngle-hubToPersonAngle)*(180/Math.PI);
 
                         d3.select(this.parentNode)
                             .transition()
@@ -344,10 +327,31 @@ MC.personLayout = function () {
                             });
                     }
                 });
-          }
+        };
+        // walk through iterations of convergence to final positions
+        force.on("tick", function (e) {
+
+//        // Push different nodes in different directions for clustering.
+//        var k = 6 * e.alpha;
+//        nodes.forEach(function(o, i) {
+//            o.y += i & 1 ? k : -k;
+//            o.x += i & 2 ? k : -k;
+//        });
+
+            //Changing the location of person nodes based on the force
+            peopleNodes.attr("transform", function (d) {
+                d.x = pinch(d.x, 50, 750);
+                d.y = pinch(d.y, 50, 750);
+                personLocations[d.id]={id: d.id,px: d.px, py: d.py, x: d.x, y: d.y};
+                return "translate(" + d.x + "," + d.y + ")";
+            });
+            if(counter%3==0){
+                //Rotating the pie of the person towards the hub that has most weight
+                pieSpinning();
+            }
             counter++;
         });
-
+//        pieSpinning(); //To ensure that the last value is used, call once more
         d3.select("body").on("click", function () {
             peopleNodes.forEach(function (o, i) {
                 o.x += (Math.random() - .5) * 40;
@@ -356,7 +360,7 @@ MC.personLayout = function () {
             force.resume();
         });
     }
-                                        //just so I u
+    //just so I u
     MC.options.register(pl, 'friction', 0.005);
     MC.options.register(pl, 'gravity', 0.005);
     MC.options.register(pl, 'linkDistance', 50);
