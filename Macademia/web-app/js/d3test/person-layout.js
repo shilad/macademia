@@ -252,6 +252,7 @@ MC.personLayout = function () {
             return hubLocs;
         };
 
+        //Find the slope of the line formed by the hub and person node
         var calculateAngle = function(personId,hubId,personLocs,hubLocs){
             //Unsure whether to use px & py or x & y in person locations
             var personLoc=personLocs[personId];
@@ -282,6 +283,7 @@ MC.personLayout = function () {
             select('svg')
             .selectAll('g.person')
             .selectAll('g.pie');
+
         // walk through iterations of convergence to final positions
         force.on("tick", function (e) {
 
@@ -292,6 +294,7 @@ MC.personLayout = function () {
 //            o.x += i & 2 ? k : -k;
 //        });
 
+            //Changing the location of person nodes based on the force
             peopleNodes.attr("transform", function (d) {
                 d.x = pinch(d.x, 50, 750);
                 d.y = pinch(d.y, 50, 750);
@@ -299,9 +302,7 @@ MC.personLayout = function () {
                 return "translate(" + d.x + "," + d.y + ")";
             });
 
-//            console.log(calculateAngle(336,11,personLocations,hubLocations));
-
-
+            //Rotating the pie of the person towards the hub that has most weight
             peoplePaths = d3.
                 select('svg')
                 .selectAll('g.person')
@@ -314,7 +315,22 @@ MC.personLayout = function () {
                 .each(function(d,i){
                     if(i==0){
                         personID = d3.select(this.parentNode).data()[0].id;
-                        hubToPersonAngle = calculateAngle(personID, d.data.id,personLocations,hubLocations);
+
+//                        var m = (personLoc.py-hubLoc.y)/(personLoc.px-hubLoc.x);
+                        var angle = calculateAngle(personID, d.data.id,personLocations,hubLocations);
+                        var px = personLocations[personID].px;
+                        var py = personLocations[personID].py;
+                        var hx = hubLocations[d.data.id].x;
+                        var hy = hubLocations[d.data.id].y;
+                        if(px < hx && py > hy)//quadrant 1
+                           hubToPersonAngle = -(Math.PI/2-angle);
+                        else if(px > hx && py > hy)//quadrant 2
+                            hubToPersonAngle = Math.PI/2-angle;
+                        else if(px > hx && py < hy)//quadrant 3
+                            hubToPersonAngle = Math.PI/2+angle;
+                        else if(px < hx && py < hy)//quadrant 4
+                            hubToPersonAngle = -(Math.PI/2+angle);
+
                         halfArcAngle = (d.endAngle - d.startAngle)/2 ;
                         rotationDegree = (hubToPersonAngle + halfArcAngle)*(180/Math.PI);
 
