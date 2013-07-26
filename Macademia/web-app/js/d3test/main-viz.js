@@ -156,6 +156,20 @@ MC.MainViz.prototype.transitionRoot = function(){
     //TODO: Check out the code on the buttom of person.gsp, we can ask the template to redraw the data
     //Move root to center
     if(this.tRoot){
+//        var newRoot = this.svg.select('g.nextRoot');
+//        var data = newRoot.data();
+//        var people = [{
+//            'id' : data.id,
+//            'name' : data.name,
+//            'pic' : data.pic,
+//            'relevance': data.relevance,
+//            'cx' : 0,
+//            'cy' : 0,
+//            'interestColors': data.interestColors
+//        }];
+//
+//        d3.select('svg').datum(people).call(MC.person());
+
         var newRoot=this.svg.select('g.nextRoot');
         var oldRoot=this.svg.select('g.vizRoot');
         this.svg
