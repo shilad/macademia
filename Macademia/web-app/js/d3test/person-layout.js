@@ -256,12 +256,12 @@ MC.personLayout = function () {
         var calculateAngle = function(personId,hubId,personLocs,hubLocs){
             //Unsure whether to use px & py or x & y in person locations
             var personLoc=personLocs[personId];
-            console.log("personLoc");
-            console.log(personLoc);
-            console.log("personId");
-            console.log(personId);
-            console.log("personLocs");
-            console.log(personLocs);
+//            console.log("personLoc");
+//            console.log(personLoc);
+//            console.log("personId");
+//            console.log(personId);
+//            console.log("personLocs");
+//            console.log(personLocs);
 
             var hubLoc = hubLocs[hubId];
             var m = (personLoc.py-hubLoc.y)/(personLoc.px-hubLoc.x);
@@ -351,14 +351,18 @@ MC.personLayout = function () {
             }
             counter++;
         });
-        pieSpinning(); //To ensure that the last value is used, call once more
-        d3.select("body").on("click", function () {
-            peopleNodes.forEach(function (o, i) {
-                o.x += (Math.random() - .5) * 40;
-                o.y += (Math.random() - .5) * 40;
-            });
-            force.resume();
+        force.on('end',function(e){
+            pieSpinning(); //To ensure that the last value is used, call once more
+            console.log("hub locations");
+            console.log(hubLocations);
         });
+//        d3.select("body").on("click", function () {      //Creates error when updating simultaneously
+//            peopleNodes.forEach(function (o, i) {
+//                o.x += (Math.random() - .5) * 40;
+//                o.y += (Math.random() - .5) * 40;
+//            });
+//            force.resume();
+//        });
     }
     //just so I u
     MC.options.register(pl, 'friction', 0.005);
