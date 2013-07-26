@@ -444,7 +444,8 @@ MC.InterestViz.prototype.toolTipHover = function(){
 
 //    console.log(div);
     var svg= this.svg;
-    this.container.selectAll('g.interest').append('circle').attr('class','temp');
+//    this.container.selectAll('g.interest').append('circle').attr('class','temp');
+
     this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person")
         .on("mouseover", function(d){
             d3.select('body').select("#interestToolTip")  //set to be dynamic # information
@@ -462,6 +463,6 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 .duration(200)
                 .style("display", "none");
         });
-    this.container.selectAll('.temp').remove('circle');
+//    this.container.selectAll('.temp').remove('circle');
 };
 
