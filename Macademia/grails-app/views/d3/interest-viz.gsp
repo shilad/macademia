@@ -37,9 +37,8 @@
 
 .tooltip {
     display: none;
-    position: absolute;
-    left: 50%;
-    margin-left: -150px;
+    position:absolute;
+       margin-left: -150px;
     width: 300px;
     pointer-events: none;
 }
@@ -204,7 +203,9 @@ var viz = new MC.InterestViz({
 </r:script>
     <div id="interestToolTip" class="tooltip">
         <div class="tooltipContent" ><b>Interests:</b><br/>
-        bioinformatics, combinatorics, complexity, discrete mathematics, foundations of mathematics, genomics, graph theory, Logic, Markov chains, mathematics, networks, probability</div>
+        bioinformatics, combinatorics, complexity, discrete mathematics,
+        foundations of mathematics, genomics, graph theory, Logic,
+        Markov chains, mathematics, networks, probability</div>
     </div>
 <svg>
 

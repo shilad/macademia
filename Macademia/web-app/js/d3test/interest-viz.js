@@ -231,27 +231,27 @@ MC.InterestViz.prototype.createInterestViz = function() {
     }
 };
 
-MC.InterestViz.prototype.createInterestColors = function(){
-    var interestColors ={};
-
-    for(var i = 0; i < this.people.length; i++){
-        for(var j = 0; j< this.people[i].interests.length; j++){
-            for(var k = 0; k< this.hubs.length; k++){
-                for(var l =0; l< this.hubs[k][0].interests.length;l++){
-
-                    if(this.people[i].interests[j] == this.hubs[i][0].interests[j].id){
-                        interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
-                    }
-
-//            if(this.hubs[i][0].interests)
-//            if{this.hubs[i][0]==}
-//            interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
-                };
-            };
-        };
-    };
-
-};
+//MC.InterestViz.prototype.createInterestColors = function(){
+//    var interestColors ={};
+//
+//    for(var i = 0; i < this.people.length; i++){
+//        for(var j = 0; j< this.people[i].interests.length; j++){
+//            for(var k = 0; k< this.hubs.length; k++){
+//                for(var l =0; l< this.hubs[k][0].interests.length;l++){
+//
+//                    if(this.people[i].interests[j] == this.hubs[i][0].interests[j].id){
+//                        interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
+//                    }
+//
+////            if(this.hubs[i][0].interests)
+////            if{this.hubs[i][0]==}
+////            interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
+//                };
+//            };
+//        };
+//    };
+//
+//};
 
 MC.InterestViz.prototype.createHub = function(model) {
     var hubInterests = [];
@@ -404,7 +404,7 @@ MC.InterestViz.prototype.toolTipHover = function(){
 //        .append("div")
 //        .attr("class", "tooltip")
 //        .style("opacity", 0);
-
+//
 //    $("#interestToolTip")
 
 
@@ -412,19 +412,24 @@ MC.InterestViz.prototype.toolTipHover = function(){
 //        .style("opacity", 0);
 
 //    console.log(div);
-
+    var svg= this.svg;
     this.svg.selectAll("g.interest")
-        .on("mouseover", function(d){
-            d3.selectAll("div")
-                .style("opacity",0)
+       var pos= MC.getTransformedPosition(svg, this, 0, 0)
+           console.log(pos)
+       .on("mouseover", function(d){
+            d3.select('body').selectAll("#interestToolTip")
                 .transition()
                 .duration(200)
-                .style("opacity", .9);
+                .style("display", "block")
+                .style("left","pos")
+                .style("top","svg, this, 0, 0")
+            ;
         })
         .on("mouseout", function(d){
-            d3.select("div").transition()
-                .duration(500)
-                .style("opacity", 0)
+            d3.select('body').selectAll("#interestToolTip")
+                 .transition()
+                 .duration(200)
+                 .style("display", "none");
         });
 };
 
