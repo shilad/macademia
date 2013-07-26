@@ -38,7 +38,7 @@
 .tooltip {
     display: none;
     position:absolute;
-       margin-left: -150px;
+    margin-left: -150px;
     width: 300px;
     pointer-events: none;
 }
@@ -168,7 +168,7 @@ var viz = new MC.InterestViz({
     svg: svg,
     colors: colors
 });
-
+    //sames fiel
 
 //$().ready(function () {
 //   if($("g.hub").hover()){
