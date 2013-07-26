@@ -7,7 +7,7 @@
  */
 
 var MC = (window.MC = (window.MC || {}));
-//hi
+
 /**
  *
  * Creates a layout integrating interest.js, person.js, and hubs.js into one visualization.
@@ -46,20 +46,17 @@ var MC = (window.MC = (window.MC || {}));
                 11,
                 22]},
         }
- };
+    };
 
  var colors =[
  "#b2a3f5",
- ];
- var gradientCircles = [
- {'id' : 31, 'color' : "#b2a3f5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.5},
- ];
+  ];
 
  var root = {type : 'person', id: 7, children : [3,6,1,4,5,2]};
 
- var hubs = [
+  var hubs = [
  {type : 'interest', id : 11, children : [12,14,15,16]},
- ];
+  ];
 
  var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
@@ -80,7 +77,7 @@ MC.InterestViz = function(params) {
     this.positions = [
         [], // 1 hub case
         [], // 2 hub case
-        [{x:0.5,y:0.6},{x:0.2,y:1},{x:0.8,y:1},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
+        [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
         [] // 4 hub case
     ];
 
@@ -89,36 +86,33 @@ MC.InterestViz = function(params) {
     this.root = params.root;
     this.svg = params.svg;
 
-    this.svgWidth = this.svg.attr("width");
-    this.svgHeight = this.svg.attr("height");
-    this.distance = 80;
-
-    this.circles = params.circles;
+//    this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
-
-    this.container=this.svg.append("g").attr("class","viz");
+    this.container=this.svg.append("g").attr("class","viz").attr("width",800).attr("height",600);
     // construct the hubModel here based on other parameters
-    this.hubModel = params.hubModel;
-
-    //Positioning hubModel(visRoot) and hubs around it
-//    this.positionHubModel();
-//    this.postionHubs();
     this.currentColors = [];
-    this.calculatePositions();
+
+    this.svgWidth = this.container.attr("width"); //container provides a padding
+    this.svgHeight = this.container.attr("height"); //container provides a padding
+    this.distance = 80;
+
+
+    this.gCircle = [this.hubs.length]; //same number as the hubs
+
     this.calculateColors();
+    this.postionHubsGradientCirlces();
+    this.setRadii(30,12);
+
     this.setGradients();
-    this.createsGradientCircles();
+    this.drawGradientCircles();
+
     this.createInterestViz();
     this.startPeople();
-    this.toolTipHover();
-
 };
 
-
-
-// Position the hubs around the visRoot
-MC.InterestViz.prototype.postionHubs = function(){
+// Position the hubs and their gradient circles around the visRoot
+MC.InterestViz.prototype.postionHubsGradientCirlces = function(){
     var n = this.hubs.length;
     var coordinates = this.positions[n-1];
     var posRoot = coordinates[0];
@@ -132,6 +126,7 @@ MC.InterestViz.prototype.postionHubs = function(){
         var pos = coordinates[i+1]; //start with 1 because 0 is root
         this.hubs[i].cx = this.svgWidth * pos.x;
         this.hubs[i].cy = this.svgHeight * pos.y;
+//        console.log(this.hubs[i]);
     }
 
     // applying the padding
@@ -166,28 +161,50 @@ MC.InterestViz.prototype.postionHubs = function(){
 
     }
 
+    //Setting the gradient circles
+    var circle = {};
+    circle['cx'] = this.root.cx;
+    circle['cy'] = this.root.cy;
+    circle['id'] = this.root.id;
+    circle['color'] = this.root.color;
+    circle['stop-opacity'] = .3;
+    this.gCircle[0] = circle;
+
+    for (var i=0; i<n; i++){
+        var circle = {};
+        circle['cx'] = this.hubs[i].cx;
+        circle['cy'] = this.hubs[i].cy;
+        circle['id'] = this.hubs[i].id;
+        circle['color'] = this.hubs[i].color;
+        circle['stop-opacity'] = .3;
+        this.gCircle[i+1] = circle;
+    }
+
+    //console.log(this.gCircle);
+
+
 }
 
-// Position the center of the hubModel(visRoot) to the enter of the SVG canvas
-MC.InterestViz.prototype.positionHubModel = function(){
-    var x = this.svgWidth/2;
-    var y = this.svgHeight/2;
+MC.InterestViz.prototype.setRadii = function(hubRadius,interestRadius) {
+    for(var i in this.interests){
+        this.interests[i]['r']=interestRadius;
+//        console.log(this.interests[i].r);
+    }
+    for(var i = 0; i < this.hubs.length; i++){
+        this.hubs[i]['r']=hubRadius;
+//        console.log(this.hubs[i]);
+    }
+    this.root['r']=hubRadius;
 
-    this.hubModel.cx = x;
-    this.hubModel.cy = y;
-}
-
-
-MC.InterestViz.prototype.calculatePositions = function() {
-//    this.root.cx = 375;
-//    this.root.cy = 425;
-//    this.hubs[0].cx = 375;
-//    this.hubs[0].cy = 150;
-//    this.hubs[1].cx = 150;
-//    this.hubs[1].cy = 600;
-//    this.hubs[2].cx = 600;
-//    this.hubs[2].cy = 600;
-    this.postionHubs();
+    for(var i=0; i < this.gCircle.length; i++){
+        this.gCircle[i]['r'] = this.svgWidth * 0.3;
+    }
+//    this.svg
+//        .selectAll('g.interest')
+//        .attr('r',interestRadius);
+//    this.svg
+//        .selectAll('g.hubRoot')
+//        .attr('r',hubRadius);
 };
 
 MC.InterestViz.prototype.calculateColors = function() {
@@ -219,41 +236,45 @@ MC.InterestViz.prototype.startPeople = function() {
         this.createPeople();
         this.createPersonLayoutView()
         this.createPersonLayout();
-    }, this), MC.hub().getDuration());
 
-}
+
+
+    }, this), 2503);
+
+};
 
 //Position the hubs and the root
 MC.InterestViz.prototype.createInterestViz = function() {
     this.createHub(this.root);
     for(var i = 0; i < this.hubs.length; i++) {
-        this.createHub(this.hubs[i]);
+            this.createHub(this.hubs[i],i);
     }
 };
 
-//MC.InterestViz.prototype.createInterestColors = function(){
-//    var interestColors ={};
-//
-//    for(var i = 0; i < this.people.length; i++){
-//        for(var j = 0; j< this.people[i].interests.length; j++){
-//            for(var k = 0; k< this.hubs.length; k++){
-//                for(var l =0; l< this.hubs[k][0].interests.length;l++){
-//
-//                    if(this.people[i].interests[j] == this.hubs[i][0].interests[j].id){
-//                        interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
-//                    }
-//
-////            if(this.hubs[i][0].interests)
-////            if{this.hubs[i][0]==}
-////            interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
-//                };
-//            };
-//        };
-//    };
-//
-//};
+MC.InterestViz.prototype.createInterestColors = function(){
+    var interestColors ={};
 
-MC.InterestViz.prototype.createHub = function(model) {
+    for(var i = 0; i < this.people.length; i++){
+        for(var j = 0; j< this.people[i].interests.length; j++){
+            for(var k = 0; k< this.hubs.length; k++){
+                for(var l =0; l< this.hubs[k][0].interests.length;l++){
+
+                    if(this.people[i].interests[j] == this.hubs[i][0].interests[j].id){
+                        interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
+                    }
+
+//            if(this.hubs[i][0].interests)
+//            if{this.hubs[i][0]==}
+//            interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
+                };
+            };
+        };
+    };
+
+};
+
+MC.InterestViz.prototype.createHub = function(model,i) {
+    var calculatedDelay=(i+1)*500;
     var hubInterests = [];
     for (var i = 0; i < model.children.length; i++) {
         var childId = model.children[i];
@@ -261,7 +282,8 @@ MC.InterestViz.prototype.createHub = function(model) {
     }
     var rootModel = model.type == 'person' ? this.people[model.id] : this.interests[model.id];
     rootModel.type = model.type;
-
+    rootModel.r=model.r;
+//    console.log(hubInterests);
     this.container
         .datum({
             id : model.id,
@@ -271,14 +293,17 @@ MC.InterestViz.prototype.createHub = function(model) {
             isVizRoot : (model == this.root),
             cx : model.cx,
             cy : model.cy,
+            distance : 100,
+            delay : calculatedDelay,
             distance : this.distance
         })
         .call(MC.hub());
+
 };
 
-MC.InterestViz.prototype.createsGradientCircles = function(){
+MC.InterestViz.prototype.drawGradientCircles = function(){
     this.container.selectAll('circle.gradient')
-        .data(this.circles)
+        .data(this.gCircle)
         .enter()
         .append("circle")
         .attr('fill', function(d) {
@@ -306,7 +331,7 @@ MC.InterestViz.prototype.setGradients = function(){
 
     var rGs = defs
         .selectAll("radialGradient")
-        .data(this.circles)
+        .data(this.gCircle)
         .enter()
         .append('radialGradient')
         .attr("id",function(d){
@@ -334,7 +359,7 @@ MC.InterestViz.prototype.setGradients = function(){
 
 
 MC.InterestViz.prototype.getD3Interests = function() {
-    return this.container.selectAll('g.interest');
+    return this.container.selectAll('g.interest,g.hubRoot,g.vizRoot');
 };
 
 //return a person view
@@ -345,8 +370,15 @@ MC.InterestViz.prototype.createPersonView = function() {
 
 //Creates the floating people heads
 MC.InterestViz.prototype.createPeople = function() {
+    var people_array = [];
+    for (var key in this.people) {
+        if(this.root.id != key){//check the root
+            people_array.push(this.people[key]);
+//            console.log(this.people[key]);
+        }
+    }
     this.container
-        .datum(this.people)
+        .datum(people_array)
         .call(this.personView);
 };
 
@@ -395,42 +427,5 @@ MC.InterestViz.prototype.makeColorful = function(){
         };
 
     };
-};
-
-
-MC.InterestViz.prototype.toolTipHover = function(){
-//Mouseover events involving tooltips
-//    var div = d3.select("body")
-//        .append("div")
-//        .attr("class", "tooltip")
-//        .style("opacity", 0);
-//
-//    $("#interestToolTip")
-
-
-//    var div = d3.select("div")
-//        .style("opacity", 0);
-
-//    console.log(div);
-    var svg= this.svg;
-    this.container.selectAll('g.interest').append('circle').attr('class','temp');
-    this.svg.selectAll("g.interest")
-        .on("mouseover", function(d){
-            d3.select('body').selectAll("#interestToolTip")
-                .transition()
-                .duration(200)
-                .style("display", "block")
-                .style("left",MC.getTransformedPosition(svg[0][0], this, 0, 0).x+125)
-                .style("top",MC.getTransformedPosition(svg[0][0], this, 0, 0).y+25)
-            ;
-//            console.log(MC.getTransformedPosition(svg, this, 0, 0));
-        })
-        .on("mouseout", function(d){
-            d3.select('body').selectAll("#interestToolTip")
-                .transition()
-                .duration(200)
-                .style("display", "none");
-        });
-    this.container.selectAll('.temp').remove('circle');
 };
 

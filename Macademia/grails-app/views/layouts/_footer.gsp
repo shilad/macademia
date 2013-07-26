@@ -24,7 +24,7 @@
     </div>
     <div class="footerBlock"><b>Links</b>
         <ul>
-            <li><a href="http://code.google.com/p/macademia/">Source Code</a></li>
+            <li><a href="https://github.com/shilad/macademia">Source Code</a></li>
             <li><a href="mailto:ssen@macalester.edu">Feedback</a></li>
             <li><a href="http://macademia.macalester.edu/Macademia/">Macademia Homepage</a></li>
 
