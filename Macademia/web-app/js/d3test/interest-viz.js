@@ -181,6 +181,7 @@ MC.InterestViz.prototype.postionHubsGradientCirlces = function(){
     }
 
     //console.log(this.gCircle);
+    console.log(this.hubs);
 
 
 }
@@ -451,7 +452,27 @@ MC.InterestViz.prototype.toolTipHover = function(){
     this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person")
         .on("mouseover", function(d){
             var pos = this.getBoundingClientRect();
+            if(d.name){
                 div.text(d.name);
+
+            }
+            else {
+                for(hub in this.hubs){
+                    console.log(hub);
+                    if(hub[3] == d.id){
+                        div.text(hub[5]);
+
+
+                    }
+                }
+
+
+
+
+
+            }
+
+
                 div
                 .transition()
                 .duration(200)
