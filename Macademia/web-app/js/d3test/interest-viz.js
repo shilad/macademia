@@ -406,11 +406,11 @@ MC.InterestViz.prototype.toolTipHover = function(){
 //        .style("opacity", 0);
 //
 //    $("#interestToolTip")
-
-
+//
+//
 //    var div = d3.select("div")
 //        .style("opacity", 0);
-
+//
 //    console.log(div);
     var svg= this.svg;
     this.svg.selectAll("g.interest")
