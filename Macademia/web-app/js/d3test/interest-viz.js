@@ -443,17 +443,15 @@ MC.InterestViz.prototype.toolTipHover = function(){
 //        .style("opacity", 0);
 
 //    console.log(div);
+
     var svg= this.svg;
+    var div =  d3.selectAll("body").append("div").attr("id","div1").text("Interest:").style("position", "absolute");
 
-   var div =  d3.selectAll("body").append("div").attr("id","div1").text("hellow wowrkde").style("position", "absolute");
-//    div.id = 'interestToolTip'
-//    div.textContent = 'ORANGE';
-//      console.log(d3.select("body").select("#div1"));
 
-//    this.container.selectAll('g.interest');
     this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person")
         .on("mouseover", function(d){
             var pos = this.getBoundingClientRect();
+                div.text(d.name);
                 div
                 .transition()
                 .duration(200)
@@ -462,6 +460,8 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 .style("top",pos.top+25)
             ;
 //            console.log(MC.getTransformedPosition(svg, this, 0, 0));
+            console.log(div);
+
         })
         .on("mouseout", function(d){
             d3.select('body').select("#interestToolTip")
