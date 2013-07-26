@@ -264,7 +264,16 @@ MC.personLayout = function () {
             }
         };
 
-        //Some variables we are suing for pieSpinning function
+        var calculateAngleByCoordinate = function(x2,y2,x1,y1){
+            var theta = Math.abs(Math.atan2(y2-y1,x2-x1));
+            if(theta > (Math.PI / 2) ){
+                return Math.PI-theta;
+            }else{
+                return theta;
+            }
+        };
+
+        //Some variables we are suing for pieSpinning and vizRootSpinning function
         var hubLocations = findHubLocations();
         var personLocations={};
         var personID;
@@ -278,6 +287,21 @@ MC.personLayout = function () {
             .selectAll('g.person')
             .selectAll('g.pie');
         var counter=0;
+
+
+        var findHtoPAngle = function(px,py,hx,hy,angle){
+            // 4 cases to determine the rotation angle
+            var hToPAngle = 0;
+            if(px < hx && py > hy)//quadrant 1
+                hToPAngle = -(Math.PI/2-angle);
+            else if(px > hx && py > hy)//quadrant 2
+                hToPAngle = Math.PI/2-angle;
+            else if(px > hx && py < hy)//quadrant 3
+                hToPAngle = Math.PI/2+angle;
+            else if(px < hx && py < hy)//quadrant 4
+                hToPAngle = -(Math.PI/2+angle);
+            return hToPAngle;
+        }
 
         /*
          The goal of this function is to rotate the pie wedge of
@@ -336,15 +360,7 @@ MC.personLayout = function () {
                         var hx = hubLocations[hubID].x;
                         var hy = hubLocations[hubID].y;
 
-                        // 4 cases to determine the rotation angle
-                        if(px < hx && py > hy)//quadrant 1
-                            hubToPersonAngle = -(Math.PI/2-angle);
-                        else if(px > hx && py > hy)//quadrant 2
-                            hubToPersonAngle = Math.PI/2-angle;
-                        else if(px > hx && py < hy)//quadrant 3
-                            hubToPersonAngle = Math.PI/2+angle;
-                        else if(px < hx && py < hy)//quadrant 4
-                            hubToPersonAngle = -(Math.PI/2+angle);
+                        hubToPersonAngle = findHtoPAngle(px,py,hx,hy,angle);
 
                         halfArcAngle = (d.endAngle - d.startAngle)/2 ;
 
@@ -362,6 +378,49 @@ MC.personLayout = function () {
                     }
                 });
         };
+
+        var vizRootSpinning = function(){
+
+            //Sorting the path that forms the wedges
+            rootPaths = d3.
+                select('svg')
+                .select('g.vizRoot')
+                .select('g.pie')
+                .selectAll('path')
+                .sort(function(a,b){
+                    return b.value- a.value;
+                });
+
+            //Rotating
+            rootPaths
+                .each(function(d,i){
+                    if(i==0){ //we only want the wedge with the highest weight
+                        hubID = d.data.id;
+                        var viz = d3.select('g.viz');
+                        var px = viz.attr("width")/2; //the root person is always in the middle
+                        var py = viz.attr("height")/2;
+                        var hx = hubLocations[hubID].x;
+                        var hy = hubLocations[hubID].y;
+
+//                        var angle = calculateAngle(personID, hubID,personLocations,hubLocations);
+                        var angle = calculateAngleByCoordinate(py,px,hy,hx);
+
+                        hubToPersonAngle = findHtoPAngle(px,py,hx,hy,angle);
+
+                        halfArcAngle = (d.endAngle - d.startAngle)/2 ;
+
+                        rotationDegree = (halfArcAngle-hubToPersonAngle)*(180/Math.PI);
+
+                        d3.select(this.parentNode)
+                            .transition()
+                            .attr('transform',function(){
+                                return "rotate("+(rotationDegree)+")";
+                            });
+                    }
+                });
+        };
+
+
 
         // walk through iterations of convergence to final positions
         force.on("tick", function (e) {
@@ -387,12 +446,11 @@ MC.personLayout = function () {
             }
             counter++;
         });
+
         force.on('end',function(e){
             pieSpinning(); //To ensure that the last value is used, call once more
-            console.log("hub locations");
-            console.log(hubLocations);
-            console.log("person locations");
-            console.log(personLocations);
+
+//            d3.select('svg').select('g.vizRoot').select('g.pie');
         });
 
 //        d3.select("body").on("click", function () {      //Creates error when updating simultaneously
@@ -402,6 +460,8 @@ MC.personLayout = function () {
 //            });
 //            force.resume();
 //        });
+
+        vizRootSpinning();
 
     }
     MC.options.register(pl, 'friction', 0.005);
