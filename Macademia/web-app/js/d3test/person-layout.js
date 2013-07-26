@@ -311,7 +311,6 @@ MC.personLayout = function () {
             g. rotate the pie by using result from d and f. (Notice that SVG "rotate" runs
             in click-wise direction and it uses 360 degree instead of 2PI radius.)
          */
-
         var pieSpinning = function(){
 
             //Sorting the path that forms the wedges
@@ -405,7 +404,6 @@ MC.personLayout = function () {
 //        });
 
     }
-    //just so I u
     MC.options.register(pl, 'friction', 0.005);
     MC.options.register(pl, 'gravity', 0.005);
     MC.options.register(pl, 'linkDistance', 50);
