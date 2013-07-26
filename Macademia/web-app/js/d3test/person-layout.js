@@ -258,16 +258,20 @@ MC.personLayout = function () {
             var personLoc=personLocs[personId];
             var hubLoc = hubLocs[hubId];
             var m = (personLoc.py-hubLoc.y)/(personLoc.px-hubLoc.x);
-            var theta = Math.atan(m);
-            console.log("Person ID");
-            console.log(personId);
-            console.log("Hub ID");
-            console.log(hubId);
-            console.log("Slope");
-            console.log(m);
-            console.log("Theta");
-            console.log(theta*(180/Math.PI));
-            return Math.PI-theta;
+//            var theta = Math.atan(m);
+            var theta = Math.atan2(personLoc.py-hubLoc.y,personLoc.px-hubLoc.x);
+            if(theta > Math.PI/2){
+               theta = Math.PI - theta;
+            }
+//            console.log("Person ID");
+//            console.log(personId);
+//            console.log("Hub ID");
+//            console.log(hubId);
+//            console.log("Slope");
+//            console.log(m);
+//            console.log("Theta");
+//            console.log(theta * 180 / Math.PI);
+            return theta;
         };
 
         var hubLocations = findHubLocations();
@@ -315,13 +319,14 @@ MC.personLayout = function () {
                 .each(function(d,i){
                     if(i==0){
                         personID = d3.select(this.parentNode).data()[0].id;
+                        hubID = d.data.id;
 
 //                        var m = (personLoc.py-hubLoc.y)/(personLoc.px-hubLoc.x);
-                        var angle = calculateAngle(personID, d.data.id,personLocations,hubLocations);
+                        var angle = calculateAngle(personID, hubID,personLocations,hubLocations);
                         var px = personLocations[personID].px;
                         var py = personLocations[personID].py;
-                        var hx = hubLocations[d.data.id].x;
-                        var hy = hubLocations[d.data.id].y;
+                        var hx = hubLocations[hubID].x;
+                        var hy = hubLocations[hubID].y;
                         if(px < hx && py > hy)//quadrant 1
                            hubToPersonAngle = -(Math.PI/2-angle);
                         else if(px > hx && py > hy)//quadrant 2
@@ -332,7 +337,9 @@ MC.personLayout = function () {
                             hubToPersonAngle = -(Math.PI/2+angle);
 
                         halfArcAngle = (d.endAngle - d.startAngle)/2 ;
-                        rotationDegree = (hubToPersonAngle + halfArcAngle)*(180/Math.PI);
+                        rotationDegree = (hubToPersonAngle)*(180/Math.PI);
+                        console.log("Rotation Degree");
+                        console.log(rotationDegree);
 
                         d3.select(this.parentNode)
                             .transition()
