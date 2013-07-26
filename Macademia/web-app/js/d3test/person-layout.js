@@ -383,7 +383,7 @@ MC.personLayout = function () {
             });
 
             //Rotating the pie of the person towards the hub that has most weight
-            if(counter%3==0){
+            if(counter%3==0){ // we don't want to run it every time
                 pieSpinning();
             }
             counter++;
@@ -395,6 +395,7 @@ MC.personLayout = function () {
             console.log("person locations");
             console.log(personLocations);
         });
+
 //        d3.select("body").on("click", function () {      //Creates error when updating simultaneously
 //            peopleNodes.forEach(function (o, i) {
 //                o.x += (Math.random() - .5) * 40;
@@ -402,6 +403,7 @@ MC.personLayout = function () {
 //            });
 //            force.resume();
 //        });
+
     }
     //just so I u
     MC.options.register(pl, 'friction', 0.005);
