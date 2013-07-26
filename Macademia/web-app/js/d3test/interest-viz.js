@@ -458,8 +458,13 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 .style("display", "block")
                 .style("left",pos.left+20)
                 .style("top",pos.top+324)
-
-            ;
+                .style("background-color", "#eaeaea")
+                .style("border", "3px dotted #ffffff")
+                .style("font", "13px Georgia")
+                .style("color", "#606060")
+                .style("border-radius", "5px")
+                .style("padding", "10px 15px")
+                ;
 //            console.log(MC.getTransformedPosition(svg, this, 0, 0));
         })
         .on("mouseout", function(d){
