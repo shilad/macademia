@@ -112,7 +112,7 @@ MC.MainViz.prototype.setInterestEventHandler = function(){
                     MH.setTempValue(key,targetMap[key]);
                 }
 
-                MC.MainViz.prototype.setTransitionRoot(d3.select(this));
+                MC.MainViz.prototype.setTransitionRoot(d3.select(this),'interest');
 
                 macademia.history.update();
 
@@ -139,17 +139,17 @@ MC.MainViz.prototype.setPeopleEventHandler = function(){
                     MH.setTempValue(key,targetMap[key]);
                 }
 
-                MC.MainViz.prototype.setTransitionRoot(d3.select(this));
+                MC.MainViz.prototype.setTransitionRoot(d3.select(this),'person');
 
                 macademia.history.update();
             });
     },this), 2504);
 };
 
-MC.MainViz.prototype.setTransitionRoot = function(d3Root){
+MC.MainViz.prototype.setTransitionRoot = function(d3Root,type){
     this.tRoot=d3Root;
     d3Root
-        .attr("class","nextRoot");
+        .attr("class","nextRoot "+type);
 };
 
 MC.MainViz.prototype.transitionRoot = function(){
@@ -170,8 +170,9 @@ MC.MainViz.prototype.transitionRoot = function(){
 //
 //        d3.select('svg').datum(people).call(MC.person());
 
-        var newRoot=this.svg.select('g.nextRoot');
+        var newRoot=this.svg.select('g.nextRoot.interest');
         var oldRoot=this.svg.select('g.vizRoot');
+
         this.svg
             .select('g.nextRoot')
             .attr('class','g.interest'); //Doesn't matter if it is a person or interest or hub
@@ -179,16 +180,30 @@ MC.MainViz.prototype.transitionRoot = function(){
             .transition()
             .duration(1000)
             .attr("transform",function(){
+                console.log(oldRoot.attr('transform'));
                 return oldRoot.attr('transform');
             });
-        this.tRoot
-            .selectAll('circle')
-            .transition()
-            .duration(1000)
-            .attr("transform",function(){
-                if(d3.select(this))
-                return "scale(2)";
-            });
+        if(newRoot[0][0]==null){ //checks to see if it is a person; if so, then the transition changes
+            newRoot=this.svg.select('g.nextRoot.person');
+            this.tRoot
+                .selectAll('g.pie, g.label, image')//TODO: fix image from moving away - it has its own translate
+                .transition()
+                .duration(1000)
+                .attr("transform",function(){
+                    if(d3.select(this))
+                        return "scale(1.5)";
+                });
+        }
+        else{
+            this.tRoot
+                .selectAll('circle')
+                .transition()
+                .duration(1000)
+                .attr("transform",function(){
+                    if(d3.select(this))
+                        return "scale(2)";
+                });
+        }
         this.tRoot
             .select('text')
             .transition()
