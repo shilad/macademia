@@ -413,6 +413,8 @@ MC.personLayout = function () {
 
                         d3.select(this.parentNode)
                             .transition()
+                            .duration(1500)
+                            .ease('bounce')
                             .attr('transform',function(){
                                 return "rotate("+(rotationDegree)+")";
                             });
@@ -449,7 +451,6 @@ MC.personLayout = function () {
 
         force.on('end',function(e){
             pieSpinning(); //To ensure that the last value is used, call once more
-
 //            d3.select('svg').select('g.vizRoot').select('g.pie');
         });
 
@@ -467,7 +468,6 @@ MC.personLayout = function () {
     MC.options.register(pl, 'friction', 0.005);
     MC.options.register(pl, 'gravity', 0.005);
     MC.options.register(pl, 'linkDistance', 50);
-
     MC.options.register(pl, 'peopleNodes', function () {
         throw('no people specified.')
     });
