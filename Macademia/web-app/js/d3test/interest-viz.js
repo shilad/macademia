@@ -46,17 +46,17 @@ var MC = (window.MC = (window.MC || {}));
                 11,
                 22]},
         }
- };
+    };
 
  var colors =[
  "#b2a3f5",
- ];
+  ];
 
  var root = {type : 'person', id: 7, children : [3,6,1,4,5,2]};
 
- var hubs = [
+  var hubs = [
  {type : 'interest', id : 11, children : [12,14,15,16]},
- ];
+  ];
 
  var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
@@ -73,16 +73,11 @@ var MC = (window.MC = (window.MC || {}));
  */
 
 
-MC.InterestViz = function (params) {
+MC.InterestViz = function(params) {
     this.positions = [
         [], // 1 hub case
         [], // 2 hub case
-        [
-            {x: 0.5, y: 0.55},
-            {x: 0.25, y: 0.85},
-            {x: 0.75, y: 0.85},
-            {x: 0.5, y: 0.2}
-        ], // 3 hub case (root, hub1, hub2, hub3)
+        [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
         [] // 4 hub case
     ];
 
@@ -94,7 +89,7 @@ MC.InterestViz = function (params) {
 //    this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
-    this.container = this.svg.append("g").attr("class", "viz").attr("width", 800).attr("height", 600);
+    this.container=this.svg.append("g").attr("class","viz").attr("width",800).attr("height",600);
     // construct the hubModel here based on other parameters
     this.currentColors = [];
 
@@ -107,7 +102,7 @@ MC.InterestViz = function (params) {
 
     this.calculateColors();
     this.postionHubsGradientCirlces();
-    this.setRadii(30, 12);
+    this.setRadii(30,12);
 
     this.setGradients();
     this.drawGradientCircles();
@@ -117,9 +112,9 @@ MC.InterestViz = function (params) {
 };
 
 // Position the hubs and their gradient circles around the visRoot
-MC.InterestViz.prototype.postionHubsGradientCirlces = function () {
+MC.InterestViz.prototype.postionHubsGradientCirlces = function(){
     var n = this.hubs.length;
-    var coordinates = this.positions[n - 1];
+    var coordinates = this.positions[n-1];
     var posRoot = coordinates[0];
 
     //Setting the root
@@ -127,8 +122,8 @@ MC.InterestViz.prototype.postionHubsGradientCirlces = function () {
     this.root.cy = this.svgHeight * posRoot.y;
 
     //Setting the hubs
-    for (var i = 0; i < hubs.length; i++) {
-        var pos = coordinates[i + 1]; //start with 1 because 0 is root
+    for(var i=0;i<hubs.length;i++){
+        var pos = coordinates[i+1]; //start with 1 because 0 is root
         this.hubs[i].cx = this.svgWidth * pos.x;
         this.hubs[i].cy = this.svgHeight * pos.y;
 //        console.log(this.hubs[i]);
@@ -142,25 +137,25 @@ MC.InterestViz.prototype.postionHubsGradientCirlces = function () {
     var padT = dist * scale; //top
     var padB = this.svgHeight - dist * scale; //bottom
 
-    for (var i = 0; i < n; i++) {
+    for(var i=0; i<n; i++){
 
         //Left
-        if (this.hubs[i].cx < padL) {
+        if(this.hubs[i].cx < padL){
             this.hubs[i].cx = padL;
         }
 
         //Right
-        if (this.hubs[i].cx > padR) {
+        if(this.hubs[i].cx > padR){
             this.hubs[i].cx = padR;
         }
 
         //Top
-        if (this.hubs[i].cy < padT) {
+        if(this.hubs[i].cy < padT){
             this.hubs[i].cy = padT;
         }
 
         //Bottom
-        if (this.hubs[i].cy > padB) {
+        if(this.hubs[i].cy > padB){
             this.hubs[i].cy = padB;
         }
 
@@ -175,14 +170,14 @@ MC.InterestViz.prototype.postionHubsGradientCirlces = function () {
     circle['stop-opacity'] = .3;
     this.gCircle[0] = circle;
 
-    for (var i = 0; i < n; i++) {
+    for (var i=0; i<n; i++){
         var circle = {};
         circle['cx'] = this.hubs[i].cx;
         circle['cy'] = this.hubs[i].cy;
         circle['id'] = this.hubs[i].id;
         circle['color'] = this.hubs[i].color;
         circle['stop-opacity'] = .3;
-        this.gCircle[i + 1] = circle;
+        this.gCircle[i+1] = circle;
     }
 
     //console.log(this.gCircle);
@@ -190,18 +185,18 @@ MC.InterestViz.prototype.postionHubsGradientCirlces = function () {
 
 }
 
-MC.InterestViz.prototype.setRadii = function (hubRadius, interestRadius) {
-    for (var i in this.interests) {
-        this.interests[i]['r'] = interestRadius;
+MC.InterestViz.prototype.setRadii = function(hubRadius,interestRadius) {
+    for(var i in this.interests){
+        this.interests[i]['r']=interestRadius;
 //        console.log(this.interests[i].r);
     }
-    for (var i = 0; i < this.hubs.length; i++) {
-        this.hubs[i]['r'] = hubRadius;
+    for(var i = 0; i < this.hubs.length; i++){
+        this.hubs[i]['r']=hubRadius;
 //        console.log(this.hubs[i]);
     }
-    this.root['r'] = hubRadius;
+    this.root['r']=hubRadius;
 
-    for (var i = 0; i < this.gCircle.length; i++) {
+    for(var i=0; i < this.gCircle.length; i++){
         this.gCircle[i]['r'] = this.svgWidth * 0.3;
     }
 //    this.svg
@@ -212,7 +207,7 @@ MC.InterestViz.prototype.setRadii = function (hubRadius, interestRadius) {
 //        .attr('r',hubRadius);
 };
 
-MC.InterestViz.prototype.calculateColors = function () {
+MC.InterestViz.prototype.calculateColors = function() {
     // assign interest colors to hubs
     var interestColors = {};
     if (this.root.color) {
@@ -233,9 +228,9 @@ MC.InterestViz.prototype.calculateColors = function () {
     }
 };
 
-MC.InterestViz.prototype.startPeople = function () {
+MC.InterestViz.prototype.startPeople = function() {
 
-    window.setTimeout(jQuery.proxy(function () {
+    window.setTimeout( jQuery.proxy(function() {
 //        this.createInterestColors();
         this.createPersonView();
         this.createPeople();
@@ -249,41 +244,37 @@ MC.InterestViz.prototype.startPeople = function () {
 };
 
 //Position the hubs and the root
-MC.InterestViz.prototype.createInterestViz = function () {
+MC.InterestViz.prototype.createInterestViz = function() {
     this.createHub(this.root);
-    for (var i = 0; i < this.hubs.length; i++) {
-        this.createHub(this.hubs[i], i);
+    for(var i = 0; i < this.hubs.length; i++) {
+            this.createHub(this.hubs[i],i);
     }
 };
 
-MC.InterestViz.prototype.createInterestColors = function () {
-    var interestColors = {};
+MC.InterestViz.prototype.createInterestColors = function(){
+    var interestColors ={};
 
-    for (var i = 0; i < this.people.length; i++) {
-        for (var j = 0; j < this.people[i].interests.length; j++) {
-            for (var k = 0; k < this.hubs.length; k++) {
-                for (var l = 0; l < this.hubs[k][0].interests.length; l++) {
+    for(var i = 0; i < this.people.length; i++){
+        for(var j = 0; j< this.people[i].interests.length; j++){
+            for(var k = 0; k< this.hubs.length; k++){
+                for(var l =0; l< this.hubs[k][0].interests.length;l++){
 
-                    if (this.people[i].interests[j] == this.hubs[i][0].interests[j].id) {
+                    if(this.people[i].interests[j] == this.hubs[i][0].interests[j].id){
                         interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
                     }
 
 //            if(this.hubs[i][0].interests)
 //            if{this.hubs[i][0]==}
 //            interestColors[this.people[i].interests[j]] = this.hubs[i][0].color; //creates a map with interest id and color assigned to that id
-                }
-                ;
-            }
-            ;
-        }
-        ;
-    }
-    ;
+                };
+            };
+        };
+    };
 
 };
 
-MC.InterestViz.prototype.createHub = function (model, i) {
-    var calculatedDelay = (i + 1) * 500;
+MC.InterestViz.prototype.createHub = function(model,i) {
+    var calculatedDelay=(i+1)*500;
     var hubInterests = [];
     for (var i = 0; i < model.children.length; i++) {
         var childId = model.children[i];
@@ -291,47 +282,47 @@ MC.InterestViz.prototype.createHub = function (model, i) {
     }
     var rootModel = model.type == 'person' ? this.people[model.id] : this.interests[model.id];
     rootModel.type = model.type;
-    rootModel.r = model.r;
+    rootModel.r=model.r;
 //    console.log(hubInterests);
     this.container
         .datum({
-            id: model.id,
-            children: hubInterests,
-            root: rootModel,
-            color: model.color,
-            isVizRoot: (model == this.root),
-            cx: model.cx,
-            cy: model.cy,
-            distance: 100,
-            delay: calculatedDelay,
-            distance: this.distance
+            id : model.id,
+            children : hubInterests,
+            root : rootModel,
+            color : model.color,
+            isVizRoot : (model == this.root),
+            cx : model.cx,
+            cy : model.cy,
+            distance : 100,
+            delay : calculatedDelay,
+            distance : this.distance
         })
         .call(MC.hub());
 
 };
 
-MC.InterestViz.prototype.drawGradientCircles = function () {
+MC.InterestViz.prototype.drawGradientCircles = function(){
     this.container.selectAll('circle.gradient')
         .data(this.gCircle)
         .enter()
         .append("circle")
-        .attr('fill', function (d) {
+        .attr('fill', function(d) {
             return 'url(#gradient_' + d.id + ')';
         })
-        .attr('cx', function (d) {
+        .attr('cx', function(d) {
             return d.cx;
         })
-        .attr('cy', function (d) {
+        .attr('cy', function(d) {
             return d.cy;
         })
-        .attr('r', function (d) {
+        .attr('r', function(d) {
             return d.r;
         })
-        .attr("class", "gradient");
+        .attr("class","gradient");
 };
 
 
-MC.InterestViz.prototype.setGradients = function () {
+MC.InterestViz.prototype.setGradients = function(){
     var defs = this.container
         .selectAll("defs")
         .data(this.container[0])
@@ -343,20 +334,20 @@ MC.InterestViz.prototype.setGradients = function () {
         .data(this.gCircle)
         .enter()
         .append('radialGradient')
-        .attr("id", function (d) {
-            return "gradient_" + d.id;
+        .attr("id",function(d){
+            return "gradient_"+ d.id;
         });
     rGs
         .append("stop")
-        .attr("offset", "20%")
-        .attr("style", function (d) {
-            return "stop-color:" + d.color + ";stop-opacity:" + d['stop-opacity'] + ";";
+        .attr("offset","20%")
+        .attr("style",function(d){
+            return "stop-color:"+d.color+";stop-opacity:"+ d['stop-opacity']+";";
         });
     rGs
         .append("stop")
-        .attr("offset", "100%")
-        .attr("style", function (d) {
-            return "stop-color:" + d.color + ";stop-opacity:0;";
+        .attr("offset","100%")
+        .attr("style",function(d){
+            return "stop-color:"+d.color+";stop-opacity:0;";
         });
 
 
@@ -367,21 +358,21 @@ MC.InterestViz.prototype.setGradients = function () {
  */
 
 
-MC.InterestViz.prototype.getD3Interests = function () {
+MC.InterestViz.prototype.getD3Interests = function() {
     return this.container.selectAll('g.interest,g.hubRoot,g.vizRoot');
 };
 
 //return a person view
-MC.InterestViz.prototype.createPersonView = function () {
+MC.InterestViz.prototype.createPersonView = function() {
     this.personView = MC.person();
     return this.personView;
 };
 
 //Creates the floating people heads
-MC.InterestViz.prototype.createPeople = function () {
+MC.InterestViz.prototype.createPeople = function() {
     var people_array = [];
     for (var key in this.people) {
-        if (this.root.id != key) {//check the root
+        if(this.root.id != key){//check the root
             people_array.push(this.people[key]);
 //            console.log(this.people[key]);
         }
@@ -392,12 +383,12 @@ MC.InterestViz.prototype.createPeople = function () {
 };
 
 //Grabs all the people in svg
-MC.InterestViz.prototype.getD3People = function () {
+MC.InterestViz.prototype.getD3People = function() {
     return this.container.selectAll('g.person');
 };
 
 //Sets the locations of the person heads
-MC.InterestViz.prototype.createPersonLayoutView = function () {
+MC.InterestViz.prototype.createPersonLayoutView = function(){
     this.personLayoutView = MC.personLayout()
         .setPeopleNodes(this.getD3People())
         .setClusterMap(this.createClusterMap())
@@ -405,7 +396,7 @@ MC.InterestViz.prototype.createPersonLayoutView = function () {
     return this.personLayoutView;
 };
 
-MC.InterestViz.prototype.createPersonLayout = function () {
+MC.InterestViz.prototype.createPersonLayout = function(){
     this.container
         .selectAll('person-layouts')
         .data([0])
@@ -414,34 +405,31 @@ MC.InterestViz.prototype.createPersonLayout = function () {
 };
 
 
-MC.InterestViz.prototype.createClusterMap = function () {
+MC.InterestViz.prototype.createClusterMap = function(){
     var clusterMap = {};
     clusterMap[this.root.id] = this.root.children;
-    for (var i = 0; i < this.hubs.length; i++) {
+    for(var i = 0; i < this.hubs.length; i++){
         clusterMap[this.hubs[i].id] = this.hubs[i].children;
-    }
-    ;
+    };
 
     return clusterMap;
 };
 //I could not think of a better name it sets both the hub and interest colors from the color scheme
-MC.InterestViz.prototype.makeColorful = function () {
+MC.InterestViz.prototype.makeColorful = function(){
     var color;
     //the colors already on the page
 
-    for (var i = 0; i < this.colors.length; i++) {
-        if (this.currentColors.indexOf(this.colors[i]) < 0) {
-            color = this.colors[i];
+    for(var i = 0; i < this.colors.length; i++){
+        if(this.currentColors.indexOf(this.colors[i])<0){
+            color=this.colors[i];
             this.currentColors.push(color);
             return color;
-        }
-        ;
+        };
 
-    }
-    ;
+    };
 };
 
-MC.InterestViz.prototype.toolTipHover = function () {
+MC.InterestViz.prototype.toolTipHover = function(){
 //Mouseover events involving tooltips
 //    var div = d3.select("body")
 //        .append("div")
@@ -451,66 +439,61 @@ MC.InterestViz.prototype.toolTipHover = function () {
 //    $("#interestToolTip")
 
 
-    var div = d3.select("div")
-        .style("opacity", 0);
+//    var div = d3.select("div")
+//        .style("opacity", 0);
 
 //    console.log(div);
 
     var people = this.people;
 
-    var svg = this.svg;
-    var div = d3.selectAll("body").append("div").attr("id", "div1").text("Interest:").style("position", "absolute");
+    var svg= this.svg;
+    var div =  d3.selectAll("body").append("div").attr("id","div1").text("Interest:").style("position", "absolute");
 
 
     this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person") //vizRoot and hubs do not have names speak with Jesse before we deal with this.
-        .on("mouseover", function (d) {
-
+       .on("mouseover", function(d){
+            var paragraph = div.append('p');
             var pos = this.getBoundingClientRect();
-            if (d.id) {
-                console.log(d.id);
-                console.log("pig");
-                if (d.id in people) {
-                    console.log("hello")
-                    if (people[d.id].interests) {
-                        console.log("I am human");
-                        div.text("hi");
-                    }
+          if(d.id) //checks for people and interests
+            {
+                if(d.id in people)
+                {
+                    if(people[d.id].interests){
+                        paragraph.text("Name" + people[d.id].name);
 
+                        paragraph.text(div.text()+"\n\n affiliation - not avaliable in data" + "Dept not avaliable in data" + "Email" + " Interests")
+                    }
                 }
-                else {
+                else{
                     console.log(" I am robot here me roar")
                 }
             }
-            else if (d[0].id) {
-                if (d[0].type) {
-                    console.log(d[0].type)
-                    console.log(d[0])
+            else if(d[0].id)    //checks the hubs to see if human or interest
+            {
+                if(d[0].type == "person")
+                {
+//                   console.log(d[0].type)
+                   console.log("I am human " )
                 }
-                else if (d[0].type) {
+                else
+                {
                     console.log(d[0].type)
                 }
-
             }
-
-            if (d[0].type == "person") {
-                div.text(d.name);
                 div
-                    .transition()
-                    .duration(200)
-                    .style("display", "block")
-                    .style("left", pos.left + 20)
-                    .style("top", pos.top + 324)
-                ;
-            }
-            else if (d.type)
-                console.log("I ran")
+                .transition()
+                .duration(200)
+                .style("display", "block")
+                    .style("left",pos.left)
+                    .style("top",pos.top)
+              console.log("I ran")
 //            console.log(MC.getTransformedPosition(svg, this, 0, 0));
 //            console.log(div);
 
         })
-        .on("mouseout", function (d) {
+        .on("mouseout", function(d){
             d3.select('body').select("#interestToolTip")
-            div
+                div
                 .transition()
                 .duration(200)
                 .style("display", "none");
