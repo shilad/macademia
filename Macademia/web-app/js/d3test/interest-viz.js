@@ -109,6 +109,8 @@ MC.InterestViz = function(params) {
 
     this.createInterestViz();
     this.startPeople();
+
+    console.log(this.createClusterMap());
 };
 
 // Position the hubs and their gradient circles around the visRoot
@@ -226,6 +228,7 @@ MC.InterestViz.prototype.calculateColors = function() {
     for (var pid in this.people) {
         this.people[pid].interestColors = interestColors;
     }
+    console.log(this.people);
 };
 
 MC.InterestViz.prototype.startPeople = function() {
