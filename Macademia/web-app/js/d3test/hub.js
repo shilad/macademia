@@ -212,7 +212,9 @@ MC.hub = function() {
             }
 
             //Making connection lines appear
-            d3Group.selectAll("line").transition().attr('opacity',1.0);
+            d3Group.selectAll("line").transition().delay(1501).duration(function(d,i){
+                return duration/n*(i+1);
+            }).attr('opacity',1.0);
         });
     }
 
