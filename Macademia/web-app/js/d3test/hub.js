@@ -82,19 +82,25 @@ MC.hub = function() {
             if(rootType == "person"){
                 var gradient = d3.select('defs')
                     .append("radialGradient")
-                    .attr("id", "connection-gradient")
-                    .attr("x1", cx)
-                    .attr("y1", cy);
+                    .attr("id", "connection_gradient")
+                    .attr("cx", cx)
+                    .attr("cy", cy)
+                    .attr("fx", cx)
+                    .attr("fy", cy)
+                    .attr('r',100)
+                    .attr('spread-method','reflect');
 
                     gradient.append("stop")
-                    .attr("offset", "3%")
-                    .attr("stop-color", "#D3D3D3")
-                    .attr("stop-opacity", 1);
+                    .attr("offset", "0%")
+                    .style("stop-color", "#b2b2b2")
+                    .style("stop-opacity", 1.0);
 
                     gradient.append("stop")
-                    .attr("offset", "97%")
-                    .attr("stop-color", "#FFFFFF")
-                    .attr("stop-opacity", 0.5);
+                    .attr("offset", "100%")
+                    .style("stop-color", "#FF0000")
+                    .style("stop-opacity", 1.0);
+
+                d3Group.append('rect').attr('x',cx).attr('y',cy).attr('width','100').attr('height','100').attr('fill','url(#connection_gradient)');
 
                 d3Group.selectAll("connectionPaths").data(new Array(n)).enter().append("line")
                     .attr("x1", cx)
@@ -107,11 +113,11 @@ MC.hub = function() {
                         var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
                         return cy_child;
                     })
-                    .attr("stroke-width", 5)
+                    .attr("stroke-width", 20)
                     .attr("stroke-linecap", "round")
-                    .attr("stroke-dasharray", "4, 5")
-//                    .attr("stroke", 'url(#connection-gradient)');
-                    .attr("stroke", 'orange');
+                    .attr("stroke-dasharray", "1, 25")
+//                    .attr("fill", 'null')
+                    .attr("stroke", 'url(#connection_gradient)');
             }
 
             //drawing children with animation
