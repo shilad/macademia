@@ -88,19 +88,19 @@ MC.hub = function() {
                     .attr("fx", cx)
                     .attr("fy", cy)
                     .attr('r',100)
-                    .attr('spread-method','reflect');
+                    .attr("gradientUnits", 'userSpaceOnUse');
 
                     gradient.append("stop")
-                    .attr("offset", "0%")
+                    .attr("offset", "30%")
                     .style("stop-color", "#b2b2b2")
                     .style("stop-opacity", 1.0);
 
                     gradient.append("stop")
-                    .attr("offset", "100%")
-                    .style("stop-color", "#FF0000")
+                    .attr("offset", "90%")
+                    .style("stop-color", "#FFFFFF")
                     .style("stop-opacity", 1.0);
-
-                d3Group.append('rect').attr('x',cx).attr('y',cy).attr('width','100').attr('height','100').attr('fill','url(#connection_gradient)');
+                  //Testing rect - use to see where gradient really is
+//                d3Group.append('rect').attr('x',cx).attr('y',cy).attr('width','100').attr('height','100').attr('fill','url(#connection_gradient)');
 
                 d3Group.selectAll("connectionPaths").data(new Array(n)).enter().append("line")
                     .attr("x1", cx)
@@ -113,9 +113,9 @@ MC.hub = function() {
                         var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
                         return cy_child;
                     })
-                    .attr("stroke-width", 20)
+                    .attr("stroke-width", 6)
                     .attr("stroke-linecap", "round")
-                    .attr("stroke-dasharray", "1, 25")
+                    .attr("stroke-dasharray", "1, 10")
 //                    .attr("fill", 'null')
                     .attr("stroke", 'url(#connection_gradient)');
             }
