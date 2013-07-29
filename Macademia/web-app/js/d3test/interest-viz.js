@@ -463,19 +463,28 @@ MC.InterestViz.prototype.toolTipHover = function(){
                     }
                 }
                 else{
-                    console.log(" I am robot here me roar");
+                    paragraph.html("the interest is "+d.name);
                 }
+
+
+
             }
             else if(d[0].id)    //checks the hubs to see if human or interest
             {
                 if(d[0].type == "person")
                 {
-//                   console.log(d[0].type)
-                   console.log("I am human " )
+                   console.log(interests);
+                   for(var iid in d[0].interests){
+                       if(interests.contains(iid)){
+                           console.log(iid);
+                       }
+                   }
+                   paragraph.html("here is the information for " + d[0].name + '<br/>' + 'Interests:' + d[0].interests);
                 }
+
                 else
                 {
-                    console.log(d[0].type)
+                    paragraph.html("this interest is a hubRoot and it is called " + d[0].name);
                 }
             }
             div
