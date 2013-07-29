@@ -457,7 +457,8 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 .duration(200)
                 .style("display", "block")
                 .style("left",pos.left+20)
-                .style("top",pos.top+324)
+//                .style("top",pos.top+324) if inspect element is open
+                .style("top",pos.top+50)
                 .style("background-color", "#eaeaea")
                 .style("border", "3px dotted #ffffff")
                 .style("font", "13px Georgia")
