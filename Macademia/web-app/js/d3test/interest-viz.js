@@ -444,23 +444,45 @@ MC.InterestViz.prototype.toolTipHover = function(){
 
 //    console.log(div);
 
+    var people = this.people;
+
     var svg= this.svg;
     var div =  d3.selectAll("body").append("div").attr("id","div1").text("Interest:").style("position", "absolute");
 
 
     this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person") //vizRoot and hubs do not have names speak with Jesse before we deal with this.
-        .on("mouseover", function(d){
+       .on("mouseover", function(d){
             var pos = this.getBoundingClientRect();
-            if(d[0].id)
+          if(d.id)
+            {
+                console.log(d.id);
+                console.log("pig");
+                if(d.id in people)
+                {
+                    console.log("hello")
+                    if(people[d.id].interests){
+                        console.log("I am human");
+                    }
+                }
+                else{
+                    console.log(" I am robot here me roar")
+                }
+            }
+            else if(d[0].id)
             {
                 if(d[0].type)
                 {
                    console.log(d[0].type)
-                    console.log(d[0])
+                   console.log(d[0])
+                }
+                else if(d[0].type)
+                {
+                    console.log(d[0].type)
                 }
 
             }
-            if(d[0].type = "person")
+
+            if(d[0].type == "person")
             {
             div.text(d.name);
                 div
@@ -473,7 +495,7 @@ MC.InterestViz.prototype.toolTipHover = function(){
             else if(d.type)
                 console.log("I ran")
 //            console.log(MC.getTransformedPosition(svg, this, 0, 0));
-            console.log(div);
+//            console.log(div);
 
         })
         .on("mouseout", function(d){
