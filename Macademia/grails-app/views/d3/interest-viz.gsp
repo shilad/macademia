@@ -203,8 +203,7 @@ var viz = new MC.InterestViz({
 
 
 </r:script>
-<div>
-</div>
+<div></div>
 <svg>
 
 </svg>
