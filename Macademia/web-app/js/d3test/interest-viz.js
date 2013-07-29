@@ -1,3 +1,11 @@
+/**
+ * Created with IntelliJ IDEA.
+ * User: jesse
+ * Date: 7/16/13
+ * Time: 1:25 PM
+ * To change this template use File | Settings | File Templates.
+ */
+
 var MC = (window.MC = (window.MC || {}));
 
 /**
@@ -439,25 +447,23 @@ MC.InterestViz.prototype.toolTipHover = function(){
     var people = this.people;
 
     var svg= this.svg;
-    var div =  d3.selectAll("body").append("div").attr("id","div1").text("Interest:").style("position", "absolute");
+    var div =  d3.selectAll("body").append("div").attr("id","div1").text(" ").style("position", "absolute");
+    var paragraph = div.append('p');
 
 
     this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person") //vizRoot and hubs do not have names speak with Jesse before we deal with this.
        .on("mouseover", function(d){
-            var paragraph = div.append('p');
             var pos = this.getBoundingClientRect();
           if(d.id) //checks for people and interests
             {
                 if(d.id in people)
                 {
                     if(people[d.id].interests){
-                        paragraph.text("Name" + people[d.id].name);
-
-                        paragraph.text(div.text()+"\n\n affiliation - not avaliable in data" + "Dept not avaliable in data" + "Email" + " Interests")
+                        paragraph.html("Name: " + people[d.id].name + '<br/>'+" affiliation - not avaliable in data" + '<br/>' +"Dept not avaliable in data" + "Email" +'<br/>'+ " Interests:");
                     }
                 }
                 else{
-                    console.log(" I am robot here me roar")
+                    console.log(" I am robot here me roar");
                 }
             }
             else if(d[0].id)    //checks the hubs to see if human or interest
@@ -479,12 +485,13 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 .style("left",pos.left+20)
 //                .style("top",pos.top+324) if inspect element is open
                 .style("top",pos.top+50)
+                .style("width",230)
                 .style("background-color", "#eaeaea")
                 .style("border", "3px dotted #ffffff")
                 .style("font", "13px Georgia")
                 .style("color", "#606060")
                 .style("border-radius", "5px")
-                .style("padding", "10px 15px")
+                .style("padding", "10px 15px");
 //            console.log(MC.getTransformedPosition(svg, this, 0, 0));
 //            console.log(div);
 
