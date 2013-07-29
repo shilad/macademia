@@ -180,7 +180,6 @@ MC.MainViz.prototype.transitionRoot = function(){
             .transition()
             .duration(1000)
             .attr("transform",function(){
-                console.log(oldRoot.attr('transform'));
                 return oldRoot.attr('transform');
             });
         if(newRoot[0][0]==null){ //checks to see if it is a person; if so, then the transition changes
