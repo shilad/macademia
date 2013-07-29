@@ -434,3 +434,37 @@ MC.InterestViz.prototype.makeColorful = function(){
     };
 };
 
+//This function enables highlighting of the nodes when hovers
+MC.InterestViz.prototype.enableHoverHighlight = function(){
+    //hover individual person
+
+    //hover surrounding hubRoot
+
+    //hover child interest around hubRoot
+
+    //hover vizRoot
+
+    //hover child around vizRoot
+
+}
+
+MC.InterestViz.prototype.hoverPerson = function(){
+
+}
+
+MC.InterestViz.prototype.hoverHubRoot = function(){
+
+}
+
+MC.InterestViz.prototype.hoverHubRootChlid = function(){
+
+}
+
+
+MC.InterestViz.prototype.hoverVizRoot = function(){
+
+}
+
+MC.InterestViz.prototype.hoverVizRootChild = function(){
+
+}
