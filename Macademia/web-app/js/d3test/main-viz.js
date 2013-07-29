@@ -15,6 +15,7 @@ MC.MainViz = function(params) {
     this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
+    this.relatednessMap = params.relatednessMap;
 
 
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
@@ -54,6 +55,7 @@ MC.MainViz.prototype.onLoad = function(){
 //        var hubModel = this.createModel(this.root);
     }
     else if(macademia.history.get("navFunction")=="person"){
+//        console.log(this.people[macademia.history.get("personId")]);
         this.root = {
             "isVizRoot":true,
             "id": macademia.history.get("personId"),
@@ -61,7 +63,7 @@ MC.MainViz.prototype.onLoad = function(){
             'type':'person',
             'pic' : '/Macademia/all/image/randomFake?foo',
             'relevance': this.people[macademia.history.get("personId")].relevance,
-            'children' : [96,97,98,99,9]
+            'children' : this.people[macademia.history.get("personId")].interests
         };
 
 //        var hubModel = this.createModel(this.root);
@@ -89,7 +91,8 @@ MC.MainViz.prototype.createViz = function(){
         circles: this.circles,
         svg : this.svg,
         colors : this.colors,
-        interests:this.interests
+        interests:this.interests,
+        relatednessMap: this.relatednessMap
     });
 };
 

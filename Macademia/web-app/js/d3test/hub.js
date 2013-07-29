@@ -91,12 +91,12 @@ MC.hub = function() {
                     .attr("gradientUnits","userSpaceOnUse")
 //                    .attr('spread-method','reflect');
 
-                    gradient.append("stop")
+                gradient.append("stop")
                     .attr("offset", "30%")
                     .style("stop-color", "#b2b2b2")
                     .style("stop-opacity", 1.0);
 
-                    gradient.append("stop")
+                gradient.append("stop")
                     .attr("offset", "90%")
                     .style("stop-color", "#FFFFFF")
                     .style("stop-opacity", 1.0);
@@ -130,7 +130,20 @@ MC.hub = function() {
             //drawing children with animation
             var childrenTemplate = MC.interest().setCssClass("interest")
                 .setColor(function(d){
-                    return d.color ? d.color : color;
+                    var relatednessMap = data.relatednessMap;    //Use relatedness data structure, not clusterMap in future
+                    var hubColors = data.root.interestColors;
+                    if(rootType=='person'){
+                        for(var i in relatednessMap){
+                            for(var j = 0; j < relatednessMap[i].length;j++){
+                                if(d.id == relatednessMap[i][j] && data.id != i){
+                                    return hubColors[i];
+                                }
+                            }
+
+                        }
+                    }
+                    return data.color;
+
                 });
             d3Group.datum(data.children).call(childrenTemplate); //drawing child nodes
 
@@ -146,7 +159,6 @@ MC.hub = function() {
             var duration=hub.getDuration();
 
             childGs
-
                 .transition()
                 .delay(1501)//then move the circles
                 .attr('opacity', 1.0)
