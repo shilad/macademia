@@ -452,48 +452,41 @@ MC.InterestViz.prototype.toolTipHover = function(){
 
     this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person") //vizRoot and hubs do not have names speak with Jesse before we deal with this.
        .on("mouseover", function(d){
+            var paragraph = div.append('p');
             var pos = this.getBoundingClientRect();
-          if(d.id)
+          if(d.id) //checks for people and interests
             {
-                console.log(d.id);
-                console.log("pig");
                 if(d.id in people)
                 {
-                    console.log("hello")
                     if(people[d.id].interests){
-                        console.log("I am human");
+                        paragraph.text("Name" + people[d.id].name);
+
+                        paragraph.text(div.text()+"\n\n affiliation - not avaliable in data" + "Dept not avaliable in data" + "Email" + " Interests")
                     }
                 }
                 else{
                     console.log(" I am robot here me roar")
                 }
             }
-            else if(d[0].id)
+            else if(d[0].id)    //checks the hubs to see if human or interest
             {
-                if(d[0].type)
+                if(d[0].type == "person")
                 {
-                   console.log(d[0].type)
-                   console.log(d[0])
+//                   console.log(d[0].type)
+                   console.log("I am human " )
                 }
-                else if(d[0].type)
+                else
                 {
                     console.log(d[0].type)
                 }
-
             }
-
-            if(d[0].type == "person")
-            {
-            div.text(d.name);
                 div
                 .transition()
                 .duration(200)
                 .style("display", "block")
-                    .style("left",pos.left+20)
-                    .style("top",pos.top+324)
-            ; }
-            else if(d.type)
-                console.log("I ran")
+                    .style("left",pos.left)
+                    .style("top",pos.top)
+              console.log("I ran")
 //            console.log(MC.getTransformedPosition(svg, this, 0, 0));
 //            console.log(div);
 
