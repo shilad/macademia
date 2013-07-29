@@ -460,7 +460,6 @@ MC.InterestViz.prototype.hoverHubRootChlid = function(){
 
 }
 
-
 MC.InterestViz.prototype.hoverVizRoot = function(){
 
 }
