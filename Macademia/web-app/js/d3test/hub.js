@@ -189,6 +189,10 @@ MC.hub = function() {
                     .transition()
                     .duration(0)
                     .attr('opacity',1.0);
+                d3Group
+                    .select('g.vizRoot')
+                    .select('text')
+                    .attr('fill','black');
             }else {
                 d3Group
                     .select('g.hubRoot')

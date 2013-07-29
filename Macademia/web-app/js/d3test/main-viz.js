@@ -153,7 +153,7 @@ MC.MainViz.prototype.setTransitionRoot = function(d3Root,type){
 };
 
 MC.MainViz.prototype.transitionRoot = function(){
-    //TODO: Check out the code on the buttom of person.gsp, we can ask the template to redraw the data
+    //TODO: Check out the code on the bottom of person.gsp, we can ask the template to redraw the data
     //Move root to center
     if(this.tRoot){
 //        var newRoot = this.svg.select('g.nextRoot');
@@ -172,7 +172,7 @@ MC.MainViz.prototype.transitionRoot = function(){
 
         var newRoot=this.svg.select('g.nextRoot.interest');
         var oldRoot=this.svg.select('g.vizRoot');
-
+        this.viz.stopPersonLayout();
         this.svg
             .select('g.nextRoot')
             .attr('class','g.interest'); //Doesn't matter if it is a person or interest or hub
@@ -180,18 +180,32 @@ MC.MainViz.prototype.transitionRoot = function(){
             .transition()
             .duration(1000)
             .attr("transform",function(){
-                console.log(oldRoot.attr('transform'));
                 return oldRoot.attr('transform');
             });
         if(newRoot[0][0]==null){ //checks to see if it is a person; if so, then the transition changes
             newRoot=this.svg.select('g.nextRoot.person');
             this.tRoot
-                .selectAll('g.pie, g.label, image')//TODO: fix image from moving away - it has its own translate
+                .selectAll('g.pie')
                 .transition()
                 .duration(1000)
                 .attr("transform",function(){
                     if(d3.select(this))
                         return "scale(1.5)";
+                });
+            this.tRoot
+                .selectAll('image')
+                .transition()
+                .duration(1000)
+                .attr("transform",function(){
+                    if(d3.select(this))
+                        return "translate("+-14*1.5+", "+-21*1.5+")scale(1.5)";
+                });
+            this.tRoot
+                .select('text')
+                .transition()
+                .duration(1000)
+                .attr("y",function(){
+                    return 48;
                 });
         }
         else{
@@ -203,14 +217,15 @@ MC.MainViz.prototype.transitionRoot = function(){
                     if(d3.select(this))
                         return "scale(2)";
                 });
+            this.tRoot
+                .select('text')
+                .transition()
+                .duration(1000)
+                .attr("y",function(){
+                    return 42;
+                });
         }
-        this.tRoot
-            .select('text')
-            .transition()
-            .duration(1000)
-            .attr("y",function(){
-                return 42;
-            });
+
         this.svg
             .select('g.vizRoot')
             .transition()
