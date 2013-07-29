@@ -1,11 +1,3 @@
-/**
- * Created with IntelliJ IDEA.
- * User: jesse
- * Date: 7/16/13
- * Time: 1:25 PM
- * To change this template use File | Settings | File Templates.
- */
-
 var MC = (window.MC = (window.MC || {}));
 
 /**
@@ -480,13 +472,19 @@ MC.InterestViz.prototype.toolTipHover = function(){
                     console.log(d[0].type)
                 }
             }
-                div
+            div
                 .transition()
                 .duration(200)
                 .style("display", "block")
-                    .style("left",pos.left)
-                    .style("top",pos.top)
-              console.log("I ran")
+                .style("left",pos.left+20)
+//                .style("top",pos.top+324) if inspect element is open
+                .style("top",pos.top+50)
+                .style("background-color", "#eaeaea")
+                .style("border", "3px dotted #ffffff")
+                .style("font", "13px Georgia")
+                .style("color", "#606060")
+                .style("border-radius", "5px")
+                .style("padding", "10px 15px")
 //            console.log(MC.getTransformedPosition(svg, this, 0, 0));
 //            console.log(div);
 
