@@ -106,7 +106,6 @@ MC.InterestViz = function(params) {
 
     this.setGradients();
     this.drawGradientCircles();
-
     this.createInterestViz();
     this.startPeople();
 };
@@ -429,6 +428,21 @@ MC.InterestViz.prototype.makeColorful = function(){
     };
 };
 
+//Grabs all the people in svg
+MC.InterestViz.prototype.getPeoplesInterests = function(d) {
+     var interestNameList=" ";
+    for(var i=0; i< this.people[d.id].interests.length;i++){
+        if(i < this.people[d.id].interests.length-1){
+            interestNameList+= " "+this.interests[this.people[d.id].interests[i]].name + ",";
+        }
+        else
+            interestNameList+= " "+this.interests[this.people[d.id].interests[i]].name ;
+
+    }
+
+    return interestNameList;
+};
+
 MC.InterestViz.prototype.toolTipHover = function(){
 //Mouseover events involving tooltips
 //    var div = d3.select("body")
@@ -443,9 +457,10 @@ MC.InterestViz.prototype.toolTipHover = function(){
 //        .style("opacity", 0);
 
 //    console.log(div);
-
+    var self = this;
     var people = this.people;
     var interests = this.interests;
+    var interestList;
 
     var svg= this.svg;
     var div =  d3.selectAll("body").append("div").attr("id","div1").style("position", "absolute");
@@ -460,12 +475,8 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 if(d.id in people)
                 {
                     if(people[d.id].interests){
-                        var displayText = "Name: " + people[d.id].name + '<br/>'+" affiliation - not avaliable in data" + '<br/>' +"Dept not avaliable in data" + "Email" +'<br/>'+ " Interests:";
-                        for(var i=0; i< people[d.id].interests.length;i++){
-                            console.log(people[d.id].interests[i]);
-                            displayText+= " "+interests[people[d.id].interests[i]].name + ",";
-                        }
-                        paragraph.html(displayText);
+                         interestList = self.getPeoplesInterests(d);
+                        paragraph.html(interestList);
                     }
                 }
                 else{
@@ -476,8 +487,10 @@ MC.InterestViz.prototype.toolTipHover = function(){
             {
                 if(d[0].type == "person")
                 {
-//                   console.log(d[0].type)
-                   console.log("I am human " )
+//                    console.log(d[0])
+                    interestList=self.getPeoplesInterests(d[0]);
+                    paragraph.html(interestList);
+
                 }
                 else
                 {
