@@ -103,6 +103,7 @@ MC.interest = function() {
             allGs.select('circle.'+klass+"Inner")
                 .attr('fill', 'none')
                 .attr('stroke','white')
+                .attr('stroke-width',1)
                 .attr('r', interest.getRInner());
 
             allGs.select('circle.'+klass+"Outer")

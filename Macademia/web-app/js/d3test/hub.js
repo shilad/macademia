@@ -103,7 +103,12 @@ MC.hub = function() {
 
 //                d3Group.append('rect').attr('x',cx).attr('y',cy).attr('width','100').attr('height','100').attr('fill','url(#connection_gradient)');
 
-                d3Group.selectAll("connectionPaths").data(new Array(n)).enter().append("line")
+                d3Group
+//                    .selectAll('g.connectionPaths')
+                    .append('g')
+                    .attr('class','connectionPaths')
+                    .selectAll('g.connectionPaths')
+                    .data(new Array(n)).enter().append("line")
                     .attr("x1", cx)
                     .attr("y1", cy)
                     .attr("x2", function(d, i){

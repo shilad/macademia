@@ -98,12 +98,23 @@ MC.MainViz.prototype.setInterestEventHandler = function(){
         this.svg
             .selectAll("g.interest, g.hubRoot")
             .on("click",function(e){
-                var targetMap = {
-                    "nodeId":"i_"+ e.id,
-                    "interestId": e.id,
-                    "navFunction":"interest",
-                    "name": e.name
-                };
+                var targetMap;
+                if(e[0]){
+                    targetMap = {
+                        "nodeId":"i_"+ e[0].id,
+                        "interestId": e[0].id,
+                        "navFunction":"interest",
+                        "name": e[0].name
+                    };
+                }else{
+                    targetMap = {
+                        "nodeId":"i_"+ e.id,
+                        "interestId": e.id,
+                        "navFunction":"interest",
+                        "name": e.name
+                    };
+                }
+
                 var types = ['searchBox','interestId','personId','requestId'];
                 for(var i=0;i<types.length;i++){
                     delete temp[types[i]];
@@ -209,14 +220,23 @@ MC.MainViz.prototype.transitionRoot = function(){
                 });
         }
         else{
+           if(!this.tRoot.data()[0][0]){    //this.tRoot.data()[0][0].r) should equal 30 if it is a hubroot
             this.tRoot
-                .selectAll('circle')
+                .selectAll('circle.interestOuter')
                 .transition()
                 .duration(1000)
                 .attr("transform",function(){
                     if(d3.select(this))
-                        return "scale(2)";
+                        return "scale(2.5)";
                 });
+               this.tRoot
+                   .select('circle.interestInner')
+                   .transition()
+                   .duration(1000)
+                   .attr("r",function(){
+                       if(d3.select(this))
+                           return d3.select(this).attr('r')*2.5;
+                   });
             this.tRoot
                 .select('text')
                 .transition()
@@ -224,6 +244,7 @@ MC.MainViz.prototype.transitionRoot = function(){
                 .attr("y",function(){
                     return 42;
                 });
+           }
         }
 
         this.svg
@@ -232,7 +253,7 @@ MC.MainViz.prototype.transitionRoot = function(){
             .duration(1000)
             .style('opacity',0);
         this.svg
-            .selectAll('g.interest, g.hubRoot, g.person')
+            .selectAll('g.interest, g.hubRoot, g.person, g.connectionPaths')
             .transition()
             .delay(1500)
             .duration(1000)
