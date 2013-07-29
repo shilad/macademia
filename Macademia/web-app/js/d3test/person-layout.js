@@ -449,6 +449,8 @@ MC.personLayout = function () {
             counter++;
         });
 
+        pl.stop = function(){   force.stop();   };
+
         force.on('end',function(e){
             pieSpinning(); //To ensure that the last value is used, call once more
 //            d3.select('svg').select('g.vizRoot').select('g.pie');

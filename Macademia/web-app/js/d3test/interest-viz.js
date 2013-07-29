@@ -404,7 +404,9 @@ MC.InterestViz.prototype.createPersonLayout = function(){
         .call(this.personLayoutView);
 };
 
-
+MC.InterestViz.prototype.stopPersonLayout = function(){
+    this.personLayoutView.stop();
+};
 MC.InterestViz.prototype.createClusterMap = function(){
     var clusterMap = {};
     clusterMap[this.root.id] = this.root.children;
