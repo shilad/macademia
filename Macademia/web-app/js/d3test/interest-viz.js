@@ -444,74 +444,66 @@ MC.InterestViz.prototype.toolTipHover = function(){
 
 //    console.log(div);
 
+    var people = this.people;
+
     var svg= this.svg;
     var div =  d3.selectAll("body").append("div").attr("id","div1").text("Interest:").style("position", "absolute");
 
 
     this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person") //vizRoot and hubs do not have names speak with Jesse before we deal with this.
-        .on("mouseover", function(d){
+       .on("mouseover", function(d){
             var pos = this.getBoundingClientRect();
+          if(d.id)
+            {
+                console.log(d.id);
+                console.log("pig");
+                if(d.id in people)
+                {
+                    console.log("hello")
+                    if(people[d.id].interests){
+                        console.log("I am human");
+                    }
+                }
+                else{
+                    console.log(" I am robot here me roar")
+                }
+            }
+            else if(d[0].id)
+            {
+                if(d[0].type)
+                {
+                   console.log(d[0].type)
+                   console.log(d[0])
+                }
+                else if(d[0].type)
+                {
+                    console.log(d[0].type)
+                }
 
-//            console.log(d);
-//            console.log(d.name); //d.name works for non hubs
-//            console.log(d[0].name); //d[0].name works for hubs
-            console.log(d);
-//            how to separate hubRoots from non hubRoots?
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//            if(d[0].id)
-//            {
-//                if(d[0].type)
-//                {
-//                   console.log(d[0].type)
-//                    console.log(d[0])
-//                }
-//
-//            }
-//            if(d[0].type == "person")
-//            {
-//            div.text(d.name);
-//                div
-//                .transition()
-//                .duration(200)
-//                .style("display", "block")
-//                    .style("left",pos.left+20)
-//                    .style("top",pos.top+324)
-//            ; }
-//            else if(d.type)
-//                console.log("I ran")
-////            console.log(MC.getTransformedPosition(svg, this, 0, 0));
+            if(d[0].type == "person")
+            {
+            div.text(d.name);
+                div
+                .transition()
+                .duration(200)
+                .style("display", "block")
+                    .style("left",pos.left+20)
+                    .style("top",pos.top+324)
+            ; }
+            else if(d.type)
+                console.log("I ran")
+//            console.log(MC.getTransformedPosition(svg, this, 0, 0));
 //            console.log(div);
-//
-//        })
-//        .on("mouseout", function(d){
-//            d3.select('body').select("#interestToolTip")
-//                div
-//                .transition()
-//                .duration(200)
-//                .style("display", "none");
+
+        })
+        .on("mouseout", function(d){
+            d3.select('body').select("#interestToolTip")
+                div
+                .transition()
+                .duration(200)
+                .style("display", "none");
         });
 };
 
