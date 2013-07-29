@@ -480,7 +480,7 @@ MC.InterestViz.prototype.toolTipHover = function(){
                     }
                 }
                 else{
-                    console.log(" I am robot here me roar");
+                    paragraph.html(d.name)
                 }
             }
             else if(d[0].id)    //checks the hubs to see if human or interest
@@ -494,7 +494,7 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 }
                 else
                 {
-                    console.log(d[0].type)
+                    paragraph.html(d.name)
                 }
             }
             div
