@@ -277,6 +277,7 @@ MC.InterestViz.prototype.createHub = function(model,i) {
     var hubInterests = [];
     for (var i = 0; i < model.children.length; i++) {
         var childId = model.children[i];
+        console.log(model.children[i])
         hubInterests.push(this.interests[childId]);
     }
     var rootModel = model.type == 'person' ? this.people[model.id] : this.interests[model.id];
@@ -461,6 +462,8 @@ MC.InterestViz.prototype.toolTipHover = function(){
     var people = this.people;
     var interests = this.interests;
     var interestList;
+    var textBox = "";
+
 
     var svg= this.svg;
     var div =  d3.selectAll("body").append("div").attr("id","div1").style("position", "absolute");
@@ -474,27 +477,30 @@ MC.InterestViz.prototype.toolTipHover = function(){
             {
                 if(d.id in people)
                 {
+
                     if(people[d.id].interests){
-                         interestList = self.getPeoplesInterests(d);
-                        paragraph.html(interestList);
+                        interestList = self.getPeoplesInterests(d);
+                        textBox = "Name: " + people[d.id].name + '<br/>' + "Interests: " + interestList;
+                        paragraph.html(textBox);
                     }
                 }
                 else{
-                    paragraph.html(d.name)
+                    console.log(" I am robot here me roar");
                 }
             }
             else if(d[0].id)    //checks the hubs to see if human or interest
             {
                 if(d[0].type == "person")
                 {
-//                    console.log(d[0])
-                    interestList=self.getPeoplesInterests(d[0]);
-                    paragraph.html(interestList);
+                    interestList = self.getPeoplesInterests(d[0]);
+                    textBox = "Name: " + people[d[0].id].name + '<br/>' + "Interests: " + interestList;
+                    paragraph.html(textBox);
 
                 }
                 else
                 {
-                    paragraph.html(d.name)
+                    textBox(" ")
+                    paragraph.html(textBox);
                 }
             }
             div
