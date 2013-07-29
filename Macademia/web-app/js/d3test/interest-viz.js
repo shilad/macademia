@@ -46,17 +46,17 @@ var MC = (window.MC = (window.MC || {}));
                 11,
                 22]},
         }
- };
+    };
 
  var colors =[
  "#b2a3f5",
- ];
+  ];
 
  var root = {type : 'person', id: 7, children : [3,6,1,4,5,2]};
 
- var hubs = [
+  var hubs = [
  {type : 'interest', id : 11, children : [12,14,15,16]},
- ];
+  ];
 
  var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
@@ -106,7 +106,6 @@ MC.InterestViz = function(params) {
 
     this.setGradients();
     this.drawGradientCircles();
-
     this.createInterestViz();
     this.startPeople();
 };
@@ -247,7 +246,7 @@ MC.InterestViz.prototype.startPeople = function() {
 MC.InterestViz.prototype.createInterestViz = function() {
     this.createHub(this.root);
     for(var i = 0; i < this.hubs.length; i++) {
-        this.createHub(this.hubs[i],i);
+            this.createHub(this.hubs[i],i);
     }
 };
 
@@ -429,6 +428,21 @@ MC.InterestViz.prototype.makeColorful = function(){
     };
 };
 
+//Grabs all the people in svg
+MC.InterestViz.prototype.getPeoplesInterests = function(d) {
+     var interestNameList=" ";
+    for(var i=0; i< this.people[d.id].interests.length;i++){
+        if(i < this.people[d.id].interests.length-1){
+            interestNameList+= " "+this.interests[this.people[d.id].interests[i]].name + ",";
+        }
+        else
+            interestNameList+= " "+this.interests[this.people[d.id].interests[i]].name ;
+
+    }
+
+    return interestNameList;
+};
+
 MC.InterestViz.prototype.toolTipHover = function(){
 //Mouseover events involving tooltips
 //    var div = d3.select("body")
@@ -443,9 +457,10 @@ MC.InterestViz.prototype.toolTipHover = function(){
 //        .style("opacity", 0);
 
 //    console.log(div);
-
+    var self = this;
     var people = this.people;
     var interests = this.interests;
+    var interestList;
 
     var svg= this.svg;
     var div =  d3.selectAll("body").append("div").attr("id","div1").style("position", "absolute");
@@ -453,44 +468,33 @@ MC.InterestViz.prototype.toolTipHover = function(){
 
 
     this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person") //vizRoot and hubs do not have names speak with Jesse before we deal with this.
-        .on("mouseover", function(d){
+       .on("mouseover", function(d){
             var pos = this.getBoundingClientRect();
-            if(d.id) //checks for people and interests
+          if(d.id) //checks for people and interests
             {
                 if(d.id in people)
                 {
                     if(people[d.id].interests){
-                        var displayText = "Name: " + people[d.id].name + '<br/>'+" affiliation - not avaliable in data" + '<br/>' +"Dept not avaliable in data" + "Email" +'<br/>'+ " Interests:";
-                        for(var i=0; i< people[d.id].interests.length;i++){
-                            console.log(people[d.id].interests[i]);
-                            displayText+= " "+interests[people[d.id].interests[i]].name + ",";
-                        }
-                        paragraph.html(displayText);
+                         interestList = self.getPeoplesInterests(d);
+                        paragraph.html(interestList);
                     }
                 }
                 else{
-                    paragraph.html("the interest is "+d.name);
+                    console.log(" I am robot here me roar");
                 }
-
-
-
             }
             else if(d[0].id)    //checks the hubs to see if human or interest
             {
                 if(d[0].type == "person")
                 {
-                    var interests1 = interests;
-                    console.log(d);
-                    console.log(interests1);
+//                    console.log(d[0])
+                    interestList=self.getPeoplesInterests(d[0]);
+                    paragraph.html(interestList);
 
-
-//
-                    paragraph.html("here is the information for " + d[0].name + '<br/>' + 'Interests:' + d[0].interests);
                 }
-
                 else
                 {
-                    paragraph.html("this interest is a hubRoot and it is called " + d[0].name);
+                    console.log(d[0].type)
                 }
             }
             div
@@ -513,17 +517,10 @@ MC.InterestViz.prototype.toolTipHover = function(){
         })
         .on("mouseout", function(d){
             d3.select('body').select("#interestToolTip")
-            div
+                div
                 .transition()
                 .duration(200)
                 .style("display", "none");
         });
 };
-
-
-MC.InterestViz.prototype.iidToInterestName = function(iid){
-
-    return interests[iid].name;
-
-}
 
