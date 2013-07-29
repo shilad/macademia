@@ -109,7 +109,6 @@ MC.InterestViz = function(params) {
 
     this.createInterestViz();
     this.startPeople();
-    this.toolTipHover();
 };
 
 // Position the hubs and their gradient circles around the visRoot

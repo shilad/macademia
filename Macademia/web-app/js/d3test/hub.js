@@ -79,42 +79,40 @@ MC.hub = function() {
             var d3Group = d3.select(this).append('g').attr('id','hub'+id).attr('class','hub');
 
             //drawing lines between person and their interests (not working)
-//            if(rootType == "person"){
-//                var gradient = d3Group.append("defs")
-//                    .append("radialGradient")
-//                    .attr("id", "connection-gradient")
-////                    .attr("x1", cx)
-////                    .attr("y1", cy);
-//
-//                    gradient.append("stop")
-//                    .attr("offset", "3%")
-//                    .attr("stop-color", "#b2b2b2")
-//                    .attr("stop-opacity", 1);
-//
-//                    gradient.append("stop")
-//                    .attr("offset", "97%")
-//                    .attr("stop-color", "#FF0000")
-//                    .attr("stop-opacity", 1);
-//
-//
-//
-//                d3Group.selectAll("connectionPaths").data(new Array(n)).enter().append("line")
-//                    .attr("x1", cx)
-//                    .attr("y1", cy)
-//                    .attr("x2", function(d, i){
-//                        var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n);
-//                        return cx_child;
-//                    })
-//                    .attr("y2", function(d, i){
-//                        var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
-//                        return cy_child;
-//                    })
-//                    .attr("stroke-width", 15)
-//                    .attr("stroke-linecap", "round")
-//                    .attr("stroke-dasharray", "1, 15")
+            if(rootType == "person"){
+                var gradient = d3.select('defs')
+                    .append("radialGradient")
+                    .attr("id", "connection-gradient")
+                    .attr("x1", cx)
+                    .attr("y1", cy);
+
+                    gradient.append("stop")
+                    .attr("offset", "3%")
+                    .attr("stop-color", "#D3D3D3")
+                    .attr("stop-opacity", 1);
+
+                    gradient.append("stop")
+                    .attr("offset", "97%")
+                    .attr("stop-color", "#FFFFFF")
+                    .attr("stop-opacity", 0.5);
+
+                d3Group.selectAll("connectionPaths").data(new Array(n)).enter().append("line")
+                    .attr("x1", cx)
+                    .attr("y1", cy)
+                    .attr("x2", function(d, i){
+                        var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n);
+                        return cx_child;
+                    })
+                    .attr("y2", function(d, i){
+                        var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
+                        return cy_child;
+                    })
+                    .attr("stroke-width", 5)
+                    .attr("stroke-linecap", "round")
+                    .attr("stroke-dasharray", "4, 5")
 //                    .attr("stroke", 'url(#connection-gradient)');
-////                    .attr("stroke", 'black');
-//            }
+                    .attr("stroke", 'orange');
+            }
 
             //drawing children with animation
             var childrenTemplate = MC.interest().setCssClass("interest")
