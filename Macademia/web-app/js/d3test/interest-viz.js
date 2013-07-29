@@ -451,37 +451,67 @@ MC.InterestViz.prototype.toolTipHover = function(){
     this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person") //vizRoot and hubs do not have names speak with Jesse before we deal with this.
         .on("mouseover", function(d){
             var pos = this.getBoundingClientRect();
-            if(d[0].id)
-            {
-                if(d[0].type)
-                {
-                   console.log(d[0].type)
-                    console.log(d[0])
-                }
 
-            }
-            if(d[0].type = "person")
-            {
-            div.text(d.name);
-                div
-                .transition()
-                .duration(200)
-                .style("display", "block")
-                    .style("left",pos.left+20)
-                    .style("top",pos.top+324)
-            ; }
-            else if(d.type)
-                console.log("I ran")
-//            console.log(MC.getTransformedPosition(svg, this, 0, 0));
-            console.log(div);
+//            console.log(d);
+//            console.log(d.name); //d.name works for non hubs
+//            console.log(d[0].name); //d[0].name works for hubs
+            console.log(d);
+//            how to separate hubRoots from non hubRoots?
 
-        })
-        .on("mouseout", function(d){
-            d3.select('body').select("#interestToolTip")
-                div
-                .transition()
-                .duration(200)
-                .style("display", "none");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//            if(d[0].id)
+//            {
+//                if(d[0].type)
+//                {
+//                   console.log(d[0].type)
+//                    console.log(d[0])
+//                }
+//
+//            }
+//            if(d[0].type == "person")
+//            {
+//            div.text(d.name);
+//                div
+//                .transition()
+//                .duration(200)
+//                .style("display", "block")
+//                    .style("left",pos.left+20)
+//                    .style("top",pos.top+324)
+//            ; }
+//            else if(d.type)
+//                console.log("I ran")
+////            console.log(MC.getTransformedPosition(svg, this, 0, 0));
+//            console.log(div);
+//
+//        })
+//        .on("mouseout", function(d){
+//            d3.select('body').select("#interestToolTip")
+//                div
+//                .transition()
+//                .duration(200)
+//                .style("display", "none");
         });
 };
 
