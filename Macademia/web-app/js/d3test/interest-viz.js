@@ -475,7 +475,7 @@ MC.InterestViz.prototype.toolTipHover = function(){
             var pos = this.getBoundingClientRect();
           if(d.id) //checks for people and interests
             {
-                if(d.id in people)
+                if(d.id in people && !(d.id in interests)) //just the people
                 {
 
                     if(people[d.id].interests){
@@ -485,7 +485,13 @@ MC.InterestViz.prototype.toolTipHover = function(){
                     }
                 }
                 else{
-                    console.log(" I am robot here me roar");
+
+
+
+                    paragraph.html(d.name);
+
+
+
                 }
             }
             else if(d[0].id)    //checks the hubs to see if human or interest
@@ -499,8 +505,8 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 }
                 else
                 {
-                    textBox(" ")
-                    paragraph.html(textBox);
+
+                    paragraph.html(d[0].name);
                 }
             }
             div
