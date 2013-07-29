@@ -277,7 +277,6 @@ MC.InterestViz.prototype.createHub = function(model,i) {
     var hubInterests = [];
     for (var i = 0; i < model.children.length; i++) {
         var childId = model.children[i];
-        console.log(model.children[i])
         hubInterests.push(this.interests[childId]);
     }
     var rootModel = model.type == 'person' ? this.people[model.id] : this.interests[model.id];
@@ -477,16 +476,19 @@ MC.InterestViz.prototype.toolTipHover = function(){
             {
                 if(d.id in people)
                 {
-
-                    if(people[d.id].interests){
+                    if(d.interests){
                         interestList = self.getPeoplesInterests(d);
                         textBox = "Name: " + people[d.id].name + '<br/>' + "Interests: " + interestList;
-                        paragraph.html(textBox);
+                    }
+                    else{
+                        textBox = "Interest: " + d.name;
                     }
                 }
                 else{
-                    console.log(" I am robot here me roar");
+                    textBox = "Interest: " + d.name;
                 }
+                paragraph.html(textBox);
+
             }
             else if(d[0].id)    //checks the hubs to see if human or interest
             {
