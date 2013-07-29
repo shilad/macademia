@@ -39,7 +39,7 @@
     display: none;
     position:absolute;
     margin-left: -150px;
-    width: 300px;
+    /*width: 300px;*/
     pointer-events: none;
 }
 
