@@ -181,7 +181,6 @@ MC.InterestViz.prototype.postionHubsGradientCirlces = function(){
     }
 
     //console.log(this.gCircle);
-    console.log(this.hubs);
 
 
 }
@@ -449,46 +448,40 @@ MC.InterestViz.prototype.toolTipHover = function(){
     var div =  d3.selectAll("body").append("div").attr("id","div1").text("Interest:").style("position", "absolute");
 
 
-    this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person")
+    this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person") //vizRoot and hubs do not have names speak with Jesse before we deal with this.
         .on("mouseover", function(d){
             var pos = this.getBoundingClientRect();
-            if(d.name){
-                div.text(d.name);
-
-            }
-            else {
-                for(hub in this.hubs){
-                    console.log(hub);
-                    if(hub[3] == d.id){
-                        div.text(hub[5]);
-
-
-                    }
+            if(d[0].id)
+            {
+                if(d[0].type)
+                {
+                   console.log(d[0].type)
+                    console.log(d[0])
                 }
 
-
-
-
-
             }
-
-
+            if(d[0].type = "person")
+            {
+            div.text(d.name);
                 div
                 .transition()
                 .duration(200)
                 .style("display", "block")
-                .style("left",pos.left+20)
-                .style("top",pos.top+324)
-
-            ;
+                    .style("left",pos.left+20)
+                    .style("top",pos.top+324)
+            ; }
+            else if(d.type)
+                console.log("I ran")
 //            console.log(MC.getTransformedPosition(svg, this, 0, 0));
+            console.log(div);
+
         })
         .on("mouseout", function(d){
             d3.select('body').select("#interestToolTip")
+                div
                 .transition()
                 .duration(200)
                 .style("display", "none");
         });
-    this.container.selectAll('.temp').remove('circle');
 };
 
