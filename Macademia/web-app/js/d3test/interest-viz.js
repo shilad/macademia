@@ -46,17 +46,17 @@ var MC = (window.MC = (window.MC || {}));
                 11,
                 22]},
         }
-    };
+ };
 
  var colors =[
  "#b2a3f5",
-  ];
+ ];
 
  var root = {type : 'person', id: 7, children : [3,6,1,4,5,2]};
 
-  var hubs = [
+ var hubs = [
  {type : 'interest', id : 11, children : [12,14,15,16]},
-  ];
+ ];
 
  var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
@@ -247,7 +247,7 @@ MC.InterestViz.prototype.startPeople = function() {
 MC.InterestViz.prototype.createInterestViz = function() {
     this.createHub(this.root);
     for(var i = 0; i < this.hubs.length; i++) {
-            this.createHub(this.hubs[i],i);
+        this.createHub(this.hubs[i],i);
     }
 };
 
@@ -453,9 +453,9 @@ MC.InterestViz.prototype.toolTipHover = function(){
 
 
     this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person") //vizRoot and hubs do not have names speak with Jesse before we deal with this.
-       .on("mouseover", function(d){
+        .on("mouseover", function(d){
             var pos = this.getBoundingClientRect();
-          if(d.id) //checks for people and interests
+            if(d.id) //checks for people and interests
             {
                 if(d.id in people)
                 {
@@ -479,13 +479,13 @@ MC.InterestViz.prototype.toolTipHover = function(){
             {
                 if(d[0].type == "person")
                 {
-                   console.log(interests);
-                   for(var iid in d[0].interests){
-                       if(interests.contains(iid)){
-                           console.log(iid);
-                       }
-                   }
-                   paragraph.html("here is the information for " + d[0].name + '<br/>' + 'Interests:' + d[0].interests);
+                    var interests1 = interests;
+                    console.log(d);
+                    console.log(interests1);
+
+
+//
+                    paragraph.html("here is the information for " + d[0].name + '<br/>' + 'Interests:' + d[0].interests);
                 }
 
                 else
@@ -513,10 +513,17 @@ MC.InterestViz.prototype.toolTipHover = function(){
         })
         .on("mouseout", function(d){
             d3.select('body').select("#interestToolTip")
-                div
+            div
                 .transition()
                 .duration(200)
                 .style("display", "none");
         });
 };
+
+
+MC.InterestViz.prototype.iidToInterestName = function(iid){
+
+    return interests[iid].name;
+
+}
 
