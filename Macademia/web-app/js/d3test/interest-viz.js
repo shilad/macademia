@@ -444,36 +444,59 @@ MC.InterestViz.prototype.toolTipHover = function(){
 
 //    console.log(div);
 
+    var people = this.people;
+
     var svg= this.svg;
     var div =  d3.selectAll("body").append("div").attr("id","div1").text("Interest:").style("position", "absolute");
 
 
-    this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person")
-        .on("mouseover", function(d){
+    this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person") //vizRoot and hubs do not have names speak with Jesse before we deal with this.
+       .on("mouseover", function(d){
+            var paragraph = div.append('p');
             var pos = this.getBoundingClientRect();
-                div.text(d.name);
+          if(d.id) //checks for people and interests
+            {
+                if(d.id in people)
+                {
+                    if(people[d.id].interests){
+                        paragraph.text("Name" + people[d.id].name);
+
+                        paragraph.text(div.text()+"\n\n affiliation - not avaliable in data" + "Dept not avaliable in data" + "Email" + " Interests")
+                    }
+                }
+                else{
+                    console.log(" I am robot here me roar")
+                }
+            }
+            else if(d[0].id)    //checks the hubs to see if human or interest
+            {
+                if(d[0].type == "person")
+                {
+//                   console.log(d[0].type)
+                   console.log("I am human " )
+                }
+                else
+                {
+                    console.log(d[0].type)
+                }
+            }
                 div
                 .transition()
                 .duration(200)
                 .style("display", "block")
-                .style("left",pos.left+20)
-//                .style("top",pos.top+324) if inspect element is open
-                .style("top",pos.top+50)
-                .style("background-color", "#eaeaea")
-                .style("border", "3px dotted #ffffff")
-                .style("font", "13px Georgia")
-                .style("color", "#606060")
-                .style("border-radius", "5px")
-                .style("padding", "10px 15px")
-                ;
+                    .style("left",pos.left)
+                    .style("top",pos.top)
+              console.log("I ran")
 //            console.log(MC.getTransformedPosition(svg, this, 0, 0));
+//            console.log(div);
+
         })
         .on("mouseout", function(d){
             d3.select('body').select("#interestToolTip")
+                div
                 .transition()
                 .duration(200)
                 .style("display", "none");
         });
-    this.container.selectAll('.temp').remove('circle');
 };
 
