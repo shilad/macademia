@@ -49,7 +49,7 @@ MC.MainViz.prototype.onLoad = function(){
             "id": macademia.history.get("interestId"),
             'name': macademia.history.get("name"),
             'type':'interest',
-            'children' : [96,97,98,99,3]
+            'children' : [96,97,98,99,9]
         };
 //        var hubModel = this.createModel(this.root);
     }
@@ -61,7 +61,7 @@ MC.MainViz.prototype.onLoad = function(){
             'type':'person',
             'pic' : '/Macademia/all/image/randomFake?foo',
             'relevance': this.people[macademia.history.get("personId")].relevance,
-            'children' : [96,97,98,99,3]
+            'children' : [96,97,98,99,9]
         };
 
 //        var hubModel = this.createModel(this.root);

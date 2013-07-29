@@ -78,7 +78,7 @@ MC.hub = function() {
             //use d3Group to put everything into one g
             var d3Group = d3.select(this).append('g').attr('id','hub'+id).attr('class','hub');
 
-            //drawing lines between person and their interests (not working)
+            //drawing lines between person and their interests
             if(rootType == "person"){
                 var gradient = d3.select('defs')
                     .append("radialGradient")
@@ -88,7 +88,8 @@ MC.hub = function() {
                     .attr("fx", cx)
                     .attr("fy", cy)
                     .attr('r',100)
-                    .attr("gradientUnits", 'userSpaceOnUse');
+                    .attr("gradientUnits","userSpaceOnUse")
+//                    .attr('spread-method','reflect');
 
                     gradient.append("stop")
                     .attr("offset", "30%")
@@ -99,25 +100,26 @@ MC.hub = function() {
                     .attr("offset", "90%")
                     .style("stop-color", "#FFFFFF")
                     .style("stop-opacity", 1.0);
-                  //Testing rect - use to see where gradient really is
+
 //                d3Group.append('rect').attr('x',cx).attr('y',cy).attr('width','100').attr('height','100').attr('fill','url(#connection_gradient)');
 
                 d3Group.selectAll("connectionPaths").data(new Array(n)).enter().append("line")
                     .attr("x1", cx)
                     .attr("y1", cy)
                     .attr("x2", function(d, i){
-                        var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n);
+                        var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n-Math.PI/2);
                         return cx_child;
                     })
                     .attr("y2", function(d, i){
-                        var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
+                        var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n+Math.PI/2);
                         return cy_child;
                     })
                     .attr("stroke-width", 6)
                     .attr("stroke-linecap", "round")
                     .attr("stroke-dasharray", "1, 10")
 //                    .attr("fill", 'null')
-                    .attr("stroke", 'url(#connection_gradient)');
+                    .attr("stroke", 'url(#connection_gradient)')
+                    .attr("opacity",0.0);
             }
 
             //drawing children with animation
@@ -147,8 +149,8 @@ MC.hub = function() {
                     return duration/n*(i+1);
                 })
                 .attr('transform', function (d, i) {
-                    var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n);
-                    var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
+                    var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n-Math.PI/2); //start from the top
+                    var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n+Math.PI/2);
                     return 'translate(' + cx_child + ', ' + cy_child + ')';
                 });
 
@@ -208,6 +210,9 @@ MC.hub = function() {
                     .duration(data['delay'])
                     .attr('opacity',1.0);
             }
+
+            //Making connection lines appear
+            d3Group.selectAll("line").transition().attr('opacity',1.0);
         });
     }
 
