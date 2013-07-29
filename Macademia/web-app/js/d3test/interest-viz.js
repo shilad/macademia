@@ -96,6 +96,7 @@ MC.InterestViz = function(params) {
     this.svgWidth = this.container.attr("width"); //container provides a padding
     this.svgHeight = this.container.attr("height"); //container provides a padding
     this.distance = 80;
+    this.relatednessMap = params.relatednessMap;
 
 
     this.gCircle = [this.hubs.length]; //same number as the hubs
@@ -226,6 +227,7 @@ MC.InterestViz.prototype.calculateColors = function() {
     for (var pid in this.people) {
         this.people[pid].interestColors = interestColors;
     }
+//    console.log(this.people);
 };
 
 MC.InterestViz.prototype.startPeople = function() {
@@ -295,7 +297,8 @@ MC.InterestViz.prototype.createHub = function(model,i) {
             cy : model.cy,
             distance : 100,
             delay : calculatedDelay,
-            distance : this.distance
+            distance : this.distance,
+            relatednessMap: this.relatednessMap
         })
         .call(MC.hub());
 
@@ -413,7 +416,7 @@ MC.InterestViz.prototype.createClusterMap = function(){
     for(var i = 0; i < this.hubs.length; i++){
         clusterMap[this.hubs[i].id] = this.hubs[i].children;
     };
-
+//    console.log(clusterMap);
     return clusterMap;
 };
 //I could not think of a better name it sets both the hub and interest colors from the color scheme
