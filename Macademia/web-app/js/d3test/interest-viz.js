@@ -451,7 +451,15 @@ MC.InterestViz.prototype.toolTipHover = function(){
     this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person") //vizRoot and hubs do not have names speak with Jesse before we deal with this.
         .on("mouseover", function(d){
             var pos = this.getBoundingClientRect();
-            console.log(d[0].id);
+            if(d[0].id)
+            {
+                if(d[0].type)
+                {
+                   console.log(d[0].type)
+                    console.log(d[0])
+                }
+
+            }
             if(d[0].type = "person")
             {
             div.text(d.name);
@@ -459,8 +467,8 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 .transition()
                 .duration(200)
                 .style("display", "block")
-                .style("left",pos.left+25)
-                .style("top",pos.top+25)
+                    .style("left",pos.left+20)
+                    .style("top",pos.top+324)
             ; }
             else if(d.type)
                 console.log("I ran")
