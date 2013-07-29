@@ -445,9 +445,10 @@ MC.InterestViz.prototype.toolTipHover = function(){
 //    console.log(div);
 
     var people = this.people;
+    var interests = this.interests;
 
     var svg= this.svg;
-    var div =  d3.selectAll("body").append("div").attr("id","div1").text(" ").style("position", "absolute");
+    var div =  d3.selectAll("body").append("div").attr("id","div1").style("position", "absolute");
     var paragraph = div.append('p');
 
 
@@ -459,7 +460,12 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 if(d.id in people)
                 {
                     if(people[d.id].interests){
-                        paragraph.html("Name: " + people[d.id].name + '<br/>'+" affiliation - not avaliable in data" + '<br/>' +"Dept not avaliable in data" + "Email" +'<br/>'+ " Interests:");
+                        var displayText = "Name: " + people[d.id].name + '<br/>'+" affiliation - not avaliable in data" + '<br/>' +"Dept not avaliable in data" + "Email" +'<br/>'+ " Interests:";
+                        for(var i=0; i< people[d.id].interests.length;i++){
+                            console.log(people[d.id].interests[i]);
+                            displayText+= " "+interests[people[d.id].interests[i]].name + ",";
+                        }
+                        paragraph.html(displayText);
                     }
                 }
                 else{
