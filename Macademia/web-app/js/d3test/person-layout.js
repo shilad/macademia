@@ -65,7 +65,7 @@
                 .call(personLayout);
 
     }, 1000);
-     });
+ });
 
  Available attributes:
  friction: the amount of jiggle the person does before finding its location
@@ -115,14 +115,14 @@ MC.personLayout = function () {
         interestNodes.each(function (d,i) {
             var pos = MC.getTransformedPosition(svg[0][0], this, 0, 0);
             if(d.id){
-            surrogates[d.id] = {
-                type: 'leaf',
-                id: d.id,
-                fixed: true,  // interests cannot move
-                x: pos.x,
-                y: pos.y,
-                real: d
-            };
+                surrogates[d.id] = {
+                    type: 'leaf',
+                    id: d.id,
+                    fixed: true,  // interests cannot move
+                    x: pos.x,
+                    y: pos.y,
+                    real: d
+                };
             }else if(d[0].id){
                 surrogates[d[0].id] = {
                     type: 'hub',
@@ -199,7 +199,7 @@ MC.personLayout = function () {
         //places the person in relation to the surrogates
         var force = d3.layout.force()
             .nodes(d3.values(surrogates)
-            .concat(d3.values(people)))
+                .concat(d3.values(people)))
             .links(links)
             .size([w, h])
             .linkStrength(function (l) {
@@ -210,8 +210,6 @@ MC.personLayout = function () {
             .charge(pl.getCharge())
             .friction(friction)
             .start();
-
-
 
 
         //creates a new g  for each new person
@@ -235,13 +233,13 @@ MC.personLayout = function () {
 //            .transition()
 //            .duration(1000)
 //            .style("opacity", 1);
+
         //keep with in the graph
         var pinch = function (x, min, max) {
             return (x < min) ? min : ((x > max) ? max : x);
         };
 
-
-
+        //Find the locations of the hubs on the page
         var findHubLocations = function(){
             var hubLocs = {};
             for(var i in surrogates){
@@ -258,27 +256,28 @@ MC.personLayout = function () {
             var personLoc=personLocs[personId];
             var hubLoc = hubLocs[hubId];
             var m = (personLoc.py-hubLoc.y)/(personLoc.px-hubLoc.x);
-//            var theta = Math.atan(m);
-            var theta = Math.atan2(personLoc.py-hubLoc.y,personLoc.px-hubLoc.x);
-            if(theta > Math.PI/2){
-               theta = Math.PI - theta;
+            var theta = Math.abs(Math.atan2(personLoc.py-hubLoc.y,personLoc.px-hubLoc.x));
+            if(theta > (Math.PI / 2) ){
+                return Math.PI-theta;
+            }else{
+                return theta;
             }
-//            console.log("Person ID");
-//            console.log(personId);
-//            console.log("Hub ID");
-//            console.log(hubId);
-//            console.log("Slope");
-//            console.log(m);
-//            console.log("Theta");
-//            console.log(theta * 180 / Math.PI);
-            return theta;
         };
 
+        var calculateAngleByCoordinate = function(x2,y2,x1,y1){
+            var theta = Math.abs(Math.atan2(y2-y1,x2-x1));
+            if(theta > (Math.PI / 2) ){
+                return Math.PI-theta;
+            }else{
+                return theta;
+            }
+        };
+
+        //Some variables we are suing for pieSpinning and vizRootSpinning function
         var hubLocations = findHubLocations();
-
         var personLocations={};
-
         var personID;
+        var hubID;
         var hubToPersonAngle;
         var halfArcAngle;
         var rotationDegree;
@@ -287,11 +286,148 @@ MC.personLayout = function () {
             select('svg')
             .selectAll('g.person')
             .selectAll('g.pie');
+        var counter=0;
+
+
+        var findHtoPAngle = function(px,py,hx,hy,angle){
+            // 4 cases to determine the rotation angle
+            var hToPAngle = 0;
+            if(px < hx && py > hy)//quadrant 1
+                hToPAngle = -(Math.PI/2-angle);
+            else if(px > hx && py > hy)//quadrant 2
+                hToPAngle = Math.PI/2-angle;
+            else if(px > hx && py < hy)//quadrant 3
+                hToPAngle = Math.PI/2+angle;
+            else if(px < hx && py < hy)//quadrant 4
+                hToPAngle = -(Math.PI/2+angle);
+            return hToPAngle;
+        }
+
+        /*
+         The goal of this function is to rotate the pie wedge of
+         each person so that the wedge with biggest weight is pointing
+         its appropriate hub.
+
+         The general idea of our algorithm takes the following steps:
+         1. Sort the wedges within a pie so that we have the the wedge with
+         the biggest weight always start from angle 0 of the pie, which is the
+         top of the pie
+
+         2. For each person we want to first rotate the pie based on the angle between the
+            the top of the pie and the line formed by the person and the hub with the
+            highest weight and then readjust the pie by rotating half of the arc of the
+            wedge to make the wedge point to the hub:
+            a. Pick out the first path that represents the wedge with the highest weight
+            for each person.
+            b. Find the (x,y) coordinates of the person and the location of the hub with
+            the most weight for the person by using the id store in the data associated with
+            the path.
+            c. Knowing the coordinates of the person and the hub, we can find the
+            angle between the line formed by person and the hub and the x-axis. We
+            made sure that the angle theta is from 0 to PI/2 (if theta > PI/2
+            take PI-theta).
+            d. We have a case for each quadrant:
+                quadrant1: rotate -(PI/2-theta)
+                quadrant2: rotate PI/2-theta
+                quadrant3: rotate PI/2+theta
+                quadrant4: rotate -(PI/2+theta)
+            f. Find the halfArcAngle by using the startAngle and the endAngle of the path
+            g. rotate the pie by using result from d and f. (Notice that SVG "rotate" runs
+            in click-wise direction and it uses 360 degree instead of 2PI radius.)
+         */
+        var pieSpinning = function(){
+
+            //Sorting the path that forms the wedges
+            peoplePaths = d3.
+                select('svg')
+                .selectAll('g.person')
+                .selectAll('g.pie')
+                .selectAll('path')
+                .sort(function(a,b){
+                    return b.value- a.value;
+                });
+
+            //Rotating
+            peoplePaths
+                .each(function(d,i){
+                    if(i==0){ //we only want the wedge with the highest weight
+                        personID = d3.select(this.parentNode).data()[0].id;
+                        hubID = d.data.id;
+
+                        var angle = calculateAngle(personID, hubID,personLocations,hubLocations);
+                        var px = personLocations[personID].px;
+                        var py = personLocations[personID].py;
+                        var hx = hubLocations[hubID].x;
+                        var hy = hubLocations[hubID].y;
+
+                        hubToPersonAngle = findHtoPAngle(px,py,hx,hy,angle);
+
+                        halfArcAngle = (d.endAngle - d.startAngle)/2 ;
+
+                        // notice that the rotation degree is measured in 360 degree
+                        // instead of radius and it is clickwise
+                        // We use -hubToPersonAngle because the angle was initially
+                        // measured in counter-clickwise direction
+                        rotationDegree = (halfArcAngle-hubToPersonAngle)*(180/Math.PI);
+
+                        d3.select(this.parentNode)
+                            .transition()
+                            .attr('transform',function(){
+                                return "rotate("+(rotationDegree)+")";
+                            });
+                    }
+                });
+        };
+
+        var vizRootSpinning = function(){
+
+            //Sorting the path that forms the wedges
+            rootPaths = d3.
+                select('svg')
+                .select('g.vizRoot')
+                .select('g.pie')
+                .selectAll('path')
+                .sort(function(a,b){
+                    return b.value- a.value;
+                });
+
+            //Rotating
+            rootPaths
+                .each(function(d,i){
+                    if(i==0){ //we only want the wedge with the highest weight
+                        hubID = d.data.id;
+                        var viz = d3.select('g.viz');
+                        var px = viz.attr("width")/2; //the root person is always in the middle
+                        var py = viz.attr("height")/2;
+                        var hx = hubLocations[hubID].x;
+                        var hy = hubLocations[hubID].y;
+
+//                        var angle = calculateAngle(personID, hubID,personLocations,hubLocations);
+                        var angle = calculateAngleByCoordinate(py,px,hy,hx);
+
+                        hubToPersonAngle = findHtoPAngle(px,py,hx,hy,angle);
+
+                        halfArcAngle = (d.endAngle - d.startAngle)/2 ;
+
+                        rotationDegree = (halfArcAngle-hubToPersonAngle)*(180/Math.PI);
+
+                        d3.select(this.parentNode)
+                            .transition()
+                            .duration(1500)
+                            .ease('bounce')
+                            .attr('transform',function(){
+                                return "rotate("+(rotationDegree)+")";
+                            });
+                    }
+                });
+        };
+
+
 
         // walk through iterations of convergence to final positions
         force.on("tick", function (e) {
 
-//        // Push different nodes in different directions for clustering.
+        // Push different nodes in different directions for clustering.
 //        var k = 6 * e.alpha;
 //        nodes.forEach(function(o, i) {
 //            o.y += i & 1 ? k : -k;
@@ -307,64 +443,33 @@ MC.personLayout = function () {
             });
 
             //Rotating the pie of the person towards the hub that has most weight
-            peoplePaths = d3.
-                select('svg')
-                .selectAll('g.person')
-                .selectAll('g.pie')
-                .selectAll('path')
-                .sort(function(a,b){
-                    return b.value- a.value;
-                });
-            peoplePaths
-                .each(function(d,i){
-                    if(i==0){
-                        personID = d3.select(this.parentNode).data()[0].id;
-                        hubID = d.data.id;
-
-//                        var m = (personLoc.py-hubLoc.y)/(personLoc.px-hubLoc.x);
-                        var angle = calculateAngle(personID, hubID,personLocations,hubLocations);
-                        var px = personLocations[personID].px;
-                        var py = personLocations[personID].py;
-                        var hx = hubLocations[hubID].x;
-                        var hy = hubLocations[hubID].y;
-                        if(px < hx && py > hy)//quadrant 1
-                           hubToPersonAngle = -(Math.PI/2-angle);
-                        else if(px > hx && py > hy)//quadrant 2
-                            hubToPersonAngle = Math.PI/2-angle;
-                        else if(px > hx && py < hy)//quadrant 3
-                            hubToPersonAngle = Math.PI/2+angle;
-                        else if(px < hx && py < hy)//quadrant 4
-                            hubToPersonAngle = -(Math.PI/2+angle);
-
-                        halfArcAngle = (d.endAngle - d.startAngle)/2 ;
-                        rotationDegree = (hubToPersonAngle)*(180/Math.PI);
-//                        console.log("Rotation Degree");
-//                        console.log(rotationDegree);
-
-                        d3.select(this.parentNode)
-                            .transition()
-                            .attr('transform',function(){
-                                return "rotate("+(rotationDegree)+")";
-                            });
-                    }
-                });
-//
-
+            if(counter%3==0){ // we don't want to run it every time
+                pieSpinning();
+            }
+            counter++;
         });
 
-        d3.select("body").on("click", function () {
-            peopleNodes.forEach(function (o, i) {
-                o.x += (Math.random() - .5) * 40;
-                o.y += (Math.random() - .5) * 40;
-            });
-            force.resume();
+        pl.stop = function(){   force.stop();   };
+
+        force.on('end',function(e){
+            pieSpinning(); //To ensure that the last value is used, call once more
+//            d3.select('svg').select('g.vizRoot').select('g.pie');
         });
+
+//        d3.select("body").on("click", function () {      //Creates error when updating simultaneously
+//            peopleNodes.forEach(function (o, i) {
+//                o.x += (Math.random() - .5) * 40;
+//                o.y += (Math.random() - .5) * 40;
+//            });
+//            force.resume();
+//        });
+
+        vizRootSpinning();
+
     }
-                                        //just so I u
     MC.options.register(pl, 'friction', 0.005);
     MC.options.register(pl, 'gravity', 0.005);
     MC.options.register(pl, 'linkDistance', 50);
-
     MC.options.register(pl, 'peopleNodes', function () {
         throw('no people specified.')
     });
