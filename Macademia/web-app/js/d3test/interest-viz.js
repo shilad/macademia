@@ -456,7 +456,7 @@ MC.InterestViz.prototype.hoverHubRoot = function(){
 
 }
 
-MC.InterestViz.prototype.hoverHubRootChlid = function(){
+MC.InterestViz.prototype.hoverHubRootChild = function(){
 
 }
 
