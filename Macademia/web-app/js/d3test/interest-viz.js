@@ -497,4 +497,4 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 .style("display", "none");
         });
 };
-
+                     //       d
