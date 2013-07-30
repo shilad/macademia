@@ -441,26 +441,26 @@ MC.InterestViz.prototype.makeColorful = function(){
 //This function enables highlighting of the nodes when hovers
 //TODO: Come up with some mechanism to set and reset attribute such as opacity for highlight and fading
 MC.InterestViz.prototype.enableHoverHighlight = function(){
-    this.hoverVizRoot(this);
-    this.hoverHubRoot(this,this.relatednessMap);
-    this.hoverVizRootChild(this,this.relatednessMap);
-    this.hoverHubRootChild(this,this.relatednessMap);
+    this.hoverVizRoot();
+    this.hoverHubRoot();
+    this.hoverVizRootChild();
+    this.hoverHubRootChild();
     window.setTimeout(jQuery.proxy(function(){
-        this.hoverPerson(this);                       //People aren't created fast enough, this delays the binding of the handler
+        this.hoverPerson();                       //People aren't created fast enough, this delays the binding of the handler
     },this),2503);
 };
 
-MC.InterestViz.prototype.hoverPerson = function(self){
+MC.InterestViz.prototype.hoverPerson = function(){
     //Highlight the vizRoot, interests around vizRoot and hubRoot, hubRoot(if it is a direct interest?)
+    var self =this;
     this.container.selectAll('g.person')
         .on("mouseover", function(e){
-            var personID = e.id;
-            var personInterests = self.people[personID].interests;
-            self.activateHubRootAndChildren(personID, personInterests, self, true);
+
+            self.activateHubRootAndChildren(e.id, e.interests, self, true);
 
             d3.selectAll('g.person')
                 .attr('opacity', function(d){
-                    if((d.id==personID)){
+                    if((d.id==e.id)){
                         self.highlightLabel(d3.select(this));
                         return self.activeOpacity;
                     }else {
@@ -470,10 +470,11 @@ MC.InterestViz.prototype.hoverPerson = function(self){
         }).on("mouseout", this.mouseOut);
 };
 
-MC.InterestViz.prototype.hoverHubRoot = function(self,relatednessMap){
+MC.InterestViz.prototype.hoverHubRoot = function(){
     //Highlight all the children and persons related to the children or the root itself
     //also highlight the children around the vizRoot that are related to the hubRoot.
-
+    var self =this;
+    var relatednessMap = this.relatednessMap;
     d3.selectAll('g.hubRoot')
         .on("mouseover", function(e){
             var hubRootID = e[0].id;
@@ -497,9 +498,10 @@ MC.InterestViz.prototype.hoverHubRoot = function(self,relatednessMap){
         .on("mouseout", this.mouseOut);
 };
 
-MC.InterestViz.prototype.hoverHubRootChild = function(self,relatednessMap){
+MC.InterestViz.prototype.hoverHubRootChild = function(){
     //Highlight the hubRoot and the child itself and people who has the interest
-
+    var self =this;
+    var relatednessMap = this.relatednessMap;
     d3.selectAll('g.hub').each(function(d){
         if(d[0].id!=self.root.id){
             d3.select(this)
@@ -529,10 +531,8 @@ MC.InterestViz.prototype.hoverHubRootChild = function(self,relatednessMap){
 
 };
 
-MC.InterestViz.prototype.hoverVizRoot = function(self){
-    //Interest Centric, highlight all the people related to the interest
-
-    //Person Centric,
+MC.InterestViz.prototype.hoverVizRoot = function(){
+    var self =this;
     d3.select('g.vizRoot')
         .on("mouseover", function(){
             var vizID = d3.select(this).data()[0][0].id;
@@ -550,9 +550,10 @@ MC.InterestViz.prototype.hoverVizRoot = function(self){
         .on("mouseout", this.mouseOut);
 };
 
-MC.InterestViz.prototype.hoverVizRootChild = function(self,relatednessMap){
+MC.InterestViz.prototype.hoverVizRootChild = function(){
     //Highlight the VizRoot and the child itself and people who has the interest
-
+    var self =this;
+    var relatednessMap = this.relatednessMap;
     d3.select('#hub'+this.root.id)
         .selectAll('g.interest')
         .on("mouseover", function(e){
