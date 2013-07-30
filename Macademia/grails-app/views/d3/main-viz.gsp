@@ -164,10 +164,6 @@
         relatednessMap:relatednessMap
     });
 
-
-
-
-
 </r:script>
 
 <svg>
