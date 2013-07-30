@@ -35,22 +35,36 @@
     fill: black;
 }
 
-.tooltip {
-    display: none;
-    position:absolute;
-    margin-left: -150px;
-    /*width: 300px;*/
-    pointer-events: none;
-}
 
-.tooltipContent {
+
+#div1 {
+    position:absolute;
+    width : 230;
     background-color: #eaeaea;
     border: 3px dotted #ffffff;
     font: 13px Georgia;
-    color: #606060;
+    color: pink;
     border-radius: 5px;
     padding: 10px 15px;
 }
+
+/*div[class=ttDesc] {*/
+    /*display:none;*/
+/*}*/
+
+/*div[class=ttName]{*/
+    /*display:none;*/
+/*}*/
+
+
+
+
+
+
+
+
+
+
 
 svg {
     position: absolute;

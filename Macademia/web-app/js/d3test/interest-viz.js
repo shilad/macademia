@@ -467,7 +467,7 @@ MC.InterestViz.prototype.toolTipHover = function(){
 
 
     var svg= this.svg;
-    var div =  d3.selectAll("body").append("div").attr("id","div1").style("position", "absolute");
+    var div =  d3.selectAll("body").append("div").attr("id","div1");
     var paragraph = div.append('p');
 //    jQuery.ajax({
 //        url: "http://localhost:8080/Macademia/all/person/tooltip/359",
@@ -529,13 +529,6 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 .style("left",pos.left+20)
 //                .style("top",pos.top+324) if inspect element is open
                 .style("top",pos.top+50)
-                .style("width",230)
-                .style("background-color", "#eaeaea")
-                .style("border", "3px dotted #ffffff")
-                .style("font", "13px Georgia")
-                .style("color", "#606060")
-                .style("border-radius", "5px")
-                .style("padding", "10px 15px");
 //            console.log(MC.getTransformedPosition(svg, this, 0, 0));
 //            console.log(div);
 
