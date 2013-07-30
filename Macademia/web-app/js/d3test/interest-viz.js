@@ -277,7 +277,6 @@ MC.InterestViz.prototype.createHub = function(model,i) {
     var hubInterests = [];
     for (var i = 0; i < model.children.length; i++) {
         var childId = model.children[i];
-        console.log(model.children[i])
         hubInterests.push(this.interests[childId]);
     }
     var rootModel = model.type == 'person' ? this.people[model.id] : this.interests[model.id];
@@ -475,24 +474,21 @@ MC.InterestViz.prototype.toolTipHover = function(){
             var pos = this.getBoundingClientRect();
           if(d.id) //checks for people and interests
             {
-                if(d.id in people && !(d.id in interests)) //just the people
+                if(d.id in people)
                 {
-
-                    if(people[d.id].interests){
+                    if(d.interests){
                         interestList = self.getPeoplesInterests(d);
                         textBox = "Name: " + people[d.id].name + '<br/>' + "Interests: " + interestList;
-                        paragraph.html(textBox);
+                    }
+                    else{
+                        textBox = "Interest: " + d.name;
                     }
                 }
                 else{
-
-
-
-                    paragraph.html(d.name);
-
-
-
+                    textBox = "Interest: " + d.name;
                 }
+                paragraph.html(textBox);
+
             }
             else if(d[0].id)    //checks the hubs to see if human or interest
             {
@@ -505,8 +501,8 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 }
                 else
                 {
-
-                    paragraph.html(d[0].name);
+                    textBox(" ")
+                    paragraph.html(textBox);
                 }
             }
             div
