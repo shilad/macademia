@@ -89,9 +89,8 @@ var peeps = {
     2255: {"id": 2255,
         "name": "Luther Rea",
         "pic": "/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
-        "relevance": {
-            "2128":1.5,
-
+        "relevance": {  //must be hubs not just interests
+            "3935":1.5,
             "overall": 1.0769508928060532},
         "interests": [
             11114,
@@ -101,7 +100,7 @@ var peeps = {
         "pic": "/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
         "relevance": {
             "2128": 1.1563,
-
+            "3935":1.2,
             "overall": 1.2776578441262245},
         "interests": [
             2128,
@@ -122,6 +121,8 @@ var peeps = {
         'pic': '/Macademia/all/image/randomFake?foo',
         'relevance': {
             "2128": 1.1563,
+            "1134":1.4,
+            "3935":1.2,
             "overall": 1.1776578441262245},
         'interests': [725, 18599, 3889, 11170, 15292]
     }

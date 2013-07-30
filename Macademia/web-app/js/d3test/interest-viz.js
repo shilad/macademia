@@ -446,118 +446,51 @@ MC.InterestViz.prototype.getPeoplesInterests = function(d) {
 };
 
 MC.InterestViz.prototype.toolTipHover = function(){
-//Mouseover events involving tooltips
-//    var div = d3.select("body")
-//        .append("div")
-//        .attr("class", "tooltip")
-//        .style("opacity", 0);
-//
-//    $("#interestToolTip")
 
 
-//    var div = d3.select("div")
-//        .style("opacity", 0);
-
-//    console.log(div);
-    var self = this;
     var people = this.people;
-    var interests = this.interests;
-    var interestList;
-    var textBox = "";
-    var id =0;
-    var type;
-
-    var svg= this.svg;
-    var div =  d3.selectAll("body").append("div").attr("id","div1");
+    var id =0;  //stores d's id
+    var type;  //stores d's type or empty string if no type
+    var div =  d3.selectAll("body").append("div").attr("id","div1").style("position", "absolute");
+     //prevents repetitive displaying of mouse over when mouse is moved over a single element
+    div.on("mouseover", function() { div.transition().style("display", "block");  });
+    div.on("mouseout", function() { div.transition().style("display", "none"); });
     var paragraph = div.append('p');
-//    jQuery.ajax({
-//        url: "http://localhost:8080/Macademia/all/person/tooltip/359",
-//        context: document.body
-//    }).done(function() {
-//            console.log($(this));
-//        });
-
-
 
     this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person") //vizRoot and hubs do not have names speak with Jesse before we deal with this.
        .on("mouseover", function(d){
             var pos = this.getBoundingClientRect();
-//            if(d.id) {
-//                id= d.id;
-//            }
-//            else if(d[0].id){
-//                id= d[0].id;
-//                type=d[0].type;
-//            }
-//          if(id in people && d.interests || id && type == "person" ){ //checks to see if it is a person
-//                 jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + id, function(data) {
-//                 $('#div1').html(data);
-//                  });}
-//           else {
-//              jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + id, function(data) {
-//                            $('#div1').html(data);
-//                        });
-//          }
-
-            if(d.id) //checks for people and interests
-            {
-                if(d.id in people)
-                {
-                    if(d.interests){  //this grabs the people data based on id
-                        jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + d.id, function(data) {
-                            $('#div1').html(data);
-                        });
-//                        interestList = self.getPeoplesInterests(d);
-//                        textBox = "Name: " + people[d.id].name + '<br/>' + "Interests: " + interestList;
-                    }
-                    else{   //this grabs the interest data based on id
-                         jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + d.id, function(data) {
-                            $('#div1').html(data);
-                        });
-                    }
-                }
-                else{
-                    jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + d.id, function(data) {
-                        $('#div1').html(data);
-                    });
-                }
-                paragraph.html(textBox);
+            if(d.id) {   //for non-hub people and interests
+                id= d.id;
+                type ="";   //do not have type
+            }
+            else { //deals with hubNodes person and interest
+                id= d[0].id;
+                type=d[0].type;
 
             }
-            else if(d[0].id)    //checks the hubs to see if human or interest
-            {
-                if(d[0].type == "person")
-                {
-                    jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + d[0].id, function(data) {
-                        $('#div1').html(data);
-                    });
-//                    interestList = self.getPeoplesInterests(d[0]);
-//                    textBox = "Name: " + people[d[0].id].name + '<br/>' + "Interests: " + interestList;
-//                    paragraph.html(textBox);
-
-                }
-                else
-                {
-                    jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + d[0].id, function(data) {
-                        $('#div1').html(data);
-                    });
-                }
-            }
-            div
+          if(id in people && d.interests ||  type == "person" ){ //checks to see if it is a person
+                 jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + id, function(data) {
+                 $('#div1').html(data);
+                  });}
+           else {    //deals with interests
+              jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + id, function(data) {
+                            $('#div1').html(data);
+                        });
+          }
+              div
                 .transition()
                 .duration(200)
                 .style("display", "block")
                 .style("left",pos.left+20)
-//                .style("top",pos.top+324) if inspect element is open
                 .style("top",pos.top+50)
-//            console.log(MC.getTransformedPosition(svg, this, 0, 0));
-//            console.log(div);
 
         })
         .on("mouseout", function(d){
             d3.select('body').select("#interestToolTip")
                 div
                 .transition()
+                .delay(500)
                 .duration(200)
                 .style("display", "none");
         });
