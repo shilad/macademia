@@ -22,11 +22,21 @@ http://tympanus.net/codrops/2012/10/04/custom-drop-down-list-styling/
 
 
 **/
+
+.mainContainer{
+    width: 93%;
+    /*height: 70%;*/
+    margin-left: auto;
+    margin-right: auto;
+    border: 2px solid #d3d3d3;
+}
+
 h1 {
     color: #000000;
     background-color: #F3F4F4;
     font: 50px Georgia;
     text-align: center;
+    padding: 5px 5px;
 }
 
 h2 {
@@ -34,29 +44,161 @@ h2 {
     background-color: #F3F4F4;
     font: 15px Georgia;
     text-align: right;
+    vertical-align: middle;
+    padding: 5px 5px;
 }
 
-hr {
-    border: 0;
-    height: 0;
-    border-top: 1px solid #d3d3d3;
-    border-bottom: 1px solid #d3d3d3;
-    margin: 0;
-    padding: 0;
-}
+/*hr {*/
+    /*border: 0;*/
+    /*height: 0;*/
+    /*border-top: 1px solid #d3d3d3;*/
+    /*border-bottom: 1px solid #d3d3d3;*/
+    /*margin: 0;*/
+    /*padding: 0;*/
+/*}*/
 
 table {
     /*border-top: 1px solid #d3d3d3;*/
-    border-bottom: 2px solid #d3d3d3;
     frame: none;
+    z-index: -1;
+}
+
+th {
+    color: #000000;
+    background-color: #F3F4F4;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px 5px;
 }
 
 tr {
     color: #000000;
     background-color: #ffffff;
     font: 25px Georgia;
+    border-bottom: 2px solid #d3d3d3;
 }
 
 td {
     padding: 10px 10px;
+    vertical-align: middle;
+}
+
+.rect{
+    float:left;
+    height: 30px; /* or whatever you want */
+    position:relative;
+    border: 1px solid #ffffff;
+}
+
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.wrapper-dropdown-3 {
+    /* Size and position */
+    position: relative;
+    width: 200px;
+    margin: 0 auto;
+    padding: 10px;
+
+    /* Styles */
+    background: #ffffff;
+    border-radius: 7px;
+    border: 2px solid #d3d3d3;
+    box-shadow: none;
+    cursor: pointer;
+    outline: none;
+
+    /* Font settings */
+    font: 13px Georgia;
+    color: #000000;
+}
+
+.wrapper-dropdown-3:after {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    margin-top: -3px;
+    border-width: 6px 6px 0 6px;
+    border-style: solid;
+    border-color: #d3d3d3 transparent;
+}
+
+.wrapper-dropdown-3 .dropdown {
+    /* Size & position */
+    position: absolute;
+    top: 140%;
+    left: 0;
+    right: 0;
+
+    /* Styles */
+    background: white;
+    border-radius: inherit;
+    border: 1px solid #d3d3d3;
+    box-shadow: none;
+    font-weight: normal;
+    transition: all 0.5s ease-in;
+    list-style: none;
+
+    /* Hiding */
+    opacity: 0;
+    pointer-events: none;
+}
+
+.wrapper-dropdown-3 .dropdown li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #000000;
+    border-bottom: 1px solid #d3d3d3;
+    transition: all 0.3s ease-out;
+}
+
+.wrapper-dropdown-3 .dropdown li img {
+    float: right;
+    color: inherit;
+}
+
+.wrapper-dropdown-3 .dropdown li:first-of-type a {
+    border-radius: 7px 7px 0 0;
+}
+
+.wrapper-dropdown-3 .dropdown li:last-of-type a {
+    border-radius: 0 0 7px 7px;
+    border: none;
+}
+
+/* Hover state */
+
+.wrapper-dropdown-3 .dropdown li:hover a {
+    background: #F3F4F4;
+}
+
+/* Active state */
+.wrapper-dropdown-3.active .dropdown {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 1;
+}
+
+.wrapper-dropdown-3.active:after {
+    border-color: #9bc7de transparent;
+    border-width: 6px 6px 0 6px ;
+    margin-top: -3px;
+    z-index: 1;
+
+}
+
+.wrapper-dropdown-3.active {
+    background: #9bc7de;
+    background: linear-gradient(to right, #F3F4F4 0%, #F3F4F4 78%, #ffffff 78%, #ffffff 100%);
+    z-index: 1;
+
 }

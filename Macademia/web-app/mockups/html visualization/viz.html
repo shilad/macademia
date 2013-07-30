@@ -3,17 +3,81 @@
 <head>
     <title>HTML visualization</title>
     <link rel="stylesheet" type="text/css" href="viz.css">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script type="text/javascript" src="viz.js"></script>
+    <script>
+        $().ready(function(){
+            new DropDown($("#dd"));
+        })
+    </script>
 </head>
-<body>
-     <h1>Political Science</h1>
-     <h2>Sort by:<img src="hviz-images/orange-dropdown.png"></h2>
 
-    <hr>
+<body>
+<div class="mainContainer">
+     <h1>Political Science
+     <div id="dd" class="wrapper-dropdown-3" tabindex="1" style="float: right; vertical-align: middle" >
+         <span>Sort By</span>
+         <ul class="dropdown">
+             <li><a href="#"><img src="hviz-images/orange-icon.png">Overall</a></li>
+             <li><a href="#"><img src="hviz-images/green-icon.png">Political Science</a></li>
+             <li><a href="#"><img src="hviz-images/purple-icon.png">Philosophy</a></li>
+             <li><a href="#"><img src="hviz-images/blue-icon.png">Cultural Studies</a></li>
+         </ul>
+     </div>
+     </h1>
+
     <table>
         <tr>
-            <td><img src="hviz-images/petyr.png"</td>
-            <td>Petyr Baelish</td>
+            <th>&nbsp;</th>
+            <th><img src="hviz-images/sliders.png"></th>
+            <th><img src="hviz-images/orange-icon.png"><br/>Overall</th>
+            <th><img src="hviz-images/green-icon.png"><br/>Political Science</th>
+            <th><img src="hviz-images/purple-icon.png"><br/>Philosophy</th>
+            <th><img src="hviz-images/blue-icon.png"><br/>Cultural Studies</th>
+        </tr>
+
+        <tr>
+            <td><img src="hviz-images/petyr.png"></td>
+            <td style="border-right: 2px solid #d3d3d3;">Petyr Baelish</td>
+            <td><div class="rect" style="width: 180px;background-color:#f2b06e">&nbsp;</div><div class="rect" style="width: 20px;background-color:#d3d3d3">&nbsp;</div></td>
+            <td><div class="rect" style="width: 160px;background-color:#b4f5a3">&nbsp;</div><div class="rect" style="width: 40px;background-color:#d3d3d3">&nbsp;</div></td>
+            <td><div class="rect" style="width: 150px;background-color:#b2a3f5">&nbsp;</div><div class="rect" style="width: 50px;background-color:#d3d3d3">&nbsp;</div></td>
+            <td><div class="rect" style="width: 164px;background-color:#A8C4E5">&nbsp;</div><div class="rect" style="width: 36px;background-color:#d3d3d3">&nbsp;</div></td>
+        </tr>
+        <tr>
+            <td><img src="hviz-images/varys.png"></td>
+            <td style="border-right: 2px solid #d3d3d3;">Lord Varys</td>
+            <td><div class="rect" style="width: 176px;background-color:#f2b06e">&nbsp;</div><div class="rect" style="width: 24px;background-color:#d3d3d3">&nbsp;</div></td>
+            <td><div class="rect" style="width: 156px;background-color:#b4f5a3">&nbsp;</div><div class="rect" style="width: 44px;background-color:#d3d3d3">&nbsp;</div></td>
+            <td><div class="rect" style="width: 130px;background-color:#b2a3f5">&nbsp;</div><div class="rect" style="width: 70px;background-color:#d3d3d3">&nbsp;</div></td>
+            <td><div class="rect" style="width: 180px;background-color:#A8C4E5">&nbsp;</div><div class="rect" style="width: 20px;background-color:#d3d3d3">&nbsp;</div></td>
+        </tr>
+        <tr>
+            <td><img src="hviz-images/sansa.png"></td>
+            <td style="border-right: 2px solid #d3d3d3;">Sansa Stark</td>
+            <td><div class="rect" style="width: 170px;background-color:#f2b06e">&nbsp;</div><div class="rect" style="width: 30px;background-color:#d3d3d3">&nbsp;</div></td>
+            <td><div class="rect" style="width: 158px;background-color:#b4f5a3">&nbsp;</div><div class="rect" style="width: 42px;background-color:#d3d3d3">&nbsp;</div></td>
+            <td><div class="rect" style="width: 100px;background-color:#b2a3f5">&nbsp;</div><div class="rect" style="width: 100px;background-color:#d3d3d3">&nbsp;</div></td>
+            <td><div class="rect" style="width: 190px;background-color:#A8C4E5">&nbsp;</div><div class="rect" style="width: 10px;background-color:#d3d3d3">&nbsp;</div></td>
+        </tr>
+        <tr>
+            <td><img src="hviz-images/pycelle.png"></td>
+            <td style="border-right: 2px solid #d3d3d3;">Maester Pycelle</td>
+            <td><div class="rect" style="width: 160px;background-color:#f2b06e">&nbsp;</div><div class="rect" style="width: 40px;background-color:#d3d3d3">&nbsp;</div></td>
+            <td><div class="rect" style="width: 165px;background-color:#b4f5a3">&nbsp;</div><div class="rect" style="width: 35px;background-color:#d3d3d3">&nbsp;</div></td>
+            <td><div class="rect" style="width: 180px;background-color:#b2a3f5">&nbsp;</div><div class="rect" style="width: 20px;background-color:#d3d3d3">&nbsp;</div></td>
+            <td><div class="rect" style="width: 90px;background-color:#A8C4E5">&nbsp;</div><div class="rect" style="width: 110px;background-color:#d3d3d3">&nbsp;</div></td>
+        </tr>
+        <tr style="border-bottom: none">
+            <!--last row must have border-bottom: none because of the big boarder around everything-->
+            <td><img src="hviz-images/joffery.png"></td>
+            <td style="border-right: 2px solid #d3d3d3;">Joffery Baratheon</td>
+            <td><div class="rect" style="width: 125px;background-color:#f2b06e">&nbsp;</div><div class="rect" style="width: 75px;background-color:#d3d3d3">&nbsp;</div></td>
+            <td><div class="rect" style="width: 120px;background-color:#b4f5a3">&nbsp;</div><div class="rect" style="width: 80px;background-color:#d3d3d3">&nbsp;</div></td>
+            <td><div class="rect" style="width: 60px;background-color:#b2a3f5">&nbsp;</div><div class="rect" style="width: 140px;background-color:#d3d3d3">&nbsp;</div></td>
+            <td><div class="rect" style="width: 120px;background-color:#A8C4E5">&nbsp;</div><div class="rect" style="width: 80px;background-color:#d3d3d3">&nbsp;</div></td>
         </tr>
     </table>
+</div>
 </body>
 </html>
