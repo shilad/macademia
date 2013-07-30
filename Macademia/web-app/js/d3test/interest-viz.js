@@ -450,6 +450,7 @@ MC.InterestViz.prototype.enableHoverHighlight = function(){
     //hover vizRoot
     this.hoverVizRoot();
     this.hoverHubRoot();
+    this.hoverVizRootChild();
     //hover child around vizRoot
 
 };
@@ -555,5 +556,59 @@ MC.InterestViz.prototype.hoverVizRoot = function(){
 
 MC.InterestViz.prototype.hoverVizRootChild = function(){
     //Highlight the VizRoot and the child itself and people who has the interest
+    var self = this;
+    var relatednessMap=this.relatednessMap;
+   d3.select('#hub'+this.root.id)
+        .selectAll('g.interest')
+        .on("mouseover", function(e){
+            var interestID = e.id;
+            var hubRootMap;
+            var hubRootID;
+            for(var i in relatednessMap){
+                if(relatednessMap[i].indexOf(interestID)>=0){
+                    hubRootMap = relatednessMap[i];
+                    hubRootID=i;
+                }
+            }
 
+            d3.selectAll('g.hubRoot, g.interest')
+                .attr('opacity',function(d){
+//                    console.log(hubRootMap.contains(12));
+                    if((d[0] && hubRootID == d[0].id )){
+                        d3.select(this)
+                            .selectAll('g.label')
+                            .attr('fill',self.activeColor);
+                        return self.activeOpacity;
+                    }else if(d['id'] && hubRootMap.indexOf(d.id) >= 0){
+//                        d3.select(this)
+//                            .selectAll('g.label')
+//                            .attr('fill',self.activeColor);
+                        return self.activeOpacity;
+                    }
+                    else{
+                        return self.inactiveOpacity;
+                    }
+                });
+            d3.selectAll('g.person')
+                .attr('opacity',function(d){
+//                    console.log(d);
+                    if((d.interests && d.interests.indexOf(interestID) >= 0)){
+                        d3.select(this)
+                            .selectAll('g.label')
+                            .attr('fill',self.activeColor);
+                        return self.activeOpacity;
+                    }
+                    else{
+                        return self.inactiveOpacity;
+                    }
+                });
+
+        })
+        .on("mouseout", function(){
+
+            d3.selectAll('g.hubRoot, g.interest, g.person')
+                .attr('opacity',self.activeOpacity)
+                .selectAll('g.label')
+                .attr('fill',self.inactiveColor);
+        });
 };
