@@ -93,7 +93,7 @@ var interests = {
     63: {"id": 63, "name": "Discrete Mathematics"}
 };
 var peeps = {
-    15830: {"id": 15830,
+    2255: {"id": 2255,
         "name": "Luther Rea",
         "pic": "/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
         "relevance": {
@@ -102,7 +102,7 @@ var peeps = {
         "interests": [
             11,
             22]},
-    16: {"id": 16,
+    3010: {"id": 3010,
         "name": "Donnie Burroughs",
         "pic": "/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
         "relevance": {
@@ -114,7 +114,7 @@ var peeps = {
             13,
             33,
             11]},
-    336: {"id": 336,
+    228: {"id": 228,
         "name": "Thomas Hanks",
         "pic": "/Macademia/all/image/fake?gender=male&img=00287_940422_fa.png",
         "relevance": {
@@ -125,8 +125,8 @@ var peeps = {
             21,
             23,
             16]},
-    7: {
-        "id": 7,
+    16: {
+        "id": 16,
         'name': 'Shilad Sen',
         'pic': '/Macademia/all/image/randomFake?foo',
         'relevance': {
@@ -151,7 +151,7 @@ var gradientCircles = [
     {'id': 34, 'color': "#D3D3D3", 'r': 300, 'cx': 375, 'cy': 425, "stop-opacity": .5}
 ];
 
-var root = {type: 'person', id: 7, children: [3, 6, 1, 4, 5, 2]};
+var root = {type: 'person', id: 16, children: [3, 6, 1, 4, 5, 2]};
 
 var hubs = [
     {type: 'interest', id: 11, children: [12, 14, 15, 16]},

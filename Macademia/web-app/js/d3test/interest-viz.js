@@ -362,7 +362,9 @@ MC.InterestViz.prototype.getD3Interests = function() {
 };
 
 //return a person view
-MC.InterestViz.prototype.createPersonView = function() {
+MC.InterestViz.
+
+    prototype.createPersonView = function() {
     this.personView = MC.person();
     return this.personView;
 };
@@ -467,6 +469,13 @@ MC.InterestViz.prototype.toolTipHover = function(){
     var svg= this.svg;
     var div =  d3.selectAll("body").append("div").attr("id","div1").style("position", "absolute");
     var paragraph = div.append('p');
+//    jQuery.ajax({
+//        url: "http://localhost:8080/Macademia/all/person/tooltip/359",
+//        context: document.body
+//    }).done(function() {
+//            console.log($(this));
+//        });
+
 
 
     this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person") //vizRoot and hubs do not have names speak with Jesse before we deal with this.
@@ -477,8 +486,12 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 if(d.id in people)
                 {
                     if(d.interests){
-                        interestList = self.getPeoplesInterests(d);
-                        textBox = "Name: " + people[d.id].name + '<br/>' + "Interests: " + interestList;
+                        jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + d.id, function(data) {
+                            $('#div1').html(data);
+                            console($('.tooltip').html(data));
+                        });
+//                        interestList = self.getPeoplesInterests(d);
+//                        textBox = "Name: " + people[d.id].name + '<br/>' + "Interests: " + interestList;
                     }
                     else{
                         textBox = "Interest: " + d.name;
@@ -494,14 +507,18 @@ MC.InterestViz.prototype.toolTipHover = function(){
             {
                 if(d[0].type == "person")
                 {
-                    interestList = self.getPeoplesInterests(d[0]);
-                    textBox = "Name: " + people[d[0].id].name + '<br/>' + "Interests: " + interestList;
-                    paragraph.html(textBox);
+                    jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + d[0].id, function(data) {
+                        $('#div1').html(data);
+                        console($('.tooltip').html(data));
+                    });
+//                    interestList = self.getPeoplesInterests(d[0]);
+//                    textBox = "Name: " + people[d[0].id].name + '<br/>' + "Interests: " + interestList;
+//                    paragraph.html(textBox);
 
                 }
                 else
                 {
-                    textBox(" ")
+                    textBox =" ";
                     paragraph.html(textBox);
                 }
             }
