@@ -27,6 +27,7 @@ MC.MainViz = function(params) {
 MC.MainViz.prototype.setEventHandlers = function(){
     this.setInterestEventHandler();
     this.setPeopleEventHandler();
+    this.enableHoverHighlight();
 };
 
 MC.MainViz.prototype.createModel = function(root){
@@ -82,7 +83,6 @@ MC.MainViz.prototype.onLoad = function(){
         this.setEventHandlers();
     }
 
-    this.hoverVizRoot(); //case when user hover the vizRoot
 };
 
 MC.MainViz.prototype.createViz = function(){
@@ -315,8 +315,6 @@ MC.MainViz.prototype.hoverVizRoot = function(){
         var vizHub;
 
         d3.selectAll('g.hub, g.person')
-            .transition()
-            .duration(1500)
             .attr('opacity',function(d){
                 if(d[0]&&d[0].id==vizID){
                     vizHub=d3.select(this);
@@ -328,9 +326,6 @@ MC.MainViz.prototype.hoverVizRoot = function(){
             });
         vizHub
             .selectAll('g.label')
-            .transition()
-            .delay(1500)
-            .duration(1500)
             .attr('fill','black');
     })
 };
