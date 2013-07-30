@@ -484,7 +484,7 @@ MC.InterestViz.prototype.toolTipHover = function(){
                 .transition()
                 .duration(200)
                 .style("display", "block")
-                .style("left",pos.left+20)
+                .style("left",pos.left+120)
                 .style("top",pos.top+50)
 
         })

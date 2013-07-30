@@ -216,6 +216,15 @@ MC.hub = function() {
                     .attr('opacity',1.0);
             }
 
+            //mouseover the interest node hightlight itself and its hub root
+            d3Group.selectAll(".interestOuter, .interest text").on('mouseover',function(e){
+                d3.select(this.parentNode).select('g .label text').text(MC.interest().getText());
+            });
+
+            d3Group.selectAll(".interestOuter,.interest text").on('mouseout',function(){
+                d3.select(this.parentNode).select('g .label text').text(MC.interest().getCleanedText());
+            });
+
             //Making connection lines appear
             d3Group.selectAll("line").transition().delay(1501).duration(function(d,i){
                 return duration/n*(i+1);

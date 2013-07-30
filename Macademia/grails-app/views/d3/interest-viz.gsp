@@ -96,7 +96,7 @@ var peeps = {
             11114,
             2010]},
     3010: {"id": 3010,
-        "name": "Donnie Burroughs",
+        "name": "Donnie Burroate speughs",
         "pic": "/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
         "relevance": {
             "2128": 1.1563,
