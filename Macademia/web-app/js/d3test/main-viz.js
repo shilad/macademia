@@ -27,7 +27,9 @@ MC.MainViz = function(params) {
 MC.MainViz.prototype.setEventHandlers = function(){
     this.setInterestEventHandler();
     this.setPeopleEventHandler();
-    this.enableHoverHighlight();
+    if(this.viz){
+        this.viz.enableHoverHighlight();
+    }
 };
 
 MC.MainViz.prototype.createModel = function(root){
@@ -272,68 +274,6 @@ MC.MainViz.prototype.transitionRoot = function(){
     }
 };
 
-//This function enables highlighting of the nodes when hovers
-//TODO: Come up with some mechanism to set and reset attribute such as opacity for highlight and fading
-MC.MainViz.prototype.enableHoverHighlight = function(){
-    //hover individual person
-
-    //hover surrounding hubRoot
-
-    //hover child interest around hubRoot
-
-    //hover vizRoot
-    this.hoverVizRoot();
-    //hover child around vizRoot
-
-};
-
-MC.MainViz.prototype.hoverPerson = function(){
-    //Highlight the vizRoot, interests around vizRoot and hubRoot, hubRoot(if it is a direct interest?)
-
-};
-
-MC.MainViz.prototype.hoverHubRoot = function(){
-    //Highlight all the children and persons related to the children or the root itself
-    //also highlight the children around the vizRoot that are related to the hubRoot.
-
-};
-
-MC.MainViz.prototype.hoverHubRootChild = function(){
-    //Highlight the hubRoot and the child itself and people who has the interest
-
-
-};
-
-MC.MainViz.prototype.hoverVizRoot = function(){
-    //Interest Centric, highlight all the people related to the interest
-
-    //Person Centric,
-    d3.select('g.vizRoot').on("mouseover", function(){
-        console.log("On Mouseover");
-        var vizID = d3.select(this).data()[0][0].id;
-        console.log(vizID);
-        var vizHub;
-
-        d3.selectAll('g.hub, g.person')
-            .attr('opacity',function(d){
-                if(d[0]&&d[0].id==vizID){
-                    vizHub=d3.select(this);
-                    return 1.0;
-                }
-                else{
-                    return 0.2;
-                }
-            });
-        vizHub
-            .selectAll('g.label')
-            .attr('fill','black');
-    })
-};
-
-MC.MainViz.prototype.hoverVizRootChild = function(){
-    //Highlight the VizRoot and the child itself and people who has the interest
-
-};
 
 
 
