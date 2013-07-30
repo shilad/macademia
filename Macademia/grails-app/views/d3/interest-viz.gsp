@@ -1,11 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: jesse
-  Date: 7/16/13
-  Time: 2:04 PM
-  To change this template use File | Settings | File Templates.
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -15,6 +7,7 @@
 
     <title></title>
 </head>
+
 <body>
 
 <style type="text/css">
@@ -28,12 +21,12 @@
     fill: black;
 }
 
-.interest{
+.interest {
     font: 13px Georgia;
     fill: #C0C0C0;
 }
 
-.activeInterest{
+.activeInterest {
     /*
     This should have the same css style as interest except we are using
     a different fill
@@ -43,129 +36,167 @@
 }
 
 
+
+#div1 {
+    position:absolute;
+    width : 230;
+    background-color: #eaeaea;
+    border: 3px dotted #ffffff;
+    font: 13px Georgia;
+    color: black;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+
 svg {
+    position: absolute;
+    top: 300px;
     /*height : 90%;*/
     /*width : 90%;*/
 }
 
 </style>
-<r:script>   //sdf
-    var interests = {
-        3: {"id": 3, "name": "Online Communities"},
-        6: {"id": 6, "name": "web2.0"},
-        2: {"id": 2, "name": "Data Mining"},
-        1: {"id": 1, "name": "Machine Learning"},
-        4: {"id": 4, "name": "Jazz"},
-        5: {"id": 5, "name": "Statistics"},
-//        8: {"id": 8, "name": "Web2.0"},
-        9: {"id": 9, "name": "Jay-Z"},
-        10: {"id": 10, "name": "Mathh"},
-        11: {"id": 11, "name": "html5"},
-        12: {"id": 12, "name": "javascript"},
-        13: {"id": 13, "name": "Web Development"},
-        14: {"id": 14, "name": "wikis"},
-        15: {"id": 15, "name": "Web Spam"},
-        16: {"id": 16, "name": "Semantic Web"},
-        21: {"id": 21, "name": "Miles Davis"},
-        22: {"id": 22, "name": "Jazz History"},
-        24: {"id": 24, "name": "Duke Ellington"},
-        25: {"id": 25, "name": "Jazz Performance"},
-        26: {"id": 26, "name": "Mary Lou Williams"},
-        23: {"id": 23, "name": "Philosophy of Mathematics"},
-        33: {"id": 33, "name": "Geometry"},
-        43: {"id": 43, "name": "Algebra"},
-        53: {"id": 53, "name": "Calculus"},
-        63: {"id": 63, "name": "Discrete Mathematics"}
-    };
+
+
+
+
+<r:script>
+var interests = {
+    725: {"id": 725, "name": "Online Communities"},
+    11114: {"id": 11114, "name": "web2.0"},
+    15004: {"id": 15004, "name": "Data Mining"},
+    3889: {"id": 3889, "name": "Machine Learning"},
+    14304: {"id": 14304, "name": "Jazz"},
+    2869: {"id": 2869, "name": "Statistics"},
+    2851: {"id": 2851, "name": "Jay-Z"},
+    2010: {"id": 2010, "name": "Math"},
+    3935: {"id": 3935, "name": "html5"},
+    2128: {"id": 2128, "name": "javascript"},
+    1134: {"id": 1134, "name": "Web Development"},
+    12291: {"id": 12291, "name": "wikis"},
+    15276: {"id": 15276, "name": "Web Spam"},
+    15292: {"id": 15292, "name": "Semantic Web"},
+    3840: {"id": 3840, "name": "Miles Davis"},
+    11170: {"id": 11170, "name": "Jazz History"},
+    2726: {"id": 2726, "name": "Jazz Performance"},
+    15573: {"id": 15573, "name": "Mary Lou Williams"},
+    15582: {"id": 15582, "name": "Philosophy of Mathematics"},
+    2829: {"id": 2829, "name": "Algebra"},
+    738: {"id": 738, "name": "Calculus"}
+};
 var peeps = {
-        15830: {"id":15830,
-            "name":"Luther Rea",
-            "pic":"/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
-            "relevance":{
-                "11":1.77,
-                "overall":1.0769508928060532},
-            "interests":[
-                11,
-                22]},
-        16: {"id":16,
-            "name":"Donnie Burroughs",
-            "pic":"/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
-            "relevance":{
-                "11":1.1563,
-                "13":1.6563,
-                "33":0.9563,
-                "overall":1.2776578441262245},
-            "interests":[
-                13,
-                33,
-                11]},
-        336: {"id":336,
-            "name":"Thomas Hanks",
-            "pic":"/Macademia/all/image/fake?gender=male&img=00287_940422_fa.png",
-            "relevance":{
-                "13":1.6563,
-                "33":1.9563,
-                "overall":1.1776578441262245},
-            "interests":[
-                21,
-                23,
-                16]},
-        7: {
-            "id":7,
-            'name':'Shilad Sen',
-            'pic' : '/Macademia/all/image/randomFake?foo',
-            'relevance': {
-                "11":1.1563,
-                "13":1.6563,
-                "overall":1.1776578441262245},
-            'interests': [3, 6, 1, 4, 5]
-        }
-    };
+    2255: {"id": 2255,
+        "name": "Luther Rea",
+        "pic": "/Macademia/all/image/fake?gender=male&img=00285_940422_fa.png",
+        "relevance": {  //must be hubs not just interests
+            "3935":1.5,
+            "overall": 1.0769508928060532},
+        "interests": [
+            11114,
+            2010]},
+    3010: {"id": 3010,
+        "name": "Donnie Burroughs",
+        "pic": "/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
+        "relevance": {
+            "2128": 1.1563,
+            "3935":1.2,
+            "overall": 1.2776578441262245},
+        "interests": [
+            2128,
+            3935,
+            2726]},
+    228: {"id": 228,
+        "name": "Thomas Hanks",
+        "pic": "/Macademia/all/image/fake?gender=male&img=00287_940422_fa.png",
+        "relevance": {
+            "2128": 1.6563,
+            "overall": 1.1776578441262245},
+        "interests": [
+            11114,
+            2010]},
+    16: {
+        "id": 16,
+        'name': 'Shilad Sen',
+        'pic': '/Macademia/all/image/randomFake?foo',
+        'relevance': {
+            "2128": 1.1563,
+            "1134":1.4,
+            "3935":1.2,
+            "overall": 1.1776578441262245},
+        'interests': [725, 18599, 3889, 11170, 15292]
+    }
+};
 
-    var colors =[
-            "#f2b06e",
-            "#f5a3d6",
-            "#b2a3f5",
-            "#a8c4e5",
-            "#b4f5a3"
-    ];
-    var gradientCircles = [
-        {'id' : 31, 'color' : "#b2a3f5", 'r': 170, 'cx' : 375, 'cy' : 150, "stop-opacity":.5},
-        {'id' : 10, 'color' : "#b4f5a3", 'r': 170, 'cx' : 150, 'cy' : 600, "stop-opacity":.5},
-        {'id' : 19, 'color' : "#f5a3d6", 'r': 170, 'cx' : 600, 'cy' : 600, "stop-opacity":.5},
-        {'id' : 34, 'color' : "#D3D3D3", 'r': 300, 'cx' : 375, 'cy' : 425, "stop-opacity":.5}
-    ];
+var colors = [
+    "#f2b06e",
+    "#f5a3d6",
+    "#b2a3f5",
+    "#a8c4e5",
+    "#b4f5a3"
+];
+var gradientCircles = [
+    {'id': 31, 'color': "#b2a3f5", 'r': 170, 'cx': 375, 'cy': 150, "stop-opacity": .5},
+    {'id': 10, 'color': "#b4f5a3", 'r': 170, 'cx': 150, 'cy': 600, "stop-opacity": .5},
+    {'id': 19, 'color': "#f5a3d6", 'r': 170, 'cx': 600, 'cy': 600, "stop-opacity": .5},
+    {'id': 34, 'color': "#D3D3D3", 'r': 300, 'cx': 375, 'cy': 425, "stop-opacity": .5}
+];
 
-    var root = {type : 'person', id: 7, children : [3,6,1,4,5,2]};
+var root = {type: 'person', id: 16, children: [725, 11114, 15004, 3889, 14304, 2869]};
 
-    var hubs = [
-        {type : 'interest', id : 11, children : [12,14,15,16]},
-        {type : 'interest', id : 13, children : [21,22,23,24,25,26]},
-        {type : 'interest', id : 33, children : [23,43,53,63]}
-    ];
+var hubs = [
+    {type: 'interest', id: 3935, children: [2869, 2851, 2010, 1134, 2128]},
+    {type: 'interest', id: 2128, children: [12291,15276, 15292, 11170]},
+    {type: 'interest', id: 1134, children: [15582, 2726, 15573, 3840]}
+];
 
-    var svg = d3.select('svg').attr('width', 800).attr('height', 600);
+var svg = d3.select('svg').attr('width', 900).attr('height', 900);
 
-    var viz = new MC.InterestViz({
-      hubs: hubs,
-      root: root,
-      interests: interests,
-      people: peeps,
-      circles: gradientCircles,
-      svg : svg,
-      colors: colors
-    });
+var viz = new MC.InterestViz({
+    hubs: hubs,
+    root: root,
+    interests: interests,
+    people: peeps,
+    circles: gradientCircles,
+    svg: svg,
+    colors: colors
+});
+    //sames fiel
 
-
-
-
-
-
+//$().ready(function () {
+//   if($("g.hub").hover()){
+//        $("g.hub").hover(function () {
+//
+//        var tooltip = $(".tooltip").show();
+//        var offset = $(this).offset();
+//        var width = $(this).outerWidth();
+//        $(".tooltip").css({top:offset.top+110, left:offset.left + width + 315}).show();
+//    },
+//    function () {
+//
+//        $(".tooltip").fadeOut(function () {
+//            $(this).css("marginLeft", "");
+//        });
+//    });}
+//    else if( $("g.interest").hover){
+//        $("g.interest").hover(function () {
+//            var tooltip = $(".tooltip").show();
+//            var offset = $(this).offset();
+//            var width = $(this).outerWidth();
+//            $(".tooltip").css({top:offset.top+110, left:offset.left + width + 315}).show();
+//        }, function () {
+//            $(".tooltip").fadeOut(function () {
+//                $(this).css("marginLeft", "");
+//            });
+//        });
+//    }
+//});
 
 
 </r:script>
-
+<div></div>
 <svg>
+
 </svg>
 </body>
 </html>

@@ -164,7 +164,7 @@ MC.person = function() {
                 .setText(function(d) { return d.name; })
                 .setX(0)
                 .setY(function (d, i) {
-                    console.log(d);
+//                    console.log(d);
                     var r = person.getOrCallR(d, i);
                     return "" + (r+11) + "px";
                 })
