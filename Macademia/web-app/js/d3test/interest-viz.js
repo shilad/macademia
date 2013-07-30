@@ -89,8 +89,8 @@ MC.InterestViz = function(params) {
     // .. = .. || default_value
     this.inactiveOpacity =  params.inactiveOpacity || 0.2;
     this.activeOpacity = params.activeOpacity || 1;
-    this.inactiveColor = params.inactiveColor || "#C0C0C0" ;
-    this.activeColor = params.activeColor || "black";
+    this.inactiveColor = params.inactiveColor || '#C0C0C0';
+    this.activeColor = params.activeColor || 'black';
 
 //    this.circles = params.circles;
     this.interests = params.interests;
@@ -474,7 +474,7 @@ MC.InterestViz.prototype.hoverVizRoot = function(){
     //Interest Centric, highlight all the people related to the interest
 
     //Person Centric,
-//    var activeOpacity=this.active
+    var self = this;
     d3.select('g.vizRoot')
         .on("mouseover", function(){
             var vizID = d3.select(this).data()[0][0].id;
@@ -484,23 +484,23 @@ MC.InterestViz.prototype.hoverVizRoot = function(){
                 .attr('opacity',function(d){
                     if(d[0]&&d[0].id==vizID){
                         vizHub=d3.select(this);
-                        return 1.0;
+                        return self.activeOpacity;
                     }
                     else{
-                        return 0.2;
+                        return self.inactiveOpacity;
                     }
                 });
             vizHub
                 .selectAll('g.label')
-                .attr('fill','black');
+                .attr('fill',self.activeColor);
         })
         .on("mouseout", function(){
             var vizID = d3.select(this).data()[0][0].id;
 
             d3.selectAll('g.hub, g.person')
-                .attr('opacity',1.0)
+                .attr('opacity',self.activeOpacity)
                 .selectAll('g.label')
-                .attr('fill','#C0C0C0');
+                .attr('fill',self.inactiveColor);
         })
 };
 
