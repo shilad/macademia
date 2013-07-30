@@ -451,73 +451,58 @@ MC.InterestViz.prototype.enableHoverHighlight = function(){
     this.hoverVizRoot();
     this.hoverHubRoot();
     this.hoverVizRootChild();
-    this.hoverPerson();
+    this.hoverHubRootChild();
+    window.setTimeout(jQuery.proxy(function(){
+        this.hoverPerson();                       //People aren't created fast enough, this delays the binding of the handler
+    },this),2503);
+
     //hover child around vizRoot
 
 };
 
 MC.InterestViz.prototype.hoverPerson = function(){
     //Highlight the vizRoot, interests around vizRoot and hubRoot, hubRoot(if it is a direct interest?)
-
     var self = this;
-    var relatednessMap=this.relatednessMap;
-    d3.selectAll('g.person').on('mouseover',function(e){
-        console.log("Person Selected");
-    });
-    console.log(d3.selectAll('g.person'));
-};
+    this.container.selectAll('g.person')
+        .on("mouseover", function(e){
+            var personID = e.id;
+            var personInterests = self.people[personID].interests;
+            d3.selectAll('g.interest, g.hubRoot')
+                .attr('opacity', function(d){
+                    if((d[0] && personInterests.indexOf(d[0].id) >= 0)){
+                        d3.select(this)
+                            .selectAll('g.label')
+                            .attr('fill',self.activeColor);
+                        return self.activeOpacity;
+                    }else if(d['id'] && personInterests.indexOf(d.id) >= 0){
+                        d3.select(this)
+                            .selectAll('g.label')
+                            .attr('fill',self.activeColor);
+                        return self.activeOpacity;
+                    }
+                    else{
+                        return self.inactiveOpacity;
+                    }
+                });
+            d3.selectAll('g.person')
+                .attr('opacity', function(d){
+                    if((d.id==personID)){
+                        d3.select(this)
+                            .selectAll('g.label')
+                            .attr('fill',self.activeColor);
+                        return self.activeOpacity;
+                    }else {
+                        return self.inactiveOpacity;
+                    }
+                });
+        }).on("mouseout", function(){
+            d3.selectAll('g.hubRoot, g.interest, g.person')
+                .attr('opacity',self.activeOpacity)
+                .selectAll('g.label')
+                .attr('fill',self.inactiveColor);
+        });
 
-//            var hubRootMap; //an item in relatednessMap that is related to the  current hub
-//            var hubRootID;
-//            for(var i in relatednessMap){
-//                if(relatednessMap[i].indexOf(interestID)>=0){ //find out which hub it is in the map
-//                    hubRootMap = relatednessMap[i];
-//                    hubRootID=i;
-//                }
-//            }
-//
-//            d3.selectAll('g.hubRoot, g.interest')
-//                .attr('opacity',function(d){
-////                    console.log(hubRootMap.contains(12));
-//                    if((d[0] && hubRootID == d[0].id )){ //if the hubRoot interest is related to vizRoot child
-//                        d3.select(this)
-//                            .selectAll('g.label')
-//                            .attr('fill',self.activeColor);
-//                        return self.activeOpacity;
-//                    }else if(d['id'] && hubRootMap.indexOf(d.id) >= 0){ //if the child interest is related
-//                        d3.select(this)
-//                            .selectAll('g.label')
-//                            .attr('fill',self.activeColor);
-//                        return self.activeOpacity;
-//                    }
-//                    else{
-//                        return self.inactiveOpacity;
-//                    }
-//                });
-//
-//            d3.selectAll('g.person')
-//                .attr('opacity',function(d){
-////                    console.log(d);
-//                    if((d.interests && d.interests.indexOf(interestID) >= 0)){
-//                        d3.select(this)
-//                            .selectAll('g.label')
-//                            .attr('fill',self.activeColor);
-//                        return self.activeOpacity;
-//                    }
-//                    else{
-//                        return self.inactiveOpacity;
-//                    }
-//                });
-//
-//        })
-//        .on("mouseout", function(){
-//
-//            d3.selectAll('g.hubRoot, g.interest, g.person')
-//                .attr('opacity',self.activeOpacity)
-//                .selectAll('g.label')
-//                .attr('fill',self.inactiveColor);
-//        });
-//};
+};
 
 MC.InterestViz.prototype.hoverHubRoot = function(){
     //Highlight all the children and persons related to the children or the root itself
@@ -540,9 +525,9 @@ MC.InterestViz.prototype.hoverHubRoot = function(){
                             .attr('fill',self.activeColor);
                         return self.activeOpacity;
                     }else if(d['id'] && hubRootMap.indexOf(d.id) >= 0){
-                        d3.select(this)
-                            .selectAll('g.label')
-                            .attr('fill',self.activeColor);
+//                        d3.select(this)
+//                            .selectAll('g.label')
+//                            .attr('fill',self.activeColor);
                         return self.activeOpacity;
                     }
                     else{
@@ -577,6 +562,69 @@ MC.InterestViz.prototype.hoverHubRoot = function(){
 
 MC.InterestViz.prototype.hoverHubRootChild = function(){
     //Highlight the hubRoot and the child itself and people who has the interest
+    var self = this;
+    var relatednessMap=this.relatednessMap;
+    d3.selectAll('g.hub').each(function(d){
+        if(d[0].id!=self.root.id){
+            d3.select(this)
+                .selectAll('g.interest')
+                .on("mouseover", function(e){
+                    //improvement: can we only run this once?
+                    var interestID = e.id;
+                    var hubRootMap; //an item in relatednessMap that is related to the  current hub
+                    var hubRootID;
+                    for(var i in relatednessMap){
+                        if(relatednessMap[i].indexOf(interestID)>=0){ //find out which hub it is in the map
+                            hubRootMap = relatednessMap[i];
+                            hubRootID=i;
+                        }
+                    }
+
+                    d3.selectAll('g.hubRoot, g.interest')
+                        .attr('opacity',function(d){
+//                    console.log(hubRootMap.contains(12));
+                            if((d[0] && hubRootID == d[0].id )){ //if the hubRoot interest is related to vizRoot child
+                                d3.select(this)
+                                    .selectAll('g.label')
+                                    .attr('fill',self.activeColor);
+                                return self.activeOpacity;
+                            }else if(d['id'] && hubRootMap.indexOf(d.id) >= 0){ //if the child interest is related
+                                if(d.id==interestID){
+                                    d3.select(this)
+                                        .selectAll('g.label')
+                                        .attr('fill',self.activeColor);
+                                }
+                                return self.activeOpacity;
+                            }
+                            else{
+                                return self.inactiveOpacity;
+                            }
+                        });
+
+                    d3.selectAll('g.person')
+                        .attr('opacity',function(d){
+//                    console.log(d);
+                            if((d.interests && d.interests.indexOf(interestID) >= 0)){
+                                d3.select(this)
+                                    .selectAll('g.label')
+                                    .attr('fill',self.activeColor);
+                                return self.activeOpacity;
+                            }
+                            else{
+                                return self.inactiveOpacity;
+                            }
+                        });
+
+                })
+                .on("mouseout", function(){
+
+                    d3.selectAll('g.hubRoot, g.interest, g.person')
+                        .attr('opacity',self.activeOpacity)
+                        .selectAll('g.label')
+                        .attr('fill',self.inactiveColor);
+                });
+        }
+    });
 
 
 };
