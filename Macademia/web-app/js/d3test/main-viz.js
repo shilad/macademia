@@ -81,6 +81,8 @@ MC.MainViz.prototype.onLoad = function(){
         this.createViz();
         this.setEventHandlers();
     }
+
+    this.hoverVizRoot(); //case when user hover the vizRoot
 };
 
 MC.MainViz.prototype.createViz = function(){
@@ -223,31 +225,31 @@ MC.MainViz.prototype.transitionRoot = function(){
                 });
         }
         else{
-           if(!this.tRoot.data()[0][0]){    //this.tRoot.data()[0][0].r) should equal 30 if it is a hubroot
-            this.tRoot
-                .selectAll('circle.interestOuter')
-                .transition()
-                .duration(1000)
-                .attr("transform",function(){
-                    if(d3.select(this))
-                        return "scale(2.5)";
-                });
-               this.tRoot
-                   .select('circle.interestInner')
-                   .transition()
-                   .duration(1000)
-                   .attr("r",function(){
-                       if(d3.select(this))
-                           return d3.select(this).attr('r')*2.5;
-                   });
-            this.tRoot
-                .select('text')
-                .transition()
-                .duration(1000)
-                .attr("y",function(){
-                    return 42;
-                });
-           }
+            if(!this.tRoot.data()[0][0]){    //this.tRoot.data()[0][0].r) should equal 30 if it is a hubroot
+                this.tRoot
+                    .selectAll('circle.interestOuter')
+                    .transition()
+                    .duration(1000)
+                    .attr("transform",function(){
+                        if(d3.select(this))
+                            return "scale(2.5)";
+                    });
+                this.tRoot
+                    .select('circle.interestInner')
+                    .transition()
+                    .duration(1000)
+                    .attr("r",function(){
+                        if(d3.select(this))
+                            return d3.select(this).attr('r')*2.5;
+                    });
+                this.tRoot
+                    .select('text')
+                    .transition()
+                    .duration(1000)
+                    .attr("y",function(){
+                        return 42;
+                    });
+            }
         }
 
         this.svg
@@ -306,28 +308,31 @@ MC.MainViz.prototype.hoverVizRoot = function(){
     //Interest Centric, highlight all the people related to the interest
 
     //Person Centric,
-    var vizID = this.root.id;
-    var vizHub;
-    this.container
-        .selectAll('g.hub, g.person')
-        .transition()
-        .duration(1500)
-        .attr('opacity',function(d){
-            if(d[0]&&d[0].id==vizID){
-                vizHub=d3.select(this);
-                return 1.0;
-            }
-            else{
-                return 0.2;
-            }
-        });
-    vizHub
-        .selectAll('g.label')
-        .transition()
-        .delay(1500)
-        .duration(1500)
-        .attr('fill','black');
+    d3.select('g.vizRoot').on("mouseover", function(){
+        console.log("On Mouseover");
+        var vizID = d3.select(this).data()[0][0].id;
+        console.log(vizID);
+        var vizHub;
 
+        d3.selectAll('g.hub, g.person')
+            .transition()
+            .duration(1500)
+            .attr('opacity',function(d){
+                if(d[0]&&d[0].id==vizID){
+                    vizHub=d3.select(this);
+                    return 1.0;
+                }
+                else{
+                    return 0.2;
+                }
+            });
+        vizHub
+            .selectAll('g.label')
+            .transition()
+            .delay(1500)
+            .duration(1500)
+            .attr('fill','black');
+    })
 };
 
 MC.MainViz.prototype.hoverVizRootChild = function(){

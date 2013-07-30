@@ -243,14 +243,15 @@ MC.hub = function() {
     });
     MC.options.register(hub, 'duration', 500);
     MC.options.register(hub, 'cssClass', 'hub');
-    MC.options.register(hub, 'regularFill', 'green');
-    MC.options.register(hub, 'highlightedFill', 'black');
-    MC.options.register(hub, 'selectHub',function(){
-        d3Group.style('fill', hub.getRegularFill());
-    });
-    MC.options.register(hub, 'deselectHub',function(){
-        d3Group.style('fill', hub.getHighlightedFill());
-    });
+
+//    MC.options.register(hub, 'regularFill', 'green');
+//    MC.options.register(hub, 'highlightedFill', 'black');
+//    MC.options.register(hub, 'selectHub',function(){
+//        d3Group.style('fill', hub.getRegularFill());
+//    });
+//    MC.options.register(hub, 'deselectHub',function(){
+//        d3Group.style('fill', hub.getHighlightedFill());
+//    });
 
     return hub;
 };
