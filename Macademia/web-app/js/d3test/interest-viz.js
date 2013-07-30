@@ -449,6 +449,7 @@ MC.InterestViz.prototype.enableHoverHighlight = function(){
 
     //hover vizRoot
     this.hoverVizRoot();
+    this.hoverHubRoot();
     //hover child around vizRoot
 
 };
@@ -461,7 +462,55 @@ MC.InterestViz.prototype.hoverPerson = function(){
 MC.InterestViz.prototype.hoverHubRoot = function(){
     //Highlight all the children and persons related to the children or the root itself
     //also highlight the children around the vizRoot that are related to the hubRoot.
+    var self = this;
+    var relatednessMap=this.relatednessMap;
+    d3.selectAll('g.hubRoot')
+        .on("mouseover", function(e){
+//            console.log(relatednessMap);
+            var hubRootID = e[0].id;
+            var hubRootMap = relatednessMap[hubRootID];
 
+            d3.selectAll('g.hubRoot, g.interest')
+                .attr('opacity',function(d){
+//                    console.log(hubRootMap.contains(12));
+                    if((d[0] && hubRootID == d[0].id )){
+                        d3.select(this)
+                            .selectAll('g.label')
+                            .attr('fill',self.activeColor);
+                        return self.activeOpacity;
+                    }else if(d['id'] && hubRootMap.indexOf(d.id) >= 0){
+                        d3.select(this)
+                            .selectAll('g.label')
+                            .attr('fill',self.activeColor);
+                        return self.activeOpacity;
+                    }
+                    else{
+                        return self.inactiveOpacity;
+                    }
+                });
+            d3.selectAll('g.person')
+                .attr('opacity',function(d){
+//                    console.log(d);
+                    if((d.relevance && d.relevance[hubRootID] )){
+                        d3.select(this)
+                            .selectAll('g.label')
+                            .attr('fill',self.activeColor);
+                        return self.activeOpacity;
+                    }
+                    else{
+                        return self.inactiveOpacity;
+                    }
+                });
+
+        })
+        .on("mouseout", function(e){
+            var hubRootID = e[0].id;
+
+            d3.selectAll('g.hubRoot, g.interest, g.person')
+                .attr('opacity',self.activeOpacity)
+                .selectAll('g.label')
+                .attr('fill',self.inactiveColor);
+        });
 };
 
 MC.InterestViz.prototype.hoverHubRootChild = function(){
@@ -501,7 +550,7 @@ MC.InterestViz.prototype.hoverVizRoot = function(){
                 .attr('opacity',self.activeOpacity)
                 .selectAll('g.label')
                 .attr('fill',self.inactiveColor);
-        })
+        });
 };
 
 MC.InterestViz.prototype.hoverVizRootChild = function(){

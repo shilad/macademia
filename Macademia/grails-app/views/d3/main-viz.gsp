@@ -140,12 +140,12 @@
 
     var hubs = [
         {type : 'interest', id : 11, children : [12,14,15,16]},
-        {type : 'interest', id : 13, children : [21,22,23,24,25,26]},
+        {type : 'interest', id : 13, children : [21,22,24,25,26]},
         {type : 'interest', id : 33, children : [23,43,53,63]}
     ];
     var relatednessMap = {
         11 : [12,14,15,16,5,10,20,1],
-        13 : [21,22,23,24,25,26,3,4],
+        13 : [21,22,24,25,26,3,4],
         33 : [23,43,53,63,99,6]
     };
 
