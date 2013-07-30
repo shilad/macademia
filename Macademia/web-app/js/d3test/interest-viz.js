@@ -461,9 +461,7 @@ MC.InterestViz.prototype.hoverPerson = function(self){
             d3.selectAll('g.person')
                 .attr('opacity', function(d){
                     if((d.id==personID)){
-                        d3.select(this)
-                            .selectAll('g.label')
-                            .attr('fill',self.activeColor);
+                        self.highlightLabel(d3.select(this));
                         return self.activeOpacity;
                     }else {
                         return self.inactiveOpacity;
@@ -479,7 +477,7 @@ MC.InterestViz.prototype.hoverHubRoot = function(self,relatednessMap){
     d3.selectAll('g.hubRoot')
         .on("mouseover", function(e){
             var hubRootID = e[0].id;
-            var hubRootMap = relatednessMap[hubRootID]; //here we know the hub, get it directly
+            var hubRootMap = relatednessMap[hubRootID];
 
             self.activateHubRootAndChildren(hubRootID, hubRootMap, self, false);
 
@@ -487,9 +485,7 @@ MC.InterestViz.prototype.hoverHubRoot = function(self,relatednessMap){
             d3.selectAll('g.person')
                 .attr('opacity',function(d){
                     if((d.relevance && d.relevance[hubRootID] )){
-                        d3.select(this)
-                            .selectAll('g.label')
-                            .attr('fill',self.activeColor);
+                        self.highlightLabel(d3.select(this));
                         return self.activeOpacity;
                     }
                     else{
@@ -514,14 +510,10 @@ MC.InterestViz.prototype.hoverHubRootChild = function(self,relatednessMap){
                     var hubRootMap = relatednessMap[hubRootID];
                     self.activateHubRootAndChildren(hubRootID, hubRootMap, self, true);
 
-
                     d3.selectAll('g.person')
                         .attr('opacity',function(d){
-//                    console.log(d);
                             if((d.interests && d.interests.indexOf(interestID) >= 0)){
-                                d3.select(this)
-                                    .selectAll('g.label')
-                                    .attr('fill',self.activeColor);
+                                self.highlightLabel(d3.select(this));
                                 return self.activeOpacity;
                             }
                             else{
@@ -547,9 +539,7 @@ MC.InterestViz.prototype.hoverVizRoot = function(self){
             d3.selectAll('g.hub, g.person')
                 .attr('opacity',function(d){
                     if(d[0]&&d[0].id==vizID){
-                        d3.select(this)
-                            .selectAll('g.label')
-                            .attr('fill',self.activeColor);
+                        self.highlightLabel(d3.select(this));
                         return self.activeOpacity;
                     }
                     else{
@@ -573,11 +563,8 @@ MC.InterestViz.prototype.hoverVizRootChild = function(self,relatednessMap){
 
             d3.selectAll('g.person')
                 .attr('opacity',function(d){
-//                    console.log(d);
                     if((d.interests && d.interests.indexOf(interestID) >= 0)){
-                        d3.select(this)
-                            .selectAll('g.label')
-                            .attr('fill',self.activeColor);
+                        self.highlightLabel(d3.select(this));
                         return self.activeOpacity;
                     }
                     else{
@@ -602,19 +589,20 @@ MC.InterestViz.prototype.findHubRootID = function(interestID){
         }
     }
 };
-MC.InterestViz.prototype.activateHubRootAndChildren = function(mapID, map, self, childText){
+MC.InterestViz.prototype.highlightLabel = function(selector){
+    selector
+        .selectAll('g.label')
+        .attr('fill',self.activeColor);
+};
+MC.InterestViz.prototype.activateHubRootAndChildren = function(mapID, map, self, childText){      //ChildText should be a bool to say whether or not to color the children's label
     d3.selectAll('g.hubRoot, g.interest')
         .attr('opacity',function(d){
             if((d[0] && mapID == d[0].id )){
-                d3.select(this)
-                    .selectAll('g.label')
-                    .attr('fill',self.activeColor);
+                self.highlightLabel(d3.select(this));
                 return self.activeOpacity;
             }else if(d['id'] && map.indexOf(d.id) >= 0){
                 if(childText){
-                d3.select(this)
-                    .selectAll('g.label')
-                    .attr('fill',self.activeColor);
+                    self.highlightLabel(d3.select(this));
                 }
                 return self.activeOpacity;
             }
