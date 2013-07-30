@@ -1,0 +1,2891 @@
+{"people": {
+    "2719": {
+        "id": 2719,
+        "fid": 7392962,
+        "name": "Rachael Faulkner",
+        "pic": "/Macademia/all/image/fake?gender=female&img=00945_960627_fa.png",
+        "relevance": {
+            "20": 1.4584211818873882,
+            "24": 1.3257575035095215,
+            "-1": null,
+            "overall": 1.3920893426984549
+        },
+        "count": {
+            "20": 5,
+            "24": 2,
+            "-1": 3,
+            "overall": 7
+        },
+        "interests": [2696, 2453, 2698, 2704, 2703, 19, 323, 2702, 979, 319]
+    },
+    "1209": {
+        "id": 1209,
+        "fid": 1461682,
+        "name": "Marisol Aaron",
+        "pic": "/Macademia/all/image/fake?gender=female&img=00943_960627_fa.png",
+        "relevance": {
+            "24": 1.6890799701213837,
+            "-1": null,
+            "20": 1,
+            "overall": 1.3445399850606918
+        },
+        "count": {
+            "24": 3,
+            "-1": 2,
+            "20": 1,
+            "overall": 4
+        },
+        "interests": [19, 18, 227, 1207, 979, 1208]
+    },
+    "4011": {
+        "id": 4011,
+        "fid": 16088122,
+        "name": "Joanna Ledford",
+        "pic": "/Macademia/all/image/fake?gender=female&img=00399_940422_fa.png",
+        "relevance": {
+            "24": 1.5764088779687881,
+            "-1": null,
+            "20": 1.0063192248344421,
+            "overall": 1.2913640514016151
+        },
+        "count": {
+            "24": 3,
+            "-1": 1,
+            "20": 2,
+            "overall": 5
+        },
+        "interests": [19, 956, 1224, 1207, 2698, 4010]
+    },
+    "15680": {
+        "id": 15680,
+        "fid": 245862401,
+        "name": "Ed Sanborn",
+        "pic": "/Macademia/all/image/fake?gender=male&img=00798_941205_fa.png",
+        "relevance": {
+            "24": 1.8594666700810194,
+            "-1": null,
+            "overall": 0.9297333350405097
+        },
+        "count": {
+            "24": 6,
+            "-1": 1,
+            "overall": 6
+        },
+        "interests": [18, 28, 15677, 15675, 15679, 15678, 15676]
+    },
+    "4009": {
+        "id": 4009,
+        "fid": 16072082,
+        "name": "Diane Schreiber",
+        "pic": "/Macademia/all/image/fake?gender=female&img=00065_931230_fa.png",
+        "relevance": {
+            "-1": null,
+            "20": 1.2936225831508636,
+            "24": 1.1085536479949951,
+            "22": 1.5854711383581161,
+            "overall": 1.9938236847519875
+        },
+        "count": {
+            "-1": 9,
+            "20": 5,
+            "24": 2,
+            "22": 3,
+            "overall": 10
+        },
+        "interests": [4005, 978, 3088, 1624, 1207, 16184, 16182, 16183, 268, 2698, 1296, 16203, 4010, 15300, 16198, 1218, 21, 29, 16230]
+    },
+    "16316": {
+        "id": 16316,
+        "fid": 266211857,
+        "name": "Lon Myers",
+        "pic": "/Macademia/all/image/fake?gender=male&img=00830_940307_fa.png",
+        "relevance": {
+            "-1": null,
+            "24": 0.787312924861908,
+            "20": 1.6495263613760471,
+            "22": 1.1844440549612045,
+            "overall": 1.8106416705995798
+        },
+        "count": {
+            "-1": 12,
+            "24": 1,
+            "20": 5,
+            "22": 3,
+            "overall": 9
+        },
+        "interests": [2404, 558, 944, 287, 16310, 3032, 353, 11334, 720, 11330, 2214, 16312, 16321, 20, 3059, 1554, 16311, 1296, 286, 1827, 617]
+    },
+    "16070": {
+        "id": 16070,
+        "fid": 258244901,
+        "name": "Luther Engel",
+        "pic": "/Macademia/all/image/fake?gender=male&img=00334_940422_fa.png",
+        "relevance": {
+            "-1": null,
+            "22": 1.7049969211220741,
+            "overall": 0.8524984605610371
+        },
+        "count": {
+            "-1": 4,
+            "22": 4,
+            "overall": 4
+        },
+        "interests": [170, 16080, 16068, 16069, 22, 953, 2857, 2518]
+    },
+    "2861": {
+        "id": 2861,
+        "fid": 8185322,
+        "name": "Eliza Prescott",
+        "pic": "/Macademia/all/image/fake?gender=female&img=00426_940422_fa.png",
+        "relevance": {
+            "20": 0.7604260444641113,
+            "24": 1.5759186148643494,
+            "-1": null,
+            "22": 1.1217343509197235,
+            "overall": 1.729039505124092
+        },
+        "count": {
+            "20": 1,
+            "24": 4,
+            "-1": 4,
+            "22": 2,
+            "overall": 7
+        },
+        "interests": [2871, 24, 320, 2865, 2864, 2867, 1129, 2856, 2858, 2857, 2874]
+    },
+    "2185": {
+        "id": 2185,
+        "fid": 4774226,
+        "name": "Helen Wray",
+        "pic": "/Macademia/all/image/fake?gender=female&img=00581_940928_fa.png",
+        "relevance": {
+            "24": 1.652029886841774,
+            "-1": null,
+            "22": 1.3910301327705383,
+            "overall": 1.5215300098061562
+        },
+        "count": {
+            "24": 4,
+            "-1": 5,
+            "22": 4,
+            "overall": 8
+        },
+        "interests": [24, 227, 955, 1888, 893, 2184, 2179, 2181, 2183, 2178, 2180, 126, 2182]
+    },
+    "12542": {
+        "id": 12542,
+        "fid": 157301765,
+        "name": "Ward Moran",
+        "pic": "/Macademia/all/image/fake?gender=male&img=00004_930831_fa.png",
+        "relevance": {
+            "-1": null,
+            "22": 1.4421043992042542,
+            "24": 1.3251826167106628,
+            "20": 1,
+            "overall": 1.8836435079574585
+        },
+        "count": {
+            "-1": 3,
+            "22": 5,
+            "24": 2,
+            "20": 1,
+            "overall": 8
+        },
+        "interests": [1016, 1129, 893, 1429, 890, 12541, 12540, 965, 24, 12539, 1208]
+    },
+    "15869": {
+        "id": 15869,
+        "fid": 251825162,
+        "name": "Gabrielle Tapia",
+        "pic": "/Macademia/all/image/fake?gender=female&img=00112_931230_fa.png",
+        "relevance": {
+            "-1": null,
+            "22": 1.519849844276905,
+            "24": 1.3527511954307556,
+            "overall": 1.4363005198538303
+        },
+        "count": {
+            "-1": 3,
+            "22": 5,
+            "24": 2,
+            "overall": 7
+        },
+        "interests": [15863, 15867, 15865, 2541, 1281, 890, 15866, 15868, 24, 15864]
+    },
+    "1932": {
+        "id": 1932,
+        "fid": 3732625,
+        "name": "Teddy Guidry",
+        "pic": "/Macademia/all/image/fake?gender=male&img=00659_941121_fa.png",
+        "relevance": {
+            "-1": null,
+            "22": 1.2427182495594025,
+            "24": 1.5486473441123962,
+            "overall": 1.3956827968358994
+        },
+        "count": {
+            "-1": 4,
+            "22": 3,
+            "24": 3,
+            "overall": 6
+        },
+        "interests": [1927, 1926, 1940, 1924, 1279, 1925, 1931, 24, 1928, 1929]
+    },
+    "1030": {
+        "id": 1030,
+        "fid": 1060901,
+        "name": "Luther Stahl",
+        "pic": "/Macademia/all/image/fake?gender=male&img=00155_940128_fa.png",
+        "relevance": {
+            "20": 1.3608397766947746,
+            "-1": null,
+            "22": 1.2467118576169014,
+            "24": 0.6916072368621826,
+            "overall": 1.6495794355869293
+        },
+        "count": {
+            "20": 4,
+            "-1": 20,
+            "22": 4,
+            "24": 1,
+            "overall": 9
+        },
+        "interests": [1037, 1023, 1032, 1022, 1033, 1034, 1035, 1019, 1020, 1036, 1021, 1038, 1039, 1024, 1025, 1026, 1028, 1031, 87, 1040, 1042, 500, 795, 127, 352, 250, 1029, 1027, 977]
+    },
+    "17061": {
+        "id": 17061,
+        "fid": 291077722,
+        "name": "Estelle Mccullough",
+        "pic": "/Macademia/all/image/fake?gender=female&img=00978_960627_fa.png",
+        "relevance": {
+            "-1": null,
+            "24": 0.9215768873691559,
+            "22": 1.4627479948103428,
+            "20": 0.6450929641723633,
+            "overall": 1.514708923175931
+        },
+        "count": {
+            "-1": 7,
+            "24": 2,
+            "22": 5,
+            "20": 1,
+            "overall": 8
+        },
+        "interests": [823, 10398, 1710, 17057, 17056, 17060, 17054, 17059, 17058, 17055, 91, 16004, 50, 195, 1591]
+    },
+    "1436": {
+        "id": 1436,
+        "fid": 2062097,
+        "name": "Michel Alston",
+        "pic": "/Macademia/all/image/fake?gender=male&img=00919_960620_fa.png",
+        "relevance": {
+            "-1": null,
+            "24": 1.0823155343532562,
+            "22": 1.4983733724802732,
+            "20": 0.6776956915855408,
+            "overall": 1.6291922992095351
+        },
+        "count": {
+            "-1": 12,
+            "24": 2,
+            "22": 6,
+            "20": 1,
+            "overall": 9
+        },
+        "interests": [1430, 65, 230, 229, 1432, 1433, 1438, 127, 176, 124, 1421, 211, 227, 1431, 140, 1429, 126, 1434, 1437, 1435, 1023]
+    },
+    "2746": {
+        "id": 2746,
+        "fid": 7540517,
+        "name": "Jackson Stockton",
+        "pic": "/Macademia/all/image/fake?gender=male&img=00933_960627_fa.png",
+        "relevance": {
+            "-1": null,
+            "20": 1.775775631889701,
+            "overall": 0.8878878159448504
+        },
+        "count": {
+            "-1": 6,
+            "20": 6,
+            "overall": 6
+        },
+        "interests": [2735, 2744, 2745, 2738, 2739, 2736, 1223, 2742, 2740, 2741, 2743, 2737]
+    },
+    "2636": {
+        "id": 2636,
+        "fid": 6948497,
+        "name": "Dean Brewer",
+        "pic": "/Macademia/all/image/fake?gender=male&img=00799_941205_fa.png",
+        "relevance": {
+            "22": 1.2447138130664825,
+            "-1": null,
+            "20": 1.6706922352313995,
+            "overall": 1.457703024148941
+        },
+        "count": {
+            "22": 3,
+            "-1": 8,
+            "20": 4,
+            "overall": 7
+        },
+        "interests": [1429, 2638, 965, 978, 2708, 2709, 2707, 2629, 2631, 2633, 2634, 1208, 2630, 2632, 2637]
+    },
+    "17076": {
+        "id": 17076,
+        "fid": 291589777,
+        "name": "Melvin Tackett",
+        "pic": "/Macademia/all/image/fake?gender=male&img=00570_940928_fa.png",
+        "relevance": {
+            "-1": null,
+            "20": 1.567956026592583,
+            "22": 1.1352106928825378,
+            "overall": 1.3515833597375604
+        },
+        "count": {
+            "-1": 17,
+            "20": 15,
+            "22": 2,
+            "overall": 17
+        },
+        "interests": [687, 11592, 2140, 17082, 17080, 17086, 2522, 17084, 11334, 17072, 17073, 2449, 12355, 1087, 12309, 2693, 12189, 17078, 17089, 17088, 17085, 17079, 2453, 2452, 1783, 16968, 17081, 17083, 15513, 16247, 17087, 3035, 2250, 1542]
+    },
+    "272": {
+        "id": 272,
+        "fid": 73985,
+        "name": "Kenneth Beavers",
+        "pic": "/Macademia/all/image/fake?gender=male&img=00732_941205_fa.png",
+        "relevance": {
+            "-1": null,
+            "22": 1.354442447423935,
+            "24": 1.00436469912529,
+            "20": 0.6096817255020142,
+            "overall": 1.4842444360256195
+        },
+        "count": {
+            "-1": 29,
+            "22": 4,
+            "24": 2,
+            "20": 1,
+            "overall": 7
+        },
+        "interests": [275, 274, 273, 958, 959, 279, 278, 277, 276, 283, 282, 281, 280, 287, 72, 285, 284, 938, 271, 704, 969, 968, 291, 292, 963, 961, 960, 967, 964, 288, 286, 939, 965, 966, 289, 290]
+    },
+    "571": {
+        "id": 571,
+        "fid": 326042,
+        "name": "Wendy Valadez",
+        "pic": "/Macademia/all/image/fake?gender=female&img=00689_941121_fa.png",
+        "relevance": {
+            "-1": null,
+            "22": 1.4286749148741364,
+            "20": 1.2572563737630844,
+            "overall": 1.3429656443186104
+        },
+        "count": {
+            "-1": 13,
+            "22": 7,
+            "20": 4,
+            "overall": 11
+        },
+        "interests": [926, 576, 927, 579, 519, 941, 940, 938, 933, 932, 573, 934, 928, 570, 937, 931, 939, 929, 577, 930, 936, 581, 935, 580]
+    },
+    "16": {
+        "id": 16,
+        "fid": 257,
+        "name": "Donnie Burroughs",
+        "pic": "/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
+        "relevance": {
+            "20": 1.9921875,
+            "22": 1.875,
+            "24": 1.9375,
+            "overall": 2.90234375
+        },
+        "count": {
+            "20": 8,
+            "22": 4,
+            "24": 5,
+            "overall": 17
+        },
+        "interests": [1223, 15, 20, 25, 601, 1208, 1110, 30, 17, 21, 23, 22, 19, 18, 24, 27, 28]
+    }
+}, "interests": {
+    "1223": {
+        "id": 1223,
+        "name": " saxophone",
+        "cluster": 20,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 1223,
+                "relevance": 0
+            }
+        ]
+    },
+    "15": {
+        "id": 15,
+        "name": "online communities",
+        "cluster": 20,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 15,
+                "relevance": 0
+            }
+        ]
+    },
+    "17": {
+        "id": 17,
+        "name": "social networking",
+        "cluster": 22,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 17,
+                "relevance": 0
+            }
+        ]
+    },
+    "19": {
+        "id": 19,
+        "name": "machine learning",
+        "cluster": 24,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 19,
+                "relevance": 0
+            },
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 24,
+                "relevance": 0.6637840867042542
+            }
+        ]
+    },
+    "18": {
+        "id": 18,
+        "name": "data mining",
+        "cluster": 24,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 18,
+                "relevance": 0
+            }
+        ]
+    },
+    "21": {
+        "id": 21,
+        "name": "politics",
+        "cluster": 22,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 21,
+                "relevance": 0
+            }
+        ]
+    },
+    "20": {
+        "id": 20,
+        "name": "web2.0",
+        "cluster": 20,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "RELATED_ROOT"
+                },
+                "parentId": 20,
+                "relevance": 1
+            },
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 20,
+                "relevance": 0
+            }
+        ]
+    },
+    "23": {
+        "id": 23,
+        "name": "group psychology",
+        "cluster": 22,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 23,
+                "relevance": 0
+            }
+        ]
+    },
+    "22": {
+        "id": 22,
+        "name": "social psychology",
+        "cluster": 22,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "RELATED_ROOT"
+                },
+                "parentId": 22,
+                "relevance": 1
+            },
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 22,
+                "relevance": 0
+            }
+        ]
+    },
+    "25": {
+        "id": 25,
+        "name": "collaborative computing",
+        "cluster": 20,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 25,
+                "relevance": 0
+            }
+        ]
+    },
+    "601": {
+        "id": 601,
+        "name": "Jazz",
+        "cluster": 20,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 601,
+                "relevance": 0
+            }
+        ]
+    },
+    "24": {
+        "id": 24,
+        "name": "statistics",
+        "cluster": 24,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "RELATED_ROOT"
+                },
+                "parentId": 24,
+                "relevance": 1
+            },
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 24,
+                "relevance": 0
+            }
+        ]
+    },
+    "27": {
+        "id": 27,
+        "name": "online contributions",
+        "cluster": 24,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 27,
+                "relevance": 0
+            }
+        ]
+    },
+    "1208": {
+        "id": 1208,
+        "name": " human-computer interaction",
+        "cluster": 20,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 1208,
+                "relevance": 0
+            }
+        ]
+    },
+    "1110": {
+        "id": 1110,
+        "name": " balkanization",
+        "cluster": 20,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 1110,
+                "relevance": 0
+            }
+        ]
+    },
+    "28": {
+        "id": 28,
+        "name": "recommender systems",
+        "cluster": 24,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 28,
+                "relevance": 0
+            }
+        ]
+    },
+    "30": {
+        "id": 30,
+        "name": "tagging",
+        "cluster": 20,
+        "relevance": 1,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_ROOT"
+                },
+                "parentId": 30,
+                "relevance": 0
+            }
+        ]
+    },
+    "2742": {
+        "id": 2742,
+        "name": " Julian \"Cannonball Adderley",
+        "cluster": 20,
+        "relevance": 0.8331537842750549,
+        "roles": []
+    },
+    "2745": {
+        "id": 2745,
+        "name": " intersection of jazz and classical music",
+        "cluster": 20,
+        "relevance": 0.5855869054794312,
+        "roles": []
+    },
+    "2736": {
+        "id": 2736,
+        "name": " jazz pedagogy",
+        "cluster": 20,
+        "relevance": 0.5526885986328125,
+        "roles": []
+    },
+    "17078": {
+        "id": 17078,
+        "name": " Digital Curation",
+        "cluster": 20,
+        "relevance": 0.8240217566490173,
+        "roles": []
+    },
+    "2871": {
+        "id": 2871,
+        "name": "  conceptions of Statistics",
+        "cluster": 20,
+        "relevance": 0.7604260444641113,
+        "roles": []
+    },
+    "17089": {
+        "id": 17089,
+        "name": " Ontologies",
+        "cluster": 20,
+        "relevance": 0.7504070401191711,
+        "roles": []
+    },
+    "17088": {
+        "id": 17088,
+        "name": " Metadata",
+        "cluster": 20,
+        "relevance": 0.7405523061752319,
+        "roles": []
+    },
+    "2637": {
+        "id": 2637,
+        "name": " user modeling",
+        "cluster": 20,
+        "relevance": 0.7396161556243896,
+        "roles": []
+    },
+    "17079": {
+        "id": 17079,
+        "name": " RDF",
+        "cluster": 20,
+        "relevance": 0.7359534502029419,
+        "roles": []
+    },
+    "2453": {
+        "id": 2453,
+        "name": "semantic web",
+        "cluster": 20,
+        "relevance": 0.7349187135696411,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 20,
+                "relevance": 0.668218731880188
+            }
+        ]
+    },
+    "2698": {
+        "id": 2698,
+        "name": " information retrieval",
+        "cluster": 20,
+        "relevance": 0.7014126777648926,
+        "roles": []
+    },
+    "15513": {
+        "id": 15513,
+        "name": " eLearning",
+        "cluster": 20,
+        "relevance": 0.666822612285614,
+        "roles": []
+    },
+    "15677": {
+        "id": 15677,
+        "name": " text analytics",
+        "cluster": 24,
+        "relevance": 0.7872308492660522,
+        "roles": []
+    },
+    "16247": {
+        "id": 16247,
+        "name": "digital libraries",
+        "cluster": 20,
+        "relevance": 0.6528453230857849,
+        "roles": []
+    },
+    "17085": {
+        "id": 17085,
+        "name": " Rails",
+        "cluster": 20,
+        "relevance": 0.7383678555488586,
+        "roles": []
+    },
+    "17087": {
+        "id": 17087,
+        "name": " PHP",
+        "cluster": 20,
+        "relevance": 0.6453721523284912,
+        "roles": []
+    },
+    "16203": {
+        "id": 16203,
+        "name": " Web Spam",
+        "cluster": 20,
+        "relevance": 0.6360430717468262,
+        "roles": []
+    },
+    "3035": {
+        "id": 3035,
+        "name": " Digital Preservation",
+        "cluster": 20,
+        "relevance": 0.6307872533798218,
+        "roles": []
+    },
+    "1783": {
+        "id": 1783,
+        "name": "social media",
+        "cluster": 20,
+        "relevance": 0.7195125222206116,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 20,
+                "relevance": 0.6279786229133606
+            }
+        ]
+    },
+    "3665": {
+        "id": 3665,
+        "name": "Electronic Commerce",
+        "cluster": 20,
+        "relevance": 0.6380633115768433,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 20,
+                "relevance": 0.6380633115768433
+            }
+        ]
+    },
+    "1224": {
+        "id": 1224,
+        "name": " natural language processing",
+        "cluster": 24,
+        "relevance": 0.6194871068000793,
+        "roles": []
+    },
+    "3059": {
+        "id": 3059,
+        "name": " collaboration",
+        "cluster": 20,
+        "relevance": 0.7236843109130859,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 20,
+                "relevance": 0.6137549877166748
+            }
+        ]
+    },
+    "29": {
+        "id": 29,
+        "name": "social networks",
+        "cluster": 22,
+        "relevance": 0.7892839312553406,
+        "roles": []
+    },
+    "15675": {
+        "id": 15675,
+        "name": "collaborative filtering",
+        "cluster": 24,
+        "relevance": 0.7822377681732178,
+        "roles": []
+    },
+    "4010": {
+        "id": 4010,
+        "name": "web search",
+        "cluster": 20,
+        "relevance": 0.6098130941390991,
+        "roles": []
+    },
+    "2452": {
+        "id": 2452,
+        "name": " html5",
+        "cluster": 20,
+        "relevance": 0.7286609411239624,
+        "roles": []
+    },
+    "15300": {
+        "id": 15300,
+        "name": " medical software",
+        "cluster": 20,
+        "relevance": 0.6069223880767822,
+        "roles": []
+    },
+    "1554": {
+        "id": 1554,
+        "name": " new media",
+        "cluster": 20,
+        "relevance": 0.6639155149459839,
+        "roles": []
+    },
+    "16968": {
+        "id": 16968,
+        "name": " Web Development",
+        "cluster": 20,
+        "relevance": 0.698423445224762,
+        "roles": []
+    },
+    "17081": {
+        "id": 17081,
+        "name": " XSLT",
+        "cluster": 20,
+        "relevance": 0.6864171028137207,
+        "roles": []
+    },
+    "16311": {
+        "id": 16311,
+        "name": " Google Apps",
+        "cluster": 20,
+        "relevance": 0.6546027660369873,
+        "roles": []
+    },
+    "17084": {
+        "id": 17084,
+        "name": " Ruby",
+        "cluster": 20,
+        "relevance": 0.5872786045074463,
+        "roles": []
+    },
+    "290": {
+        "id": 290,
+        "name": "Moodle",
+        "cluster": 20,
+        "relevance": 0.6096817255020142,
+        "roles": []
+    },
+    "979": {
+        "id": 979,
+        "name": " databases",
+        "cluster": 24,
+        "relevance": 0.5999090671539307,
+        "roles": []
+    },
+    "17082": {
+        "id": 17082,
+        "name": " XML",
+        "cluster": 20,
+        "relevance": 0.5682919025421143,
+        "roles": []
+    },
+    "2696": {
+        "id": 2696,
+        "name": " HCI",
+        "cluster": 20,
+        "relevance": 0.7892839312553406,
+        "roles": []
+    },
+    "17083": {
+        "id": 17083,
+        "name": " CSS",
+        "cluster": 20,
+        "relevance": 0.6714707612991333,
+        "roles": []
+    },
+    "2632": {
+        "id": 2632,
+        "name": " usability",
+        "cluster": 20,
+        "relevance": 0.7430324554443359,
+        "roles": []
+    },
+    "15676": {
+        "id": 15676,
+        "name": " e-discovery",
+        "cluster": 20,
+        "relevance": 0.5876235961914062,
+        "roles": []
+    },
+    "2704": {
+        "id": 2704,
+        "name": " CSCW",
+        "cluster": 20,
+        "relevance": 0.6908188462257385,
+        "roles": []
+    },
+    "2702": {
+        "id": 2702,
+        "name": " Computer Systems",
+        "cluster": 20,
+        "relevance": 0.5365268588066101,
+        "roles": []
+    },
+    "16184": {
+        "id": 16184,
+        "name": " \tprivacy",
+        "cluster": 22,
+        "relevance": 0.5399760007858276,
+        "roles": []
+    },
+    "323": {
+        "id": 323,
+        "name": "algorithms",
+        "cluster": 24,
+        "relevance": 0.651515007019043,
+        "roles": []
+    },
+    "17086": {
+        "id": 17086,
+        "name": " SQL",
+        "cluster": 24,
+        "relevance": 0.5463487505912781,
+        "roles": []
+    },
+    "3326": {
+        "id": 3326,
+        "name": "New Venture Creation",
+        "cluster": 20,
+        "relevance": 0.540632963180542,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 20,
+                "relevance": 0.540632963180542
+            }
+        ]
+    },
+    "16230": {
+        "id": 16230,
+        "name": " trust",
+        "cluster": 22,
+        "relevance": 0.7633166909217834,
+        "roles": []
+    },
+    "580": {
+        "id": 580,
+        "name": "cyberpolitics",
+        "cluster": 20,
+        "relevance": 0.600763201713562,
+        "roles": []
+    },
+    "17080": {
+        "id": 17080,
+        "name": " Special Collections",
+        "cluster": 20,
+        "relevance": 0.5221225619316101,
+        "roles": []
+    },
+    "978": {
+        "id": 978,
+        "name": " computer science education",
+        "cluster": 24,
+        "relevance": 0.5766191482543945,
+        "roles": []
+    },
+    "1207": {
+        "id": 1207,
+        "name": " computer science",
+        "cluster": 24,
+        "relevance": 0.5766191482543945,
+        "roles": []
+    },
+    "15678": {
+        "id": 15678,
+        "name": " visual analytics",
+        "cluster": 24,
+        "relevance": 0.6266317963600159,
+        "roles": []
+    },
+    "2703": {
+        "id": 2703,
+        "name": " Peer to Peer",
+        "cluster": 20,
+        "relevance": 0.6395578980445862,
+        "roles": []
+    },
+    "319": {
+        "id": 319,
+        "name": "networks",
+        "cluster": 20,
+        "relevance": 0.5251118540763855,
+        "roles": []
+    },
+    "1022": {
+        "id": 1022,
+        "name": " visual paradigms",
+        "cluster": 20,
+        "relevance": 0.6174997687339783,
+        "roles": []
+    },
+    "4005": {
+        "id": 4005,
+        "name": "Web Science",
+        "cluster": 20,
+        "relevance": 0.580363929271698,
+        "roles": []
+    },
+    "2629": {
+        "id": 2629,
+        "name": "eye-tracking",
+        "cluster": 20,
+        "relevance": 0.5951459407806396,
+        "roles": []
+    },
+    "1037": {
+        "id": 1037,
+        "name": " graphical user interface",
+        "cluster": 20,
+        "relevance": 0.7863274812698364,
+        "roles": []
+    },
+    "581": {
+        "id": 581,
+        "name": "e-democracy",
+        "cluster": 20,
+        "relevance": 0.6627164483070374,
+        "roles": []
+    },
+    "1032": {
+        "id": 1032,
+        "name": " civic engagement",
+        "cluster": 20,
+        "relevance": 0.6339079141616821,
+        "roles": []
+    },
+    "1023": {
+        "id": 1023,
+        "name": " augmented reality",
+        "cluster": 20,
+        "relevance": 0.6776956915855408,
+        "roles": []
+    },
+    "2630": {
+        "id": 2630,
+        "name": " intelligent user interfaces",
+        "cluster": 20,
+        "relevance": 0.7849642038345337,
+        "roles": []
+    },
+    "352": {
+        "id": 352,
+        "name": "cultural studies",
+        "cluster": 22,
+        "relevance": 0.6830828785896301,
+        "roles": []
+    },
+    "758": {
+        "id": 758,
+        "name": "ethnography",
+        "cluster": 24,
+        "relevance": 0.7162275910377502,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 24,
+                "relevance": 0.7162275910377502
+            }
+        ]
+    },
+    "940": {
+        "id": 940,
+        "name": " Internet",
+        "cluster": 20,
+        "relevance": 0.5657625198364258,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 20,
+                "relevance": 0.5421112179756165
+            }
+        ]
+    },
+    "17055": {
+        "id": 17055,
+        "name": " social ontology",
+        "cluster": 22,
+        "relevance": 0.794704020023346,
+        "roles": []
+    },
+    "11334": {
+        "id": 11334,
+        "name": "digital humanities",
+        "cluster": 20,
+        "relevance": 0.5582401156425476,
+        "roles": []
+    },
+    "195": {
+        "id": 195,
+        "name": "economic sociology",
+        "cluster": 22,
+        "relevance": 0.6597108244895935,
+        "roles": []
+    },
+    "931": {
+        "id": 931,
+        "name": " public space",
+        "cluster": 22,
+        "relevance": 0.6664776802062988,
+        "roles": []
+    },
+    "227": {
+        "id": 227,
+        "name": "artificial intelligence",
+        "cluster": 24,
+        "relevance": 0.7563198804855347,
+        "roles": []
+    },
+    "250": {
+        "id": 250,
+        "name": "critical theory",
+        "cluster": 22,
+        "relevance": 0.668070912361145,
+        "roles": []
+    },
+    "289": {
+        "id": 289,
+        "name": "learning management systems",
+        "cluster": 24,
+        "relevance": 0.6419394612312317,
+        "roles": []
+    },
+    "1020": {
+        "id": 1020,
+        "name": " new media art",
+        "cluster": 20,
+        "relevance": 0.5292344093322754,
+        "roles": []
+    },
+    "91": {
+        "id": 91,
+        "name": "identity",
+        "cluster": 22,
+        "relevance": 0.7464486956596375,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 22,
+                "relevance": 0.6660178303718567
+            }
+        ]
+    },
+    "15864": {
+        "id": 15864,
+        "name": " computational modeling",
+        "cluster": 24,
+        "relevance": 0.7055023908615112,
+        "roles": []
+    },
+    "927": {
+        "id": 927,
+        "name": " advertisements",
+        "cluster": 20,
+        "relevance": 0.5278218388557434,
+        "roles": []
+    },
+    "1434": {
+        "id": 1434,
+        "name": " Epistemology",
+        "cluster": 22,
+        "relevance": 0.6254821419715881,
+        "roles": []
+    },
+    "1024": {
+        "id": 1024,
+        "name": " military and technology",
+        "cluster": 22,
+        "relevance": 0.5829097032546997,
+        "roles": []
+    },
+    "2214": {
+        "id": 2214,
+        "name": " Instructional Technology",
+        "cluster": 22,
+        "relevance": 0.5829097032546997,
+        "roles": []
+    },
+    "16321": {
+        "id": 16321,
+        "name": " learning analytics",
+        "cluster": 24,
+        "relevance": 0.787312924861908,
+        "roles": []
+    },
+    "955": {
+        "id": 955,
+        "name": " Research methods",
+        "cluster": 24,
+        "relevance": 0.7533798813819885,
+        "roles": []
+    },
+    "11140": {
+        "id": 11140,
+        "name": "Assistive Technology",
+        "cluster": 20,
+        "relevance": 0.6000405550003052,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 20,
+                "relevance": 0.569622278213501
+            }
+        ]
+    },
+    "2449": {
+        "id": 2449,
+        "name": " javascript",
+        "cluster": 20,
+        "relevance": 0.5389905571937561,
+        "roles": []
+    },
+    "2740": {
+        "id": 2740,
+        "name": " Duke Ellington",
+        "cluster": 20,
+        "relevance": 0.8166307210922241,
+        "roles": []
+    },
+    "2741": {
+        "id": 2741,
+        "name": " Miles Davis",
+        "cluster": 20,
+        "relevance": 0.7242427468299866,
+        "roles": []
+    },
+    "2743": {
+        "id": 2743,
+        "name": " music of the bebop and hard bop eras",
+        "cluster": 20,
+        "relevance": 0.7144373655319214,
+        "roles": []
+    },
+    "2737": {
+        "id": 2737,
+        "name": " race and American music",
+        "cluster": 20,
+        "relevance": 0.6354681849479675,
+        "roles": []
+    },
+    "2738": {
+        "id": 2738,
+        "name": " hip-hop",
+        "cluster": 20,
+        "relevance": 0.5991042852401733,
+        "roles": []
+    },
+    "2735": {
+        "id": 2735,
+        "name": "Jazz performance",
+        "cluster": 20,
+        "relevance": 0.54173344373703,
+        "roles": []
+    },
+    "1296": {
+        "id": 1296,
+        "name": " multimedia",
+        "cluster": 20,
+        "relevance": 0.6380797028541565,
+        "roles": []
+    },
+    "15679": {
+        "id": 15679,
+        "name": " information visualization",
+        "cluster": 24,
+        "relevance": 0.724751889705658,
+        "roles": []
+    },
+    "16310": {
+        "id": 16310,
+        "name": " social software",
+        "cluster": 24,
+        "relevance": 0.5327985286712646,
+        "roles": []
+    },
+    "2183": {
+        "id": 2183,
+        "name": " robots",
+        "cluster": 24,
+        "relevance": 0.5338332653045654,
+        "roles": []
+    },
+    "936": {
+        "id": 936,
+        "name": " Turkey",
+        "cluster": 20,
+        "relevance": 0.6913279891014099,
+        "roles": []
+    },
+    "1591": {
+        "id": 1591,
+        "name": " Europe",
+        "cluster": 20,
+        "relevance": 0.6450929641723633,
+        "roles": []
+    },
+    "935": {
+        "id": 935,
+        "name": " Greece",
+        "cluster": 20,
+        "relevance": 0.6378990411758423,
+        "roles": []
+    },
+    "934": {
+        "id": 934,
+        "name": " Cyprus",
+        "cluster": 20,
+        "relevance": 0.5751737952232361,
+        "roles": []
+    },
+    "10398": {
+        "id": 10398,
+        "name": "France",
+        "cluster": 20,
+        "relevance": 0.5667480230331421,
+        "roles": []
+    },
+    "1027": {
+        "id": 1027,
+        "name": " neoliberalism",
+        "cluster": 22,
+        "relevance": 0.6045079827308655,
+        "roles": []
+    },
+    "577": {
+        "id": 577,
+        "name": "feminism",
+        "cluster": 22,
+        "relevance": 0.6023563742637634,
+        "roles": []
+    },
+    "930": {
+        "id": 930,
+        "name": " feminists",
+        "cluster": 22,
+        "relevance": 0.6023563742637634,
+        "roles": []
+    },
+    "50": {
+        "id": 50,
+        "name": "nationalism",
+        "cluster": 22,
+        "relevance": 0.6621416211128235,
+        "roles": []
+    },
+    "956": {
+        "id": 956,
+        "name": " case-based reasoning",
+        "cluster": 24,
+        "relevance": 0.8430742025375366,
+        "roles": []
+    },
+    "16198": {
+        "id": 16198,
+        "name": " predictive analytics",
+        "cluster": 24,
+        "relevance": 0.7878385186195374,
+        "roles": []
+    },
+    "1888": {
+        "id": 1888,
+        "name": " learning",
+        "cluster": 24,
+        "relevance": 0.6841998100280762,
+        "roles": []
+    },
+    "966": {
+        "id": 966,
+        "name": " critical thinking",
+        "cluster": 24,
+        "relevance": 0.6833949685096741,
+        "roles": []
+    },
+    "1429": {
+        "id": 1429,
+        "name": " cognition",
+        "cluster": 22,
+        "relevance": 0.7702807188034058,
+        "roles": []
+    },
+    "1431": {
+        "id": 1431,
+        "name": " embodied cognition",
+        "cluster": 24,
+        "relevance": 0.6519913077354431,
+        "roles": []
+    },
+    "12539": {
+        "id": 12539,
+        "name": "psychology of language",
+        "cluster": 24,
+        "relevance": 0.6503652334213257,
+        "roles": []
+    },
+    "1218": {
+        "id": 1218,
+        "name": " computational social science",
+        "cluster": 24,
+        "relevance": 0.6414302587509155,
+        "roles": []
+    },
+    "1929": {
+        "id": 1929,
+        "name": " structural equation modeling",
+        "cluster": 24,
+        "relevance": 0.7308619022369385,
+        "roles": []
+    },
+    "1928": {
+        "id": 1928,
+        "name": " research design",
+        "cluster": 24,
+        "relevance": 0.7318637371063232,
+        "roles": []
+    },
+    "320": {
+        "id": 320,
+        "name": "probability",
+        "cluster": 24,
+        "relevance": 0.683821976184845,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 24,
+                "relevance": 0.683821976184845
+            }
+        ]
+    },
+    "230": {
+        "id": 230,
+        "name": "cognitive science",
+        "cluster": 24,
+        "relevance": 0.5978232026100159,
+        "roles": []
+    },
+    "288": {
+        "id": 288,
+        "name": "metacognition",
+        "cluster": 22,
+        "relevance": 0.7603439092636108,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 22,
+                "relevance": 0.7603439092636108
+            }
+        ]
+    },
+    "939": {
+        "id": 939,
+        "name": " active learning",
+        "cluster": 22,
+        "relevance": 0.6595958471298218,
+        "roles": []
+    },
+    "2178": {
+        "id": 2178,
+        "name": " cognitive psychology",
+        "cluster": 22,
+        "relevance": 0.8022921681404114,
+        "roles": []
+    },
+    "893": {
+        "id": 893,
+        "name": "memory",
+        "cluster": 22,
+        "relevance": 0.5989893078804016,
+        "roles": []
+    },
+    "1437": {
+        "id": 1437,
+        "name": " neural plasticity",
+        "cluster": 22,
+        "relevance": 0.6131801605224609,
+        "roles": []
+    },
+    "977": {
+        "id": 977,
+        "name": " data visualization",
+        "cluster": 24,
+        "relevance": 0.6916072368621826,
+        "roles": []
+    },
+    "1430": {
+        "id": 1430,
+        "name": " Cyborgs",
+        "cluster": 24,
+        "relevance": 0.5722501873970032,
+        "roles": []
+    },
+    "2180": {
+        "id": 2180,
+        "name": " short-term memory",
+        "cluster": 22,
+        "relevance": 0.6847417950630188,
+        "roles": []
+    },
+    "126": {
+        "id": 126,
+        "name": "consciousness",
+        "cluster": 22,
+        "relevance": 0.660991907119751,
+        "roles": []
+    },
+    "2865": {
+        "id": 2865,
+        "name": " actuarial science",
+        "cluster": 24,
+        "relevance": 0.6315920352935791,
+        "roles": []
+    },
+    "1129": {
+        "id": 1129,
+        "name": "quantitative reasoning",
+        "cluster": 24,
+        "relevance": 0.5767012238502502,
+        "roles": []
+    },
+    "2581": {
+        "id": 2581,
+        "name": " math education",
+        "cluster": 24,
+        "relevance": 0.579296350479126,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 24,
+                "relevance": 0.579296350479126
+            }
+        ]
+    },
+    "2638": {
+        "id": 2638,
+        "name": " psychology of programming",
+        "cluster": 22,
+        "relevance": 0.6456349492073059,
+        "roles": []
+    },
+    "1827": {
+        "id": 1827,
+        "name": " interdisciplinary studies",
+        "cluster": 22,
+        "relevance": 0.6504309177398682,
+        "roles": []
+    },
+    "2518": {
+        "id": 2518,
+        "name": " emotion",
+        "cluster": 22,
+        "relevance": 0.7587835192680359,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 22,
+                "relevance": 0.7587835192680359
+            }
+        ]
+    },
+    "124": {
+        "id": 124,
+        "name": "philosophy of mind",
+        "cluster": 24,
+        "relevance": 0.5438029170036316,
+        "roles": []
+    },
+    "353": {
+        "id": 353,
+        "name": "film studies",
+        "cluster": 22,
+        "relevance": 0.5507012605667114,
+        "roles": []
+    },
+    "211": {
+        "id": 211,
+        "name": "neuroscience",
+        "cluster": 22,
+        "relevance": 0.5947025418281555,
+        "roles": []
+    },
+    "2182": {
+        "id": 2182,
+        "name": " applied cognitive psychology",
+        "cluster": 22,
+        "relevance": 0.6489527225494385,
+        "roles": []
+    },
+    "938": {
+        "id": 938,
+        "name": " Scholarship of Teaching and Learning",
+        "cluster": 24,
+        "relevance": 0.5307289958000183,
+        "roles": []
+    },
+    "965": {
+        "id": 965,
+        "name": " reading",
+        "cluster": 22,
+        "relevance": 0.6064624786376953,
+        "roles": []
+    },
+    "953": {
+        "id": 953,
+        "name": " Cultural psychology",
+        "cluster": 22,
+        "relevance": 0.8238903880119324,
+        "roles": []
+    },
+    "285": {
+        "id": 285,
+        "name": "learning and teaching",
+        "cluster": 24,
+        "relevance": 0.5417827367782593,
+        "roles": []
+    },
+    "1849": {
+        "id": 1849,
+        "name": " communication",
+        "cluster": 22,
+        "relevance": 0.6532887816429138,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 22,
+                "relevance": 0.6505952477455139
+            }
+        ]
+    },
+    "959": {
+        "id": 959,
+        "name": " faculty evaluation",
+        "cluster": 24,
+        "relevance": 0.5458888411521912,
+        "roles": []
+    },
+    "1432": {
+        "id": 1432,
+        "name": " Philosophy of language",
+        "cluster": 22,
+        "relevance": 0.5483360886573792,
+        "roles": []
+    },
+    "17059": {
+        "id": 17059,
+        "name": " evolutionary economics",
+        "cluster": 24,
+        "relevance": 0.6179925203323364,
+        "roles": []
+    },
+    "229": {
+        "id": 229,
+        "name": "robotics",
+        "cluster": 24,
+        "relevance": 0.5099847912788391,
+        "roles": []
+    },
+    "176": {
+        "id": 176,
+        "name": "bioethics",
+        "cluster": 22,
+        "relevance": 0.5817764401435852,
+        "roles": []
+    },
+    "2864": {
+        "id": 2864,
+        "name": " actuary",
+        "cluster": 24,
+        "relevance": 0.6088769435882568,
+        "roles": []
+    },
+    "2184": {
+        "id": 2184,
+        "name": " simulation modeling",
+        "cluster": 24,
+        "relevance": 0.554905891418457,
+        "roles": []
+    },
+    "2867": {
+        "id": 2867,
+        "name": "  American Statistical Association",
+        "cluster": 24,
+        "relevance": 0.5813493728637695,
+        "roles": []
+    },
+    "268": {
+        "id": 268,
+        "name": "parallel computing",
+        "cluster": 24,
+        "relevance": 0.5009841918945312,
+        "roles": []
+    },
+    "145": {
+        "id": 145,
+        "name": "economics",
+        "cluster": 24,
+        "relevance": 0.6257777810096741,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 24,
+                "relevance": 0.6257777810096741
+            }
+        ]
+    },
+    "937": {
+        "id": 937,
+        "name": " Team-Based Learning",
+        "cluster": 22,
+        "relevance": 0.6803072094917297,
+        "roles": []
+    },
+    "773": {
+        "id": 773,
+        "name": "archaeology",
+        "cluster": 24,
+        "relevance": 0.6170234680175781,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 24,
+                "relevance": 0.6170234680175781
+            }
+        ]
+    },
+    "3281": {
+        "id": 3281,
+        "name": "Competitive Strategy",
+        "cluster": 24,
+        "relevance": 0.6084169745445251,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 24,
+                "relevance": 0.6084169745445251
+            }
+        ]
+    },
+    "17058": {
+        "id": 17058,
+        "name": " social economics",
+        "cluster": 24,
+        "relevance": 0.6071687340736389,
+        "roles": []
+    },
+    "1281": {
+        "id": 1281,
+        "name": " cross-cultural psychology",
+        "cluster": 22,
+        "relevance": 0.7714961171150208,
+        "roles": []
+    },
+    "890": {
+        "id": 890,
+        "name": "psychology",
+        "cluster": 22,
+        "relevance": 0.7539218664169312,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 22,
+                "relevance": 0.7539218664169312
+            }
+        ]
+    },
+    "170": {
+        "id": 170,
+        "name": "survey methodology",
+        "cluster": 24,
+        "relevance": 0.580528199672699,
+        "roles": []
+    },
+    "12541": {
+        "id": 12541,
+        "name": " deception",
+        "cluster": 22,
+        "relevance": 0.7162440419197083,
+        "roles": []
+    },
+    "573": {
+        "id": 573,
+        "name": "the rhetoric of social movements",
+        "cluster": 24,
+        "relevance": 0.5751573443412781,
+        "roles": []
+    },
+    "17057": {
+        "id": 17057,
+        "name": " institutional economics",
+        "cluster": 24,
+        "relevance": 0.5711169242858887,
+        "roles": []
+    },
+    "2541": {
+        "id": 2541,
+        "name": " developmental psychology",
+        "cluster": 22,
+        "relevance": 0.8182074427604675,
+        "roles": []
+    },
+    "2856": {
+        "id": 2856,
+        "name": "Statistics Education Research",
+        "cluster": 24,
+        "relevance": 0.5607858896255493,
+        "roles": []
+    },
+    "41": {
+        "id": 41,
+        "name": "clinical psychology",
+        "cluster": 22,
+        "relevance": 0.7013798356056213,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 22,
+                "relevance": 0.7013798356056213
+            }
+        ]
+    },
+    "570": {
+        "id": 570,
+        "name": "rhetoric",
+        "cluster": 22,
+        "relevance": 0.7722187638282776,
+        "roles": []
+    },
+    "1710": {
+        "id": 1710,
+        "name": " ecological economics",
+        "cluster": 22,
+        "relevance": 0.5905963778495789,
+        "roles": []
+    },
+    "286": {
+        "id": 286,
+        "name": "pedagogy",
+        "cluster": 22,
+        "relevance": 0.7067835330963135,
+        "roles": []
+    },
+    "703": {
+        "id": 703,
+        "name": "leadership development",
+        "cluster": 22,
+        "relevance": 0.7012156248092651,
+        "roles": [
+            {
+                "role": {
+                    "enumType": "org.macademia.nbrviz.InterestRole$RoleType",
+                    "name": "CHILD_OF_RELATED"
+                },
+                "parentId": 22,
+                "relevance": 0.7012156248092651
+            }
+        ]
+    },
+    "16183": {
+        "id": 16183,
+        "name": " propaganda",
+        "cluster": 22,
+        "relevance": 0.5928301215171814,
+        "roles": []
+    },
+    "1279": {
+        "id": 1279,
+        "name": " health psychology",
+        "cluster": 22,
+        "relevance": 0.7294821739196777,
+        "roles": []
+    },
+    "1931": {
+        "id": 1931,
+        "name": " psychophysiology",
+        "cluster": 22,
+        "relevance": 0.6736388206481934,
+        "roles": []
+    },
+    "2857": {
+        "id": 2857,
+        "name": " Attitudes",
+        "cluster": 22,
+        "relevance": 0.7928151488304138,
+        "roles": []
+    },
+    "1035": {
+        "id": 1035,
+        "name": " theories of nature",
+        "cluster": 22,
+        "relevance": 0.5036285519599915,
+        "roles": []
+    },
+    "1940": {
+        "id": 1940,
+        "name": " HLM",
+        "cluster": 24,
+        "relevance": 0.5074061155319214,
+        "roles": []
+    },
+    "16004": {
+        "id": 16004,
+        "name": " Capability approach",
+        "cluster": 22,
+        "relevance": 0.6832799911499023,
+        "roles": []
+    },
+    "1435": {
+        "id": 1435,
+        "name": " Metaphysics",
+        "cluster": 22,
+        "relevance": 0.6038181185722351,
+        "roles": []
+    },
+    "1021": {
+        "id": 1021,
+        "name": " Situationism",
+        "cluster": 22,
+        "relevance": 0.5822362899780273,
+        "roles": []
+    },
+    "12540": {
+        "id": 12540,
+        "name": " conversation",
+        "cluster": 22,
+        "relevance": 0.6231826543807983,
+        "roles": []
+    },
+    "1029": {
+        "id": 1029,
+        "name": " theories of value",
+        "cluster": 22,
+        "relevance": 0.6161201000213623,
+        "roles": []
+    },
+    "720": {
+        "id": 720,
+        "name": "translation studies",
+        "cluster": 22,
+        "relevance": 0.5064699649810791,
+        "roles": []
+    },
+    "2250": {
+        "id": 2250,
+        "name": " archives",
+        "cluster": 22,
+        "relevance": 0.8201291561126709,
+        "roles": []
+    },
+    "140": {
+        "id": 140,
+        "name": "metaphor",
+        "cluster": 22,
+        "relevance": 0.812606692314148,
+        "roles": []
+    },
+    "1542": {
+        "id": 1542,
+        "name": " poetry",
+        "cluster": 22,
+        "relevance": 0.6301630735397339,
+        "roles": []
+    },
+    "929": {
+        "id": 929,
+        "name": " conservatism",
+        "cluster": 22,
+        "relevance": 0.6239710450172424,
+        "roles": []
+    },
+    "617": {
+        "id": 617,
+        "name": "philosophy",
+        "cluster": 22,
+        "relevance": 0.6097802519798279,
+        "roles": []
+    },
+    "87": {
+        "id": 87,
+        "name": "war",
+        "cluster": 22,
+        "relevance": 0.560867965221405,
+        "roles": []
+    },
+    "576": {
+        "id": 576,
+        "name": "women's rights",
+        "cluster": 22,
+        "relevance": 0.5450839996337891,
+        "roles": []
+    },
+    "1087": {
+        "id": 1087,
+        "name": " Fiction",
+        "cluster": 22,
+        "relevance": 0.5410435795783997,
+        "roles": []
+    },
+    "16069": {
+        "id": 16069,
+        "name": " irreligion",
+        "cluster": 22,
+        "relevance": 0.5354592800140381,
+        "roles": []
+    },
+    "12189": {
+        "id": 12189,
+        "name": "novel",
+        "cluster": 22,
+        "relevance": 0.5140252709388733,
+        "roles": []
+    },
+    "3088": {
+        "id": 3088,
+        "name": " elections",
+        "cluster": 22,
+        "relevance": 0.5031686425209045,
+        "roles": []
+    },
+    "15866": {
+        "id": 15866,
+        "name": " parenting",
+        "cluster": 22,
+        "relevance": 0.7040077447891235,
+        "roles": []
+    },
+    "1925": {
+        "id": 1925,
+        "name": " religiousness",
+        "cluster": 22,
+        "relevance": 0.6896527409553528,
+        "roles": []
+    },
+    "2874": {
+        "id": 2874,
+        "name": " perceptions of statistics",
+        "cluster": 22,
+        "relevance": 0.6578384041786194,
+        "roles": []
+    },
+    "15868": {
+        "id": 15868,
+        "name": " sexual violence prevention",
+        "cluster": 22,
+        "relevance": 0.6306065320968628,
+        "roles": []
+    },
+    "2634": {
+        "id": 2634,
+        "name": " gaze interaction",
+        "cluster": 22,
+        "relevance": 0.5781137347221375,
+        "roles": []
+    },
+    "2858": {
+        "id": 2858,
+        "name": " Attitudes Toward Statistics",
+        "cluster": 22,
+        "relevance": 0.5614756941795349,
+        "roles": []
+    },
+    "15863": {
+        "id": 15863,
+        "name": "adolescent development",
+        "cluster": 22,
+        "relevance": 0.550471305847168,
+        "roles": []
+    },
+    "928": {
+        "id": 928,
+        "name": " speech",
+        "cluster": 22,
+        "relevance": 0.5488945245742798,
+        "roles": []
+    },
+    "1927": {
+        "id": 1927,
+        "name": " stress and coping",
+        "cluster": 22,
+        "relevance": 0.5472356677055359,
+        "roles": []
+    },
+    "1042": {
+        "id": 1042,
+        "name": " mediation",
+        "cluster": 22,
+        "relevance": 0.5455932021141052,
+        "roles": []
+    },
+    "958": {
+        "id": 958,
+        "name": " learning outcomes",
+        "cluster": 22,
+        "relevance": 0.527444064617157,
+        "roles": []
+    },
+    "687": {
+        "id": 687,
+        "name": "creative writing",
+        "cluster": 22,
+        "relevance": 0.5270827412605286,
+        "roles": []
+    },
+    "1924": {
+        "id": 1924,
+        "name": "forgiveness and health",
+        "cluster": 22,
+        "relevance": 0.5135161280632019,
+        "roles": []
+    },
+    "1926": {
+        "id": 1926,
+        "name": " spirituality",
+        "cluster": 22,
+        "relevance": 0.5054845213890076,
+        "roles": []
+    },
+    "12355": {
+        "id": 12355,
+        "name": "graphic novels",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "1433": {
+        "id": 1433,
+        "name": " Science Fiction",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "2693": {
+        "id": 2693,
+        "name": " Japanese",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "1438": {
+        "id": 1438,
+        "name": " Evolution",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "1624": {
+        "id": 1624,
+        "name": " network analysis",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "16182": {
+        "id": 16182,
+        "name": " misinformation",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "65": {
+        "id": 65,
+        "name": "philosophy of technology",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "2404": {
+        "id": 2404,
+        "name": " teaching writing",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "558": {
+        "id": 558,
+        "name": "Russian literature",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "944": {
+        "id": 944,
+        "name": " grant writing",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "287": {
+        "id": 287,
+        "name": "assessment",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "3032": {
+        "id": 3032,
+        "name": " open access",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "11330": {
+        "id": 11330,
+        "name": "faculty-student collaborative research",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "16312": {
+        "id": 16312,
+        "name": " CALL",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "823": {
+        "id": 823,
+        "name": "sustainability",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "16080": {
+        "id": 16080,
+        "name": " approaches to individual studies courses",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "16068": {
+        "id": 16068,
+        "name": " judgment and decision making",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "2179": {
+        "id": 2179,
+        "name": " collaborative memory",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "2181": {
+        "id": 2181,
+        "name": " applied memory",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "1016": {
+        "id": 1016,
+        "name": " writing",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "15867": {
+        "id": 15867,
+        "name": " parental monitoring",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "15865": {
+        "id": 15865,
+        "name": " bio-markers",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "933": {
+        "id": 933,
+        "name": " memorials",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "1033": {
+        "id": 1033,
+        "name": " rupture of the virtual",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "1034": {
+        "id": 1034,
+        "name": " immedia",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "1019": {
+        "id": 1019,
+        "name": "new media theory",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "1036": {
+        "id": 1036,
+        "name": " media philosophy",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "1038": {
+        "id": 1038,
+        "name": " site-specific art",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "1039": {
+        "id": 1039,
+        "name": " site specificity",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "1025": {
+        "id": 1025,
+        "name": " virtuality",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "1026": {
+        "id": 1026,
+        "name": " virtual",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "1028": {
+        "id": 1028,
+        "name": " cultural goods",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "1031": {
+        "id": 1031,
+        "name": " community media",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "1040": {
+        "id": 1040,
+        "name": " materiality",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "500": {
+        "id": 500,
+        "name": "digital media",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "795": {
+        "id": 795,
+        "name": "Marxism and aesthetic and cultural analysis",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "127": {
+        "id": 127,
+        "name": "embodiment",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "72": {
+        "id": 72,
+        "name": "Africa",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "17056": {
+        "id": 17056,
+        "name": " morphogenetic approach",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "17060": {
+        "id": 17060,
+        "name": " (bio)technological innovations.",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "17054": {
+        "id": 17054,
+        "name": " Veblen",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "1421": {
+        "id": 1421,
+        "name": " philosophy of biology",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "2744": {
+        "id": 2744,
+        "name": " jazz and the civil rights movement",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "2739": {
+        "id": 2739,
+        "name": " rap",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "12309": {
+        "id": 12309,
+        "name": "publishing",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "292": {
+        "id": 292,
+        "name": "faculty development",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "926": {
+        "id": 926,
+        "name": " campaigns",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "2708": {
+        "id": 2708,
+        "name": " outdoor",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "2709": {
+        "id": 2709,
+        "name": " nature",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "2707": {
+        "id": 2707,
+        "name": " hiking",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "2631": {
+        "id": 2631,
+        "name": " adaptivity",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "2633": {
+        "id": 2633,
+        "name": " gaze tracking",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "11592": {
+        "id": 11592,
+        "name": "short story",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "2140": {
+        "id": 2140,
+        "name": " comic books",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "2522": {
+        "id": 2522,
+        "name": "Latin American Literature",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "17072": {
+        "id": 17072,
+        "name": " Contemporary Fiction",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "17073": {
+        "id": 17073,
+        "name": " Asian Literature",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "960": {
+        "id": 960,
+        "name": " self-regulation",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "275": {
+        "id": 275,
+        "name": "isotopes",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "274": {
+        "id": 274,
+        "name": "geochemistry",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "273": {
+        "id": 273,
+        "name": "petrology",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "279": {
+        "id": 279,
+        "name": "tectonics",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "278": {
+        "id": 278,
+        "name": "crustal evolution",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "277": {
+        "id": 277,
+        "name": "mantle evolution",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "276": {
+        "id": 276,
+        "name": "environmental chemistry",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "283": {
+        "id": 283,
+        "name": "Precambrian geology",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "282": {
+        "id": 282,
+        "name": "rifting",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "281": {
+        "id": 281,
+        "name": "ophiolites",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "280": {
+        "id": 280,
+        "name": "volcanism",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "284": {
+        "id": 284,
+        "name": "planetary geology",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "271": {
+        "id": 271,
+        "name": "geology",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "704": {
+        "id": 704,
+        "name": "liberal arts education",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "969": {
+        "id": 969,
+        "name": " reading reflections",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "968": {
+        "id": 968,
+        "name": " exam wrappers",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "291": {
+        "id": 291,
+        "name": "learning abroad",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "963": {
+        "id": 963,
+        "name": " liberal learning",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "961": {
+        "id": 961,
+        "name": " affective domain",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "967": {
+        "id": 967,
+        "name": " knowledge surveys",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "964": {
+        "id": 964,
+        "name": " Tanzania",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "579": {
+        "id": 579,
+        "name": "political humor",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "519": {
+        "id": 519,
+        "name": "voting and elections",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "941": {
+        "id": 941,
+        "name": " public address",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    },
+    "932": {
+        "id": 932,
+        "name": " statues",
+        "cluster": -1,
+        "relevance": -1,
+        "roles": []
+    }
+}, "rootId": 16, "rootClass": "person", "clusterMap": {
+    "20": [940, 1783, 3326, 3665, 11140, 3059, 2453],
+    "24": [2581, 19, 773, 3281, 320, 145, 758],
+    "22": [288, 703, 1849, 2518, 41, 890, 91]
+}}
+
+//clusterMap is just a stripped down version of hubs
+//we need to build the relatednessMap
