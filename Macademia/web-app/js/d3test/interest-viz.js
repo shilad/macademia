@@ -559,7 +559,7 @@ MC.InterestViz.prototype.hoverVizRootChild = function(self,relatednessMap){
             var interestID = e.id;
             var hubRootID = self.findHubRootID(interestID);
             var hubRootMap = relatednessMap[hubRootID];
-            self.activateHubRootAndChildren(hubRootID, hubRootMap, self, true);
+            self.activateHubRootAndChildren(hubRootID, hubRootMap, self, false);
 
             d3.selectAll('g.person')
                 .attr('opacity',function(d){
@@ -571,7 +571,7 @@ MC.InterestViz.prototype.hoverVizRootChild = function(self,relatednessMap){
                         return self.inactiveOpacity;
                     }
                 });
-
+            self.highlightLabel(d3.select(this));
         })
         .on("mouseout", this.mouseOut);
 };
@@ -592,7 +592,7 @@ MC.InterestViz.prototype.findHubRootID = function(interestID){
 MC.InterestViz.prototype.highlightLabel = function(selector){
     selector
         .selectAll('g.label')
-        .attr('fill',self.activeColor);
+        .attr('fill',this.activeColor);
 };
 MC.InterestViz.prototype.activateHubRootAndChildren = function(mapID, map, self, childText){      //ChildText should be a bool to say whether or not to color the children's label
     d3.selectAll('g.hubRoot, g.interest')
