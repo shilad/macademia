@@ -239,7 +239,7 @@ MC.InterestViz.prototype.startPeople = function() {
         this.createPersonLayoutView()
         this.createPersonLayout();
 
-
+        this.enableHoverHighlight();
 
     }, this), 2503);
 
@@ -444,7 +444,7 @@ MC.InterestViz.prototype.enableHoverHighlight = function(){
     //hover child interest around hubRoot
 
     //hover vizRoot
-
+    this.hoverVizRoot();
     //hover child around vizRoot
 
 }
@@ -470,6 +470,20 @@ MC.InterestViz.prototype.hoverVizRoot = function(){
     //Interest Centric, highlight all the people related to the interest
 
     //Person Centric,
+    var vizID = this.root.id;
+    this.container
+        .selectAll('g.hub, g.person')
+        .transition()
+        .duration(500)
+        .attr('opacity',function(d){
+            if(d[0]&&d[0].id==vizID){
+                return 1.0;
+            }
+            else{
+                return 0.3;
+            }
+        });
+
 
 }
 
