@@ -43,27 +43,10 @@
     background-color: #eaeaea;
     border: 3px dotted #ffffff;
     font: 13px Georgia;
-    color: pink;
+    color: black;
     border-radius: 5px;
     padding: 10px 15px;
 }
-
-/*div[class=ttDesc] {*/
-    /*display:none;*/
-/*}*/
-
-/*div[class=ttName]{*/
-    /*display:none;*/
-/*}*/
-
-
-
-
-
-
-
-
-
 
 
 svg {
@@ -87,7 +70,7 @@ var interests = {
     14304: {"id": 14304, "name": "Jazz"},
     2869: {"id": 2869, "name": "Statistics"},
     2851: {"id": 2851, "name": "Jay-Z"},
-    2010: {"id": 2010, "name": "Mathh"},
+    2010: {"id": 2010, "name": "Math"},
     3935: {"id": 3935, "name": "html5"},
     2128: {"id": 2128, "name": "javascript"},
     1134: {"id": 1134, "name": "Web Development"},

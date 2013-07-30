@@ -503,14 +503,14 @@ MC.InterestViz.prototype.toolTipHover = function(){
             {
                 if(d.id in people)
                 {
-                    if(d.interests){
+                    if(d.interests){  //this grabs the people data based on id
                         jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + d.id, function(data) {
                             $('#div1').html(data);
                         });
 //                        interestList = self.getPeoplesInterests(d);
 //                        textBox = "Name: " + people[d.id].name + '<br/>' + "Interests: " + interestList;
                     }
-                    else{
+                    else{   //this grabs the interest data based on id
                          jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + d.id, function(data) {
                             $('#div1').html(data);
                         });
