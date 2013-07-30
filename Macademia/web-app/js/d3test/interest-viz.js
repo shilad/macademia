@@ -86,6 +86,12 @@ MC.InterestViz = function(params) {
     this.root = params.root;
     this.svg = params.svg;
 
+    // .. = .. || default_value
+    this.inactiveOpacity =  params.inactiveOpacity || 0.2;
+    this.activeOpacity = params.activeOpacity || 1;
+    this.inactiveColor = params.inactiveColor || "#C0C0C0" ;
+    this.activeColor = params.activeColor || "black";
+
 //    this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
