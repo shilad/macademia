@@ -451,6 +451,7 @@ MC.InterestViz.prototype.enableHoverHighlight = function(){
     this.hoverVizRoot();
     this.hoverHubRoot();
     this.hoverVizRootChild();
+    this.hoverPerson();
     //hover child around vizRoot
 
 };
@@ -458,7 +459,65 @@ MC.InterestViz.prototype.enableHoverHighlight = function(){
 MC.InterestViz.prototype.hoverPerson = function(){
     //Highlight the vizRoot, interests around vizRoot and hubRoot, hubRoot(if it is a direct interest?)
 
+    var self = this;
+    var relatednessMap=this.relatednessMap;
+    d3.selectAll('g.person').on('mouseover',function(e){
+        console.log("Person Selected");
+    });
+    console.log(d3.selectAll('g.person'));
 };
+
+//            var hubRootMap; //an item in relatednessMap that is related to the  current hub
+//            var hubRootID;
+//            for(var i in relatednessMap){
+//                if(relatednessMap[i].indexOf(interestID)>=0){ //find out which hub it is in the map
+//                    hubRootMap = relatednessMap[i];
+//                    hubRootID=i;
+//                }
+//            }
+//
+//            d3.selectAll('g.hubRoot, g.interest')
+//                .attr('opacity',function(d){
+////                    console.log(hubRootMap.contains(12));
+//                    if((d[0] && hubRootID == d[0].id )){ //if the hubRoot interest is related to vizRoot child
+//                        d3.select(this)
+//                            .selectAll('g.label')
+//                            .attr('fill',self.activeColor);
+//                        return self.activeOpacity;
+//                    }else if(d['id'] && hubRootMap.indexOf(d.id) >= 0){ //if the child interest is related
+//                        d3.select(this)
+//                            .selectAll('g.label')
+//                            .attr('fill',self.activeColor);
+//                        return self.activeOpacity;
+//                    }
+//                    else{
+//                        return self.inactiveOpacity;
+//                    }
+//                });
+//
+//            d3.selectAll('g.person')
+//                .attr('opacity',function(d){
+////                    console.log(d);
+//                    if((d.interests && d.interests.indexOf(interestID) >= 0)){
+//                        d3.select(this)
+//                            .selectAll('g.label')
+//                            .attr('fill',self.activeColor);
+//                        return self.activeOpacity;
+//                    }
+//                    else{
+//                        return self.inactiveOpacity;
+//                    }
+//                });
+//
+//        })
+//        .on("mouseout", function(){
+//
+//            d3.selectAll('g.hubRoot, g.interest, g.person')
+//                .attr('opacity',self.activeOpacity)
+//                .selectAll('g.label')
+//                .attr('fill',self.inactiveColor);
+//        });
+//};
 
 MC.InterestViz.prototype.hoverHubRoot = function(){
     //Highlight all the children and persons related to the children or the root itself
