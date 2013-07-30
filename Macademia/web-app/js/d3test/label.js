@@ -37,6 +37,7 @@ MC.label = function() {
             var setAttrs = function(g) {
                 g.attr('x', label.getX())
                   .attr('y', label.getY())
+                  .style('font-family','Georgia')
                   .text(label.getText())
                   .attr('text-anchor', label.getAlign())
             };

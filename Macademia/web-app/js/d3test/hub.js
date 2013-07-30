@@ -78,43 +78,54 @@ MC.hub = function() {
             //use d3Group to put everything into one g
             var d3Group = d3.select(this).append('g').attr('id','hub'+id).attr('class','hub');
 
-            //drawing lines between person and their interests (not working)
-//            if(rootType == "person"){
-//                var gradient = d3Group.append("defs")
-//                    .append("radialGradient")
-//                    .attr("id", "connection-gradient")
-////                    .attr("x1", cx)
-////                    .attr("y1", cy);
-//
-//                    gradient.append("stop")
-//                    .attr("offset", "3%")
-//                    .attr("stop-color", "#b2b2b2")
-//                    .attr("stop-opacity", 1);
-//
-//                    gradient.append("stop")
-//                    .attr("offset", "97%")
-//                    .attr("stop-color", "#FF0000")
-//                    .attr("stop-opacity", 1);
-//
-//
-//
-//                d3Group.selectAll("connectionPaths").data(new Array(n)).enter().append("line")
-//                    .attr("x1", cx)
-//                    .attr("y1", cy)
-//                    .attr("x2", function(d, i){
-//                        var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n);
-//                        return cx_child;
-//                    })
-//                    .attr("y2", function(d, i){
-//                        var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
-//                        return cy_child;
-//                    })
-//                    .attr("stroke-width", 15)
-//                    .attr("stroke-linecap", "round")
-//                    .attr("stroke-dasharray", "1, 15")
-//                    .attr("stroke", 'url(#connection-gradient)');
-////                    .attr("stroke", 'black');
-//            }
+            //drawing lines between person and their interests
+            if(rootType == "person"){
+                var gradient = d3.select('defs')
+                    .append("radialGradient")
+                    .attr("id", "connection_gradient")
+                    .attr("cx", cx)
+                    .attr("cy", cy)
+                    .attr("fx", cx)
+                    .attr("fy", cy)
+                    .attr('r',100)
+                    .attr("gradientUnits","userSpaceOnUse")
+//                    .attr('spread-method','reflect');
+
+                    gradient.append("stop")
+                    .attr("offset", "30%")
+                    .style("stop-color", "#b2b2b2")
+                    .style("stop-opacity", 1.0);
+
+                    gradient.append("stop")
+                    .attr("offset", "90%")
+                    .style("stop-color", "#FFFFFF")
+                    .style("stop-opacity", 1.0);
+
+//                d3Group.append('rect').attr('x',cx).attr('y',cy).attr('width','100').attr('height','100').attr('fill','url(#connection_gradient)');
+
+                d3Group
+//                    .selectAll('g.connectionPaths')
+                    .append('g')
+                    .attr('class','connectionPaths')
+                    .selectAll('g.connectionPaths')
+                    .data(new Array(n)).enter().append("line")
+                    .attr("x1", cx)
+                    .attr("y1", cy)
+                    .attr("x2", function(d, i){
+                        var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n-Math.PI/2);
+                        return cx_child;
+                    })
+                    .attr("y2", function(d, i){
+                        var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n+Math.PI/2);
+                        return cy_child;
+                    })
+                    .attr("stroke-width", 6)
+                    .attr("stroke-linecap", "round")
+                    .attr("stroke-dasharray", "1, 10")
+//                    .attr("fill", 'null')
+                    .attr("stroke", 'url(#connection_gradient)')
+                    .attr("opacity",0.0);
+            }
 
             //drawing children with animation
             var childrenTemplate = MC.interest().setCssClass("interest")
@@ -143,8 +154,8 @@ MC.hub = function() {
                     return duration/n*(i+1);
                 })
                 .attr('transform', function (d, i) {
-                    var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n);
-                    var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
+                    var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n-Math.PI/2); //start from the top
+                    var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n+Math.PI/2);
                     return 'translate(' + cx_child + ', ' + cy_child + ')';
                 });
 
@@ -189,6 +200,10 @@ MC.hub = function() {
                     .transition()
                     .duration(0)
                     .attr('opacity',1.0);
+                d3Group
+                    .select('g.vizRoot')
+                    .select('text')
+                    .attr('fill','black');
             }else {
                 d3Group
                     .select('g.hubRoot')
@@ -201,32 +216,10 @@ MC.hub = function() {
                     .attr('opacity',1.0);
             }
 
-            //mouseover the interest node hightlight itself and its hub root
-            d3Group.selectAll(".interestOuter").on('mouseover',function(e){
-                d3Group.select("g .hubRoot").attr('opacity',1.0).classed('active',true);
-                d3Group.select("g .vizRoot").attr('opacity',1.0).classed('active',true);
-                d3.select(this.parentNode).select('g .label text').text(MC.interest().getText());
-                // notice that we are replacing class interest with active
-                d3.select(this.parentNode).attr('class','activeInterest');
-            });
-
-            d3Group.selectAll(".interestOuter").on('mouseout',function(){
-                d3Group.select("g .hubRoot").classed('active',false);
-                d3Group.select("g .vizRoot").classed('active',false);
-                d3.select(this.parentNode).select('g .label text').text(MC.interest().getCleanedText());
-                d3.select(this.parentNode).attr('class','interest');
-            });
-
-            //mouseover the hub root hightlight everything in the hub
-            d3Group.selectAll("g .hubRoot").on('mouseover',function(e){
-                d3.select(this).attr('opacity',1.0).classed('active',true);
-                d3Group.selectAll("g .interest").attr('class','activeInterest');
-            });
-
-            d3Group.selectAll("g .hubRoot").on('mouseout',function(e){
-                d3.select(this).classed('active',false);
-                d3Group.selectAll("g .activeInterest").attr('class','interest');
-            });
+            //Making connection lines appear
+            d3Group.selectAll("line").transition().delay(1501).duration(function(d,i){
+                return duration/n*(i+1);
+            }).attr('opacity',1.0);
         });
     }
 
