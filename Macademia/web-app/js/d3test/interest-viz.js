@@ -441,13 +441,6 @@ MC.InterestViz.prototype.makeColorful = function(){
 //This function enables highlighting of the nodes when hovers
 //TODO: Come up with some mechanism to set and reset attribute such as opacity for highlight and fading
 MC.InterestViz.prototype.enableHoverHighlight = function(){
-    //hover individual person
-
-    //hover surrounding hubRoot
-
-    //hover child interest around hubRoot
-
-    //hover vizRoot
     this.hoverVizRoot();
     this.hoverHubRoot();
     this.hoverVizRootChild();
@@ -455,9 +448,6 @@ MC.InterestViz.prototype.enableHoverHighlight = function(){
     window.setTimeout(jQuery.proxy(function(){
         this.hoverPerson();                       //People aren't created fast enough, this delays the binding of the handler
     },this),2503);
-
-    //hover child around vizRoot
-
 };
 
 MC.InterestViz.prototype.hoverPerson = function(){
@@ -467,23 +457,8 @@ MC.InterestViz.prototype.hoverPerson = function(){
         .on("mouseover", function(e){
             var personID = e.id;
             var personInterests = self.people[personID].interests;
-            d3.selectAll('g.interest, g.hubRoot')
-                .attr('opacity', function(d){
-                    if((d[0] && personInterests.indexOf(d[0].id) >= 0)){
-                        d3.select(this)
-                            .selectAll('g.label')
-                            .attr('fill',self.activeColor);
-                        return self.activeOpacity;
-                    }else if(d['id'] && personInterests.indexOf(d.id) >= 0){
-                        d3.select(this)
-                            .selectAll('g.label')
-                            .attr('fill',self.activeColor);
-                        return self.activeOpacity;
-                    }
-                    else{
-                        return self.inactiveOpacity;
-                    }
-                });
+            self.activateHubRootAndChildren(personID, personInterests, self, true);
+
             d3.selectAll('g.person')
                 .attr('opacity', function(d){
                     if((d.id==personID)){
@@ -495,13 +470,7 @@ MC.InterestViz.prototype.hoverPerson = function(){
                         return self.inactiveOpacity;
                     }
                 });
-        }).on("mouseout", function(){
-            d3.selectAll('g.hubRoot, g.interest, g.person')
-                .attr('opacity',self.activeOpacity)
-                .selectAll('g.label')
-                .attr('fill',self.inactiveColor);
-        });
-
+        }).on("mouseout", this.mouseOut);
 };
 
 MC.InterestViz.prototype.hoverHubRoot = function(){
@@ -511,33 +480,14 @@ MC.InterestViz.prototype.hoverHubRoot = function(){
     var relatednessMap=this.relatednessMap;
     d3.selectAll('g.hubRoot')
         .on("mouseover", function(e){
-//            console.log(relatednessMap);
             var hubRootID = e[0].id;
             var hubRootMap = relatednessMap[hubRootID]; //here we know the hub, get it directly
-            var selector = d3.select(this);
 
-            d3.selectAll('g.hubRoot, g.interest')
-                .attr('opacity',function(d){
-//                    console.log(hubRootMap.contains(12));
-                    if((d[0] && hubRootID == d[0].id )){
-                        d3.select(this)
-                            .selectAll('g.label')
-                            .attr('fill',self.activeColor);
-                        return self.activeOpacity;
-                    }else if(d['id'] && hubRootMap.indexOf(d.id) >= 0){
-//                        d3.select(this)
-//                            .selectAll('g.label')
-//                            .attr('fill',self.activeColor);
-                        return self.activeOpacity;
-                    }
-                    else{
-                        return self.inactiveOpacity;
-                    }
-                });
+            self.activateHubRootAndChildren(hubRootID, hubRootMap, self, false);
+
 
             d3.selectAll('g.person')
                 .attr('opacity',function(d){
-//                    console.log(d);
                     if((d.relevance && d.relevance[hubRootID] )){
                         d3.select(this)
                             .selectAll('g.label')
@@ -550,14 +500,7 @@ MC.InterestViz.prototype.hoverHubRoot = function(){
                 });
 
         })
-        .on("mouseout", function(e){
-            var hubRootID = e[0].id;
-
-            d3.selectAll('g.hubRoot, g.interest, g.person')
-                .attr('opacity',self.activeOpacity)
-                .selectAll('g.label')
-                .attr('fill',self.inactiveColor);
-        });
+        .on("mouseout", this.mouseOut);
 };
 
 MC.InterestViz.prototype.hoverHubRootChild = function(){
@@ -569,37 +512,11 @@ MC.InterestViz.prototype.hoverHubRootChild = function(){
             d3.select(this)
                 .selectAll('g.interest')
                 .on("mouseover", function(e){
-                    //improvement: can we only run this once?
                     var interestID = e.id;
-                    var hubRootMap; //an item in relatednessMap that is related to the  current hub
-                    var hubRootID;
-                    for(var i in relatednessMap){
-                        if(relatednessMap[i].indexOf(interestID)>=0){ //find out which hub it is in the map
-                            hubRootMap = relatednessMap[i];
-                            hubRootID=i;
-                        }
-                    }
+                    var hubRootID = self.findHubRootID(interestID);
+                    var hubRootMap = relatednessMap[hubRootID];
+                    self.activateHubRootAndChildren(hubRootID, hubRootMap, self, true);
 
-                    d3.selectAll('g.hubRoot, g.interest')
-                        .attr('opacity',function(d){
-//                    console.log(hubRootMap.contains(12));
-                            if((d[0] && hubRootID == d[0].id )){ //if the hubRoot interest is related to vizRoot child
-                                d3.select(this)
-                                    .selectAll('g.label')
-                                    .attr('fill',self.activeColor);
-                                return self.activeOpacity;
-                            }else if(d['id'] && hubRootMap.indexOf(d.id) >= 0){ //if the child interest is related
-                                if(d.id==interestID){
-                                    d3.select(this)
-                                        .selectAll('g.label')
-                                        .attr('fill',self.activeColor);
-                                }
-                                return self.activeOpacity;
-                            }
-                            else{
-                                return self.inactiveOpacity;
-                            }
-                        });
 
                     d3.selectAll('g.person')
                         .attr('opacity',function(d){
@@ -616,13 +533,7 @@ MC.InterestViz.prototype.hoverHubRootChild = function(){
                         });
 
                 })
-                .on("mouseout", function(){
-
-                    d3.selectAll('g.hubRoot, g.interest, g.person')
-                        .attr('opacity',self.activeOpacity)
-                        .selectAll('g.label')
-                        .attr('fill',self.inactiveColor);
-                });
+                .on("mouseout", self.mouseOut);
         }
     });
 
@@ -637,30 +548,20 @@ MC.InterestViz.prototype.hoverVizRoot = function(){
     d3.select('g.vizRoot')
         .on("mouseover", function(){
             var vizID = d3.select(this).data()[0][0].id;
-            var vizHub;
-
             d3.selectAll('g.hub, g.person')
                 .attr('opacity',function(d){
                     if(d[0]&&d[0].id==vizID){
-                        vizHub=d3.select(this);
+                        d3.select(this)
+                            .selectAll('g.label')
+                            .attr('fill',self.activeColor);
                         return self.activeOpacity;
                     }
                     else{
                         return self.inactiveOpacity;
                     }
                 });
-            vizHub
-                .selectAll('g.label')
-                .attr('fill',self.activeColor);
         })
-        .on("mouseout", function(){
-            var vizID = d3.select(this).data()[0][0].id;
-
-            d3.selectAll('g.hub, g.person')
-                .attr('opacity',self.activeOpacity)
-                .selectAll('g.label')
-                .attr('fill',self.inactiveColor);
-        });
+        .on("mouseout", this.mouseOut);
 };
 
 MC.InterestViz.prototype.hoverVizRootChild = function(){
@@ -670,35 +571,10 @@ MC.InterestViz.prototype.hoverVizRootChild = function(){
     d3.select('#hub'+this.root.id)
         .selectAll('g.interest')
         .on("mouseover", function(e){
-            //improvement: can we only run this once?
             var interestID = e.id;
-            var hubRootMap; //an item in relatednessMap that is related to the  current hub
-            var hubRootID;
-            for(var i in relatednessMap){
-                if(relatednessMap[i].indexOf(interestID)>=0){ //find out which hub it is in the map
-                    hubRootMap = relatednessMap[i];
-                    hubRootID=i;
-                }
-            }
-
-            d3.selectAll('g.hubRoot, g.interest')
-                .attr('opacity',function(d){
-//                    console.log(hubRootMap.contains(12));
-                    if((d[0] && hubRootID == d[0].id )){ //if the hubRoot interest is related to vizRoot child
-                        d3.select(this)
-                            .selectAll('g.label')
-                            .attr('fill',self.activeColor);
-                        return self.activeOpacity;
-                    }else if(d['id'] && hubRootMap.indexOf(d.id) >= 0){ //if the child interest is related
-                        d3.select(this)
-                            .selectAll('g.label')
-                            .attr('fill',self.activeColor);
-                        return self.activeOpacity;
-                    }
-                    else{
-                        return self.inactiveOpacity;
-                    }
-                });
+            var hubRootID = self.findHubRootID(interestID);
+            var hubRootMap = relatednessMap[hubRootID];
+            self.activateHubRootAndChildren(hubRootID, hubRootMap, self, true);
 
             d3.selectAll('g.person')
                 .attr('opacity',function(d){
@@ -715,32 +591,41 @@ MC.InterestViz.prototype.hoverVizRootChild = function(){
                 });
 
         })
-        .on("mouseout", function(){
+        .on("mouseout", this.mouseOut);
+};
 
-            d3.selectAll('g.hubRoot, g.interest, g.person')
-                .attr('opacity',self.activeOpacity)
-                .selectAll('g.label')
-                .attr('fill',self.inactiveColor);
+MC.InterestViz.prototype.mouseOut = function(){
+    d3.selectAll('g.hubRoot, g.interest, g.person, g.hub')
+        .attr('opacity',this.activeOpacity)
+        .selectAll('g.label')
+        .attr('fill',this.inactiveColor);
+};
+MC.InterestViz.prototype.findHubRootID = function(interestID){
+    for(var i in this.relatednessMap){
+        if(this.relatednessMap[i].indexOf(interestID) >= 0){ //find out which hub it is in the map
+            return i;
+        }
+    }
+};
+MC.InterestViz.prototype.activateHubRootAndChildren = function(mapID, map, self, childText){
+    d3.selectAll('g.hubRoot, g.interest')
+        .attr('opacity',function(d){
+            if((d[0] && mapID == d[0].id )){
+                d3.select(this)
+                    .selectAll('g.label')
+                    .attr('fill',self.activeColor);
+                return self.activeOpacity;
+            }else if(d['id'] && map.indexOf(d.id) >= 0){
+                if(childText){
+                d3.select(this)
+                    .selectAll('g.label')
+                    .attr('fill',self.activeColor);
+                }
+                return self.activeOpacity;
+            }
+            else{
+                return self.inactiveOpacity;
+            }
         });
 };
 
-//MC.InterestViz.prototype.bindHubRootAndInterest = function(hubRootID, hubRootMap, selector, self){
-//    d3.selectAll('g.hubRoot, g.interest')
-//        .attr('opacity',function(d){
-//            //                    console.log(hubRootMap.contains(12));
-//            if((d[0] && hubRootID == d[0].id )){
-//                selector
-//                    .selectAll('g.label')
-//                    .attr('fill',self.activeColor);
-//                return self.activeOpacity;
-//            }else if(d['id'] && hubRootMap.indexOf(d.id) >= 0){
-//                selector
-//                    .selectAll('g.label')
-//                    .attr('fill',self.activeColor);
-//                return self.activeOpacity;
-//            }
-//            else{
-//                return self.inactiveOpacity;
-//            }
-//        });
-//};
