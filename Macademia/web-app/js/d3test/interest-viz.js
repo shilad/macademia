@@ -110,6 +110,7 @@ MC.InterestViz = function(params) {
 
     this.createInterestViz();
     this.startPeople();
+
 };
 
 // Position the hubs and their gradient circles around the visRoot
@@ -238,9 +239,6 @@ MC.InterestViz.prototype.startPeople = function() {
         this.createPeople();
         this.createPersonLayoutView()
         this.createPersonLayout();
-
-        this.enableHoverHighlight();
-
     }, this), 2503);
 
 };
@@ -434,60 +432,3 @@ MC.InterestViz.prototype.makeColorful = function(){
     };
 };
 
-//This function enables highlighting of the nodes when hovers
-//TODO: Come up with some mechanism to set and reset attribute such as opacity for highlight and fading
-MC.InterestViz.prototype.enableHoverHighlight = function(){
-    //hover individual person
-
-    //hover surrounding hubRoot
-
-    //hover child interest around hubRoot
-
-    //hover vizRoot
-    this.hoverVizRoot();
-    //hover child around vizRoot
-
-}
-
-MC.InterestViz.prototype.hoverPerson = function(){
-    //Highlight the vizRoot, interests around vizRoot and hubRoot, hubRoot(if it is a direct interest?)
-
-}
-
-MC.InterestViz.prototype.hoverHubRoot = function(){
-    //Highlight all the children and persons related to the children or the root itself
-    //also highlight the children around the vizRoot that are related to the hubRoot.
-
-}
-
-MC.InterestViz.prototype.hoverHubRootChild = function(){
-    //Highlight the hubRoot and the child itself and people who has the interest
-
-
-}
-
-MC.InterestViz.prototype.hoverVizRoot = function(){
-    //Interest Centric, highlight all the people related to the interest
-
-    //Person Centric,
-    var vizID = this.root.id;
-    this.container
-        .selectAll('g.hub, g.person')
-        .transition()
-        .duration(500)
-        .attr('opacity',function(d){
-            if(d[0]&&d[0].id==vizID){
-                return 1.0;
-            }
-            else{
-                return 0.3;
-            }
-        });
-
-
-}
-
-MC.InterestViz.prototype.hoverVizRootChild = function(){
-    //Highlight the VizRoot and the child itself and people who has the interest
-
-}
