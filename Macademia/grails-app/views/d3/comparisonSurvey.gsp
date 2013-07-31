@@ -153,57 +153,88 @@
 
 </head>
 
+%{--<body class="ui-widget-content" style="border: 0;">--}%
+
+            %{--<table>--}%
+
+                %{--<tr>--}%
+
+                    %{--<h1>Related to Donnie Burroughs</h1>--}%
+                    %{--<table>--}%
+                        %{--<tr>--}%
+                            %{--<td width=10%>--}%
+                                %{--<p>Relatedness--}%
+                                %{--</p>--}%
+
+                                %{--<div id="red"></div>--}%
+
+                                %{--<div id="green"></div>--}%
+
+                                %{--<div id="blue"></div>--}%
+                            %{--</td>--}%
+                            %{--<td>--}%
+                                %{--<table>--}%
+                                    %{--<tr>--}%
+                                        %{--<td width=10m>First</td>--}%
+
+                                    %{--</tr>--}%
+                                    %{--<tr>--}%
+                                        %{--<td>Second</td>--}%
+                                    %{--</tr> <tr>--}%
+                                    %{--<td>Third</td>--}%
+                                %{--</tr>--}%
+                                %{--</table>--}%
+
+                            %{--</td>--}%
+
+                        %{--</tr>--}%
+                    %{--</table>--}%
+                    %{--<br/>--}%
+                %{--</tr>--}%
+                %{--<tr>--}%
+                    %{--<div id = "bestMatch">Best Match</div>--}%
+                    %{--<ul id="sortable">--}%
+
+                        %{--<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Miles Davis</li>--}%
+                        %{--<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>John Coltrane</li>--}%
+                        %{--<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Tony Williams</li>--}%
+                        %{--<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Herbie Hancock</li>--}%
+                        %{--<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Ron Carter</li>--}%
+
+
+                    %{--</ul>--}%
+                    %{--<div id = "worstMatch">Worst Match</div>--}%
+
+
+
+                %{--</tr>--}%
+
+
+            %{--</table>--}%
+
+
+%{--</body>--}%
+
 <body class="ui-widget-content" style="border: 0;">
-
-            <table>
-                <tr>
-                    <h1>Related to Donnie Burroughs</h1>
-                    <table>
-                        <tr>
-                            <td width=10%>
-                                <p>Relatedness
-                                </p>
-
-                                <div id="red"></div>
-
-                                <div id="green"></div>
-
-                                <div id="blue"></div>
-                            </td>
-                            <td>
-                                <table>
-                                    <tr>
-                                        <td width=10m>First</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>Second</td>
-                                    </tr> <tr>
-                                    <td>Third</td>
-                                </tr>
-                                </table>
-
-                            </td>
-
-                        </tr>
-                    </table>
-                    <br/>
-                </tr>
-                <tr>
-                    <ul id="sortable">
-
-                        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Miles Davis</li>
-                        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>John Coltrane</li>
-                        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Tony Williams</li>
-                        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Herbie Hancock</li>
-                        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Ron Carter</li>
-
-
-                    </ul>
-                </tr>
-            </table>
+<table width=100%>
+    <tr>
+        <td width=50%>
+            This is left
+        </td>
+        <td>
+            this is right
+        </td>
+    </tr>
+</table>
 
 
 </body>
+
+
+
+
+
+
+
 
 </html>
