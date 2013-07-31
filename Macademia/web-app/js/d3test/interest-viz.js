@@ -487,18 +487,20 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
         .style('left',pos.left+100)
         .style('top',pos.top)
         .each('end', function(){
-            div.on("mouseover", function() {
-                window.setTimeout(function () {
-                    div
-                        .transition()
-                        .style("display", "block");
-                })
-                    .on("mouseout", function() {
+            window.setTimeout(function () {
+                div
+                    .on("mouseover", function() {
                         div
                             .transition()
-                            .style("display", "none");
+                            .style("display", "block");
                     });
             },250);
+            div
+                .on("mouseout", function() {
+                    div
+                        .transition()
+                        .style("display", "none");
+                });
         });
 
 };
@@ -556,7 +558,8 @@ MC.InterestViz.prototype.hoverHubRoot = function(){
             var pos = this.getBoundingClientRect();
             self.toolTipHover(e,pos);
             self.activateHubRootAndChildren(hubRootID, hubRootMap, self, false);
-//            d3.select(this).select('g.label').select('text').text(MC.interest().getText());
+            d3.select(this).select('g.label').select('text').text(d3.select(this).data()[0][0].name);
+
 
             d3.selectAll('g.person')
                 .attr('opacity',function(d){
