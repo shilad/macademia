@@ -54,8 +54,10 @@
             console.log('We got the data');
             var model = new VizModel(json);
             console.log(model);
-            var interests = model.getInterests(); //we can just use this
-            var peeps = model.getPeople(); //we can just use this
+            //notice that interests has relatedQueryId that
+            //tell us which cluster it belongs to
+            var interests = model.getInterests();
+            var peeps = model.getPeople();
             var clusterMap = model.getClusterMap();
             console.log(interests);
             console.log(peeps);
@@ -69,6 +71,18 @@
             console.log(hubs);
 
             //building relatednessMap
+            var relatednessMap = {};
+            for(var key in interests){
+                var interest = interests[key];
+                var clusterId = interests[key].cluster;
+                if(relatednessMap[clusterId]){
+                    relatednessMap[clusterId].push(key);
+                } else {
+                    var value = [key];
+                    relatednessMap[clusterId]=value;
+                }
+            }
+            console.log(relatednessMap);
         }
     });
 

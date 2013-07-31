@@ -37,12 +37,15 @@ var VizModel = Class.extend({
             this.interests = {};
             var self = this;
             $.each(this.json.interests, function (id, info) {
-                var hasCluster = (info && info.cluster >= 0);
+//                var hasCluster = (info && info.cluster >= 0);
                 self.interests[id] = {
                     id:id,
                     name:info.name,
                     relevance : info.relevance,
-                    relatedQueryId : hasCluster ? info.cluster : -1
+//                    relatedQueryId : hasCluster ? info.cluster : -1,
+                    cluster:info.cluster,
+                    isInClusterMap: info.roles.length > 0 ? true : false,
+                    roles:info.roles
                 };
             });
         }
