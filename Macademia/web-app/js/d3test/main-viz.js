@@ -92,6 +92,7 @@ MC.MainViz.prototype.onLoad = function(){
             //notice that interests has relatedQueryId that
             //tell us which cluster it belongs to
             var interests = model.getInterests();
+            //TODO: limit the number of people (by overall relevance)
             var peeps = model.getPeople();
             var clusterMap = model.getClusterMap();
 
