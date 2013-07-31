@@ -19,6 +19,7 @@ MC.MainViz = function(params) {
 
 //    console.log(params);
 
+    this.svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
     this.setEventHandlers();
 
@@ -163,7 +164,13 @@ MC.MainViz.prototype.onLoad = function(){
             }
 
             //building root
-            var root = {type:'person',id:rootId, children: peeps[rootId].interests};
+            if (rootClass == 'person'){
+                var root = {type:'person', id:rootId, children: peeps[rootId].interests};
+            } else if (rootClass == 'interest') {
+                var root = {type:'interest', id:rootId, children: clusterMap[rootId]};
+            }
+
+
 
             //building relatednessMap and parse interests
             var relatednessMap = {};
@@ -182,7 +189,6 @@ MC.MainViz.prototype.onLoad = function(){
                 interests[key].id = Number(interests[key].id);
             }
 
-            var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
             var colors =[
                 "#f2b06e",
                 "#f5a3d6",
@@ -193,7 +199,6 @@ MC.MainViz.prototype.onLoad = function(){
             self.hubs = hubs;
             self.people = peeps;
             self.root = root;
-            self.svg = svg;
             self.interests = interests;
             self.colors = colors;
             self.relatednessMap = relatednessMap;
@@ -218,8 +223,6 @@ MC.MainViz.prototype.onLoad = function(){
 };
 
 MC.MainViz.prototype.createViz = function(){
-    console.log("this.hubs");
-    console.log(this.hubs);
     this.viz = new MC.InterestViz({
         hubs: this.hubs,
         root: this.root,
