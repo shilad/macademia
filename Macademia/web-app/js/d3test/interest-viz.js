@@ -46,17 +46,17 @@ var MC = (window.MC = (window.MC || {}));
                 11,
                 22]},
         }
-    };
+ };
 
  var colors =[
  "#b2a3f5",
-  ];
+ ];
 
  var root = {type : 'person', id: 7, children : [3,6,1,4,5,2]};
 
-  var hubs = [
+ var hubs = [
  {type : 'interest', id : 11, children : [12,14,15,16]},
-  ];
+ ];
 
  var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
@@ -242,7 +242,6 @@ MC.InterestViz.prototype.startPeople = function() {
         this.createPeople();
         this.createPersonLayoutView()
         this.createPersonLayout();
-        this.toolTipHover();
 
 
     }, this), 2503);
@@ -253,7 +252,7 @@ MC.InterestViz.prototype.startPeople = function() {
 MC.InterestViz.prototype.createInterestViz = function() {
     this.createHub(this.root);
     for(var i = 0; i < this.hubs.length; i++) {
-            this.createHub(this.hubs[i],i);
+        this.createHub(this.hubs[i],i);
     }
 };
 
@@ -279,8 +278,8 @@ MC.InterestViz.prototype.createInterestColors = function(){
 
 };
 
-MC.InterestViz.prototype.createHub = function(model,i) {
-    var calculatedDelay=(i+1)*500;
+MC.InterestViz.prototype.createHub = function(model,j) {
+    var calculatedDelay=(j+1)*500;
     var hubInterests = [];
     for (var i = 0; i < model.children.length; i++) {
         var childId = model.children[i];
@@ -440,7 +439,7 @@ MC.InterestViz.prototype.makeColorful = function(){
 
 //Grabs all the people in svg
 MC.InterestViz.prototype.getPeoplesInterests = function(d) {
-     var interestNameList=" ";
+    var interestNameList=" ";
     for(var i=0; i< this.people[d.id].interests.length;i++){
         if(i < this.people[d.id].interests.length-1){
             interestNameList+= " "+this.interests[this.people[d.id].interests[i]].name + ",";
@@ -453,60 +452,61 @@ MC.InterestViz.prototype.getPeoplesInterests = function(d) {
     return interestNameList;
 };
 
-MC.InterestViz.prototype.toolTipHover = function(){
+MC.InterestViz.prototype.toolTipHover = function(e,pos){
 
-
+    var div = d3.select('#tooltipBox');
     var people = this.people;
     var id =0;  //stores d's id
     var type;  //stores d's type or empty string if no type
-    var div =  d3.selectAll("body").append("div").attr("id","div1").style("position", "absolute");
-     //prevents repetitive displaying of mouse over when mouse is moved over a single element
-    div.on("mouseover", function() { div.transition().style("display", "block");  });
-    div.on("mouseout", function() { div.transition().style("display", "none"); });
-    var paragraph = div.append('p');
+    //prevents repetitive displaying of mouse over when mouse is moved over a single element
 
-    this.svg.selectAll("g.interest,g.hubRoot,g.vizRoot,g.person") //vizRoot and hubs do not have names speak with Jesse before we deal with this.
-       .on("mouseover", function(d){
-            var pos = this.getBoundingClientRect();
-            if(d.id) {   //for non-hub people and interests
-                id= d.id;
-                type ="";   //do not have type
-            }
-            else { //deals with hubNodes person and interest
-                id= d[0].id;
-                type=d[0].type;
 
-            }
-          if(id in people && d.interests ||  type == "person" ){ //checks to see if it is a person
-                 jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + id, function(data) {
-                 $('#div1').html(data);
-                  });}
-           else {    //deals with interests
-              jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + id, function(data) {
-                            $('#div1').html(data);
-                        });
-          }
-              div
-                .transition()
-                .duration(200)
-                .style("display", "block")
-                .style("left",pos.left+20)
-                .style("top",pos.top+50)
-
-        })
-        .on("mouseout", function(d){
-            d3.select('body').select("#interestToolTip")
-                div
-                .transition()
-                .delay(500)
-                .duration(200)
-                .style("display", "none");
+    if(e.id) {   //for non-hub people and interests
+        id= e.id;
+        type ="";   //do not have type
+    }
+    else { //deals with hubNodes person and interest
+        id= e[0].id;
+        type=e[0].type;
+    }
+    if(id in people && e.interests ||  type == "person" ){ //checks to see if it is a person
+        jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + id, function(data) {
+            jQuery('#tooltipBox').html(data);
+//            console.log(jQuery('#tooltipBox'));
+        });}
+    else {    //deals with interests
+        jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + id, function(data) {
+            jQuery('#tooltipBox').html(data);
         });
+    }
+
+    div
+        .transition()
+        .duration(500)
+        .style("display", "block")
+        .style('left',pos.left+100)
+        .style('top',pos.top);
+
 };
 
 //This function enables highlighting of the nodes when hovers
 //TODO: Come up with some mechanism to set and reset attribute such as opacity for highlight and fading
 MC.InterestViz.prototype.enableHoverHighlight = function(){
+    var div =  d3.select('body')
+        .append("div")
+        .attr("id","tooltipBox")
+        .style("position", "absolute")
+        .on("mouseover", function() {
+            div
+                .transition()
+                .style("display", "block");
+        })
+        .on("mouseout", function() {
+            div
+                .transition()
+                .style("display", "none");
+        });
+
     this.hoverVizRoot();
     this.hoverHubRoot();
     this.hoverVizRootChild();
@@ -514,14 +514,17 @@ MC.InterestViz.prototype.enableHoverHighlight = function(){
     window.setTimeout(jQuery.proxy(function(){
         this.hoverPerson();                       //People aren't created fast enough, this delays the binding of the handler
     },this),2503);
+
 };
 
 MC.InterestViz.prototype.hoverPerson = function(){
     //Highlight the vizRoot, interests around vizRoot and hubRoot, hubRoot(if it is a direct interest?)
-    var self =this;
+    var self = this;
+
     this.container.selectAll('g.person')
         .on("mouseover", function(e){
-
+            var pos = this.getBoundingClientRect();
+            self.toolTipHover(e,pos);
             self.activateHubRootAndChildren(e.id, e.interests, self, true);
 
             d3.selectAll('g.person')
@@ -545,7 +548,8 @@ MC.InterestViz.prototype.hoverHubRoot = function(){
         .on("mouseover", function(e){
             var hubRootID = e[0].id;
             var hubRootMap = relatednessMap[hubRootID];
-
+            var pos = this.getBoundingClientRect();
+            self.toolTipHover(e,pos);
             self.activateHubRootAndChildren(hubRootID, hubRootMap, self, false);
 
 
@@ -573,6 +577,8 @@ MC.InterestViz.prototype.hoverHubRootChild = function(){
             d3.select(this)
                 .selectAll('g.interest')
                 .on("mouseover", function(e){
+                    var pos = this.getBoundingClientRect();
+                    self.toolTipHover(e,pos);
                     var interestID = e.id;
                     var hubRootID = self.findHubRootID(interestID);
                     var hubRootMap = relatednessMap[hubRootID];
@@ -600,7 +606,9 @@ MC.InterestViz.prototype.hoverHubRootChild = function(){
 MC.InterestViz.prototype.hoverVizRoot = function(){
     var self =this;
     d3.select('g.vizRoot')
-        .on("mouseover", function(){
+        .on("mouseover", function(e){
+            var pos = this.getBoundingClientRect();
+            self.toolTipHover(e,pos);
             var vizID = d3.select(this).data()[0][0].id;
             d3.selectAll('g.hub, g.person')
                 .attr('opacity',function(d){
@@ -618,11 +626,13 @@ MC.InterestViz.prototype.hoverVizRoot = function(){
 
 MC.InterestViz.prototype.hoverVizRootChild = function(){
     //Highlight the VizRoot and the child itself and people who has the interest
-    var self =this;
+    var self = this;
     var relatednessMap = this.relatednessMap;
     d3.select('#hub'+this.root.id)
         .selectAll('g.interest')
         .on("mouseover", function(e){
+            var pos = this.getBoundingClientRect();
+            self.toolTipHover(e,pos);
             var interestID = e.id;
             var hubRootID = self.findHubRootID(interestID);
             var hubRootMap = relatednessMap[hubRootID];
@@ -648,6 +658,12 @@ MC.InterestViz.prototype.mouseOut = function(){
         .attr('opacity',this.activeOpacity)
         .selectAll('g.label')
         .attr('fill',this.inactiveColor);
+    d3.select('body')
+        .select("#tooltipBox")
+        .transition()
+        .delay(500)
+        .duration(500)
+        .style("display", "none");
 };
 MC.InterestViz.prototype.findHubRootID = function(interestID){
     for(var i in this.relatednessMap){
