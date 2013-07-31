@@ -9,5 +9,8 @@ var MC = (window.MC = (window.MC || {}));
 
 MC.comparisonSurvey = function(){
 
+
+
+
 }
 
