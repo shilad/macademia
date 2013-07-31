@@ -137,70 +137,77 @@ MC.MainViz.prototype.onLoad = function(){
 
     var rootId = macademia.history.get("nodeId").substring(2);
     var rootClass = macademia.history.get("navFunction");
-    var url = macademia.makeActionUrlWithGroup('all', 'explore', rootClass + 'Data') + '/' + rootId;
+    var url = macademia.makeActionUrlWithGroup('all', 'd3', rootClass + 'Data') + '/' + rootId;
     var self = this;
-    $.getJSON(url, function(json){
-        var model = new VizModel(json);
-        //notice that interests has relatedQueryId that
-        //tell us which cluster it belongs to
-        var interests = model.getInterests();
-        var peeps = model.getPeople();
-        var clusterMap = model.getClusterMap();
+//    url: url,
+//        dataType : 'json',
+//        success : function (json) { self.loadJson(new VizModel(json)); }
+    $.ajax({
+        url:url,
+        dataType:'json',
+        success: function(json){ //this is d3 ajax
+            var model = new VizModel(json);
+            //notice that interests has relatedQueryId that
+            //tell us which cluster it belongs to
+            var interests = model.getInterests();
+            var peeps = model.getPeople();
+            var clusterMap = model.getClusterMap();
 
-        //building hubs
-        var hubs = []
-        for (var key in clusterMap){
-            hubs.push({type:'interest', id:Number(key), children:clusterMap[key]});
-        }
-
-        //building root
-        var root = {type:'person',id:rootId, children: peeps[rootId].interests};
-
-        //building relatednessMap and parse interests
-        var relatednessMap = {};
-        for(var key in interests){
-            var interest = interests[key];
-            var clusterId = interests[key].cluster;
-            if(clusterId != -1){
-                if(relatednessMap[clusterId]){
-                    relatednessMap[clusterId].push(Number(key));
-                } else {
-                    var value = [Number(key)];
-                    relatednessMap[clusterId]=value;
-                }
+            //building hubs
+            var hubs = []
+            for (var key in clusterMap){
+                hubs.push({type:'interest', id:Number(key), children:clusterMap[key]});
             }
-            //parse the interest id, we need number
-            interests[key].id = Number(interests[key].id);
-        }
 
-        var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
-        var colors =[
-            "#f2b06e",
-            "#f5a3d6",
-            "#b2a3f5",
-            "#a8c4e5",
-            "#b4f5a3"
-        ];
-        self.hubs = hubs;
-        self.people = peeps;
-        self.root = root;
-        self.svg = svg;
-        self.interests = interests;
-        self.colors = colors;
-        self.relatednessMap = relatednessMap;
+            //building root
+            var root = {type:'person',id:rootId, children: peeps[rootId].interests};
 
-        if(self.tRoot){
-            self.transitionRoot();
-            window.setTimeout(function(){
+            //building relatednessMap and parse interests
+            var relatednessMap = {};
+            for(var key in interests){
+                var interest = interests[key];
+                var clusterId = interests[key].cluster;
+                if(clusterId != -1){
+                    if(relatednessMap[clusterId]){
+                        relatednessMap[clusterId].push(Number(key));
+                    } else {
+                        var value = [Number(key)];
+                        relatednessMap[clusterId]=value;
+                    }
+                }
+                //parse the interest id, we need number
+                interests[key].id = Number(interests[key].id);
+            }
+
+            var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
+            var colors =[
+                "#f2b06e",
+                "#f5a3d6",
+                "#b2a3f5",
+                "#a8c4e5",
+                "#b4f5a3"
+            ];
+            self.hubs = hubs;
+            self.people = peeps;
+            self.root = root;
+            self.svg = svg;
+            self.interests = interests;
+            self.colors = colors;
+            self.relatednessMap = relatednessMap;
+
+            if(self.tRoot){
+                self.transitionRoot();
+                window.setTimeout(function(){
+                    self.svg.select("g.viz").remove();
+                    self.createViz();
+                    self.setEventHandlers();
+                },2500);
+            }
+            else{
                 self.svg.select("g.viz").remove();
                 self.createViz();
                 self.setEventHandlers();
-            },2500);
-        }
-        else{
-            self.svg.select("g.viz").remove();
-            self.createViz();
-            self.setEventHandlers();
+            }
         }
 
     });

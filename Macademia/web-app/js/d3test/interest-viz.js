@@ -556,7 +556,7 @@ MC.InterestViz.prototype.hoverHubRoot = function(){
             var pos = this.getBoundingClientRect();
             self.toolTipHover(e,pos);
             self.activateHubRootAndChildren(hubRootID, hubRootMap, self, false);
-            d3.select(this).select('g.label').select('text').text(MC.interest().getText());
+//            d3.select(this).select('g.label').select('text').text(MC.interest().getText());
 
             d3.selectAll('g.person')
                 .attr('opacity',function(d){
