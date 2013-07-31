@@ -116,6 +116,20 @@ MC.interest = function() {
     }
 
     MC.options.register(interest, 'text', function (d) { return d.name; });
+    MC.options.register(interest, 'htmlText', function (d) {
+        if(d.name.length<15){
+            return d.name;
+        }
+        else{
+            if(d.name.indexOf(' ')>=0){
+                return d.name.replace(' ',"<br/>");
+            }
+            else{
+                return d.name.substr(0,10)+"<br/>"+ d.name.substr(10, d.name.length);
+            }
+
+        }
+    });
     MC.options.register(interest, 'cleanedText', function (d) {
         var cleanedText = d.name;
 //        console.log("here is the function");

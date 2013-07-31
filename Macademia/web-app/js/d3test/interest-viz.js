@@ -551,7 +551,7 @@ MC.InterestViz.prototype.hoverHubRoot = function(){
             var pos = this.getBoundingClientRect();
             self.toolTipHover(e,pos);
             self.activateHubRootAndChildren(hubRootID, hubRootMap, self, false);
-
+            d3.select(this).select('g.label').select('text').text(MC.interest().getText());
 
             d3.selectAll('g.person')
                 .attr('opacity',function(d){
@@ -583,7 +583,7 @@ MC.InterestViz.prototype.hoverHubRootChild = function(){
                     var hubRootID = self.findHubRootID(interestID);
                     var hubRootMap = relatednessMap[hubRootID];
                     self.activateHubRootAndChildren(hubRootID, hubRootMap, self, true);
-
+                    d3.select(this).select('g.label').select('text').text(MC.interest().getText());
                     d3.selectAll('g.person')
                         .attr('opacity',function(d){
                             if((d.interests && d.interests.indexOf(interestID) >= 0)){
@@ -637,7 +637,7 @@ MC.InterestViz.prototype.hoverVizRootChild = function(){
             var hubRootID = self.findHubRootID(interestID);
             var hubRootMap = relatednessMap[hubRootID];
             self.activateHubRootAndChildren(hubRootID, hubRootMap, self, false);
-
+            d3.select(this).select('g.label').select('text').text(MC.interest().getText());
             d3.selectAll('g.person')
                 .attr('opacity',function(d){
                     if((d.interests && d.interests.indexOf(interestID) >= 0)){
@@ -654,6 +654,9 @@ MC.InterestViz.prototype.hoverVizRootChild = function(){
 };
 
 MC.InterestViz.prototype.mouseOut = function(){
+    if(d3.select(this).classed('interest')){
+        d3.select(this).select('g.label').select('text').text(MC.interest().getCleanedText());
+    }
     d3.selectAll('g.hubRoot, g.interest, g.person, g.hub')
         .attr('opacity',this.activeOpacity)
         .selectAll('g.label')
