@@ -485,7 +485,17 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
         .duration(500)
         .style("display", "block")
         .style('left',pos.left+100)
-        .style('top',pos.top);
+        .style('top',pos.top)
+        .each('end', function(){
+            div.on("mouseover", function() {
+                div
+                    .style("display", "block");
+            })
+                .on("mouseout", function() {
+                    div
+                        .style("display", "none");
+                });
+        });
 
 };
 
@@ -495,17 +505,8 @@ MC.InterestViz.prototype.enableHoverHighlight = function(){
     var div =  d3.select('body')
         .append("div")
         .attr("id","tooltipBox")
-        .style("position", "absolute")
-        .on("mouseover", function() {
-            div
-                .transition()
-                .style("display", "block");
-        })
-        .on("mouseout", function() {
-            div
-                .transition()
-                .style("display", "none");
-        });
+        .style("position", "absolute");
+
 
     this.hoverVizRoot();
     this.hoverHubRoot();
