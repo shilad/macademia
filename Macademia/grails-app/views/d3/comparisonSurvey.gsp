@@ -13,7 +13,7 @@
 
     <r:require modules="d3js"/>
 
-    <title></title>
+  <title></title>
 
     <style>
     #red, #green, #blue {
@@ -24,7 +24,7 @@
     }
 
     #red .ui-slider-range { background: #F8F8F8 ; }
-        /*#red.ui-slider-handle { fill: red; }*/
+    /*#red.ui-slider-handle { fill: red; }*/
     #red .ui-slider-handle { border-color: black; }
     #red.ui-widget-content .ui-state-default { background: #ff0000; }
     #red.ui-widget-content { background: 	#FF9999; }
@@ -90,43 +90,42 @@
                     <table>
                         <tr>
                             <td width=10%>
-                                <p> Relatedness
-                                </p>
+                    <p> Relatedness
+                    </p>
 
-                                <div id="red"></div>
-                                <div id="green"></div>
-                                <div id="blue"></div>
-                            </td>
+                    <div id="red"></div>
+                    <div id="green"></div>
+                    <div id="blue"></div>
+                       </td>
                             <td>
-                                %{--//table is off --}%
-                                <table>
-                                    <tr>
-                                        <td width =10m>First</td>
+                           <table>
+                               <tr>
+                                   <td width =10m>First</td>
 
-                                    </tr>
-                                    <tr>
-                                        <td>Second</td>
-                                    </tr> <tr>
-                                    <td>Third</td>
-                                </tr>
-                                </table>
+                               </tr>
+                               <tr>
+                                 <td>Second</td>
+                               </tr> <tr>
+                               <td>Third</td>
+                           </tr>
+                           </table>
 
                             </td>
                             <td>
                                 next collon
                             </td>
-                        </tr>
+                       </tr>
 
-                    </table>
+                     </table>
                     <br/>
                 </tr>
                 <tr>
                     <br/>
-                    <h2> Best matches:</h2>
+                 <h2> Best matches:</h2>
                     <br/>
                 </tr>
                 <tr>
-                    <h3>Task description:</h3>
+                <h3>Task description:</h3>
                     <p>Input the task description here.</p>
                     <br/>
                 </tr>
@@ -137,16 +136,4 @@
 </table>
 
 </body>
-
-<script>
-    $(function() {
-        $( "#sortable" ).sortable();
-        $( "#sortable" ).disableSelection();
-    });
-</script>
-
-
-
-
-
 </html>
