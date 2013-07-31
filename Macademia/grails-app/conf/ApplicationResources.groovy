@@ -50,6 +50,7 @@ modules = {
     d3js {
         dependsOn 'consolelog'
         dependsOn 'core'
+
         resource url: '/js/d3test/d3.v3.js'
         resource url: '/js/d3test/utils.js'
         resource url: '/js/d3test/label.js'
@@ -60,6 +61,7 @@ modules = {
         resource url: '/js/d3test/interest-layout.js'
         resource url: '/js/d3test/base-viz.js'
         resource url: '/js/d3test/interest-viz.js'
+        resource url: '/css/tooltip.css'
         resource url: '/js/d3test/main-viz.js'
         resource url: '/js/d3test/inherit.js'
         resource url: '/js/d3test/vizModel.js'
