@@ -482,9 +482,9 @@ MC.personLayout = function () {
     MC.options.register(pl, 'charge', function(d) {
         //checks to see if it is a hub
         if (d.type == 'hub') {
-            return -8500;
+            return -85000;
         } else if (d.type == 'person') {
-            return -8500;
+            return -85000;
         } else {
             return -85000;
         }
