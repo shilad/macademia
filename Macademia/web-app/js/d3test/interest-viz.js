@@ -488,13 +488,17 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
         .style('top',pos.top)
         .each('end', function(){
             div.on("mouseover", function() {
-                div
-                    .style("display", "block");
-            })
-                .on("mouseout", function() {
+                window.setTimeout(function () {
                     div
-                        .style("display", "none");
-                });
+                        .transition()
+                        .style("display", "block");
+                })
+                    .on("mouseout", function() {
+                        div
+                            .transition()
+                            .style("display", "none");
+                    });
+            },250);
         });
 
 };
