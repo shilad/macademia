@@ -8,14 +8,14 @@
 var MC = (window.MC = (window.MC || {}));
 
 MC.MainViz = function(params) {
-//    this.hubs = params.hubs;
-//    this.people = params.people;
-//    this.root = params.root;
-//    this.svg = params.svg;
-//    this.circles = params.circles;
-//    this.interests = params.interests;
-//    this.colors = params.colors;
-//    this.relatednessMap = params.relatednessMap;
+    this.hubs = params.hubs;
+    this.people = params.people;
+    this.root = params.root;
+    this.svg = params.svg;
+    this.circles = params.circles;
+    this.interests = params.interests;
+    this.colors = params.colors;
+    this.relatednessMap = params.relatednessMap;
 
 //    console.log(params);
 
@@ -136,9 +136,9 @@ MC.MainViz.prototype.onLoad = function(){
 //        var hubModel = this.createModel(this.root);
     }
 
-    var rootId = macademia.history.get("nodeId").substring(3);
-    var rootClass = macademia.history.get("navFunction");
-    this.retrieveData(rootId,rootClass);
+//    var rootId = macademia.history.get("nodeId").substring(3);
+//    var rootClass = macademia.history.get("navFunction");
+//    this.retrieveData(rootId,rootClass);
 
     if(this.tRoot){
         this.transitionRoot();
