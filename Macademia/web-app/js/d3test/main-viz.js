@@ -46,10 +46,10 @@ MC.MainViz.prototype.createModel = function(root){
     return model;
 };
 
-MC.MainViz.prototype.onLoad = function(fn){
+MC.MainViz.prototype.retrieveData = function(rootId, rootClass){
     //maybe load model here for testing
-    var rootClass = "person";
-    var rootId = 16;
+    var rootClass = rootClass || "person";
+    var rootId = rootId || 16;
     var url = macademia.makeActionUrlWithGroup('all', 'explore', rootClass + 'Data') + '/' + rootId;
     var self = this;
 //    $.ajax({
@@ -58,27 +58,18 @@ MC.MainViz.prototype.onLoad = function(fn){
 //        success : function (json) {
 //    });
     $.getJSON(url, function(json){
-        console.log('We got the data');
         var model = new VizModel(json);
-        console.log(model);
         //notice that interests has relatedQueryId that
         //tell us which cluster it belongs to
         var interests = model.getInterests();
         var peeps = model.getPeople();
         var clusterMap = model.getClusterMap();
-        console.log('interests:');
-        console.log(interests);
-        console.log('peeps:');
-        console.log(peeps);
-        console.log(clusterMap);
 
         //building hubs
         var hubs = []
         for (var key in clusterMap){
             hubs.push({type:'interest', id:Number(key), children:clusterMap[key]});
         }
-        console.log('hubs:');
-        console.log(hubs);
 
         //building root
         var root = {type:'person',id:rootId, children: peeps[rootId].interests};
@@ -99,8 +90,6 @@ MC.MainViz.prototype.onLoad = function(fn){
             //parse the interest id, we need number
             interests[key].id = Number(interests[key].id);
         }
-        console.log('relatednessMap');
-        console.log(relatednessMap);
 
         var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
         var colors =[
@@ -117,15 +106,12 @@ MC.MainViz.prototype.onLoad = function(fn){
         self.interests = interests;
         self.colors = colors;
         self.relatednessMap = relatednessMap;
-        self.processModel();
+//        self.processModel();
     });
-
-
 }
 
-MC.MainViz.prototype.processModel = function(){
+MC.MainViz.prototype.onLoad = function(){
     if(macademia.history.get("navFunction")=="interest"){
-
         this.root = {
             "isVizRoot":true,
             "id": macademia.history.get("interestId"),
@@ -149,6 +135,11 @@ MC.MainViz.prototype.processModel = function(){
 
 //        var hubModel = this.createModel(this.root);
     }
+
+    var rootId = macademia.history.get("nodeId").substring(3);
+    var rootClass = macademia.history.get("navFunction");
+    this.retrieveData(rootId,rootClass);
+
     if(this.tRoot){
         this.transitionRoot();
         window.setTimeout(jQuery.proxy(function(){
