@@ -15,8 +15,34 @@
 
 <table border="1" width=100% height=100%>
     <tr>
-        <td width=30%>left half</td>
-        <td>right half</td>
+        <tr>
+        <td width=33% style="vertical-align: top">
+            left half top
+        </td>
+    </tr>
+
+
+
+
+
+
+
+
+
+
+
+
+        <td style="vertical-align: top">right half
+            <br>
+            <tr>
+            hello
+</tr>
+
+
+
+
+
+        </td>
     </tr>
 </table>
 
