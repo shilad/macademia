@@ -8,14 +8,14 @@
 var MC = (window.MC = (window.MC || {}));
 
 MC.MainViz = function(params) {
-    this.hubs = params.hubs;
-    this.people = params.people;
-    this.root = params.root;
-    this.svg = params.svg;
-    this.circles = params.circles;
-    this.interests = params.interests;
-    this.colors = params.colors;
-    this.relatednessMap = params.relatednessMap;
+//    this.hubs = params.hubs;
+//    this.people = params.people;
+//    this.root = params.root;
+//    this.svg = params.svg;
+//    this.circles = params.circles;
+//    this.interests = params.interests;
+//    this.colors = params.colors;
+//    this.relatednessMap = params.relatednessMap;
 
 //    console.log(params);
 
@@ -106,53 +106,104 @@ MC.MainViz.prototype.retrieveData = function(rootId, rootClass){
         self.interests = interests;
         self.colors = colors;
         self.relatednessMap = relatednessMap;
-//        self.processModel();
     });
 }
 
 MC.MainViz.prototype.onLoad = function(){
-    if(macademia.history.get("navFunction")=="interest"){
-        this.root = {
-            "isVizRoot":true,
-            "id": macademia.history.get("interestId"),
-            'name': macademia.history.get("name"),
-            'type':'interest',
-            'children' : [96,97,98,99,9]
-        };
-//        var hubModel = this.createModel(this.root);
-    }
-    else if(macademia.history.get("navFunction")=="person"){
-//        console.log(this.people[macademia.history.get("personId")]);
-        this.root = {
-            "isVizRoot":true,
-            "id": macademia.history.get("personId"),
-            'name': macademia.history.get("name"),
-            'type':'person',
-            'pic' : '/Macademia/all/image/randomFake?foo',
-            'relevance': this.people[macademia.history.get("personId")].relevance,
-            'children' : this.people[macademia.history.get("personId")].interests
-        };
+//    if(macademia.history.get("navFunction")=="interest"){
+//        this.root = {
+//            "isVizRoot":true,
+//            "id": macademia.history.get("interestId"),
+//            'name': macademia.history.get("name"),
+//            'type':'interest',
+//            'children' : [96,97,98,99,9]
+//        };
+////        var hubModel = this.createModel(this.root);
+//    }
+//    else if(macademia.history.get("navFunction")=="person"){
+////        console.log(this.people[macademia.history.get("personId")]);
+//        this.root = {
+//            "isVizRoot":true,
+//            "id": macademia.history.get("personId"),
+//            'name': macademia.history.get("name"),
+//            'type':'person',
+//            'pic' : '/Macademia/all/image/randomFake?foo',
+//            'relevance': this.people[macademia.history.get("personId")].relevance,
+//            'children' : this.people[macademia.history.get("personId")].interests
+//        };
+//
+////        var hubModel = this.createModel(this.root);
+//    }
 
-//        var hubModel = this.createModel(this.root);
-    }
+    var rootId = macademia.history.get("nodeId").substring(2);
+    var rootClass = macademia.history.get("navFunction");
+    var url = macademia.makeActionUrlWithGroup('all', 'explore', rootClass + 'Data') + '/' + rootId;
+    var self = this;
+    $.getJSON(url, function(json){
+        var model = new VizModel(json);
+        //notice that interests has relatedQueryId that
+        //tell us which cluster it belongs to
+        var interests = model.getInterests();
+        var peeps = model.getPeople();
+        var clusterMap = model.getClusterMap();
 
-//    var rootId = macademia.history.get("nodeId").substring(3);
-//    var rootClass = macademia.history.get("navFunction");
-//    this.retrieveData(rootId,rootClass);
+        //building hubs
+        var hubs = []
+        for (var key in clusterMap){
+            hubs.push({type:'interest', id:Number(key), children:clusterMap[key]});
+        }
 
-    if(this.tRoot){
-        this.transitionRoot();
-        window.setTimeout(jQuery.proxy(function(){
-            this.svg.select("g.viz").remove();
-            this.createViz();
-            this.setEventHandlers();
-        },this),2500);
-    }
-    else{
-        this.svg.select("g.viz").remove();
-        this.createViz();
-        this.setEventHandlers();
-    }
+        //building root
+        var root = {type:'person',id:rootId, children: peeps[rootId].interests};
+
+        //building relatednessMap and parse interests
+        var relatednessMap = {};
+        for(var key in interests){
+            var interest = interests[key];
+            var clusterId = interests[key].cluster;
+            if(clusterId != -1){
+                if(relatednessMap[clusterId]){
+                    relatednessMap[clusterId].push(Number(key));
+                } else {
+                    var value = [Number(key)];
+                    relatednessMap[clusterId]=value;
+                }
+            }
+            //parse the interest id, we need number
+            interests[key].id = Number(interests[key].id);
+        }
+
+        var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
+        var colors =[
+            "#f2b06e",
+            "#f5a3d6",
+            "#b2a3f5",
+            "#a8c4e5",
+            "#b4f5a3"
+        ];
+        self.hubs = hubs;
+        self.people = peeps;
+        self.root = root;
+        self.svg = svg;
+        self.interests = interests;
+        self.colors = colors;
+        self.relatednessMap = relatednessMap;
+
+        if(self.tRoot){
+            self.transitionRoot();
+            window.setTimeout(function(){
+                self.svg.select("g.viz").remove();
+                self.createViz();
+                self.setEventHandlers();
+            },2500);
+        }
+        else{
+            self.svg.select("g.viz").remove();
+            self.createViz();
+            self.setEventHandlers();
+        }
+
+    });
 
 };
 
