@@ -98,29 +98,29 @@ MC.MainViz.prototype.onLoad = function(){
             //building hubs
             var hubs = []
             for (var key in clusterMap){
-                hubs.push({type:'interest', id:Number(key), children:clusterMap[key]});
+                if(rootId != key)
+                    hubs.push({type:'interest', id:Number(key), children:clusterMap[key]});
             }
 
             var clusters={};
             var curInterest;
-            var limitedChildren=[];
-            for(var i = 0; i < peeps[rootId].interests.length; i++){
-                curInterest = interests[peeps[rootId].interests[i]];
-                if(clusters[curInterest.cluster]){
-                    if(clusters[curInterest.cluster]<(Math.floor(10/Object.keys(clusterMap).length))){
-                    limitedChildren.push(curInterest.id);
-                    clusters[curInterest.cluster]++;
-                    }
-                }
-                else{
-                    limitedChildren.push(curInterest.id);
-                    clusters[curInterest.cluster]=1;
-                }
-            }
-
             //building root
             if (rootClass == 'person'){
-                var root = {type:'person', id:rootId, children: peeps[rootId].interests};
+                var limitedChildren=[];
+                for(var i = 0; i < peeps[rootId].interests.length; i++){
+                    curInterest = interests[peeps[rootId].interests[i]];
+                    if(clusters[curInterest.cluster]){
+                        if(clusters[curInterest.cluster]<(Math.floor(10/Object.keys(clusterMap).length))){
+                            limitedChildren.push(curInterest.id);
+                            clusters[curInterest.cluster]++;
+                        }
+                    }
+                    else{
+                        limitedChildren.push(curInterest.id);
+                        clusters[curInterest.cluster]=1;
+                    }
+                }
+                var root = {type:'person', id:rootId, children: limitedChildren};
             } else if (rootClass == 'interest') {
                 var root = {type:'interest', id:rootId, children: clusterMap[rootId]};
             }
