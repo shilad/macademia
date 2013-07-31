@@ -17,11 +17,20 @@
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <link rel="stylesheet" href="/resources/demos/style.css" />
 
+
+
+
     <style>
 
-    #bestMatch {color: lawngreen;text-indent: 75px;}
+    #bestMatch {
+        color: lawngreen;
+        text-indent: 75px;
+    }
 
-    #worstMatch { color: #ff0000; text-indent: 75px;}
+    #worstMatch {
+        color: #ff0000;
+        text-indent: 75px;
+    }
 
     #red, #green, #blue {
         float: left;
@@ -47,26 +56,36 @@
         background: #FF9999;
     }
 
-    #green .ui-slider-range {background: #8ae234;}
-
-    #green .ui-widget-content {background: purple;}
-
-    #green .ui-slider-handle {border-color: #8ae234;
+    #green .ui-slider-range {
+        background: #8ae234;
     }
 
-    #blue .ui-slider-range {background: #729fcf;
+    #green .ui-widget-content {
+        background: purple;
     }
 
-    #blue .ui-widget-content {background: purple;
+    #green .ui-slider-handle {
+        border-color: #8ae234;
     }
 
-    #blue .ui-slider-handle {border-color: #729fcf;}
+    #blue .ui-slider-range {
+        background: #729fcf;
+    }
+
+    #blue .ui-widget-content {
+        background: purple;
+    }
+
+    #blue .ui-slider-handle {
+        border-color: #729fcf;
+    }
 
     #sortable {
         list-style-type: none;
         margin: 0;
         padding: 0;
-         }
+        width: 60%;
+    }
 
     #sortable li {
         margin: 0 3px 3px 3px;
@@ -134,71 +153,88 @@
 
 </head>
 
+%{--<body class="ui-widget-content" style="border: 0;">--}%
+
+            %{--<table>--}%
+
+                %{--<tr>--}%
+
+                    %{--<h1>Related to Donnie Burroughs</h1>--}%
+                    %{--<table>--}%
+                        %{--<tr>--}%
+                            %{--<td width=10%>--}%
+                                %{--<p>Relatedness--}%
+                                %{--</p>--}%
+
+                                %{--<div id="red"></div>--}%
+
+                                %{--<div id="green"></div>--}%
+
+                                %{--<div id="blue"></div>--}%
+                            %{--</td>--}%
+                            %{--<td>--}%
+                                %{--<table>--}%
+                                    %{--<tr>--}%
+                                        %{--<td width=10m>First</td>--}%
+
+                                    %{--</tr>--}%
+                                    %{--<tr>--}%
+                                        %{--<td>Second</td>--}%
+                                    %{--</tr> <tr>--}%
+                                    %{--<td>Third</td>--}%
+                                %{--</tr>--}%
+                                %{--</table>--}%
+
+                            %{--</td>--}%
+
+                        %{--</tr>--}%
+                    %{--</table>--}%
+                    %{--<br/>--}%
+                %{--</tr>--}%
+                %{--<tr>--}%
+                    %{--<div id = "bestMatch">Best Match</div>--}%
+                    %{--<ul id="sortable">--}%
+
+                        %{--<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Miles Davis</li>--}%
+                        %{--<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>John Coltrane</li>--}%
+                        %{--<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Tony Williams</li>--}%
+                        %{--<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Herbie Hancock</li>--}%
+                        %{--<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Ron Carter</li>--}%
+
+
+                    %{--</ul>--}%
+                    %{--<div id = "worstMatch">Worst Match</div>--}%
+
+
+
+                %{--</tr>--}%
+
+
+            %{--</table>--}%
+
+
+%{--</body>--}%
+
 <body class="ui-widget-content" style="border: 0;">
-<table>
+<table width=100%>
     <tr>
-        <td>
-             <table>
-                 <tr>
-                     <td>
-                         <div id="red"></div>
-                     </td>
-                     <td width=8m>First</td>
-
-                 </td>
-                 </tr>
-                 <tr>
-                     <td>
-                         <div id="green"></div>
-                     </td>
-
-                     <td width=8m>Second</td>
-
-
-                 </tr>
-                 <tr>
-                     <td>
-                         <div id="blue"></div>
-                     </td>
-                     <td width=8m>Third</td>
-
-
-                 </tr>
-                 <tr>
-                     <td colspan="3">
-                         <ul id="sortable">
-                             <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Miles Davis</li>
-                             <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>John Coltrane</li>
-                             <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Tony Williams</li>
-                             <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Herbie Hancock</li>
-                             <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Ron Carter</li>
-                         </ul>
-                     </td>
-                 </tr>
-                 <tr>
-                     <td>
-                         <div> Add a person    <input type="text" name="interest_inputs" maxlength="100">
-                             </div>
-                 </td>
-                 </tr>
-                 <tr>
-                     <td colspan="3">
-                         <h2>Task Description</h2>
-                     </td>
-                 </tr>
-             </table>
+        <td width=50%>
+            This is left
         </td>
         <td>
-            <div>
-                <p>
-                    This will be the viz
-                </p>
-            </div>
+            this is right
         </td>
     </tr>
 </table>
 
 
 </body>
+
+
+
+
+
+
+
 
 </html>
