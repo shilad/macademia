@@ -13,5 +13,12 @@
 </head>
 <body>
 
+<table border="1" width=100% height=100%>
+    <tr>
+        <td width=30%>left half</td>
+        <td>right half</td>
+    </tr>
+</table>
+
 </body>
 </html>
