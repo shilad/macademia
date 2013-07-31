@@ -142,6 +142,9 @@ MC.MainViz.prototype.onLoad = function(){
 //    url: url,
 //        dataType : 'json',
 //        success : function (json) { self.loadJson(new VizModel(json)); }
+    if(self.tRoot){
+        self.transitionRoot(); //transition the root before running ajax
+    }
     $.ajax({
         url:url,
         dataType:'json',
@@ -196,11 +199,11 @@ MC.MainViz.prototype.onLoad = function(){
             self.relatednessMap = relatednessMap;
 
             if(self.tRoot){
-                self.transitionRoot();
+//                self.transitionRoot();
                 window.setTimeout(function(){
-                    self.svg.select("g.viz").remove();
-                    self.createViz();
-                    self.setEventHandlers();
+                self.svg.select("g.viz").remove();
+                self.createViz();
+                self.setEventHandlers();
                 },2500);
             }
             else{
