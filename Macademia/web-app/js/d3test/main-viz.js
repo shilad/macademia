@@ -8,16 +8,16 @@
 var MC = (window.MC = (window.MC || {}));
 
 MC.MainViz = function(params) {
-    this.hubs = params.hubs;
-    this.people = params.people;
-    this.root = params.root;
-    this.svg = params.svg;
-    this.circles = params.circles;
-    this.interests = params.interests;
-    this.colors = params.colors;
-    this.relatednessMap = params.relatednessMap;
+//    this.hubs = params.hubs;
+//    this.people = params.people;
+//    this.root = params.root;
+//    this.svg = params.svg;
+//    this.circles = params.circles;
+//    this.interests = params.interests;
+//    this.colors = params.colors;
+//    this.relatednessMap = params.relatednessMap;
 
-    console.log(params);
+//    console.log(params);
 
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
     this.setEventHandlers();
@@ -46,7 +46,84 @@ MC.MainViz.prototype.createModel = function(root){
     return model;
 };
 
-MC.MainViz.prototype.onLoad = function(){
+MC.MainViz.prototype.onLoad = function(fn){
+    //maybe load model here for testing
+    var rootClass = "person";
+    var rootId = 16;
+    var url = macademia.makeActionUrlWithGroup('all', 'explore', rootClass + 'Data') + '/' + rootId;
+    var self = this;
+//    $.ajax({
+//        url: url,
+//        dataType : 'json',
+//        success : function (json) {
+//    });
+    $.getJSON(url, function(json){
+        console.log('We got the data');
+        var model = new VizModel(json);
+        console.log(model);
+        //notice that interests has relatedQueryId that
+        //tell us which cluster it belongs to
+        var interests = model.getInterests();
+        var peeps = model.getPeople();
+        var clusterMap = model.getClusterMap();
+        console.log('interests:');
+        console.log(interests);
+        console.log('peeps:');
+        console.log(peeps);
+        console.log(clusterMap);
+
+        //building hubs
+        var hubs = []
+        for (var key in clusterMap){
+            hubs.push({type:'interest', id:Number(key), children:clusterMap[key]});
+        }
+        console.log('hubs:');
+        console.log(hubs);
+
+        //building root
+        var root = {type:'person',id:rootId, children: peeps[rootId].interests};
+
+        //building relatednessMap and parse interests
+        var relatednessMap = {};
+        for(var key in interests){
+            var interest = interests[key];
+            var clusterId = interests[key].cluster;
+            if(clusterId != -1){
+                if(relatednessMap[clusterId]){
+                    relatednessMap[clusterId].push(Number(key));
+                } else {
+                    var value = [Number(key)];
+                    relatednessMap[clusterId]=value;
+                }
+            }
+            //parse the interest id, we need number
+            interests[key].id = Number(interests[key].id);
+        }
+        console.log('relatednessMap');
+        console.log(relatednessMap);
+
+        var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
+        var colors =[
+            "#f2b06e",
+            "#f5a3d6",
+            "#b2a3f5",
+            "#a8c4e5",
+            "#b4f5a3"
+        ];
+        self.hubs = hubs;
+        self.people = peeps;
+        self.root = root;
+        self.svg = svg;
+        self.interests = interests;
+        self.colors = colors;
+        self.relatednessMap = relatednessMap;
+        self.processModel();
+    });
+
+
+}
+
+MC.MainViz.prototype.processModel = function(){
     if(macademia.history.get("navFunction")=="interest"){
 
         this.root = {
@@ -89,6 +166,8 @@ MC.MainViz.prototype.onLoad = function(){
 };
 
 MC.MainViz.prototype.createViz = function(){
+    console.log("this.hubs");
+    console.log(this.hubs);
     this.viz = new MC.InterestViz({
         hubs: this.hubs,
         root: this.root,

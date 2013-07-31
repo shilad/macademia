@@ -130,7 +130,7 @@ MC.InterestViz.prototype.postionHubsGradientCirlces = function(){
     this.root.cy = this.svgHeight * posRoot.y;
 
     //Setting the hubs
-    for(var i=0;i<hubs.length;i++){
+    for(var i=0;i<this.hubs.length;i++){
         var pos = coordinates[i+1]; //start with 1 because 0 is root
         this.hubs[i].cx = this.svgWidth * pos.x;
         this.hubs[i].cy = this.svgHeight * pos.y;
