@@ -86,7 +86,8 @@
                 "overall":1.0769508928060532},
             "interests":[
                 11,
-                22]},
+                22,
+                3]},
         16: {"id":16,
             "name":"Donnie Burroughs",
             "pic":"/Macademia/all/image/fake?gender=male&img=00286_940422_fa.png",
@@ -96,9 +97,9 @@
                 "33":0.9563,
                 "overall":1.2776578441262245},
             "interests":[
-                13,
-                33,
-                11]},
+                24,
+                96,
+                99]},
         336: {"id":336,
             "name":"Thomas Hanks",
             "pic":"/Macademia/all/image/fake?gender=male&img=00287_940422_fa.png",
@@ -109,7 +110,8 @@
             "interests":[
                 21,
                 23,
-                16]},
+                16,
+                5]},
         7: {
             "id":7,
             'name':'Shilad Sen',
@@ -136,13 +138,18 @@
 //        {'id' : 34, 'color' : "#D3D3D3", 'r': 300, 'cx' : 375, 'cy' : 425, "stop-opacity":.5}
 //    ];
 
-    var root = {type : 'person', id: 7, children : [3,6,1,4,5,2]};
+    var root = {type : 'person', id: 7, children : [3, 6, 1, 4, 5]};
 
     var hubs = [
         {type : 'interest', id : 11, children : [12,14,15,16]},
-        {type : 'interest', id : 13, children : [21,22,23,24,25,26]},
+        {type : 'interest', id : 13, children : [21,22,24,25,26]},
         {type : 'interest', id : 33, children : [23,43,53,63]}
     ];
+    var relatednessMap = {
+        11 : [12,14,15,16,5,10,20,1],
+        13 : [21,22,24,25,26,3,4],
+        33 : [23,43,53,63,99,6]
+    };
 
 
     var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
@@ -153,12 +160,9 @@
         interests: interests,
         people: peeps,
         svg : svg,
-        colors: colors
+        colors: colors,
+        relatednessMap:relatednessMap
     });
-
-
-
-
 
 </r:script>
 

@@ -15,6 +15,7 @@ MC.MainViz = function(params) {
     this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
+    this.relatednessMap = params.relatednessMap;
 
 
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
@@ -26,6 +27,9 @@ MC.MainViz = function(params) {
 MC.MainViz.prototype.setEventHandlers = function(){
     this.setInterestEventHandler();
     this.setPeopleEventHandler();
+    if(this.viz){
+        this.viz.enableHoverHighlight();
+    }
 };
 
 MC.MainViz.prototype.createModel = function(root){
@@ -54,6 +58,7 @@ MC.MainViz.prototype.onLoad = function(){
 //        var hubModel = this.createModel(this.root);
     }
     else if(macademia.history.get("navFunction")=="person"){
+//        console.log(this.people[macademia.history.get("personId")]);
         this.root = {
             "isVizRoot":true,
             "id": macademia.history.get("personId"),
@@ -61,7 +66,7 @@ MC.MainViz.prototype.onLoad = function(){
             'type':'person',
             'pic' : '/Macademia/all/image/randomFake?foo',
             'relevance': this.people[macademia.history.get("personId")].relevance,
-            'children' : [96,97,98,99,9]
+            'children' : this.people[macademia.history.get("personId")].interests
         };
 
 //        var hubModel = this.createModel(this.root);
@@ -79,6 +84,7 @@ MC.MainViz.prototype.onLoad = function(){
         this.createViz();
         this.setEventHandlers();
     }
+
 };
 
 MC.MainViz.prototype.createViz = function(){
@@ -89,7 +95,8 @@ MC.MainViz.prototype.createViz = function(){
         circles: this.circles,
         svg : this.svg,
         colors : this.colors,
-        interests:this.interests
+        interests:this.interests,
+        relatednessMap: this.relatednessMap
     });
 };
 
@@ -220,31 +227,31 @@ MC.MainViz.prototype.transitionRoot = function(){
                 });
         }
         else{
-           if(!this.tRoot.data()[0][0]){    //this.tRoot.data()[0][0].r) should equal 30 if it is a hubroot
-            this.tRoot
-                .selectAll('circle.interestOuter')
-                .transition()
-                .duration(1000)
-                .attr("transform",function(){
-                    if(d3.select(this))
-                        return "scale(2.5)";
-                });
-               this.tRoot
-                   .select('circle.interestInner')
-                   .transition()
-                   .duration(1000)
-                   .attr("r",function(){
-                       if(d3.select(this))
-                           return d3.select(this).attr('r')*2.5;
-                   });
-            this.tRoot
-                .select('text')
-                .transition()
-                .duration(1000)
-                .attr("y",function(){
-                    return 42;
-                });
-           }
+            if(!this.tRoot.data()[0][0]){    //this.tRoot.data()[0][0].r) should equal 30 if it is a hubroot
+                this.tRoot
+                    .selectAll('circle.interestOuter')
+                    .transition()
+                    .duration(1000)
+                    .attr("transform",function(){
+                        if(d3.select(this))
+                            return "scale(2.5)";
+                    });
+                this.tRoot
+                    .select('circle.interestInner')
+                    .transition()
+                    .duration(1000)
+                    .attr("r",function(){
+                        if(d3.select(this))
+                            return d3.select(this).attr('r')*2.5;
+                    });
+                this.tRoot
+                    .select('text')
+                    .transition()
+                    .duration(1000)
+                    .attr("y",function(){
+                        return 42;
+                    });
+            }
         }
 
         this.svg
@@ -266,6 +273,7 @@ MC.MainViz.prototype.transitionRoot = function(){
             });
     }
 };
+
 
 
 
