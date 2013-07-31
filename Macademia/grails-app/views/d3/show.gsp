@@ -43,18 +43,49 @@
 
 <r:script>
     //maybe load model here for testing
+    var rootClass = "person";
+    var rootId = 16;
+    var url = macademia.makeActionUrlWithGroup('all', 'explore', rootClass + 'Data') + '/' + rootId;
+    var self = this;
+    $.ajax({
+        url: url,
+        dataType : 'json',
+        success : function (json) {
+            console.log('We got the data');
+            var model = new VizModel(json);
+            console.log(model);
+            var interests = model.getInterests(); //we can just use this
+            var peeps = model.getPeople(); //we can just use this
+            var clusterMap = model.getClusterMap();
+            console.log(interests);
+            console.log(peeps);
+            console.log(clusterMap);
+
+            //building hubs
+            var hubs = []
+            for (var key in clusterMap){
+                hubs.push({type:'interest', id:key, children:clusterMap[key]});
+            }
+            console.log(hubs);
+
+            //building relatednessMap
+        }
+    });
+
 
     var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
-//    var viz = new MC.MainViz({
-//        hubs: hubs,
-//        root: root,
-//        interests: interests,
-//        people: peeps,
-//        svg : svg,
-//        colors: colors,
-//        relatednessMap:relatednessMap
-//    });
+
+    //    var viz = new MC.MainViz({
+    //        hubs: hubs,
+    //        root: root,
+    //        interests: interests,
+    //        people: peeps,
+    //        svg : svg,
+    //        colors: colors,
+    //        relatednessMap:relatednessMap
+    //    });
+
 
 </r:script>
 
