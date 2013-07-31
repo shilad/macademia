@@ -107,7 +107,7 @@ MC.MainViz.prototype.onLoad = function(){
             for(var i = 0; i < peeps[rootId].interests.length; i++){
                 curInterest = interests[peeps[rootId].interests[i]];
                 if(clusters[curInterest.cluster]){
-                    if(clusters[curInterest.cluster]<3){
+                    if(clusters[curInterest.cluster]<(Math.floor(10/Object.keys(clusterMap).length))){
                     limitedChildren.push(curInterest.id);
                     clusters[curInterest.cluster]++;
                     }
