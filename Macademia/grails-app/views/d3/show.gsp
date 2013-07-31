@@ -15,31 +15,7 @@
 </head>
 <body>
 
-<style type="text/css">
 
-.hub {
-    font: 13px Georgia;
-    fill: #C0C0C0;
-}
-
-.active {
-    fill: black;
-}
-
-.activeInterest{
-    /*
-    This should have the same css style as interest except we are using
-    a different fill
-    */
-    font: 13px Georgia;
-    fill: black;
-}
-
-.interest{
-    font: 13px Georgia;
-    fill: #C0C0C0;
-}
-</style>
 
 <r:script>
     var viz = new MC.MainViz({

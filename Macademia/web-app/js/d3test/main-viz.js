@@ -18,7 +18,7 @@ MC.MainViz = function(params) {
 //    this.relatednessMap = params.relatednessMap;
 
 //    console.log(params);
-
+    this.svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
     this.setEventHandlers();
 
@@ -91,7 +91,7 @@ MC.MainViz.prototype.retrieveData = function(rootId, rootClass){
             interests[key].id = Number(interests[key].id);
         }
 
-        var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
+
         var colors =[
             "#f2b06e",
             "#f5a3d6",
@@ -102,7 +102,6 @@ MC.MainViz.prototype.retrieveData = function(rootId, rootClass){
         self.hubs = hubs;
         self.people = peeps;
         self.root = root;
-        self.svg = svg;
         self.interests = interests;
         self.colors = colors;
         self.relatednessMap = relatednessMap;

@@ -482,7 +482,7 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
 
     div
         .transition()
-        .duration(500)
+        .duration(250)
         .style("display", "block")
         .style('left',pos.left+100)
         .style('top',pos.top)
@@ -494,7 +494,7 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
                             .transition()
                             .style("display", "block");
                     });
-            },250);
+            },300);
             div
                 .on("mouseout", function() {
                     div
