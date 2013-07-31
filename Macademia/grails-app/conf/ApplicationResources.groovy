@@ -61,7 +61,7 @@ modules = {
         resource url: '/js/d3test/interest-layout.js'
         resource url: '/js/d3test/base-viz.js'
         resource url: '/js/d3test/interest-viz.js'
-        resource url: '/js/d3test/conpairsonSurvey.js'
+        resource url: '/js/d3test/comparisonSurvey.js'
 
         resource url: '/js/d3test/main-viz.js'
     }
