@@ -705,4 +705,4 @@ MC.InterestViz.prototype.activateHubRootAndChildren = function(mapID, map, self,
             }
         });
 };
-                     //       d
+
