@@ -47,10 +47,12 @@
     var rootId = 16;
     var url = macademia.makeActionUrlWithGroup('all', 'explore', rootClass + 'Data') + '/' + rootId;
     var self = this;
-    $.ajax({
-        url: url,
-        dataType : 'json',
-        success : function (json) {
+//    $.ajax({
+//        url: url,
+//        dataType : 'json',
+//        success : function (json) {
+//    });
+    $.getJSON(url, function(json){
             console.log('We got the data');
             var model = new VizModel(json);
             console.log(model);
@@ -59,35 +61,62 @@
             var interests = model.getInterests();
             var peeps = model.getPeople();
             var clusterMap = model.getClusterMap();
+            console.log('interests:');
             console.log(interests);
+            console.log('peeps:');
             console.log(peeps);
             console.log(clusterMap);
 
             //building hubs
             var hubs = []
             for (var key in clusterMap){
-                hubs.push({type:'interest', id:key, children:clusterMap[key]});
+                hubs.push({type:'interest', id:Number(key), children:clusterMap[key]});
             }
+            console.log('hubs:');
             console.log(hubs);
 
-            //building relatednessMap
+            //building root
+            var root = {type:'person',id:rootId, children: peeps[rootId].interests};
+
+            //building relatednessMap and parse interests
             var relatednessMap = {};
             for(var key in interests){
                 var interest = interests[key];
                 var clusterId = interests[key].cluster;
-                if(relatednessMap[clusterId]){
-                    relatednessMap[clusterId].push(key);
-                } else {
-                    var value = [key];
-                    relatednessMap[clusterId]=value;
+                if(clusterId != -1){
+                    if(relatednessMap[clusterId]){
+                        relatednessMap[clusterId].push(Number(key));
+                    } else {
+                        var value = [Number(key)];
+                        relatednessMap[clusterId]=value;
+                    }
                 }
+                //parse the interest id, we need number
+                interests[key].id = Number(interests[key].id);
             }
+            console.log('relatednessMap');
             console.log(relatednessMap);
-        }
-    });
+
+            var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
+            var colors =[
+                "#f2b06e",
+                "#f5a3d6",
+                "#b2a3f5",
+                "#a8c4e5",
+                "#b4f5a3"
+            ];
+            var viz = new MC.MainViz({
+                hubs: hubs,
+                root: root,
+                interests: interests,
+                people: peeps,
+                svg : svg,
+                colors: colors,
+                relatednessMap:relatednessMap
+            });
+     });
 
 
-    var svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
 
 
     //    var viz = new MC.MainViz({

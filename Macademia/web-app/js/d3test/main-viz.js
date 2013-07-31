@@ -17,6 +17,7 @@ MC.MainViz = function(params) {
     this.colors = params.colors;
     this.relatednessMap = params.relatednessMap;
 
+    console.log(params);
 
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
     this.setEventHandlers();
