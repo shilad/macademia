@@ -182,14 +182,19 @@
                     </td>
                     <td width=8m>Third</td>
                 </tr>
-
                 <tr>
-
+                    <td colspan="3" width=10m>
+                    <h1>Best matches:</h1>
+                    <p> List people who best match the task described below. Drag a person listed below to reorder them.</p>
+                    </td>
+                </tr>
+                <tr>
                     %{--sortable boxes--}%
                     <td colspan="3">
 
                         <ul id="sortable" name="peopleList">
-                        <span class = "sortable-box" ><li>
+
+                            <span class = "sortable-box" ><li>
                                 %{--this table is for aligning the words in the sortable box--}%
                                 <table>
                                     <tr >
@@ -202,57 +207,55 @@
                                     </tr>
                                 </table>
                             </li></span>
-                            <div><h5>List people who best match the <br> task described below.
-                                Drag a person<br> listed below to reorder them.</h5></div>
-                            <span class = "sortable-box" id ="2"><li>
-                                <table>
-                                    <tr>
-                                        <td width=140mm>
-                                            Ron Carter
-                                        </td>
-                                        <td>
-                                            <a class="removeBotton" href="#" id ="2">remove</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </li></span>
-                            <span class = "sortable-box" id ="3"><li>
-                            <table>
-                                <tr>
-                                    <td width=140mm>
-                                        Herbie Hancock</td>
-                                    <td>
-                                        <a class="removeBotton" href="#" id ="3">remove</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </li></span>
-                            <span class = "sortable-box" id ="4"><li>
-                            <table>
-                                <tr>
-                                    <td width=140mm>
-                                        Tony Williams
-                                    </td>
-                                    <td>
-                                        <a class="removeBotton" href="#" id ="4">remove</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </li></span>
+                            %{--<span class = "sortable-box" id ="2"><li>--}%
+                                %{--<table>--}%
+                                    %{--<tr>--}%
+                                        %{--<td width=140mm>--}%
+                                            %{--Ron Carter--}%
+                                        %{--</td>--}%
+                                        %{--<td>--}%
+                                            %{--<a class="removeBotton" href="#" id ="2">remove</a>--}%
+                                        %{--</td>--}%
+                                    %{--</tr>--}%
+                                %{--</table>--}%
+                            %{--</li></span>--}%
+                            %{--<span class = "sortable-box" id ="3"><li>--}%
+                            %{--<table>--}%
+                                %{--<tr>--}%
+                                    %{--<td width=140mm>--}%
+                                        %{--Herbie Hancock</td>--}%
+                                    %{--<td>--}%
+                                        %{--<a class="removeBotton" href="#" id ="3">remove</a>--}%
+                                    %{--</td>--}%
+                                %{--</tr>--}%
+                            %{--</table>--}%
+                        %{--</li></span>--}%
+                            %{--<span class = "sortable-box" id ="4"><li>--}%
+                            %{--<table>--}%
+                                %{--<tr>--}%
+                                    %{--<td width=140mm>--}%
+                                        %{--Tony Williams--}%
+                                    %{--</td>--}%
+                                    %{--<td>--}%
+                                        %{--<a class="removeBotton" href="#" id ="4">remove</a>--}%
+                                    %{--</td>--}%
+                                %{--</tr>--}%
+                            %{--</table>--}%
+                        %{--</li></span>--}%
 
                         </ul>
 
                     </td>
                 </tr>
                 <tr>
-                    <a class="addBotton" href="#">add</a>
+                    %{--<a class="addBotton" href="#">add</a>--}%
                 </tr>
                 <tr>
                     <td>
                         %{--below is where the add person box should go--}%
                         <form>
 
-                            <input type="submit" value="Add Person" id = "submitButton" />
+                            <input class = "addBotton" type="submit" value="Add Person" id = "submitButton" />
                             <input type="text" />
 
                         </form>
@@ -265,7 +268,10 @@
 
                             $( "#submitButton").click(function() {
                                 $("#name").append(input.val());
+                                $("#sortable").append(".sortable-box")
                             });
+
+
 
 
                         </script>
