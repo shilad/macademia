@@ -573,6 +573,8 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
         .attr("stroke-width", 3)
         .attr('stroke-dasharray',"3,3")
         .attr("fill", "#eaeaea")
+        .style("opacity", 0)
+        .style('z-index',-1)
         .transition()
         .duration(1000)
         .style("opacity", 1)
