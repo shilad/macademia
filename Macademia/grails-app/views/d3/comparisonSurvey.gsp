@@ -14,6 +14,11 @@
 
     <style>
 
+    .removeBotton {
+        font-size: 12;
+        margin-right: 5mm;
+    }
+
     #bestMatch {
         color: lawngreen;
         text-indent: 75px;
@@ -147,12 +152,24 @@
 //            $("#sortable").sortable("destroy");
         });
 
-        $(document).ready(function() {
-             $("#removeName").click(function( e ) {
-                console.log("I rean");
-                $("#deleteMe").remove();
-             });
+        $(document).ready(function () {
+            $(".sortable-box").hide();
+            $("#1").click(function (e) {
+                $("#1").remove();
             });
+            $("#2").click(function (e) {
+                $("#2").remove();
+            });
+            $("#3").click(function (e) {
+                $("#3").remove();
+            });
+            $("#4").click(function (e) {
+                $("#4").remove();
+            });
+            $(".addBotton").click(function(e){
+               $(".sortable-box").toggle();
+            })
+        });
     </script>
 
 </head>
@@ -189,16 +206,61 @@
                     <td colspan="3">
 
                         <ul id="sortable" name="peopleList">
-                            <div class="removePerson">
-                            <span><li id="deleteMe" >Miles Davis <a id="removeName" href = "#" style ="font-size: 12; margin-left: 15mm">remove</a></li></span>
-                            </div>
-                            <span><li class="ui-state-default">John Coltrane</li></span>
-                            <span><li class="ui-state-default">Tony Williams</li></span>
-                            <span><li class="ui-state-default">Herbie Hancock</li></span>
-                            <span><li class="ui-state-default">Ron Carter</li></span>
+
+                            <span class = "sortable-box" id ="1"><li>
+                                <table>
+                                    <tr >
+                                        <td width=140mm>
+                                            Miles Davis
+                                        </td>
+                                        <td>
+                                            <a class="removeBotton" id ="1" href="#">remove</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li></span>
+                            <span class = "sortable-box" id ="2"><li>
+                                <table>
+                                    <tr>
+                                        <td width=140mm>
+                                            Ron Carter
+                                        </td>
+                                        <td>
+                                            <a class="removeBotton" href="#" id ="2">remove</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li></span>
+                            <span class = "sortable-box" id ="3"><li>
+                            <table>
+                                <tr>
+                                    <td width=140mm>
+                                        Herbie Hancock</td>
+                                    <td>
+                                        <a class="removeBotton" href="#" id ="3">remove</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </li></span>
+                            <span class = "sortable-box" id ="4"><li>
+                            <table>
+                                <tr>
+                                    <td width=140mm>
+                                        Tony Williams
+                                    </td>
+                                    <td>
+                                        <a class="removeBotton" href="#" id ="4">remove</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </li></span>
+
                         </ul>
 
                     </td>
+                </tr>
+                <tr>
+                    <a class="addBotton" href="#">add</a>
                 </tr>
                 <tr>
                     <td>
