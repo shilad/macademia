@@ -12,69 +12,64 @@
     <r:require modules="survey"/>
     <meta name="layout" content="main"/>
 
+
+
     <style>
 
-    .removeBotton {
-        font-size: 12;
-        margin-right: 5mm;
-    }
-
-    #bestMatch {
-        color: lawngreen;
-        text-indent: 75px;
-    }
-
-    #worstMatch {
-        color: #ff0000;
-        text-indent: 75px;
-    }
-
-    #red, #green, #blue {
+    #pink, #green, #blue {
         float: left;
         clear: left;
         width: 150px;
         margin: 15px;
+        background-color: #d3d3d3;
     }
 
-    #red .ui-slider-range {
-        background: #F8F8F8;
+    #pink .ui-slider-range {
+        background: #d3d3d3;
     }
 
-        /*#red.ui-slider-handle { fill: red; }*/
-    #red .ui-slider-handle {
-        border-color: black;
-    }
-
-    #red.ui-widget-content .ui-state-default {
-        background: #ff0000;
-    }
-
-    #red.ui-widget-content {
-        background: #FF9999;
+    #pink .ui-slider-handle {
+        background: #f5a3d6;
+        border-color: #ffffff;
+        border-width: 2px;
+        height: 25px;
+        width: 25px;
+        border-radius: 25px;
+        position:absolute;
+        top:50%;
+        margin-top: -15px;
     }
 
     #green .ui-slider-range {
-        background: #8ae234;
-    }
-
-    #green .ui-widget-content {
-        background: purple;
+        background: #d3d3d3;
     }
 
     #green .ui-slider-handle {
-        border-color: #8ae234;
+        background: #b4f5a3;
+        border-color: #ffffff;
+        border-width: 2px;
+        height: 25px;
+        width: 25px;
+        border-radius: 25px;
+        position:absolute;
+        top:50%;
+        margin-top: -15px;
     }
 
     #blue .ui-slider-range {
-        background: #729fcf;
-    }
-
-    #blue .ui-widget-content {
-        background: purple;
+        background: #d3d3d3;
     }
 
     #blue .ui-slider-handle {
-        border-color: #729fcf;
+        background: #A8C4E5;
+        border-color: #ffffff;
+        border-width: 2px;
+        height: 25px;
+        width: 25px;
+        border-radius: 25px;
+        position:absolute;
+        top:50%;
+        margin-top: -15px;
     }
 
     #sortable {
@@ -110,65 +105,24 @@
 
     <script>
 
-        function hexFromRGB(r, g, b) {
-            var hex = [
-                r.toString(16),
-                g.toString(16),
-                b.toString(16)
-            ];
-            $.each(hex, function (nr, val) {
-                if (val.length === 1) {
-                    hex[ nr ] = "0" + val;
-                }
-            });
-            return hex.join("").toUpperCase();
-        }
-        function refreshSwatch() {
-            var red = $("#red").slider("value"),
-                    green = $("#green").slider("value"),
-                    blue = $("#blue").slider("value"),
-                    hex = hexFromRGB(red, green, blue);
-            $("#swatch").css("background-color", "#" + hex);
-        }
         $(function () {
-            $("#red, #green, #blue").slider({
+            $("#pink, #green, #blue").slider({
                 orientation: "horizontal",
-                range: "max",
+                range: "min",
                 min: 1,
                 max: 10,
-                value: 2,
-                change: refreshSwatch
-
-//
+                value: 2
+                // change: something
             });
-            $("#red").slider("value", 255);
-            $("#green").slider("value", 140);
-            $("#blue").slider("value", 60);
+            $("#pink").slider("value", 4);
+            $("#green").slider("value", 2);
+            $("#blue").slider("value", 6);
         });
 
         $(function () {
             $("#sortable").sortable();
-//            $("#sortable").disableSelection();
+            $("#sortable").disableSelection();
 //            $("#sortable").sortable("destroy");
-        });
-
-        $(document).ready(function () {
-            $(".sortable-box").hide();
-            $("#1").click(function (e) {
-                $("#1").remove();
-            });
-            $("#2").click(function (e) {
-                $("#2").remove();
-            });
-            $("#3").click(function (e) {
-                $("#3").remove();
-            });
-            $("#4").click(function (e) {
-                $("#4").remove();
-            });
-            $(".addBotton").click(function(e){
-               $(".sortable-box").toggle();
-            })
         });
     </script>
 
@@ -182,7 +136,7 @@
             <table>
                 <tr>
                     <td>
-                        <div id="red"></div>
+                        <div id="pink"></div>
                     </td>
                     <td width=8m>First</td>
 
@@ -206,86 +160,25 @@
                     <td colspan="3">
 
                         <ul id="sortable" name="peopleList">
-
-                            <span class = "sortable-box" id ="1"><li>
-                                <table>
-                                    <tr >
-                                        <td width=140mm>
-                                            Miles Davis
-                                        </td>
-                                        <td>
-                                            <a class="removeBotton" id ="1" href="#">remove</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </li></span>
-                            <span class = "sortable-box" id ="2"><li>
-                                <table>
-                                    <tr>
-                                        <td width=140mm>
-                                            Ron Carter
-                                        </td>
-                                        <td>
-                                            <a class="removeBotton" href="#" id ="2">remove</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </li></span>
-                            <span class = "sortable-box" id ="3"><li>
-                            <table>
-                                <tr>
-                                    <td width=140mm>
-                                        Herbie Hancock</td>
-                                    <td>
-                                        <a class="removeBotton" href="#" id ="3">remove</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </li></span>
-                            <span class = "sortable-box" id ="4"><li>
-                            <table>
-                                <tr>
-                                    <td width=140mm>
-                                        Tony Williams
-                                    </td>
-                                    <td>
-                                        <a class="removeBotton" href="#" id ="4">remove</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </li></span>
-
+                            <span><li class="ui-state-default">Miles Davis</li></span>
+                            <span><li class="ui-state-default">John Coltrane</li></span>
+                            <span><li class="ui-state-default">Tony Williams</li></span>
+                            <span><li class="ui-state-default">Herbie Hancock</li></span>
+                            <span><li class="ui-state-default">Ron Carter</li></span>
                         </ul>
 
                     </td>
                 </tr>
                 <tr>
-                    <a class="addBotton" href="#">add</a>
-                </tr>
-                <tr>
                     <td>
-                        %{--below is where the add person box should go--}%
-                        <form>
+                        <g:form action="save" name="personName" id="personName" method="post">
+                            <br/>
 
-                            <input type="submit" value="Add Person" id = "submitButton" />
-                            <input type="text" />
-
-                        </form>
-
-                        <div id = "testing"> </div>
-
-                        <script>
-
-                            var input = $("form input:text");
-
-                            $( "#submitButton").click(function() {
-                                $("#sortable").append(input.val());
-                            });
-
-
-                        </script>
-
-
+                            <div>Add a person
+                                <input type="text" name="nameInput" maxlength="100">
+                            </div>
+                            <br/>
+                        </g:form>
                     </td>
                 </tr>
                 <tr>
@@ -297,9 +190,14 @@
         </td>
         <td>
             %{--in the following div is where the viz needs to go--}%
+
             <div>
 
-            viz here
+                <r:script>
+
+</r:script>
+
+
             </div>
         </td>
     </tr>
