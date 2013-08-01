@@ -72,14 +72,8 @@ var MC = (window.MC = (window.MC || {}));
  *
  */
 
-
 MC.InterestViz = function(params) {
-    this.positions = [
-        [], // 1 hub case
-        [], // 2 hub case
-        [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
-        [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.25,y:0.2},{x:0.7,y:0.2}] // 4 hub case
-    ];
+    this.positions = this.getHubPositionMap();
 
     this.hubs = params.hubs;
     this.people = params.people;
@@ -117,6 +111,17 @@ MC.InterestViz = function(params) {
     this.createInterestViz();
     this.startPeople();
 };
+
+MC.InterestViz.prototype.getHubPositionMap = function(){
+    var positions = [
+        [], // 1 hub case
+        [], // 2 hub case
+        [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
+        [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.25,y:0.2},{x:0.7,y:0.2}] // 4 hub case
+    ];
+    return positions;
+}
+
 
 // Position the hubs and their gradient circles around the visRoot
 MC.InterestViz.prototype.postionHubsGradientCirlces = function(){
