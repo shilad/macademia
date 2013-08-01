@@ -18,6 +18,8 @@ MC.MainViz = function(params) {
 //    this.relatednessMap = params.relatednessMap;
 
 //    console.log(params);
+    this.peopleLimit =  macademia.history.get('navFunction')=='person' ? 10 : 9;
+    this.hubChildrenLimit = 10;
     this.svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
     this.setEventHandlers();
@@ -111,7 +113,7 @@ MC.MainViz.prototype.onLoad = function(){
                 for(var i = 0; i < peeps[rootId].interests.length; i++){
                     curInterest = interests[peeps[rootId].interests[i]];
                     if(clusters[curInterest.cluster]){
-                        if(clusters[curInterest.cluster]<(Math.floor(10/Object.keys(clusterMap).length))){
+                        if(clusters[curInterest.cluster]<(Math.floor(self.hubChildrenLimit/Object.keys(clusterMap).length))){
                             limitedChildren.push(curInterest.id);
                             clusters[curInterest.cluster]++;
                         }
@@ -145,6 +147,19 @@ MC.MainViz.prototype.onLoad = function(){
                 interests[key].id = Number(interests[key].id);
             }
 
+            var limitedPeople = {};
+            var sortedPeopleIDs = [];
+            for(var id in peeps){
+                sortedPeopleIDs.push(id);
+            }
+            sortedPeopleIDs.sort(function(a,b){
+                return peeps[b].relevance['overall']-peeps[a].relevance['overall'];
+            })
+
+            for(var i = 0; i < self.peopleLimit; i++){
+                limitedPeople[sortedPeopleIDs[i]]=peeps[sortedPeopleIDs[i]];
+            }
+
             var colors =[
                 "#f2b06e",
                 "#f5a3d6",
@@ -152,8 +167,9 @@ MC.MainViz.prototype.onLoad = function(){
                 "#a8c4e5",
                 "#b4f5a3"
             ];
+
             self.hubs = hubs;
-            self.people = peeps;
+            self.people = limitedPeople;
             self.root = root;
             self.interests = interests;
             self.colors = colors;
