@@ -472,7 +472,7 @@ MC.personLayout = function () {
 
     }
     MC.options.register(pl, 'friction', 0.5);
-    MC.options.register(pl, 'gravity', 0.00008);
+    MC.options.register(pl, 'gravity', 0.008);
     MC.options.register(pl, 'linkDistance', 20);
     MC.options.register(pl, 'peopleNodes', function () {
         throw('no people specified.')

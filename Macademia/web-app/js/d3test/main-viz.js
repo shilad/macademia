@@ -18,7 +18,7 @@ MC.MainViz = function(params) {
 //    this.relatednessMap = params.relatednessMap;
 
 //    console.log(params);
-    this.peopleLimit =  macademia.history.get('navFunction')=='person' ? 10 : 9;
+    this.peopleLimit =  macademia.history.get('navFunction')=='person' ? 15 : 14;
     this.hubChildrenLimit = 10;
     this.svg = d3.select('svg').attr('width', 1000).attr('height', 1000);
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
@@ -169,7 +169,8 @@ MC.MainViz.prototype.onLoad = function(){
             ];
 
             self.hubs = hubs;
-            self.people = limitedPeople;
+//            self.people = limitedPeople;
+            self.people = peeps;
             self.root = root;
             self.interests = interests;
             self.colors = colors;
