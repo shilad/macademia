@@ -472,7 +472,7 @@ MC.personLayout = function () {
 
     }
     MC.options.register(pl, 'friction', 0.5);
-    MC.options.register(pl, 'gravity', -0.05);
+    MC.options.register(pl, 'gravity', 0.00008);
     MC.options.register(pl, 'linkDistance', 20);
     MC.options.register(pl, 'peopleNodes', function () {
         throw('no people specified.')
@@ -487,11 +487,11 @@ MC.personLayout = function () {
         //checks to see if it is a hub
 //        console.log(d);
         if (d.type == 'hub') {
-            return -5000;
+            return -2000;
         } else if (d.type == 'person') {
             return -2000;
         } else if (d.type == 'leaf'){
-            return -200;
+            return -500;
         } else {
             return -100;
         }
