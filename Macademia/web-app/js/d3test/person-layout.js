@@ -104,8 +104,8 @@ MC.personLayout = function () {
             people[d.id] = d;
         });
 
-        var w = 800,
-            h = 800;
+        var w = d3.select("g.viz").attr('width') || 800,
+            h = d3.select("g.viz").attr('height') || 600;
 
         var svg = d3.select('svg');
 
@@ -401,6 +401,7 @@ MC.personLayout = function () {
                         var py = viz.attr("height")/2;
                         var hx = hubLocations[hubID].x;
                         var hy = hubLocations[hubID].y;
+                        console.log(hubLocations);
 
 //                        var angle = calculateAngle(personID, hubID,personLocations,hubLocations);
                         var angle = calculateAngleByCoordinate(py,px,hy,hx);
