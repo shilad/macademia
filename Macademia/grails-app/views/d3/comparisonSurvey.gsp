@@ -256,9 +256,27 @@
                         <div id = "testing"> </div>
 
                         <script>
+                            %{--<ul id="sortable" name="peopleList">--}%
+                                    %{--<span class = "sortable-box" ><li>--}%
+                                    %{--this table is for aligning the words in the sortable box--}%
+                                    %{--<table>--}%
+                                    %{--<tr >--}%
+                                    %{--<td width=140mm>--}%
+                            %{--Miles Davis--}%
+                                    %{--</td>--}%
+                                    %{--<td>--}%
+                            %{--<a class="removeBotton" href="#">remove</a>--}%
+                                    %{--</td>--}%
+                                    %{--</tr>--}%
+                                    %{--</table>--}%
+                                    %{--</li></span>--}%
+                                    %{----}%
+                                    %{--</ul>--}%
 
                             var input = $("form input:text");
+
                             input.val();
+
                             var newButtonSpan = document.createElement("span");
                             $(newButtonSpan).attr("class","sortable-box");
 
@@ -278,7 +296,7 @@
 
 
                             $( "#submitButton").click(function() {
-                                $("#sortable").append($(newButtonSpan));
+                                $("#sortable").append("p3n15");
                             });
 
 
