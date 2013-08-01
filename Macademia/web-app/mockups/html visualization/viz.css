@@ -35,8 +35,9 @@ http://tympanus.net/codrops/2012/10/04/custom-drop-down-list-styling/
 h1 {
     color: #000000;
     background-color: #F3F4F4;
-    font: 50px Georgia;
+    font: 60px Georgia;
     text-align: center;
+    vertical-align: middle;
     padding: 5px 5px;
 }
 
@@ -58,14 +59,14 @@ h2 {
     /*padding: 0;*/
 /*}*/
 
-table {
+table.people {
     /*border-top: 1px solid #d3d3d3;*/
     frame: none;
     z-index: -1;
     width: 100%;
 }
 
-th {
+th.people {
     color: #000000;
     background-color: #F3F4F4;
     text-align: center;
@@ -74,14 +75,14 @@ th {
     padding: 2% 1%;
 }
 
-tr {
+tr.people {
     color: #000000;
     background-color: #ffffff;
     font: 25px Georgia;
     border-bottom: 2px solid #d3d3d3;
 }
 
-td {
+td.people {
     padding: 10px 10px;
     vertical-align: middle;
     width: 20%;
@@ -93,6 +94,27 @@ td {
     height: 30px; /* or whatever you want */
     position:relative;
     border: 1px solid #ffffff;
+}
+
+table.interest{
+    background-color: #F3F4F4;
+    width: 90%;
+    text-align: left;
+    vertical-align: middle;
+    margin-left:auto;
+    margin-right:auto;
+    font: 17px Georgia;
+    color: #858585;
+}
+
+img.interest{
+  max-height: 15px;
+  max-width: 15px;
+}
+
+a {
+  font: 17px Georgia;
+  color: #858585;
 }
 
 *,
@@ -119,8 +141,8 @@ td {
     outline: none;
 
     /* Font settings */
-    font: 13px Georgia;
-    color: #000000;
+    font: 17px Georgia;
+    color: #858585;
 }
 
 .wrapper-dropdown-3:after {
@@ -206,4 +228,13 @@ td {
     background: linear-gradient(to right, #F3F4F4 0%, #F3F4F4 78%, #ffffff 78%, #ffffff 100%);
     z-index: 1;
 
+}
+
+.tooltip{
+   background-color: #F3F4F4;
+   font: 17px Georgia;
+   color: #858585;
+   padding: 10px 10px;
+   border-radius: 7px;
+   border: 2px solid #d3d3d3;
 }

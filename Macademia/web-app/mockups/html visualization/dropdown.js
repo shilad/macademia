@@ -15,6 +15,11 @@ DropDown.prototype = {
             return false;
         });
 
+        $('body').on('click', function(event){
+           obj.dd.removeClass('active');
+            return false;
+        });
+
         obj.opts.on('click',function(){
             var opt = $(this);
             obj.val = opt.text();
