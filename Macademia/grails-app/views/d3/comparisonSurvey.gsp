@@ -277,13 +277,32 @@
                         <script>
 
                             var input = $("form input:text");
+                            input.val();
+                            var newButtonSpan = document.createElement("span");
+                            $(newButtonSpan).attr("class","sortable-box");
+
+                            var newButtonTable = document.createElement("table");
+
+                            var newButtonTr = document.createElement("tr");
+
+                            var newButtonTd = document.createElement("td");
+
+                            $(newButtonSpan).append($(newButtonTable)).append($(newButtonTr)).append($(newButtonTd)).append(input.val());
+
+
+
+
+
+
+
 
                             $( "#submitButton").click(function() {
-                                $("#sortable").append(input.val());
+                                $("#sortable").append($(newButtonSpan));
                             });
 
 
                         </script>
+
 
 
                     </td>
