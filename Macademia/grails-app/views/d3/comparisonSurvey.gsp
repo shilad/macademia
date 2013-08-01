@@ -193,7 +193,8 @@
                     <td colspan="3">
 
                         <ul id="sortable" name="peopleList">
-                        <span class = "sortable-box" ><li>
+
+                            <span class = "sortable-box" ><li>
                                 %{--this table is for aligning the words in the sortable box--}%
                                 <table>
                                     <tr >
@@ -247,14 +248,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <a class="addBotton" href="#">add</a>
+                    %{--<a class="addBotton" href="#">add</a>--}%
                 </tr>
                 <tr>
                     <td>
                         %{--below is where the add person box should go--}%
                         <form>
 
-                            <input type="submit" value="Add Person" id = "submitButton" />
+                            <input class = "addBotton" type="submit" value="Add Person" id = "submitButton" />
                             <input type="text" />
 
                         </form>
@@ -267,7 +268,10 @@
 
                             $( "#submitButton").click(function() {
                                 $("#name").append(input.val());
+                                $("#sortable").append(".sortable-box")
                             });
+
+
 
 
                         </script>
