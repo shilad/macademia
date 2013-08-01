@@ -202,14 +202,28 @@
                 </tr>
                 <tr>
                     <td>
-                        <form action="save" name="personName" id="personName" method="post">
-                            <br/>
+                        %{--below is where the add person box should go--}%
+                        <form>
 
-                            <div>Add a person
-                                <input type="text" name="nameInput" maxlength="100">
-                            </div>
-                            <br/>
+                            <input type="submit" value="Add Person" id = "submitButton" />
+                            <input type="text" />
+
                         </form>
+
+                        <div id = "testing"> </div>
+
+                        <script>
+
+                            var input = $("form input:text");
+
+                            $( "#submitButton").click(function() {
+                                $("#sortable").append(input.val());
+                            });
+
+
+                        </script>
+
+
                     </td>
                 </tr>
                 <tr>
@@ -221,6 +235,10 @@
         </td>
         <td>
             %{--in the following div is where the viz needs to go--}%
+            <div>
+
+            viz here
+            </div>
         </td>
     </tr>
 </table>
