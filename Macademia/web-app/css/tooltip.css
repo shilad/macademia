@@ -17,3 +17,8 @@
     font: 13px Georgia;
     fill: #C0C0C0;
 }
+path.tooltip{
+    background-color: #eaeaea;
+    border: 3px dotted #ffffff;
+    border-radius: 5px;
+}
