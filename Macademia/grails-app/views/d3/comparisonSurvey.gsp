@@ -9,19 +9,25 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <r:require modules="d3js"/>
-    %{--<meta name="layout" content="main"/>--}%
+    <r:require modules="survey"/>
+    <meta name="layout" content="main"/>
 
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <link rel="stylesheet" href="/resources/demos/style.css" />
+    %{--<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />--}%
+    %{--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>--}%
+    %{--<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>--}%
+    %{--<link rel="stylesheet" href="/resources/demos/style.css" />--}%
 
     <style>
 
-    #bestMatch {color: lawngreen;text-indent: 75px;}
+    #bestMatch {
+        color: lawngreen;
+        text-indent: 75px;
+    }
 
-    #worstMatch { color: #ff0000; text-indent: 75px;}
+    #worstMatch {
+        color: #ff0000;
+        text-indent: 75px;
+    }
 
     #red, #green, #blue {
         float: left;
@@ -47,26 +53,35 @@
         background: #FF9999;
     }
 
-    #green .ui-slider-range {background: #8ae234;}
-
-    #green .ui-widget-content {background: purple;}
-
-    #green .ui-slider-handle {border-color: #8ae234;
+    #green .ui-slider-range {
+        background: #8ae234;
     }
 
-    #blue .ui-slider-range {background: #729fcf;
+    #green .ui-widget-content {
+        background: purple;
     }
 
-    #blue .ui-widget-content {background: purple;
+    #green .ui-slider-handle {
+        border-color: #8ae234;
     }
 
-    #blue .ui-slider-handle {border-color: #729fcf;}
+    #blue .ui-slider-range {
+        background: #729fcf;
+    }
+
+    #blue .ui-widget-content {
+        background: purple;
+    }
+
+    #blue .ui-slider-handle {
+        border-color: #729fcf;
+    }
 
     #sortable {
         list-style-type: none;
         margin: 0;
         padding: 0;
-         }
+    }
 
     #sortable li {
         margin: 0 3px 3px 3px;
@@ -83,6 +98,12 @@
 
     svg {
         position: absolute;
+    }
+
+    span {
+        background-color: #dcdcdc;
+        border: 1px solid black;
+        display: block;
     }
 
     </style>
@@ -128,77 +149,85 @@
         $(function () {
             $("#sortable").sortable();
             $("#sortable").disableSelection();
+//            $("#sortable").sortable("destroy");
         });
-
     </script>
 
 </head>
 
 <body class="ui-widget-content" style="border: 0;">
+
 <table>
     <tr>
         <td>
-             <table>
-                 <tr>
-                     <td>
-                         <div id="red"></div>
-                     </td>
-                     <td width=8m>First</td>
+            <table>
+                <tr>
+                    <td>
+                        <div id="red"></div>
+                    </td>
+                    <td width=8m>First</td>
 
-                 </td>
-                 </tr>
-                 <tr>
-                     <td>
-                         <div id="green"></div>
-                     </td>
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="green"></div>
+                    </td>
 
-                     <td width=8m>Second</td>
+                    <td width=8m>Second</td>
 
+                </tr>
+                <tr>
+                    <td>
+                        <div id="blue"></div>
+                    </td>
+                    <td width=8m>Third</td>
+                </tr>
+                <tr>
+                    <td colspan="3">
 
-                 </tr>
-                 <tr>
-                     <td>
-                         <div id="blue"></div>
-                     </td>
-                     <td width=8m>Third</td>
+                        <ul id="sortable" name="peopleList">
+                            <span><li class="ui-state-default">Miles Davis</li></span>
+                            <span><li class="ui-state-default">John Coltrane</li></span>
+                            <span><li class="ui-state-default">Tony Williams</li></span>
+                            <span><li class="ui-state-default">Herbie Hancock</li></span>
+                            <span><li class="ui-state-default">Ron Carter</li></span>
+                        </ul>
 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <g:form action="save" name="personName" id="personName" method="post">
+                            <br/>
 
-                 </tr>
-                 <tr>
-                     <td colspan="3">
-                         <ul id="sortable">
-                             <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Miles Davis</li>
-                             <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>John Coltrane</li>
-                             <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Tony Williams</li>
-                             <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Herbie Hancock</li>
-                             <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Ron Carter</li>
-                         </ul>
-                     </td>
-                 </tr>
-                 <tr>
-                     <td>
-                         <div> Add a person    <input type="text" name="interest_inputs" maxlength="100">
-                             </div>
-                 </td>
-                 </tr>
-                 <tr>
-                     <td colspan="3">
-                         <h2>Task Description</h2>
-                     </td>
-                 </tr>
-             </table>
+                            <div>Add a person
+                                <input type="text" name="nameInput" maxlength="100">
+                            </div>
+                            <br/>
+                        </g:form>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h2>Task Description</h2>
+                    </td>
+                </tr>
+            </table>
         </td>
         <td>
             <div>
-                <p>
-                    This will be the viz
-                </p>
+
+                HIESEFASDF
+
             </div>
         </td>
     </tr>
 </table>
 
-
 </body>
 
 </html>
+
+<r:script>
+    </r:script>
