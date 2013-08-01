@@ -19,9 +19,17 @@
 
     <style>
 
-    #bestMatch {color: lawngreen;text-indent: 75px;}
+    #bestMatch {
+        color: lawngreen;
+        text-align: center;
+        font-size: 20;
+    }
 
-    #worstMatch { color: #ff0000; text-indent: 75px;}
+    #worstMatch {
+        color: #ff0000;
+        text-align: center;
+        font-size: 20;
+    }
 
     #red, #green, #blue {
         float: left;
@@ -135,12 +143,15 @@
 </head>
 
 <body class="ui-widget-content" style="border: 0;">
-<table>
+<table width=100%>
     <tr>
-        <td>
+        <td width=33%>
+            <h1>Related to Donnie Burroughs</h1>
              <table>
                  <tr>
                      <td>
+
+
                          <div id="red"></div>
                      </td>
                      <td width=8m>First</td>
@@ -166,6 +177,7 @@
                  </tr>
                  <tr>
                      <td colspan="3">
+                         <div id="bestMatch">Best Match</div>
                          <ul id="sortable">
                              <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Miles Davis</li>
                              <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>John Coltrane</li>
@@ -173,6 +185,7 @@
                              <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Herbie Hancock</li>
                              <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Ron Carter</li>
                          </ul>
+                         <div id ="worstMatch">Worst Match</div>
                      </td>
                  </tr>
                  <tr>
