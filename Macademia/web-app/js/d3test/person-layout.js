@@ -471,9 +471,9 @@ MC.personLayout = function () {
         vizRootSpinning();
 
     }
-    MC.options.register(pl, 'friction', 0.005);
-    MC.options.register(pl, 'gravity', 0.005);
-    MC.options.register(pl, 'linkDistance', 50);
+    MC.options.register(pl, 'friction', 0.5);
+    MC.options.register(pl, 'gravity', -0.05);
+    MC.options.register(pl, 'linkDistance', 20);
     MC.options.register(pl, 'peopleNodes', function () {
         throw('no people specified.')
     });
@@ -485,12 +485,15 @@ MC.personLayout = function () {
     });
     MC.options.register(pl, 'charge', function(d) {
         //checks to see if it is a hub
+        console.log(d);
         if (d.type == 'hub') {
             return -5000;
         } else if (d.type == 'person') {
-            return -100000;
+            return -2000;
+        } else if (d.type == 'leaf'){
+            return -200;
         } else {
-            return -85000;
+            return -100;
         }
     });
 
