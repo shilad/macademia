@@ -107,9 +107,10 @@ MC.InterestViz = function(params) {
 
     this.gCircle = [this.hubs.length]; //same number as the hubs
 
+
     this.calculateColors();
     this.postionHubsGradientCirlces();
-    this.setRadii(20,10);
+    this.setRadii(20,12);
 
     this.setGradients();
     this.drawGradientCircles();

@@ -484,7 +484,7 @@ MC.personLayout = function () {
         if (d.type == 'hub') {
             return -85000;
         } else if (d.type == 'person') {
-            return -85000;
+            return -100000;
         } else {
             return -85000;
         }
