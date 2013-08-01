@@ -109,7 +109,7 @@ MC.InterestViz = function(params) {
 
     this.calculateColors();
     this.postionHubsGradientCirlces();
-    this.setRadii(30,12);
+    this.setRadii(20,10);
 
     this.setGradients();
     this.drawGradientCircles();
