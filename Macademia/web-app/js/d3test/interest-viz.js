@@ -461,7 +461,7 @@ MC.InterestViz.prototype.getPeoplesInterests = function(d) {
 };
 
 MC.InterestViz.prototype.toolTipHover = function(e,pos){
-
+    var self = this;
     var div = d3.select('#tooltipBox');
 //    if(!div.style('opacity')||div.style('opacity')<0.99){
     var people = this.people;
@@ -481,106 +481,109 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
     if(id in people && e.interests ||  type == "person" ){ //checks to see if it is a person
         jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + id, function(data) {
             jQuery('#tooltipBox').html(data);
+            createTooltip();
 //            console.log(jQuery('#tooltipBox'));
         });}
     else {    //deals with interests
         jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + id, function(data) {
             jQuery('#tooltipBox').html(data);
+            createTooltip();
         });
     }
-    var divHeight = $('#tooltipBox').outerHeight();
-    var divWidth = $('#tooltipBox').outerWidth();
-    var position = {'left':0,'top':0};
-
-    if(pos.top-divHeight-25<=0){       //if it goes above the screen
-        position.top=pos.bottom;
-    }
-    else{                             //else it should be above the object with a gap of 50
-        position.top=pos.top-divHeight-25;
-    }
-    if((pos.right+pos.left)/2>=this.root.cx){       //if it's to the right or equal with the root
-        position.left=pos.right+25;    //the left side of the div should be 50 away from the right side of the object
-    }
-    else{                            //else it's on the left hemisphere of the graph
-        if(pos.left-divWidth-25<=0){  //if the div would go off the screen to the left
-            position.left=50;         //set it to 50
+    var createTooltip = function(){
+        var divHeight = $('#tooltipBox').outerHeight();
+        var divWidth = $('#tooltipBox').outerWidth();
+        var position = {'left':0,'top':0};
+        var boundingBoxCenter = {'x':(pos.right+pos.left)/2,'y':(pos.top+pos.bottom)/2};
+        if(pos.top-divHeight-25<=0){       //if it goes above the screen
+            position.top=pos.bottom;
         }
-        else{                         //else set the right side of the div 50 away from the object
-            position.left=pos.left-divWidth-25;
+        else{                             //else it should be above the object with a gap of 50
+            position.top=pos.top-divHeight-25;
         }
-    }
-//    console.log(position);
-//    console.log(pos);
-    div
-        .style('left',position.left)
-        .style('top',position.top)
-        .transition()
-        .duration(1000)
-        .style("opacity", 1)
-        .style('z-index','auto');
-    var polyPoints;
-    if(((pos.right+pos.left)/2>=this.root.cx)){     //right hemisphere
-        if((pos.top+pos.bottom)/2<=this.root.cy){   //top-right quad
-            polyPoints = [
-                {'x':position.left,'y':(position.top+20)},
-                {'x':pos.right,'y':pos.bottom},
-                {'x':(position.left+20),'y':(position.top)}
-            ];
+        if(boundingBoxCenter.x>=self.root.cx){       //if it's to the right or equal with the root
+            position.left=pos.right+25;    //the left side of the div should be 50 away from the right side of the object
         }
-        else{                                       //bottom-right quad
-            polyPoints = [
-                {'x':position.left,'y':(position.top+divHeight-20)},
-                {'x':pos.right,'y':pos.top},
-                {'x':(position.left+20),'y':(position.top+divHeight)}
-            ];
-        }
-    }else{                                          //left hemisphere
-        if((pos.top+pos.bottom)/2<=this.root.cy){   //top-left quad
-            polyPoints = [
-                {'x':position.left+divWidth-20,'y':(position.top)},
-                {'x':pos.left,'y':pos.bottom},
-                {'x':(position.left+divWidth),'y':(position.top+20)}
-            ];
-        }
-        else{                                       //bottom-left quad
-            if(pos.left-divWidth-25>0){
-                polyPoints = [
-                    {'x':position.left+divWidth,'y':(position.top+divHeight-20)},
-                    {'x':pos.left,'y':pos.top},
-                    {'x':(position.left+divWidth-20),'y':(position.top+divHeight)}
-                ];
-            }else{
-                var x = (((pos.right+pos.left)/2)+10)<position.left+divWidth ? (((pos.right+pos.left)/2)+10) : position.left+divWidth;
-                polyPoints = [
-                    {'x':((pos.right+pos.left)/2)-10,'y':(position.top+divHeight)},
-                    {'x':((pos.right+pos.left)/2),'y':pos.top},
-                    {'x':x,'y':(position.top+divHeight)}
-                ];
+        else{                            //else it's on the left hemisphere of the graph
+            if(pos.left-divWidth-25<=0){  //if the div would go off the screen to the left
+                position.left=50;         //set it to 50
+            }
+            else{                         //else set the right side of the div 50 away from the object
+                position.left=pos.left-divWidth-25;
             }
         }
-    }
 
-    var lineFunction = d3.svg
-        .line()
-        .x(function(d) { return d.x; })
-        .y(function(d) { return d.y; })
-        .interpolate("linear");
-    this.container
-        .append("path")
-        .attr('class','tooltip')
-        .attr("d", lineFunction(polyPoints))
-        .attr("stroke", "#ffffff")
-        .attr("stroke-width", 3)
-        .attr('stroke-dasharray',"3,3")
-        .attr("fill", "#eaeaea")
-        .style("opacity", 0)
-        .style('z-index',-1)
-        .transition()
-        .duration(1000)
-        .style("opacity", 1)
-        .style('z-index','auto');
 
-//    }
+        var polyPoints;
+        if((boundingBoxCenter.x>=self.root.cx)){     //right hemisphere
+            if((pos.top+pos.bottom)/2<=self.root.cy){   //top-right quad
+                polyPoints = [
+                    {'x':position.left,'y':(position.top+20)},
+                    {'x':pos.right,'y':pos.bottom},
+                    {'x':(position.left+20),'y':(position.top)}
+                ];
+            }
+            else{                                       //bottom-right quad
+                polyPoints = [
+                    {'x':position.left,'y':(position.top+divHeight-20)},
+                    {'x':pos.right,'y':pos.top},
+                    {'x':(position.left+20),'y':(position.top+divHeight)}
+                ];
+            }
+        }else{                                          //left hemisphere
+            if(boundingBoxCenter.y<=self.root.cy){   //top-left quad
+                polyPoints = [
+                    {'x':position.left+divWidth-20,'y':(position.top)},
+                    {'x':pos.left,'y':pos.bottom},
+                    {'x':(position.left+divWidth),'y':(position.top+20)}
+                ];
+            }
+            else{                                       //bottom-left quad
+                if(pos.left-divWidth-25>0){
+                    polyPoints = [
+                        {'x':position.left+divWidth,'y':(position.top+divHeight-20)},
+                        {'x':pos.left,'y':pos.top},
+                        {'x':(position.left+divWidth-20),'y':(position.top+divHeight)}
+                    ];
+                }else{
+                    var x = ((boundingBoxCenter.x)+10)<position.left+divWidth ? ((boundingBoxCenter.x)+10) : position.left+divWidth;
+                    polyPoints = [
+                        {'x':(boundingBoxCenter.x)-10,'y':(position.top+divHeight)},
+                        {'x':(boundingBoxCenter.x),'y':pos.top},
+                        {'x':x,'y':(position.top+divHeight)}
+                    ];
+                }
+            }
+        }
+
+        var lineFunction = d3.svg
+            .line()
+            .x(function(d) { return d.x; })
+            .y(function(d) { return d.y; })
+            .interpolate("linear");
+        div
+            .style('left',position.left)
+            .style('top',position.top)
+            .transition()
+            .duration(1000)
+            .style("opacity", 1)
+            .style('z-index','auto');
+        self.container
+            .append("path")
+            .attr('class','tooltip')
+            .attr("d", lineFunction(polyPoints))
+            .attr("stroke", "#ffffff")
+            .attr("stroke-width", 3)
+            .attr('stroke-dasharray',"3,3")
+            .attr("fill", "#eaeaea")
+            .style("opacity", 0)
+            .style('z-index',-1)
+            .transition()
+            .duration(1000)
+            .style("opacity", 1)
+            .style('z-index','auto');
+
+    };
 };
 
 //This function enables highlighting of the nodes when hovers
@@ -696,7 +699,7 @@ MC.InterestViz.prototype.hoverHubRootChild = function(){
 };
 
 MC.InterestViz.prototype.hoverVizRoot = function(){
-    var self =this;
+    var self = this;
     d3.select('g.vizRoot')
         .on("mouseover", function(e){
             var pos = this.getBoundingClientRect();
