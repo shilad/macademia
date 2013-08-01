@@ -124,6 +124,21 @@
             $("#sortable").disableSelection();
 //            $("#sortable").sortable("destroy");
         });
+<<<<<<< Updated upstream
+=======
+
+        $(document).ready(function () {
+            $(".sortable-box").hide();   //hides all the sortable boxes
+            $(".sortable-box").each(function(){
+                $(this).click(function (e) {//id of the remove button
+                    $(this).remove();       //id of the .sortable-box that is designated for removal
+                });});
+
+            $(".addBotton").click(function(e){
+               $(".sortable-box").toggle();    //sets the sortable boxes to display
+            })
+        });
+>>>>>>> Stashed changes
     </script>
 
 </head>
@@ -134,6 +149,7 @@
     <tr>
         <td>
             <table>
+                %{--Sliders @ top of page--}%
                 <tr>
                     <td>
                         <div id="pink"></div>
@@ -157,14 +173,67 @@
                     <td width=8m>Third</td>
                 </tr>
                 <tr>
+                    %{--sortable boxes--}%
                     <td colspan="3">
 
                         <ul id="sortable" name="peopleList">
+<<<<<<< Updated upstream
                             <span><li class="ui-state-default">Miles Davis</li></span>
                             <span><li class="ui-state-default">John Coltrane</li></span>
                             <span><li class="ui-state-default">Tony Williams</li></span>
                             <span><li class="ui-state-default">Herbie Hancock</li></span>
                             <span><li class="ui-state-default">Ron Carter</li></span>
+=======
+                        <span class = "sortable-box" ><li>
+                                %{--this table is for aligning the words in the sortable box--}%
+                                <table>
+                                    <tr >
+                                        <td width=140mm>
+                                            Miles Davis
+                                        </td>
+                                        <td>
+                                            <a class="removeBotton" href="#">remove</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li></span>
+                            %{--<span class = "sortable-box" id ="2"><li>--}%
+                                %{--<table>--}%
+                                    %{--<tr>--}%
+                                        %{--<td width=140mm>--}%
+                                            %{--Ron Carter--}%
+                                        %{--</td>--}%
+                                        %{--<td>--}%
+                                            %{--<a class="removeBotton" href="#" id ="2">remove</a>--}%
+                                        %{--</td>--}%
+                                    %{--</tr>--}%
+                                %{--</table>--}%
+                            %{--</li></span>--}%
+                            %{--<span class = "sortable-box" id ="3"><li>--}%
+                            %{--<table>--}%
+                                %{--<tr>--}%
+                                    %{--<td width=140mm>--}%
+                                        %{--Herbie Hancock</td>--}%
+                                    %{--<td>--}%
+                                        %{--<a class="removeBotton" href="#" id ="3">remove</a>--}%
+                                    %{--</td>--}%
+                                %{--</tr>--}%
+                            %{--</table>--}%
+                        %{--</li></span>--}%
+                            %{--<span class = "sortable-box" id ="4"><li>--}%
+                            %{--<table>--}%
+                                %{--<tr>--}%
+                                    %{--<td width=140mm>--}%
+                                        %{--Tony Williams--}%
+                                    %{--</td>--}%
+                                    %{--<td>--}%
+                                        %{--<a class="removeBotton" href="#" id ="4">remove</a>--}%
+                                    %{--</td>--}%
+                                %{--</tr>--}%
+                            %{--</table>--}%
+                        %{--</li></span>--}%
+
+>>>>>>> Stashed changes
                         </ul>
 
                     </td>
