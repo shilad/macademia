@@ -10,53 +10,53 @@
 
 <body>
 
-<style type="text/css">
+%{--<style type="text/css">--}%
 
-.hub {
-    font: 13px Georgia;
-    fill: #C0C0C0;
-}
+%{--.hub {--}%
+    %{--font: 13px Georgia;--}%
+    %{--fill: #C0C0C0;--}%
+%{--}--}%
 
-.active {
-    fill: black;
-}
+%{--.active {--}%
+    %{--fill: black;--}%
+%{--}--}%
 
-.interest {
-    font: 13px Georgia;
-    fill: #C0C0C0;
-}
+%{--.interest {--}%
+    %{--font: 13px Georgia;--}%
+    %{--fill: #C0C0C0;--}%
+%{--}--}%
 
-.activeInterest {
-    /*
-    This should have the same css style as interest except we are using
-    a different fill
-    */
-    font: 13px Georgia;
-    fill: black;
-}
-
-
-
-#div1 {
-    position:absolute;
-    width : 230;
-    background-color: #eaeaea;
-    border: 3px dotted #ffffff;
-    font: 13px Georgia;
-    color: black;
-    border-radius: 5px;
-    padding: 10px 15px;
-}
+%{--.activeInterest {--}%
+    %{--/*--}%
+    %{--This should have the same css style as interest except we are using--}%
+    %{--a different fill--}%
+    %{--*/--}%
+    %{--font: 13px Georgia;--}%
+    %{--fill: black;--}%
+%{--}--}%
 
 
-svg {
-    position: absolute;
-    top: 300px;
-    /*height : 90%;*/
-    /*width : 90%;*/
-}
 
-</style>
+%{--#tooltipBox {--}%
+    %{--position:absolute;--}%
+    %{--width : 230;--}%
+    %{--background-color: #eaeaea;--}%
+    %{--border: 3px dotted #ffffff;--}%
+    %{--font: 13px Georgia;--}%
+    %{--color: black;--}%
+    %{--border-radius: 5px;--}%
+    %{--padding: 10px 15px;--}%
+%{--}--}%
+
+
+%{--svg {--}%
+    %{--position: absolute;--}%
+    %{--top: 300px;--}%
+    %{--/*height : 90%;*/--}%
+    %{--/*width : 90%;*/--}%
+%{--}--}%
+
+%{--</style>--}%
 
 
 
