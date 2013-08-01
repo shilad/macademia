@@ -273,7 +273,7 @@ MC.personLayout = function () {
             }
         };
 
-        //Some variables we are suing for pieSpinning and vizRootSpinning function
+        //Some variables we are using for pieSpinning and vizRootSpinning function
         var hubLocations = findHubLocations();
         var personLocations={};
         var personID;
@@ -282,6 +282,7 @@ MC.personLayout = function () {
         var halfArcAngle;
         var rotationDegree;
         var peoplePaths;
+        var rootPaths;
         var peoplePies = d3.
             select('svg')
             .selectAll('g.person')
@@ -380,6 +381,11 @@ MC.personLayout = function () {
         };
 
         var vizRootSpinning = function(){
+            //Getting the vizRoot ID
+            var vizID = macademia.history.get("nodeId").substring(2);
+            console.log(vizID);
+            var px = hubLocations[vizID].x;
+            var py = hubLocations[vizID].y;
 
             //Sorting the path that forms the wedges
             rootPaths = d3.
@@ -396,12 +402,9 @@ MC.personLayout = function () {
                 .each(function(d,i){
                     if(i==0){ //we only want the wedge with the highest weight
                         hubID = d.data.id;
-                        var viz = d3.select('g.viz');
-                        var px = viz.attr("width")/2; //the root person is always in the middle
-                        var py = viz.attr("height")/2;
                         var hx = hubLocations[hubID].x;
                         var hy = hubLocations[hubID].y;
-                        console.log(hubLocations);
+                        console.log(hubLocations[hubID]);
 
 //                        var angle = calculateAngle(personID, hubID,personLocations,hubLocations);
                         var angle = calculateAngleByCoordinate(py,px,hy,hx);
