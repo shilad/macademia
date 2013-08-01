@@ -110,6 +110,8 @@ MC.InterestViz = function(params) {
     this.drawGradientCircles();
     this.createInterestViz();
     this.startPeople();
+
+
 };
 
 MC.InterestViz.prototype.getHubPositionMap = function(){
@@ -460,87 +462,138 @@ MC.InterestViz.prototype.getPeoplesInterests = function(d) {
 
 MC.InterestViz.prototype.toolTipHover = function(e,pos){
 
-    var div = d3.select('#tooltipBox'); console.log(div.style('opacity'));
-    if(!div.style('opacity')||div.style('opacity')<0.99){
-        var people = this.people;
-        var id =0;  //stores d's id
-        var type;  //stores d's type or empty string if no type
-        //prevents repetitive displaying of mouse over when mouse is moved over a single element
+    var div = d3.select('#tooltipBox');
+//    if(!div.style('opacity')||div.style('opacity')<0.99){
+    var people = this.people;
+    var id =0;  //stores d's id
+    var type;  //stores d's type or empty string if no type
+    //prevents repetitive displaying of mouse over when mouse is moved over a single element
 
 
-        if(e.id) {   //for non-hub people and interests
-            id= e.id;
-            type ="";   //do not have type
-        }
-        else { //deals with hubNodes person and interest
-            id= e[0].id;
-            type=e[0].type;
-        }
-        if(id in people && e.interests ||  type == "person" ){ //checks to see if it is a person
-            jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + id, function(data) {
-                jQuery('#tooltipBox').html(data);
+    if(e.id) {   //for non-hub people and interests
+        id= e.id;
+        type ="";   //do not have type
+    }
+    else { //deals with hubNodes person and interest
+        id= e[0].id;
+        type=e[0].type;
+    }
+    if(id in people && e.interests ||  type == "person" ){ //checks to see if it is a person
+        jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + id, function(data) {
+            jQuery('#tooltipBox').html(data);
 //            console.log(jQuery('#tooltipBox'));
-            });}
-        else {    //deals with interests
-            jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + id, function(data) {
-                jQuery('#tooltipBox').html(data);
-            });
+        });}
+    else {    //deals with interests
+        jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + id, function(data) {
+            jQuery('#tooltipBox').html(data);
+        });
+    }
+    var divHeight = $('#tooltipBox').outerHeight();
+    var divWidth = $('#tooltipBox').outerWidth();
+    var position = {'left':0,'top':0};
+
+    if(pos.top-divHeight-25<=0){       //if it goes above the screen
+        position.top=pos.bottom;
+    }
+    else{                             //else it should be above the object with a gap of 50
+        position.top=pos.top-divHeight-25;
+    }
+    if((pos.right+pos.left)/2>=this.root.cx){       //if it's to the right or equal with the root
+        position.left=pos.right+25;    //the left side of the div should be 50 away from the right side of the object
+    }
+    else{                            //else it's on the left hemisphere of the graph
+        if(pos.left-divWidth-25<=0){  //if the div would go off the screen to the left
+            position.left=50;         //set it to 50
         }
-        var divHeight = $('#tooltipBox').height();
-        var divWidth = $('#tooltipBox').width();
-        var position = {'left':0,'top':0};
-        if(pos.top-divHeight-50<=0){       //if it goes above the screen
-            position.top=pos.bottom;
+        else{                         //else set the right side of the div 50 away from the object
+            position.left=pos.left-divWidth-25;
         }
-        else{                             //else it should be above the object with a gap of 50
-            position.top=pos.top-divHeight-50;
-        }
-        if((pos.right+pos.left)/2>=this.root.cx){       //if it's to the right or equal with the root
-            position.left=pos.right+50;    //the left side of the div should be 50 away from the right side of the object
-        }
-        else{                            //else it's on the left hemisphere of the graph
-            if(pos.left-divWidth-50<=0){  //if the div would go off the screen to the left
-                position.left=50;         //set it to 50
-            }
-            else{                         //else set the right side of the div 50 away from the object
-                position.left=pos.left-divWidth-50;
-            }
-        }
+    }
 //    console.log(position);
 //    console.log(pos);
-        div
-            .style('left',position.left)
-            .style('top',position.top)
-            .transition()
-            .duration(1000)
-            .style("opacity", 1)
-            .each('end', function(){
-//            window.setTimeout(function () {
-//                div
-//                    .on("mouseover", function() {
-//                        div
-//                            .transition()
-//                            .style("display", "block");
-//                    });
-//            },300);
-//            div
-//                .on("mouseout", function() {
-//                    div
-//                        .transition()
-//                        .style("display", "none");
-//                });
-            });
+    div
+        .style('left',position.left)
+        .style('top',position.top)
+        .transition()
+        .duration(1000)
+        .style("opacity", 1)
+        .style('z-index','auto');
+    var polyPoints;
+    if(((pos.right+pos.left)/2>=this.root.cx)){     //right hemisphere
+        if((pos.top+pos.bottom)/2<=this.root.cy){   //top-right quad
+            polyPoints = [
+                {'x':position.left,'y':(position.top+20)},
+                {'x':pos.right,'y':pos.bottom},
+                {'x':(position.left+20),'y':(position.top)}
+            ];
+        }
+        else{                                       //bottom-right quad
+            polyPoints = [
+                {'x':position.left,'y':(position.top+divHeight-20)},
+                {'x':pos.right,'y':pos.top},
+                {'x':(position.left+20),'y':(position.top+divHeight)}
+            ];
+        }
+    }else{                                          //left hemisphere
+        if((pos.top+pos.bottom)/2<=this.root.cy){   //top-left quad
+            polyPoints = [
+                {'x':position.left+divWidth-20,'y':(position.top)},
+                {'x':pos.left,'y':pos.bottom},
+                {'x':(position.left+divWidth),'y':(position.top+20)}
+            ];
+        }
+        else{                                       //bottom-left quad
+            if(pos.left-divWidth-25>0){
+                polyPoints = [
+                    {'x':position.left+divWidth,'y':(position.top+divHeight-20)},
+                    {'x':pos.left,'y':pos.top},
+                    {'x':(position.left+divWidth-20),'y':(position.top+divHeight)}
+                ];
+            }else{
+                var x = (((pos.right+pos.left)/2)+10)<position.left+divWidth ? (((pos.right+pos.left)/2)+10) : position.left+divWidth;
+                polyPoints = [
+                    {'x':((pos.right+pos.left)/2)-10,'y':(position.top+divHeight)},
+                    {'x':((pos.right+pos.left)/2),'y':pos.top},
+                    {'x':x,'y':(position.top+divHeight)}
+                ];
+            }
+        }
     }
+
+    var lineFunction = d3.svg
+        .line()
+        .x(function(d) { return d.x; })
+        .y(function(d) { return d.y; })
+        .interpolate("linear");
+    this.container
+        .append("path")
+        .attr('class','tooltip')
+        .attr("d", lineFunction(polyPoints))
+        .attr("stroke", "#ffffff")
+        .attr("stroke-width", 3)
+        .attr('stroke-dasharray',"3,3")
+        .attr("fill", "#eaeaea")
+        .transition()
+        .duration(1000)
+        .style("opacity", 1)
+        .style('z-index','auto');
+
+//    }
 };
 
 //This function enables highlighting of the nodes when hovers
 //TODO: Come up with some mechanism to set and reset attribute such as opacity for highlight and fading
 MC.InterestViz.prototype.enableHoverHighlight = function(){
-    var div =  d3.select('body')
-        .append("div")
-        .attr("id","tooltipBox")
-        .style("position", "absolute");
-
+    var div;
+    if(!d3.select('div#tooltipBox')[0][0]){
+        div =  d3.select('body')
+            .append("div")
+            .attr("id","tooltipBox")
+            .style("position", "absolute");
+    }
+    else{
+        div= d3.select('div#tooltipBox');
+    }
 
     this.hoverVizRoot();
     this.hoverHubRoot();
@@ -702,14 +755,19 @@ MC.InterestViz.prototype.mouseOut = function(){
         .select("#tooltipBox");
     div
         .transition()
-        .delay(500)
         .duration(500)
-        .style("opacity", 0);
-    div
+        .style("opacity", 0)
+        .style('z-index',-1);
+    d3.selectAll('path.tooltip')
         .transition()
-        .delay(1000)
-        .style("left", 1000)
-        .style("top", 1000);
+        .duration(500)
+        .style("opacity", 0)
+        .remove();
+//    div
+//        .transition()
+//        .delay(500)
+//        .style("left", 1000)
+//        .style("top", 1000);
 };
 MC.InterestViz.prototype.findHubRootID = function(interestID){
     for(var i in this.relatednessMap){
