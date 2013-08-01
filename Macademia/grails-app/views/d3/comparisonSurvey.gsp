@@ -183,6 +183,12 @@
                     <td width=8m>Third</td>
                 </tr>
                 <tr>
+                    <td colspan="3" width=10m>
+                    <h1>Best matches:</h1>
+                    <p> List people who best match the task described below. Drag a person listed below to reorder them.</p>
+                    </td>
+                </tr>
+                <tr>
                     %{--sortable boxes--}%
                     <td colspan="3">
 
