@@ -191,8 +191,8 @@
                                 %{--this table is for aligning the words in the sortable box--}%
                                 <table>
                                     <tr >
-                                        <td width=140mm>
-                                            Miles Davis
+                                        <td id="name" width=140mm>
+
                                         </td>
                                         <td>
                                             <a class="removeBotton" href="#">remove</a>
@@ -260,7 +260,7 @@
                             var input = $("form input:text");
 
                             $( "#submitButton").click(function() {
-                                $("#sortable").append(input.val());
+                                $("#name").append(input.val());
                             });
 
 
