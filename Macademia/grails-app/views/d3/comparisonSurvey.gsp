@@ -182,7 +182,9 @@
                     </td>
                     <td width=8m>Third</td>
                 </tr>
+
                 <tr>
+
                     %{--sortable boxes--}%
                     <td colspan="3">
 
@@ -200,41 +202,43 @@
                                     </tr>
                                 </table>
                             </li></span>
-                            %{--<span class = "sortable-box" id ="2"><li>--}%
-                                %{--<table>--}%
-                                    %{--<tr>--}%
-                                        %{--<td width=140mm>--}%
-                                            %{--Ron Carter--}%
-                                        %{--</td>--}%
-                                        %{--<td>--}%
-                                            %{--<a class="removeBotton" href="#" id ="2">remove</a>--}%
-                                        %{--</td>--}%
-                                    %{--</tr>--}%
-                                %{--</table>--}%
-                            %{--</li></span>--}%
-                            %{--<span class = "sortable-box" id ="3"><li>--}%
-                            %{--<table>--}%
-                                %{--<tr>--}%
-                                    %{--<td width=140mm>--}%
-                                        %{--Herbie Hancock</td>--}%
-                                    %{--<td>--}%
-                                        %{--<a class="removeBotton" href="#" id ="3">remove</a>--}%
-                                    %{--</td>--}%
-                                %{--</tr>--}%
-                            %{--</table>--}%
-                        %{--</li></span>--}%
-                            %{--<span class = "sortable-box" id ="4"><li>--}%
-                            %{--<table>--}%
-                                %{--<tr>--}%
-                                    %{--<td width=140mm>--}%
-                                        %{--Tony Williams--}%
-                                    %{--</td>--}%
-                                    %{--<td>--}%
-                                        %{--<a class="removeBotton" href="#" id ="4">remove</a>--}%
-                                    %{--</td>--}%
-                                %{--</tr>--}%
-                            %{--</table>--}%
-                        %{--</li></span>--}%
+                            <div><h5>List people who best match the <br> task described below.
+                                Drag a person<br> listed below to reorder them.</h5></div>
+                            <span class = "sortable-box" id ="2"><li>
+                                <table>
+                                    <tr>
+                                        <td width=140mm>
+                                            Ron Carter
+                                        </td>
+                                        <td>
+                                            <a class="removeBotton" href="#" id ="2">remove</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li></span>
+                            <span class = "sortable-box" id ="3"><li>
+                            <table>
+                                <tr>
+                                    <td width=140mm>
+                                        Herbie Hancock</td>
+                                    <td>
+                                        <a class="removeBotton" href="#" id ="3">remove</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </li></span>
+                            <span class = "sortable-box" id ="4"><li>
+                            <table>
+                                <tr>
+                                    <td width=140mm>
+                                        Tony Williams
+                                    </td>
+                                    <td>
+                                        <a class="removeBotton" href="#" id ="4">remove</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </li></span>
 
                         </ul>
 
