@@ -12,19 +12,12 @@
 
 %{--<style type="text/css">--}%
 
-%{--.hub {--}%
-    %{--font: 13px Georgia;--}%
-    %{--fill: #C0C0C0;--}%
-%{--}--}%
+
 
 %{--.active {--}%
     %{--fill: black;--}%
 %{--}--}%
 
-%{--.interest {--}%
-    %{--font: 13px Georgia;--}%
-    %{--fill: #C0C0C0;--}%
-%{--}--}%
 
 %{--.activeInterest {--}%
     %{--/*--}%

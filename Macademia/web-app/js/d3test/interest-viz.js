@@ -455,55 +455,77 @@ MC.InterestViz.prototype.getPeoplesInterests = function(d) {
 
 MC.InterestViz.prototype.toolTipHover = function(e,pos){
 
-    var div = d3.select('#tooltipBox');
-    var people = this.people;
-    var id =0;  //stores d's id
-    var type;  //stores d's type or empty string if no type
-    //prevents repetitive displaying of mouse over when mouse is moved over a single element
+    var div = d3.select('#tooltipBox'); console.log(div.style('opacity'));
+    if(!div.style('opacity')||div.style('opacity')<0.99){
+        var people = this.people;
+        var id =0;  //stores d's id
+        var type;  //stores d's type or empty string if no type
+        //prevents repetitive displaying of mouse over when mouse is moved over a single element
 
 
-    if(e.id) {   //for non-hub people and interests
-        id= e.id;
-        type ="";   //do not have type
-    }
-    else { //deals with hubNodes person and interest
-        id= e[0].id;
-        type=e[0].type;
-    }
-    if(id in people && e.interests ||  type == "person" ){ //checks to see if it is a person
-        jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + id, function(data) {
-            jQuery('#tooltipBox').html(data);
+        if(e.id) {   //for non-hub people and interests
+            id= e.id;
+            type ="";   //do not have type
+        }
+        else { //deals with hubNodes person and interest
+            id= e[0].id;
+            type=e[0].type;
+        }
+        if(id in people && e.interests ||  type == "person" ){ //checks to see if it is a person
+            jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + id, function(data) {
+                jQuery('#tooltipBox').html(data);
 //            console.log(jQuery('#tooltipBox'));
-        });}
-    else {    //deals with interests
-        jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + id, function(data) {
-            jQuery('#tooltipBox').html(data);
-        });
+            });}
+        else {    //deals with interests
+            jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + id, function(data) {
+                jQuery('#tooltipBox').html(data);
+            });
+        }
+        var divHeight = $('#tooltipBox').height();
+        var divWidth = $('#tooltipBox').width();
+        var position = {'left':0,'top':0};
+        if(pos.top-divHeight-50<=0){       //if it goes above the screen
+            position.top=pos.bottom;
+        }
+        else{                             //else it should be above the object with a gap of 50
+            position.top=pos.top-divHeight-50;
+        }
+        if((pos.right+pos.left)/2>=this.root.cx){       //if it's to the right or equal with the root
+            position.left=pos.right+50;    //the left side of the div should be 50 away from the right side of the object
+        }
+        else{                            //else it's on the left hemisphere of the graph
+            if(pos.left-divWidth-50<=0){  //if the div would go off the screen to the left
+                position.left=50;         //set it to 50
+            }
+            else{                         //else set the right side of the div 50 away from the object
+                position.left=pos.left-divWidth-50;
+            }
+        }
+//    console.log(position);
+//    console.log(pos);
+        div
+            .style('left',position.left)
+            .style('top',position.top)
+            .transition()
+            .duration(1000)
+            .style("opacity", 1)
+            .each('end', function(){
+//            window.setTimeout(function () {
+//                div
+//                    .on("mouseover", function() {
+//                        div
+//                            .transition()
+//                            .style("display", "block");
+//                    });
+//            },300);
+//            div
+//                .on("mouseout", function() {
+//                    div
+//                        .transition()
+//                        .style("display", "none");
+//                });
+            });
     }
-
-    div
-        .transition()
-        .duration(250)
-        .style("display", "block")
-        .style('left',pos.left+100)
-        .style('top',pos.top)
-        .each('end', function(){
-            window.setTimeout(function () {
-                div
-                    .on("mouseover", function() {
-                        div
-                            .transition()
-                            .style("display", "block");
-                    });
-            },300);
-            div
-                .on("mouseout", function() {
-                    div
-                        .transition()
-                        .style("display", "none");
-                });
-        });
-
 };
 
 //This function enables highlighting of the nodes when hovers
@@ -591,7 +613,8 @@ MC.InterestViz.prototype.hoverHubRootChild = function(){
                     var interestID = e.id;
                     var hubRootID = self.findHubRootID(interestID);
                     var hubRootMap = relatednessMap[hubRootID];
-                    self.activateHubRootAndChildren(hubRootID, hubRootMap, self, true);
+                    self.activateHubRootAndChildren(hubRootID, hubRootMap, self, false);
+                    self.highlightLabel(d3.select(this));
                     d3.select(this).select('g.label').select('text').text(MC.interest().getText());
                     d3.selectAll('g.person')
                         .attr('opacity',function(d){
@@ -670,12 +693,18 @@ MC.InterestViz.prototype.mouseOut = function(){
         .attr('opacity',this.activeOpacity)
         .selectAll('g.label')
         .attr('fill',this.inactiveColor);
-    d3.select('body')
-        .select("#tooltipBox")
+    var div = d3.select('body')
+        .select("#tooltipBox");
+    div
         .transition()
         .delay(500)
         .duration(500)
-        .style("display", "none");
+        .style("opacity", 0);
+    div
+        .transition()
+        .delay(1000)
+        .style("left", 1000)
+        .style("top", 1000);
 };
 MC.InterestViz.prototype.findHubRootID = function(interestID){
     for(var i in this.relatednessMap){
