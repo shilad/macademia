@@ -29,52 +29,60 @@
         text-indent: 75px;
     }
 
-    #red, #green, #blue {
+    #pink, #green, #blue {
         float: left;
         clear: left;
         width: 150px;
         margin: 15px;
+        background-color: #d3d3d3;
     }
 
-    #red .ui-slider-range {
-        background: #F8F8F8;
+    #pink .ui-slider-range {
+        background: #d3d3d3;
     }
 
-        /*#red.ui-slider-handle { fill: red; }*/
-    #red .ui-slider-handle {
-        border-color: black;
-    }
-
-    #red.ui-widget-content .ui-state-default {
-        background: #ff0000;
-    }
-
-    #red.ui-widget-content {
-        background: #FF9999;
+    #pink .ui-slider-handle {
+        background: #f5a3d6;
+        border-color: #ffffff;
+        border-width: 2px;
+        height: 25px;
+        width: 25px;
+        border-radius: 25px;
+        position:absolute;
+        top:50%;
+        margin-top: -15px;
     }
 
     #green .ui-slider-range {
-        background: #8ae234;
-    }
-
-    #green .ui-widget-content {
-        background: purple;
+        background: #d3d3d3;
     }
 
     #green .ui-slider-handle {
-        border-color: #8ae234;
+        background: #b4f5a3;
+        border-color: #ffffff;
+        border-width: 2px;
+        height: 25px;
+        width: 25px;
+        border-radius: 25px;
+        position:absolute;
+        top:50%;
+        margin-top: -15px;
     }
 
     #blue .ui-slider-range {
-        background: #729fcf;
-    }
-
-    #blue .ui-widget-content {
-        background: purple;
+        background: #d3d3d3;
     }
 
     #blue .ui-slider-handle {
-        border-color: #729fcf;
+        background: #A8C4E5;
+        border-color: #ffffff;
+        border-width: 2px;
+        height: 25px;
+        width: 25px;
+        border-radius: 25px;
+        position:absolute;
+        top:50%;
+        margin-top: -15px;
     }
 
     #sortable {
@@ -110,40 +118,18 @@
 
     <script>
 
-        function hexFromRGB(r, g, b) {
-            var hex = [
-                r.toString(16),
-                g.toString(16),
-                b.toString(16)
-            ];
-            $.each(hex, function (nr, val) {
-                if (val.length === 1) {
-                    hex[ nr ] = "0" + val;
-                }
-            });
-            return hex.join("").toUpperCase();
-        }
-        function refreshSwatch() {
-            var red = $("#red").slider("value"),
-                    green = $("#green").slider("value"),
-                    blue = $("#blue").slider("value"),
-                    hex = hexFromRGB(red, green, blue);
-            $("#swatch").css("background-color", "#" + hex);
-        }
         $(function () {
-            $("#red, #green, #blue").slider({
+            $("#pink, #green, #blue").slider({
                 orientation: "horizontal",
-                range: "max",
+                range: "min",
                 min: 1,
                 max: 10,
-                value: 2,
-                change: refreshSwatch
-
-//
+                value: 2
+                // change: something
             });
-            $("#red").slider("value", 255);
-            $("#green").slider("value", 140);
-            $("#blue").slider("value", 60);
+            $("#pink").slider("value", 4);
+            $("#green").slider("value", 2);
+            $("#blue").slider("value", 6);
         });
 
         $(function () {
@@ -153,21 +139,14 @@
         });
 
         $(document).ready(function () {
-            $(".sortable-box").hide();
-            $("#1").click(function (e) {
-                $("#1").remove();
-            });
-            $("#2").click(function (e) {
-                $("#2").remove();
-            });
-            $("#3").click(function (e) {
-                $("#3").remove();
-            });
-            $("#4").click(function (e) {
-                $("#4").remove();
-            });
+            $(".sortable-box").hide();   //hides all the sortable boxes
+            $(".sortable-box").each(function(){
+                $(this).click(function (e) {//id of the remove button
+                    $(this).remove();       //id of the .sortable-box that is designated for removal
+                });});
+
             $(".addBotton").click(function(e){
-               $(".sortable-box").toggle();
+               $(".sortable-box").toggle();    //sets the sortable boxes to display
             })
         });
     </script>
@@ -180,9 +159,10 @@
     <tr>
         <td>
             <table>
+                %{--Sliders @ top of page--}%
                 <tr>
                     <td>
-                        <div id="red"></div>
+                        <div id="pink"></div>
                     </td>
                     <td width=8m>First</td>
 
@@ -203,57 +183,58 @@
                     <td width=8m>Third</td>
                 </tr>
                 <tr>
+                    %{--sortable boxes--}%
                     <td colspan="3">
 
                         <ul id="sortable" name="peopleList">
-
-                            <span class = "sortable-box" id ="1"><li>
+                        <span class = "sortable-box" ><li>
+                                %{--this table is for aligning the words in the sortable box--}%
                                 <table>
                                     <tr >
                                         <td width=140mm>
                                             Miles Davis
                                         </td>
                                         <td>
-                                            <a class="removeBotton" id ="1" href="#">remove</a>
+                                            <a class="removeBotton" href="#">remove</a>
                                         </td>
                                     </tr>
                                 </table>
                             </li></span>
-                            <span class = "sortable-box" id ="2"><li>
-                                <table>
-                                    <tr>
-                                        <td width=140mm>
-                                            Ron Carter
-                                        </td>
-                                        <td>
-                                            <a class="removeBotton" href="#" id ="2">remove</a>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </li></span>
-                            <span class = "sortable-box" id ="3"><li>
-                            <table>
-                                <tr>
-                                    <td width=140mm>
-                                        Herbie Hancock</td>
-                                    <td>
-                                        <a class="removeBotton" href="#" id ="3">remove</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </li></span>
-                            <span class = "sortable-box" id ="4"><li>
-                            <table>
-                                <tr>
-                                    <td width=140mm>
-                                        Tony Williams
-                                    </td>
-                                    <td>
-                                        <a class="removeBotton" href="#" id ="4">remove</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </li></span>
+                            %{--<span class = "sortable-box" id ="2"><li>--}%
+                                %{--<table>--}%
+                                    %{--<tr>--}%
+                                        %{--<td width=140mm>--}%
+                                            %{--Ron Carter--}%
+                                        %{--</td>--}%
+                                        %{--<td>--}%
+                                            %{--<a class="removeBotton" href="#" id ="2">remove</a>--}%
+                                        %{--</td>--}%
+                                    %{--</tr>--}%
+                                %{--</table>--}%
+                            %{--</li></span>--}%
+                            %{--<span class = "sortable-box" id ="3"><li>--}%
+                            %{--<table>--}%
+                                %{--<tr>--}%
+                                    %{--<td width=140mm>--}%
+                                        %{--Herbie Hancock</td>--}%
+                                    %{--<td>--}%
+                                        %{--<a class="removeBotton" href="#" id ="3">remove</a>--}%
+                                    %{--</td>--}%
+                                %{--</tr>--}%
+                            %{--</table>--}%
+                        %{--</li></span>--}%
+                            %{--<span class = "sortable-box" id ="4"><li>--}%
+                            %{--<table>--}%
+                                %{--<tr>--}%
+                                    %{--<td width=140mm>--}%
+                                        %{--Tony Williams--}%
+                                    %{--</td>--}%
+                                    %{--<td>--}%
+                                        %{--<a class="removeBotton" href="#" id ="4">remove</a>--}%
+                                    %{--</td>--}%
+                                %{--</tr>--}%
+                            %{--</table>--}%
+                        %{--</li></span>--}%
 
                         </ul>
 
