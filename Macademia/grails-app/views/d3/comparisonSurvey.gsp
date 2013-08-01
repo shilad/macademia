@@ -146,6 +146,13 @@
 //            $("#sortable").disableSelection();
 //            $("#sortable").sortable("destroy");
         });
+
+        $(document).ready(function() {
+             $("#removeName").click(function( e ) {
+                console.log("I rean");
+                $("#deleteMe").remove();
+             });
+            });
     </script>
 
 </head>
@@ -183,7 +190,7 @@
 
                         <ul id="sortable" name="peopleList">
                             <div class="removePerson">
-                            <span><li >Miles Davis <a href = "#" style ="font-size: 12; margin-left: 15mm">remove</a></li></span>
+                            <span><li id="deleteMe" >Miles Davis <a id="removeName" href = "#" style ="font-size: 12; margin-left: 15mm">remove</a></li></span>
                             </div>
                             <span><li class="ui-state-default">John Coltrane</li></span>
                             <span><li class="ui-state-default">Tony Williams</li></span>
