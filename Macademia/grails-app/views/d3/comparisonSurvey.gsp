@@ -12,11 +12,6 @@
     <r:require modules="survey"/>
     <meta name="layout" content="main"/>
 
-    %{--<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />--}%
-    %{--<script src="http://code.jquery.com/jquery-1.9.1.js"></script>--}%
-    %{--<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>--}%
-    %{--<link rel="stylesheet" href="/resources/demos/style.css" />--}%
-
     <style>
 
     #bestMatch {
@@ -148,7 +143,7 @@
 
         $(function () {
             $("#sortable").sortable();
-            $("#sortable").disableSelection();
+//            $("#sortable").disableSelection();
 //            $("#sortable").sortable("destroy");
         });
     </script>
@@ -187,7 +182,9 @@
                     <td colspan="3">
 
                         <ul id="sortable" name="peopleList">
-                            <span><li class="ui-state-default">Miles Davis</li></span>
+                            <div class="removePerson">
+                            <span><li >Miles Davis <a href = "#" style ="font-size: 12; margin-left: 15mm">remove</a></li></span>
+                            </div>
                             <span><li class="ui-state-default">John Coltrane</li></span>
                             <span><li class="ui-state-default">Tony Williams</li></span>
                             <span><li class="ui-state-default">Herbie Hancock</li></span>
@@ -198,14 +195,14 @@
                 </tr>
                 <tr>
                     <td>
-                        <g:form action="save" name="personName" id="personName" method="post">
+                        <form action="save" name="personName" id="personName" method="post">
                             <br/>
 
                             <div>Add a person
                                 <input type="text" name="nameInput" maxlength="100">
                             </div>
                             <br/>
-                        </g:form>
+                        </form>
                     </td>
                 </tr>
                 <tr>
@@ -217,15 +214,6 @@
         </td>
         <td>
             %{--in the following div is where the viz needs to go--}%
-
-            <div>
-
-                <r:script>
-
-</r:script>
-
-
-            </div>
         </td>
     </tr>
 </table>
