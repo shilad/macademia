@@ -68,6 +68,28 @@ modules = {
         resource url: '/css/tooltip.css'
         resource url: '/js/d3test/main-viz.js'
     }
+   survey {
+        dependsOn 'consolelog'
+        dependsOn 'core'
+
+        resource url: 'http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css'
+        resource url: 'http://code.jquery.com/jquery-1.9.1.js'
+        resource url: '/js/jquery-ui-1.10.3.custom/css/ui-lightness/jquery-ui-1.10.3.custom.css'
+        resource url: '/js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js'
+        resource url: '/js/d3test/d3.v3.js'
+        resource url: '/js/d3test/utils.js'
+        resource url: '/js/d3test/label.js'
+        resource url: '/js/d3test/interest.js'
+        resource url: '/js/d3test/hub.js'
+        resource url: '/js/d3test/person.js'
+        resource url: 'js/d3test/person-layout.js'
+        resource url: '/js/d3test/interest-layout.js'
+        resource url: '/js/d3test/base-viz.js'
+        resource url: '/js/d3test/interest-viz.js'
+        resource url: '/js/d3test/comparisonSurvey.js'
+
+        resource url: '/js/d3test/main-viz.js'
+    }
 
     d3demo {
         dependsOn 'd3js'
