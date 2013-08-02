@@ -15,9 +15,29 @@
     <style>
 
     .removeBotton {
-        font-size: 12;
-        margin-right: 5mm;
+        font: 12px Georgia;
+        color: #d3d3d3;
+        padding: 50px 25px 50px 75px;
     }
+
+    table{
+        font: 17px Georgia;
+        text-align: left;
+    }
+    tr.person {
+        width:200px;
+        vertical-align: middle;
+    }
+    td.person{
+        width:75%;
+        color: #6b6b6b;
+    }
+    td.interest {
+        font: 17px Georgia;
+        vertical-align: middle;
+        color: #848484;
+    }
+
 
     #bestMatch {
         color: lawngreen;
@@ -29,7 +49,7 @@
         text-indent: 75px;
     }
 
-    #pink, #green, #blue {
+    #pink, #purple, #blue {
         float: left;
         clear: left;
         width: 150px;
@@ -53,12 +73,12 @@
         margin-top: -15px;
     }
 
-    #green .ui-slider-range {
+    #purple .ui-slider-range {
         background: #d3d3d3;
     }
 
-    #green .ui-slider-handle {
-        background: #b4f5a3;
+    #purple .ui-slider-handle {
+        background: #b2a3f5;
         border-color: #ffffff;
         border-width: 2px;
         height: 25px;
@@ -109,9 +129,11 @@
     }
 
     span {
-        background-color: #dcdcdc;
-        border: 1px solid black;
+        background-color: #f3f4f4;
+        border: 1px solid #d3d3d3;
         display: block;
+        padding: 5px 5px;
+        border-radius: 10px;
     }
 
     </style>
@@ -119,7 +141,7 @@
     <script>
 
         $(function () {
-            $("#pink, #green, #blue").slider({
+            $("#pink, #purple, #blue").slider({
                 orientation: "horizontal",
                 range: "min",
                 min: 1,
@@ -128,7 +150,7 @@
                 // change: something
             });
             $("#pink").slider("value", 4);
-            $("#green").slider("value", 2);
+            $("#purple").slider("value", 2);
             $("#blue").slider("value", 6);
 
 
@@ -146,29 +168,29 @@
             <table>
                 %{--Sliders @ top of page--}%
                 <tr>
-                    <td>
+                    <td class="interest">
                         <div id="pink"></div>
                     </td>
-                    <td width=8m>First</td>
+                    <td class="interest">Mathematics</td>
 
                 </td>
                 </tr>
                 <tr>
-                    <td>
-                        <div id="green"></div>
+                    <td class="interest">
+                        <div id="purple"></div>
                     </td>
 
-                    <td width=8m>Second</td>
+                    <td class="interest">Sustainability</td>
 
                 </tr>
                 <tr>
-                    <td>
+                    <td class="interest">
                         <div id="blue"></div>
                     </td>
-                    <td width=8m>Third</td>
+                    <td class="interest">Scholarship</td>
                 </tr>
                 <tr>
-                    <td colspan="3" width=10m>
+                    <td colspan="3" width=10px>
                     <h1>Best matches:</h1>
                     <p> List people who best match the task described below. Drag a person listed below to reorder them.</p>
                     </td>
@@ -178,14 +200,14 @@
                     <td colspan="3">
 
                         <ul id="sortable" name="peopleList">
-                           <span class = "sortable-box" name= "sortable-box" ><li >
+                            <span class = "sortable-box" ><li>
                                 %{--this table is for aligning the words in the sortable box--}%
                                 <table>
-                                    <tr >
-                                        <td id="name" width=140mm>
-
+                                    <tr class="person">
+                                        <td class="person">
+                                            BILL KILL
                                         </td>
-                                        <td>
+                                        <tdclass="person">
                                             <a class="removeBotton" href="#">remove</a>
                                         </td>
                                     </tr>
@@ -303,8 +325,7 @@
         <td>
             %{--in the following div is where the viz needs to go--}%
             <div>
-
-            viz here
+            <r:img dir="images" file="viz.png"></r:img>
             </div>
         </td>
     </tr>
