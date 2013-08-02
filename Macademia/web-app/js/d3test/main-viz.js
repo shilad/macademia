@@ -127,24 +127,30 @@ MC.MainViz.prototype.onLoad = function(){
             } else if (rootClass == 'interest') {
                 var root = {type:'interest', id:rootId, children: clusterMap[rootId]};
             }
-
+            if(self.tRoot&&rootClass=='interest'){
+                console.log(self.tRoot.select('.interestOuter').attr('fill'));
+                root['color']=self.tRoot.select('.interestOuter').attr('fill');
+            }
 
 
             //building relatednessMap and parse interests
             var relatednessMap = {};
+            var value;
+            var interest;
+            var clusterId;
             for(var key in interests){
-                var interest = interests[key];
-                var clusterId = interests[key].cluster;
+                interest = interests[key];
+                clusterId = interest.cluster;
                 if(clusterId != -1){
                     if(relatednessMap[clusterId]){
                         relatednessMap[clusterId].push(Number(key));
                     } else {
-                        var value = [Number(key)];
-                        relatednessMap[clusterId]=value;
+                        value = Number(key);
+                        relatednessMap[clusterId]=[value];
                     }
                 }
                 //parse the interest id, we need number
-                interests[key].id = Number(interests[key].id);
+                interests[key].id = Number(interests[key].id);    //Necessary??
             }
 
             var limitedPeople = {};

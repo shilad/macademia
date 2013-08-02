@@ -263,6 +263,7 @@ MC.InterestViz.prototype.startPeople = function() {
 //Position the hubs and the root
 MC.InterestViz.prototype.createInterestViz = function() {
     this.createHub(this.root);
+//    console.log(this.hubs);
     for(var i = 0; i < this.hubs.length; i++) {
         this.createHub(this.hubs[i],i);
     }
@@ -297,7 +298,9 @@ MC.InterestViz.prototype.createHub = function(model,j) {
         var childId = model.children[i];
         hubInterests.push(this.interests[childId]);
     }
+//    console.log(this.relatednessMap[3201]);
     var rootModel = model.type == 'person' ? this.people[model.id] : this.interests[model.id];
+
     rootModel.type = model.type;
     rootModel.r=model.r;
 //    console.log(hubInterests);
