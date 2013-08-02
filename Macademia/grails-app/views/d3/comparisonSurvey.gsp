@@ -12,115 +12,158 @@
     <r:require modules="survey"/>
     <meta name="layout" content="main"/>
 
-    <style>
+<style>
 
-    .removeButton {
-        font-size: 12;
-        margin-right: 5mm;
-    }
+.removeBotton {
+    font: 12px Georgia;
+    color: #d3d3d3;
+    padding: 50px 25px 50px 75px;
+}
 
-    #bestMatch {
-        color: lawngreen;
-        text-indent: 75px;
-    }
+table{
+    font: 17px Georgia;
+    text-align: left;
+}
+tr.person {
+    width:200px;
+    vertical-align: middle;
+}
+td.person{
+    width:75%;
+    color: #6b6b6b;
+}
+td.interest {
+    font: 17px Georgia;
+    vertical-align: middle;
+    color: #848484;
+}
 
-    #worstMatch {
-        color: #ff0000;
-        text-indent: 75px;
-    }
 
-    #pink, #green, #blue {
-        float: left;
-        clear: left;
-        width: 150px;
-        margin: 15px;
-        background-color: #d3d3d3;
-    }
+#bestMatch {
+    color: lawngreen;
+    text-indent: 75px;
+}
 
-    #pink .ui-slider-range {
-        background: #d3d3d3;
-    }
+#worstMatch {
+    color: #ff0000;
+    text-indent: 75px;
+}
 
-    #pink .ui-slider-handle {
-        background: #f5a3d6;
-        border-color: #ffffff;
-        border-width: 2px;
-        height: 25px;
-        width: 25px;
-        border-radius: 25px;
-        position: absolute;
-        top: 50%;
-        margin-top: -15px;
-    }
+#pink, #purple, #blue {
+    float: left;
+    clear: left;
+    width: 150px;
+    margin: 15px;
+    background-color: #d3d3d3;
+}
 
-    #green .ui-slider-range {
-        background: #d3d3d3;
-    }
+#pink .ui-slider-range {
+    background: #d3d3d3;
+}
 
-    #green .ui-slider-handle {
-        background: #b4f5a3;
-        border-color: #ffffff;
-        border-width: 2px;
-        height: 25px;
-        width: 25px;
-        border-radius: 25px;
-        position: absolute;
-        top: 50%;
-        margin-top: -15px;
-    }
+#pink .ui-slider-handle {
+    background: #f5a3d6;
+    border-color: #ffffff;
+    border-width: 2px;
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+}
 
-    #blue .ui-slider-range {
-        background: #d3d3d3;
-    }
+#purple .ui-slider-range {
+    background: #d3d3d3;
+}
 
-    #blue .ui-slider-handle {
-        background: #A8C4E5;
-        border-color: #ffffff;
-        border-width: 2px;
-        height: 25px;
-        width: 25px;
-        border-radius: 25px;
-        position: absolute;
-        top: 50%;
-        margin-top: -15px;
-    }
+#purple .ui-slider-handle {
+    background: #b2a3f5;
+    border-color: #ffffff;
+    border-width: 2px;
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+}
 
-    #sortable {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+#blue .ui-slider-range {
+    background: #d3d3d3;
+}
 
-    #sortable li {
-        margin: 0 3px 3px 3px;
-        padding: 0.4em;
-        padding-left: 1.5em;
-        font-size: 1.4em;
-        height: 18px;
-    }
+#blue .ui-slider-handle {
+    background: #A8C4E5;
+    border-color: #ffffff;
+    border-width: 2px;
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+}
 
-    #sortable li span {
-        position: absolute;
-        margin-left: -1.3em;
-    }
+#sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
 
-    svg {
-        position: absolute;
-    }
+#sortable li {
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    padding-left: 1.5em;
+    font-size: 1.4em;
+    height: 18px;
+}
 
-    .sortable-boxa {
-        height: 7mm;
-        background-color: #dcdcdc;
-        border: 1px solid black;
-        display: block;
-    }
+#sortable li span {
+    position: absolute;
+    margin-left: -1.3em;
+}
 
-    </style>
+svg {
+    position: absolute;
+}
 
+.sortable-boxa {
+    height: 7px;
+    display: block;
+    padding: 5px 5px;
+    border-radius: 10px;
+    background-color: #f3f4f4;
+    border: 1px solid #d3d3d3;
+    display: block;
+}
+
+h1 {
+    font: 20px Georgia;
+    font-weight:bold;
+    color: #848484;
+}
+
+p {
+    font: 15px Georgia;
+    color: #848484;
+}
+
+input.addBotton {
+    cursor: pointer;
+    cursor: hand;
+    background-color: #f3f4f4;
+    font: 10px Georgia;
+    font-weight: bold;
+    color: #848484;
+    border-radius: 10px;
+    vertical-align: middle;
+}
+</style>
     <script>
 
         $(function () {
-            $("#pink, #green, #blue").slider({
+            $("#pink, #purple, #blue").slider({
                 orientation: "horizontal",
                 range: "min",
                 min: 1,
@@ -129,7 +172,7 @@
                 // change: something
             });
             $("#pink").slider("value", 4);
-            $("#green").slider("value", 2);
+            $("#purple").slider("value", 2);
             $("#blue").slider("value", 6);
 
 
@@ -139,39 +182,39 @@
 </head>
 
 <body class="ui-widget-content" style="border: 0;">
-
 <table>
     <tr>
-        <td>
+        <td style="border: 2px solid #d3d3d3;padding: 5px;background-color: #f3f4f4; width: 25%">
             <table>
                 %{--Sliders @ top of page--}%
                 <tr>
-                    <td>
+                    <td class="interest">
                         <div id="pink"></div>
                     </td>
-                    <td width=8m>First</td>
+                    <td class="interest">Mathematics</td>
 
                 </td>
                 </tr>
                 <tr>
-                    <td>
-                        <div id="green"></div>
+                    <td class="interest">
+                        <div id="purple"></div>
                     </td>
 
-                    <td width=8m>Second</td>
+                    <td class="interest">Sustainability</td>
 
                 </tr>
                 <tr>
-                    <td>
+                    <td class="interest">
                         <div id="blue"></div>
                     </td>
-                    <td width=8m>Third</td>
+                    <td class="interest">Scholarship</td>
                 </tr>
                 <tr>
-                    <td colspan="3" width=10m>
+                    <td colspan="3">
                         <h1>Best matches:</h1>
 
                         <p>List people who best match the task described below. Drag a person listed below to reorder them.</p>
+                        <br/>
                     </td>
                 </tr>
                 <tr>
@@ -183,10 +226,10 @@
                                 %{--this table is for aligning the words in the sortable box--}%
                                 <table>
                                     <tr>
-                                        <td id="name" width=140mm>
+                                        <td class="name" width=140mm>
 
                                         </td>
-                                        <td id= "orange">
+                                        <td>
                                             <a class="removeButton" href="#">remove</a>
                                         </td>
                                     </tr>
@@ -204,7 +247,7 @@
                         %{--below is where the add person box should go--}%
                         <form>
 
-                            <input class="addButton" type="submit" value="Add Person" id="submitButton"/>
+                            <input class="addBotton" type="submit" value="Add Person" id="submitButton"/>
                             <input type="text"/>
 
                         </form>
@@ -212,16 +255,10 @@
                         <div id="testing"></div>
 
                         <script>
-                            var i=0;
                             var makeButton = function(){
 
                                 var newButton = $('#peopleList li:first').clone(true);
-                                newButton.find('#name').text(input.val());
-                                newButton.find('a').attr("id", i+'remove');
-                                newButton.attr("id", i+"name");
-
-//                                console.log(i);
-                                i++;
+                                newButton.find('.name').text(input.val());
                                 return newButton;
                             }
 
@@ -234,16 +271,16 @@
                             $(document).ready(function () {
                                 $("#peopleList li:first").hide();   //hides all the sortable boxes
                                 $("#peopleList li").each(function () {
-                                    console.log()
+                                    console.log(this)
+                                  $(this).find(".removeButton").click(function (e) {//id of the remove button
+                                        $(this).parents("#peopleList li").remove();       //id of the .sortable-box that is designated for removal
+
+                                  });
 
 
                                 });
-                            });
 
-                            $('#'+i+'remove').click(function () {//id of the remove button
-                                $('#'+i+'name').remove();       //id of the .sortable-box that is designated for removal
                             });
-
 
                             var input = $("form input:text");
 
@@ -258,16 +295,17 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <h2>Task Description</h2>
+                        <br/>
+                        <h1>Task Description</h1>
                     </td>
                 </tr>
             </table>
         </td>
         <td>
             %{--in the following div is where the viz needs to go--}%
+            %{--in the following div is where the viz needs to go--}%
             <div>
-
-                viz here
+                <r:img dir="images" file="viz.png"></r:img>
             </div>
         </td>
     </tr>
