@@ -89,7 +89,7 @@ MC.InterestViz = function(params) {
 //    this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
-    this.container=this.svg.append("g").attr("class","viz").attr("width",1000).attr("height",700);
+    this.container=this.svg.append("g").attr("class","viz").attr("width",950).attr("height",750);
     // construct the hubModel here based on other parameters
     this.currentColors = [];
 
@@ -625,6 +625,19 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
             .y(function(d) { return d.y; })
             .interpolate("linear");
 
+        self.container
+                    .append("path")
+                    .attr('class','tooltip')
+                    .attr("d", lineFunction(polyPoints))
+                    .attr("stroke", "#ffffff")
+                    .attr("stroke-width", 3)
+                    .attr('stroke-dasharray',"3,3")
+                    .attr("fill", "#eaeaea")
+                    .style("opacity", 0)
+                    .style('z-index',-1)
+                    .transition()
+                    .duration(500)
+                    .style("opacity", 1);
 
         div
             .style('left',position.left)
@@ -634,19 +647,7 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
             .style("opacity", 1)
             .style('z-index','auto');
 
-        self.container
-            .append("path")
-            .attr('class','tooltip')
-            .attr("d", lineFunction(polyPoints))
-            .attr("stroke", "#ffffff")
-            .attr("stroke-width", 3)
-            .attr('stroke-dasharray',"3,3")
-            .attr("fill", "#eaeaea")
-            .style("opacity", 0)
-            .style('z-index',-1)
-            .transition()
-            .duration(500)
-            .style("opacity", 1);
+
 
 
 
