@@ -169,8 +169,8 @@ MC.MainViz.prototype.onLoad = function(){
             ];
 
             self.hubs = hubs;
-//            self.people = limitedPeople;
-            self.people = peeps;
+            self.people = limitedPeople;
+//            self.people = peeps;
             self.root = root;
             self.interests = interests;
             self.colors = colors;
