@@ -499,23 +499,20 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
     var createTooltip = function(){
         var divHeight = $('#tooltipBox').outerHeight();
         var divWidth = $('#tooltipBox').outerWidth();
-        var svgLoc = $('svg').top();
-        console.log(svgLoc);
-        var position = {'left':0,'top':0};
+        var svgLoc = $('svg').position();
+        var position = {'left':svgLoc.left,'top':svgLoc.top};
         var boundingBoxCenter = {'x':(pos.right+pos.left)/2,'y':(pos.top+pos.bottom)/2};
-        position.top=pos.top-divHeight-25;
+        position.top+=pos.top-divHeight-25;
         if(position.top<=0){       //if it goes above the screen
-            position.top=pos.bottom;
+            position.top=svgLoc.top+pos.bottom;
         }
         if(boundingBoxCenter.x>=self.root.cx){       //if it's to the right or equal with the root
-            position.left=pos.right+25;    //the left side of the div should be 50 away from the right side of the object
+            position.left+=pos.right+25;    //the left side of the div should be 25 away from the right side of the object
         }
         else{                            //else it's on the left hemisphere of the graph
-            if(pos.left-divWidth-25<=0){  //if the div would go off the screen to the left
-                position.left=50;         //set it to 50
-            }
-            else{                         //else set the right side of the div 50 away from the object
-                position.left=pos.left-divWidth-25;
+            position.left=+pos.left-divWidth-25;   //set the right side of the div 25 away from the object
+            if(position.left<=0){  //if the div would go off the screen to the left
+                position.left=svgLoc.left+50;         //set it to 50
             }
         }
        var cornerSize = 20;
