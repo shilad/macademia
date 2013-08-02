@@ -18,3 +18,4 @@ stacktrace.log
 .idea/
 *.iml
 *.properties
+/dat/phrase-sims
