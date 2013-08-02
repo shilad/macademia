@@ -49,7 +49,7 @@
         text-indent: 75px;
     }
 
-    #pink, #purple, #blue {
+    #pink, #green, #blue {
         float: left;
         clear: left;
         width: 150px;
@@ -128,12 +128,14 @@
         position: absolute;
     }
 
-    span {
-        background-color: #f3f4f4;
-        border: 1px solid #d3d3d3;
+    .sortable-boxa {
+        height: 7px;
         display: block;
         padding: 5px 5px;
         border-radius: 10px;
+        background-color: #f3f4f4;
+        border: 1px solid #d3d3d3;
+        display: block;
     }
 
     h1 {
@@ -176,7 +178,6 @@
             $("#pink").slider("value", 4);
             $("#purple").slider("value", 2);
             $("#blue").slider("value", 6);
-
 
 
         });
@@ -226,55 +227,19 @@
                     <td colspan="3">
 
                         <ul id="peopleList">
-                            <li class="sortable-box" name="sortable-box">
+                            <li class="sortable-boxa" name="sortable-box">
                                 %{--this table is for aligning the words in the sortable box--}%
                                 <table>
                                     <tr id="name" class="person">
                                         <td class="person">
                                             
                                         </td>
-                                        <td class="person">
+                                        <td class="person" id="orange">
                                             <a class="removeBotton" href="#">remove</a>
                                         </td>
                                     </tr>
                                 </table>
                             </li>
-                            %{--<span class = "sortable-box" id ="2"><li>--}%
-                            %{--<table>--}%
-                            %{--<tr>--}%
-                            %{--<td width=140mm>--}%
-                            %{--Ron Carter--}%
-                            %{--</td>--}%
-                            %{--<td>--}%
-                            %{--<a class="removeBotton" href="#" id ="2">remove</a>--}%
-                            %{--</td>--}%
-                            %{--</tr>--}%
-                            %{--</table>--}%
-                            %{--</li></span>--}%
-                            %{--<span class = "sortable-box" id ="3"><li>--}%
-                            %{--<table>--}%
-                            %{--<tr>--}%
-                            %{--<td width=140mm>--}%
-                            %{--Herbie Hancock</td>--}%
-                            %{--<td>--}%
-                            %{--<a class="removeBotton" href="#" id ="3">remove</a>--}%
-                            %{--</td>--}%
-                            %{--</tr>--}%
-                            %{--</table>--}%
-                            %{--</li></span>--}%
-                            %{--<span class = "sortable-box" id ="4"><li>--}%
-                            %{--<table>--}%
-                            %{--<tr>--}%
-                            %{--<td width=140mm>--}%
-                            %{--Tony Williams--}%
-                            %{--</td>--}%
-                            %{--<td>--}%
-                            %{--<a class="removeBotton" href="#" id ="4">remove</a>--}%
-                            %{--</td>--}%
-                            %{--</tr>--}%
-                            %{--</table>--}%
-                            %{--</li></span>--}%
-
                         </ul>
 
                     </td>
@@ -295,33 +260,28 @@
                         <div id="testing"></div>
 
                         <script>
-
+                            var i=0;
                             var makeButton = function(){
+
                                 var newButton = $('#peopleList li:first').clone(true);
-                                newButton.find('td').text(input.val());
+                                newButton.find('#name').text(input.val());
+                                newButton.find('#orange').text(i)
+//                                console.log(i);
+                                i++;
                                 return newButton;
                             }
 
                             $(function () {
-//                                var element = document.createElement("input");
 
                                 $("#peopleList").sortable();
-//            $("#sortable").disableSelection();
-//            $("#sortable").sortable("destroy");
                             });
-                            //
-                            //                            $(function(){
-                            //                                var nameList = $('#sortable');
-                            //                                var i = $("#sortable span").size() +1;
-                            //                            $("#submitButton").live('click', function(){
-                            //
-                            //                            });
-                            //                            });
+
 
                             $(document).ready(function () {
                                 $("#peopleList li:first").hide();   //hides all the sortable boxes
-                                $("#peopleList li").each(function () {
-                                    $(this).click(function (e) {//id of the remove button
+                                $("#peopleList li #orange").each(function () {
+                                    console.log()
+                                  $(this).click(function (e) {//id of the remove button
                                         $(this).remove();       //id of the .sortable-box that is designated for removal
                                     });
                                 });
@@ -333,16 +293,8 @@
                                 var button = makeButton();
                                 button.appendTo($('#peopleList'));
                                 button.show();
-
-//                              $("#sortable").append($("#sortable-box"))
-
                             });
-
-
-
-
-
-                        </script>
+                       </script>
 
                     </td>
                 </tr>
@@ -367,5 +319,3 @@
 
 </html>
 
-<r:script>
-    </r:script>
