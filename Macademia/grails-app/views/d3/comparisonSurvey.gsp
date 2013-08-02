@@ -48,8 +48,8 @@
         height: 25px;
         width: 25px;
         border-radius: 25px;
-        position:absolute;
-        top:50%;
+        position: absolute;
+        top: 50%;
         margin-top: -15px;
     }
 
@@ -64,8 +64,8 @@
         height: 25px;
         width: 25px;
         border-radius: 25px;
-        position:absolute;
-        top:50%;
+        position: absolute;
+        top: 50%;
         margin-top: -15px;
     }
 
@@ -80,8 +80,8 @@
         height: 25px;
         width: 25px;
         border-radius: 25px;
-        position:absolute;
-        top:50%;
+        position: absolute;
+        top: 50%;
         margin-top: -15px;
     }
 
@@ -132,7 +132,6 @@
             $("#blue").slider("value", 6);
 
 
-
         });
     </script>
 
@@ -169,19 +168,20 @@
                 </tr>
                 <tr>
                     <td colspan="3" width=10m>
-                    <h1>Best matches:</h1>
-                    <p> List people who best match the task described below. Drag a person listed below to reorder them.</p>
+                        <h1>Best matches:</h1>
+
+                        <p>List people who best match the task described below. Drag a person listed below to reorder them.</p>
                     </td>
                 </tr>
                 <tr>
                     %{--sortable boxes--}%
                     <td colspan="3">
 
-                        <ul id="sortable" name="peopleList">
-                           <span class = "sortable-box" name= "sortable-box" ><li >
+                        <ul id="peopleList">
+                            <li class="sortable-box" name="sortable-box">
                                 %{--this table is for aligning the words in the sortable box--}%
                                 <table>
-                                    <tr >
+                                    <tr>
                                         <td id="name" width=140mm>
 
                                         </td>
@@ -190,42 +190,42 @@
                                         </td>
                                     </tr>
                                 </table>
-                            </li></span>
-                                             %{--<span class = "sortable-box" id ="2"><li>--}%
-                                %{--<table>--}%
-                                    %{--<tr>--}%
-                                        %{--<td width=140mm>--}%
-                                            %{--Ron Carter--}%
-                                        %{--</td>--}%
-                                        %{--<td>--}%
-                                            %{--<a class="removeBotton" href="#" id ="2">remove</a>--}%
-                                        %{--</td>--}%
-                                    %{--</tr>--}%
-                                %{--</table>--}%
+                            </li>
+                            %{--<span class = "sortable-box" id ="2"><li>--}%
+                            %{--<table>--}%
+                            %{--<tr>--}%
+                            %{--<td width=140mm>--}%
+                            %{--Ron Carter--}%
+                            %{--</td>--}%
+                            %{--<td>--}%
+                            %{--<a class="removeBotton" href="#" id ="2">remove</a>--}%
+                            %{--</td>--}%
+                            %{--</tr>--}%
+                            %{--</table>--}%
                             %{--</li></span>--}%
                             %{--<span class = "sortable-box" id ="3"><li>--}%
                             %{--<table>--}%
-                                %{--<tr>--}%
-                                    %{--<td width=140mm>--}%
-                                        %{--Herbie Hancock</td>--}%
-                                    %{--<td>--}%
-                                        %{--<a class="removeBotton" href="#" id ="3">remove</a>--}%
-                                    %{--</td>--}%
-                                %{--</tr>--}%
+                            %{--<tr>--}%
+                            %{--<td width=140mm>--}%
+                            %{--Herbie Hancock</td>--}%
+                            %{--<td>--}%
+                            %{--<a class="removeBotton" href="#" id ="3">remove</a>--}%
+                            %{--</td>--}%
+                            %{--</tr>--}%
                             %{--</table>--}%
-                        %{--</li></span>--}%
+                            %{--</li></span>--}%
                             %{--<span class = "sortable-box" id ="4"><li>--}%
                             %{--<table>--}%
-                                %{--<tr>--}%
-                                    %{--<td width=140mm>--}%
-                                        %{--Tony Williams--}%
-                                    %{--</td>--}%
-                                    %{--<td>--}%
-                                        %{--<a class="removeBotton" href="#" id ="4">remove</a>--}%
-                                    %{--</td>--}%
-                                %{--</tr>--}%
+                            %{--<tr>--}%
+                            %{--<td width=140mm>--}%
+                            %{--Tony Williams--}%
+                            %{--</td>--}%
+                            %{--<td>--}%
+                            %{--<a class="removeBotton" href="#" id ="4">remove</a>--}%
+                            %{--</td>--}%
+                            %{--</tr>--}%
                             %{--</table>--}%
-                        %{--</li></span>--}%
+                            %{--</li></span>--}%
 
                         </ul>
 
@@ -239,47 +239,53 @@
                         %{--below is where the add person box should go--}%
                         <form>
 
-                            <input class = "addBotton" type="submit" value="Add Person" id = "submitButton" />
-                            <input type="text" />
+                            <input class="addBotton" type="submit" value="Add Person" id="submitButton"/>
+                            <input type="text"/>
 
                         </form>
 
-                        <div id = "testing"> </div>
+                        <div id="testing"></div>
 
                         <script>
+
+                            var makeButton = function(){
+                                var newButton = $('#peopleList li:first').clone(true);
+                                newButton.find('td').text(input.val());
+                                return newButton;
+                            }
 
                             $(function () {
 //                                var element = document.createElement("input");
 
-                                $("#sortable").sortable();
+                                $("#peopleList").sortable();
 //            $("#sortable").disableSelection();
 //            $("#sortable").sortable("destroy");
                             });
-//
-//                            $(function(){
-//                                var nameList = $('#sortable');
-//                                var i = $("#sortable span").size() +1;
-//                            $("#submitButton").live('click', function(){
-//
-//                            });
-//                            });
+                            //
+                            //                            $(function(){
+                            //                                var nameList = $('#sortable');
+                            //                                var i = $("#sortable span").size() +1;
+                            //                            $("#submitButton").live('click', function(){
+                            //
+                            //                            });
+                            //                            });
 
                             $(document).ready(function () {
-                                $(".sortable-box").hide();   //hides all the sortable boxes
-                                $(".sortable-box").each(function(){
+                                $("#peopleList li:first").hide();   //hides all the sortable boxes
+                                $("#peopleList li").each(function () {
                                     $(this).click(function (e) {//id of the remove button
                                         $(this).remove();       //id of the .sortable-box that is designated for removal
-                                    });});
+                                    });
+                                });
                             });
 
                             var input = $("form input:text");
 
-                            $( "#submitButton").click(function() {
+                            $("#submitButton").click(function () {
+                                var button = makeButton();
+                                button.appendTo($('#peopleList'));
+                                button.show();
 
-
-
-                              $("#name").append(input.val());
-                                $(".sortable-box").toggle();
 //                              $("#sortable").append($("#sortable-box"))
 
                             });
@@ -289,7 +295,6 @@
 
 
                         </script>
-
 
                     </td>
                 </tr>
@@ -304,7 +309,7 @@
             %{--in the following div is where the viz needs to go--}%
             <div>
 
-            viz here
+                viz here
             </div>
         </td>
     </tr>
