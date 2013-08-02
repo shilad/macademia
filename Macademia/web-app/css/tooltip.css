@@ -22,3 +22,6 @@ path.tooltip{
     border: 3px dotted #ffffff;
     border-radius: 5px;
 }
+svg{
+    border: 1px solid #000000;
+}

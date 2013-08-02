@@ -342,7 +342,7 @@ MC.MainViz.prototype.transitionRoot = function(){
                     .duration(1000)
                     .attr("transform",function(){
                         if(d3.select(this))
-                            return "scale(2.5)";
+                            return "scale("+(20/12)+")";
                     });
                 this.tRoot
                     .select('circle.interestInner')
@@ -350,7 +350,7 @@ MC.MainViz.prototype.transitionRoot = function(){
                     .duration(1000)
                     .attr("r",function(){
                         if(d3.select(this))
-                            return d3.select(this).attr('r')*2.5;
+                            return d3.select(this).attr('r')*(20/12);
                     });
                 this.tRoot
                     .select('text')

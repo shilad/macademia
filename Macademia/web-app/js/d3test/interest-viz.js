@@ -464,7 +464,7 @@ MC.InterestViz.prototype.getPeoplesInterests = function(d) {
     return interestNameList;
 };
 
-MC.InterestViz.prototype.toolTipHover = function(e,pos,selection){
+MC.InterestViz.prototype.toolTipHover = function(e,pos){
     var self = this;
     this.xhr;
     var div = d3.select('#tooltipBox');
@@ -499,13 +499,13 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos,selection){
     var createTooltip = function(){
         var divHeight = $('#tooltipBox').outerHeight();
         var divWidth = $('#tooltipBox').outerWidth();
+        var svgLoc = $('svg');
+        console.log(svgLoc);
         var position = {'left':0,'top':0};
         var boundingBoxCenter = {'x':(pos.right+pos.left)/2,'y':(pos.top+pos.bottom)/2};
-        if(pos.top-divHeight-25<=0){       //if it goes above the screen
+        position.top=pos.top-divHeight-25;
+        if(position.top<=0){       //if it goes above the screen
             position.top=pos.bottom;
-        }
-        else{                             //else it should be above the object with a gap of 50
-            position.top=pos.top-divHeight-25;
         }
         if(boundingBoxCenter.x>=self.root.cx){       //if it's to the right or equal with the root
             position.left=pos.right+25;    //the left side of the div should be 50 away from the right side of the object
@@ -645,7 +645,7 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos,selection){
             .style("opacity", 0)
             .style('z-index',-1)
             .transition()
-            .duration(1000)
+            .duration(500)
             .style("opacity", 1);
 
 
@@ -684,7 +684,7 @@ MC.InterestViz.prototype.hoverPerson = function(){
     this.container.selectAll('g.person')
         .on("mouseover", function(e){
             var pos = this.getBoundingClientRect();
-            self.toolTipHover(e,pos,d3.select(this));
+            self.toolTipHover(e,pos);
             self.activateHubRootAndChildren(e.id, e.interests, self, true);
 
             d3.selectAll('g.person')
@@ -711,7 +711,7 @@ MC.InterestViz.prototype.hoverHubRoot = function(){
             var hubRootID = e[0].id;
             var hubRootMap = relatednessMap[hubRootID];
             var pos = this.getBoundingClientRect();
-            self.toolTipHover(e,pos,d3.select(this));
+            self.toolTipHover(e,pos);
             self.activateHubRootAndChildren(hubRootID, hubRootMap, self, false);
             d3.select(this).select('g.label').select('text').text(d3.select(this).data()[0][0].name);
 
@@ -741,7 +741,7 @@ MC.InterestViz.prototype.hoverHubRootChild = function(){
                 .selectAll('g.interest')
                 .on("mouseover", function(e){
                     var pos = this.getBoundingClientRect();
-                    self.toolTipHover(e,pos,d3.select(this));
+                    self.toolTipHover(e,pos);
                     var interestID = e.id;
                     var hubRootID = self.findHubRootID(interestID);
                     var hubRootMap = relatednessMap[hubRootID];
@@ -772,7 +772,7 @@ MC.InterestViz.prototype.hoverVizRoot = function(){
     d3.select('g.vizRoot')
         .on("mouseover", function(e){
             var pos = this.getBoundingClientRect();
-            self.toolTipHover(e,pos,d3.select(this));
+            self.toolTipHover(e,pos);
             var vizID = d3.select(this).data()[0][0].id;
             d3.selectAll('g.hub, g.person')
                 .attr('opacity',function(d){
@@ -796,7 +796,7 @@ MC.InterestViz.prototype.hoverVizRootChild = function(){
         .selectAll('g.interest')
         .on("mouseover", function(e){
             var pos = this.getBoundingClientRect();
-            self.toolTipHover(e,pos,d3.select(this));
+            self.toolTipHover(e,pos);
             var interestID = e.id;
             var hubRootID = self.findHubRootID(interestID);
             var hubRootMap = relatednessMap[hubRootID];
