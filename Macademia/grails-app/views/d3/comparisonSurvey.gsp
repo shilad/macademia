@@ -14,7 +14,7 @@
 
 <style>
 
-.removeBotton {
+.removeButton {
     font: 12px Georgia;
     color: #d3d3d3;
     padding: 50px 25px 50px 75px;
@@ -128,8 +128,9 @@ svg {
     position: absolute;
 }
 
-.sortable-boxa {
-    height: 7px;
+.sortable-boxes {
+    
+    height: 18px;
     display: block;
     padding: 5px 5px;
     border-radius: 10px;
@@ -149,7 +150,7 @@ p {
     color: #848484;
 }
 
-input.addBotton {
+input.addButton {
     cursor: pointer;
     cursor: hand;
     background-color: #f3f4f4;
@@ -222,7 +223,7 @@ input.addBotton {
                     <td colspan="3">
 
                         <ul id="peopleList">
-                            <li class="sortable-boxa" name="sortable-box">
+                            <li class="sortable-boxes" name="sortable-box">
                                 %{--this table is for aligning the words in the sortable box--}%
                                 <table>
                                     <tr>
@@ -245,16 +246,48 @@ input.addBotton {
                 <tr>
                     <td>
                         %{--below is where the add person box should go--}%
-                        <form>
+                        <br>
+                        <form  onsubmit="onSubmit()">
 
-                            <input class="addBotton" type="submit" value="Add Person" id="submitButton"/>
-                            <input type="text"/>
+                            <input class="addButton" type="submit" value="Add Person" id="submitButton"/>
+                            <br>
+                            <br>
+                            <input id = "textBox" type="text" placeholder="person name here"/>
 
                         </form>
 
-                        <div id="testing"></div>
+
 
                         <script>
+
+                            function onSubmit(){
+                                $("#textBox").val("");
+
+                            }
+
+                            $(function() {
+                                var availableTags = [
+                                   "Sam",
+                                   "Pedro",
+                                   "Napoleon",
+                                   "Marge",
+                                   "Shilad",
+                                   "Rebecca",
+                                   "Jesse",
+                                   "Ari",
+                                   "Matt",
+                                   "Ben",
+                                   "Yulun",
+                                   "Ken",
+                                   "your momma"
+
+                                ];
+                                $( "#textBox" ).autocomplete({
+                                    source: availableTags
+                                });
+                            });
+
+
                             var makeButton = function(){
 
                                 var newButton = $('#peopleList li:first').clone(true);
@@ -289,6 +322,8 @@ input.addBotton {
                                 button.appendTo($('#peopleList'));
                                 button.show();
                             });
+
+
                        </script>
 
                     </td>
