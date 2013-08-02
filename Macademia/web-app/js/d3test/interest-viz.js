@@ -514,49 +514,106 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos,selection){
                 position.left=pos.left-divWidth-25;
             }
         }
+       var cornerSize = 20;
+       var corners = {
+           'topRight':{
+               'x1':pos.right,
+               'y1':pos.top,
+               'x2':position.left,
+               'y2':(position.top+divHeight),
+               'cx1':position.left,
+               'cy1':(position.top+divHeight)-cornerSize,
+               'cx2':position.left+cornerSize,
+               'cy2':(position.top+divHeight)
+           },
+           'topLeft':{
+               'x1':pos.left,
+               'y1':pos.top,
+               'x2':(position.left+divWidth),
+               'y2':(position.top+divHeight),
+               'cx1':(position.left+divWidth)-cornerSize,
+               'cy1':(position.top+divHeight),
+               'cx2':(position.left+divWidth),
+               'cy2':(position.top+divHeight)-cornerSize
+           },
+           'bottomRight':{
+               'x1':pos.right,
+               'y1':pos.bottom,
+               'x2':position.left,
+               'y2':position.top,
+               'cx1':position.left+cornerSize,
+               'cy1':position.top,
+               'cx2':position.left,
+               'cy2':position.top+cornerSize
+           },
+           'bottomLeft':{
+               'x1':pos.left,
+               'y1':pos.bottom,
+               'x2':(position.left+divWidth),
+               'y2':position.top,
+               'cx1':(position.left+divWidth)-cornerSize,
+               'cy1':position.top,
+               'cx2':(position.left+divWidth),
+               'cy2':position.top+cornerSize
+           },
+           'topMiddle':{
+               'x1':boundingBoxCenter.x,
+               'y1':pos.top,
+               'x2':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left) ? boundingBoxCenter.x : (position.left+divWidth)/2,
+               'y2':(position.top+divHeight),
+               'cx1':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left) ? boundingBoxCenter.x+(cornerSize/2) : position.left+divWidth,
+               'cy1':(position.top+divHeight),
+               'cx2':boundingBoxCenter.x-(cornerSize/2),
+               'cy2':(position.top+divHeight)
+           },
+           'bottomMiddle':{
+               'x1':boundingBoxCenter.x,
+               'y1':pos.bottom,
+               'x2':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left) ? boundingBoxCenter.x : (position.left+divWidth)/2,
+               'y2':position.top,
+               'cx1':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left) ? boundingBoxCenter.x+(cornerSize/2) : position.left+divWidth,
+               'cy1':position.top,
+               'cx2':boundingBoxCenter.x-(cornerSize/2),
+               'cy2':position.top
+           },
+           'rightMiddle':{
+               'x1':pos.right,
+               'y1':boundingBoxCenter.y,
+               'x2':position.left,
+               'y2':((position.top+divHeight)/2),
+               'cx1':position.left,
+               'cy1':((position.top+divHeight)/2)+(cornerSize/2),
+               'cx2':position.left,
+               'cy2':((position.top+divHeight)/2)-(cornerSize/2)
+           },
+           'leftMiddle':{
+               'x1':pos.left,
+               'y1':boundingBoxCenter.y,
+               'x2':(position.left+divWidth),
+               'y2':((position.top+divHeight)/2),
+               'cx1':(position.left+divWidth),
+               'cy1':((position.top+divHeight)/2)+(cornerSize/2),
+               'cx2':(position.left+divWidth),
+               'cy2':((position.top+divHeight)/2)-(cornerSize/2)
+           }
+       };
+       var bestDistance=Infinity;
+       var bestCorner;
+       var d = 0;
+       for(var corner in corners){
+           d=Math.pow((corners[corner].x1-corners[corner].x2),2)+Math.pow((corners[corner].y1-corners[corner].y2),2);
+           if(d<bestDistance){
+               bestDistance=d;
+               bestCorner=corner;
+           }
+       }
+        bestDistance=Infinity;
+        var polyPoints = [
+                    {'x':corners[bestCorner].cx1,'y':corners[bestCorner].cy1},
+                    {'x':corners[bestCorner].x1,'y':corners[bestCorner].y1},
+                    {'x':corners[bestCorner].cx2,'y':corners[bestCorner].cy2}
+                ];
 
-
-        var polyPoints;
-        if((boundingBoxCenter.x>=self.root.cx)){     //right hemisphere
-            if((pos.top+pos.bottom)/2<=self.root.cy){   //top-right quad
-                polyPoints = [
-                    {'x':position.left,'y':(position.top+20)},
-                    {'x':pos.right,'y':pos.bottom},
-                    {'x':(position.left+20),'y':(position.top)}
-                ];
-            }
-            else{                                       //bottom-right quad
-                polyPoints = [
-                    {'x':position.left,'y':(position.top+divHeight-20)},
-                    {'x':pos.right,'y':pos.top},
-                    {'x':(position.left+20),'y':(position.top+divHeight)}
-                ];
-            }
-        }else{                                          //left hemisphere
-            if(boundingBoxCenter.y<=self.root.cy){   //top-left quad
-                polyPoints = [
-                    {'x':position.left+divWidth-20,'y':(position.top)},
-                    {'x':pos.left,'y':pos.bottom},
-                    {'x':(position.left+divWidth),'y':(position.top+20)}
-                ];
-            }
-            else{                                       //bottom-left quad
-                if(pos.left-divWidth-25>0){
-                    polyPoints = [
-                        {'x':position.left+divWidth,'y':(position.top+divHeight-20)},
-                        {'x':pos.left,'y':pos.top},
-                        {'x':(position.left+divWidth-20),'y':(position.top+divHeight)}
-                    ];
-                }else{
-                    var x = ((boundingBoxCenter.x)+10)<position.left+divWidth ? ((boundingBoxCenter.x)+10) : position.left+divWidth;
-                    polyPoints = [
-                        {'x':(boundingBoxCenter.x)-10,'y':(position.top+divHeight)},
-                        {'x':(boundingBoxCenter.x),'y':pos.top},
-                        {'x':x,'y':(position.top+divHeight)}
-                    ];
-                }
-            }
-        }
 
         var lineFunction = d3.svg
             .line()
@@ -594,7 +651,6 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos,selection){
 };
 
 //This function enables highlighting of the nodes when hovers
-//TODO: Come up with some mechanism to set and reset attribute such as opacity for highlight and fading
 MC.InterestViz.prototype.enableHoverHighlight = function(){
     var div;
     if(!d3.select('div#tooltipBox')[0][0]){
