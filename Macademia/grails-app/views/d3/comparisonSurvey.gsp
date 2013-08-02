@@ -49,7 +49,7 @@
         text-indent: 75px;
     }
 
-    #pink, #green, #blue {
+    #pink, #purple, #blue {
         float: left;
         clear: left;
         width: 150px;
