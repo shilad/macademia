@@ -9,18 +9,15 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <r:require modules="d3js"/>
-    %{--<meta name="layout" content="main"/>--}%
-
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <link rel="stylesheet" href="/resources/demos/style.css" />
-
-
-
+    <r:require modules="survey"/>
+    <meta name="layout" content="main"/>
 
     <style>
+
+    .removeBotton {
+        font-size: 12;
+        margin-right: 5mm;
+    }
 
     #bestMatch {
         color: lawngreen;
@@ -32,59 +29,66 @@
         text-indent: 75px;
     }
 
-    #red, #green, #blue {
+    #pink, #green, #blue {
         float: left;
         clear: left;
         width: 150px;
         margin: 15px;
+        background-color: #d3d3d3;
     }
 
-    #red .ui-slider-range {
-        background: #F8F8F8;
+    #pink .ui-slider-range {
+        background: #d3d3d3;
     }
 
-        /*#red.ui-slider-handle { fill: red; }*/
-    #red .ui-slider-handle {
-        border-color: black;
-    }
-
-    #red.ui-widget-content .ui-state-default {
-        background: #ff0000;
-    }
-
-    #red.ui-widget-content {
-        background: #FF9999;
+    #pink .ui-slider-handle {
+        background: #f5a3d6;
+        border-color: #ffffff;
+        border-width: 2px;
+        height: 25px;
+        width: 25px;
+        border-radius: 25px;
+        position:absolute;
+        top:50%;
+        margin-top: -15px;
     }
 
     #green .ui-slider-range {
-        background: #8ae234;
-    }
-
-    #green .ui-widget-content {
-        background: purple;
+        background: #d3d3d3;
     }
 
     #green .ui-slider-handle {
-        border-color: #8ae234;
+        background: #b4f5a3;
+        border-color: #ffffff;
+        border-width: 2px;
+        height: 25px;
+        width: 25px;
+        border-radius: 25px;
+        position:absolute;
+        top:50%;
+        margin-top: -15px;
     }
 
     #blue .ui-slider-range {
-        background: #729fcf;
-    }
-
-    #blue .ui-widget-content {
-        background: purple;
+        background: #d3d3d3;
     }
 
     #blue .ui-slider-handle {
-        border-color: #729fcf;
+        background: #A8C4E5;
+        border-color: #ffffff;
+        border-width: 2px;
+        height: 25px;
+        width: 25px;
+        border-radius: 25px;
+        position:absolute;
+        top:50%;
+        margin-top: -15px;
     }
 
     #sortable {
         list-style-type: none;
         margin: 0;
         padding: 0;
-        width: 60%;
     }
 
     #sortable li {
@@ -104,137 +108,211 @@
         position: absolute;
     }
 
+    span {
+        background-color: #dcdcdc;
+        border: 1px solid black;
+        display: block;
+    }
+
     </style>
 
     <script>
 
-        function hexFromRGB(r, g, b) {
-            var hex = [
-                r.toString(16),
-                g.toString(16),
-                b.toString(16)
-            ];
-            $.each(hex, function (nr, val) {
-                if (val.length === 1) {
-                    hex[ nr ] = "0" + val;
-                }
-            });
-            return hex.join("").toUpperCase();
-        }
-        function refreshSwatch() {
-            var red = $("#red").slider("value"),
-                    green = $("#green").slider("value"),
-                    blue = $("#blue").slider("value"),
-                    hex = hexFromRGB(red, green, blue);
-            $("#swatch").css("background-color", "#" + hex);
-        }
         $(function () {
-            $("#red, #green, #blue").slider({
+            $("#pink, #green, #blue").slider({
                 orientation: "horizontal",
-                range: "max",
+                range: "min",
                 min: 1,
                 max: 10,
-                value: 2,
-                change: refreshSwatch
-
-//
+                value: 2
+                // change: something
             });
-            $("#red").slider("value", 255);
-            $("#green").slider("value", 140);
-            $("#blue").slider("value", 60);
-        });
+            $("#pink").slider("value", 4);
+            $("#green").slider("value", 2);
+            $("#blue").slider("value", 6);
 
-        $(function () {
-            $("#sortable").sortable();
-            $("#sortable").disableSelection();
-        });
 
+
+        });
     </script>
 
 </head>
 
-%{--<body class="ui-widget-content" style="border: 0;">--}%
+<body class="ui-widget-content" style="border: 0;">
 
-            %{--<table>--}%
+<table>
+    <tr>
+        <td>
+            <table>
+                %{--Sliders @ top of page--}%
+                <tr>
+                    <td>
+                        <div id="pink"></div>
+                    </td>
+                    <td width=8m>First</td>
 
-                %{--<tr>--}%
+                </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="green"></div>
+                    </td>
 
-                    %{--<h1>Related to Donnie Burroughs</h1>--}%
-                    %{--<table>--}%
-                        %{--<tr>--}%
-                            %{--<td width=10%>--}%
-                                %{--<p>Relatedness--}%
-                                %{--</p>--}%
+                    <td width=8m>Second</td>
 
-                                %{--<div id="red"></div>--}%
+                </tr>
+                <tr>
+                    <td>
+                        <div id="blue"></div>
+                    </td>
+                    <td width=8m>Third</td>
+                </tr>
+                <tr>
+                    <td colspan="3" width=10m>
+                    <h1>Best matches:</h1>
+                    <p> List people who best match the task described below. Drag a person listed below to reorder them.</p>
+                    </td>
+                </tr>
+                <tr>
+                    %{--sortable boxes--}%
+                    <td colspan="3">
 
-                                %{--<div id="green"></div>--}%
+                        <ul id="sortable" name="peopleList">
+                           <span class = "sortable-box" name= "sortable-box" ><li >
+                                %{--this table is for aligning the words in the sortable box--}%
+                                <table>
+                                    <tr >
+                                        <td id="name" width=140mm>
 
-                                %{--<div id="blue"></div>--}%
-                            %{--</td>--}%
-                            %{--<td>--}%
+                                        </td>
+                                        <td>
+                                            <a class="removeBotton" href="#">remove</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </li></span>
+                                             %{--<span class = "sortable-box" id ="2"><li>--}%
                                 %{--<table>--}%
                                     %{--<tr>--}%
-                                        %{--<td width=10m>First</td>--}%
-
+                                        %{--<td width=140mm>--}%
+                                            %{--Ron Carter--}%
+                                        %{--</td>--}%
+                                        %{--<td>--}%
+                                            %{--<a class="removeBotton" href="#" id ="2">remove</a>--}%
+                                        %{--</td>--}%
                                     %{--</tr>--}%
-                                    %{--<tr>--}%
-                                        %{--<td>Second</td>--}%
-                                    %{--</tr> <tr>--}%
-                                    %{--<td>Third</td>--}%
-                                %{--</tr>--}%
                                 %{--</table>--}%
+                            %{--</li></span>--}%
+                            %{--<span class = "sortable-box" id ="3"><li>--}%
+                            %{--<table>--}%
+                                %{--<tr>--}%
+                                    %{--<td width=140mm>--}%
+                                        %{--Herbie Hancock</td>--}%
+                                    %{--<td>--}%
+                                        %{--<a class="removeBotton" href="#" id ="3">remove</a>--}%
+                                    %{--</td>--}%
+                                %{--</tr>--}%
+                            %{--</table>--}%
+                        %{--</li></span>--}%
+                            %{--<span class = "sortable-box" id ="4"><li>--}%
+                            %{--<table>--}%
+                                %{--<tr>--}%
+                                    %{--<td width=140mm>--}%
+                                        %{--Tony Williams--}%
+                                    %{--</td>--}%
+                                    %{--<td>--}%
+                                        %{--<a class="removeBotton" href="#" id ="4">remove</a>--}%
+                                    %{--</td>--}%
+                                %{--</tr>--}%
+                            %{--</table>--}%
+                        %{--</li></span>--}%
 
-                            %{--</td>--}%
+                        </ul>
 
-                        %{--</tr>--}%
-                    %{--</table>--}%
-                    %{--<br/>--}%
-                %{--</tr>--}%
-                %{--<tr>--}%
-                    %{--<div id = "bestMatch">Best Match</div>--}%
-                    %{--<ul id="sortable">--}%
+                    </td>
+                </tr>
+                <tr>
+                    %{--<a class="addBotton" href="#">add</a>--}%
+                </tr>
+                <tr>
+                    <td>
+                        %{--below is where the add person box should go--}%
+                        <form>
 
-                        %{--<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Miles Davis</li>--}%
-                        %{--<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>John Coltrane</li>--}%
-                        %{--<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Tony Williams</li>--}%
-                        %{--<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Herbie Hancock</li>--}%
-                        %{--<li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Ron Carter</li>--}%
+                            <input class = "addBotton" type="submit" value="Add Person" id = "submitButton" />
+                            <input type="text" />
+
+                        </form>
+
+                        <div id = "testing"> </div>
+
+                        <script>
+
+                            $(function () {
+//                                var element = document.createElement("input");
+
+                                $("#sortable").sortable();
+//            $("#sortable").disableSelection();
+//            $("#sortable").sortable("destroy");
+                            });
+//
+//                            $(function(){
+//                                var nameList = $('#sortable');
+//                                var i = $("#sortable span").size() +1;
+//                            $("#submitButton").live('click', function(){
+//
+//                            });
+//                            });
+
+                            $(document).ready(function () {
+                                $(".sortable-box").hide();   //hides all the sortable boxes
+                                $(".sortable-box").each(function(){
+                                    $(this).click(function (e) {//id of the remove button
+                                        $(this).remove();       //id of the .sortable-box that is designated for removal
+                                    });});
+                            });
+
+                            var input = $("form input:text");
+
+                            $( "#submitButton").click(function() {
 
 
-                    %{--</ul>--}%
-                    %{--<div id = "worstMatch">Worst Match</div>--}%
+
+                              $("#name").append(input.val());
+                                $(".sortable-box").toggle();
+//                              $("#sortable").append($("#sortable-box"))
+
+                            });
 
 
 
-                %{--</tr>--}%
 
 
-            %{--</table>--}%
+                        </script>
 
 
-%{--</body>--}%
-
-<body class="ui-widget-content" style="border: 0;">
-<table width=100%>
-    <tr>
-        <td width=50%>
-            This is left
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <h2>Task Description</h2>
+                    </td>
+                </tr>
+            </table>
         </td>
         <td>
-            this is right
+            %{--in the following div is where the viz needs to go--}%
+            <div>
+
+            viz here
+            </div>
         </td>
     </tr>
 </table>
 
-
 </body>
 
-
-
-
-
-
-
-
 </html>
+
+<r:script>
+    </r:script>
