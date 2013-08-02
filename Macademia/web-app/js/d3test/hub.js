@@ -97,11 +97,14 @@ MC.hub = function() {
                     .attr("offset", "30%")
                     .style("stop-color", "#b2b2b2")
                     .style("stop-opacity", 1.0);
-
                 gradient.append("stop")
                     .attr("offset", "90%")
                     .style("stop-color", "#FFFFFF")
-                    .style("stop-opacity", 1.0);
+                    .style("stop-opacity",0.4);
+                gradient.append("stop")
+                    .attr("offset", "100%")
+                    .style("stop-color", "#FFFFFF")
+                    .style("stop-opacity", 0);
 
 //                d3Group.append('rect').attr('x',cx).attr('y',cy).attr('width','100').attr('height','100').attr('fill','url(#connection_gradient)');
 
