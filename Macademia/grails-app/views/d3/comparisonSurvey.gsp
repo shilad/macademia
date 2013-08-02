@@ -219,8 +219,11 @@
                     </td>
                 </tr>
                 <tr>
+
                     %{--sortable boxes--}%
                     <td colspan="3">
+
+                    <div id="bestMatch">Best Match</div>
 
                         <ul id="peopleList">
                             <li class="sortable-boxes" name="sortable-box">
@@ -237,6 +240,7 @@
                                 </table>
                             </li>
                         </ul>
+                    <div id="worstMatch">Worst Match</div>
 
                     </td>
                 </tr>
@@ -247,6 +251,7 @@
                     <td>
                         %{--below is where the add person box should go--}%
                         <br>
+
                         <form  onsubmit="onSubmit()">
 
                             <input class="addButton" type="submit" value="Add Person" id="submitButton"/>
@@ -255,6 +260,8 @@
                             <input id = "textBox" type="text" placeholder="person name here"/>
 
                         </form>
+
+
 
 
 
