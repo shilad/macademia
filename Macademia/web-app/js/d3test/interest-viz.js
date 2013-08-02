@@ -460,8 +460,9 @@ MC.InterestViz.prototype.getPeoplesInterests = function(d) {
     return interestNameList;
 };
 
-MC.InterestViz.prototype.toolTipHover = function(e,pos){
+MC.InterestViz.prototype.toolTipHover = function(e,pos,selection){
     var self = this;
+    this.xhr;
     var div = d3.select('#tooltipBox');
 //    if(!div.style('opacity')||div.style('opacity')<0.99){
     var people = this.people;
@@ -479,17 +480,18 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
         type=e[0].type;
     }
     if(id in people && e.interests ||  type == "person" ){ //checks to see if it is a person
-        jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + id, function(data) {
+        this.xhr = jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + id, function(data) {
             jQuery('#tooltipBox').html(data);
             createTooltip();
 //            console.log(jQuery('#tooltipBox'));
         });}
     else {    //deals with interests
-        jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + id, function(data) {
+        this.xhr = jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + id, function(data) {
             jQuery('#tooltipBox').html(data);
             createTooltip();
         });
     }
+
     var createTooltip = function(){
         var divHeight = $('#tooltipBox').outerHeight();
         var divWidth = $('#tooltipBox').outerWidth();
@@ -513,7 +515,13 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
             }
         }
 
-
+        div
+            .style('left',position.left)
+            .style('top',position.top)
+            .transition()
+            .duration(500)
+            .style("opacity", 1)
+            .style('z-index','auto');
         var polyPoints;
         if((boundingBoxCenter.x>=self.root.cx)){     //right hemisphere
             if((pos.top+pos.bottom)/2<=self.root.cy){   //top-right quad
@@ -561,13 +569,7 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
             .x(function(d) { return d.x; })
             .y(function(d) { return d.y; })
             .interpolate("linear");
-        div
-            .style('left',position.left)
-            .style('top',position.top)
-            .transition()
-            .duration(1000)
-            .style("opacity", 1)
-            .style('z-index','auto');
+
         self.container
             .append("path")
             .attr('class','tooltip')
@@ -580,10 +582,12 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
             .style('z-index',-1)
             .transition()
             .duration(1000)
-            .style("opacity", 1)
-            .style('z-index','auto');
+            .style("opacity", 1);
+
+
 
     };
+
 };
 
 //This function enables highlighting of the nodes when hovers
@@ -617,7 +621,7 @@ MC.InterestViz.prototype.hoverPerson = function(){
     this.container.selectAll('g.person')
         .on("mouseover", function(e){
             var pos = this.getBoundingClientRect();
-            self.toolTipHover(e,pos);
+            self.toolTipHover(e,pos,d3.select(this));
             self.activateHubRootAndChildren(e.id, e.interests, self, true);
 
             d3.selectAll('g.person')
@@ -629,7 +633,9 @@ MC.InterestViz.prototype.hoverPerson = function(){
                         return self.inactiveOpacity;
                     }
                 });
-        }).on("mouseout", this.mouseOut);
+        })
+        .on("mouseout", function() { self.mouseOut(this); });
+
 };
 
 MC.InterestViz.prototype.hoverHubRoot = function(){
@@ -642,7 +648,7 @@ MC.InterestViz.prototype.hoverHubRoot = function(){
             var hubRootID = e[0].id;
             var hubRootMap = relatednessMap[hubRootID];
             var pos = this.getBoundingClientRect();
-            self.toolTipHover(e,pos);
+            self.toolTipHover(e,pos,d3.select(this));
             self.activateHubRootAndChildren(hubRootID, hubRootMap, self, false);
             d3.select(this).select('g.label').select('text').text(d3.select(this).data()[0][0].name);
 
@@ -659,7 +665,7 @@ MC.InterestViz.prototype.hoverHubRoot = function(){
                 });
 
         })
-        .on("mouseout", this.mouseOut);
+        .on("mouseout", function() { self.mouseOut(this); });
 };
 
 MC.InterestViz.prototype.hoverHubRootChild = function(){
@@ -672,7 +678,7 @@ MC.InterestViz.prototype.hoverHubRootChild = function(){
                 .selectAll('g.interest')
                 .on("mouseover", function(e){
                     var pos = this.getBoundingClientRect();
-                    self.toolTipHover(e,pos);
+                    self.toolTipHover(e,pos,d3.select(this));
                     var interestID = e.id;
                     var hubRootID = self.findHubRootID(interestID);
                     var hubRootMap = relatednessMap[hubRootID];
@@ -691,7 +697,7 @@ MC.InterestViz.prototype.hoverHubRootChild = function(){
                         });
 
                 })
-                .on("mouseout", self.mouseOut);
+                .on("mouseout", function() { self.mouseOut(this); });
         }
     });
 
@@ -703,7 +709,7 @@ MC.InterestViz.prototype.hoverVizRoot = function(){
     d3.select('g.vizRoot')
         .on("mouseover", function(e){
             var pos = this.getBoundingClientRect();
-            self.toolTipHover(e,pos);
+            self.toolTipHover(e,pos,d3.select(this));
             var vizID = d3.select(this).data()[0][0].id;
             d3.selectAll('g.hub, g.person')
                 .attr('opacity',function(d){
@@ -716,7 +722,7 @@ MC.InterestViz.prototype.hoverVizRoot = function(){
                     }
                 });
         })
-        .on("mouseout", this.mouseOut);
+        .on("mouseout", function() { self.mouseOut(this); });
 };
 
 MC.InterestViz.prototype.hoverVizRootChild = function(){
@@ -727,7 +733,7 @@ MC.InterestViz.prototype.hoverVizRootChild = function(){
         .selectAll('g.interest')
         .on("mouseover", function(e){
             var pos = this.getBoundingClientRect();
-            self.toolTipHover(e,pos);
+            self.toolTipHover(e,pos,d3.select(this));
             var interestID = e.id;
             var hubRootID = self.findHubRootID(interestID);
             var hubRootMap = relatednessMap[hubRootID];
@@ -745,34 +751,31 @@ MC.InterestViz.prototype.hoverVizRootChild = function(){
                 });
             self.highlightLabel(d3.select(this));
         })
-        .on("mouseout", this.mouseOut);
+        .on("mouseout", function() { self.mouseOut(this); });
 };
 
-MC.InterestViz.prototype.mouseOut = function(){
-    if(d3.select(this).classed('interest')){
-        d3.select(this).select('g.label').select('text').text(MC.interest().getCleanedText());
+MC.InterestViz.prototype.mouseOut = function(domElem){
+    this.xhr.abort();
+    if(d3.select(domElem).classed('interest')){
+        d3.select(domElem).select('g.label').select('text').text(MC.interest().getCleanedText());
     }
     d3.selectAll('g.hubRoot, g.interest, g.person, g.hub')
         .attr('opacity',this.activeOpacity)
         .selectAll('g.label')
         .attr('fill',this.inactiveColor);
-    var div = d3.select('body')
-        .select("#tooltipBox");
-    div
+
+    d3.select('#tooltipBox')
         .transition()
         .duration(500)
         .style("opacity", 0)
         .style('z-index',-1);
-    d3.selectAll('path.tooltip')
+    d3.selectAll('.tooltip')
         .transition()
         .duration(500)
         .style("opacity", 0)
         .remove();
-//    div
-//        .transition()
-//        .delay(500)
-//        .style("left", 1000)
-//        .style("top", 1000);
+
+
 };
 MC.InterestViz.prototype.findHubRootID = function(interestID){
     for(var i in this.relatednessMap){
