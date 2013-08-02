@@ -834,7 +834,7 @@ MC.InterestViz.prototype.mouseOut = function(domElem){
         .style('z-index',-1);
     d3.selectAll('.tooltip')
         .transition()
-        .duration(500)
+        .duration(200)
         .style("opacity", 0)
         .remove();
 
