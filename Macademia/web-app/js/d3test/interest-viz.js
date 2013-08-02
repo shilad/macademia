@@ -499,7 +499,7 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
     var createTooltip = function(){
         var divHeight = $('#tooltipBox').outerHeight();
         var divWidth = $('#tooltipBox').outerWidth();
-        var svgLoc = $('svg');
+        var svgLoc = $('svg').top();
         console.log(svgLoc);
         var position = {'left':0,'top':0};
         var boundingBoxCenter = {'x':(pos.right+pos.left)/2,'y':(pos.top+pos.bottom)/2};

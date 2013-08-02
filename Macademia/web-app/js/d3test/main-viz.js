@@ -20,7 +20,7 @@ MC.MainViz = function(params) {
 //    console.log(params);
     this.peopleLimit =  macademia.history.get('navFunction')=='person' ? 15 : 14;
     this.hubChildrenLimit = 10;
-    this.svg = d3.select('svg').attr('width', 1024).attr('height', 764);
+    this.svg = d3.select('svg').attr('width', 1024).attr('height', 768);
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
     this.setEventHandlers();
 
