@@ -136,6 +136,30 @@
         border-radius: 10px;
     }
 
+    h1 {
+        font: 20px Georgia;
+        font-weight:bold;
+        color: #848484;
+    }
+
+    p {
+        font: 15px Georgia;
+        color: #848484;
+    }
+
+    input.addBotton {
+        cursor: pointer;
+        cursor: hand;
+        background-color: #f3f4f4;
+        font: 10px Georgia;
+        font-weight: bold;
+        color: #848484;
+        border-radius: 10px;
+        vertical-align: middle;
+    }
+
+
+
     </style>
 
     <script>
@@ -164,7 +188,7 @@
 
 <table>
     <tr>
-        <td>
+        <td style="border: 2px solid #d3d3d3;padding: 5px;background-color: #f3f4f4; width: 25%">
             <table>
                 %{--Sliders @ top of page--}%
                 <tr>
@@ -190,10 +214,11 @@
                     <td class="interest">Scholarship</td>
                 </tr>
                 <tr>
-                    <td colspan="3" width=10m>
+                    <td colspan="3">
                         <h1>Best matches:</h1>
 
                         <p>List people who best match the task described below. Drag a person listed below to reorder them.</p>
+                        <br/>
                     </td>
                 </tr>
                 <tr>
@@ -208,7 +233,7 @@
                                         <td class="person">
                                             
                                         </td>
-                                        <tdclass="person">
+                                        <td class="person">
                                             <a class="removeBotton" href="#">remove</a>
                                         </td>
                                     </tr>
@@ -323,7 +348,8 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <h2>Task Description</h2>
+                        <br/>
+                        <h1>Task Description</h1>
                     </td>
                 </tr>
             </table>
