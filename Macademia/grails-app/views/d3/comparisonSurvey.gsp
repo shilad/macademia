@@ -14,7 +14,7 @@
 
     <style>
 
-    .removeBotton {
+    .removeButton {
         font-size: 12;
         margin-right: 5mm;
     }
@@ -145,9 +145,7 @@
                     $(this).remove();       //id of the .sortable-box that is designated for removal
                 });});
 
-            $(".addBotton").click(function(e){
-               $(".sortable-box").toggle();    //sets the sortable boxes to display
-            })
+
         });
     </script>
 
@@ -194,15 +192,17 @@
 
                         <ul id="sortable" name="peopleList">
 
-                            <span class = "sortable-box" ><li>
+                            <span id = firstName class = "sortable-box" ><li>
                                 %{--this table is for aligning the words in the sortable box--}%
                                 <table>
                                     <tr >
                                         <td id="name" width=140mm>
+                                            %{--name of person goes here--}%
+
 
                                         </td>
                                         <td>
-                                            <a class="removeBotton" href="#">remove</a>
+                                            <a class="removeButton" href="#">remove</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -214,7 +214,7 @@
                                             %{--Ron Carter--}%
                                         %{--</td>--}%
                                         %{--<td>--}%
-                                            %{--<a class="removeBotton" href="#" id ="2">remove</a>--}%
+                                            %{--<a class="removeButton" href="#" id ="2">remove</a>--}%
                                         %{--</td>--}%
                                     %{--</tr>--}%
                                 %{--</table>--}%
@@ -225,7 +225,7 @@
                                     %{--<td width=140mm>--}%
                                         %{--Herbie Hancock</td>--}%
                                     %{--<td>--}%
-                                        %{--<a class="removeBotton" href="#" id ="3">remove</a>--}%
+                                        %{--<a class="removeButton" href="#" id ="3">remove</a>--}%
                                     %{--</td>--}%
                                 %{--</tr>--}%
                             %{--</table>--}%
@@ -237,7 +237,7 @@
                                         %{--Tony Williams--}%
                                     %{--</td>--}%
                                     %{--<td>--}%
-                                        %{--<a class="removeBotton" href="#" id ="4">remove</a>--}%
+                                        %{--<a class="removeButton" href="#" id ="4">remove</a>--}%
                                     %{--</td>--}%
                                 %{--</tr>--}%
                             %{--</table>--}%
@@ -248,15 +248,15 @@
                     </td>
                 </tr>
                 <tr>
-                    %{--<a class="addBotton" href="#">add</a>--}%
+                    %{--<a class="addButton" href="#">add</a>--}%
                 </tr>
                 <tr>
                     <td>
                         %{--below is where the add person box should go--}%
                         <form>
 
-                            <input class = "addBotton" type="submit" value="Add Person" id = "submitButton" />
-                            <input type="text" />
+                            <input class = "addButton" type="submit" value="Add Person" id = "submitButton" />
+                            <input type="text" value='type person name here'/>
 
                         </form>
 
@@ -264,12 +264,36 @@
 
                         <script>
 
+                            var makeButton = function(){
+                                var newButton = document.getElementById("firstName").cloneNode(true);
+
+
+
+
+
+
+
+                                return newButton;
+
+
+                            }
+
+
+
                             var input = $("form input:text");
 
-                            $( "#submitButton").click(function() {
+//                            this function needs to append a button to the ul, #sortable
+
+                            $( "#submitButton").click(function() {  //this function needs to append a button to the DOM,
+
                                 $("#name").append(input.val());
-                                $("#sortable").append(".sortable-box")
+                                $("#sortable").append(input.val());
+                                $(".sortable-box").toggle();
+
+
                             });
+
+
 
 
 
