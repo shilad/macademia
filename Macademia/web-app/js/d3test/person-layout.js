@@ -439,7 +439,6 @@ MC.personLayout = function () {
 //        });
             //Changing the location of person nodes based on the force
             peopleNodes.attr("transform", function (d) {
-                console.log(d);
                 d.x = pinch(d.x, 50, 700); //change 700 base on height
                 d.y = pinch(d.y, 50, 700);
                 personLocations[d.id]={id: d.id,px: d.px, py: d.py, x: d.x, y: d.y};
