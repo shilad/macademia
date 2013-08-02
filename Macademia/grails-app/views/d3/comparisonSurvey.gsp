@@ -130,24 +130,9 @@
             $("#pink").slider("value", 4);
             $("#green").slider("value", 2);
             $("#blue").slider("value", 6);
-        });
 
-        $(function () {
-            $("#sortable").sortable();
-//            $("#sortable").disableSelection();
-//            $("#sortable").sortable("destroy");
-        });
 
-        $(document).ready(function () {
-            $(".sortable-box").hide();   //hides all the sortable boxes
-            $(".sortable-box").each(function(){
-                $(this).click(function (e) {//id of the remove button
-                    $(this).remove();       //id of the .sortable-box that is designated for removal
-                });});
 
-            $(".addBotton").click(function(e){
-               $(".sortable-box").toggle();    //sets the sortable boxes to display
-            })
         });
     </script>
 
@@ -193,8 +178,7 @@
                     <td colspan="3">
 
                         <ul id="sortable" name="peopleList">
-
-                            <span class = "sortable-box" ><li>
+                           <span class = "sortable-box" name= "sortable-box" ><li >
                                 %{--this table is for aligning the words in the sortable box--}%
                                 <table>
                                     <tr >
@@ -207,7 +191,7 @@
                                     </tr>
                                 </table>
                             </li></span>
-                            %{--<span class = "sortable-box" id ="2"><li>--}%
+                                             %{--<span class = "sortable-box" id ="2"><li>--}%
                                 %{--<table>--}%
                                     %{--<tr>--}%
                                         %{--<td width=140mm>--}%
@@ -264,12 +248,40 @@
 
                         <script>
 
+                            $(function () {
+                                $("#sortable").sortable();
+//            $("#sortable").disableSelection();
+//            $("#sortable").sortable("destroy");
+                            });
+//
+//                            $(function(){
+//                                var nameList = $('#sortable');
+//                                var i = $("#sortable span").size() +1;
+//                            $("#submitButton").live('click', function(){
+//
+//                            });
+//                            });
+
+                            $(document).ready(function () {
+                                $(".sortable-box").hide();   //hides all the sortable boxes
+                                $(".sortable-box").each(function(){
+                                    $(this).click(function (e) {//id of the remove button
+                                        $(this).remove();       //id of the .sortable-box that is designated for removal
+                                    });});
+                            });
+
                             var input = $("form input:text");
 
                             $( "#submitButton").click(function() {
-                                $("#name").append(input.val());
-                                $("#sortable").append(".sortable-box")
+
+
+
+                              $("#name").append(input.val());
+                                $(".sortable-box").toggle();
+//                              $("#sortable").append($("#sortable-box"))
+
                             });
+
 
 
 
