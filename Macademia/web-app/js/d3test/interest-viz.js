@@ -489,171 +489,171 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
     if(id in people && e.interests ||  type == "person" ){ //checks to see if it is a person
         this.xhr = jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + id, function(data) {
             jQuery('#tooltipBox').html(data);
-            createTooltip();
+            self.createTooltip(self,pos,div);
 //            console.log(jQuery('#tooltipBox'));
         });}
     else {    //deals with interests
         this.xhr = jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + id, function(data) {
             jQuery('#tooltipBox').html(data);
-            createTooltip();
+            self.createTooltip(self,pos,div);
         });
     }
 
-    var createTooltip = function(){
-        var divHeight = $('#tooltipBox').outerHeight();
-        var divWidth = $('#tooltipBox').outerWidth();
-        var svgLoc = $('svg').position();
-        var position = {'left':svgLoc.left,'top':svgLoc.top};
-        var boundingBoxCenter = {'x':(pos.right+pos.left)/2,'y':(pos.top+pos.bottom)/2};
-        position.top+=pos.top-divHeight-25;
-        if(position.top<=0){       //if it goes above the screen
-            position.top=svgLoc.top+pos.bottom;
-        }
-        if(boundingBoxCenter.x>=self.root.cx){       //if it's to the right or equal with the root
-            position.left+=pos.right+25;    //the left side of the div should be 25 away from the right side of the object
-        }
-        else{                            //else it's on the left hemisphere of the graph
-            position.left=+pos.left-divWidth-25;   //set the right side of the div 25 away from the object
-            if(position.left<=0){  //if the div would go off the screen to the left
-                position.left=svgLoc.left+50;         //set it to 50
-            }
-        }
-       var cornerSize = 20;
-       var corners = {
-           'topRight':{
-               'x1':pos.right,
-               'y1':pos.top,
-               'x2':position.left,
-               'y2':(position.top+divHeight),
-               'cx1':position.left,
-               'cy1':(position.top+divHeight)-cornerSize,
-               'cx2':position.left+cornerSize,
-               'cy2':(position.top+divHeight)
-           },
-           'topLeft':{
-               'x1':pos.left,
-               'y1':pos.top,
-               'x2':(position.left+divWidth),
-               'y2':(position.top+divHeight),
-               'cx1':(position.left+divWidth)-cornerSize,
-               'cy1':(position.top+divHeight),
-               'cx2':(position.left+divWidth),
-               'cy2':(position.top+divHeight)-cornerSize
-           },
-           'bottomRight':{
-               'x1':pos.right,
-               'y1':pos.bottom,
-               'x2':position.left,
-               'y2':position.top,
-               'cx1':position.left+cornerSize,
-               'cy1':position.top,
-               'cx2':position.left,
-               'cy2':position.top+cornerSize
-           },
-           'bottomLeft':{
-               'x1':pos.left,
-               'y1':pos.bottom,
-               'x2':(position.left+divWidth),
-               'y2':position.top,
-               'cx1':(position.left+divWidth)-cornerSize,
-               'cy1':position.top,
-               'cx2':(position.left+divWidth),
-               'cy2':position.top+cornerSize
-           },
-           'topMiddle':{
-               'x1':boundingBoxCenter.x,
-               'y1':pos.top,
-               'x2':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left) ? boundingBoxCenter.x : (position.left+divWidth)/2,
-               'y2':(position.top+divHeight),
-               'cx1':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left) ? boundingBoxCenter.x+(cornerSize/2) : position.left+divWidth,
-               'cy1':(position.top+divHeight),
-               'cx2':boundingBoxCenter.x-(cornerSize/2),
-               'cy2':(position.top+divHeight)
-           },
-           'bottomMiddle':{
-               'x1':boundingBoxCenter.x,
-               'y1':pos.bottom,
-               'x2':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left) ? boundingBoxCenter.x : (position.left+divWidth)/2,
-               'y2':position.top,
-               'cx1':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left) ? boundingBoxCenter.x+(cornerSize/2) : position.left+divWidth,
-               'cy1':position.top,
-               'cx2':boundingBoxCenter.x-(cornerSize/2),
-               'cy2':position.top
-           },
-           'rightMiddle':{
-               'x1':pos.right,
-               'y1':boundingBoxCenter.y,
-               'x2':position.left,
-               'y2':((position.top+divHeight)/2),
-               'cx1':position.left,
-               'cy1':((position.top+divHeight)/2)+(cornerSize/2),
-               'cx2':position.left,
-               'cy2':((position.top+divHeight)/2)-(cornerSize/2)
-           },
-           'leftMiddle':{
-               'x1':pos.left,
-               'y1':boundingBoxCenter.y,
-               'x2':(position.left+divWidth),
-               'y2':((position.top+divHeight)/2),
-               'cx1':(position.left+divWidth),
-               'cy1':((position.top+divHeight)/2)+(cornerSize/2),
-               'cx2':(position.left+divWidth),
-               'cy2':((position.top+divHeight)/2)-(cornerSize/2)
-           }
-       };
-       var bestDistance=Infinity;
-       var bestCorner;
-       var d = 0;
-       for(var corner in corners){
-           d=Math.pow((corners[corner].x1-corners[corner].x2),2)+Math.pow((corners[corner].y1-corners[corner].y2),2);
-           if(d<bestDistance){
-               bestDistance=d;
-               bestCorner=corner;
-           }
-       }
-        bestDistance=Infinity;
-        var polyPoints = [
-                    {'x':corners[bestCorner].cx1,'y':corners[bestCorner].cy1},
-                    {'x':corners[bestCorner].x1,'y':corners[bestCorner].y1},
-                    {'x':corners[bestCorner].cx2,'y':corners[bestCorner].cy2}
-                ];
 
-
-        var lineFunction = d3.svg
-            .line()
-            .x(function(d) { return d.x; })
-            .y(function(d) { return d.y; })
-            .interpolate("linear");
-
-
-        div
-            .style('left',position.left)
-            .style('top',position.top)
-            .transition()
-            .duration(500)
-            .style("opacity", 1)
-            .style('z-index','auto');
-
-        self.container
-            .append("path")
-            .attr('class','tooltip')
-            .attr("d", lineFunction(polyPoints))
-            .attr("stroke", "#ffffff")
-            .attr("stroke-width", 3)
-            .attr('stroke-dasharray',"3,3")
-            .attr("fill", "#eaeaea")
-            .style("opacity", 0)
-            .style('z-index',-1)
-            .transition()
-            .duration(500)
-            .style("opacity", 1);
-
-
-
-    };
 
 };
+MC.InterestViz.prototype.createTooltip = function(self,pos,div){
+    var divHeight = $('#tooltipBox').outerHeight();
+    var divWidth = $('#tooltipBox').outerWidth();
+    var svgLoc = $('svg').position();
+    var position = {'left':svgLoc.left,'top':svgLoc.top};
+    var boundingBoxCenter = {'x':(pos.right+pos.left)/2,'y':(pos.top+pos.bottom)/2};
+    position.top+=pos.top-divHeight-25;
+    if(position.top<=0){       //if it goes above the screen
+        position.top=svgLoc.top+pos.bottom;
+    }
+    if(boundingBoxCenter.x>=self.root.cx){       //if it's to the right or equal with the root
+        position.left+=pos.right+25;    //the left side of the div should be 25 away from the right side of the object
+    }
+    else{                            //else it's on the left hemisphere of the graph
+        position.left=+pos.left-divWidth-25;   //set the right side of the div 25 away from the object
+        if(position.left<=0){  //if the div would go off the screen to the left
+            position.left=svgLoc.left+50;         //set it to 50
+        }
+    }
 
+    var lineFunction = d3.svg
+        .line()
+        .x(function(d) { return d.x; })
+        .y(function(d) { return d.y; })
+        .interpolate("linear");
+
+    var polyPoints=self.createTooltipArrow(pos,position,divWidth,divHeight,boundingBoxCenter);
+
+    div
+        .style('left',position.left)
+        .style('top',position.top)
+        .transition()
+        .duration(500)
+        .style("opacity", 1)
+        .style('z-index','auto');
+
+    self.container
+        .append("path")
+        .attr('class','tooltip')
+        .attr("d", lineFunction(polyPoints))
+        .attr("stroke", "#ffffff")
+        .attr("stroke-width", 3)
+        .attr('stroke-dasharray',"3,3")
+        .attr("fill", "#eaeaea")
+        .style("opacity", 0)
+        .style('z-index',-1)
+        .transition()
+        .duration(500)
+        .style("opacity", 1);
+};
+MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,divHeight,boundingBoxCenter){
+    var cornerSize = 20;
+    var corners = {
+        'topRight':{
+            'x1':pos.right,
+            'y1':pos.top,
+            'x2':position.left,
+            'y2':(position.top+divHeight),
+            'cx1':position.left,
+            'cy1':(position.top+divHeight)-cornerSize,
+            'cx2':position.left+cornerSize,
+            'cy2':(position.top+divHeight)
+        },
+        'topLeft':{
+            'x1':pos.left,
+            'y1':pos.top,
+            'x2':(position.left+divWidth),
+            'y2':(position.top+divHeight),
+            'cx1':(position.left+divWidth)-cornerSize,
+            'cy1':(position.top+divHeight),
+            'cx2':(position.left+divWidth),
+            'cy2':(position.top+divHeight)-cornerSize
+        },
+        'bottomRight':{
+            'x1':pos.right,
+            'y1':pos.bottom,
+            'x2':position.left,
+            'y2':position.top,
+            'cx1':position.left+cornerSize,
+            'cy1':position.top,
+            'cx2':position.left,
+            'cy2':position.top+cornerSize
+        },
+        'bottomLeft':{
+            'x1':pos.left,
+            'y1':pos.bottom,
+            'x2':(position.left+divWidth),
+            'y2':position.top,
+            'cx1':(position.left+divWidth)-cornerSize,
+            'cy1':position.top,
+            'cx2':(position.left+divWidth),
+            'cy2':position.top+cornerSize
+        },
+        'topMiddle':{
+            'x1':boundingBoxCenter.x,
+            'y1':pos.top,
+            'x2':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left) ? boundingBoxCenter.x : (position.left+divWidth)/2,
+            'y2':(position.top+divHeight),
+            'cx1':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left) ? boundingBoxCenter.x+(cornerSize/2) : position.left+divWidth,
+            'cy1':(position.top+divHeight),
+            'cx2':boundingBoxCenter.x-(cornerSize/2),
+            'cy2':(position.top+divHeight)
+        },
+        'bottomMiddle':{
+            'x1':boundingBoxCenter.x,
+            'y1':pos.bottom,
+            'x2':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left) ? boundingBoxCenter.x : (position.left+divWidth)/2,
+            'y2':position.top,
+            'cx1':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left) ? boundingBoxCenter.x+(cornerSize/2) : position.left+divWidth,
+            'cy1':position.top,
+            'cx2':boundingBoxCenter.x-(cornerSize/2),
+            'cy2':position.top
+        },
+        'rightMiddle':{
+            'x1':pos.right,
+            'y1':boundingBoxCenter.y,
+            'x2':position.left,
+            'y2':((position.top+divHeight)/2),
+            'cx1':position.left,
+            'cy1':((position.top+divHeight)/2)+(cornerSize/2),
+            'cx2':position.left,
+            'cy2':((position.top+divHeight)/2)-(cornerSize/2)
+        },
+        'leftMiddle':{
+            'x1':pos.left,
+            'y1':boundingBoxCenter.y,
+            'x2':(position.left+divWidth),
+            'y2':((position.top+divHeight)/2),
+            'cx1':(position.left+divWidth),
+            'cy1':((position.top+divHeight)/2)+(cornerSize/2),
+            'cx2':(position.left+divWidth),
+            'cy2':((position.top+divHeight)/2)-(cornerSize/2)
+        }
+    };
+    var bestDistance=Infinity;
+    var bestCorner;
+    var d = 0;
+    for(var corner in corners){
+        d=Math.pow((corners[corner].x1-corners[corner].x2),2)+Math.pow((corners[corner].y1-corners[corner].y2),2);
+        if(d<bestDistance){
+            bestDistance=d;
+            bestCorner=corner;
+        }
+    }
+    bestDistance=Infinity;
+    var polyPoints = [
+        {'x':corners[bestCorner].cx1,'y':corners[bestCorner].cy1},
+        {'x':corners[bestCorner].x1,'y':corners[bestCorner].y1},
+        {'x':corners[bestCorner].cx2,'y':corners[bestCorner].cy2}
+    ];
+    return polyPoints;
+};
 //This function enables highlighting of the nodes when hovers
 MC.InterestViz.prototype.enableHoverHighlight = function(){
     var div;
