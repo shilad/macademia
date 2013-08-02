@@ -14,7 +14,7 @@
 
     <style>
 
-    .removeBotton {
+    .removeButton {
         font-size: 12;
         margin-right: 5mm;
     }
@@ -187,7 +187,7 @@
 
                                         </td>
                                         <td id= "orange">
-                                            <a class="removeBotton" href="#">remove</a>
+                                            <a class="removeButton" href="#">remove</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -197,14 +197,14 @@
                     </td>
                 </tr>
                 <tr>
-                    %{--<a class="addBotton" href="#">add</a>--}%
+                    %{--<a class="addButton" href="#">add</a>--}%
                 </tr>
                 <tr>
                     <td>
                         %{--below is where the add person box should go--}%
                         <form>
 
-                            <input class="addBotton" type="submit" value="Add Person" id="submitButton"/>
+                            <input class="addButton" type="submit" value="Add Person" id="submitButton"/>
                             <input type="text"/>
 
                         </form>
@@ -217,7 +217,9 @@
 
                                 var newButton = $('#peopleList li:first').clone(true);
                                 newButton.find('#name').text(input.val());
-                                newButton.find('#orange').text(i)
+                                newButton.find('a').attr("id", i+'remove');
+                                newButton.attr("id", i+"name");
+
 //                                console.log(i);
                                 i++;
                                 return newButton;
@@ -231,13 +233,17 @@
 
                             $(document).ready(function () {
                                 $("#peopleList li:first").hide();   //hides all the sortable boxes
-                                $("#peopleList li #orange").each(function () {
+                                $("#peopleList li").each(function () {
                                     console.log()
-                                  $(this).click(function (e) {//id of the remove button
-                                        $(this).remove();       //id of the .sortable-box that is designated for removal
-                                    });
+
+
                                 });
                             });
+
+                            $('#'+i+'remove').click(function () {//id of the remove button
+                                $('#'+i+'name').remove();       //id of the .sortable-box that is designated for removal
+                            });
+
 
                             var input = $("form input:text");
 
