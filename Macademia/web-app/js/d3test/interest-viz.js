@@ -764,6 +764,7 @@ MC.InterestViz.prototype.mouseOut = function(domElem){
     }
     d3.selectAll('g.hubRoot, g.interest, g.person, g.hub')
         .attr('opacity',this.activeOpacity)
+        .selectAll('g.hubRoot, g.interest, g.hub')
         .selectAll('g.label')
         .attr('fill',this.inactiveColor);
 
