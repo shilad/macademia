@@ -249,6 +249,8 @@
                         <script>
 
                             $(function () {
+//                                var element = document.createElement("input");
+
                                 $("#sortable").sortable();
 //            $("#sortable").disableSelection();
 //            $("#sortable").sortable("destroy");
