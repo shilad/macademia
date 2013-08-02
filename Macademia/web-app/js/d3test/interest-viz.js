@@ -89,7 +89,7 @@ MC.InterestViz = function(params) {
 //    this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
-    this.container=this.svg.append("g").attr("class","viz").attr("width",1024).attr("height",768);
+    this.container=this.svg.append("g").attr("class","viz").attr("width",1000).attr("height",700);
     // construct the hubModel here based on other parameters
     this.currentColors = [];
 
@@ -211,7 +211,11 @@ MC.InterestViz.prototype.setRadii = function(hubRadius,interestRadius) {
     this.root['r']=hubRadius;
 
     for(var i=0; i < this.gCircle.length; i++){
-        this.gCircle[i]['r'] = this.svgWidth * 0.3;
+        var scale = 1.7;
+//        console.log(this.gCircle[i]);
+        if(this.gCircle[i].id == this.root.id)
+            scale = scale * 2;
+        this.gCircle[i]['r'] = this.distance * scale;
     }
 //    this.svg
 //        .selectAll('g.interest')

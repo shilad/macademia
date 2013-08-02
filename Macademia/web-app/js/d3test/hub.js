@@ -73,7 +73,7 @@ MC.hub = function() {
             if(data["distance"]){ //if the distance between the root and children is specified
                 distance = data["distance"];
                 if(rootType=='person')
-                    distance = 1.5*distance;
+                    distance = 1.3*distance;
             }
             var n = data.children.length;
 
