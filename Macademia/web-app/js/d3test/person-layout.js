@@ -104,8 +104,8 @@ MC.personLayout = function () {
             people[d.id] = d;
         });
 
-        var w = d3.select("g.viz").attr('width') || 800,
-            h = d3.select("g.viz").attr('height') || 600;
+        var w = d3.select("g.viz").attr('width'); //bound for gravity field
+        var h = d3.select("g.viz").attr('height');
 
         var svg = d3.select('svg');
 
@@ -440,8 +440,8 @@ MC.personLayout = function () {
 
             //Changing the location of person nodes based on the force
             peopleNodes.attr("transform", function (d) {
-                d.x = pinch(d.x, 50, 750);
-                d.y = pinch(d.y, 50, 750);
+                d.x = pinch(d.x, 50, 700);
+                d.y = pinch(d.y, 50, 700);
                 personLocations[d.id]={id: d.id,px: d.px, py: d.py, x: d.x, y: d.y};
                 return "translate(" + d.x + "," + d.y + ")";
             });
@@ -472,7 +472,7 @@ MC.personLayout = function () {
 
     }
     MC.options.register(pl, 'friction', 0.5);
-    MC.options.register(pl, 'gravity', 0.008);
+    MC.options.register(pl, 'gravity', 0.005);
     MC.options.register(pl, 'linkDistance', 20);
     MC.options.register(pl, 'peopleNodes', function () {
         throw('no people specified.')
