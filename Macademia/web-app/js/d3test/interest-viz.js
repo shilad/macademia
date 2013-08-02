@@ -530,14 +530,6 @@ MC.InterestViz.prototype.createTooltip = function(self,pos,div){
 
     var polyPoints=self.createTooltipArrow(pos,position,divWidth,divHeight,boundingBoxCenter);
 
-    div
-        .style('left',position.left)
-        .style('top',position.top)
-        .transition()
-        .duration(500)
-        .style("opacity", 1)
-        .style('z-index','auto');
-
     self.container
         .append("path")
         .attr('class','tooltip')
@@ -551,6 +543,13 @@ MC.InterestViz.prototype.createTooltip = function(self,pos,div){
         .transition()
         .duration(500)
         .style("opacity", 1);
+    div
+        .style('left',position.left)
+        .style('top',position.top)
+        .transition()
+        .duration(500)
+        .style("opacity", 1)
+        .style('z-index','auto');
 };
 MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,divHeight,boundingBoxCenter){
     var cornerSize = 20;
