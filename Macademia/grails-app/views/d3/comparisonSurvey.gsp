@@ -14,9 +14,13 @@
 
 <style>
 
+<<<<<<< HEAD
 .removeButton {
+=======
+a.removeButton {
+>>>>>>> 90fad4d2a9d87b70d522c5470e8c29693a794655
     font: 12px Georgia;
-    color: #d3d3d3;
+    color: #848484;
     padding: 50px 25px 50px 75px;
 }
 
@@ -128,15 +132,22 @@ svg {
     position: absolute;
 }
 
+<<<<<<< HEAD
 .sortable-boxes {
     
     height: 18px;
+=======
+.sortable-boxa {
+    height: 30px;
+>>>>>>> 90fad4d2a9d87b70d522c5470e8c29693a794655
     display: block;
     padding: 5px 5px;
     border-radius: 10px;
-    background-color: #f3f4f4;
-    border: 1px solid #d3d3d3;
+    background-color: #d3d3d3;
+    color: #f3f4f4;
+    border: 1px solid #848484;
     display: block;
+    vertical-align: middle;
 }
 
 h1 {
@@ -150,7 +161,13 @@ p {
     color: #848484;
 }
 
+<<<<<<< HEAD
 input.addButton {
+=======
+
+
+input.addBotton {
+>>>>>>> 90fad4d2a9d87b70d522c5470e8c29693a794655
     cursor: pointer;
     cursor: hand;
     background-color: #f3f4f4;
