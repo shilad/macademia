@@ -383,7 +383,7 @@ MC.personLayout = function () {
         var vizRootSpinning = function(){
             //Getting the vizRoot ID
             var vizID = macademia.history.get("nodeId").substring(2);
-            console.log(vizID);
+//            console.log(vizID);
             var px = hubLocations[vizID].x;
             var py = hubLocations[vizID].y;
 
@@ -404,7 +404,7 @@ MC.personLayout = function () {
                         hubID = d.data.id;
                         var hx = hubLocations[hubID].x;
                         var hy = hubLocations[hubID].y;
-                        console.log(hubLocations[hubID]);
+//                        console.log(hubLocations[hubID]);
 
 //                        var angle = calculateAngle(personID, hubID,personLocations,hubLocations);
                         var angle = calculateAngleByCoordinate(py,px,hy,hx);
