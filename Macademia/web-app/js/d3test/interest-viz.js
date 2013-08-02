@@ -515,13 +515,7 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos,selection){
             }
         }
 
-        div
-            .style('left',position.left)
-            .style('top',position.top)
-            .transition()
-            .duration(500)
-            .style("opacity", 1)
-            .style('z-index','auto');
+
         var polyPoints;
         if((boundingBoxCenter.x>=self.root.cx)){     //right hemisphere
             if((pos.top+pos.bottom)/2<=self.root.cy){   //top-right quad
@@ -569,6 +563,15 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos,selection){
             .x(function(d) { return d.x; })
             .y(function(d) { return d.y; })
             .interpolate("linear");
+
+
+        div
+            .style('left',position.left)
+            .style('top',position.top)
+            .transition()
+            .duration(500)
+            .style("opacity", 1)
+            .style('z-index','auto');
 
         self.container
             .append("path")
