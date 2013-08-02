@@ -14,9 +14,9 @@
 
 <style>
 
-.removeBotton {
+a.removeButton {
     font: 12px Georgia;
-    color: #d3d3d3;
+    color: #848484;
     padding: 50px 25px 50px 75px;
 }
 
@@ -129,13 +129,15 @@ svg {
 }
 
 .sortable-boxa {
-    height: 7px;
+    height: 30px;
     display: block;
     padding: 5px 5px;
     border-radius: 10px;
-    background-color: #f3f4f4;
-    border: 1px solid #d3d3d3;
+    background-color: #d3d3d3;
+    color: #f3f4f4;
+    border: 1px solid #848484;
     display: block;
+    vertical-align: middle;
 }
 
 h1 {
@@ -148,6 +150,8 @@ p {
     font: 15px Georgia;
     color: #848484;
 }
+
+
 
 input.addBotton {
     cursor: pointer;
