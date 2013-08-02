@@ -15,29 +15,9 @@
     <style>
 
     .removeBotton {
-        font: 12px Georgia;
-        color: #d3d3d3;
-        padding: 50px 25px 50px 75px;
+        font-size: 12;
+        margin-right: 5mm;
     }
-
-    table{
-        font: 17px Georgia;
-        text-align: left;
-    }
-    tr.person {
-        width:200px;
-        vertical-align: middle;
-    }
-    td.person{
-        width:75%;
-        color: #6b6b6b;
-    }
-    td.interest {
-        font: 17px Georgia;
-        vertical-align: middle;
-        color: #848484;
-    }
-
 
     #bestMatch {
         color: lawngreen;
@@ -73,12 +53,12 @@
         margin-top: -15px;
     }
 
-    #purple .ui-slider-range {
+    #green .ui-slider-range {
         background: #d3d3d3;
     }
 
-    #purple .ui-slider-handle {
-        background: #b2a3f5;
+    #green .ui-slider-handle {
+        background: #b4f5a3;
         border-color: #ffffff;
         border-width: 2px;
         height: 25px;
@@ -129,45 +109,18 @@
     }
 
     .sortable-boxa {
-        height: 7px;
-        display: block;
-        padding: 5px 5px;
-        border-radius: 10px;
-        background-color: #f3f4f4;
-        border: 1px solid #d3d3d3;
+        height: 7mm;
+        background-color: #dcdcdc;
+        border: 1px solid black;
         display: block;
     }
-
-    h1 {
-        font: 20px Georgia;
-        font-weight:bold;
-        color: #848484;
-    }
-
-    p {
-        font: 15px Georgia;
-        color: #848484;
-    }
-
-    input.addBotton {
-        cursor: pointer;
-        cursor: hand;
-        background-color: #f3f4f4;
-        font: 10px Georgia;
-        font-weight: bold;
-        color: #848484;
-        border-radius: 10px;
-        vertical-align: middle;
-    }
-
-
 
     </style>
 
     <script>
 
         $(function () {
-            $("#pink, #purple, #blue").slider({
+            $("#pink, #green, #blue").slider({
                 orientation: "horizontal",
                 range: "min",
                 min: 1,
@@ -176,7 +129,7 @@
                 // change: something
             });
             $("#pink").slider("value", 4);
-            $("#purple").slider("value", 2);
+            $("#green").slider("value", 2);
             $("#blue").slider("value", 6);
 
 
@@ -189,37 +142,36 @@
 
 <table>
     <tr>
-        <td style="border: 2px solid #d3d3d3;padding: 5px;background-color: #f3f4f4; width: 25%">
+        <td>
             <table>
                 %{--Sliders @ top of page--}%
                 <tr>
-                    <td class="interest">
+                    <td>
                         <div id="pink"></div>
                     </td>
-                    <td class="interest">Mathematics</td>
+                    <td width=8m>First</td>
 
                 </td>
                 </tr>
                 <tr>
-                    <td class="interest">
-                        <div id="purple"></div>
+                    <td>
+                        <div id="green"></div>
                     </td>
 
-                    <td class="interest">Sustainability</td>
+                    <td width=8m>Second</td>
 
                 </tr>
                 <tr>
-                    <td class="interest">
+                    <td>
                         <div id="blue"></div>
                     </td>
-                    <td class="interest">Scholarship</td>
+                    <td width=8m>Third</td>
                 </tr>
                 <tr>
-                    <td colspan="3">
+                    <td colspan="3" width=10m>
                         <h1>Best matches:</h1>
 
                         <p>List people who best match the task described below. Drag a person listed below to reorder them.</p>
-                        <br/>
                     </td>
                 </tr>
                 <tr>
@@ -230,12 +182,12 @@
                             <li class="sortable-boxa" name="sortable-box">
                                 %{--this table is for aligning the words in the sortable box--}%
                                 <table>
-                                    <tr id="name" class="person">
-                                        <td class="person">
-                                            
+                                    <tr>
+                                        <td class="name" width=140mm>
+
                                         </td>
-                                        <td class="person" id="orange">
-                                            <a class="removeBotton" href="#">remove</a>
+                                        <td>
+                                            <a class="removeButton" href="#">remove</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -245,14 +197,14 @@
                     </td>
                 </tr>
                 <tr>
-                    %{--<a class="addBotton" href="#">add</a>--}%
+                    %{--<a class="addButton" href="#">add</a>--}%
                 </tr>
                 <tr>
                     <td>
                         %{--below is where the add person box should go--}%
                         <form>
 
-                            <input class="addBotton" type="submit" value="Add Person" id="submitButton"/>
+                            <input class="addButton" type="submit" value="Add Person" id="submitButton"/>
                             <input type="text"/>
 
                         </form>
@@ -264,8 +216,7 @@
                             var makeButton = function(){
 
                                 var newButton = $('#peopleList li:first').clone(true);
-                                newButton.find('#name').text(input.val());
-                                newButton.find('#orange').text(i)
+                                newButton.find('.name').text(input.val());
 //                                console.log(i);
                                 i++;
                                 return newButton;
@@ -279,12 +230,16 @@
 
                             $(document).ready(function () {
                                 $("#peopleList li:first").hide();   //hides all the sortable boxes
-                                $("#peopleList li #orange").each(function () {
-                                    console.log()
-                                  $(this).click(function (e) {//id of the remove button
-                                        $(this).remove();       //id of the .sortable-box that is designated for removal
-                                    });
+                                $("#peopleList li").each(function () {
+                                    console.log(this)
+                                  $(this).find(".removeButton").click(function (e) {//id of the remove button
+                                        $(this).parents("#peopleList li").remove();       //id of the .sortable-box that is designated for removal
+
+                                  });
+
+
                                 });
+
                             });
 
                             var input = $("form input:text");
@@ -300,8 +255,7 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <br/>
-                        <h1>Task Description</h1>
+                        <h2>Task Description</h2>
                     </td>
                 </tr>
             </table>
@@ -309,7 +263,8 @@
         <td>
             %{--in the following div is where the viz needs to go--}%
             <div>
-            <r:img dir="images" file="viz.png"></r:img>
+
+                viz here
             </div>
         </td>
     </tr>
