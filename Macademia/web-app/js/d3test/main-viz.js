@@ -94,12 +94,11 @@ MC.MainViz.prototype.onLoad = function(){
             //notice that interests has relatedQueryId that
             //tell us which cluster it belongs to
             var interests = model.getInterests();
-            //TODO: limit the number of people (by overall relevance)
             var peeps = model.getPeople();
             var clusterMap = model.getClusterMap();
 
             //building hubs
-            var hubs = []
+            var hubs = [];
             for (var key in clusterMap){
                 if(rootId != key)
                     hubs.push({type:'interest', id:Number(key), children:clusterMap[key]});
@@ -109,6 +108,7 @@ MC.MainViz.prototype.onLoad = function(){
             var curInterest;
             //building root
             if (rootClass == 'person'){
+                //We limit the number of child of the vizRoot
                 var limitedChildren=[];
                 for(var i = 0; i < peeps[rootId].interests.length; i++){
                     curInterest = interests[peeps[rootId].interests[i]];

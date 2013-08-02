@@ -89,7 +89,7 @@ MC.InterestViz = function(params) {
 //    this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
-    this.container=this.svg.append("g").attr("class","viz").attr("width",800).attr("height",600);
+    this.container=this.svg.append("g").attr("class","viz").attr("width",1024).attr("height",768);
     // construct the hubModel here based on other parameters
     this.currentColors = [];
 
