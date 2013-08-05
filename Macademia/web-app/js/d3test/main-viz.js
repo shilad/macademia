@@ -42,6 +42,8 @@ MC.MainViz.prototype.setEventHandlers = function(){
     if(this.viz){
         this.viz.enableHoverHighlight();
     }
+    this.transitionReady=false;
+
 };
 
 MC.MainViz.prototype.refreshViz = function(){
@@ -50,10 +52,12 @@ MC.MainViz.prototype.refreshViz = function(){
         if ( self.transitionReady == true ){
             console.log(self.transitionReady);
             refresh();
+            return true;
         }else
         {
             console.log(self.transitionReady);
-            window.setTimeout('checkReady()',500);
+            window.setTimeout(checkReady,500);
+            return false;
         }
     };
     var refresh = function(){
@@ -61,13 +65,11 @@ MC.MainViz.prototype.refreshViz = function(){
             self.svg.select("g.viz").remove();
             self.createViz();
             self.setEventHandlers();
-            self.transitionReady=false;
         }
         else{
             self.svg.select("g.viz").remove();
             self.createViz();
             self.setEventHandlers();
-            self.transitionReady=false;
         }
     };
 
@@ -184,7 +186,6 @@ MC.MainViz.prototype.onLoad = function(){
                 self.svg.select("g.viz").remove();
                 self.createViz();
                 self.setEventHandlers();
-                self.transitionReady=false;
             }
         }
 
