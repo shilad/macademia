@@ -120,5 +120,4 @@ class SurveyController {
         subject.completedSurvey = true
         return [subject: subject]
     }
-
 }
