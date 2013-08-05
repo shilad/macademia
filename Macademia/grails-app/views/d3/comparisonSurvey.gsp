@@ -285,7 +285,7 @@
                                     newButton.show('fast');
                                     $("#textBox").val("");
                                 });
-                                                               //df
+
                             $(function() {
                                 var availableTags = [
                                     "Sam",
