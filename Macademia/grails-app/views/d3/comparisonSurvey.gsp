@@ -285,31 +285,28 @@
                                     newButton.show('fast');
                                     $("#textBox").val("");
                                 });
-                                //df
-                                $(function() {
-                                    var availableTags = [
-                                        "Sam",
-                                        "Pedro",
-                                        "Napoleon",
-                                        "Marge",
-                                        "Shilad",
-                                        "Rebecca",
-                                        "Jesse",
-                                        "Ari",
-                                        "Matt",
-                                        "Ben",
-                                        "Yulun",
-                                        "Ken",
-                                        "your momma"
 
-                                    ];
-                                    $( "#textBox" ).autocomplete({
-                                        source: availableTags
-                                        select: function(event, ui) {
-                                            $("#textBox").val(ui.item.value);
-                                            $("#add-person").submit();
-                                        });
+                            $(function() {
+                                var availableTags = [
+                                    "Sam",
+                                    "Pedro",
+                                    "Napoleon",
+                                    "Marge",
+                                    "Shilad",
+                                    "Rebecca",
+                                    "Jesse",
+                                    "Ari",
+                                    "Matt",
+                                    "Ben",
+                                    "Yulun",
+                                    "Ken",
+                                    "your momma"
+
+                                ];
+                                $( "#textBox" ).autocomplete({
+                                    source: availableTags
                                 });
+                            });
 
                                 var input = $("form input:text");
 
