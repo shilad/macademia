@@ -1,11 +1,11 @@
 #tooltipBox {
     position:absolute;
     width : 230;
-    background-color: #eaeaea;
-    border: 3px dotted #ffffff;
+    background-color: #d3d3d3;
+    border: 3px solid #d3d3d3;
     font: 13px Georgia;
     color: black;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     padding: 10px 15px;
 }
 
@@ -19,8 +19,8 @@
 }
 path.tooltip{
     background-color: #eaeaea;
-    border: 3px dotted #ffffff;
-    border-radius: 5px;
+    /*border: 3px dotted #ffffff;*/
+    /*border-radius: 5px;*/
 }
 svg{
     border: 1px solid #000000;

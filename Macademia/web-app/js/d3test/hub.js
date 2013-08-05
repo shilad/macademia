@@ -162,10 +162,11 @@ MC.hub = function() {
                 });
 
             var duration=hub.getDuration();
+            var numHubs=hub.getNumHubs();
 
             childGs
                 .transition()
-                .delay(1501)//then move the circles
+                .delay(duration*numHubs)//then move the circles
                 .attr('opacity', 1.0)
                 .duration(function(d,i){
                     return duration/n*(i+1);
@@ -234,7 +235,7 @@ MC.hub = function() {
             }
 
             //Making connection lines appear
-            d3Group.selectAll("line").transition().delay(1501).duration(function(d,i){
+            d3Group.selectAll("line").transition().delay(duration*numHubs).duration(function(d,i){
                 return duration/n*(i+1);
             }).attr('opacity',1.0);
         });
@@ -247,6 +248,7 @@ MC.hub = function() {
         return d.r;
     });
     MC.options.register(hub, 'duration', 500);
+    MC.options.register(hub, 'numHubs', 3);
     MC.options.register(hub, 'cssClass', 'hub');
 
 //    MC.options.register(hub, 'regularFill', 'green');

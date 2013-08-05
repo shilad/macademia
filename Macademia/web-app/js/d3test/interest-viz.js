@@ -318,7 +318,7 @@ MC.InterestViz.prototype.createHub = function(model,j) {
             distance : this.distance,
             relatednessMap: this.relatednessMap
         })
-        .call(MC.hub());
+        .call(MC.hub().setNumHubs(this.hubs.length));
 
 };
 
@@ -503,11 +503,12 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
 
 };
 MC.InterestViz.prototype.createTooltip = function(self,pos,div){
-    var divHeight = $('#tooltipBox').outerHeight();
-    var divWidth = $('#tooltipBox').outerWidth();
+    var divBorderWidth = $('#tooltipBox').css('border-width').replace(/[^-\d\.]/g, '');
+    var divHeight = $('#tooltipBox').outerHeight()-divBorderWidth;
+    var divWidth = $('#tooltipBox').outerWidth()-divBorderWidth;
     var svgLoc = $('svg').position();
     var position = {'left':svgLoc.left,'top':svgLoc.top};
-    var boundingBoxCenter = {'x':(pos.right+pos.left)/2,'y':(pos.top+pos.bottom)/2};
+    var boundingBoxCenter = {'x':Math.floor((pos.right+pos.left)/2),'y':Math.floor((pos.top+pos.bottom)/2)};
     position.top+=pos.top-divHeight-25;
     if(position.top<=0){       //if it goes above the screen
         position.top=svgLoc.top+pos.bottom;
@@ -529,15 +530,15 @@ MC.InterestViz.prototype.createTooltip = function(self,pos,div){
         .interpolate("linear");
 
     var polyPoints=self.createTooltipArrow(pos,position,divWidth,divHeight,boundingBoxCenter);
-
+//    console.log($('#tooltipBox').css('border-width').replace(/[^-\d\.]/g, ''));
     self.container
         .append("path")
         .attr('class','tooltip')
         .attr("d", lineFunction(polyPoints))
-        .attr("stroke", "#ffffff")
-        .attr("stroke-width", 3)
-        .attr('stroke-dasharray',"3,3")
-        .attr("fill", "#eaeaea")
+        .attr("stroke", "#d3d3d3")
+        .attr("stroke-width",divBorderWidth/2)
+//        .attr('stroke-linecap',"round")
+        .attr("fill", "#d3d3d3")
         .style("opacity", 0)
         .style('z-index',-1)
         .transition()
@@ -559,10 +560,10 @@ MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,div
             'y1':pos.top,
             'x2':position.left,
             'y2':(position.top+divHeight),
-            'cx1':position.left,
+            'cx1':position.left+1,
             'cy1':(position.top+divHeight)-cornerSize,
             'cx2':position.left+cornerSize,
-            'cy2':(position.top+divHeight)
+            'cy2':(position.top+divHeight)-1
         },
         'topLeft':{
             'x1':pos.left,
@@ -597,9 +598,15 @@ MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,div
         'topMiddle':{
             'x1':boundingBoxCenter.x,
             'y1':pos.top,
-            'x2':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left) ? boundingBoxCenter.x : (position.left+divWidth)/2,
+            'x2':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left)
+                ? boundingBoxCenter.x
+                : (position.left+position.left+divWidth)/2,
             'y2':(position.top+divHeight),
-            'cx1':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left) ? boundingBoxCenter.x+(cornerSize/2) : position.left+divWidth,
+            'cx1':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left)
+                ? (boundingBoxCenter.x+(cornerSize/2)<=position.left+divWidth)
+                    ? boundingBoxCenter.x+(cornerSize/2)
+                    : position.left+divWidth
+                : position.left+divWidth,
             'cy1':(position.top+divHeight),
             'cx2':boundingBoxCenter.x-(cornerSize/2),
             'cy2':(position.top+divHeight)
@@ -607,14 +614,20 @@ MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,div
         'bottomMiddle':{
             'x1':boundingBoxCenter.x,
             'y1':pos.bottom,
-            'x2':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left) ? boundingBoxCenter.x : (position.left+divWidth)/2,
+            'x2':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left)
+                ? boundingBoxCenter.x
+                : (position.left+position.left+divWidth)/2,
             'y2':position.top,
-            'cx1':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left) ? boundingBoxCenter.x+(cornerSize/2) : position.left+divWidth,
+            'cx1':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left)
+                ? (boundingBoxCenter.x+(cornerSize/2)<=position.left+divWidth)
+                    ? boundingBoxCenter.x+(cornerSize/2)
+                    : position.left+divWidth
+                : position.left+divWidth,
             'cy1':position.top,
             'cx2':boundingBoxCenter.x-(cornerSize/2),
             'cy2':position.top
         },
-        'rightMiddle':{
+        'rightMiddle':{                      //Not sure if this case is perfect
             'x1':pos.right,
             'y1':boundingBoxCenter.y,
             'x2':position.left,
@@ -625,7 +638,7 @@ MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,div
             'cy2':((position.top+divHeight)/2)-(cornerSize/2)
         },
         'leftMiddle':{
-            'x1':pos.left,
+            'x1':pos.left,                  //Not sure if this case is perfect
             'y1':boundingBoxCenter.y,
             'x2':(position.left+divWidth),
             'y2':((position.top+divHeight)/2),
@@ -679,7 +692,6 @@ MC.InterestViz.prototype.enableHoverHighlight = function(){
 MC.InterestViz.prototype.hoverPerson = function(){
     //Highlight the vizRoot, interests around vizRoot and hubRoot, hubRoot(if it is a direct interest?)
     var self = this;
-
     this.container.selectAll('g.person')
         .on("mouseover", function(e){
             var pos = this.getBoundingClientRect();
@@ -697,7 +709,6 @@ MC.InterestViz.prototype.hoverPerson = function(){
                 });
         })
         .on("mouseout", function() { self.mouseOut(this); });
-
 };
 
 MC.InterestViz.prototype.hoverHubRoot = function(){
@@ -714,7 +725,6 @@ MC.InterestViz.prototype.hoverHubRoot = function(){
             self.activateHubRootAndChildren(hubRootID, hubRootMap, self, false);
             d3.select(this).select('g.label').select('text').text(d3.select(this).data()[0][0].name);
 
-
             d3.selectAll('g.person')
                 .attr('opacity',function(d){
                     if((d.relevance && d.relevance[hubRootID] )){
@@ -725,7 +735,6 @@ MC.InterestViz.prototype.hoverHubRoot = function(){
                         return self.inactiveOpacity;
                     }
                 });
-
         })
         .on("mouseout", function() { self.mouseOut(this); });
 };
@@ -757,13 +766,10 @@ MC.InterestViz.prototype.hoverHubRootChild = function(){
                                 return self.inactiveOpacity;
                             }
                         });
-
                 })
                 .on("mouseout", function() { self.mouseOut(this); });
         }
     });
-
-
 };
 
 MC.InterestViz.prototype.hoverVizRoot = function(){
@@ -826,7 +832,6 @@ MC.InterestViz.prototype.mouseOut = function(domElem){
         .selectAll('g.hubRoot, g.interest, g.hub')
         .selectAll('g.label')
         .attr('fill',this.inactiveColor);
-
     d3.select('#tooltipBox')
         .transition()
         .duration(500)
@@ -837,9 +842,8 @@ MC.InterestViz.prototype.mouseOut = function(domElem){
         .duration(200)
         .style("opacity", 0)
         .remove();
-
-
 };
+
 MC.InterestViz.prototype.findHubRootID = function(interestID){
     for(var i in this.relatednessMap){
         if(this.relatednessMap[i].indexOf(interestID) >= 0){ //find out which hub it is in the map
@@ -847,11 +851,13 @@ MC.InterestViz.prototype.findHubRootID = function(interestID){
         }
     }
 };
+
 MC.InterestViz.prototype.highlightLabel = function(selector){
     selector
         .selectAll('g.label')
         .attr('fill',this.activeColor);
 };
+
 MC.InterestViz.prototype.activateHubRootAndChildren = function(mapID, map, self, childText){      //ChildText should be a bool to say whether or not to color the children's label
     d3.selectAll('g.hubRoot, g.interest')
         .attr('opacity',function(d){
