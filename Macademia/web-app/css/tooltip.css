@@ -1,0 +1,10 @@
+#tooltipBox {
+    position:absolute;
+    width : 230;
+    background-color: #eaeaea;
+    border: 3px dotted #ffffff;
+    font: 13px Georgia;
+    color: black;
+    border-radius: 5px;
+    padding: 10px 15px;
+}

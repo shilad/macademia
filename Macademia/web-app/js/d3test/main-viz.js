@@ -15,6 +15,7 @@ MC.MainViz = function(params) {
     this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
+    this.relatednessMap = params.relatednessMap;
 
 
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
@@ -26,6 +27,9 @@ MC.MainViz = function(params) {
 MC.MainViz.prototype.setEventHandlers = function(){
     this.setInterestEventHandler();
     this.setPeopleEventHandler();
+    if(this.viz){
+        this.viz.enableHoverHighlight();
+    }
 };
 
 MC.MainViz.prototype.createModel = function(root){
@@ -49,11 +53,12 @@ MC.MainViz.prototype.onLoad = function(){
             "id": macademia.history.get("interestId"),
             'name': macademia.history.get("name"),
             'type':'interest',
-            'children' : [96,97,98,99]
+            'children' : [96,97,98,99,9]
         };
 //        var hubModel = this.createModel(this.root);
     }
     else if(macademia.history.get("navFunction")=="person"){
+//        console.log(this.people[macademia.history.get("personId")]);
         this.root = {
             "isVizRoot":true,
             "id": macademia.history.get("personId"),
@@ -61,7 +66,7 @@ MC.MainViz.prototype.onLoad = function(){
             'type':'person',
             'pic' : '/Macademia/all/image/randomFake?foo',
             'relevance': this.people[macademia.history.get("personId")].relevance,
-            'children' : [96,97,98,99]
+            'children' : this.people[macademia.history.get("personId")].interests
         };
 
 //        var hubModel = this.createModel(this.root);
@@ -79,6 +84,7 @@ MC.MainViz.prototype.onLoad = function(){
         this.createViz();
         this.setEventHandlers();
     }
+
 };
 
 MC.MainViz.prototype.createViz = function(){
@@ -89,7 +95,8 @@ MC.MainViz.prototype.createViz = function(){
         circles: this.circles,
         svg : this.svg,
         colors : this.colors,
-        interests:this.interests
+        interests:this.interests,
+        relatednessMap: this.relatednessMap
     });
 };
 
@@ -98,12 +105,23 @@ MC.MainViz.prototype.setInterestEventHandler = function(){
         this.svg
             .selectAll("g.interest, g.hubRoot")
             .on("click",function(e){
-                var targetMap = {
-                    "nodeId":"i_"+ e.id,
-                    "interestId": e.id,
-                    "navFunction":"interest",
-                    "name": e.name
-                };
+                var targetMap;
+                if(e[0]){
+                    targetMap = {
+                        "nodeId":"i_"+ e[0].id,
+                        "interestId": e[0].id,
+                        "navFunction":"interest",
+                        "name": e[0].name
+                    };
+                }else{
+                    targetMap = {
+                        "nodeId":"i_"+ e.id,
+                        "interestId": e.id,
+                        "navFunction":"interest",
+                        "name": e.name
+                    };
+                }
+
                 var types = ['searchBox','interestId','personId','requestId'];
                 for(var i=0;i<types.length;i++){
                     delete temp[types[i]];
@@ -112,7 +130,7 @@ MC.MainViz.prototype.setInterestEventHandler = function(){
                     MH.setTempValue(key,targetMap[key]);
                 }
 
-                MC.MainViz.prototype.setTransitionRoot(d3.select(this));
+                MC.MainViz.prototype.setTransitionRoot(d3.select(this),'interest');
 
                 macademia.history.update();
 
@@ -139,24 +157,40 @@ MC.MainViz.prototype.setPeopleEventHandler = function(){
                     MH.setTempValue(key,targetMap[key]);
                 }
 
-                MC.MainViz.prototype.setTransitionRoot(d3.select(this));
+                MC.MainViz.prototype.setTransitionRoot(d3.select(this),'person');
 
                 macademia.history.update();
             });
     },this), 2504);
 };
 
-MC.MainViz.prototype.setTransitionRoot = function(d3Root){
+MC.MainViz.prototype.setTransitionRoot = function(d3Root,type){
     this.tRoot=d3Root;
     d3Root
-        .attr("class","nextRoot");
+        .attr("class","nextRoot "+type);
 };
 
 MC.MainViz.prototype.transitionRoot = function(){
+    //TODO: Check out the code on the bottom of person.gsp, we can ask the template to redraw the data
     //Move root to center
     if(this.tRoot){
-        var newRoot=this.svg.select('g.nextRoot');
+//        var newRoot = this.svg.select('g.nextRoot');
+//        var data = newRoot.data();
+//        var people = [{
+//            'id' : data.id,
+//            'name' : data.name,
+//            'pic' : data.pic,
+//            'relevance': data.relevance,
+//            'cx' : 0,
+//            'cy' : 0,
+//            'interestColors': data.interestColors
+//        }];
+//
+//        d3.select('svg').datum(people).call(MC.person());
+
+        var newRoot=this.svg.select('g.nextRoot.interest');
         var oldRoot=this.svg.select('g.vizRoot');
+        this.viz.stopPersonLayout();
         this.svg
             .select('g.nextRoot')
             .attr('class','g.interest'); //Doesn't matter if it is a person or interest or hub
@@ -166,28 +200,67 @@ MC.MainViz.prototype.transitionRoot = function(){
             .attr("transform",function(){
                 return oldRoot.attr('transform');
             });
-        this.tRoot
-            .selectAll('circle')
-            .transition()
-            .duration(1000)
-            .attr("transform",function(){
-                if(d3.select(this))
-                return "scale(2)";
-            });
-        this.tRoot
-            .select('text')
-            .transition()
-            .duration(1000)
-            .attr("y",function(){
-                return 42;
-            });
+        if(newRoot[0][0]==null){ //checks to see if it is a person; if so, then the transition changes
+            newRoot=this.svg.select('g.nextRoot.person');
+            this.tRoot
+                .selectAll('g.pie')
+                .transition()
+                .duration(1000)
+                .attr("transform",function(){
+                    if(d3.select(this))
+                        return "scale(1.5)";
+                });
+            this.tRoot
+                .selectAll('image')
+                .transition()
+                .duration(1000)
+                .attr("transform",function(){
+                    if(d3.select(this))
+                        return "translate("+-14*1.5+", "+-21*1.5+")scale(1.5)";
+                });
+            this.tRoot
+                .select('text')
+                .transition()
+                .duration(1000)
+                .attr("y",function(){
+                    return 48;
+                });
+        }
+        else{
+            if(!this.tRoot.data()[0][0]){    //this.tRoot.data()[0][0].r) should equal 30 if it is a hubroot
+                this.tRoot
+                    .selectAll('circle.interestOuter')
+                    .transition()
+                    .duration(1000)
+                    .attr("transform",function(){
+                        if(d3.select(this))
+                            return "scale(2.5)";
+                    });
+                this.tRoot
+                    .select('circle.interestInner')
+                    .transition()
+                    .duration(1000)
+                    .attr("r",function(){
+                        if(d3.select(this))
+                            return d3.select(this).attr('r')*2.5;
+                    });
+                this.tRoot
+                    .select('text')
+                    .transition()
+                    .duration(1000)
+                    .attr("y",function(){
+                        return 42;
+                    });
+            }
+        }
+
         this.svg
             .select('g.vizRoot')
             .transition()
             .duration(1000)
             .style('opacity',0);
         this.svg
-            .selectAll('g.interest, g.hubRoot, g.person')
+            .selectAll('g.interest, g.hubRoot, g.person, g.connectionPaths')
             .transition()
             .delay(1500)
             .duration(1000)
@@ -200,6 +273,7 @@ MC.MainViz.prototype.transitionRoot = function(){
             });
     }
 };
+
 
 
 

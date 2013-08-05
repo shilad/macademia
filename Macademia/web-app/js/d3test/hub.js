@@ -69,7 +69,7 @@ MC.hub = function() {
             }
 
             var rootType = data.root.type;
-            var distance = 30; //default distance
+            var distance = 40; //default distance
             if(data["distance"]){ //if the distance between the root and children is specified
                 distance = data["distance"];
             }
@@ -78,48 +78,72 @@ MC.hub = function() {
             //use d3Group to put everything into one g
             var d3Group = d3.select(this).append('g').attr('id','hub'+id).attr('class','hub');
 
-            //drawing lines between person and their interests (not working)
-//            if(rootType == "person"){
-//                var gradient = d3Group.append("defs")
-//                    .append("radialGradient")
-//                    .attr("id", "connection-gradient")
-////                    .attr("x1", cx)
-////                    .attr("y1", cy);
-//
-//                    gradient.append("stop")
-//                    .attr("offset", "3%")
-//                    .attr("stop-color", "#b2b2b2")
-//                    .attr("stop-opacity", 1);
-//
-//                    gradient.append("stop")
-//                    .attr("offset", "97%")
-//                    .attr("stop-color", "#FF0000")
-//                    .attr("stop-opacity", 1);
-//
-//
-//
-//                d3Group.selectAll("connectionPaths").data(new Array(n)).enter().append("line")
-//                    .attr("x1", cx)
-//                    .attr("y1", cy)
-//                    .attr("x2", function(d, i){
-//                        var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n);
-//                        return cx_child;
-//                    })
-//                    .attr("y2", function(d, i){
-//                        var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
-//                        return cy_child;
-//                    })
-//                    .attr("stroke-width", 15)
-//                    .attr("stroke-linecap", "round")
-//                    .attr("stroke-dasharray", "1, 15")
-//                    .attr("stroke", 'url(#connection-gradient)');
-////                    .attr("stroke", 'black');
-//            }
+            //drawing lines between person and their interests
+            if(rootType == "person"){
+                var gradient = d3.select('defs')
+                    .append("radialGradient")
+                    .attr("id", "connection_gradient")
+                    .attr("cx", cx)
+                    .attr("cy", cy)
+                    .attr("fx", cx)
+                    .attr("fy", cy)
+                    .attr('r',100)
+                    .attr("gradientUnits","userSpaceOnUse")
+//                    .attr('spread-method','reflect');
+
+                gradient.append("stop")
+                    .attr("offset", "30%")
+                    .style("stop-color", "#b2b2b2")
+                    .style("stop-opacity", 1.0);
+
+                gradient.append("stop")
+                    .attr("offset", "90%")
+                    .style("stop-color", "#FFFFFF")
+                    .style("stop-opacity", 1.0);
+
+//                d3Group.append('rect').attr('x',cx).attr('y',cy).attr('width','100').attr('height','100').attr('fill','url(#connection_gradient)');
+
+                d3Group
+//                    .selectAll('g.connectionPaths')
+                    .append('g')
+                    .attr('class','connectionPaths')
+                    .selectAll('g.connectionPaths')
+                    .data(new Array(n)).enter().append("line")
+                    .attr("x1", cx)
+                    .attr("y1", cy)
+                    .attr("x2", function(d, i){
+                        var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n-Math.PI/2);
+                        return cx_child;
+                    })
+                    .attr("y2", function(d, i){
+                        var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n+Math.PI/2);
+                        return cy_child;
+                    })
+                    .attr("stroke-width", 6)
+                    .attr("stroke-linecap", "round")
+                    .attr("stroke-dasharray", "1, 10")
+//                    .attr("fill", 'null')
+                    .attr("stroke", 'url(#connection_gradient)')
+                    .attr("opacity",0.0);
+            }
 
             //drawing children with animation
             var childrenTemplate = MC.interest().setCssClass("interest")
                 .setColor(function(d){
-                    return d.color ? d.color : color;
+                    var relatednessMap = data.relatednessMap;    //Use relatedness data structure, not clusterMap in future
+                    var hubColors = data.root.interestColors;
+                    if(rootType=='person'){
+                        for(var i in relatednessMap){
+                            for(var j = 0; j < relatednessMap[i].length;j++){
+                                if(d.id == relatednessMap[i][j] && data.id != i){
+                                    return hubColors[i];
+                                }
+                            }
+
+                        }
+                    }
+                    return data.color;
+
                 });
             d3Group.datum(data.children).call(childrenTemplate); //drawing child nodes
 
@@ -135,7 +159,6 @@ MC.hub = function() {
             var duration=hub.getDuration();
 
             childGs
-
                 .transition()
                 .delay(1501)//then move the circles
                 .attr('opacity', 1.0)
@@ -143,8 +166,8 @@ MC.hub = function() {
                     return duration/n*(i+1);
                 })
                 .attr('transform', function (d, i) {
-                    var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n);
-                    var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n);
+                    var cx_child = cx + distance * Math.cos((i+1)*2*Math.PI/n-Math.PI/2); //start from the top
+                    var cy_child = cy - distance * Math.sin((i+1)*2*Math.PI/n+Math.PI/2);
                     return 'translate(' + cx_child + ', ' + cy_child + ')';
                 });
 
@@ -189,6 +212,10 @@ MC.hub = function() {
                     .transition()
                     .duration(0)
                     .attr('opacity',1.0);
+                d3Group
+                    .select('g.vizRoot')
+                    .select('text')
+                    .attr('fill','black');
             }else {
                 d3Group
                     .select('g.hubRoot')
@@ -200,6 +227,11 @@ MC.hub = function() {
                     .duration(data['delay'])
                     .attr('opacity',1.0);
             }
+
+            //Making connection lines appear
+            d3Group.selectAll("line").transition().delay(1501).duration(function(d,i){
+                return duration/n*(i+1);
+            }).attr('opacity',1.0);
         });
     }
 
@@ -211,14 +243,15 @@ MC.hub = function() {
     });
     MC.options.register(hub, 'duration', 500);
     MC.options.register(hub, 'cssClass', 'hub');
-    MC.options.register(hub, 'regularFill', 'green');
-    MC.options.register(hub, 'highlightedFill', 'black');
-    MC.options.register(hub, 'selectHub',function(){
-        d3Group.style('fill', hub.getRegularFill());
-    });
-    MC.options.register(hub, 'deselectHub',function(){
-        d3Group.style('fill', hub.getHighlightedFill());
-    });
+
+//    MC.options.register(hub, 'regularFill', 'green');
+//    MC.options.register(hub, 'highlightedFill', 'black');
+//    MC.options.register(hub, 'selectHub',function(){
+//        d3Group.style('fill', hub.getRegularFill());
+//    });
+//    MC.options.register(hub, 'deselectHub',function(){
+//        d3Group.style('fill', hub.getHighlightedFill());
+//    });
 
     return hub;
 };
