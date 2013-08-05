@@ -62,7 +62,6 @@ MC.MainViz.prototype.refreshViz = function(){
 //        }
 //    };
     var refresh = function(){
-        console.log(t);
         if (self.transitionReady){
             clearInterval(t);
             if(self.tRoot){ //If we are on transition
@@ -361,7 +360,7 @@ MC.MainViz.prototype.transitionRoot = function(){
                     .transition()
                     .duration(1000)
                     .attr("y",function(){
-                        return 42;
+                        return 31;
                     });
             }
         }
