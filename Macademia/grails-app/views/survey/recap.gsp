@@ -28,13 +28,12 @@
     <div>
         <h2>Recap</h2>
         <form id='add-person'>
-        Do you have any comments about this survey or your responses?
-        <input class ="fed" id = "textBox" type="text" value="tsfg">
+        <textarea class ="fed" id = "textBox" type="text" value="tsfg">  </textarea>
         <input type="submit" value="Submit">
         </form>
     </div>
     <script>
-        var input = $("form input:text");
+        var input = $("form textarea:text");
         $(document).ready(function () {
             $('#add-person').on('submit', function(e){
                 e.preventDefault();
