@@ -76,35 +76,39 @@ MC.MainViz.prototype.onLoad = function(){
                     hubs.push({type:'interest', id:Number(key), children:clusterMap[key]});
             }
 
-            var clusters={};
-            var curInterest;
             //building root
+            //We limit the number of child of the vizRoot by limiting amount of children coming from each cluster
+            //TODO:decide whether to limit the amount of the children for the root on the controller end.
+            var limitedChildren=[];
             if (rootClass == 'person'){
-                //We limit the number of child of the vizRoot
+                var childrenCounts={};
+                var curInterest;
                 var rootChildren = peeps[rootId].interests; //all children of the root
-                var limitedChildren=[];
-                for(var i = 0; i < rootChildren.length; i++){
-                    curInterest = interests[rootChildren[i]];
-                    if(clusters[curInterest.cluster]){
-                        if(clusters[curInterest.cluster]<(Math.floor(self.hubChildrenLimit/Object.keys(clusterMap).length))){
+                for(var i = 0; i < rootChildren.length; i++){ //loop through all children
+                    var childId = rootChildren[i];
+                    var clusterId = interests[childId].cluster;
+                    curInterest = interests[childId];
+                    if(childrenCounts[clusterId]){
+                        //balancing the number of children from each cluster
+                        var limit = Math.floor(self.hubChildrenLimit/Object.keys(clusterMap).length);
+                        if(childrenCounts[clusterId] < limit){
                             limitedChildren.push(curInterest.id);
-                            clusters[curInterest.cluster]++;
+                            childrenCounts[clusterId]++;
                         }
                     }
                     else{
-                        limitedChildren.push(curInterest.id);
-                        clusters[curInterest.cluster]=1;
+                        limitedChildren.push(curInterest.id); //pushing in the first children
+                        childrenCounts[curInterest.cluster]=1;
                     }
                 }
                 var root = {type:'person', id:rootId, children: limitedChildren};
             } else if (rootClass == 'interest') {
                 var root = {type:'interest', id:rootId, children: clusterMap[rootId]};
             }
-            if(self.tRoot&&rootClass=='interest'){
-                console.log(self.tRoot.select('.interestOuter').attr('fill'));
+
+            if(self.tRoot && rootClass=='interest'){ //taking care of the color of the interest vizRoot
                 root['color']=self.tRoot.select('.interestOuter').attr('fill');
             }
-
 
             //building relatednessMap and parse interests
             var relatednessMap = {};
