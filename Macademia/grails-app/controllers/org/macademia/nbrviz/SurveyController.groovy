@@ -10,6 +10,22 @@ class SurveyController {
     def subjectService
     def surveyService
 
+//    def index = {
+//        render(view : "${params.module}")
+//    }
+
+    def interest() {
+        render(view : 'interest')
+    }
+
+    def instructions() {
+        render(view : 'instructions')
+    }
+
+    def recap() {
+        render(view : 'recap')
+    }
+
     /**
      * Email link points here.
      */
