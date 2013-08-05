@@ -217,7 +217,7 @@ input.addBotton {
                     <td colspan="3">
                         <h1>Best matches:</h1>
 
-                        <p>List people who best match the task described below. Drag a person listed below to reorder them.</p>
+                        <p>List people in order from <b>top to bottom</b> who best match the task described below. Drag a person listed below to reorder them.</p>
                         <br/>
                     </td>
                 </tr>
@@ -249,16 +249,47 @@ input.addBotton {
                 <tr>
                     <td>
                         %{--below is where the add person box should go--}%
-                        <form>
+                        <br/>
+                        <form  onsubmit="onSubmit()">
 
-                            <input class="addBotton" type="submit" value="Add Person" id="submitButton"/>
-                            <input type="text"/>
-
+                            <input id = "textBox" type="text" placeholder="person's name here"/>
+                            <br/>
+                            <input class="addButton" type="submit" value="Add Person" id="submitButton"/>
                         </form>
 
-                        <div id="testing"></div>
-
                         <script>
+
+
+
+                            function onSubmit(){
+                                $("#textBox").val("");
+                            }
+
+                            $(function() {
+                                var availableTags = [
+                                    "Sam",
+                                    "Pedro",
+                                    "Napoleon",
+                                    "Marge",
+                                    "Shilad",
+                                    "Rebecca",
+                                    "Jesse",
+                                    "Ari",
+                                    "Matt",
+                                    "Ben",
+                                    "Yulun",
+                                    "Ken",
+                                    "your momma"
+
+                                ];
+                                $( "#textBox" ).autocomplete({
+                                    source: availableTags
+                                });
+                            });
+
+
+
+
                             var makeButton = function(){
 
                                 var newButton = $('#peopleList li:first').clone(true);
