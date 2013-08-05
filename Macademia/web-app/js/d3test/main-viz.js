@@ -20,6 +20,15 @@ MC.MainViz = function(params) {
 //    console.log(params);
     this.peopleLimit =  macademia.history.get('navFunction')=='person' ? 15 : 14;
     this.hubChildrenLimit = 10;
+
+    this.colors =[ //giving the colors used on the page to color hubs
+        "#f2b06e",
+        "#f5a3d6",
+        "#b2a3f5",
+        "#a8c4e5",
+        "#b4f5a3"
+    ];
+
     this.svg = d3.select('svg').attr('width', 1024).attr('height', 768);
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
     this.setEventHandlers();
@@ -58,6 +67,12 @@ MC.MainViz.prototype.onLoad = function(){
     if(self.tRoot){
         self.transitionRoot(); //transition the root before running ajax
     }
+
+    var transitionReady = false;
+    window.setTimeout(function(){
+        transitionReady = true;
+    },2500);
+
     $.ajax({ //get the data from the model encoded in JSON
         url:url,
         dataType:'json',
@@ -146,27 +161,17 @@ MC.MainViz.prototype.onLoad = function(){
                 limitedPeople[id]=peeps[id];
             }
 
-            var colors =[
-                "#f2b06e",
-                "#f5a3d6",
-                "#b2a3f5",
-                "#a8c4e5",
-                "#b4f5a3"
-            ];
-
+            //Setting global variable based on data from JSON
             self.hubs = hubs;
             self.people = limitedPeople;
             self.root = root;
             self.interests = interests;
-            self.colors = colors;
             self.relatednessMap = relatednessMap;
 
-            if(self.tRoot){
-                window.setTimeout(function(){
+            if(self.tRoot){ //If we are on transition
                 self.svg.select("g.viz").remove();
                 self.createViz();
                 self.setEventHandlers();
-                },2500);
             }
             else{
                 self.svg.select("g.viz").remove();
@@ -263,7 +268,7 @@ MC.MainViz.prototype.setTransitionRoot = function(d3Root,type){
 };
 
 MC.MainViz.prototype.transitionRoot = function(){
-    //TODO: Check out the code on the bottom of person.gsp, we can ask the template to redraw the data
+    //TODO: Check out the code on the bottom of person.gsp, we can ask the template to redraw the data (may not be possible)
     //Move root to center
     if(this.tRoot){
 //        var newRoot = this.svg.select('g.nextRoot');
