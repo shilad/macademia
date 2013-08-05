@@ -14,9 +14,9 @@
 
     <style>
 
-    .removeButton {
+    a.removeButton {
         font: 12px Georgia;
-        color: #d3d3d3;
+        color: #848484;
         padding: 50px 25px 50px 75px;
     }
 
@@ -128,15 +128,16 @@
         position: absolute;
     }
 
-    .sortable-boxes {
-
-        height: 18px;
+    .sortable-boxa {
+        height: 30px;
         display: block;
         padding: 5px 5px;
         border-radius: 10px;
-        background-color: #f3f4f4;
-        border: 1px solid #d3d3d3;
+        background-color: #d3d3d3;
+        color: #f3f4f4;
+        border: 1px solid #848484;
         display: block;
+        vertical-align: middle;
     }
 
     h1 {
@@ -150,7 +151,9 @@
         color: #848484;
     }
 
-    input.addButton {
+
+
+    input.addBotton {
         cursor: pointer;
         cursor: hand;
         background-color: #f3f4f4;
@@ -214,19 +217,16 @@
                     <td colspan="3">
                         <h1>Best matches:</h1>
 
-                        <p>List people who best match the task described below. Drag a person listed below to reorder them.</p>
+                        <p>List people in order from <b>top to bottom</b> who best match the task described below. Drag a person listed below to reorder them.</p>
                         <br/>
                     </td>
                 </tr>
                 <tr>
-
-
                     %{--sortable boxes--}%
                     <td colspan="3">
-                    <div id="bestMatch">Best Match</div>
 
                         <ul id="peopleList">
-                            <li class="sortable-boxes" name="sortable-box">
+                            <li class="sortable-boxa" name="sortable-box">
                                 %{--this table is for aligning the words in the sortable box--}%
                                 <table>
                                     <tr>
@@ -240,8 +240,6 @@
                                 </table>
                             </li>
                         </ul>
-                    <div id="worstMatch">Worst Match</div>
-
 
                     </td>
                 </tr>
@@ -251,44 +249,58 @@
                 <tr>
                     <td>
                         %{--below is where the add person box should go--}%
-                        <br>
+                        <br/>
+                        <form id='add-person'>
 
-                        <form  onsubmit= onSubmit()>
-
+                            <input id = "textBox" type="text" placeholder="person's name here"/>
+                            <br/>
                             <input class="addButton" type="submit" value="Add Person" id="submitButton"/>
-                            <br>
-                            <br>
-                            <input id = "textBox" type="text" placeholder="person name here"/>
-
                         </form>
-
-
-
-
 
                         <script>
 
-                            function onSubmit(){
-                                $("#textBox").val("");
 
-                            }
+
+                            //   var sortableBoxTemplate = "<li class='sortable-boxa' name='sortable-box'><table><tr><td class='name' width=140mm></td><td><a class='removeButton' href='#'>remove</a></td></tr></table></li>";
+
+
+
+                            $(document).ready(function () {
+                                $("#peopleList").sortable();
+                                $("#peopleList li:first").hide(); //hides all the sortable boxes
+                                $("#peopleList li").each(function () {
+//                                    console.log(this)
+                                    $(this).find(".removeButton").click(function (e) {//id of the remove button
+                                        $(this).parents("#peopleList li").remove();       //id of the .sortable-box that is designated for removal
+                                    });
+                                });
+
+
+                                $('#add-person').on('submit', function(e){
+                                    e.preventDefault();
+                                    var newButton = $('#peopleList li:first').clone(true);
+                                    newButton.find('.name').text(input.val());
+                                    console.log($('#peopleList'));
+                                    $('#peopleList').append(newButton);
+                                    newButton.show('fast');
+                                    $("#textBox").val("");
+                                });
 
                             $(function() {
                                 var availableTags = [
                                     "Sam",
+                                    "Pedro",
+                                    "Napoleon",
                                     "Marge",
+                                    "Shilad",
                                     "Rebecca",
                                     "Jesse",
-                                    "Ken",
+                                    "Ari",
                                     "Matt",
                                     "Ben",
                                     "Yulun",
-                                    "Ari",
-                                    "Shilad",
-                                    "Pedro",
-                                    "Napoleon",
-                                    "Kip"
-
+                                    "Ken",
+                                    "your momma"
 
                                 ];
                                 $( "#textBox" ).autocomplete({
@@ -296,41 +308,16 @@
                                 });
                             });
 
+                                var input = $("form input:text");
 
-                            var makeButton = function(){
-
-                                var newButton = $('#peopleList li:first').clone(true);
-                                newButton.find('.name').text(input.val());
-                                console.log(newButton);
-                                return newButton;
-                            }
-
-                            $(function () {
-
-                                $("#peopleList").sortable();
-                            });
-
-
-                            $(document).ready(function () {
-                                $("#peopleList li:first").hide();   //hides all the sortable boxes
-                                $("#peopleList li").each(function () {
-//                                    console.log(this)
-                                    $(this).find(".removeButton").click(function (e) {//id of the remove button
-                                        $(this).parents("#peopleList li").remove();       //id of the .sortable-box that is designated for removal
-                                    });
-
-
-                                });
-
-                            });
-
-                            var input = $("form input:text");
-
-                            $("#submitButton").click(function () {
-                                var button = makeButton();
-                                button.appendTo($('#peopleList'));
-                                button.show();
-
+//                                $("#submitButton").click(function () {
+//                                    var newButton = $('#peopleList li:first').clone(true);
+//                                    newButton.find('.name').text(input.val());
+//                                    console.log($('#peopleList'));
+//                                    $('#peopleList').append(newButton);
+////                                    newButton.appendTo($('#peopleList'));
+//                                    newButton.show();
+//                                });
                             });
 
 
@@ -348,7 +335,6 @@
         </td>
         <td>
             %{--in the following div is where the viz needs to go--}%
-            %{--in the following div is where the viz needs to go--}%
             <div>
                 <r:img dir="images" file="viz.png"></r:img>
             </div>
@@ -359,4 +345,3 @@
 </body>
 
 </html>
-
