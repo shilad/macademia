@@ -12,155 +12,158 @@
     <r:require modules="survey"/>
     <meta name="layout" content="main"/>
 
-    <style>
+<style>
 
-    .removeButton {
-        font: 12px Georgia;
-        color: #d3d3d3;
-        padding: 50px 25px 50px 75px;
-    }
+a.removeButton {
+    font: 12px Georgia;
+    color: #848484;
+    padding: 50px 25px 50px 75px;
+}
 
-    table{
-        font: 17px Georgia;
-        text-align: left;
-    }
-    tr.person {
-        width:200px;
-        vertical-align: middle;
-    }
-    td.person{
-        width:75%;
-        color: #6b6b6b;
-    }
-    td.interest {
-        font: 17px Georgia;
-        vertical-align: middle;
-        color: #848484;
-    }
+table{
+    font: 17px Georgia;
+    text-align: left;
+}
+tr.person {
+    width:200px;
+    vertical-align: middle;
+}
+td.person{
+    width:75%;
+    color: #6b6b6b;
+}
+td.interest {
+    font: 17px Georgia;
+    vertical-align: middle;
+    color: #848484;
+}
 
 
-    #bestMatch {
-        color: lawngreen;
-        text-indent: 75px;
-    }
+#bestMatch {
+    color: lawngreen;
+    text-indent: 75px;
+}
 
-    #worstMatch {
-        color: #ff0000;
-        text-indent: 75px;
-    }
+#worstMatch {
+    color: #ff0000;
+    text-indent: 75px;
+}
 
-    #pink, #purple, #blue {
-        float: left;
-        clear: left;
-        width: 150px;
-        margin: 15px;
-        background-color: #d3d3d3;
-    }
+#pink, #purple, #blue {
+    float: left;
+    clear: left;
+    width: 150px;
+    margin: 15px;
+    background-color: #d3d3d3;
+}
 
-    #pink .ui-slider-range {
-        background: #d3d3d3;
-    }
+#pink .ui-slider-range {
+    background: #d3d3d3;
+}
 
-    #pink .ui-slider-handle {
-        background: #f5a3d6;
-        border-color: #ffffff;
-        border-width: 2px;
-        height: 25px;
-        width: 25px;
-        border-radius: 25px;
-        position: absolute;
-        top: 50%;
-        margin-top: -15px;
-    }
+#pink .ui-slider-handle {
+    background: #f5a3d6;
+    border-color: #ffffff;
+    border-width: 2px;
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+}
 
-    #purple .ui-slider-range {
-        background: #d3d3d3;
-    }
+#purple .ui-slider-range {
+    background: #d3d3d3;
+}
 
-    #purple .ui-slider-handle {
-        background: #b2a3f5;
-        border-color: #ffffff;
-        border-width: 2px;
-        height: 25px;
-        width: 25px;
-        border-radius: 25px;
-        position: absolute;
-        top: 50%;
-        margin-top: -15px;
-    }
+#purple .ui-slider-handle {
+    background: #b2a3f5;
+    border-color: #ffffff;
+    border-width: 2px;
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+}
 
-    #blue .ui-slider-range {
-        background: #d3d3d3;
-    }
+#blue .ui-slider-range {
+    background: #d3d3d3;
+}
 
-    #blue .ui-slider-handle {
-        background: #A8C4E5;
-        border-color: #ffffff;
-        border-width: 2px;
-        height: 25px;
-        width: 25px;
-        border-radius: 25px;
-        position: absolute;
-        top: 50%;
-        margin-top: -15px;
-    }
+#blue .ui-slider-handle {
+    background: #A8C4E5;
+    border-color: #ffffff;
+    border-width: 2px;
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+}
 
-    #sortable {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-    }
+#sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
 
-    #sortable li {
-        margin: 0 3px 3px 3px;
-        padding: 0.4em;
-        padding-left: 1.5em;
-        font-size: 1.4em;
-        height: 18px;
-    }
+#sortable li {
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    padding-left: 1.5em;
+    font-size: 1.4em;
+    height: 18px;
+}
 
-    #sortable li span {
-        position: absolute;
-        margin-left: -1.3em;
-    }
+#sortable li span {
+    position: absolute;
+    margin-left: -1.3em;
+}
 
-    svg {
-        position: absolute;
-    }
+svg {
+    position: absolute;
+}
 
-    .sortable-boxes {
+.sortable-boxa {
+    height: 30px;
+    display: block;
+    padding: 5px 5px;
+    border-radius: 10px;
+    background-color: #d3d3d3;
+    color: #f3f4f4;
+    border: 1px solid #848484;
+    display: block;
+    vertical-align: middle;
+}
 
-        height: 18px;
-        display: block;
-        padding: 5px 5px;
-        border-radius: 10px;
-        background-color: #f3f4f4;
-        border: 1px solid #d3d3d3;
-        display: block;
-    }
+h1 {
+    font: 20px Georgia;
+    font-weight:bold;
+    color: #848484;
+}
 
-    h1 {
-        font: 20px Georgia;
-        font-weight:bold;
-        color: #848484;
-    }
+p {
+    font: 15px Georgia;
+    color: #848484;
+}
 
-    p {
-        font: 15px Georgia;
-        color: #848484;
-    }
 
-    input.addButton {
-        cursor: pointer;
-        cursor: hand;
-        background-color: #f3f4f4;
-        font: 10px Georgia;
-        font-weight: bold;
-        color: #848484;
-        border-radius: 10px;
-        vertical-align: middle;
-    }
-    </style>
+
+input.addBotton {
+    cursor: pointer;
+    cursor: hand;
+    background-color: #f3f4f4;
+    font: 10px Georgia;
+    font-weight: bold;
+    color: #848484;
+    border-radius: 10px;
+    vertical-align: middle;
+}
+</style>
     <script>
 
         $(function () {
@@ -214,17 +217,16 @@
                     <td colspan="3">
                         <h1>Best matches:</h1>
 
-                        <p>List people who best match the task described below. Drag a person listed below to reorder them.</p>
+                        <p>List people in order from <b>top to bottom</b> who best match the task described below. Drag a person listed below to reorder them.</p>
                         <br/>
                     </td>
                 </tr>
                 <tr>
-
                     %{--sortable boxes--}%
                     <td colspan="3">
 
                         <ul id="peopleList">
-                            <li class="sortable-boxes" name="sortable-box">
+                            <li class="sortable-boxa" name="sortable-box">
                                 %{--this table is for aligning the words in the sortable box--}%
                                 <table>
                                     <tr>
@@ -238,60 +240,53 @@
                                 </table>
                             </li>
                         </ul>
-                        <div id="bestMatch">Best Match</div>
 
                     </td>
                 </tr>
                 <tr>
-                    %{--<a class="addButton" href="#">add</a>--}%
                 </tr>
                 <tr>
                     <td>
                         %{--below is where the add person box should go--}%
-                        <br>
-
+                        <br/>
                         <form  onsubmit="onSubmit()">
 
+                            <input id = "textBox" type="text" placeholder="person's name here"/>
+                            <br/>
                             <input class="addButton" type="submit" value="Add Person" id="submitButton"/>
-                            <br>
-                            <br>
-                            <input id = "textBox" type="text" placeholder="person name here"/>
-
                         </form>
-
-
-
-
 
                         <script>
 
+
+
                             function onSubmit(){
                                 $("#textBox").val("");
-
                             }
 
                             $(function() {
                                 var availableTags = [
                                     "Sam",
+                                    "Pedro",
+                                    "Napoleon",
                                     "Marge",
+                                    "Shilad",
                                     "Rebecca",
                                     "Jesse",
-                                    "Ken",
+                                    "Ari",
                                     "Matt",
                                     "Ben",
                                     "Yulun",
-                                    "Ari",
-                                    "Shilad",
-                                    "Pedro",
-                                    "Napoleon",
-                                    "Kip"
-
+                                    "Ken",
+                                    "your momma"
 
                                 ];
                                 $( "#textBox" ).autocomplete({
                                     source: availableTags
                                 });
                             });
+
+
 
 
                             var makeButton = function(){
@@ -311,10 +306,10 @@
                                 $("#peopleList li:first").hide();   //hides all the sortable boxes
                                 $("#peopleList li").each(function () {
                                     console.log(this)
-                                    $(this).find(".removeButton").click(function (e) {//id of the remove button
+                                  $(this).find(".removeButton").click(function (e) {//id of the remove button
                                         $(this).parents("#peopleList li").remove();       //id of the .sortable-box that is designated for removal
 
-                                    });
+                                  });
 
 
                                 });
@@ -328,9 +323,7 @@
                                 button.appendTo($('#peopleList'));
                                 button.show();
                             });
-
-
-                        </script>
+                       </script>
 
                     </td>
                 </tr>
@@ -343,8 +336,6 @@
             </table>
         </td>
         <td>
-            %{--in the following div is where the viz needs to go--}%
-            %{--in the following div is where the viz needs to go--}%
             <div>
                 <r:img dir="images" file="viz.png"></r:img>
             </div>
