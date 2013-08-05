@@ -275,7 +275,6 @@
                                     });
                                 });
 
-
                                 $('#add-person').on('submit', function(e){
                                     e.preventDefault();
                                     var newButton = $('#peopleList li:first').clone(true);
@@ -299,14 +298,37 @@
                                     "Matt",
                                     "Ben",
                                     "Yulun",
-                                    "Ken",
-                                    "your momma"
+                                    "Ken"
+
 
                                 ];
                                 $( "#textBox" ).autocomplete({
-                                    source: availableTags
-                                });
+                                    source: availableTags,
+//
+                                select: function(event, ui) {
+                                    $("#textBox").val(ui.item.value);
+                                    $("#add-person").submit();
+
+                                    return false;
+                                }
+
+
                             });
+
+
+
+                            });
+
+//                                $(function() {
+//                                    $("#searchField").autocomplete({
+//                                        source: "values.json",
+//                                        select: function(event, ui) {
+//                                            $("#searchForm").submit(); }
+//                                    });
+//                                });
+//
+
+
 
                                 var input = $("form input:text");
 
