@@ -48,32 +48,38 @@ MC.MainViz.prototype.setEventHandlers = function(){
 
 MC.MainViz.prototype.refreshViz = function(){
     var self =this;
-    var checkReady = function(){
-        if ( self.transitionReady == true ){
-            console.log(self.transitionReady);
-            refresh();
-            return true;
-        }else
-        {
-            console.log(self.transitionReady);
-            window.setTimeout(checkReady,500);
-            return false;
-        }
-    };
+    var t;
+//    var checkReady = function(){
+//        if ( self.transitionReady == true ){
+//            console.log(self.transitionReady);
+//            refresh();
+//            return true;
+//        }else
+//        {
+//            console.log(self.transitionReady);
+//            t=window.setTimeout(checkReady,500);
+//            return false;
+//        }
+//    };
     var refresh = function(){
-        if(self.tRoot){ //If we are on transition
-            self.svg.select("g.viz").remove();
-            self.createViz();
-            self.setEventHandlers();
-        }
-        else{
-            self.svg.select("g.viz").remove();
-            self.createViz();
-            self.setEventHandlers();
+        console.log(t);
+        if (self.transitionReady){
+            clearInterval(t);
+            if(self.tRoot){ //If we are on transition
+                self.svg.select("g.viz").remove();
+                self.createViz();
+                self.setEventHandlers();
+            }
+            else{
+                self.svg.select("g.viz").remove();
+                self.createViz();
+                self.setEventHandlers();
+            }
         }
     };
 
-    checkReady();
+    t = window.setInterval(refresh,500);
+
 };
 
 MC.MainViz.prototype.onLoad = function(){
@@ -376,7 +382,10 @@ MC.MainViz.prototype.transitionRoot = function(){
                 }else{
                     return 0.0;
                 }
-            })
+            });
+        this.svg
+            .transition()
+            .delay(2500)
             .each('end',jQuery.proxy(this.refreshViz,this));
     }
 };
