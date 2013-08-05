@@ -20,6 +20,15 @@ MC.MainViz = function(params) {
 //    console.log(params);
     this.peopleLimit =  macademia.history.get('navFunction')=='person' ? 15 : 14;
     this.hubChildrenLimit = 10;
+
+    this.colors =[ //giving the colors used on the page to color hubs
+        "#f2b06e",
+        "#f5a3d6",
+        "#b2a3f5",
+        "#a8c4e5",
+        "#b4f5a3"
+    ];
+
     this.svg = d3.select('svg').attr('width', 1024).attr('height', 768);
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
     this.setEventHandlers();
@@ -51,45 +60,23 @@ MC.MainViz.prototype.createModel = function(root){
 
 
 MC.MainViz.prototype.onLoad = function(){
-//    if(macademia.history.get("navFunction")=="interest"){
-//        this.root = {
-//            "isVizRoot":true,
-//            "id": macademia.history.get("interestId"),
-//            'name': macademia.history.get("name"),
-//            'type':'interest',
-//            'children' : [96,97,98,99,9]
-//        };
-////        var hubModel = this.createModel(this.root);
-//    }
-//    else if(macademia.history.get("navFunction")=="person"){
-////        console.log(this.people[macademia.history.get("personId")]);
-//        this.root = {
-//            "isVizRoot":true,
-//            "id": macademia.history.get("personId"),
-//            'name': macademia.history.get("name"),
-//            'type':'person',
-//            'pic' : '/Macademia/all/image/randomFake?foo',
-//            'relevance': this.people[macademia.history.get("personId")].relevance,
-//            'children' : this.people[macademia.history.get("personId")].interests
-//        };
-//
-////        var hubModel = this.createModel(this.root);
-//    }
-
     var rootId = macademia.history.get("nodeId").substring(2);
     var rootClass = macademia.history.get("navFunction");
     var url = macademia.makeActionUrlWithGroup('all', 'd3', rootClass + 'Data') + '/' + rootId;
     var self = this;
-//    url: url,
-//        dataType : 'json',
-//        success : function (json) { self.loadJson(new VizModel(json)); }
     if(self.tRoot){
         self.transitionRoot(); //transition the root before running ajax
     }
-    $.ajax({
+
+    var transitionReady = false;
+    window.setTimeout(function(){
+        transitionReady = true;
+    },2500);
+
+    $.ajax({ //get the data from the model encoded in JSON
         url:url,
         dataType:'json',
-        success: function(json){ //this is d3 ajax
+        success: function(json){
             var model = new VizModel(json);
             //notice that interests has relatedQueryId that
             //tell us which cluster it belongs to
@@ -104,36 +91,41 @@ MC.MainViz.prototype.onLoad = function(){
                     hubs.push({type:'interest', id:Number(key), children:clusterMap[key]});
             }
 
-            var clusters={};
-            var curInterest;
             //building root
+            //We limit the number of child of the vizRoot by limiting amount of children coming from each cluster
+            //TODO:decide whether to limit the amount of the children for the root on the controller end.
+            var limitedChildren=[];
             if (rootClass == 'person'){
-                //We limit the number of child of the vizRoot
-                var limitedChildren=[];
-                for(var i = 0; i < peeps[rootId].interests.length; i++){
-                    curInterest = interests[peeps[rootId].interests[i]];
-                    if(clusters[curInterest.cluster]){
-                        if(clusters[curInterest.cluster]<(Math.floor(self.hubChildrenLimit/Object.keys(clusterMap).length))){
+                var childrenCounts={};
+                var curInterest;
+                var rootChildren = peeps[rootId].interests; //all children of the root
+                for(var i = 0; i < rootChildren.length; i++){ //loop through all children
+                    var childId = rootChildren[i];
+                    var clusterId = interests[childId].cluster;
+                    curInterest = interests[childId];
+                    if(childrenCounts[clusterId]){
+                        //balancing the number of children from each cluster
+                        var limit = Math.floor(self.hubChildrenLimit/Object.keys(clusterMap).length);
+                        if(childrenCounts[clusterId] < limit){
                             limitedChildren.push(curInterest.id);
-                            clusters[curInterest.cluster]++;
+                            childrenCounts[clusterId]++;
                         }
                     }
                     else{
-                        limitedChildren.push(curInterest.id);
-                        clusters[curInterest.cluster]=1;
+                        limitedChildren.push(curInterest.id); //pushing in the first children
+                        childrenCounts[curInterest.cluster]=1;
                     }
                 }
                 var root = {type:'person', id:rootId, children: limitedChildren};
             } else if (rootClass == 'interest') {
                 var root = {type:'interest', id:rootId, children: clusterMap[rootId]};
             }
-            if(self.tRoot&&rootClass=='interest'){
-                console.log(self.tRoot.select('.interestOuter').attr('fill'));
+
+            if(self.tRoot && rootClass=='interest'){ //taking care of the color of the interest vizRoot
                 root['color']=self.tRoot.select('.interestOuter').attr('fill');
             }
 
-
-            //building relatednessMap and parse interests
+            //building relatednessMap and parse interests (changing string id from JSON into number id)
             var relatednessMap = {};
             var value;
             var interest;
@@ -144,7 +136,7 @@ MC.MainViz.prototype.onLoad = function(){
                 if(clusterId != -1){
                     if(relatednessMap[clusterId]){
                         relatednessMap[clusterId].push(Number(key));
-                    } else {
+                    } else { //don't exist, create a new array
                         value = Number(key);
                         relatednessMap[clusterId]=[value];
                     }
@@ -153,42 +145,33 @@ MC.MainViz.prototype.onLoad = function(){
                 interests[key].id = Number(interests[key].id);    //Necessary??
             }
 
+            //building people while keeping a limit on the total number of people on a page
+            //TODO:decide whether to limit the amount of people on the controller end.
             var limitedPeople = {};
             var sortedPeopleIDs = [];
             for(var id in peeps){
                 sortedPeopleIDs.push(id);
             }
-            sortedPeopleIDs.sort(function(a,b){
+            sortedPeopleIDs.sort(function(a,b){ //sort by overall relevance to the hub
                 return peeps[b].relevance['overall']-peeps[a].relevance['overall'];
             })
 
             for(var i = 0; i < self.peopleLimit; i++){
-                limitedPeople[sortedPeopleIDs[i]]=peeps[sortedPeopleIDs[i]];
+                var id = sortedPeopleIDs[i]
+                limitedPeople[id]=peeps[id];
             }
 
-            var colors =[
-                "#f2b06e",
-                "#f5a3d6",
-                "#b2a3f5",
-                "#a8c4e5",
-                "#b4f5a3"
-            ];
-
+            //Setting global variable based on data from JSON
             self.hubs = hubs;
             self.people = limitedPeople;
-//            self.people = peeps;
             self.root = root;
             self.interests = interests;
-            self.colors = colors;
             self.relatednessMap = relatednessMap;
 
-            if(self.tRoot){
-//                self.transitionRoot();
-                window.setTimeout(function(){
+            if(self.tRoot){ //If we are on transition
                 self.svg.select("g.viz").remove();
                 self.createViz();
                 self.setEventHandlers();
-                },2500);
             }
             else{
                 self.svg.select("g.viz").remove();
@@ -285,7 +268,7 @@ MC.MainViz.prototype.setTransitionRoot = function(d3Root,type){
 };
 
 MC.MainViz.prototype.transitionRoot = function(){
-    //TODO: Check out the code on the bottom of person.gsp, we can ask the template to redraw the data
+    //TODO: Check out the code on the bottom of person.gsp, we can ask the template to redraw the data (may not be possible)
     //Move root to center
     if(this.tRoot){
 //        var newRoot = this.svg.select('g.nextRoot');
