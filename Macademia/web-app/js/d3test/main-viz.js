@@ -46,10 +46,14 @@ MC.MainViz.prototype.setEventHandlers = function(){
 
 MC.MainViz.prototype.refreshViz = function(){
     var self = this;
-    while(!this.transitionReady){
+    var doNothing = function(timeout){
         window.setTimeout(function(){
-            console.log(self.transitionReady);
-        },10);
+            return false;
+                },timeout);
+    };
+    while(!this.transitionReady){
+        console.log('inside while');
+        doNothing(500);
     }
     if(self.tRoot){ //If we are on transition
         self.svg.select("g.viz").remove();
@@ -349,7 +353,6 @@ MC.MainViz.prototype.transitionRoot = function(){
                     });
             }
         }
-        var self=this;
         this.svg
             .select('g.vizRoot')
             .transition()
@@ -367,7 +370,7 @@ MC.MainViz.prototype.transitionRoot = function(){
                     return 0.0;
                 }
             })
-            .each('end',self.refreshViz);
+            .each('end',jQuery.proxy(this.refreshViz(),this));
     }
 };
 
