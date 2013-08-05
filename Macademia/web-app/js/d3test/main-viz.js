@@ -46,24 +46,24 @@ MC.MainViz.prototype.setEventHandlers = function(){
 
 MC.MainViz.prototype.refreshViz = function(){
     var self =this;
-    var checkReady = function(){
-        if ( self.transitionReady == true ){
-            console.log(self.transitionReady);
-            refresh();
-        }else
-        {
-            console.log(self.transitionReady);
-            window.setTimeout('checkReady()',500);
-        }
-    };
+//    var checkReady = function(){
+//        if ( self.transitionReady == true ){
+//            refresh();
+//        }else
+//        {
+//            window.setTimeout(checkReady,500);
+//        }
+//    };
+//    while(!self.transitionReady){
+//        window.setTimeout(function(){},500);
+//    }
     var refresh = function(){
         if(self.tRoot){ //If we are on transition
             self.svg.select("g.viz").remove();
             self.createViz();
             self.setEventHandlers();
             self.transitionReady=false;
-        }
-        else{
+        } else{
             self.svg.select("g.viz").remove();
             self.createViz();
             self.setEventHandlers();
@@ -71,7 +71,18 @@ MC.MainViz.prototype.refreshViz = function(){
         }
     };
 
-    checkReady();
+    var timerId = window.setInterval(function(){
+        console.log("Running Interval");
+        clearInterval(timerId);
+        if(self.transitionReady){
+            refresh();
+            console.log(this);
+        }
+    },500)
+
+
+//    refresh();
+//    checkReady();
 };
 
 MC.MainViz.prototype.onLoad = function(){
@@ -178,6 +189,7 @@ MC.MainViz.prototype.onLoad = function(){
             self.root = root;
             self.interests = interests;
             self.relatednessMap = relatednessMap;
+
             self.transitionReady = true;
 
             if(!self.tRoot){
