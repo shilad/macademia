@@ -26,6 +26,10 @@ class SurveyController {
         render(view : 'recap')
     }
 
+    def consent() {
+        render(view : 'consent')
+    }
+
     /**
      * Email link points here.
      */
