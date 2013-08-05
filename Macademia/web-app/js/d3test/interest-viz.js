@@ -292,18 +292,19 @@ MC.InterestViz.prototype.createInterestColors = function(){
 };
 
 MC.InterestViz.prototype.createHub = function(model,j) {
-    var calculatedDelay=(j+1)*500;
+    var hubDurationIncrement=500;
+    var calculatedDelay=(j+1)*hubDurationIncrement;
+    MC.hub.setDuration(hubDurationIncrement);
     var hubInterests = [];
     for (var i = 0; i < model.children.length; i++) {
         var childId = model.children[i];
         hubInterests.push(this.interests[childId]);
     }
-//    console.log(this.relatednessMap[3201]);
     var rootModel = model.type == 'person' ? this.people[model.id] : this.interests[model.id];
 
     rootModel.type = model.type;
     rootModel.r=model.r;
-//    console.log(hubInterests);
+
     this.container
         .datum({
             id : model.id,
