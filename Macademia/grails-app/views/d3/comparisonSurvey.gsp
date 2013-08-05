@@ -244,7 +244,6 @@ input.addBotton {
                     </td>
                 </tr>
                 <tr>
-                    %{--<a class="addButton" href="#">add</a>--}%
                 </tr>
                 <tr>
                     <td>
@@ -337,8 +336,6 @@ input.addBotton {
             </table>
         </td>
         <td>
-            %{--in the following div is where the viz needs to go--}%
-            %{--in the following div is where the viz needs to go--}%
             <div>
                 <r:img dir="images" file="viz.png"></r:img>
             </div>
