@@ -305,6 +305,9 @@
                                 ];
                                 $( "#textBox" ).autocomplete({
                                     source: availableTags
+                                    select: function(event, ui) {
+                                        $("#textBox").val(ui.item.value);
+                                        $("#add-person").submit();
                                 });
                             });
 
