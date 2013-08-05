@@ -73,4 +73,14 @@ $(document).ready(function(){
         .on('mouseout',function(){
             $('#more4Tooltip').hide();
         });
+
+    $('tr.people').on('click', function() {
+        console.log("in here");
+
+        var href = $(this).find("a").attr("href");
+        if(href) {
+            window.location = href;
+        }
+    });
+
 });

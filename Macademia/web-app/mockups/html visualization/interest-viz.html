@@ -5,11 +5,7 @@
     <link rel="stylesheet" type="text/css" href="viz.css">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script type="text/javascript" src="dropdown.js"></script>
-    <script>
-        $().ready(function(){
-            new DropDown($("#dd"));
-        })
-    </script>
+    <script type="text/javascript" src="js-helper.js"></script>
 </head>
 
 <body>
@@ -36,28 +32,28 @@
         </tr>
 
         <tr class="people">
-            <td class="people" style="border-right: 2px solid #d3d3d3;"><img src="hviz-images/petyr.png"> Petyr Baelish</td>
+            <td class="people" style="border-right: 2px solid #d3d3d3;"><a href="http://localhost:8080/Macademia/all/image/randomFake?1"><img class="person" src="http://localhost:8080/Macademia/all/image/randomFake?1"></a> Petyr Baelish</td>
             <td class="people"><div class="rect" style="width: 90%;background-color:#f2b06e">&nbsp;</div><div class="rect" style="width: 10%;background-color:#d3d3d3">&nbsp;</div></td>
             <td class="people"><div class="rect" style="width: 80%;background-color:#b4f5a3">&nbsp;</div><div class="rect" style="width: 20%;background-color:#d3d3d3">&nbsp;</div></td>
             <td class="people"><div class="rect" style="width: 75%;background-color:#b2a3f5">&nbsp;</div><div class="rect" style="width: 25%;background-color:#d3d3d3">&nbsp;</div></td>
             <td class="people"><div class="rect" style="width: 82%;background-color:#A8C4E5">&nbsp;</div><div class="rect" style="width: 18%;background-color:#d3d3d3">&nbsp;</div></td>
         </tr>
         <tr class="people">
-            <td class="people" style="border-right: 2px solid #d3d3d3;"><img src="hviz-images/varys.png"> Lord Varys</td>
+            <td class="people" style="border-right: 2px solid #d3d3d3;"><a href="http://localhost:8080/Macademia/all/image/randomFake?2"><img class="person" src="http://localhost:8080/Macademia/all/image/randomFake?2"></a> Lord Varys</td>
             <td class="people"><div class="rect" style="width: 88%;background-color:#f2b06e">&nbsp;</div><div class="rect" style="width: 12%;background-color:#d3d3d3">&nbsp;</div></td>
             <td class="people"><div class="rect" style="width: 78%;background-color:#b4f5a3">&nbsp;</div><div class="rect" style="width: 22%;background-color:#d3d3d3">&nbsp;</div></td>
             <td class="people"><div class="rect" style="width: 65%;background-color:#b2a3f5">&nbsp;</div><div class="rect" style="width: 35%;background-color:#d3d3d3">&nbsp;</div></td>
             <td class="people"><div class="rect" style="width: 90%;background-color:#A8C4E5">&nbsp;</div><div class="rect" style="width: 10%;background-color:#d3d3d3">&nbsp;</div></td>
         </tr>
         <tr class="people">
-            <td class="people" style="border-right: 2px solid #d3d3d3;"><img src="hviz-images/sansa.png"> Sansa Stark</td>
+            <td class="people" style="border-right: 2px solid #d3d3d3;"><a href="http://localhost:8080/Macademia/all/image/randomFake?3"><img class="person" src="http://localhost:8080/Macademia/all/image/randomFake?3"></a> Sansa Stark</td>
             <td class="people"><div class="rect" style="width: 85%;background-color:#f2b06e">&nbsp;</div><div class="rect" style="width: 15%;background-color:#d3d3d3">&nbsp;</div></td>
             <td class="people"><div class="rect" style="width: 79%;background-color:#b4f5a3">&nbsp;</div><div class="rect" style="width: 21%;background-color:#d3d3d3">&nbsp;</div></td>
             <td class="people"><div class="rect" style="width: 50%;background-color:#b2a3f5">&nbsp;</div><div class="rect" style="width: 50%;background-color:#d3d3d3">&nbsp;</div></td>
             <td class="people"><div class="rect" style="width: 95%;background-color:#A8C4E5">&nbsp;</div><div class="rect" style="width: 5%;background-color:#d3d3d3">&nbsp;</div></td>
         </tr>
         <tr class="people">
-            <td class="people" style="border-right: 2px solid #d3d3d3;"><img src="hviz-images/pycelle.png"> Maester Pycelle</td>
+            <td class="people" style="border-right: 2px solid #d3d3d3;"><a href="http://localhost:8080/Macademia/all/image/randomFake?4"><img class="person" src="http://localhost:8080/Macademia/all/image/randomFake?4"></a> Maester Pycelle</td>
             <td class="people"><div class="rect" style="width: 80%;background-color:#f2b06e">&nbsp;</div><div class="rect" style="width: 20%;background-color:#d3d3d3">&nbsp;</div></td>
             <td class="people"><div class="rect" style="width: 83%;background-color:#b4f5a3">&nbsp;</div><div class="rect" style="width: 17%;background-color:#d3d3d3">&nbsp;</div></td>
             <td class="people"><div class="rect" style="width: 90%;background-color:#b2a3f5">&nbsp;</div><div class="rect" style="width: 10%;background-color:#d3d3d3">&nbsp;</div></td>
@@ -65,7 +61,7 @@
         </tr>
         <tr class="people" style="border-bottom: none">
             <!--last row must have border-bottom: none because of the big boarder around everything-->
-            <td class="people" style="border-right: 2px solid #d3d3d3;"><img src="hviz-images/joffery.png"> Joffery Baratheon</td>
+            <td class="people" style="border-right: 2px solid #d3d3d3;"><a href="http://localhost:8080/Macademia/all/image/randomFake?5"><img class="person" src="http://localhost:8080/Macademia/all/image/randomFake?5"></a> Joffery Baratheon</td>
             <td class="people"><div class="rect" style="width: 63%;background-color:#f2b06e">&nbsp;</div><div class="rect" style="width: 37%;background-color:#d3d3d3">&nbsp;</div></td>
             <td class="people"><div class="rect" style="width: 60%;background-color:#b4f5a3">&nbsp;</div><div class="rect" style="width: 40%;background-color:#d3d3d3">&nbsp;</div></td>
             <td class="people"><div class="rect" style="width: 30%;background-color:#b2a3f5">&nbsp;</div><div class="rect" style="width: 70%;background-color:#d3d3d3">&nbsp;</div></td>
