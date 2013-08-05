@@ -35,7 +35,7 @@ http://tympanus.net/codrops/2012/10/04/custom-drop-down-list-styling/
 h1 {
     color: #000000;
     background-color: #F3F4F4;
-    font: 60px Georgia;
+    font: 65px Georgia;
     text-align: center;
     vertical-align: middle;
     padding: 5px 5px;
@@ -80,6 +80,11 @@ tr.people {
     background-color: #ffffff;
     font: 25px Georgia;
     border-bottom: 2px solid #d3d3d3;
+    cursor: default;
+}
+
+th.people:hover{
+    cursor: default;
 }
 
 tr.people:hover {
@@ -91,7 +96,6 @@ td.people {
     padding: 10px 10px;
     vertical-align: middle;
     width: 20%;
-    /*white-space: nowrap;*/
 }
 
 .rect{
@@ -125,6 +129,17 @@ img.interest{
 a {
   font: 17px Georgia;
   color: #858585;
+}
+
+table.slider{
+    font: 10px Georgia;
+    vertical-align: middle;
+    color: #848484;
+    float: right;
+}
+
+td.slider{
+    vertical-align: middle;
 }
 
 *,
@@ -247,4 +262,78 @@ a {
    padding: 10px 10px;
    border-radius: 7px;
    border: 2px solid #d3d3d3;
+}
+
+/*Sliders*/
+
+#pink, #purple, #blue, #green, #orange {
+    float: left;
+    clear: left;
+    width: 150px;
+    margin: 15px;
+    background-color: #d3d3d3;
+}
+
+.ui-slider-range {
+    background: #d3d3d3;
+}
+
+#pink .ui-slider-handle {
+    background: #f5a3d6;
+    border-color: #ffffff;
+    border-width: 2px;
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+}
+
+#purple .ui-slider-handle {
+    background: #b2a3f5;
+    border-color: #ffffff;
+    border-width: 2px;
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+}
+
+#blue .ui-slider-handle {
+    background: #A8C4E5;
+    border-color: #ffffff;
+    border-width: 2px;
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+}
+
+#green .ui-slider-handle {
+    background: #b4f5a3;
+    border-color: #ffffff;
+    border-width: 2px;
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+}
+
+#orange .ui-slider-handle {
+    background: #f2b06e;
+    border-color: #ffffff;
+    border-width: 2px;
+    height: 25px;
+    width: 25px;
+    border-radius: 25px;
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
 }

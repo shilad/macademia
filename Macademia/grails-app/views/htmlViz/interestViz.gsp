@@ -1,86 +1,60 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>HTML Person visualization</title>
-    <link rel="stylesheet" type="text/css" href="viz.css">
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script type="text/javascript" src="dropdown.js"></script>
-    <script type="text/javascript" src="js-helper.js"></script>
+    <r:require modules="htmlViz"/>
+    <meta name="layout" content="main"/>
+  <title></title>
+
     <script>
-        //        $(document).ready(function(){
-        //            new DropDown($("#dd"));
-        //        })
+
+        $(function () {
+            $("#pink, #purple, #blue, #green, #orange").slider({
+                orientation: "horizontal",
+                range: "min",
+                min: 1,
+                max: 10,
+                value: 2
+                // change: something
+            });
+            $("#pink").slider("value", 4);
+            $("#purple").slider("value", 2);
+            $("#blue").slider("value", 6);
+            $("#green").slider("value", 8);
+            $("#orange").slider("value", 5);
+
+
+        });
     </script>
 </head>
 
-<body>
+<body class="ui-widget-content" style="border: 0;">
 <div class="mainContainer">
-    <h1><img style="max-height: 70px; max-width: 70px; border: 2px solid #ffffff;" src="http://localhost:8080/Macademia/all/image/randomFake?top">&nbsp;Cersei Lannister
+    <h1>Political Science
+        <table class="slider" >
+            <tr>
+                <td class="slider">
+                    <div id="green"></div>
+                </td>
+                <td class="slider">Political Science</td>
 
+            </td>
+            </tr>
+            <tr>
+                <td class="slider">
+                    <div id="purple"></div>
+                </td>
+
+                <td class="slider">Philosophy</td>
+
+            </tr>
+            <tr>
+                <td class="slider">
+                    <div id="blue"></div>
+                </td>
+                <td class="slider">Cultural Studies</td>
+            </tr>
+        </table>
     </h1>
-
-    <table class="interest">
-        <tr>
-            <td>
-                <table id="table1">
-                    <tr><td>
-                        <img  class="interest" src="hviz-images/green-icon.png">&nbsp;Politics
-                    </td></tr>
-                    <tr><td>
-                        <img class="interest" src="hviz-images/green-icon.png">&nbsp;Security
-                    </td></tr>
-                    <tr><td>
-                        <img class="interest" src="hviz-images/green-icon.png">&nbsp;Hegemony
-                    </td></tr>
-                </table>
-            </td>
-
-            <td>
-                <table id="table2">
-                    <tr><td>
-                        <img  class="interest" src="hviz-images/purple-icon.png">&nbsp;Descartes
-                    </td></tr>
-                    <tr><td>
-                        <img class="interest" src="hviz-images/purple-icon.png">&nbsp;Marx
-                    </td></tr>
-                    <tr><td>
-
-                    </td></tr>
-                </table>
-            </td>
-
-            <td>
-                <table id="table3">
-                    <tr><td>
-                        <img  class="interest" src="hviz-images/blue-icon.png">&nbsp;Globalization
-                    </td></tr>
-                    <tr><td>
-                        <img class="interest" src="hviz-images/blue-icon.png">&nbsp;Consumerism
-                    </td></tr>
-                    <tr><td>
-                        <img class="interest" src="hviz-images/blue-icon.png">&nbsp;Cultural Studies
-                    </td></tr>
-                </table>
-            </td>
-
-            <td>
-                <table id="table4">
-                    <tr><td>
-                        <img  class="interest" src="hviz-images/gray-icon.png">&nbsp;Incest
-                    </td></tr>
-                    <tr><td>
-                        <img class="interest" src="hviz-images/gray-icon.png">&nbsp;Little Doves
-                    </td></tr>
-                    <tr><td>
-                        <img class="interest" src="hviz-images/gray-icon.png">&nbsp;<a href="#" id="more4">And 12 more...</a>
-                    </td></tr>
-                </table>
-            </td>
-            <td rowspan="3" style="vertical-align: bottom">
-                <img src="hviz-images/sliders.png">
-            </td>
-        </tr>
-    </table>
 
     <table class="people">
         <tr class="people">
@@ -88,17 +62,17 @@
                 <div id="dd" class="wrapper-dropdown-3" tabindex="1" style="float: right; vertical-align: middle" >
                     <span>Sort By</span>
                     <ul class="dropdown">
-                        <li><a href="#"><img src="hviz-images/orange-icon.png">&nbsp;Overall</a></li>
-                        <li><a href="#"><img src="hviz-images/green-icon.png">&nbsp;Political Science</a></li>
-                        <li><a href="#"><img src="hviz-images/purple-icon.png">&nbsp;Philosophy</a></li>
-                        <li><a href="#"><img src="hviz-images/blue-icon.png">&nbsp;Cultural Studies</a></li>
+                        <li><a href="#"><r:img dir="images/hviz-images" file="orange-icon.png"></r:img>Overall</a></li>
+                        <li><a href="#"><r:img dir="images/hviz-images" file="green-icon.png"></r:img>Political Science</a></li>
+                        <li><a href="#"><r:img dir="images/hviz-images" file="purple-icon.png"></r:img>Philosophy</a></li>
+                        <li><a href="#"><r:img dir="images/hviz-images" file="blue-icon.png"></r:img>Cultural Studies</a></li>
                     </ul>
                 </div>
             </th>
-            <th class="people"><img src="hviz-images/orange-icon.png"><br/>Overall</th>
-            <th class="people"><img src="hviz-images/green-icon.png"><br/>Political Science</th>
-            <th class="people"><img src="hviz-images/purple-icon.png"><br/>Philosophy</th>
-            <th class="people"><img src="hviz-images/blue-icon.png"><br/>Cultural Studies</th>
+            <th class="people"><r:img dir="images/hviz-images" file="orange-icon.png"></r:img><br/>Overall</th>
+            <th class="people"><r:img dir="images/hviz-images" file="green-icon.png"></r:img><br/>Political Science</th>
+            <th class="people"><r:img dir="images/hviz-images" file="purple-icon.png"></r:img><br/>Philosophy</th>
+            <th class="people"><r:img dir="images/hviz-images" file="blue-icon.png"></r:img><br/>Cultural Studies</th>
         </tr>
 
         <tr class="people">
@@ -139,14 +113,5 @@
         </tr>
     </table>
 </div>
-
-<div class="tooltip" id="more4Tooltip" style="display: none;position: absolute;">
-    <p>Gold <br/>
-        Royalty <br/>
-        Pretty Dresses <br/>
-        My Children <br/>
-    </p>
-</div>
-
 </body>
 </html>
