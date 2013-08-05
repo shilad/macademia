@@ -520,7 +520,7 @@ MC.InterestViz.prototype.createTooltip = function(self,pos,div){
     else{                            //else it's on the left hemisphere of the graph
         position.left=+pos.left-divWidth-25;   //set the right side of the div 25 away from the object
         if(position.left<=0){  //if the div would go off the screen to the left
-            position.left=svgLoc.left+50;         //set it to 50
+            position.left=svgLoc.left+75;         //set it to 50
         }
     }
 
