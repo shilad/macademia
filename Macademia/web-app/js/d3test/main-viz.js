@@ -51,45 +51,17 @@ MC.MainViz.prototype.createModel = function(root){
 
 
 MC.MainViz.prototype.onLoad = function(){
-//    if(macademia.history.get("navFunction")=="interest"){
-//        this.root = {
-//            "isVizRoot":true,
-//            "id": macademia.history.get("interestId"),
-//            'name': macademia.history.get("name"),
-//            'type':'interest',
-//            'children' : [96,97,98,99,9]
-//        };
-////        var hubModel = this.createModel(this.root);
-//    }
-//    else if(macademia.history.get("navFunction")=="person"){
-////        console.log(this.people[macademia.history.get("personId")]);
-//        this.root = {
-//            "isVizRoot":true,
-//            "id": macademia.history.get("personId"),
-//            'name': macademia.history.get("name"),
-//            'type':'person',
-//            'pic' : '/Macademia/all/image/randomFake?foo',
-//            'relevance': this.people[macademia.history.get("personId")].relevance,
-//            'children' : this.people[macademia.history.get("personId")].interests
-//        };
-//
-////        var hubModel = this.createModel(this.root);
-//    }
-
     var rootId = macademia.history.get("nodeId").substring(2);
     var rootClass = macademia.history.get("navFunction");
     var url = macademia.makeActionUrlWithGroup('all', 'd3', rootClass + 'Data') + '/' + rootId;
     var self = this;
-//    url: url,
-//        dataType : 'json',
-//        success : function (json) { self.loadJson(new VizModel(json)); }
     if(self.tRoot){
         self.transitionRoot(); //transition the root before running ajax
     }
-    $.ajax({
+    $.ajax({ //get the data from the model encoded in JSON
         url:url,
         dataType:'json',
-        success: function(json){ //this is d3 ajax
+        success: function(json){
             var model = new VizModel(json);
             //notice that interests has relatedQueryId that
             //tell us which cluster it belongs to
@@ -109,9 +81,10 @@ MC.MainViz.prototype.onLoad = function(){
             //building root
             if (rootClass == 'person'){
                 //We limit the number of child of the vizRoot
+                var rootChildren = peeps[rootId].interests; //all children of the root
                 var limitedChildren=[];
-                for(var i = 0; i < peeps[rootId].interests.length; i++){
-                    curInterest = interests[peeps[rootId].interests[i]];
+                for(var i = 0; i < rootChildren.length; i++){
+                    curInterest = interests[rootChildren[i]];
                     if(clusters[curInterest.cluster]){
                         if(clusters[curInterest.cluster]<(Math.floor(self.hubChildrenLimit/Object.keys(clusterMap).length))){
                             limitedChildren.push(curInterest.id);
