@@ -20,7 +20,7 @@ MC.MainViz = function(params) {
 //    console.log(params);
     this.peopleLimit =  macademia.history.get('navFunction')=='person' ? 15 : 14;
     this.hubChildrenLimit = 10;
-
+    this.transitionReady=false;
     this.colors =[ //giving the colors used on the page to color hubs
         "#f2b06e",
         "#f5a3d6",
@@ -44,20 +44,26 @@ MC.MainViz.prototype.setEventHandlers = function(){
     }
 };
 
-MC.MainViz.prototype.createModel = function(root){
-    var model  = {
-        id: root[0].id,
-        cx:375,
-        cy:425,
-        hubRoot : this.root,
-        children : this.root[0].interests,
-        color: 'hsl(0, 0, 82.7)',
-        distance: 100
-    };
-    return model;
+MC.MainViz.prototype.refreshViz = function(){
+    var self = this;
+    while(!this.transitionReady){
+        window.setTimeout(function(){
+            console.log(self.transitionReady);
+        },10);
+    }
+    if(self.tRoot){ //If we are on transition
+        self.svg.select("g.viz").remove();
+        self.createViz();
+        self.setEventHandlers();
+        self.transitionReady=false;
+    }
+    else{
+        self.svg.select("g.viz").remove();
+        self.createViz();
+        self.setEventHandlers();
+        self.transitionReady=false;
+    }
 };
-
-
 
 MC.MainViz.prototype.onLoad = function(){
     var rootId = macademia.history.get("nodeId").substring(2);
@@ -68,10 +74,6 @@ MC.MainViz.prototype.onLoad = function(){
         self.transitionRoot(); //transition the root before running ajax
     }
 
-    var transitionReady = false;
-    window.setTimeout(function(){
-        transitionReady = true;
-    },2500);
 
     $.ajax({ //get the data from the model encoded in JSON
         url:url,
@@ -167,16 +169,13 @@ MC.MainViz.prototype.onLoad = function(){
             self.root = root;
             self.interests = interests;
             self.relatednessMap = relatednessMap;
+            self.transitionReady = true;
 
-            if(self.tRoot){ //If we are on transition
+            if(!self.tRoot){
                 self.svg.select("g.viz").remove();
                 self.createViz();
                 self.setEventHandlers();
-            }
-            else{
-                self.svg.select("g.viz").remove();
-                self.createViz();
-                self.setEventHandlers();
+                self.transitionReady=false;
             }
         }
 
@@ -350,7 +349,7 @@ MC.MainViz.prototype.transitionRoot = function(){
                     });
             }
         }
-
+        var self=this;
         this.svg
             .select('g.vizRoot')
             .transition()
@@ -367,7 +366,8 @@ MC.MainViz.prototype.transitionRoot = function(){
                 }else{
                     return 0.0;
                 }
-            });
+            })
+            .each('end',self.refreshViz);
     }
 };
 
