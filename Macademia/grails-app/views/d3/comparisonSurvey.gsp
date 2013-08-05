@@ -285,31 +285,31 @@
                                     newButton.show('fast');
                                     $("#textBox").val("");
                                 });
-                                                               //df
-                            $(function() {
-                                var availableTags = [
-                                    "Sam",
-                                    "Pedro",
-                                    "Napoleon",
-                                    "Marge",
-                                    "Shilad",
-                                    "Rebecca",
-                                    "Jesse",
-                                    "Ari",
-                                    "Matt",
-                                    "Ben",
-                                    "Yulun",
-                                    "Ken",
-                                    "your momma"
+                                //df
+                                $(function() {
+                                    var availableTags = [
+                                        "Sam",
+                                        "Pedro",
+                                        "Napoleon",
+                                        "Marge",
+                                        "Shilad",
+                                        "Rebecca",
+                                        "Jesse",
+                                        "Ari",
+                                        "Matt",
+                                        "Ben",
+                                        "Yulun",
+                                        "Ken",
+                                        "your momma"
 
-                                ];
-                                $( "#textBox" ).autocomplete({
-                                    source: availableTags
-                                    select: function(event, ui) {
-                                        $("#textBox").val(ui.item.value);
-                                        $("#add-person").submit();
+                                    ];
+                                    $( "#textBox" ).autocomplete({
+                                        source: availableTags
+                                        select: function(event, ui) {
+                                            $("#textBox").val(ui.item.value);
+                                            $("#add-person").submit();
+                                        });
                                 });
-                            });
 
                                 var input = $("form input:text");
 
