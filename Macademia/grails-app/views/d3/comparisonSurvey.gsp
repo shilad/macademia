@@ -223,8 +223,6 @@
                     %{--sortable boxes--}%
                     <td colspan="3">
 
-                    <div id="bestMatch">Best Match</div>
-
                         <ul id="peopleList">
                             <li class="sortable-boxes" name="sortable-box">
                                 %{--this table is for aligning the words in the sortable box--}%
@@ -240,7 +238,7 @@
                                 </table>
                             </li>
                         </ul>
-                    <div id="worstMatch">Worst Match</div>
+                        <div id="bestMatch">Best Match</div>
 
                     </td>
                 </tr>
@@ -274,19 +272,19 @@
 
                             $(function() {
                                 var availableTags = [
-                                        "Sam",
-                                        "Marge",
-                                        "Rebecca",
-                                        "Jesse",
-                                        "Ken",
-                                        "Matt",
-                                        "Ben",
-                                        "Yulun",
-                                        "Ari",
-                                        "Shilad",
-                                        "Pedro",
-                                        "Napoleon",
-                                        "Kip"
+                                    "Sam",
+                                    "Marge",
+                                    "Rebecca",
+                                    "Jesse",
+                                    "Ken",
+                                    "Matt",
+                                    "Ben",
+                                    "Yulun",
+                                    "Ari",
+                                    "Shilad",
+                                    "Pedro",
+                                    "Napoleon",
+                                    "Kip"
 
 
                                 ];
