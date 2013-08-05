@@ -294,7 +294,7 @@ MC.InterestViz.prototype.createInterestColors = function(){
 MC.InterestViz.prototype.createHub = function(model,j) {
     var hubDurationIncrement=500;
     var calculatedDelay=(j+1)*hubDurationIncrement;
-    MC.hub.setDuration(hubDurationIncrement);
+    MC.hub().setDuration(hubDurationIncrement);
     var hubInterests = [];
     for (var i = 0; i < model.children.length; i++) {
         var childId = model.children[i];
