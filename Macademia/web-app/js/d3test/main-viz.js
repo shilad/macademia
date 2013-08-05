@@ -110,7 +110,7 @@ MC.MainViz.prototype.onLoad = function(){
                 root['color']=self.tRoot.select('.interestOuter').attr('fill');
             }
 
-            //building relatednessMap and parse interests
+            //building relatednessMap and parse interests (changing string id from JSON into number id)
             var relatednessMap = {};
             var value;
             var interest;
@@ -121,7 +121,7 @@ MC.MainViz.prototype.onLoad = function(){
                 if(clusterId != -1){
                     if(relatednessMap[clusterId]){
                         relatednessMap[clusterId].push(Number(key));
-                    } else {
+                    } else { //don't exist, create a new array
                         value = Number(key);
                         relatednessMap[clusterId]=[value];
                     }
@@ -130,17 +130,20 @@ MC.MainViz.prototype.onLoad = function(){
                 interests[key].id = Number(interests[key].id);    //Necessary??
             }
 
+            //building people while keeping a limit on the total number of people on a page
+            //TODO:decide whether to limit the amount of people on the controller end.
             var limitedPeople = {};
             var sortedPeopleIDs = [];
             for(var id in peeps){
                 sortedPeopleIDs.push(id);
             }
-            sortedPeopleIDs.sort(function(a,b){
+            sortedPeopleIDs.sort(function(a,b){ //sort by overall relevance to the hub
                 return peeps[b].relevance['overall']-peeps[a].relevance['overall'];
             })
 
             for(var i = 0; i < self.peopleLimit; i++){
-                limitedPeople[sortedPeopleIDs[i]]=peeps[sortedPeopleIDs[i]];
+                var id = sortedPeopleIDs[i]
+                limitedPeople[id]=peeps[id];
             }
 
             var colors =[
@@ -153,14 +156,12 @@ MC.MainViz.prototype.onLoad = function(){
 
             self.hubs = hubs;
             self.people = limitedPeople;
-//            self.people = peeps;
             self.root = root;
             self.interests = interests;
             self.colors = colors;
             self.relatednessMap = relatednessMap;
 
             if(self.tRoot){
-//                self.transitionRoot();
                 window.setTimeout(function(){
                 self.svg.select("g.viz").remove();
                 self.createViz();
