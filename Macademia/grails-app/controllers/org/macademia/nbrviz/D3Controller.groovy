@@ -14,15 +14,9 @@ class D3Controller {
     }
 
     def show = {
-        //get nodeId
-        Long rootId = params.nodeId as Long
-        print(rootId)
-
-        //download json based on the nodeId
-//        interestData({params:[id:rootId]})
-
-        //render the view for the first time
-        render(view : "${params.module}")
+        render(view : 'show', model : [
+                group: params.group,
+        ])
     }
 
     //for interest centric
