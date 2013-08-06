@@ -1,8 +1,20 @@
+h1{
+  font: 30px Georgia;
+  font-weight: bold;
+  position:absolute;
+}
+
+p {
+  font: 17px Georgia;
+  color: #000000;
+  position:absolute;
+  width: 175mm;
+}
+
 .background{
   width:200mm;
   height:130mm;
   border-radius:50px;
-  font-size:20px;
   background: whitesmoke;
 }
  .largeCircle{
@@ -12,15 +24,14 @@
    position:absolute;
 }
 .insideCircle{
-   width:28px;
-   border: 2px solid #ffffff;
-   height:28px;
+   width:34px;
+   border: 1px solid #ffffff;
+   height:34px;
    border-radius:50px;
    font-size:20px;
    color: #ffffff;
    line-height:100px;
    text-align:center;
    position:absolute;
-   top:1mm;
    left:9%;
 }

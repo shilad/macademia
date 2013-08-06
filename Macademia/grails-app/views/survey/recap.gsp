@@ -18,8 +18,8 @@
 <div class = "background">
 
     <div>
-        <h2>Recap</h2>
-        <p>
+        <h1 style="top: 9mm;left:14mm;">Recap</h1>
+        <p style="top: 27mm;left:14mm;">
             Thank you for volunteering your time and expertise!
         </p>
         <form id='add-person'>
