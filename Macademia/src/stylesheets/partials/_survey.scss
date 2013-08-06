@@ -7,7 +7,7 @@
   background: #f3f4f4;
 }
 h1{
-  margin-left: auto;
+  //margin-left: 115px;
   margin-right: auto;
   font: 30px Georgia;
   font-weight: bold;
@@ -47,14 +47,8 @@ div.textarea {
 
   input.submit {
      position: absolute;
-     left: 405px;
+     left: 0px;
      top: -30px;
-  }
-
-  input.addButton {
-    position: absolute;
-    left: 200px;
-    top: 200px;
   }
 
 }
