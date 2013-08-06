@@ -8,16 +8,28 @@
 var MC = (window.MC = (window.MC || {}));
 
 MC.MainViz = function(params) {
-    this.hubs = params.hubs;
-    this.people = params.people;
-    this.root = params.root;
-    this.svg = params.svg;
-    this.circles = params.circles;
-    this.interests = params.interests;
-    this.colors = params.colors;
-    this.relatednessMap = params.relatednessMap;
+//    this.hubs = params.hubs;
+//    this.people = params.people;
+//    this.root = params.root;
+//    this.svg = params.svg;
+//    this.circles = params.circles;
+//    this.interests = params.interests;
+//    this.colors = params.colors;
+//    this.relatednessMap = params.relatednessMap;
 
+//    console.log(params);
+    this.peopleLimit =  macademia.history.get('navFunction')=='person' ? 15 : 14;
+    this.hubChildrenLimit = 10;
+    this.transitionReady=false;
+    this.colors =[ //giving the colors used on the page to color hubs
+        "#f2b06e",
+        "#f5a3d6",
+        "#b2a3f5",
+        "#a8c4e5",
+        "#b4f5a3"
+    ];
 
+    this.svg = d3.select('svg').attr('width', 1024).attr('height', 768);
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
     this.setEventHandlers();
 
@@ -30,60 +42,151 @@ MC.MainViz.prototype.setEventHandlers = function(){
     if(this.viz){
         this.viz.enableHoverHighlight();
     }
+    this.transitionReady=false;
+
 };
 
-MC.MainViz.prototype.createModel = function(root){
-    var model  = {
-        id: root[0].id,
-        cx:375,
-        cy:425,
-        hubRoot : this.root,
-        children : this.root[0].interests,
-        color: 'hsl(0, 0, 82.7)',
-        distance: 100
+MC.MainViz.prototype.refreshViz = function(){
+    var self =this;
+    var intervalID;
+    var refresh = function(){
+        if (self.transitionReady){
+            clearInterval(intervalID);
+            if(self.tRoot){ //If we are on transition
+                self.svg.select("g.viz").remove();
+                self.createViz();
+                self.setEventHandlers();
+            }
+            else{
+                self.svg.select("g.viz").remove();
+                self.createViz();
+                self.setEventHandlers();
+            }
+        }
     };
-    return model;
+    intervalID = setInterval(function(){  refresh();  }, 500);
 };
 
 MC.MainViz.prototype.onLoad = function(){
-    if(macademia.history.get("navFunction")=="interest"){
+    var rootId = macademia.history.get("nodeId").substring(2);
+    var rootClass = macademia.history.get("navFunction");
+    var url = macademia.makeActionUrlWithGroup('all', 'd3', rootClass + 'Data') + '/' + rootId;
+    var self = this;
+    if(self.tRoot){
+        self.transitionRoot(); //transition the root before running ajax
+        this.refreshViz();
+    }
 
-        this.root = {
-            "isVizRoot":true,
-            "id": macademia.history.get("interestId"),
-            'name': macademia.history.get("name"),
-            'type':'interest',
-            'children' : [96,97,98,99,9]
-        };
-//        var hubModel = this.createModel(this.root);
-    }
-    else if(macademia.history.get("navFunction")=="person"){
-//        console.log(this.people[macademia.history.get("personId")]);
-        this.root = {
-            "isVizRoot":true,
-            "id": macademia.history.get("personId"),
-            'name': macademia.history.get("name"),
-            'type':'person',
-            'pic' : '/Macademia/all/image/randomFake?foo',
-            'relevance': this.people[macademia.history.get("personId")].relevance,
-            'children' : this.people[macademia.history.get("personId")].interests
-        };
 
-//        var hubModel = this.createModel(this.root);
-    }
-    if(this.tRoot){
-        this.transitionRoot();
-        window.setTimeout(jQuery.proxy(function(){
-            this.svg.select("g.viz").remove();
-            this.createViz();
-            this.setEventHandlers();
-        },this),2500);
-    }
-    else{
-        this.svg.select("g.viz").remove();
-        this.createViz();
-        this.setEventHandlers();
-    }
+    $.ajax({ //get the data from the model encoded in JSON
+        url:url,
+        dataType:'json',
+        success: function(json){
+            var model = new VizModel(json);
+            //notice that interests has relatedQueryId that
+            //tell us which cluster it belongs to
+            var interests = model.getInterests();
+            var peeps = model.getPeople();
+            var clusterMap = model.getClusterMap();
+
+            //building hubs
+            var hubs = [];
+            for (var key in clusterMap){
+                if(rootId != key)
+                    hubs.push({type:'interest', id:Number(key), children:clusterMap[key]});
+            }
+
+            //building root
+            //We limit the number of child of the vizRoot by limiting amount of children coming from each cluster
+            //TODO:decide whether to limit the amount of the children for the root on the controller end.
+            var limitedChildren=[];
+            if (rootClass == 'person'){
+                var childrenCounts={};
+                var curInterest;
+                var rootChildren = peeps[rootId].interests; //all children of the root
+                for(var i = 0; i < rootChildren.length; i++){ //loop through all children
+                    var childId = rootChildren[i];
+                    var clusterId = interests[childId].cluster;
+                    curInterest = interests[childId];
+                    if(childrenCounts[clusterId]){
+                        //balancing the number of children from each cluster
+                        var limit = Math.floor(self.hubChildrenLimit/Object.keys(clusterMap).length);
+                        if(childrenCounts[clusterId] < limit){
+                            limitedChildren.push(curInterest.id);
+                            childrenCounts[clusterId]++;
+                        }
+                    }
+                    else{
+                        limitedChildren.push(curInterest.id); //pushing in the first children
+                        childrenCounts[curInterest.cluster]=1;
+                    }
+                }
+                var root = {type:'person', id:rootId, children: limitedChildren};
+            } else if (rootClass == 'interest') {
+                var root = {type:'interest', id:rootId, children: clusterMap[rootId]};
+            }
+
+            if(self.tRoot && rootClass=='interest'){ //taking care of the color of the interest vizRoot
+                if(self.tRoot.data()[0]&&self.tRoot.data()[0][0]&&self.tRoot.data()[0][0].color){
+                    root['color']=self.tRoot.data()[0][0].color;
+                }else{
+                    root['color']=self.tRoot.select('.interestOuter').attr('fill');
+                }
+
+            }
+
+            //building relatednessMap and parse interests (changing string id from JSON into number id)
+            var relatednessMap = {};
+            var value;
+            var interest;
+            var clusterId;
+            for(var key in interests){
+                interest = interests[key];
+                clusterId = interest.cluster;
+                if(clusterId != -1){
+                    if(relatednessMap[clusterId]){
+                        relatednessMap[clusterId].push(Number(key));
+                    } else { //don't exist, create a new array
+                        value = Number(key);
+                        relatednessMap[clusterId]=[value];
+                    }
+                }
+                //parse the interest id, we need number
+                interests[key].id = Number(interests[key].id);    //Necessary??
+            }
+
+            //building people while keeping a limit on the total number of people on a page
+            //TODO:decide whether to limit the amount of people on the controller end.
+            var limitedPeople = {};
+            var sortedPeopleIDs = [];
+            for(var id in peeps){
+                sortedPeopleIDs.push(id);
+            }
+            sortedPeopleIDs.sort(function(a,b){ //sort by overall relevance to the hub
+                return peeps[b].relevance['overall']-peeps[a].relevance['overall'];
+            })
+
+            for(var i = 0; i < self.peopleLimit; i++){
+                var id = sortedPeopleIDs[i]
+                limitedPeople[id]=peeps[id];
+            }
+
+            //Setting global variable based on data from JSON
+            self.hubs = hubs;
+            self.people = limitedPeople;
+            self.root = root;
+            self.interests = interests;
+            self.relatednessMap = relatednessMap;
+            self.transitionReady = true;
+
+            if(!self.tRoot){
+                self.svg.select("g.viz").remove();
+                self.createViz();
+                self.setEventHandlers();
+            }
+        }
+
+    });
 
 };
 
@@ -171,7 +274,7 @@ MC.MainViz.prototype.setTransitionRoot = function(d3Root,type){
 };
 
 MC.MainViz.prototype.transitionRoot = function(){
-    //TODO: Check out the code on the bottom of person.gsp, we can ask the template to redraw the data
+    //TODO: Check out the code on the bottom of person.gsp, we can ask the template to redraw the data (may not be possible)
     //Move root to center
     if(this.tRoot){
 //        var newRoot = this.svg.select('g.nextRoot');
@@ -234,7 +337,7 @@ MC.MainViz.prototype.transitionRoot = function(){
                     .duration(1000)
                     .attr("transform",function(){
                         if(d3.select(this))
-                            return "scale(2.5)";
+                            return "scale("+(20/12)+")";
                     });
                 this.tRoot
                     .select('circle.interestInner')
@@ -242,14 +345,14 @@ MC.MainViz.prototype.transitionRoot = function(){
                     .duration(1000)
                     .attr("r",function(){
                         if(d3.select(this))
-                            return d3.select(this).attr('r')*2.5;
+                            return d3.select(this).attr('r')*(20/12);
                     });
                 this.tRoot
                     .select('text')
                     .transition()
                     .duration(1000)
                     .attr("y",function(){
-                        return 42;
+                        return 31;
                     });
             }
         }
@@ -271,6 +374,10 @@ MC.MainViz.prototype.transitionRoot = function(){
                     return 0.0;
                 }
             });
+//        this.svg
+//            .transition()
+//            .delay(2500)
+//            .each('end',jQuery.proxy(this.refreshViz,this));
     }
 };
 

@@ -72,14 +72,8 @@ var MC = (window.MC = (window.MC || {}));
  *
  */
 
-
 MC.InterestViz = function(params) {
-    this.positions = [
-        [], // 1 hub case
-        [], // 2 hub case
-        [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
-        [] // 4 hub case
-    ];
+    this.positions = this.getHubPositionMap();
 
     this.hubs = params.hubs;
     this.people = params.people;
@@ -95,7 +89,7 @@ MC.InterestViz = function(params) {
 //    this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
-    this.container=this.svg.append("g").attr("class","viz").attr("width",800).attr("height",600);
+    this.container=this.svg.append("g").attr("class","viz").attr("width",1000).attr("height",700);
     // construct the hubModel here based on other parameters
     this.currentColors = [];
 
@@ -103,19 +97,32 @@ MC.InterestViz = function(params) {
     this.svgHeight = this.container.attr("height"); //container provides a padding
     this.distance = 80;
     this.relatednessMap = params.relatednessMap;
-
+    this.hubsDuration = 2500;
 
     this.gCircle = [this.hubs.length]; //same number as the hubs
 
+
     this.calculateColors();
     this.postionHubsGradientCirlces();
-    this.setRadii(30,12);
-
+    this.setRadii(20,12);
     this.setGradients();
     this.drawGradientCircles();
     this.createInterestViz();
     this.startPeople();
+
+
 };
+
+MC.InterestViz.prototype.getHubPositionMap = function(){
+    var positions = [
+        [], // 1 hub case
+        [], // 2 hub case
+        [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
+        [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.25,y:0.2},{x:0.7,y:0.2}] // 4 hub case
+    ];
+    return positions;
+}
+
 
 // Position the hubs and their gradient circles around the visRoot
 MC.InterestViz.prototype.postionHubsGradientCirlces = function(){
@@ -128,7 +135,7 @@ MC.InterestViz.prototype.postionHubsGradientCirlces = function(){
     this.root.cy = this.svgHeight * posRoot.y;
 
     //Setting the hubs
-    for(var i=0;i<hubs.length;i++){
+    for(var i=0;i<this.hubs.length;i++){
         var pos = coordinates[i+1]; //start with 1 because 0 is root
         this.hubs[i].cx = this.svgWidth * pos.x;
         this.hubs[i].cy = this.svgHeight * pos.y;
@@ -203,7 +210,11 @@ MC.InterestViz.prototype.setRadii = function(hubRadius,interestRadius) {
     this.root['r']=hubRadius;
 
     for(var i=0; i < this.gCircle.length; i++){
-        this.gCircle[i]['r'] = this.svgWidth * 0.3;
+        var scale = 1.7;
+//        console.log(this.gCircle[i]);
+        if(this.gCircle[i].id == this.root.id)
+            scale = scale * 2;
+        this.gCircle[i]['r'] = this.distance * scale;
     }
 //    this.svg
 //        .selectAll('g.interest')
@@ -244,13 +255,14 @@ MC.InterestViz.prototype.startPeople = function() {
         this.createPersonLayout();
 
 
-    }, this), 2503);
+    }, this), this.hubsDuration);
 
 };
 
 //Position the hubs and the root
 MC.InterestViz.prototype.createInterestViz = function() {
     this.createHub(this.root);
+//    console.log(this.hubs);
     for(var i = 0; i < this.hubs.length; i++) {
         this.createHub(this.hubs[i],i);
     }
@@ -279,16 +291,19 @@ MC.InterestViz.prototype.createInterestColors = function(){
 };
 
 MC.InterestViz.prototype.createHub = function(model,j) {
-    var calculatedDelay=(j+1)*500;
+    var hubDurationIncrement=500;
+    var calculatedDelay=(j+1)*hubDurationIncrement;
+    MC.hub().setDuration(hubDurationIncrement);
     var hubInterests = [];
     for (var i = 0; i < model.children.length; i++) {
         var childId = model.children[i];
         hubInterests.push(this.interests[childId]);
     }
     var rootModel = model.type == 'person' ? this.people[model.id] : this.interests[model.id];
+
     rootModel.type = model.type;
     rootModel.r=model.r;
-//    console.log(hubInterests);
+
     this.container
         .datum({
             id : model.id,
@@ -303,8 +318,8 @@ MC.InterestViz.prototype.createHub = function(model,j) {
             distance : this.distance,
             relatednessMap: this.relatednessMap
         })
-        .call(MC.hub());
-
+        .call(MC.hub().setNumHubs(this.hubs.length));
+    this.hubsDuration = calculatedDelay + hubDurationIncrement;
 };
 
 MC.InterestViz.prototype.drawGradientCircles = function(){
@@ -453,12 +468,12 @@ MC.InterestViz.prototype.getPeoplesInterests = function(d) {
 };
 
 MC.InterestViz.prototype.toolTipHover = function(e,pos){
-
+    var self = this;
+    this.xhr;
     var div = d3.select('#tooltipBox');
     var people = this.people;
     var id =0;  //stores d's id
     var type;  //stores d's type or empty string if no type
-    //prevents repetitive displaying of mouse over when mouse is moved over a single element
 
 
     if(e.id) {   //for non-hub people and interests
@@ -469,65 +484,213 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
         id= e[0].id;
         type=e[0].type;
     }
+    ///////MAKE GET CALL TO RETRIEVE DATA FOR DIV
     if(id in people && e.interests ||  type == "person" ){ //checks to see if it is a person
-        jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + id, function(data) {
+        this.xhr = jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + id, function(data) {
             jQuery('#tooltipBox').html(data);
-//            console.log(jQuery('#tooltipBox'));
+            self.createTooltip(self,pos,div);     //Once the data is set into the div, start the tooltip
         });}
     else {    //deals with interests
-        jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + id, function(data) {
+        this.xhr = jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + id, function(data) {
             jQuery('#tooltipBox').html(data);
+            self.createTooltip(self,pos,div);
         });
     }
 
-    div
-        .transition()
-        .duration(500)
-        .style("display", "block")
-        .style('left',pos.left+100)
-        .style('top',pos.top)
-        .each('end', function(){
-            window.setTimeout(function () {
-                div
-                    .on("mouseover", function() {
-                        div
-                            .transition()
-                            .style("display", "block");
-                    });
-            },250);
-            div
-                .on("mouseout", function() {
-                    div
-                        .transition()
-                        .style("display", "none");
-                });
-        });
+
 
 };
+MC.InterestViz.prototype.createTooltip = function(self,pos,div){   //self = this ; pos = selection bounding box ; div = div selection
+    var divBorderWidth = $('#tooltipBox').css('border-width').replace(/[^-\d\.]/g, '');   //Get div border width without 'px' at the end
+    var divHeight = $('#tooltipBox').outerHeight()-divBorderWidth;
+    var divWidth = $('#tooltipBox').outerWidth()-divBorderWidth;
+    var svgLoc = $('svg').position();                              //Get location of svg in order to position the div relative to the svg
+    var position = {'left':svgLoc.left,'top':svgLoc.top};
+    var boundingBoxCenter = {'x':Math.floor((pos.right+pos.left)/2),'y':Math.floor((pos.top+pos.bottom)/2)};     //Get the center of the selection rounding down for equality checking purposes
 
+    ///////SET DIV LOCATION
+    position.top+=pos.top-divHeight-25;    //Set the div top location
+    if(position.top<=0){       //if it goes above the screen
+        position.top=svgLoc.top+pos.bottom;
+    }
+
+    if(boundingBoxCenter.x>=self.root.cx){       //if it's to the right or equal with the root
+        position.left+=pos.right+25;    //the left side of the div should be 25 away from the right side of the object
+    }
+    else{                            //else it's on the left hemisphere of the graph
+        position.left=+pos.left-divWidth-25;   //set the right side of the div 25 away from the object
+        if(position.left<=0){  //if the div would go off the screen to the left
+            position.left=svgLoc.left+75;         //set it to 50
+        }
+    }
+
+    ///////CREATE POINTER ARROW
+    var lineFunction = d3.svg
+        .line()
+        .x(function(d) { return d.x; })
+        .y(function(d) { return d.y; })
+        .interpolate("linear");
+    var polyPoints=self.createTooltipArrow(pos,position,divWidth,divHeight,boundingBoxCenter);
+
+    ///////SET THE DIV AND POINTER ARROW TO THERE CALCULATED LOCATIONS
+    self.container
+        .append("path")
+        .attr('class','tooltip')
+        .attr("d", lineFunction(polyPoints))
+        .attr("stroke", "#d3d3d3")
+        .attr("stroke-width",divBorderWidth/2)
+        .attr("fill", "#d3d3d3")
+        .style("opacity", 0)
+        .style('z-index',-1)
+        .transition()
+        .duration(500)
+        .style("opacity", 1);
+    div
+        .style('left',position.left)
+        .style('top',position.top)
+        .transition()
+        .duration(500)
+        .style("opacity", 1)
+        .style('z-index','auto');
+};
+MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,divHeight,boundingBoxCenter){
+    var cornerSize = 20;  //The distance away from the closest point to add to pointer points
+    var corners = {       //The different cases to check for the closest distance between the div and the selection
+        'topRight':{      //Corner keys refer to the location on the selection
+            'x1':pos.right,        //x1 and y1 refer to the point on the selection
+            'y1':pos.top,
+            'x2':position.left,    //x2 and y2 refer to the point on the div
+            'y2':(position.top+divHeight),
+            'cx1':position.left+1,                  //cx1 and cy1 refer to the point on the div to act as part of the arrow
+            'cy1':(position.top+divHeight)-cornerSize,
+            'cx2':position.left+cornerSize,         //cx2 and cy2 refer to the other point on the div to act as part of the arrow
+            'cy2':(position.top+divHeight)-1                          //with the third point being the selection's point
+        },
+        'topLeft':{
+            'x1':pos.left,
+            'y1':pos.top,
+            'x2':(position.left+divWidth),
+            'y2':(position.top+divHeight),
+            'cx1':(position.left+divWidth)-cornerSize,
+            'cy1':(position.top+divHeight),
+            'cx2':(position.left+divWidth),
+            'cy2':(position.top+divHeight)-cornerSize
+        },
+        'bottomRight':{
+            'x1':pos.right,
+            'y1':pos.bottom,
+            'x2':position.left,
+            'y2':position.top,
+            'cx1':position.left+cornerSize,
+            'cy1':position.top,
+            'cx2':position.left,
+            'cy2':position.top+cornerSize
+        },
+        'bottomLeft':{
+            'x1':pos.left,
+            'y1':pos.bottom,
+            'x2':(position.left+divWidth),
+            'y2':position.top,
+            'cx1':(position.left+divWidth)-cornerSize,
+            'cy1':position.top,
+            'cx2':(position.left+divWidth),
+            'cy2':position.top+cornerSize
+        },
+        'topMiddle':{
+            'x1':boundingBoxCenter.x,
+            'y1':pos.top,
+            'x2':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left)     //Minor adjustments to ensure that the box is overhead
+                ? boundingBoxCenter.x                                                                  //if it is, then the middle point may shift to be directly underneath
+                : (position.left+position.left+divWidth)/2,
+            'y2':(position.top+divHeight),
+            'cx1':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left)
+                ? (boundingBoxCenter.x+(cornerSize/2)<=position.left+divWidth)
+                    ? boundingBoxCenter.x+(cornerSize/2)
+                    : position.left+divWidth
+                : position.left+divWidth,
+            'cy1':(position.top+divHeight),
+            'cx2':boundingBoxCenter.x-(cornerSize/2),
+            'cy2':(position.top+divHeight)
+        },
+        'bottomMiddle':{
+            'x1':boundingBoxCenter.x,
+            'y1':pos.bottom,
+            'x2':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left)
+                ? boundingBoxCenter.x
+                : (position.left+position.left+divWidth)/2,
+            'y2':position.top,
+            'cx1':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left)
+                ? (boundingBoxCenter.x+(cornerSize/2)<=position.left+divWidth)
+                    ? boundingBoxCenter.x+(cornerSize/2)
+                    : position.left+divWidth
+                : position.left+divWidth,
+            'cy1':position.top,
+            'cx2':boundingBoxCenter.x-(cornerSize/2),
+            'cy2':position.top
+        },
+        'rightMiddle':{                      //Not sure if this case is perfect, may need to adjust in a similar way to top and bottom middle
+            'x1':pos.right,
+            'y1':boundingBoxCenter.y,
+            'x2':position.left,
+            'y2':((position.top+divHeight)/2),
+            'cx1':position.left,
+            'cy1':((position.top+divHeight)/2)+(cornerSize/2),
+            'cx2':position.left,
+            'cy2':((position.top+divHeight)/2)-(cornerSize/2)
+        },
+        'leftMiddle':{
+            'x1':pos.left,                  //Not sure if this case is perfect, may need to adjust in a similar way to top and bottom middle
+            'y1':boundingBoxCenter.y,
+            'x2':(position.left+divWidth),
+            'y2':((position.top+divHeight)/2),
+            'cx1':(position.left+divWidth),
+            'cy1':((position.top+divHeight)/2)+(cornerSize/2),
+            'cx2':(position.left+divWidth),
+            'cy2':((position.top+divHeight)/2)-(cornerSize/2)
+        }
+    };
+    var bestDistance=Infinity;
+    var bestCorner;
+    var d = 0;
+    for(var corner in corners){      //Finds the smallest distance between corners
+        d=Math.pow((corners[corner].x1-corners[corner].x2),2)+Math.pow((corners[corner].y1-corners[corner].y2),2);
+        if(d<bestDistance){
+            bestDistance=d;
+            bestCorner=corner;
+        }
+    }
+    bestDistance=Infinity;
+    var polyPoints = [          //The points of the polygon form the pointer arrow, the middle point must be the selection's point
+        {'x':corners[bestCorner].cx1,'y':corners[bestCorner].cy1},
+        {'x':corners[bestCorner].x1,'y':corners[bestCorner].y1},
+        {'x':corners[bestCorner].cx2,'y':corners[bestCorner].cy2}
+    ];
+    return polyPoints;
+};
 //This function enables highlighting of the nodes when hovers
-//TODO: Come up with some mechanism to set and reset attribute such as opacity for highlight and fading
 MC.InterestViz.prototype.enableHoverHighlight = function(){
-    var div =  d3.select('body')
-        .append("div")
-        .attr("id","tooltipBox")
-        .style("position", "absolute");
+    //create new box if one doesn't exist
+    if(!d3.select('div#tooltipBox')[0][0]){
+        d3.select('body')
+            .append("div")
+            .attr("id","tooltipBox")
+            .style("position", "absolute")
+            .style("opacity", 0);
+    }
 
-
+    //Create event handlers for all hovers
     this.hoverVizRoot();
     this.hoverHubRoot();
     this.hoverVizRootChild();
     this.hoverHubRootChild();
     window.setTimeout(jQuery.proxy(function(){
         this.hoverPerson();                       //People aren't created fast enough, this delays the binding of the handler
-    },this),2503);
-
+    },this),this.hubsDuration);
 };
 
 MC.InterestViz.prototype.hoverPerson = function(){
     //Highlight the vizRoot, interests around vizRoot and hubRoot, hubRoot(if it is a direct interest?)
     var self = this;
-
     this.container.selectAll('g.person')
         .on("mouseover", function(e){
             var pos = this.getBoundingClientRect();
@@ -543,7 +706,8 @@ MC.InterestViz.prototype.hoverPerson = function(){
                         return self.inactiveOpacity;
                     }
                 });
-        }).on("mouseout", this.mouseOut);
+        })
+        .on("mouseout", function() { self.mouseOut(this); });
 };
 
 MC.InterestViz.prototype.hoverHubRoot = function(){
@@ -560,7 +724,6 @@ MC.InterestViz.prototype.hoverHubRoot = function(){
             self.activateHubRootAndChildren(hubRootID, hubRootMap, self, false);
             d3.select(this).select('g.label').select('text').text(d3.select(this).data()[0][0].name);
 
-
             d3.selectAll('g.person')
                 .attr('opacity',function(d){
                     if((d.relevance && d.relevance[hubRootID] )){
@@ -571,9 +734,8 @@ MC.InterestViz.prototype.hoverHubRoot = function(){
                         return self.inactiveOpacity;
                     }
                 });
-
         })
-        .on("mouseout", this.mouseOut);
+        .on("mouseout", function() { self.mouseOut(this); });
 };
 
 MC.InterestViz.prototype.hoverHubRootChild = function(){
@@ -590,7 +752,8 @@ MC.InterestViz.prototype.hoverHubRootChild = function(){
                     var interestID = e.id;
                     var hubRootID = self.findHubRootID(interestID);
                     var hubRootMap = relatednessMap[hubRootID];
-                    self.activateHubRootAndChildren(hubRootID, hubRootMap, self, true);
+                    self.activateHubRootAndChildren(hubRootID, hubRootMap, self, false);
+                    self.highlightLabel(d3.select(this));
                     d3.select(this).select('g.label').select('text').text(MC.interest().getText());
                     d3.selectAll('g.person')
                         .attr('opacity',function(d){
@@ -602,17 +765,14 @@ MC.InterestViz.prototype.hoverHubRootChild = function(){
                                 return self.inactiveOpacity;
                             }
                         });
-
                 })
-                .on("mouseout", self.mouseOut);
+                .on("mouseout", function() { self.mouseOut(this); });
         }
     });
-
-
 };
 
 MC.InterestViz.prototype.hoverVizRoot = function(){
-    var self =this;
+    var self = this;
     d3.select('g.vizRoot')
         .on("mouseover", function(e){
             var pos = this.getBoundingClientRect();
@@ -629,7 +789,7 @@ MC.InterestViz.prototype.hoverVizRoot = function(){
                     }
                 });
         })
-        .on("mouseout", this.mouseOut);
+        .on("mouseout", function() { self.mouseOut(this); });
 };
 
 MC.InterestViz.prototype.hoverVizRootChild = function(){
@@ -658,24 +818,31 @@ MC.InterestViz.prototype.hoverVizRootChild = function(){
                 });
             self.highlightLabel(d3.select(this));
         })
-        .on("mouseout", this.mouseOut);
+        .on("mouseout", function() { self.mouseOut(this); });
 };
 
-MC.InterestViz.prototype.mouseOut = function(){
-    if(d3.select(this).classed('interest')){
-        d3.select(this).select('g.label').select('text').text(MC.interest().getCleanedText());
+MC.InterestViz.prototype.mouseOut = function(domElem){
+    this.xhr.abort();
+    if(d3.select(domElem).classed('interest')){
+        d3.select(domElem).select('g.label').select('text').text(MC.interest().getCleanedText());
     }
     d3.selectAll('g.hubRoot, g.interest, g.person, g.hub')
         .attr('opacity',this.activeOpacity)
+        .selectAll('g.hubRoot, g.interest, g.hub')
         .selectAll('g.label')
         .attr('fill',this.inactiveColor);
-    d3.select('body')
-        .select("#tooltipBox")
+    d3.select('#tooltipBox')
         .transition()
-        .delay(500)
         .duration(500)
-        .style("display", "none");
+        .style("opacity", 0)
+        .style('z-index',-1);
+    d3.selectAll('.tooltip')
+        .transition()
+        .duration(200)
+        .style("opacity", 0)
+        .remove();
 };
+
 MC.InterestViz.prototype.findHubRootID = function(interestID){
     for(var i in this.relatednessMap){
         if(this.relatednessMap[i].indexOf(interestID) >= 0){ //find out which hub it is in the map
@@ -683,11 +850,13 @@ MC.InterestViz.prototype.findHubRootID = function(interestID){
         }
     }
 };
+
 MC.InterestViz.prototype.highlightLabel = function(selector){
     selector
         .selectAll('g.label')
         .attr('fill',this.activeColor);
 };
+
 MC.InterestViz.prototype.activateHubRootAndChildren = function(mapID, map, self, childText){      //ChildText should be a bool to say whether or not to color the children's label
     d3.selectAll('g.hubRoot, g.interest')
         .attr('opacity',function(d){

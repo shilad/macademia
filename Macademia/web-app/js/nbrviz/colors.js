@@ -82,7 +82,7 @@ NVC.assign = function(ids) {
  */
 NVC.getColor = function(id) {
     if (NVC.map == null) {
-        alert('getColor assertion error: colors is null');
+        //alert('getColor assertion error: colors is null');
         return 0.001;
     }
     if (!(id in NVC.map)) {
