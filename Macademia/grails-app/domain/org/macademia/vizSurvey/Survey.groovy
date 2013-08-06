@@ -10,11 +10,13 @@ class Survey {
     String task
     String visualization
     String root
+    String recap
 
     static constraints = {
-        person(nullable: true)
+        surveyPerson(nullable: true)
         task(nullable: true)
         visualization(nullable: true)
         root(nullable: true)
+        recap(nullable: true)
     }
 }
