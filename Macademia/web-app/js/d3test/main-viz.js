@@ -49,7 +49,6 @@ MC.MainViz.prototype.setEventHandlers = function(){
 MC.MainViz.prototype.refreshViz = function(){
     var self =this;
     var intervalID;
-
     var refresh = function(){
         if (self.transitionReady){
             clearInterval(intervalID);
@@ -65,9 +64,7 @@ MC.MainViz.prototype.refreshViz = function(){
             }
         }
     };
-
-    intervalID = setInterval(function(){refresh();}, 500);
-
+    intervalID = setInterval(function(){  refresh();  }, 500);
 };
 
 MC.MainViz.prototype.onLoad = function(){
