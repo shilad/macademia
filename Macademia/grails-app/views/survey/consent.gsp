@@ -34,7 +34,7 @@
 </g:link>
 
 <g:link controller="NewSurvey" action="applyConsent"
-        params='[consent: true, subToken: "${subject ? subject.token : null}"]'>
+        params='[consent: false, subToken: "${subject ? subject.token : null}"]'>
     <div class="largeCircle" style="background: greenyellow; top:118mm;
     left:106mm; "> <div class ="insideCircle"></div></div></div>
 <p style ="position:absolute; top: 117mm;left: 118mm;">No, I do not consent</p>

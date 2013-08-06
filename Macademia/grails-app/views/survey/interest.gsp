@@ -173,14 +173,13 @@ td.interest {
     %{--button to move forward bottom right corner--}%
     <tr>
         <td> <br>
-
-
-
         </td>
         <td>    two
         </td>
     <td>
-        <div class="largeCircle" > <div class ="insideCircle">Hello</div></div>
+<g:link controller="NewSurvey" action="applyConsent"
+        params='[consent: true, subToken: "${subject ? subject.token : null}"]'>
+        <div class="largeCircle" > <div class ="insideCircle">Hello</div></div>  </g:link>
         %{--<div class="insideCircle">Hello</div>--}%
 
     </td>

@@ -26,8 +26,10 @@ p{color: #000000;
     <h1 style="color:black; top: 5mm;left:6mm; position:absolute;
     ">Instructions</h1>
     <p style="color:black; top: 23mm;left:6mm; position:absolute; width: 194mm">Pete Bitzer and his wife Penelope really did exist much to little Salley's surprise. They had a light blue male box and lived on Dreary Lane. </p>
+<g:link controller="NewSurvey" action="applyConsent"
+        params='[consent: true, subToken: "${subject ? subject.token : null}"]'>
     <div class="largeCircle" style="background: #b2a3f5; top:103mm;
     left:169mm "> <p style="font-size: 15px; top:4mm; left:3mm; position:absolute">Continue</p><div class ="insideCircle"></div></div></div>
-
+</g:link>
 </body>
 </html>
