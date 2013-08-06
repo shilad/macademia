@@ -18,7 +18,7 @@ MC.MainViz = function(params) {
 //    this.relatednessMap = params.relatednessMap;
 
 //    console.log(params);
-    this.peopleLimit =  macademia.history.get('navFunction')=='person' ? 15 : 14;
+    this.peopleLimit =  macademia.history.get('navFunction')=='person' ? 10 : 14;
     this.hubChildrenLimit = 10;
     this.transitionReady=false;
     this.colors =[ //giving the colors used on the page to color hubs
@@ -70,14 +70,15 @@ MC.MainViz.prototype.refreshViz = function(){
 MC.MainViz.prototype.onLoad = function(){
     var rootId = macademia.history.get("nodeId").substring(2);
     var rootClass = macademia.history.get("navFunction");
-    var url = macademia.makeActionUrlWithGroup('all', 'd3', rootClass + 'Data') + '/' + rootId;
+    var url = macademia.makeActionUrlWithGroup('all', 'd3', rootClass + 'Data') +
+        '/?id=' + rootId + '&numPeople=' + this.peopleLimit;
     var self = this;
     if(self.tRoot){
         self.transitionRoot(); //transition the root before running ajax
         this.refreshViz();
     }
 
-
+    console.log(url);
     $.ajax({ //get the data from the model encoded in JSON
         url:url,
         dataType:'json',
@@ -157,23 +158,23 @@ MC.MainViz.prototype.onLoad = function(){
 
             //building people while keeping a limit on the total number of people on a page
             //TODO:decide whether to limit the amount of people on the controller end.
-            var limitedPeople = {};
-            var sortedPeopleIDs = [];
-            for(var id in peeps){
-                sortedPeopleIDs.push(id);
-            }
-            sortedPeopleIDs.sort(function(a,b){ //sort by overall relevance to the hub
-                return peeps[b].relevance['overall']-peeps[a].relevance['overall'];
-            })
-
-            for(var i = 0; i < self.peopleLimit; i++){
-                var id = sortedPeopleIDs[i]
-                limitedPeople[id]=peeps[id];
-            }
+//            var limitedPeople = {};
+//            var sortedPeopleIDs = [];
+//            for(var id in peeps){
+//                sortedPeopleIDs.push(id);
+//            }
+//            sortedPeopleIDs.sort(function(a,b){ //sort by overall relevance to the hub
+//                return peeps[b].relevance['overall']-peeps[a].relevance['overall'];
+//            })
+//
+//            for(var i = 0; i < self.peopleLimit; i++){
+//                var id = sortedPeopleIDs[i]
+//                limitedPeople[id]=peeps[id];
+//            }
 
             //Setting global variable based on data from JSON
             self.hubs = hubs;
-            self.people = limitedPeople;
+            self.people = peeps;
             self.root = root;
             self.interests = interests;
             self.relatednessMap = relatednessMap;
