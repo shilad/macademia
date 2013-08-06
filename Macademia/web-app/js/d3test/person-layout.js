@@ -482,7 +482,7 @@ MC.personLayout = function () {
         } else if (d.type == 'person') {
             return -2000;
         } else if (d.type == 'leaf'){
-            return -2000;
+            return -500;
         } else {
             return -100;
         }
