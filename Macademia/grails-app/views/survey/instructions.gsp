@@ -9,39 +9,17 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
+    <r:require modules="survey"/>
+    <meta name="layout" content="main"/>
+
   <title></title>
 </head>
 <style>
-.background{
-    width:200mm;
-    height:130mm;
-    border-radius:50px;
-    font-size:20px;
-    background: whitesmoke;}
+
 p{color: #000000;
     text-align:left;
   }
 
-.largeCircle{
-    width:80px;
-    height:80px;
-    border-radius:50px;
-    position:absolute;
-}
-.insideCircle{
-    width:60px;
-    border: 2px solid #ffffff;
-    height:60px;
-    border-radius:50px;
-    font-size:20px;
-    color: #ffffff;
-    line-height:100px;
-    text-align:center;
-    position:absolute;
-    top:2mm;
-    left:9%;
-
-}
 </style>
 <body>
 <div class="background">

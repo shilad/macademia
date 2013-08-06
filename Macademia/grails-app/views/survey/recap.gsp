@@ -12,16 +12,6 @@
     <r:require modules="survey"/>
     <meta name="layout" content="main"/>
   <title></title>
-    <style>
-
-    .background{
-        width:200mm;
-        height:130mm;
-        border-radius:50px;
-        font-size:20px;
-        background: whitesmoke;}
-
-    </style>
 
 </head>
 <body>

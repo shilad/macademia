@@ -99,14 +99,14 @@ td.interest {
     display: block;
     vertical-align: middle;
 }
-.background{
-    width:60%;
-    height:60%;
-    border-radius:50px;
-    font-size:20px;
-    color: #ffffff;
-    line-height:100px;
-    background: whitesmoke;}
+/*.background{*/
+    /*width:60%;*/
+    /*height:60%;*/
+    /*border-radius:50px;*/
+    /*font-size:20px;*/
+    /*color: #ffffff;*/
+    /*line-height:100px;*/
+    /*background: whitesmoke;}*/
 .largeCircle{
     width:100px;
     height:100px;
