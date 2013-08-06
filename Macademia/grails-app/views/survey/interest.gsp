@@ -141,8 +141,16 @@ td.interest {
         </td>
     </tr>
 
+
     <tr>
+
         <td class="left-column">
+            <form id='add-interest'>
+
+                <input id = "textBox" type="text" placeholder="interest name here"/>
+                <br/>
+                <input class="addButton" type="submit" value="Add Interest" id="submitButton"/>
+            </form>
             <ul id="interestList">
                 <li class="sortable-boxes" name="sortable-box">
                     %{--this table is for aligning the words in the sortable box--}%
@@ -165,12 +173,7 @@ td.interest {
     %{--button to move forward bottom right corner--}%
     <tr>
         <td> <br>
-            <form id='add-interest'>
 
-                <input id = "textBox" type="text" placeholder="interest name here"/>
-                <br/>
-                <input class="addButton" type="submit" value="Add Interest" id="submitButton"/>
-            </form>
 
 
         </td>

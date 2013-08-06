@@ -88,6 +88,7 @@ modules = {
         resource url: '/js/d3test/comparisonSurvey.js'
 
         resource url: '/js/d3test/main-viz.js'
+
     }
 
     d3demo {
