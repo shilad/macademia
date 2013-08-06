@@ -674,7 +674,7 @@ MC.InterestViz.prototype.enableHoverHighlight = function(){
         div =  d3.select('body')
             .append("div")
             .attr("id","tooltipBox")
-            .style("position", "absolute");
+            .style("position", "absolute")
     }
     else{
         div= d3.select('div#tooltipBox');
