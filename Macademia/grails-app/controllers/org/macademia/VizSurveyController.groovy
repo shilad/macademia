@@ -1,6 +1,6 @@
-package org.macademia.vizSurvey
+package org.macademia
 
-class ConsentController {
+class VizSurveyController {
 
     def interest() {
         render(view: 'instructions')
@@ -9,4 +9,6 @@ class ConsentController {
     def index() {
         render('Hello, world!')
     }
+
+
 }
