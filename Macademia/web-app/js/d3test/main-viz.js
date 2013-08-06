@@ -127,7 +127,12 @@ MC.MainViz.prototype.onLoad = function(){
             }
 
             if(self.tRoot && rootClass=='interest'){ //taking care of the color of the interest vizRoot
-                root['color']=self.tRoot.select('.interestOuter').attr('fill');
+                if(self.tRoot.data()[0]&&self.tRoot.data()[0][0]&&self.tRoot.data()[0][0].color){
+                    root['color']=self.tRoot.data()[0][0].color;
+                }else{
+                    root['color']=self.tRoot.select('.interestOuter').attr('fill');
+                }
+
             }
 
             //building relatednessMap and parse interests (changing string id from JSON into number id)

@@ -97,7 +97,7 @@ MC.InterestViz = function(params) {
     this.svgHeight = this.container.attr("height"); //container provides a padding
     this.distance = 80;
     this.relatednessMap = params.relatednessMap;
-
+    this.hubsDuration = 2500;
 
     this.gCircle = [this.hubs.length]; //same number as the hubs
 
@@ -105,7 +105,6 @@ MC.InterestViz = function(params) {
     this.calculateColors();
     this.postionHubsGradientCirlces();
     this.setRadii(20,12);
-
     this.setGradients();
     this.drawGradientCircles();
     this.createInterestViz();
@@ -256,7 +255,7 @@ MC.InterestViz.prototype.startPeople = function() {
         this.createPersonLayout();
 
 
-    }, this), 2503);
+    }, this), this.hubsDuration);
 
 };
 
@@ -320,7 +319,7 @@ MC.InterestViz.prototype.createHub = function(model,j) {
             relatednessMap: this.relatednessMap
         })
         .call(MC.hub().setNumHubs(this.hubs.length));
-
+    this.hubsDuration = calculatedDelay + hubDurationIncrement;
 };
 
 MC.InterestViz.prototype.drawGradientCircles = function(){
@@ -472,11 +471,9 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
     var self = this;
     this.xhr;
     var div = d3.select('#tooltipBox');
-//    if(!div.style('opacity')||div.style('opacity')<0.99){
     var people = this.people;
     var id =0;  //stores d's id
     var type;  //stores d's type or empty string if no type
-    //prevents repetitive displaying of mouse over when mouse is moved over a single element
 
 
     if(e.id) {   //for non-hub people and interests
@@ -487,11 +484,11 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
         id= e[0].id;
         type=e[0].type;
     }
+    ///////MAKE GET CALL TO RETRIEVE DATA FOR DIV
     if(id in people && e.interests ||  type == "person" ){ //checks to see if it is a person
         this.xhr = jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + id, function(data) {
             jQuery('#tooltipBox').html(data);
-            self.createTooltip(self,pos,div);
-//            console.log(jQuery('#tooltipBox'));
+            self.createTooltip(self,pos,div);     //Once the data is set into the div, start the tooltip
         });}
     else {    //deals with interests
         this.xhr = jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + id, function(data) {
@@ -503,17 +500,20 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
 
 
 };
-MC.InterestViz.prototype.createTooltip = function(self,pos,div){
-    var divBorderWidth = $('#tooltipBox').css('border-width').replace(/[^-\d\.]/g, '');
+MC.InterestViz.prototype.createTooltip = function(self,pos,div){   //self = this ; pos = selection bounding box ; div = div selection
+    var divBorderWidth = $('#tooltipBox').css('border-width').replace(/[^-\d\.]/g, '');   //Get div border width without 'px' at the end
     var divHeight = $('#tooltipBox').outerHeight()-divBorderWidth;
     var divWidth = $('#tooltipBox').outerWidth()-divBorderWidth;
-    var svgLoc = $('svg').position();
+    var svgLoc = $('svg').position();                              //Get location of svg in order to position the div relative to the svg
     var position = {'left':svgLoc.left,'top':svgLoc.top};
-    var boundingBoxCenter = {'x':Math.floor((pos.right+pos.left)/2),'y':Math.floor((pos.top+pos.bottom)/2)};
-    position.top+=pos.top-divHeight-25;
+    var boundingBoxCenter = {'x':Math.floor((pos.right+pos.left)/2),'y':Math.floor((pos.top+pos.bottom)/2)};     //Get the center of the selection rounding down for equality checking purposes
+
+    ///////SET DIV LOCATION
+    position.top+=pos.top-divHeight-25;    //Set the div top location
     if(position.top<=0){       //if it goes above the screen
         position.top=svgLoc.top+pos.bottom;
     }
+
     if(boundingBoxCenter.x>=self.root.cx){       //if it's to the right or equal with the root
         position.left+=pos.right+25;    //the left side of the div should be 25 away from the right side of the object
     }
@@ -524,21 +524,21 @@ MC.InterestViz.prototype.createTooltip = function(self,pos,div){
         }
     }
 
+    ///////CREATE POINTER ARROW
     var lineFunction = d3.svg
         .line()
         .x(function(d) { return d.x; })
         .y(function(d) { return d.y; })
         .interpolate("linear");
-
     var polyPoints=self.createTooltipArrow(pos,position,divWidth,divHeight,boundingBoxCenter);
-//    console.log($('#tooltipBox').css('border-width').replace(/[^-\d\.]/g, ''));
+
+    ///////SET THE DIV AND POINTER ARROW TO THERE CALCULATED LOCATIONS
     self.container
         .append("path")
         .attr('class','tooltip')
         .attr("d", lineFunction(polyPoints))
         .attr("stroke", "#d3d3d3")
         .attr("stroke-width",divBorderWidth/2)
-//        .attr('stroke-linecap',"round")
         .attr("fill", "#d3d3d3")
         .style("opacity", 0)
         .style('z-index',-1)
@@ -554,17 +554,17 @@ MC.InterestViz.prototype.createTooltip = function(self,pos,div){
         .style('z-index','auto');
 };
 MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,divHeight,boundingBoxCenter){
-    var cornerSize = 20;
-    var corners = {
-        'topRight':{
-            'x1':pos.right,
+    var cornerSize = 20;  //The distance away from the closest point to add to pointer points
+    var corners = {       //The different cases to check for the closest distance between the div and the selection
+        'topRight':{      //Corner keys refer to the location on the selection
+            'x1':pos.right,        //x1 and y1 refer to the point on the selection
             'y1':pos.top,
-            'x2':position.left,
+            'x2':position.left,    //x2 and y2 refer to the point on the div
             'y2':(position.top+divHeight),
-            'cx1':position.left+1,
+            'cx1':position.left+1,                  //cx1 and cy1 refer to the point on the div to act as part of the arrow
             'cy1':(position.top+divHeight)-cornerSize,
-            'cx2':position.left+cornerSize,
-            'cy2':(position.top+divHeight)-1
+            'cx2':position.left+cornerSize,         //cx2 and cy2 refer to the other point on the div to act as part of the arrow
+            'cy2':(position.top+divHeight)-1                          //with the third point being the selection's point
         },
         'topLeft':{
             'x1':pos.left,
@@ -599,8 +599,8 @@ MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,div
         'topMiddle':{
             'x1':boundingBoxCenter.x,
             'y1':pos.top,
-            'x2':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left)
-                ? boundingBoxCenter.x
+            'x2':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left)     //Minor adjustments to ensure that the box is overhead
+                ? boundingBoxCenter.x                                                                  //if it is, then the middle point may shift to be directly underneath
                 : (position.left+position.left+divWidth)/2,
             'y2':(position.top+divHeight),
             'cx1':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left)
@@ -628,7 +628,7 @@ MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,div
             'cx2':boundingBoxCenter.x-(cornerSize/2),
             'cy2':position.top
         },
-        'rightMiddle':{                      //Not sure if this case is perfect
+        'rightMiddle':{                      //Not sure if this case is perfect, may need to adjust in a similar way to top and bottom middle
             'x1':pos.right,
             'y1':boundingBoxCenter.y,
             'x2':position.left,
@@ -639,7 +639,7 @@ MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,div
             'cy2':((position.top+divHeight)/2)-(cornerSize/2)
         },
         'leftMiddle':{
-            'x1':pos.left,                  //Not sure if this case is perfect
+            'x1':pos.left,                  //Not sure if this case is perfect, may need to adjust in a similar way to top and bottom middle
             'y1':boundingBoxCenter.y,
             'x2':(position.left+divWidth),
             'y2':((position.top+divHeight)/2),
@@ -652,7 +652,7 @@ MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,div
     var bestDistance=Infinity;
     var bestCorner;
     var d = 0;
-    for(var corner in corners){
+    for(var corner in corners){      //Finds the smallest distance between corners
         d=Math.pow((corners[corner].x1-corners[corner].x2),2)+Math.pow((corners[corner].y1-corners[corner].y2),2);
         if(d<bestDistance){
             bestDistance=d;
@@ -660,7 +660,7 @@ MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,div
         }
     }
     bestDistance=Infinity;
-    var polyPoints = [
+    var polyPoints = [          //The points of the polygon form the pointer arrow, the middle point must be the selection's point
         {'x':corners[bestCorner].cx1,'y':corners[bestCorner].cy1},
         {'x':corners[bestCorner].x1,'y':corners[bestCorner].y1},
         {'x':corners[bestCorner].cx2,'y':corners[bestCorner].cy2}
@@ -669,25 +669,23 @@ MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,div
 };
 //This function enables highlighting of the nodes when hovers
 MC.InterestViz.prototype.enableHoverHighlight = function(){
-    var div;
+    //create new box if one doesn't exist
     if(!d3.select('div#tooltipBox')[0][0]){
-        div =  d3.select('body')
+        d3.select('body')
             .append("div")
             .attr("id","tooltipBox")
             .style("position", "absolute")
-    }
-    else{
-        div= d3.select('div#tooltipBox');
+            .style("opacity", 0);
     }
 
+    //Create event handlers for all hovers
     this.hoverVizRoot();
     this.hoverHubRoot();
     this.hoverVizRootChild();
     this.hoverHubRootChild();
     window.setTimeout(jQuery.proxy(function(){
         this.hoverPerson();                       //People aren't created fast enough, this delays the binding of the handler
-    },this),2503);
-
+    },this),this.hubsDuration);
 };
 
 MC.InterestViz.prototype.hoverPerson = function(){

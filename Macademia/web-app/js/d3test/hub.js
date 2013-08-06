@@ -49,9 +49,10 @@ MC.hub = function() {
                 color = data['color'];
 //                console.log(data['color']);
             }
-            else if (root['color'])
+            else if (root['color']){
                 color = root['color'];
-
+            }
+            root['color']=color;
             var id = 0; //default id for the hub
             if(data['id'])
                 id = data.id;
