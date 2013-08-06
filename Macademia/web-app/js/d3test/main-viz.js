@@ -8,17 +8,8 @@
 var MC = (window.MC = (window.MC || {}));
 
 MC.MainViz = function(params) {
-//    this.hubs = params.hubs;
-//    this.people = params.people;
-//    this.root = params.root;
-//    this.svg = params.svg;
-//    this.circles = params.circles;
-//    this.interests = params.interests;
-//    this.colors = params.colors;
-//    this.relatednessMap = params.relatednessMap;
-
-//    console.log(params);
-    this.peopleLimit =  macademia.history.get('navFunction')=='person' ? 15 : 14;
+    var hash = macademia.history.get("nodeId");
+    this.peopleLimit =  this.parseNodeIdHash(hash).rootClass =='person' ? 15 : 14;
     this.hubChildrenLimit = 10;
     this.transitionReady=false;
     this.colors =[ //giving the colors used on the page to color hubs
@@ -67,9 +58,17 @@ MC.MainViz.prototype.refreshViz = function(){
     intervalID = setInterval(function(){  refresh();  }, 500);
 };
 
+MC.MainViz.prototype.parseNodeIdHash = function(hash){
+    var rootId = hash.substring(2);
+    var rootClass = hash.substring(0,1) == 'p' ? 'person': 'interest';
+    return {rootId:rootId, rootClass:rootClass};
+};
+
 MC.MainViz.prototype.onLoad = function(){
-    var rootId = macademia.history.get("nodeId").substring(2);
-    var rootClass = macademia.history.get("navFunction");
+    var hash = macademia.history.get("nodeId");
+    var parsedMap = this.parseNodeIdHash(hash);
+    var rootId = parsedMap.rootId;
+    var rootClass = parsedMap.rootClass;
     var url = macademia.makeActionUrlWithGroup('all', 'd3', rootClass + 'Data') + '/' + rootId;
     var self = this;
     if(self.tRoot){
@@ -211,17 +210,17 @@ MC.MainViz.prototype.setInterestEventHandler = function(){
                 var targetMap;
                 if(e[0]){
                     targetMap = {
-                        "nodeId":"i_"+ e[0].id,
-                        "interestId": e[0].id,
-                        "navFunction":"interest",
-                        "name": e[0].name
+                        "nodeId":"i_"+ e[0].id
+//                        "interestId": e[0].id,
+//                        "navFunction":"interest",
+//                        "name": e[0].name
                     };
                 }else{
                     targetMap = {
-                        "nodeId":"i_"+ e.id,
-                        "interestId": e.id,
-                        "navFunction":"interest",
-                        "name": e.name
+                        "nodeId":"i_"+ e.id
+//                        "interestId": e.id,
+//                        "navFunction":"interest",
+//                        "name": e.name
                     };
                 }
 
@@ -247,10 +246,10 @@ MC.MainViz.prototype.setPeopleEventHandler = function(){
             .selectAll("g.person")
             .on("click",function(e){
                 var targetMap = {
-                    "nodeId":"p_"+ e.id,
-                    "personId": e.id,
-                    "navFunction":"person",
-                    "name": e.name
+                    "nodeId":"p_"+ e.id
+//                    "personId": e.id,
+//                    "navFunction":"person",
+//                    "name": e.name
                 };
                 var types = ['searchBox','interestId','personId','requestId'];
                 for(var i=0;i<types.length;i++){
