@@ -8,17 +8,8 @@
 var MC = (window.MC = (window.MC || {}));
 
 MC.MainViz = function(params) {
-//    this.hubs = params.hubs;
-//    this.people = params.people;
-//    this.root = params.root;
-//    this.svg = params.svg;
-//    this.circles = params.circles;
-//    this.interests = params.interests;
-//    this.colors = params.colors;
-//    this.relatednessMap = params.relatednessMap;
-
-//    console.log(params);
-    this.peopleLimit =  macademia.history.get('navFunction')=='person' ? 10 : 14;
+    var hash = macademia.history.get("nodeId");
+    this.peopleLimit =  this.parseNodeIdHash(hash).rootClass =='person' ? 10 : 14;
     this.hubChildrenLimit = 10;
     this.transitionReady=false;
     this.colors =[ //giving the colors used on the page to color hubs
@@ -67,9 +58,17 @@ MC.MainViz.prototype.refreshViz = function(){
     intervalID = setInterval(function(){  refresh();  }, 500);
 };
 
+MC.MainViz.prototype.parseNodeIdHash = function(hash){
+    var rootId = hash.substring(2);
+    var rootClass = hash.substring(0,1) == 'p' ? 'person': 'interest';
+    return {rootId:rootId, rootClass:rootClass};
+};
+
 MC.MainViz.prototype.onLoad = function(){
-    var rootId = macademia.history.get("nodeId").substring(2);
-    var rootClass = macademia.history.get("navFunction");
+    var hash = macademia.history.get("nodeId");
+    var parsedMap = this.parseNodeIdHash(hash);
+    var rootId = parsedMap.rootId;
+    var rootClass = parsedMap.rootClass;
     var url = macademia.makeActionUrlWithGroup('all', 'd3', rootClass + 'Data') +
         '/?id=' + rootId + '&numPeople=' + this.peopleLimit;
     var self = this;
@@ -78,7 +77,7 @@ MC.MainViz.prototype.onLoad = function(){
         this.refreshViz();
     }
 
-    console.log(url);
+
     $.ajax({ //get the data from the model encoded in JSON
         url:url,
         dataType:'json',
@@ -158,23 +157,23 @@ MC.MainViz.prototype.onLoad = function(){
 
             //building people while keeping a limit on the total number of people on a page
             //TODO:decide whether to limit the amount of people on the controller end.
-//            var limitedPeople = {};
-//            var sortedPeopleIDs = [];
-//            for(var id in peeps){
-//                sortedPeopleIDs.push(id);
-//            }
-//            sortedPeopleIDs.sort(function(a,b){ //sort by overall relevance to the hub
-//                return peeps[b].relevance['overall']-peeps[a].relevance['overall'];
-//            })
-//
-//            for(var i = 0; i < self.peopleLimit; i++){
-//                var id = sortedPeopleIDs[i]
-//                limitedPeople[id]=peeps[id];
-//            }
+            var limitedPeople = {};
+            var sortedPeopleIDs = [];
+            for(var id in peeps){
+                sortedPeopleIDs.push(id);
+            }
+            sortedPeopleIDs.sort(function(a,b){ //sort by overall relevance to the hub
+                return peeps[b].relevance['overall']-peeps[a].relevance['overall'];
+            })
+
+            for(var i = 0; i < self.peopleLimit; i++){
+                var id = sortedPeopleIDs[i]
+                limitedPeople[id]=peeps[id];
+            }
 
             //Setting global variable based on data from JSON
             self.hubs = hubs;
-            self.people = peeps;
+            self.people = limitedPeople;
             self.root = root;
             self.interests = interests;
             self.relatednessMap = relatednessMap;
