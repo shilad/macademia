@@ -129,7 +129,7 @@
         </div>
 
     %{--button to move forward bottom right corner--}%
-    <a href="#">
+    <a href="instructions">
         <div class="largeCircle" style="background: #A8C4E5; top:115mm; left: 185mm;">
             <div class = "insideCircle" style="top: 0.5mm; left: 0.5mm;"></div>
         </div>

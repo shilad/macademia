@@ -362,7 +362,24 @@
             </div>
         </td>
     </tr>
+    <td>
+        %{--<FORM METHOD="LINK" ACTION="page1.htm">--}%
+            %{--<INPUT TYPE="submit" VALUE="Clickable Button">--}%
+        %{--</FORM>    --}%
+
+        <g:link url="recap" params='[consent: true]'>
+            <div class="largeCircle" style="background: #f5a3d6; top:100mm;left:140mm ">
+                <div class ="insideCircle" style="top: 0.5mm; left: 0.5mm;"></div></div></div>
+            <p style ="position:absolute; top: 103mm;left: 153mm;">Done</p>
+        </g:link>
+
+
+
+
+    </td>
 </table>
+
+
 
 </body>
 

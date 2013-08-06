@@ -22,8 +22,7 @@
 <p style="top: 27mm;left:14mm;">Pete Bitzer and his wife Penelope
 really did exist, much to little Sally's surprise. They had a light blue mail box and lived on Dreary Lane, sure,
 but it was all a front put up by the government to avoid taxes.</p>
-<g:link controller="NewSurvey" action="applyConsent"
-        params='[consent: true, subToken: "${subject ? subject.token : null}"]'>
+<g:link url="vizTask">
     <div class="largeCircle" > <p style="font-size: 15px; top:4mm; left:3mm; position:absolute">Continue</p><div class = "insideCircle" "></div></div></div>
 </g:link>
 </body>
