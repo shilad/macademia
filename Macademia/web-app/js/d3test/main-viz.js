@@ -42,47 +42,29 @@ MC.MainViz.prototype.setEventHandlers = function(){
     if(this.viz){
         this.viz.enableHoverHighlight();
     }
+    this.transitionReady=false;
+
 };
 
 MC.MainViz.prototype.refreshViz = function(){
     var self =this;
-//    var checkReady = function(){
-//        if ( self.transitionReady == true ){
-//            refresh();
-//        }else
-//        {
-//            window.setTimeout(checkReady,500);
-//        }
-//    };
-//    while(!self.transitionReady){
-//        window.setTimeout(function(){},500);
-//    }
+    var intervalID;
     var refresh = function(){
-        if(self.tRoot){ //If we are on transition
-            self.svg.select("g.viz").remove();
-            self.createViz();
-            self.setEventHandlers();
-            self.transitionReady=false;
-        } else{
-            self.svg.select("g.viz").remove();
-            self.createViz();
-            self.setEventHandlers();
-            self.transitionReady=false;
+        if (self.transitionReady){
+            clearInterval(intervalID);
+            if(self.tRoot){ //If we are on transition
+                self.svg.select("g.viz").remove();
+                self.createViz();
+                self.setEventHandlers();
+            }
+            else{
+                self.svg.select("g.viz").remove();
+                self.createViz();
+                self.setEventHandlers();
+            }
         }
     };
-
-    var timerId = window.setInterval(function(){
-        console.log("Running Interval");
-        clearInterval(timerId);
-        if(self.transitionReady){
-            refresh();
-            console.log(this);
-        }
-    },500)
-
-
-//    refresh();
-//    checkReady();
+    intervalID = setInterval(function(){  refresh();  }, 500);
 };
 
 MC.MainViz.prototype.onLoad = function(){
@@ -92,6 +74,7 @@ MC.MainViz.prototype.onLoad = function(){
     var self = this;
     if(self.tRoot){
         self.transitionRoot(); //transition the root before running ajax
+        this.refreshViz();
     }
 
 
@@ -189,14 +172,12 @@ MC.MainViz.prototype.onLoad = function(){
             self.root = root;
             self.interests = interests;
             self.relatednessMap = relatednessMap;
-
             self.transitionReady = true;
 
             if(!self.tRoot){
                 self.svg.select("g.viz").remove();
                 self.createViz();
                 self.setEventHandlers();
-                self.transitionReady=false;
             }
         }
 
@@ -366,7 +347,7 @@ MC.MainViz.prototype.transitionRoot = function(){
                     .transition()
                     .duration(1000)
                     .attr("y",function(){
-                        return 42;
+                        return 31;
                     });
             }
         }
@@ -387,8 +368,11 @@ MC.MainViz.prototype.transitionRoot = function(){
                 }else{
                     return 0.0;
                 }
-            })
-            .each('end',jQuery.proxy(this.refreshViz,this));
+            });
+//        this.svg
+//            .transition()
+//            .delay(2500)
+//            .each('end',jQuery.proxy(this.refreshViz,this));
     }
 };
 
