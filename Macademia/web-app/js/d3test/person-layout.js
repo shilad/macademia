@@ -457,16 +457,7 @@ MC.personLayout = function () {
 
         force.on('end',function(e){
             pieSpinning(); //To ensure that the last value is used, call once more
-//            d3.select('svg').select('g.vizRoot').select('g.pie');
         });
-
-//        d3.select("body").on("click", function () {      //Creates error when updating simultaneously
-//            peopleNodes.forEach(function (o, i) {
-//                o.x += (Math.random() - .5) * 40;
-//                o.y += (Math.random() - .5) * 40;
-//            });
-//            force.resume();
-//        });
 
         vizRootSpinning();
 
@@ -491,7 +482,7 @@ MC.personLayout = function () {
         } else if (d.type == 'person') {
             return -2000;
         } else if (d.type == 'leaf'){
-            return -500;
+            return -2000;
         } else {
             return -100;
         }
