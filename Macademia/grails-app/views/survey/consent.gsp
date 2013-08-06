@@ -17,27 +17,22 @@
 <body>
 <div class = "background">
 
-    <h1 style="position: absolute;top: 2mm;left:11mm">Consent</h1>
+    <h1 style="top: 9mm;left:14mm;">Consent</h1>
 
-    <p style="position: absolute;top: 20mm;left:20mm">Yes,
+    <p style="top: 27mm;left:14mm;">Yes,
     I do believe Consent is MAC</p>
-
-    <div class="largeCircle" style="background: #b2a3f5; top:103mm;
-    left:106mm "> <div class ="insideCircle"></div></div></div>
-<p style ="position:absolute; top: 101mm;left: 118mm;">Yes, I consent</p>
 
 <g:link controller="NewSurvey" action="applyConsent"
         params='[consent: true, subToken: "${subject ? subject.token : null}"]'>
-    <div class="largeCircle" style="background: #b2a3f5; top:103mm; left:106mm ">
-    <div class ="insideCircle"></div></div></div>
-    <p style ="position:absolute; top: 101mm;left: 118mm;">Yes, I consent</p>
+    <div class="largeCircle" style="background: #f5a3d6; top:100mm;left:140mm ">
+    <div class ="insideCircle" style="top: 0.5mm; left: 0.5mm;"></div></div></div>
+    <p style ="position:absolute; top: 103mm;left: 153mm;">Yes, I consent</p>
 </g:link>
 
 <g:link controller="NewSurvey" action="applyConsent"
         params='[consent: false, subToken: "${subject ? subject.token : null}"]'>
-    <div class="largeCircle" style="background: greenyellow; top:118mm;
-    left:106mm; "> <div class ="insideCircle"></div></div></div>
-<p style ="position:absolute; top: 117mm;left: 118mm;">No, I do not consent</p>
+    <div class="largeCircle" style="background: #b2a3f5; top:114.5mm;left:140mm; "> <div class ="insideCircle" style="top: 0.5mm; left: 0.5mm;"></div></div></div>
+    <p style ="position:absolute; top: 117mm;left: 153mm;">No, I do not consent</p>
 </g:link>
 
 
