@@ -104,8 +104,8 @@ MC.personLayout = function () {
             people[d.id] = d;
         });
 
-        var w = 800,
-            h = 800;
+        var w = d3.select("g.viz").attr('width'); //bound for gravity field
+        var h = d3.select("g.viz").attr('height');
 
         var svg = d3.select('svg');
 
@@ -273,7 +273,7 @@ MC.personLayout = function () {
             }
         };
 
-        //Some variables we are suing for pieSpinning and vizRootSpinning function
+        //Some variables we are using for pieSpinning and vizRootSpinning function
         var hubLocations = findHubLocations();
         var personLocations={};
         var personID;
@@ -282,6 +282,7 @@ MC.personLayout = function () {
         var halfArcAngle;
         var rotationDegree;
         var peoplePaths;
+        var rootPaths;
         var peoplePies = d3.
             select('svg')
             .selectAll('g.person')
@@ -380,6 +381,11 @@ MC.personLayout = function () {
         };
 
         var vizRootSpinning = function(){
+            //Getting the vizRoot ID
+            var vizID = macademia.history.get("nodeId").substring(2);
+//            console.log(vizID);
+            var px = hubLocations[vizID].x;
+            var py = hubLocations[vizID].y;
 
             //Sorting the path that forms the wedges
             rootPaths = d3.
@@ -396,11 +402,9 @@ MC.personLayout = function () {
                 .each(function(d,i){
                     if(i==0){ //we only want the wedge with the highest weight
                         hubID = d.data.id;
-                        var viz = d3.select('g.viz');
-                        var px = viz.attr("width")/2; //the root person is always in the middle
-                        var py = viz.attr("height")/2;
                         var hx = hubLocations[hubID].x;
                         var hy = hubLocations[hubID].y;
+//                        console.log(hubLocations[hubID]);
 
 //                        var angle = calculateAngle(personID, hubID,personLocations,hubLocations);
                         var angle = calculateAngleByCoordinate(py,px,hy,hx);
@@ -425,6 +429,7 @@ MC.personLayout = function () {
 
 
         // walk through iterations of convergence to final positions
+        var maxBound = Number(d3.select("g.viz").attr('height'));
         force.on("tick", function (e) {
 
         // Push different nodes in different directions for clustering.
@@ -433,11 +438,10 @@ MC.personLayout = function () {
 //            o.y += i & 1 ? k : -k;
 //            o.x += i & 2 ? k : -k;
 //        });
-
             //Changing the location of person nodes based on the force
             peopleNodes.attr("transform", function (d) {
-                d.x = pinch(d.x, 50, 750);
-                d.y = pinch(d.y, 50, 750);
+                d.x = pinch(d.x, 50, maxBound);
+                d.y = pinch(d.y, 50, maxBound);
                 personLocations[d.id]={id: d.id,px: d.px, py: d.py, x: d.x, y: d.y};
                 return "translate(" + d.x + "," + d.y + ")";
             });
@@ -453,23 +457,14 @@ MC.personLayout = function () {
 
         force.on('end',function(e){
             pieSpinning(); //To ensure that the last value is used, call once more
-//            d3.select('svg').select('g.vizRoot').select('g.pie');
         });
-
-//        d3.select("body").on("click", function () {      //Creates error when updating simultaneously
-//            peopleNodes.forEach(function (o, i) {
-//                o.x += (Math.random() - .5) * 40;
-//                o.y += (Math.random() - .5) * 40;
-//            });
-//            force.resume();
-//        });
 
         vizRootSpinning();
 
     }
-    MC.options.register(pl, 'friction', 0.005);
+    MC.options.register(pl, 'friction', 0.5);
     MC.options.register(pl, 'gravity', 0.005);
-    MC.options.register(pl, 'linkDistance', 50);
+    MC.options.register(pl, 'linkDistance', 20);
     MC.options.register(pl, 'peopleNodes', function () {
         throw('no people specified.')
     });
@@ -481,12 +476,15 @@ MC.personLayout = function () {
     });
     MC.options.register(pl, 'charge', function(d) {
         //checks to see if it is a hub
+//        console.log(d);
         if (d.type == 'hub') {
-            return -500;
+            return -2000;
         } else if (d.type == 'person') {
-            return -600;
+            return -2000;
+        } else if (d.type == 'leaf'){
+            return -500;
         } else {
-            return -85000;
+            return -100;
         }
     });
 

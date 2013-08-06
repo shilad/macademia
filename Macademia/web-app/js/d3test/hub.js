@@ -49,9 +49,10 @@ MC.hub = function() {
                 color = data['color'];
 //                console.log(data['color']);
             }
-            else if (root['color'])
+            else if (root['color']){
                 color = root['color'];
-
+            }
+            root['color']=color;
             var id = 0; //default id for the hub
             if(data['id'])
                 id = data.id;
@@ -72,6 +73,8 @@ MC.hub = function() {
             var distance = 40; //default distance
             if(data["distance"]){ //if the distance between the root and children is specified
                 distance = data["distance"];
+                if(rootType=='person')
+                    distance = 1.3*distance;
             }
             var n = data.children.length;
 
@@ -95,11 +98,14 @@ MC.hub = function() {
                     .attr("offset", "30%")
                     .style("stop-color", "#b2b2b2")
                     .style("stop-opacity", 1.0);
-
                 gradient.append("stop")
                     .attr("offset", "90%")
                     .style("stop-color", "#FFFFFF")
-                    .style("stop-opacity", 1.0);
+                    .style("stop-opacity",0.4);
+                gradient.append("stop")
+                    .attr("offset", "100%")
+                    .style("stop-color", "#FFFFFF")
+                    .style("stop-opacity", 0);
 
 //                d3Group.append('rect').attr('x',cx).attr('y',cy).attr('width','100').attr('height','100').attr('fill','url(#connection_gradient)');
 
@@ -157,10 +163,11 @@ MC.hub = function() {
                 });
 
             var duration=hub.getDuration();
+            var numHubs=hub.getNumHubs();
 
             childGs
                 .transition()
-                .delay(1501)//then move the circles
+                .delay(duration*numHubs)//then move the circles
                 .attr('opacity', 1.0)
                 .duration(function(d,i){
                     return duration/n*(i+1);
@@ -229,7 +236,7 @@ MC.hub = function() {
             }
 
             //Making connection lines appear
-            d3Group.selectAll("line").transition().delay(1501).duration(function(d,i){
+            d3Group.selectAll("line").transition().delay(duration*numHubs).duration(function(d,i){
                 return duration/n*(i+1);
             }).attr('opacity',1.0);
         });
@@ -242,6 +249,7 @@ MC.hub = function() {
         return d.r;
     });
     MC.options.register(hub, 'duration', 500);
+    MC.options.register(hub, 'numHubs', 3);
     MC.options.register(hub, 'cssClass', 'hub');
 
 //    MC.options.register(hub, 'regularFill', 'green');
