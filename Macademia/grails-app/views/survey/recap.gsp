@@ -12,33 +12,47 @@
     <r:require modules="survey"/>
     <meta name="layout" content="main"/>
   <title></title>
-</head>
-<style>
+    <style>
 
-.background{
-    width:200mm;
-    height:130mm;
-    border-radius:50px;
-    font-size:20px;
-    background: whitesmoke;}
+    .background{
+        width:200mm;
+        height:130mm;
+        border-radius:50px;
+        font-size:20px;
+        background: whitesmoke;}
 
     </style>
+
+</head>
 <body>
 <div class = "background">
+
     <div>
         <h2>Recap</h2>
+        <p>
+            Thank you for volunteering your time and expertise!
+        </p>
         <form id='add-person'>
-        <textarea class ="fed" id = "textBox" type="text" value="tsfg">  </textarea>
-        <input type="submit" value="Submit">
+        <textarea rows="10" cols="80" class ="rounded-corners"  name="comments">  </textarea>
+        <input id ="submit" type="submit" value="Submit">
         </form>
     </div>
     <script>
         var input = $("form textarea:text");
         $(document).ready(function () {
-            $('#add-person').on('submit', function(e){
-                e.preventDefault();
-            console.log(input.val());
+
+            $('#submit').click(function() {
+
+                var text = $('textarea.rounded-corners').val();
+                console.log(text);
+
+                //send to server and process response
             });
+
+//            $('#add-person').on('submit', function(e){
+//                e.preventDefault();
+
+//            });
         });
     </script>
 </div>
