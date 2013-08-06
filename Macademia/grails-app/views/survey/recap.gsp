@@ -26,7 +26,7 @@
         <div class="textarea">
             <form id='add-person'>
                 <textarea rows="10" cols="80" name="comments">  </textarea>
-                <input id ="submit" type="submit" value="Submit">
+                <input id ="submit" class="submit" type="submit" value="Submit">
             </form>
         </div>
 
