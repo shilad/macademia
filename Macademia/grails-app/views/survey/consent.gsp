@@ -31,7 +31,7 @@
 
 
     <div class="largeCircle" style="background: #b2a3f5; top:114.5mm;left:140mm; ">
-        <div class ="insideCircle" style="top: 0.5mm; left: 0.5mm;"></div>
+        <div class ="insideCircle"></div>
     </div>
 </div>
 <p style ="position:absolute; top: 117mm;left: 153mm;">No, I do not consent</p>
