@@ -37,7 +37,6 @@
     top:1mm;
     left:9%;
 }
-
 </style>
 <body>
 <div class = "background">
