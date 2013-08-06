@@ -14,8 +14,12 @@ class VizSurveyController {
         render(view: 'instructions')
     }
 
+    def vizTask(){
+        render(view: 'comparisonSurvey')
+    }
+
     def recap() {
-        render(view: 'recapt')
+        render(view: 'recap')
     }
 
     def index() {
