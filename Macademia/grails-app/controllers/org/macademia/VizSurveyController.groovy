@@ -1,9 +1,31 @@
 package org.macademia
 
+import org.macademia.vizSurvey.Survey
+
 class VizSurveyController {
 
+    def surveyPersonService
+
     def consent() {
-        render(view: 'consent')
+        String email = params.email
+        if (email != null) {
+            Person p = surveyPersonService.create(email)
+        }
+        render(view:'consent')
+    }
+
+    def consentSave() {
+        if (!params.email) {
+            redirect(url: "/all" + this.getControllerUri() + '/consent')
+            return
+        }
+        Person p = surveyPersonService.create(email)
+        Survey s = new Survey()
+        s.setPerson(p)
+        s.setConsent(params.consent)
+        s.save(flush: true)
+
+        redirect(action: 'interest')
     }
 
     def interest() {
