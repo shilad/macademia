@@ -48,22 +48,11 @@ MC.MainViz.prototype.setEventHandlers = function(){
 
 MC.MainViz.prototype.refreshViz = function(){
     var self =this;
-    var t;
-//    var checkReady = function(){
-//        if ( self.transitionReady == true ){
-//            console.log(self.transitionReady);
-//            refresh();
-//            return true;
-//        }else
-//        {
-//            console.log(self.transitionReady);
-//            t=window.setTimeout(checkReady,500);
-//            return false;
-//        }
-//    };
+    var intervalID;
+
     var refresh = function(){
         if (self.transitionReady){
-            clearInterval(t);
+            clearInterval(intervalID);
             if(self.tRoot){ //If we are on transition
                 self.svg.select("g.viz").remove();
                 self.createViz();
@@ -77,7 +66,7 @@ MC.MainViz.prototype.refreshViz = function(){
         }
     };
 
-    t = window.setInterval(refresh,500);
+    intervalID = setInterval(function(){refresh();}, 500);
 
 };
 
@@ -88,6 +77,7 @@ MC.MainViz.prototype.onLoad = function(){
     var self = this;
     if(self.tRoot){
         self.transitionRoot(); //transition the root before running ajax
+        this.refreshViz();
     }
 
 
@@ -382,10 +372,10 @@ MC.MainViz.prototype.transitionRoot = function(){
                     return 0.0;
                 }
             });
-        this.svg
-            .transition()
-            .delay(2500)
-            .each('end',jQuery.proxy(this.refreshViz,this));
+//        this.svg
+//            .transition()
+//            .delay(2500)
+//            .each('end',jQuery.proxy(this.refreshViz,this));
     }
 };
 
