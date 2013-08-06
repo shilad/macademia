@@ -126,7 +126,7 @@ td.interest {
     text-align:center;
     position:absolute;
     top:9%;
-    left:9%;
+    left:9%;}
 
 </style>
 </head>
