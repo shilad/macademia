@@ -18,15 +18,20 @@
 <div class = "background">
 
     <div>
-        <h2>Recap</h2>
-        <p>
+        <h1 style="top: 9mm;left:14mm;">Recap</h1>
+        <p style="top: 27mm;left:14mm;">
             Thank you for volunteering your time and expertise!
+            If you have any comments, feel free to share them in the box below!
         </p>
-        <form id='add-person'>
-        <textarea rows="10" cols="80" class ="rounded-corners"  name="comments">  </textarea>
-        <input id ="submit" type="submit" value="Submit">
-        </form>
+        <div class="textarea">
+            <form id='add-person'>
+                <textarea rows="10" cols="80" name="comments">  </textarea>
+                <input id ="submit" type="submit" value="Submit">
+            </form>
+        </div>
+
     </div>
+
     <script>
         var input = $("form textarea:text");
         $(document).ready(function () {

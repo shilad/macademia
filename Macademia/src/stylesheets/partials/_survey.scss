@@ -1,9 +1,23 @@
+h1{
+  font: 30px Georgia;
+  font-weight: bold;
+  position:absolute;
+}
+
+p {
+  font: 17px Georgia;
+  color: #000000;
+  position:absolute;
+  width: 175mm;
+}
+
 .background{
-  width:200mm;
+  width:1024px;
   height:130mm;
+  margin-left: auto;
+  margin-right: auto;
   border-radius:50px;
-  font-size:20px;
-  background: whitesmoke;
+  background: #f3f4f4;
 }
  .largeCircle{
    width:40px;
@@ -12,15 +26,59 @@
    position:absolute;
 }
 .insideCircle{
-   width:28px;
-   border: 2px solid #ffffff;
-   height:28px;
+   width:34px;
+   border: 1px solid #ffffff;
+   height:34px;
    border-radius:50px;
    font-size:20px;
    color: #ffffff;
    line-height:100px;
    text-align:center;
    position:absolute;
-   top:1mm;
-   left:9%;
+   top: 0.5mm;
+   left: 0.5mm;
+}
+
+div.textarea {
+  position: absolute;
+  left: 145px;
+  top: 200px;
+  right: 115px;
+  bottom: 115px;
+
+  input.submit {
+     position: absolute;
+     left: 405px;
+     top: -30px;
+  }
+
+  input.addButton {
+    position: absolute;
+    left: 200px;
+    top: 200px;
+  }
+
+}
+
+div.interestAdd {
+  position: absolute;
+  left: 84px;
+  top: 79px;
+  right: 115px;
+  bottom: 115px;
+
+  input.addButton {
+    position: absolute;
+    left: 153px;
+    top: 0px;
+  }
+
+}
+
+textarea {
+  position: absolute;
+  width: 45%;
+  height: 40%;
+  margin: 0; /* don't want to add to container size */
+  border: 0; /* don't want to add to container size */
 }
