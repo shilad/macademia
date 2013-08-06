@@ -14,23 +14,17 @@
 
   <title></title>
 </head>
-<style>
-</style>
+
 
 <body>
 <div class="background">
-    <h1 style="top: 9mm;left:14mm;">Instructions</h1>
-    <p style="top: 27mm;left:14mm;">Pete Bitzer and his wife Penelope
-    really did exist, much to little Sally's surprise. They had a light blue mail box and lived on Dreary Lane, sure,
-    but it was all a front put up by the government to avoid taxes.</p>
-
-    <a href="#">
-        <div class="largeCircle" style="background: #b2a3f5; top:115mm; left: 185mm;">
-            <div class = "insideCircle" style="top: 0.5mm; left: 0.5mm;"></div>
-        </div>
-        <p class="continue" style="top:117.5mm; left: 165mm;">Continue</p>
-    </a>
-</div>
-
+<h1 style="top: 9mm;left:14mm;">Instructions</h1>
+<p style="top: 27mm;left:14mm;">Pete Bitzer and his wife Penelope
+really did exist, much to little Sally's surprise. They had a light blue mail box and lived on Dreary Lane, sure,
+but it was all a front put up by the government to avoid taxes.</p>
+<g:link controller="NewSurvey" action="applyConsent"
+        params='[consent: true, subToken: "${subject ? subject.token : null}"]'>
+    <div class="largeCircle" style="background: #b2a3f5; top:115mm; left: 185mm;"> <p style="font-size: 15px; top:4mm; left:3mm; position:absolute">Continue</p><div class = "insideCircle" style="top: 0.5mm; left: 0.5mm;"></div></div></div>
+</g:link>
 </body>
 </html>

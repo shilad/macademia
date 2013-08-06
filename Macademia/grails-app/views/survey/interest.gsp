@@ -104,7 +104,6 @@
 
     <h1 style="top: 9mm;left:14mm;">Please enter your interests</h1>
 
-
     <div class="interestAdd">
     <form id='add-interest'>
 
@@ -136,6 +135,18 @@
         </div>
         <p class="continue" style="top:117.5mm; left: 165mm;">Continue</p>
     </a>
+    <tr>
+        <td> <br>
+        </td>
+        <td>    two
+        </td>
+    <td>
+<g:link controller="NewSurvey" action="applyConsent"
+        params='[consent: true, subToken: "${subject ? subject.token : null}"]'>
+        <div class="largeCircle" > <div class ="insideCircle">Hello</div></div>  </g:link>
+        %{--<div class="insideCircle">Hello</div>--}%
+
+    </td>
 
 </tr>
 </table>
