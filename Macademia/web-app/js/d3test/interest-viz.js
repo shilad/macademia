@@ -105,7 +105,6 @@ MC.InterestViz = function(params) {
     this.calculateColors();
     this.postionHubsGradientCirlces();
     this.setRadii(20,12);
-
     this.setGradients();
     this.drawGradientCircles();
     this.createInterestViz();
@@ -674,7 +673,8 @@ MC.InterestViz.prototype.enableHoverHighlight = function(){
         div =  d3.select('body')
             .append("div")
             .attr("id","tooltipBox")
-            .style("position", "absolute");
+            .style("position", "absolute")
+            .style("opacity", 0);
     }
     else{
         div= d3.select('div#tooltipBox');

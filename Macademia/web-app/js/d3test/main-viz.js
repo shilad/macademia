@@ -127,6 +127,7 @@ MC.MainViz.prototype.onLoad = function(){
             }
 
             if(self.tRoot && rootClass=='interest'){ //taking care of the color of the interest vizRoot
+                console.log(self.tRoot);
                 root['color']=self.tRoot.select('.interestOuter').attr('fill');
             }
 
