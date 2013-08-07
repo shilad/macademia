@@ -13,12 +13,12 @@ class BootStrap {
     def init = { servletContext ->
         switch(Environment.current) {
         case Environment.DEVELOPMENT:
-            autocompleteService.init()
             wikAPIdiaService.init()
+            autocompleteService.init()
             break
         case Environment.PRODUCTION:
-            autocompleteService.init()
             wikAPIdiaService.init()
+            autocompleteService.init()
             break
         }
      }
