@@ -628,8 +628,8 @@ MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,div
             'y2':(position.top+divHeight),
             'cx1':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left)
                 ? (boundingBoxCenter.x+(cornerSize/2)<=position.left+divWidth)
-                    ? boundingBoxCenter.x+(cornerSize/2)
-                    : position.left+divWidth
+                ? boundingBoxCenter.x+(cornerSize/2)
+                : position.left+divWidth
                 : position.left+divWidth,
             'cy1':(position.top+divHeight),
             'cx2':boundingBoxCenter.x-(cornerSize/2),
@@ -644,8 +644,8 @@ MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,div
             'y2':position.top,
             'cx1':(boundingBoxCenter.x<=position.left+divWidth&&boundingBoxCenter.x>=position.left)
                 ? (boundingBoxCenter.x+(cornerSize/2)<=position.left+divWidth)
-                    ? boundingBoxCenter.x+(cornerSize/2)
-                    : position.left+divWidth
+                ? boundingBoxCenter.x+(cornerSize/2)
+                : position.left+divWidth
                 : position.left+divWidth,
             'cy1':position.top,
             'cx2':boundingBoxCenter.x-(cornerSize/2),
@@ -846,9 +846,26 @@ MC.InterestViz.prototype.hoverVizRootChild = function(){
 
 MC.InterestViz.prototype.mouseOut = function(domElem){
     this.xhr.abort();
-    if(d3.select(domElem).classed('interest')||d3.select(domElem).classed('hubRoot')){
+    if(d3.select(domElem).classed('interest')){ //if child interest is selected
+        //bringing back the clean text for child
+        d3.select(domElem).select('g.label').select('text').text(MC.interest().getCleanedText());
+
+        //bring back the clean text for its hub
+        var interestID = d3.select(domElem).data()[0].id;
+        var hubRootID = this.findHubRootID(interestID);
+        d3.selectAll('g.hubRoot')
+            .each(function(d){
+                if((d[0] && hubRootID == d[0].id )){ //if the selection is hubRoot
+                    d3.select(this).select('g.label').select('text').text(MC.interest().getCleanedText());
+                }
+            });
+    }
+
+    if(d3.select(domElem).classed('hubRoot')){ //if hubRoot is selected
         d3.select(domElem).select('g.label').select('text').text(MC.interest().getCleanedText());
     }
+
+
     d3.selectAll('g.hubRoot, g.interest, g.person, g.hub')
         .attr('opacity',this.activeOpacity)
         .selectAll('g.hubRoot, g.interest, g.hub')
