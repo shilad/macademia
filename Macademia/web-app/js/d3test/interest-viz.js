@@ -131,7 +131,7 @@ MC.InterestViz.prototype.transformRootLocation = function(){
 MC.InterestViz.prototype.getHubPositionMap = function(){
     var positions = [
         [{x:0.5,y:0.55},{x:0.75,y:0.85}], // 1 hub case
-        [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85}], // 2 hub case
+        [{x:0.5,y:0.3},{x:0.25,y:0.75},{x:0.75,y:0.75}], // 2 hub case
         [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
         [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.25,y:0.2},{x:0.7,y:0.2}] // 4 hub case
     ];
