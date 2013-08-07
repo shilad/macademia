@@ -846,7 +846,7 @@ MC.InterestViz.prototype.hoverVizRootChild = function(){
 
 MC.InterestViz.prototype.mouseOut = function(domElem){
     this.xhr.abort();
-    if(d3.select(domElem).classed('interest')){
+    if(d3.select(domElem).classed('interest')||d3.select(domElem).classed('hubRoot')){
         d3.select(domElem).select('g.label').select('text').text(MC.interest().getCleanedText());
     }
     d3.selectAll('g.hubRoot, g.interest, g.person, g.hub')

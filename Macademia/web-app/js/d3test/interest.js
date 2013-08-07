@@ -131,13 +131,21 @@ MC.interest = function() {
         }
     });
     MC.options.register(interest, 'cleanedText', function (d) {
-        var cleanedText = d.name;
-//        console.log("here is the function");
+        var cleanedText;
+        if(d[0]){
+            cleanedText=d[0].name;
+        }
+        else{
+            cleanedText = d.name;
+        }
+
 //        console.log(d);
+//        console.log(d.name);
+
         if (cleanedText.length > 15){
              cleanedText = cleanedText.substr(0, 10) + " ...";
         }
-//        console.log(cleanedText)
+//        console.log(cleanedText);
         return cleanedText;
     });
     MC.options.register(interest, 'color', function (d) { return d.color; })
