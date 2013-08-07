@@ -101,9 +101,9 @@ MC.InterestViz = function(params) {
 
     this.gCircle = [this.hubs.length]; //same number as the hubs
 
-
+    this.transformRootLocation();
     this.calculateColors();
-    this.postionHubsGradientCirlces();
+    this.positionHubsGradientCircles();
     this.setRadii(20,12);
     this.setGradients();
     this.drawGradientCircles();
@@ -111,6 +111,21 @@ MC.InterestViz = function(params) {
     this.startPeople();
 
 
+};
+
+MC.InterestViz.prototype.transformRootLocation = function(){
+    if(this.hubs.length!=3){
+        //
+        var x = this.positions[this.hubs.length-1][0].x*this.svgWidth;
+        var y = this.positions[this.hubs.length-1][0].y*this.svgHeight;
+        this.container
+            .select('g.vizRoot')
+            .transition()
+            .duration('500')
+            .attr('transform',function(){
+                return 'translate('+x+','+y+')';
+            });
+    }
 };
 
 MC.InterestViz.prototype.getHubPositionMap = function(){
@@ -121,11 +136,11 @@ MC.InterestViz.prototype.getHubPositionMap = function(){
         [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.25,y:0.2},{x:0.7,y:0.2}] // 4 hub case
     ];
     return positions;
-}
+};
 
 
 // Position the hubs and their gradient circles around the visRoot
-MC.InterestViz.prototype.postionHubsGradientCirlces = function(){
+MC.InterestViz.prototype.positionHubsGradientCircles = function(){
     var n = this.hubs.length;
     var coordinates = this.positions[n-1];
     var posRoot = coordinates[0];
@@ -311,8 +326,8 @@ MC.InterestViz.prototype.createHub = function(model,j) {
             root : rootModel,
             color : model.color,
             isVizRoot : (model == this.root),
-            cx : model.cx,
-            cy : model.cy,
+            cx : (model==this.root) ? this.positions[2][0].x * this.svgWidth : model.cx,
+            cy : (model==this.root) ? this.positions[2][0].y * this.svgHeight : model.cy,
             distance : 100,
             delay : calculatedDelay,
             distance : this.distance,
@@ -320,6 +335,7 @@ MC.InterestViz.prototype.createHub = function(model,j) {
         })
         .call(MC.hub().setNumHubs(this.hubs.length));
     this.hubsDuration = calculatedDelay + hubDurationIncrement;
+    this.transformRootLocation();
 };
 
 MC.InterestViz.prototype.drawGradientCircles = function(){

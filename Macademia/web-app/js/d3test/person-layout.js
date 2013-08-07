@@ -212,9 +212,6 @@ MC.personLayout = function () {
             .friction(friction)
             .start();
 
-        var q = d3.geom.quadtree (d3.values(surrogates)
-            .concat(d3.values(people)));
-        console.log(q)
 
         //creates a new g  for each new person
 //        var groups = svg.selectAll(".personNode")
@@ -525,7 +522,7 @@ MC.personLayout = function () {
         vizRootSpinning();
 
     }
-    MC.options.register(pl, 'friction', 0.1);
+    MC.options.register(pl, 'friction', 0.5);
     MC.options.register(pl, 'gravity', 0.0015);
     MC.options.register(pl, 'linkDistance', 50);
     MC.options.register(pl, 'peopleNodes', function () {
