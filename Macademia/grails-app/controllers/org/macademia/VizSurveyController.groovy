@@ -1,6 +1,7 @@
 package org.macademia
 
 import org.macademia.vizSurvey.Survey
+import org.macademia.vizSurvey.SurveyInterest
 import org.macademia.vizSurvey.SurveyPerson
 
 class VizSurveyController {
@@ -8,9 +9,8 @@ class VizSurveyController {
     def surveyPersonService
 
     def invite() {
-
         if (params.email == null) {
-            params.email = "snaden@macalester.edu"
+            params.email = "mgiesel@macalester.edu"
             params.baseUrl = "http://localhost:8080/Macademia/all/vizSurvey/consent"
             params.subject = "It works!"
         }
@@ -23,7 +23,6 @@ class VizSurveyController {
 
         redirect(url: "/all" + this.getControllerUri() + '/consent')
     }
-
 
     def consent() {
         String email = params.email
@@ -42,16 +41,28 @@ class VizSurveyController {
         }
         Survey s = new Survey()
         s.setSurveyPerson(session.person)
-        s.setConsent(params.consent)
+        s.setConsent(params.get('consent'))
         s.save(flush: true)
+
+        session.survey = s
 
         redirect(url: "/all" + this.getControllerUri() + '/interest')
     }
 
 
-
     def interest() {
         render(view: 'interest')
+    }
+
+    def interestSave() {
+        List<String> inputs = params.get('interest')
+        SurveyPerson p = session.person
+        for (int i=1; i<inputs.size();i++) {
+            def interest = surveyPersonService.createInterest(inputs[i])
+            p.addToInterests(interest)
+        }
+        p.save(flush:true)
+        redirect(url: "/all" + this.getControllerUri() + '/instructions')
     }
 
     def instructions() {
@@ -64,6 +75,11 @@ class VizSurveyController {
 
     def recap() {
         render(view: 'recap')
+
+    }
+
+    def complete() {
+        render(view: 'complete')
     }
 
     def index() {
