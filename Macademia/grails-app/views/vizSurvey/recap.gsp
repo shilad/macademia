@@ -18,27 +18,60 @@
 <div class = "background">
 
     <div>
-        <h1 style="top: 9mm;left:14mm;">Recap</h1>
-        <p style="top: 27mm;left:14mm;">
-            Thank you for volunteering your time and expertise!
-            If you have any comments, feel free to share them in the box below!
-        </p>
-        <div class="textarea">
-            <g:form id='recap-form' url="complete">
-                <textarea id = recap-textarea rows="10" cols="80" name="comments">  </textarea>
-                <input id ="submit" class="submit" type="submit" value="Submit">
-            </g:form>
-        </div>
-        <g:link url="vizTask">
-            <div class="largeCircle" style="background: #f5a3d6; top:97mm;  position: absolute; left: 650px">
-                <div class ="insideCircle" style="top: 0.5mm; left: 0.5mm;"></div>
-                <p style ="position:absolute; top: 9px;left: 43px;">back to vizTask</p>
-            </div>
-        %{--<div style ="position: absolute; top:-100; left: 1025px">Yes, I consent </div>--}%
-        </g:link>
+        <h1 style ="position:absolute; margin-left: 50px; margin-top: 20px;">Recap</h1>
+
+        %{--<div class="textarea">--}%
+            %{--<form id='add-person'>--}%
+                %{--<textarea rows="10" cols="80" name="comments">  </textarea>--}%
+                %{--<input id ="submit" class="submit" type="submit" value="Submit">--}%
+            %{--</form>--}%
+        %{--</div>--}%
 
     </div>
-
+        <div>
+            <table >
+                <tr><p style= "position: relative; margin-left: 118px">Please write question here</p></tr>
+              <tr >
+                  <td>orange</td>
+                    <td>
+                        <div class="radio-buttons">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <label>0 <input type="radio" name="radioButtons" value="1"
+                                                        /></label>
+                                    </td>
+                                    <td>
+                                        <label>1 <input type="radio" name="radioButtons" value="2"
+                                                        /></label>
+                                    </td>
+                                    <td>
+                                        <label>2 <input type="radio" name="radioButtons" value="3"
+                                                        /></label>
+                                    </td>
+                                    <td>
+                                        <label>3 <input type="radio" name ="radioButtons" value="4"
+                                                        /></label>
+                                    </td>
+                                    <td>
+                                        <label>4 <input type="radio" name="radioButtons" value="5"
+                                                        /></label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+             </tr>
+                %{--labels for the radio buttons--}%
+                <tr style="position:absolute; margin-top: 33px; margin-left:140px">
+                    <td style="width:114px">Strongly Agree</td>
+                    <td style="width:76px">Agree</td>
+                    <td style="width:86px">Neutral</td>
+                    <td style="width:78px">Disagree</td>
+                    <td style="width:84px">Strongly Disagree</td>
+                </tr>
+            </table>
+        </div>
+    </div>
     <script>
         var input = $("form textarea:text");
         $(document).ready(function () {
