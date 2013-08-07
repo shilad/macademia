@@ -47,8 +47,6 @@ MC.MainViz.prototype.refreshViz = function(){
                 var positions = MC.InterestViz.prototype.getHubPositionMap();
                 var x = positions[self.hubs.length-1][0].x*self.svg.select('g.viz').attr('width');
                 var y = positions[self.hubs.length-1][0].y*self.svg.select('g.viz').attr('height');
-                console.log(x);
-                console.log(y);
                 self.tRoot
                     .transition()
                     .duration(500)
