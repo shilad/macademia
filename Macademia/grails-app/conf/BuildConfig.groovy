@@ -40,8 +40,7 @@ grails.project.dependency.resolution = {
         runtime 'net.sf.trove4j:trove4j:3.0.3'
 //        runtime 'org.apache.commons:commons-compress:1.4.1'
 //        runtime 'org.apache.commons:commons-lang3:3.1'
-        compile 'org.wikapidia:wikAPIdia-utils:0.1-SNAPSHOT'
-        compile('org.wikapidia:wikAPIdia-core:0.1-SNAPSHOT') {
+        compile('org.semtag:semtag-core:0.1-SNAPSHOT') {
             excludes "de.tudarmstadt.ukp.wikipedia", "de.tudarmstadt.ukp.wikipedia.parser"
         }
 //        runtime 'org.semtag:semtag-core:0.1-SNAPSHOT'
