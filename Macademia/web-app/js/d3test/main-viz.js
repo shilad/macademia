@@ -45,13 +45,13 @@ MC.MainViz.prototype.refreshViz = function(){
             clearInterval(intervalID);
             if(self.tRoot){ //If we are on transition
                 var positions = MC.InterestViz.prototype.getHubPositionMap();
-                var x = positions[self.hubs.length-1][0].x*self.svg.attr('width');
-                var y = positions[self.hubs.length-1][0].y*self.svg.attr('height');
+                var x = positions[self.hubs.length-1][0].x*self.svg.select('g.viz').attr('width');
+                var y = positions[self.hubs.length-1][0].y*self.svg.select('g.viz').attr('height');
                 console.log(x);
                 console.log(y);
                 self.tRoot
                     .transition()
-                    .duration(400)
+                    .duration(500)
                     .attr('transform',function(){
                     return 'translate('+x+','+y+')';
                 });
