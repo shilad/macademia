@@ -95,13 +95,16 @@ modules = {
     htmlViz {
         dependsOn 'consolelog'
         dependsOn 'core'
-
         resource url: '/js/jquery-ui-1.10.3.custom/css/ui-lightness/jquery-ui-1.10.3.custom.css'
         resource url: '/js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.js'
+        resource url: '/js/d3test/inherit.js'
+        resource url: '/js/html-viz/htmlVizModel.js'
+        resource url: '/js/html-viz/html-viz.js'
         resource url: '/js/html-viz/dropdown.js'
         resource url: '/js/html-viz/js-helper.js'
 
-        resource url: '/js/d3test/main-viz.js'
+
+
 
         resource url: '/css/viz.css'
     }

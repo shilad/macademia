@@ -5,30 +5,37 @@
     <meta name="layout" content="main"/>
     <title></title>
 
-    <script>
-
-        $(function () {
-            $("#pink, #purple, #blue, #green, #orange").slider({
-                orientation: "horizontal",
-                range: "min",
-                min: 1,
-                max: 10,
-                value: 2
-                // change: something
-            });
-            $("#pink").slider("value", 4);
-            $("#purple").slider("value", 2);
-            $("#blue").slider("value", 6);
-            $("#green").slider("value", 8);
-            $("#orange").slider("value", 5);
-        });
-    </script>
 </head>
 <body>
-<div class="mainContainer">
-    <h1><img style="max-height: 70px; max-width: 70px; border: 2px solid #ffffff;" src="http://localhost:8080/Macademia/all/image/randomFake?top">&nbsp;Cersei Lannister
 
-    </h1>
+<r:script>
+    $.ready(function(){
+
+    })
+    var viz = new MC.HtmlViz({});
+
+    $(function () {
+        $("#pink, #purple, #blue, #green, #orange").slider({
+            orientation: "horizontal",
+            range: "min",
+            min: 1,
+            max: 10,
+            value: 2
+            // change: something
+        });
+        $("#pink").slider("value", 4);
+        $("#purple").slider("value", 2);
+        $("#blue").slider("value", 6);
+        $("#green").slider("value", 8);
+        $("#orange").slider("value", 5);
+    });
+
+</r:script>
+
+<div class="mainContainer">
+    <h1><img style="max-height: 70px; max-width: 70px; border: 2px solid #ffffff;"
+             src="http://localhost:8080/Macademia/all/image/randomFake?top">&nbsp;Cersei Lannister</h1>
+
 
     <table class="interest">
         <tr>
@@ -115,6 +122,19 @@
             </td>
         </tr>
     </table>
+
+
+    <table>
+        <g:each status="i" in="${people.values()}" var="p">
+            <tr>
+                <td><img class="person" src="${p.pic}">&nbsp;${p}</td>
+                <g:each status="j" in="${p.interests}" var="interestID">
+                    <td>${interests[interestID]}</td>
+                </g:each>
+            </tr>
+        </g:each>
+    </table>
+
 
     <table class="people">
         <tr class="people">
