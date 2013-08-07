@@ -382,7 +382,7 @@ MC.personLayout = function () {
         };
 
         var vizRootSpinning = function(){
-            //TODO: vizRootSpinning is not working for "Lilly Wood nodeId=p_16425"
+            //TODO: vizRootSpinning is not working for "Lilly Wood nodeId=p_16425" because she has equal largest pie slices
             //Getting the vizRoot ID
             var vizID = macademia.history.get("nodeId").substring(2);
 //            console.log(vizID);
