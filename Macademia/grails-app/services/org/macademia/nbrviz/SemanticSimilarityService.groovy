@@ -9,10 +9,13 @@ import edu.macalester.wpsemsim.utils.DocScore
 import edu.macalester.wpsemsim.utils.DocScoreList
 import org.macademia.SimilarInterest
 import gnu.trove.set.hash.TIntHashSet
+import org.wikapidia.sr.LocalSRMetric
 
 class SemanticSimilarityService {
     public static final double MIN_MOST_SIMILAR_SIM = 0.5
+
     def interestService
+    def wikAPIdiaService
 
     KnownPhraseSimilarity metric = new KnownPhraseSimilarity(
             new File((String)ConfigurationHolder.config.macademia.similarityDir)
@@ -20,13 +23,7 @@ class SemanticSimilarityService {
 
     SimilarInterestList mostSimilar(int interestId, int maxResults=1000, int [] validIds = null) {
         TIntHashSet validIdSet = (validIds == null) ? null : new TIntHashSet(validIds)
-        DocScoreList top = metric.mostSimilar(interestId, maxResults, validIdSet)
-        List<SimilarInterest> sil = [new SimilarInterest(interestId, 1.0)]
-        for (DocScore ds : top) {
-            if (ds.score < MIN_MOST_SIMILAR_SIM) break
-            sil.add(new SimilarInterest(ds.id, ds.score))
-        }
-        SimilarInterestList res = new SimilarInterestList(sil)
+        SimilarInterestList res = wikAPIdiaService.getRelatedInterests(interestId, maxResults)
         res.setCount(interestService.getInterestCount(interestId as long))
         return res
     }
