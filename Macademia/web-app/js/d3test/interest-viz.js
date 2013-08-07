@@ -112,20 +112,20 @@ MC.InterestViz = function(params) {
 
 };
 
-MC.InterestViz.prototype.transformRootLocation = function(){
-    if(this.hubs.length!=3){
-        //
-        var x = this.positions[this.hubs.length-1][0].x*this.svgWidth;
-        var y = this.positions[this.hubs.length-1][0].y*this.svgHeight;
-        this.container
-            .select('g.vizRoot')
-            .transition()
-            .duration('500')
-            .attr('transform',function(){
-                return 'translate('+x+','+y+')';
-            });
-    }
-};
+//MC.InterestViz.prototype.transformRootLocation = function(){
+//    if(this.hubs.length!=3){
+//        //
+//        var x = this.positions[this.hubs.length-1][0].x*this.svgWidth;
+//        var y = this.positions[this.hubs.length-1][0].y*this.svgHeight;
+//        this.container
+//            .select('g.vizRoot')
+//            .transition()
+//            .duration('500')
+//            .attr('transform',function(){
+//                return 'translate('+x+','+y+')';
+//            });
+//    }
+//};
 
 MC.InterestViz.prototype.getHubPositionMap = function(){
     var positions = [

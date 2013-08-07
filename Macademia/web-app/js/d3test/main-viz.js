@@ -51,7 +51,7 @@ MC.MainViz.prototype.refreshViz = function(){
                 console.log(y);
                 self.tRoot
                     .transition()
-                    .duration(500)
+                    .duration(400)
                     .attr('transform',function(){
                     return 'translate('+x+','+y+')';
                 });
