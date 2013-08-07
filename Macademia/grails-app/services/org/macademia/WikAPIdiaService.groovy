@@ -14,6 +14,9 @@ class WikAPIdiaService {
     ItemSimilarity itemSimilarity
     ConceptSimilarity conceptSimilarity
 
+    Map<String, Long> tagToId = [:]
+    Map<Long, String> idToTag = [:]
+
     def init() {
         Configuration conf = new Configuration(new File("grails-app/conf/semtag.conf"))
         this.configurator = new Configurator(conf)
@@ -21,8 +24,24 @@ class WikAPIdiaService {
         tagAppDao = configurator.get(TagAppDao.class)
         itemSimilarity = configurator.get(ItemSimilarity.class)
         conceptSimilarity = configurator.get(ConceptSimilarity.class)
+
+        for (Interest i : Interest.list()) {
+            addInterest(i)
+        }
     }
 
+    def addInterest(Interest i) {
+        tagToId[i.normalizedText] = i.id
+        idToTag[i.id] = i.normalizedText
+    }
+
+    def getIdForInterest(String interest) {
+        return tagToId[Interest.normalize(interest)]
+    }
+
+    def getInterestForId(Long id) {
+        return idToTag[id]
+    }
     def serviceMethod() {
     }
 }

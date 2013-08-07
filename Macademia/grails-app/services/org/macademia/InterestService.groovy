@@ -13,6 +13,7 @@ class InterestService implements ApplicationContextAware {
     def wikipediaService
     def databaseService
     def autocompleteService
+    def wikAPIdiaService
 
     boolean transactional = true
 
@@ -151,6 +152,7 @@ class InterestService implements ApplicationContextAware {
             }
             Utils.safeSave(interest)
         }
+        wikAPIdiaService.addInterest(interest)
     }
 
     /**
