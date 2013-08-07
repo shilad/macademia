@@ -123,14 +123,21 @@
         </tr>
     </table>
 
-
-    <table>
+    <table class="people">
         <g:each status="i" in="${people.values()}" var="p">
             <tr>
-                <td><img class="person" src="${p.pic}">&nbsp;${p}</td>
-                <g:each status="j" in="${p.interests}" var="interestID">
-                    <td>${interests[interestID]}</td>
+                <td><img class="person" src=${p.pic}>&nbsp;${p.name} </td> <g:set var="x" value="${100}"/>
+                <g:each in="${clusterMap.keySet()}" var="k">
+                    <g:if test="${formattedData[p.id][k.toString()]!=null}">
+                        <td class="people"><div class="rect" style="width: ${formattedData[p.id][k.toString()]}%;background-color:#f2b06e">&nbsp;</div><div class="rect" style="width:  ${100.00-formattedData[p.id][k.toString()]}%;background-color:#d3d3d3">&nbsp;</div></td>
+                    </g:if>
+                    <g:else>
+                        <td class="people"><div class="rect" style="width:  100%;background-color:#d3d3d3">&nbsp;</div></td>
+                    </g:else>
+
                 </g:each>
+
+
             </tr>
         </g:each>
     </table>
