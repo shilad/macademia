@@ -106,6 +106,8 @@ log4j = {
 //    debug 'org.codehaus.groovy.grails.plugins.searchable'
 //    trace 'org.compass'
 
+    trace 'org.wikapidia'
+
 }
 
 // throw exceptions when saves fail.
