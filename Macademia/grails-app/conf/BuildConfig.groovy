@@ -34,22 +34,15 @@ grails.project.dependency.resolution = {
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-
-        // runtime 'mysql:mysql-connector-java:5.1.16'
-//        runtime "org.codehaus.groovy.modules.http-builder:http-builder:0.5.2"
         runtime 'net.sf.trove4j:trove4j:3.0.3'
-//        runtime 'org.apache.commons:commons-compress:1.4.1'
-//        runtime 'org.apache.commons:commons-lang3:3.1'
         compile('org.semtag:semtag-core:0.1-SNAPSHOT') {
             excludes "de.tudarmstadt.ukp.wikipedia", "de.tudarmstadt.ukp.wikipedia.parser"
+            changing = true
         }
-//        runtime 'org.semtag:semtag-core:0.1-SNAPSHOT'
-//        runtime 'edu.macalester:wpsemsim:0.2-SNAPSHOT'
     }
     plugins {
         runtime ":hibernate:$grailsVersion"
         runtime ":mail:1.0.1"
-        runtime ":searchable:0.6.4"
         runtime ":springcache:1.3.1"
         runtime ":resources:1.2"
         runtime ":jquery:1.8.3"

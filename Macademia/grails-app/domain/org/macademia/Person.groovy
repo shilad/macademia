@@ -23,7 +23,6 @@ class Person {
     boolean invisible = false
 
     static hasMany = [interests: Interest, memberships: Membership]
-    static searchable = [only: ['fullName', 'email', 'department', 'invisible']]
     static constraints = {
         imageSubpath(nullable : true, blank:false)
         fullName(nullable: false, blank:false)
@@ -128,7 +127,6 @@ class Person {
                     'class',
                     'log',
                     'attached',
-                    'searchable',
                     'constraints'
             ])
 

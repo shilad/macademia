@@ -11,7 +11,6 @@ class CollaboratorRequest {
     Date expiration
     static hasMany = [keywords : Interest]
     
-    static searchable = [only: ['title', 'description']]
     Person creator
     static mapping = {
         description type:'text'

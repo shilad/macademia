@@ -15,8 +15,6 @@ class Institution {
     static hasMany = [ institutionGroups : InstitutionGroup, memberships: Membership ]
     static belongsTo = InstitutionGroup
 
-    static searchable = true
-
     static constraints = {
         abbrev(nullable: true)
         emailDomain(nullable: true)

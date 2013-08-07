@@ -11,7 +11,6 @@ class Interest implements Comparable {
     Long articleId
 
 
-    static searchable = [only: ['text', 'normalizedText']]
     static constraints = {
         normalizedText(unique: true)
         lastAnalyzed(nullable : true)

@@ -1,6 +1,5 @@
 package org.macademia
 
-import info.bliki.api.User
 import org.json.JSONObject
 import org.json.JSONArray
 import java.util.logging.Logger;
@@ -15,11 +14,7 @@ public class Wikipedia {
     private static String WIKIPEDIA_URL = "http://en.wikipedia.org"
     private static String ARTICLE_PREFIX = "${WIKIPEDIA_URL}/wiki/"
     private static String WIKIPEDIA_API_URL = "${WIKIPEDIA_URL}/w/api.php"
-    
-    private String userName = "macademiabot"
-    private String password = "goscots"
-    private String apiUrl = WIKIPEDIA_API_URL
-    private User user;
+
     private DiskMap cache = null
     private int minNumResults = 5   // Minimum number of results to _query for
 
