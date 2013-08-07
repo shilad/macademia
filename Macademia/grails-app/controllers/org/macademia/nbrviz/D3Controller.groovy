@@ -62,7 +62,7 @@ class D3Controller {
         TimingAnalysis ta = new TimingAnalysis('ExpController.personData')
         ta.startTime()
         PersonGraph graph = similarity2Service.calculatePersonNeighbors(
-                                          rootId, numPeople, 2, parentWeights)
+                                          rootId, numPeople, 1, parentWeights)
         ta.recordTime('sim2service')
         def data = json2Service.buildPersonCentricGraph(
                 graph,
