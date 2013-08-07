@@ -318,7 +318,6 @@ MC.InterestViz.prototype.createHub = function(model,j) {
     //This problem should be solve after implementing the new similarity score algorithm
 //    console.log(model.id);
 //    console.log(this.interests);
-//    console.log(this.clusterMap);
     var rootModel = model.type == 'person' ? this.people[model.id] : this.interests[model.id];
 
     rootModel.type = model.type;
