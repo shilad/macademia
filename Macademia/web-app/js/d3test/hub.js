@@ -73,8 +73,8 @@ MC.hub = function() {
             var distance = 40; //default distance
             if(data["distance"]){ //if the distance between the root and children is specified
                 distance = data["distance"];
-                if(rootType=='person')
-                    distance = 1.3*distance;
+//                if(rootType=='person')
+//                    distance = 1.3*distance;
             }
             var n = data.children.length;
 
@@ -83,6 +83,8 @@ MC.hub = function() {
 
             //drawing lines between person and their interests
             if(rootType == "person"){
+                distance = 1.3 * distance; //scale up the distance
+
                 var gradient = d3.select('defs')
                     .append("radialGradient")
                     .attr("id", "connection_gradient")

@@ -332,7 +332,6 @@ MC.InterestViz.prototype.createHub = function(model,j) {
             isVizRoot : (model == this.root),
             cx : model.cx,
             cy : model.cy,
-            distance : 100,
             delay : calculatedDelay,
             distance : this.distance,
             relatednessMap: this.relatednessMap
