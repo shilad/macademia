@@ -883,12 +883,13 @@ MC.InterestViz.prototype.highlightLabel = function(selector){
 MC.InterestViz.prototype.activateHubRootAndChildren = function(mapID, map, self, childText){      //ChildText should be a bool to say whether or not to color the children's label
     d3.selectAll('g.hubRoot, g.interest')
         .attr('opacity',function(d){
-            if((d[0] && mapID == d[0].id )){
+            if((d[0] && mapID == d[0].id )){ //if the selection is hub
                 self.highlightLabel(d3.select(this));
+                d3.select(this).select('g.label').select('text').text(MC.interest().getText());
                 return self.activeOpacity;
             }else if(d['id'] && map.indexOf(d.id) >= 0){
                 if(childText){
-                    self.highlightLabel(d3.select(this));
+                    self.highlightLabel(d3.select(this));//highlight child text
                 }
                 return self.activeOpacity;
             }

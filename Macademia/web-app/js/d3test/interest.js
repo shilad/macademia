@@ -115,7 +115,12 @@ MC.interest = function() {
         });
     }
 
-    MC.options.register(interest, 'text', function (d) { return d.name; });
+    MC.options.register(interest, 'text', function (d) {
+        if(d[0]){ //if it is a hub
+            return d[0].name;
+        }
+        return d.name;
+    });
     MC.options.register(interest, 'htmlText', function (d) {
         if(d.name.length<15){
             return d.name;
