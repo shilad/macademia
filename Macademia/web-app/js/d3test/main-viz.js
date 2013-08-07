@@ -44,9 +44,24 @@ MC.MainViz.prototype.refreshViz = function(){
         if (self.transitionReady){
             clearInterval(intervalID);
             if(self.tRoot){ //If we are on transition
-                self.svg.select("g.viz").remove();
-                self.createViz();
-                self.setEventHandlers();
+                var positions = MC.InterestViz.prototype.getHubPositionMap();
+                var x = positions[self.hubs.length-1][0].x*self.svg.attr('width');
+                var y = positions[self.hubs.length-1][0].y*self.svg.attr('height');
+                console.log(x);
+                console.log(y);
+                self.tRoot
+                    .transition()
+                    .duration(500)
+                    .attr('transform',function(){
+                    return 'translate('+x+','+y+')';
+                });
+
+                window.setTimeout(function(){
+                    self.svg.select("g.viz").remove();
+                    self.createViz();
+                    self.setEventHandlers();
+                },500);
+
             }
             else{
                 self.svg.select("g.viz").remove();
