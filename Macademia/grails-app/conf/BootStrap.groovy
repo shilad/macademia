@@ -8,26 +8,20 @@ import org.wikapidia.core.dao.LocalPageDao
 class BootStrap {
 
     def autocompleteService
+    def wikAPIdiaService
 
     def init = { servletContext ->
         switch(Environment.current) {
         case Environment.DEVELOPMENT:
-            loadTags()
             autocompleteService.init()
+            wikAPIdiaService.init()
             break
         case Environment.PRODUCTION:
             autocompleteService.init()
+            wikAPIdiaService.init()
             break
         }
      }
-
-    def loadTags = {
-        Configuration conf = new Configuration(new File("grails-app/conf/semtag.conf"))
-        System.out.println(conf.get())
-        Configurator configurator = new Configurator(conf)
-        LocalPageDao lpDao = configurator.get(LocalPageDao.class)
-        println("count is " + lpDao.getCount(new DaoFilter()))
-    }
 
      def destroy = {
      }
