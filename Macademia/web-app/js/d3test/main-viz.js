@@ -64,7 +64,6 @@ MC.MainViz.prototype.refreshViz = function(){
 
             }
             else{
-                console.log('poop');
                 self.svg.select("g.viz").remove();
                 self.createViz();
                 self.setEventHandlers();
