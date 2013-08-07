@@ -64,6 +64,7 @@ MC.MainViz.prototype.refreshViz = function(){
 
             }
             else{
+                console.log('poop');
                 self.svg.select("g.viz").remove();
                 self.createViz();
                 self.setEventHandlers();
@@ -378,7 +379,7 @@ MC.MainViz.prototype.transitionRoot = function(){
             .duration(1000)
             .style('opacity',0);
         this.svg
-            .selectAll('g.interest, g.hubRoot, g.person, g.connectionPaths')
+            .selectAll('g.interest, g.hubRoot, g.person, g.connectionPaths, circle.gradient')
             .transition()
             .delay(1500)
             .duration(1000)

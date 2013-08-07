@@ -353,7 +353,11 @@ MC.InterestViz.prototype.drawGradientCircles = function(){
         .attr('r', function(d) {
             return d.r;
         })
-        .attr("class","gradient");
+        .attr("class","gradient")
+        .attr("opacity",0)
+        .transition()
+        .duration(1000)
+        .attr('opacity',1);
 };
 
 
