@@ -115,8 +115,8 @@ MC.InterestViz = function(params) {
 
 MC.InterestViz.prototype.getHubPositionMap = function(){
     var positions = [
-        [], // 1 hub case
-        [], // 2 hub case
+        [{x:0.5,y:0.55},{x:0.75,y:0.85}], // 1 hub case
+        [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85}], // 2 hub case
         [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
         [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.25,y:0.2},{x:0.7,y:0.2}] // 4 hub case
     ];
