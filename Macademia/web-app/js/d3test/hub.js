@@ -181,17 +181,20 @@ MC.hub = function() {
             //drawing root
             var rootType = data.root.type;
 
-            if(rootType == "interest"){
+            if(rootType == "interest"){ //if the root is an interest
                 var interestTemplate = MC.interest()
                     .setCssClass("hubRoot")
                     .setCx(cx).setCy(cy)
                     .setR(root.r)
+                    .setLabelText(function(d){
+                        return d.name;
+                    })
                     .setColor(function(d){
                         return d.color ? d.color : color;
                     });
                 d3Group.datum([data.root]).call(interestTemplate);
             }
-            else{
+            else{ //if the root is a person
                 var personRoot = MC.person()
                     .setCx(cx)
                     .setCy(cy)

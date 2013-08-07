@@ -69,7 +69,7 @@ MC.interest = function() {
             newGs.append('circle').attr('class',klass+"Outer"); //Outer circle
             newGs.append('circle').attr('class',klass+"Inner"); //inner circle
             var l = MC.label()
-                .setText(interest.getCleanedText())
+                .setText(interest.getLabelText())
                 .setY(function (d, i) {
                     var r = interest.getOrCallR(d, i);
                     return "" + (r+11) + "px";
@@ -161,6 +161,7 @@ MC.interest = function() {
     MC.options.register(interest, 'opacity', 1.0);
     MC.options.register(interest, 'onHover', [], MC.options.TYPE_LIST);
     MC.options.register(interest, 'cssClass', 'interest');
+    MC.options.register(interest, 'labelText',interest.getCleanedText())
 //    MC.options.register(interest, 'enterTransition', function() { return this.attr('opacity', 1.0); });
 //    MC.options.register(interest, 'updateTransition', null);
     MC.options.register(interest, 'exitTransition', null);
