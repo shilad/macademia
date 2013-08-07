@@ -9,7 +9,7 @@ var MC = (window.MC = (window.MC || {}));
 
 MC.MainViz = function(params) {
     var hash = macademia.history.get("nodeId");
-    this.peopleLimit =  this.parseNodeIdHash(hash).rootClass =='person' ? 10 : 14;
+    this.peopleLimit =  this.parseNodeIdHash(hash).rootClass =='person' ? 10 : 11;
     this.hubChildrenLimit = 10;
     this.transitionReady=false;
     this.colors =[ //giving the colors used on the page to color hubs
@@ -156,24 +156,24 @@ MC.MainViz.prototype.onLoad = function(){
             }
 
             //building people while keeping a limit on the total number of people on a page
-            //TODO:decide whether to limit the amount of people on the controller end.
-            var limitedPeople = {};
-            var sortedPeopleIDs = [];
-            for(var id in peeps){
-                sortedPeopleIDs.push(id);
-            }
-            sortedPeopleIDs.sort(function(a,b){ //sort by overall relevance to the hub
-                return peeps[b].relevance['overall']-peeps[a].relevance['overall'];
-            })
+//            var limitedPeople = {};
+//            var sortedPeopleIDs = [];
+//            for(var id in peeps){
+//                sortedPeopleIDs.push(id);
+//            }
+//            sortedPeopleIDs.sort(function(a,b){ //sort by overall relevance to the hub
+//                return peeps[b].relevance['overall']-peeps[a].relevance['overall'];
+//            })
 
-            for(var i = 0; i < self.peopleLimit; i++){
-                var id = sortedPeopleIDs[i]
-                limitedPeople[id]=peeps[id];
-            }
+//            for(var i = 0; i < self.peopleLimit; i++){
+//                var id = sortedPeopleIDs[i]
+//                limitedPeople[id]=peeps[id];
+//            }
 
             //Setting global variable based on data from JSON
             self.hubs = hubs;
-            self.people = limitedPeople;
+//            self.people = limitedPeople;
+            self.people = peeps;
             self.root = root;
             self.interests = interests;
             self.relatednessMap = relatednessMap;
