@@ -211,6 +211,9 @@ MC.personLayout = function () {
             .friction(friction)
             .start();
 
+        var q = d3.geom.quadtree (d3.values(surrogates)
+            .concat(d3.values(people)));
+        console.log(q)
 
         //creates a new g  for each new person
 //        var groups = svg.selectAll(".personNode")
