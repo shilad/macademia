@@ -525,7 +525,7 @@ MC.personLayout = function () {
         vizRootSpinning();
 
     }
-    MC.options.register(pl, 'friction', 0.1);
+    MC.options.register(pl, 'friction', 0.5);
     MC.options.register(pl, 'gravity', 0.0015);
     MC.options.register(pl, 'linkDistance', 50);
     MC.options.register(pl, 'peopleNodes', function () {
