@@ -313,6 +313,9 @@ MC.InterestViz.prototype.createHub = function(model,j) {
         var childId = model.children[i];
         hubInterests.push(this.interests[childId]);
     }
+    //TODO: model.id is not always defined in this.interests. "We think this is a data problem. Make sure this is working after implementing the new similiarity score algorithm
+    //This is unsafe for current data, sometimes it throws "Uncaught TypeError: Cannot set property 'type' of undefined"
+    //This problem should be solve after implementing the new similarity score algorithm
     var rootModel = model.type == 'person' ? this.people[model.id] : this.interests[model.id];
 
     rootModel.type = model.type;
