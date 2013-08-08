@@ -510,7 +510,7 @@ MC.personLayout = function () {
 //                        r = r+quad.point.real.r;
 //                    }
                     if (l < r) {
-                        l = (l - r) / l * .25;
+                        l = (l - r) / l * 0.005;
                         node.x -= x *= l;
                         node.y -= y *= l;
                         quad.point.x += x;
@@ -602,11 +602,11 @@ MC.personLayout = function () {
         //checks to see if it is a hub
 //        console.log(d);
         if (d.type == 'hub') {
-            return -20;
+            return -0.05;
         } else if (d.type == 'person') {
-            return -20;
+            return -0.05;
         } else if (d.type == 'leaf'){
-            return -10;
+            return -0.05;
         }
     });
 

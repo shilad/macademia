@@ -188,9 +188,6 @@ MC.hub = function() {
                     .setCssClass("hubRoot")
                     .setCx(cx).setCy(cy)
                     .setR(root.r)
-                    .setLabelText(function(d){
-                        return d.name;
-                    })
                     .setColor(function(d){
                         return d.color ? d.color : color;
                     });
