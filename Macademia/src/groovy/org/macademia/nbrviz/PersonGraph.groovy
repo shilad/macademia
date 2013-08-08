@@ -129,7 +129,7 @@ class PersonGraph extends NbrvizGraph {
                         score += cosims[id1][id2]
                     }
                 }
-                score *= Math.log(counts[id1] + 1)
+                score *= Math.log(counts[id1] + 2)
                 if (score > bestScore) {
                     bestScore = score
                     best = id1

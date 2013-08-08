@@ -17,11 +17,7 @@ class SemanticSimilarityService {
     def interestService
     def wikAPIdiaService
 
-    KnownPhraseSimilarity metric = new KnownPhraseSimilarity(
-            new File((String)ConfigurationHolder.config.macademia.similarityDir)
-    )
-
-    SimilarInterestList mostSimilar(int interestId, int maxResults=1000, int [] validIds = null) {
+    SimilarInterestList mostSimilar(int interestId, int maxResults=500, int [] validIds = null) {
         TIntHashSet validIdSet = (validIds == null) ? null : new TIntHashSet(validIds)
         SimilarInterestList res = wikAPIdiaService.getRelatedInterests(interestId, maxResults)
         res.setCount(interestService.getInterestCount(interestId as long))
@@ -32,12 +28,12 @@ class SemanticSimilarityService {
         if (interestId1 == interestId2) {
             return 1.0
         } else {
-            return metric.similarity(interestId1, interestId2)
+            return wikAPIdiaService.similarity(interestId1, interestId2)
         }
     }
 
     float[][] cosimilarity(int [] interestIds) {
-        float [][] M = metric.cosimilarity(interestIds, interestIds)
+        float [][] M = wikAPIdiaService.cosimilarity(interestIds)
         for (int i : 0..interestIds.length-1) {
             M[i][i] = 1.0f
         }
@@ -45,7 +41,7 @@ class SemanticSimilarityService {
     }
 
     float[][] cosimilarity(int [] rowInterestIds, int [] colInterestIds) {
-        float [][] M = metric.cosimilarity(rowInterestIds, colInterestIds)
+        float [][] M = wikAPIdiaService.cosimilarity(rowInterestIds, colInterestIds)
         for (int i : rowInterestIds.length - 1) {
             int j = colInterestIds.findIndexOf {it == rowInterestIds[i]}
             if (j >= 0) {
