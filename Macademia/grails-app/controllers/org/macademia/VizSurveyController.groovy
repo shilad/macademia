@@ -55,6 +55,7 @@ class VizSurveyController {
         List<String> inputs = params.('interest')
         SurveyPerson p = session.person
         for (int i=1; i<inputs.size();i++) {
+            System.out.println(inputs)
             def interest = surveyPersonService.createInterest(inputs[i])
             p.addToInterests(interest)
         }

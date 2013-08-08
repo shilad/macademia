@@ -1,7 +1,5 @@
 package org.macademia.vizSurvey
 
-import org.macademia.vizSurvey.SurveyPerson;
-import org.macademia.vizSurvey.SurveyInterest;
 
 class SurveyPersonService {
     def create(String email) {
