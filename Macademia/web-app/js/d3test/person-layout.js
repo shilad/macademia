@@ -1,6 +1,6 @@
 /**
  * Created with IntelliJ IDEA.
- * User: research
+ * User: Jesse, Zixiao, Marge, and Sam
  * Date: 7/3/13
  * Time: 12:48 PM
  * To change this template use File | Settings | File Templates.
@@ -162,21 +162,22 @@ MC.personLayout = function () {
         // create an edge between each person and the hubs the relate to.
         var links = [];
         peopleNodes.each(function (p, i) {
-//            console.log(p)
             $.map(p.relevance, function (r, iid) {
                 if (iid != -1 && iid != 'overall') {
-//                    console.log(r*r);
                     links.push({
                         source: p,
                         target: surrogates[iid],
                         strength: r * r
                     });
-//                    console.log(p);
-//                    console.log(surrogates[iid]);
-//                    console.log(r*r);
+                    links.push({
+                        source: surrogates[iid],
+                        target: p,
+                        strength: r * r
+                    });
                 }
             });
         });
+//
 
 //        console.log(links);
         //get list of values for already made arrays
@@ -315,26 +316,26 @@ MC.personLayout = function () {
          top of the pie
 
          2. For each person we want to first rotate the pie based on the angle between the
-            the top of the pie and the line formed by the person and the hub with the
-            highest weight and then readjust the pie by rotating half of the arc of the
-            wedge to make the wedge point to the hub:
-            a. Pick out the first path that represents the wedge with the highest weight
-            for each person.
-            b. Find the (x,y) coordinates of the person and the location of the hub with
-            the most weight for the person by using the id store in the data associated with
-            the path.
-            c. Knowing the coordinates of the person and the hub, we can find the
-            angle between the line formed by person and the hub and the x-axis. We
-            made sure that the angle theta is from 0 to PI/2 (if theta > PI/2
-            take PI-theta).
-            d. We have a case for each quadrant:
-                quadrant1: rotate -(PI/2-theta)
-                quadrant2: rotate PI/2-theta
-                quadrant3: rotate PI/2+theta
-                quadrant4: rotate -(PI/2+theta)
-            f. Find the halfArcAngle by using the startAngle and the endAngle of the path
-            g. rotate the pie by using result from d and f. (Notice that SVG "rotate" runs
-            in click-wise direction and it uses 360 degree instead of 2PI radius.)
+         the top of the pie and the line formed by the person and the hub with the
+         highest weight and then readjust the pie by rotating half of the arc of the
+         wedge to make the wedge point to the hub:
+         a. Pick out the first path that represents the wedge with the highest weight
+         for each person.
+         b. Find the (x,y) coordinates of the person and the location of the hub with
+         the most weight for the person by using the id store in the data associated with
+         the path.
+         c. Knowing the coordinates of the person and the hub, we can find the
+         angle between the line formed by person and the hub and the x-axis. We
+         made sure that the angle theta is from 0 to PI/2 (if theta > PI/2
+         take PI-theta).
+         d. We have a case for each quadrant:
+         quadrant1: rotate -(PI/2-theta)
+         quadrant2: rotate PI/2-theta
+         quadrant3: rotate PI/2+theta
+         quadrant4: rotate -(PI/2+theta)
+         f. Find the halfArcAngle by using the startAngle and the endAngle of the path
+         g. rotate the pie by using result from d and f. (Notice that SVG "rotate" runs
+         in click-wise direction and it uses 360 degree instead of 2PI radius.)
          */
         var pieSpinning = function(){
 
@@ -381,6 +382,7 @@ MC.personLayout = function () {
         };
 
         var vizRootSpinning = function(){
+            //TODO: vizRootSpinning is not working for "Lilly Wood nodeId=p_16425" because she has equal largest pie slices
             //Getting the vizRoot ID
             var vizID = macademia.history.get("nodeId").substring(2);
 //            console.log(vizID);
@@ -426,13 +428,141 @@ MC.personLayout = function () {
                 });
         };
 
+//        var collide = function(node) {
+////            console.log(node);
+//            var r;
+//            if(!node.real){
+//                r=25;
+//            }else if(node.real[0]){
+//                r = node.real[0].r + 20;
+//            }else{
+//                r = node.real.r + 25;
+//            }
+//
+//            var nx1 = node.x - r,
+//                nx2 = node.x + r,
+//                ny1 = node.y - r,
+//                ny2 = node.y + r;
+//            return function(quad, x1, y1, x2, y2) {
+////                console.log(quad);
+//                if (quad.point && (quad.point !== node)) {
+//                    var x = node.x - quad.point.x,
+//                        y = node.y - quad.point.y,
+//                        l = Math.sqrt(x * x + y * y);
+//                    var r;
+//                    if(!node.real){
+//                        r=25;
+//                    }else if(node.real[0]){
+//                        r = node.real[0].r;
+//                    }else{
+//                        r = node.real.r;
+//                    }
+//                    if(!quad.point.real){
+//                        r=r+25;
+//                    }else if(quad.point.real[0]){
+//                        r = r+quad.point.real[0].r;
+//                    }else{
+//                        r = r+quad.point.real.r;
+//                    }
+//                    if (l < r) {
+//                        l = (l - r) / l * .5;
+//                        node.x -= x *= l;
+//                        node.y -= y *= l;
+//                        quad.point.x += x;
+//                        quad.point.y += y;
+//                    }
+//                }
+//                return x1 > nx2
+//                    || x2 < nx1
+//                    || y1 > ny2
+//                    || y2 < ny1;
+//            };
+//        };
+        var collide = function(node) {
+//            console.log(node);
+            var r;
+            if(!node.real){                 //person
+                r=50;
+            }else if(node.hubRadius){         //hub
+                r = node.hubRadius;
+            }
+//            else{                          //interest
+//                r = node.real.r + 16;
+//            }
 
-
+            var nx1 = node.x - r,
+                nx2 = node.x + r,
+                ny1 = node.y - r,
+                ny2 = node.y + r;
+            return function(quad, x1, y1, x2, y2) {
+//                console.log(quad);
+                if (quad.point && (quad.point !== node)) {
+                    var x = node.x - quad.point.x,
+                        y = node.y - quad.point.y,
+                        l = Math.sqrt(x * x + y * y);
+                    if(!quad.point.real){
+                        r=r+10;
+                    }else if(quad.point.hubRadius){
+                        r = r+quad.point.hubRadius;
+                    }
+//                    else{
+//                        console.log('here');
+//                        r = r+quad.point.real.r;
+//                    }
+                    if (l < r) {
+                        l = (l - r) / l * 0.001;
+                        node.x -= x *= l;
+                        node.y -= y *= l;
+                        quad.point.x += x;
+                        quad.point.y += y;
+                    }
+                }
+                return x1 > nx2
+                    || x2 < nx1
+                    || y1 > ny2
+                    || y2 < ny1;
+            };
+        };
         // walk through iterations of convergence to final positions
         var maxBound = Number(d3.select("g.viz").attr('height'));
+        var findHubs = function(){
+            var hubs = {};
+            for(var i in surrogates){
+                if(surrogates[i].type=='hub'){
+                    var pos = document.getElementById('hub'+surrogates[i].id).getBoundingClientRect();
+                    var radius;
+                    if(pos.width>pos.height){
+                        radius = pos.width/3;
+                        if(surrogates[i].id==macademia.history.get("nodeId").substring(2)){
+                            radius = pos.width/2;
+                        }
+                    }else{
+                        radius = pos.height/3;
+                        if(surrogates[i].id==macademia.history.get("nodeId").substring(2)){
+                            radius = pos.height/2;
+                        }
+                    }
+                    surrogates[i]['hubRadius']=radius;
+                    hubs[surrogates[i].id]=surrogates[i];
+                }
+            }
+            return hubs;
+        };
+        var hubNodes = findHubs();
+//        console.log(hubNodes);
+        var allNodes = d3.values(hubNodes).concat(d3.values(people));
+//        console.log(allNodes);
         force.on("tick", function (e) {
 
-        // Push different nodes in different directions for clustering.
+            var q = d3.geom.quadtree(allNodes),
+                i = 0,
+                n = allNodes.length;
+//            console.log(q);
+            while (++i < n) {
+                q.visit(collide(allNodes[i]));
+            }
+
+            // Push different nodes in different directions for clustering.
 //        var k = 6 * e.alpha;
 //        nodes.forEach(function(o, i) {
 //            o.y += i & 1 ? k : -k;
@@ -462,8 +592,8 @@ MC.personLayout = function () {
         vizRootSpinning();
 
     }
-    MC.options.register(pl, 'friction', 0.5);
-    MC.options.register(pl, 'gravity', 0.005);
+    MC.options.register(pl, 'friction', 0.65);
+    MC.options.register(pl, 'gravity', 0.00025);
     MC.options.register(pl, 'linkDistance', 20);
     MC.options.register(pl, 'peopleNodes', function () {
         throw('no people specified.')
@@ -478,13 +608,11 @@ MC.personLayout = function () {
         //checks to see if it is a hub
 //        console.log(d);
         if (d.type == 'hub') {
-            return -2000;
+            return -7000;
         } else if (d.type == 'person') {
-            return -2000;
+            return -5000;
         } else if (d.type == 'leaf'){
-            return -500;
-        } else {
-            return -100;
+            return -800;
         }
     });
 
