@@ -45,19 +45,19 @@
                             <td style="width: 42.5px">
                             </td>
                             <td style="width: 95px">
-                                <label>0 <input type="radio" name="${"radio_"+ q}" value="1"/></label>
+                                <input type="radio" name="${"radio_"+ q}" value="1"/>
                             </td>
                             <td style="width: 95px">
-                                <label>1 <input type="radio" name="${"radio_"+q}" value="2"/></label>
+                                <input type="radio" name="${"radio_"+q}" value="2"/>
                             </td>
                             <td style="width: 95px">
-                                <label>2 <input type="radio" name="${"radio_"+q}" value="3"/></label>
+                                <input type="radio" name="${"radio_"+q}" value="3"/>
                             </td>
                             <td style="width: 95px">
-                                <label>3 <input type="radio" name="${"radio_"+q}" value="4"/></label>
+                                <input type="radio" name="${"radio_"+q}" value="4"/>
                             </td>
                             <td style="width: 95px">
-                                <label>4 <input type="radio" name="${"radio_"+q}" value="5"/></label>
+                               <input type="radio" name="${"radio_"+q}" value="5"/>
                             </td>
                         </tr>
                     </table>
@@ -78,7 +78,6 @@
             </td>
         </tr>
         </g:each>
-    </g:form>
 
 
 <tr>
@@ -96,19 +95,19 @@
                     <td style="width: 42.5px">
                     </td>
                     <td style="width: 95px">
-                        <label>0 <input type="radio" name="radioButtons" value="1"/></label>
+                        <input type="radio" name="radioButtons" value="1"/>
                     </td>
                     <td style="width: 95px">
-                        <label>1 <input type="radio" name="radioButtons" value="2"/></label>
+                        <input type="radio" name="radioButtons" value="2"/>
                     </td>
                     <td style="width: 95px">
-                        <label>2 <input type="radio" name="radioButtons" value="3"/></label>
+                        <input type="radio" name="radioButtons" value="3"/>
                     </td>
                     <td style="width: 95px">
-                        <label>3 <input type="radio" name="radioButtons" value="4"/></label>
+                        <input type="radio" name="radioButtons" value="4"/>
                     </td>
                     <td style="width: 95px">
-                        <label>4 <input type="radio" name="radioButtons" value="5"/></label>
+                        <input type="radio" name="radioButtons" value="5"/>
                     </td>
                 </tr>
             </table>
@@ -150,27 +149,27 @@
                     <td style="width: 42.5px">
                     </td>
                     <td style="width: 95px">
-                        <label>0 <input type="radio" name="radioButtons1" value="1"/></label>
+                        <input type="radio" name="radioButtons1" value="1"/>
                     </td>
                     <td style="width: 95px">
-                        <label>1 <input type="radio" name="radioButtons1" value="2"/></label>
+                        <input type="radio" name="radioButtons1" value="2"/>
                     </td>
                     <td style="width: 95px">
-                        <label>2 <input type="radio" name="radioButtons1" value="3"/></label>
+                        <input type="radio" name="radioButtons1" value="3"/>
                     </td>
                     <td style="width: 95px">
-                        <label>3 <input type="radio" name="radioButtons1" value="4"/></label>
+                        <input type="radio" name="radioButtons1" value="4"/>
                     </td>
                     <td style="width: 95px">
-                        <label>4 <input type="radio" name="radioButtons1" value="5"/></label>
+                        <input type="radio" name="radioButtons1" value="5"/>
                     </td>
                 </tr>
             </table>
         </div>
 </tr>
+</g:form>
 
-
-%{--labels for the radio buttons--}%
+    %{--labels for the radio buttons--}%
 <tr style="position:relative; margin-top: 33px; margin-left:140px">
     <td>
 
