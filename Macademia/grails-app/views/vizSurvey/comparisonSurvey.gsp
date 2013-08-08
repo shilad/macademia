@@ -326,12 +326,19 @@
             });
         });
         $('#doneButton').on('click', function(){
-            $('#peopleListForm').submit();
+            var currentPeople = $('.sortable-boxa')
+            if (currentPeople.size()==1) {
+                alert("Enter at least one person");
+            } else {
+                $('#peopleList').submit();
+            }
         });
+
         $('#add-person').on('submit', function(e){
-            var numCurrentPeople = $('.sortable-boxa'); //the number of people currently on the page
-            if(numCurrentPeople.size() < 6 ){
-                e.preventDefault();
+            var currentPeople = $('.sortable-boxa'); //the number of people currently on the page
+            e.preventDefault();
+
+            if(currentPeople.size() < 6 && input.val()!= ""){
                 var newButton = $('#peopleList li:first').clone(true);
                 newButton.find('.name').text(input.val());
                 newButton.find('input').val(input.val());

@@ -111,7 +111,7 @@
         <br/>
         <input class="addButton" type="submit" value="Add Interest" id="submitButton"/>
     </form>
-    <g:form url="interestSave">
+    <g:form url="interestSave" id="interestListForm">
         <ul id="interestList">
             <li class="sortable-boxes" name="sortable-box">
                 <input type="hidden" name="interest" value=""/>
@@ -148,10 +148,23 @@
             });
         });
 
-        $('#add-interest').on('submit', function(e){
-            var numCurrentInterests = $('.sortable-boxes');
-            if(numCurrentInterests.size() < 9){
+        $('#interestListForm').on('submit', function(e){
+            var currentInterests = $('.sortable-boxes');
+            if(currentInterests.size()==1){
+                alert("Enter at least one interest");
                 e.preventDefault();
+            }
+        });
+
+        $('#add-interest').on('submit', function(e){
+
+            var currentInterests = $('.sortable-boxes');
+            e.preventDefault();
+
+
+
+            if(currentInterests.size() < 9 && input.val()!=""){
+
                 var newButton = $('#interestList li:first').clone(true);
                 newButton.find('.name').text(input.val());
                 newButton.find('input').val(input.val());
@@ -160,6 +173,8 @@
                 newButton.show('fast');
                 $("#textBox").val("");
             }
+
+
 
         });
 
@@ -186,6 +201,7 @@
                 select: function(event, ui) {
                     $("#textBox").val(ui.item.value);
                     $("#add-interest").submit();
+
 
                     return false;
                 }
