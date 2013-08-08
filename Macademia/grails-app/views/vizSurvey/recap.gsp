@@ -32,9 +32,7 @@
 
 <div>
 <table style="position:absolute;margin-top: 100px; margin-left:50px">
-%{--<tr><td colspan="4"><h2 >Place Question here</h2></td></tr>--}%
-%{--<tr style="height: 5px"><td></td></tr>--}%
-%{--This is where the repitition begins for the people radio button rating--}%
+<tr><td>Question about the people</td></tr>
 <tr>
 
     <td style="width: 105px">Machli Bennington</td>

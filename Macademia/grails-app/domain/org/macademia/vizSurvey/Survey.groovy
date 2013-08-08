@@ -12,11 +12,15 @@ class Survey {
     String root
     String recap
 
+
+    static hasMany = [questions: SurveyQuestion]
+
     static constraints = {
         surveyPerson(nullable: true)
         task(nullable: true)
         visualization(nullable: true)
         root(nullable: true)
         recap(nullable: true)
+        question(nullable: true)
     }
 }
