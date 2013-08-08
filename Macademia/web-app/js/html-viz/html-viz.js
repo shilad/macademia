@@ -29,3 +29,38 @@ MC.HtmlViz = function(params) {
 //        }
 //    });
 }
+
+//MC.HtmlViz.prototype.calculateColors = function() {
+//    // assign interest colors to hubs
+//    var interestColors = {};
+//    if (this.root.color) {
+//        this.currentColors.push(this.root.color);
+//    } else {
+//        this.root.color = this.makeColorful();
+//    }
+//
+//    interestColors[this.root.id] = this.root.color;
+//    for (var i = 0; i < this.hubs.length; i++) {
+//        this.hubs[i].color = this.makeColorful();
+//        interestColors[this.hubs[i].id] = this.hubs[i].color;
+//    }
+//
+//    // assign interest colors to people
+//    for (var pid in this.people) {
+//        this.people[pid].interestColors = interestColors;
+//    }
+//};
+
+MC.HtmlViz.prototype.makeColorful = function(){
+    var color;
+    //the colors already on the page
+
+    for(var i = 0; i < this.colors.length; i++){
+        if(this.currentColors.indexOf(this.colors[i])<0){
+            color=this.colors[i];
+            this.currentColors.push(color);
+            return color;
+        };
+
+    };
+};
