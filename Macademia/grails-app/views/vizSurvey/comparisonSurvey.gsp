@@ -224,9 +224,10 @@
                 <tr>
                     %{--sortable boxes--}%
                     <td colspan="3">
-
+                    <g:form url="recap" id='peopleList'>
                         <ul id="peopleList">
                             <li class="sortable-boxa" name="sortable-box">
+                                <input type="hidden" name="people" value=""/>
                                 %{--this table is for aligning the words in the sortable box--}%
                                 <table>
                                     <tr>
@@ -242,6 +243,7 @@
                         </ul>
 
                     </td>
+                    </g:form>
                 </tr>
                 <tr>
                     %{--<a class="addButton" href="#">add</a>--}%
@@ -274,7 +276,9 @@
                                         $(this).parents("#peopleList li").remove();       //id of the .sortable-box that is designated for removal
                                     });
                                 });
-
+                                $('#doneButton').on('click', function(){
+                                    $('#peopleList').submit();
+                                });
                                 $('#add-person').on('submit', function(e){
                                     var numCurrentPeople = $('.sortable-boxa'); //the number of people currently on the page
                                     console.log(numCurrentPeople.size());
@@ -283,6 +287,7 @@
                                         e.preventDefault();
                                         var newButton = $('#peopleList li:first').clone(true);
                                         newButton.find('.name').text(input.val());
+                                        newButton.find('input').val(input.val());
                                         console.log($('#peopleList'));
                                         $('#peopleList').append(newButton);
                                         newButton.show('fast');
@@ -359,8 +364,8 @@
                     </td>
                 </tr>
             </table>
-            <g:link url="recap" params='[consent: true]'>
-                <div class="largeCircle" style="background: #f5a3d6; top:197mm;left:165.5mm ">
+            <g:link url="vizTaskSave">
+                <div id='doneButton' class="largeCircle" style="background: #f5a3d6; top:197mm;left:165.5mm ">
                     <div class ="insideCircle" style="top: 0.5mm; left: 0.5mm;"></div></div></div>
 
                 <p style ="position:absolute; top: 200mm;left: 166mm;">Done</p>

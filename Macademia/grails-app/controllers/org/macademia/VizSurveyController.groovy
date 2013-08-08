@@ -1,12 +1,12 @@
 package org.macademia
 
+import org.macademia.vizSurvey.Question
 import org.macademia.vizSurvey.Survey
-import org.macademia.vizSurvey.SurveyInterest
 import org.macademia.vizSurvey.SurveyPerson
 
 class VizSurveyController {
 
-    def surveyPersonService
+    def vizSurveyService
 
     def invite() {
         if (params.email == null) {
@@ -25,7 +25,7 @@ class VizSurveyController {
     def consent() {
         String email = params.email
         if (email != null) {
-            SurveyPerson p = surveyPersonService.create(email)
+            SurveyPerson p = vizSurveyService.create(email)
             session.person = p
         }
         render(view:'consent')
@@ -55,8 +55,7 @@ class VizSurveyController {
         List<String> inputs = params.('interest')
         SurveyPerson p = session.person
         for (int i=1; i<inputs.size();i++) {
-            System.out.println(inputs)
-            def interest = surveyPersonService.createInterest(inputs[i])
+            def interest = vizSurveyService.createInterest(inputs[i])
             p.addToInterests(interest)
         }
         p.save(flush:true)
@@ -71,8 +70,31 @@ class VizSurveyController {
         render(view: 'comparisonSurvey')
     }
 
+    def vizTaskSave() {
+        List<String> inputs = params.('people')
+        Survey s = session.survey
+        for (int i =1; i<inputs.size();i++) {
+            def question = vizSurveyService.createQuestion(inputs[i])
+            s.addToQuestions(question)
+        }
+        s.save(flush:true)
+        redirect(url: "/all" + this.getControllerUri() + '/recap')
+    }
+
     def recap() {
-        def people = ["biill", "bob", "joe", "sue"]
+
+        Survey s = session.survey
+
+        List<Question> questions = s.getQuestions()
+
+        List<String> people = new  ArrayList<>()
+
+        for (question in questions) {
+            people.add(question.getText)
+        }
+
+//        def people = ["bill", "bob", "joe", "sue"]
+
         render(view: 'recap', model: [people: people])
 
     }

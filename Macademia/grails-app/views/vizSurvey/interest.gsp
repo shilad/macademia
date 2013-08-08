@@ -111,27 +111,30 @@
         <br/>
         <input class="addButton" type="submit" value="Add Interest" id="submitButton"/>
     </form>
-    <g:form url="interestSave">
-        <ul id="interestList">
-            <li class="sortable-boxes" name="sortable-box">
-                <input type="hidden" name="interest" value=""/>
-                %{--this table is for aligning the words in the sortable box--}%
-                <table>
-                    <tr>
-                        <td class="name" width=140mm>
+    <ul id="interestList">
+        <li class="sortable-boxes" name="sortable-box">
+            %{--this table is for aligning the words in the sortable box--}%
+            <table>
+                <tr>
+                    <td class="name" width=140mm>
 
-                        </td>
-                        <td>
-                            <a class="removeButton" href="#">remove</a>
-                        </td>
-                    </tr>
-                </table>
-            </li>
-        </ul>
+                    </td>
+                    <td>
+                        <a class="removeButton" href="#">remove</a>
+                    </td>
+                </tr>
+            </table>
+        </li>
+    </ul>
+        </div>
 
-    </div>
-        <input style="position:relative; margin-top: 410px; margin-left:804px" type="submit" value="Submit" id="submitButton"/>
-    </g:form>
+    %{--button to move forward bottom right corner--}%
+    <a href="instructions">
+        <div class="largeCircle" style="background: #A8C4E5; top:115mm; left: 185mm;">
+            <div class = "insideCircle" style="top: 0.5mm; left: 0.5mm;"></div>
+        </div>
+        <p class="continue" style="top:117.5mm; left: 165mm;">Continue</p>
+    </a>
 </div>
 
 
@@ -153,7 +156,6 @@
             e.preventDefault();
             var newButton = $('#interestList li:first').clone(true);
             newButton.find('.name').text(input.val());
-            newButton.find('input').val(input.val());
             console.log($('#interestList'));
             $('#interestList').append(newButton);
             newButton.show('fast');
