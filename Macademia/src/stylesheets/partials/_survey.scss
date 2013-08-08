@@ -1,7 +1,7 @@
 .background{
   position: relative;
   width:1024px;
-  height:130mm;
+  height:800px;
   margin-left: auto;
   margin-right: auto;
   border-radius:50px;
@@ -76,3 +76,38 @@ textarea {
   margin: 0; /* don't want to add to container size */
   border: 0; /* don't want to add to container size */
 }
+.radio-buttons{
+  position:absolute;
+  width:475px;
+  //height:23px;
+  //margin-left: 115px;
+  //margin-top: 100px;
+  border-radius:50px;
+  border: 1px solid #ffffff;
+  //background: orangered;
+@include background-image(
+linear-gradient(
+left,
+    #f5a3d6,
+rgb(255, 255, 255) 47%,
+    #b4f5a3
+));
+}
+
+
+//
+//.rating-bars {
+//  border: 1px solid #999;
+//  padding: 2px 0;
+//  td {
+//    text-align: center;
+//    width: 80px;
+//  }
+//  @include background-image(
+//      linear-gradient(
+//          left,
+//          rgb(255, 153, 153),
+//          rgb(255, 255, 255) 15%,
+//          rgb(5, 206, 38)
+//      ));
+//}
