@@ -281,8 +281,9 @@
                                 });
                                 $('#add-person').on('submit', function(e){
                                     var numCurrentPeople = $('.sortable-boxa'); //the number of people currently on the page
-                                    if(numCurrentPeople.size() < 6 ){
-                                        e.preventDefault();
+                                    e.preventDefault();
+
+                                    if(numCurrentPeople.size() < 6 && input.val()!= ""){
                                         var newButton = $('#peopleList li:first').clone(true);
                                         newButton.find('.name').text(input.val());
                                         newButton.find('input').val(input.val());
