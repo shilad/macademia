@@ -150,8 +150,10 @@
 
         $('#add-interest').on('submit', function(e){
             var numCurrentInterests = $('.sortable-boxes');
-            if(numCurrentInterests.size() < 9){
-                e.preventDefault();
+            e.preventDefault();
+
+            if(numCurrentInterests.size() < 9 && input.val()!=""){
+
                 var newButton = $('#interestList li:first').clone(true);
                 newButton.find('.name').text(input.val());
                 newButton.find('input').val(input.val());
