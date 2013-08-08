@@ -72,7 +72,8 @@ class VizSurveyController {
     }
 
     def recap() {
-        render(view: 'recap')
+        def people = ["biill", "bob", "joe", "sue"]
+        render(view: 'recap', model: [people: people])
 
     }
 

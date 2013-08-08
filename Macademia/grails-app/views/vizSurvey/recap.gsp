@@ -287,7 +287,10 @@
         </table>
     </td>
 </tr>
-<tr>
+<div id="radiobar-label">
+<tr >
+
+
     <td>QQUESTION</td>
 </tr>
 <tr style="height: 25px">
@@ -319,6 +322,8 @@
             </table>
         </div>
 </tr>
+
+
 %{--labels for the radio buttons--}%
 <tr style="position:relative; margin-top: 33px; margin-left:140px">
     <td>
@@ -337,6 +342,7 @@
         </table>
     </td>
 </tr>
+    </div>
 </table>
 </div>
 </div>
@@ -352,6 +358,11 @@
             //send to server and process response
         });
 
+        for (var i=0;i<people.length;i++)
+        {
+
+        }
+       // use the dataModle to loop through and
 
 //            $('#add-person').on('submit', function(e){
 //                e.preventDefault();
