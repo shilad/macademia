@@ -507,12 +507,12 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
     }
     ///////MAKE GET CALL TO RETRIEVE DATA FOR DIV
     if(id in people && e.interests ||  type == "person" ){ //checks to see if it is a person
-        this.xhr = jQuery.get('http://localhost:8080/Macademia/all/person/tooltip/' + id, function(data) {
+        this.xhr = jQuery.get('/Macademia/all/person/tooltip/' + id, function(data) {
             jQuery('#tooltipBox').html(data);
             self.createTooltip(self,pos,div);     //Once the data is set into the div, start the tooltip
         });}
     else {    //deals with interests
-        this.xhr = jQuery.get('http://localhost:8080/Macademia/all/interest/tooltip/' + id, function(data) {
+        this.xhr = jQuery.get('/Macademia/all/interest/tooltip/' + id, function(data) {
             jQuery('#tooltipBox').html(data);
             self.createTooltip(self,pos,div);
         });

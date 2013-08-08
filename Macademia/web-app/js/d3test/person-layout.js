@@ -608,7 +608,7 @@ MC.personLayout = function () {
         //checks to see if it is a hub
 //        console.log(d);
         if (d.type == 'hub') {
-            return -10000;
+            return -7000;
         } else if (d.type == 'person') {
             return -5000;
         } else if (d.type == 'leaf'){
