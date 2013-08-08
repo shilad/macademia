@@ -73,8 +73,8 @@ MC.hub = function() {
             var distance = 40; //default distance
             if(data["distance"]){ //if the distance between the root and children is specified
                 distance = data["distance"];
-                if(rootType=='person')
-                    distance = 1.3*distance;
+//                if(rootType=='person')
+//                    distance = 1.3*distance;
             }
             var n = data.children.length;
 
@@ -83,6 +83,8 @@ MC.hub = function() {
 
             //drawing lines between person and their interests
             if(rootType == "person"){
+                distance = 1.3 * distance; //scale up the distance
+
                 var gradient = d3.select('defs')
                     .append("radialGradient")
                     .attr("id", "connection_gradient")
@@ -181,17 +183,20 @@ MC.hub = function() {
             //drawing root
             var rootType = data.root.type;
 
-            if(rootType == "interest"){
+            if(rootType == "interest"){ //if the root is an interest
                 var interestTemplate = MC.interest()
                     .setCssClass("hubRoot")
                     .setCx(cx).setCy(cy)
                     .setR(root.r)
+                    .setLabelText(function(d){
+                        return d.name;
+                    })
                     .setColor(function(d){
                         return d.color ? d.color : color;
                     });
                 d3Group.datum([data.root]).call(interestTemplate);
             }
-            else{
+            else{ //if the root is a person
                 var personRoot = MC.person()
                     .setCx(cx)
                     .setCy(cy)
