@@ -150,7 +150,6 @@ MC.interest = function() {
         if (cleanedText.length > 15){
              cleanedText = cleanedText.substr(0, 10) + " ...";
         }
-//        console.log(cleanedText);
         return cleanedText;
     });
     MC.options.register(interest, 'color', function (d) { return d.color; })
