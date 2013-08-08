@@ -13,7 +13,7 @@ class Survey {
     String recap
 
 
-    static hasMany = [questions: SurveyQuestion]
+    static hasMany = [questions: Question]
 
     static constraints = {
         surveyPerson(nullable: true)
@@ -21,6 +21,6 @@ class Survey {
         visualization(nullable: true)
         root(nullable: true)
         recap(nullable: true)
-        question(nullable: true)
+        questions(nullable: true)
     }
 }

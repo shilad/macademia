@@ -19,9 +19,9 @@ class RadioGroup {
     }
 
     /**
-     * Determines whether the parameter SurveyQuestion
+     * Determines whether the parameter Question
      * belongs to this group of radio questions.
-     * @param question The SurveyQuestion whose inclusion
+     * @param question The Question whose inclusion
      * is to be checked.
      * @return true if the parameter question belongs to
      * this group of radio questions, false otherwise.
@@ -35,7 +35,7 @@ class RadioGroup {
      * Adds the parameter question to this group of radio
      * questions. If the question does not belong to this
      * group, no to the group is made.
-     * @param question The SurveyQuestion who is to be
+     * @param question The Question who is to be
      * added to the group, if it belongs.
      */
     public void add(SurveyQuestion question) {

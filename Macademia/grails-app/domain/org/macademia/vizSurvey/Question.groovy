@@ -1,6 +1,6 @@
 package org.macademia.vizSurvey
 
-class SurveyQuestion {
+class Question {
 
     Integer score
     String question
