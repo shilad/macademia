@@ -14,13 +14,11 @@ class VizSurveyController {
             params.baseUrl = "http://localhost:8080/Macademia/all/vizSurvey/consent"
             params.subject = "It works!"
         }
-
         sendMail {
             to params.email
             subject params.subject
             html view : 'email', model: [email:params.email, baseUrl: params.baseUrl]
         }
-
         redirect(url: "/all" + this.getControllerUri() + '/consent')
     }
 
@@ -30,7 +28,6 @@ class VizSurveyController {
             SurveyPerson p = surveyPersonService.create(email)
             session.person = p
         }
-
         render(view:'consent')
     }
 
@@ -55,7 +52,7 @@ class VizSurveyController {
     }
 
     def interestSave() {
-        List<String> inputs = params.get('interest')
+        List<String> inputs = params.('interest')
         SurveyPerson p = session.person
         for (int i=1; i<inputs.size();i++) {
             System.out.println(inputs)

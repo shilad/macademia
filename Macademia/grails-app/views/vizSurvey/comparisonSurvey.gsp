@@ -276,13 +276,18 @@
                                 });
 
                                 $('#add-person').on('submit', function(e){
-                                    e.preventDefault();
-                                    var newButton = $('#peopleList li:first').clone(true);
-                                    newButton.find('.name').text(input.val());
-                                    console.log($('#peopleList'));
-                                    $('#peopleList').append(newButton);
-                                    newButton.show('fast');
-                                    $("#textBox").val("");
+                                    var numCurrentPeople = $('.sortable-boxa'); //the number of people currently on the page
+                                    console.log(numCurrentPeople.size());
+
+                                    if(numCurrentPeople.size() < 6 ){
+                                        e.preventDefault();
+                                        var newButton = $('#peopleList li:first').clone(true);
+                                        newButton.find('.name').text(input.val());
+                                        console.log($('#peopleList'));
+                                        $('#peopleList').append(newButton);
+                                        newButton.show('fast');
+                                        $("#textBox").val("");
+                                    }
                                 });
 
                             $(function() {
@@ -354,6 +359,12 @@
                     </td>
                 </tr>
             </table>
+            <g:link url="recap" params='[consent: true]'>
+                <div class="largeCircle" style="background: #f5a3d6; top:197mm;left:165.5mm ">
+                    <div class ="insideCircle" style="top: 0.5mm; left: 0.5mm;"></div></div></div>
+
+                <p style ="position:absolute; top: 200mm;left: 166mm;">Done</p>
+            </g:link>
         </td>
         <td>
             %{--in the following div is where the viz needs to go--}%
@@ -367,11 +378,8 @@
             %{--<INPUT TYPE="submit" VALUE="Clickable Button">--}%
         %{--</FORM>    --}%
 
-        <g:link url="recap" params='[consent: true]'>
-            <div class="largeCircle" style="background: #f5a3d6; top:100mm;left:140mm ">
-                <div class ="insideCircle" style="top: 0.5mm; left: 0.5mm;"></div></div></div>
-            <p style ="position:absolute; top: 103mm;left: 153mm;">Done</p>
-        </g:link>
+
+
 
 
 
