@@ -510,7 +510,7 @@ MC.personLayout = function () {
 //                        r = r+quad.point.real.r;
 //                    }
                     if (l < r) {
-                        l = (l - r) / l * .25;
+                        l = (l - r) / l * .05;
                         node.x -= x *= l;
                         node.y -= y *= l;
                         quad.point.x += x;
@@ -588,7 +588,7 @@ MC.personLayout = function () {
     }
     MC.options.register(pl, 'friction', 0.0);
     MC.options.register(pl, 'gravity', 0.00015);
-    MC.options.register(pl, 'linkDistance', 150);
+    MC.options.register(pl, 'linkDistance', 50);
     MC.options.register(pl, 'peopleNodes', function () {
         throw('no people specified.')
     });
@@ -602,11 +602,11 @@ MC.personLayout = function () {
         //checks to see if it is a hub
 //        console.log(d);
         if (d.type == 'hub') {
-            return -20;
-        } else if (d.type == 'person') {
-            return -20;
-        } else if (d.type == 'leaf'){
             return -10;
+        } else if (d.type == 'person') {
+            return -10;
+        } else if (d.type == 'leaf'){
+            return 0;
         }
     });
 
