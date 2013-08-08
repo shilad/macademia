@@ -330,7 +330,7 @@
             if (currentPeople.size()==1) {
                 alert("Enter at least one person");
             } else {
-                $('#peopleList').submit();
+                $('#peopleListForm').submit();
             }
         });
 
