@@ -533,8 +533,14 @@ MC.personLayout = function () {
                     var radius;
                     if(pos.width>pos.height){
                         radius = pos.width/3;
+                        if(surrogates[i].id==macademia.history.get("nodeId").substring(2)){
+                            radius = pos.width/2;
+                        }
                     }else{
                         radius = pos.height/3;
+                        if(surrogates[i].id==macademia.history.get("nodeId").substring(2)){
+                            radius = pos.height/2;
+                        }
                     }
                     surrogates[i]['hubRadius']=radius;
                     hubs[surrogates[i].id]=surrogates[i];
@@ -586,8 +592,8 @@ MC.personLayout = function () {
         vizRootSpinning();
 
     }
-    MC.options.register(pl, 'friction', 0.5);
-    MC.options.register(pl, 'gravity', 0.00015);
+    MC.options.register(pl, 'friction', 0.65);
+    MC.options.register(pl, 'gravity', 0.00025);
     MC.options.register(pl, 'linkDistance', 20);
     MC.options.register(pl, 'peopleNodes', function () {
         throw('no people specified.')
@@ -602,11 +608,11 @@ MC.personLayout = function () {
         //checks to see if it is a hub
 //        console.log(d);
         if (d.type == 'hub') {
-            return -5000;
+            return -10000;
         } else if (d.type == 'person') {
             return -5000;
         } else if (d.type == 'leaf'){
-            return -500;
+            return -800;
         }
     });
 
