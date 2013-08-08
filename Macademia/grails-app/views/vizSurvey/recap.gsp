@@ -191,6 +191,9 @@
     </div>
 </table>
 </div>
+  <div name="submit" >
+    <input style="position:relative; margin-left:630px; margin-top: 500px" type="submit" value="Submit" id="submitButton"/>
+   </div>
 </div>
 <script>
     var input = $("form textarea:text");
