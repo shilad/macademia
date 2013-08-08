@@ -191,6 +191,11 @@ MC.hub = function() {
                     .setColor(function(d){
                         return d.color ? d.color : color;
                     });
+                if(data['isVizRoot']){ //we don't want the shortened name for vizRoot
+                    interestTemplate = interestTemplate.setLabelText(function(d){
+                        return d.name;
+                    })
+                }
                 d3Group.datum([data.root]).call(interestTemplate);
             }
             else{ //if the root is a person
@@ -211,7 +216,7 @@ MC.hub = function() {
                     .datum([data.root])
                     .call(personRoot);
             }
-            if(data['isVizRoot']){
+            if(data['isVizRoot']){ //if it is an vizRoot
                 d3Group
                     .select('g.hubRoot')
                     .attr("class","vizRoot");

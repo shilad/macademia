@@ -497,8 +497,6 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
     var id =0;  //stores d's id
     var type;  //stores d's type or empty string if no type
 
-    console.log(pos);
-
     if(e.id) {   //for non-hub people and interests
         id= e.id;
         type ="";   //do not have type
