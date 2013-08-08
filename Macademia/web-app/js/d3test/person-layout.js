@@ -429,10 +429,9 @@ MC.personLayout = function () {
         };
 
         var collide = function(node) {
-//            console.log(node);
             var r;
             if(!node.real){
-                r=25;
+                r=50;
             }else if(node.real[0]){
                 r = node.real[0].r + 20;
             }else{
@@ -449,14 +448,6 @@ MC.personLayout = function () {
                     var x = node.x - quad.point.x,
                         y = node.y - quad.point.y,
                         l = Math.sqrt(x * x + y * y);
-                    var r;
-                    if(!node.real){
-                        r=25;
-                    }else if(node.real[0]){
-                        r = node.real[0].r;
-                    }else{
-                        r = node.real.r;
-                    }
                     if(!quad.point.real){
                         r=r+25;
                     }else if(quad.point.real[0]){
@@ -482,7 +473,7 @@ MC.personLayout = function () {
         // walk through iterations of convergence to final positions
         var maxBound = Number(d3.select("g.viz").attr('height'));
         var allNodes = d3.values(surrogates).concat(d3.values(people));
-//        console.log(allNodes);
+        console.log(allNodes);
         force.on("tick", function (e) {
 
             var q = d3.geom.quadtree(allNodes),
