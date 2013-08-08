@@ -224,7 +224,7 @@
                 <tr>
                     %{--sortable boxes--}%
                     <td colspan="3">
-                    <g:form url="recap" id='peopleList'>
+                    <g:form id='peopleList'>
                         <ul id="peopleList">
                             <li class="sortable-boxa" name="sortable-box">
                                 <input type="hidden" name="people" value=""/>

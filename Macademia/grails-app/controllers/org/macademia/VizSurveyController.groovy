@@ -73,6 +73,7 @@ class VizSurveyController {
     def vizTaskSave() {
         List<String> inputs = params.('people')
         Survey s = session.survey
+        System.out.println(params.('people'))
         for (int i =1; i<inputs.size();i++) {
             def question = vizSurveyService.createQuestion(inputs[i])
             s.addToQuestions(question)
