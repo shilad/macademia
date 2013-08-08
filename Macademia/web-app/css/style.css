@@ -766,7 +766,7 @@ footer #footerWrapper .footerBlock ul li a:hover { color: #0160a0; }
 .ttDesc { margin-bottom: 7px; }
 
 /* line 1, ../../src/stylesheets/partials/_survey.scss */
-.background { position: relative; width: 1024px; height: 130mm; margin-left: auto; margin-right: auto; border-radius: 50px; background: #f3f4f4; }
+.background { position: relative; width: 1024px; height: 800px; margin-left: auto; margin-right: auto; border-radius: 50px; background: #f3f4f4; }
 
 /* line 10, ../../src/stylesheets/partials/_survey.scss */
 h1 { margin-right: auto; font: 30px Georgia; font-weight: bold; }
@@ -792,6 +792,9 @@ div.interestAdd input.addButton { position: absolute; left: 153px; top: 0px; }
 
 /* line 72, ../../src/stylesheets/partials/_survey.scss */
 textarea { position: absolute; width: 45%; height: 40%; margin: 0; /* don't want to add to container size */ border: 0; /* don't want to add to container size */ }
+
+/* line 79, ../../src/stylesheets/partials/_survey.scss */
+.radio-buttons { position: absolute; width: 475px; border-radius: 50px; border: 1px solid #ffffff; background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iNTAlIiB4Mj0iMTAwJSIgeTI9IjUwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y1YTNkNiIvPjxzdG9wIG9mZnNldD0iNDclIiBzdG9wLWNvbG9yPSIjZmZmZmZmIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYjRmNWEzIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g'); background-size: 100%; background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #f5a3d6), color-stop(47%, #ffffff), color-stop(100%, #b4f5a3)); background-image: -webkit-linear-gradient(left, #f5a3d6, #ffffff 47%, #b4f5a3); background-image: -moz-linear-gradient(left, #f5a3d6, #ffffff 47%, #b4f5a3); background-image: -o-linear-gradient(left, #f5a3d6, #ffffff 47%, #b4f5a3); background-image: linear-gradient(left, #f5a3d6, #ffffff 47%, #b4f5a3); }
 
 /*/mediaquery*/
 /*/mediaquery*/
