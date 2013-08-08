@@ -428,16 +428,67 @@ MC.personLayout = function () {
                 });
         };
 
+//        var collide = function(node) {
+////            console.log(node);
+//            var r;
+//            if(!node.real){
+//                r=25;
+//            }else if(node.real[0]){
+//                r = node.real[0].r + 20;
+//            }else{
+//                r = node.real.r + 25;
+//            }
+//
+//            var nx1 = node.x - r,
+//                nx2 = node.x + r,
+//                ny1 = node.y - r,
+//                ny2 = node.y + r;
+//            return function(quad, x1, y1, x2, y2) {
+////                console.log(quad);
+//                if (quad.point && (quad.point !== node)) {
+//                    var x = node.x - quad.point.x,
+//                        y = node.y - quad.point.y,
+//                        l = Math.sqrt(x * x + y * y);
+//                    var r;
+//                    if(!node.real){
+//                        r=25;
+//                    }else if(node.real[0]){
+//                        r = node.real[0].r;
+//                    }else{
+//                        r = node.real.r;
+//                    }
+//                    if(!quad.point.real){
+//                        r=r+25;
+//                    }else if(quad.point.real[0]){
+//                        r = r+quad.point.real[0].r;
+//                    }else{
+//                        r = r+quad.point.real.r;
+//                    }
+//                    if (l < r) {
+//                        l = (l - r) / l * .5;
+//                        node.x -= x *= l;
+//                        node.y -= y *= l;
+//                        quad.point.x += x;
+//                        quad.point.y += y;
+//                    }
+//                }
+//                return x1 > nx2
+//                    || x2 < nx1
+//                    || y1 > ny2
+//                    || y2 < ny1;
+//            };
+//        };
         var collide = function(node) {
 //            console.log(node);
             var r;
-            if(!node.real){
-                r=25;
-            }else if(node.real[0]){
-                r = node.real[0].r + 20;
-            }else{
-                r = node.real.r + 25;
+            if(!node.real){                 //person
+                r=50;
+            }else if(node.hubRadius){         //hub
+                r = node.hubRadius;
             }
+//            else{                          //interest
+//                r = node.real.r + 16;
+//            }
 
             var nx1 = node.x - r,
                 nx2 = node.x + r,
@@ -449,23 +500,17 @@ MC.personLayout = function () {
                     var x = node.x - quad.point.x,
                         y = node.y - quad.point.y,
                         l = Math.sqrt(x * x + y * y);
-                    var r;
-                    if(!node.real){
-                        r=25;
-                    }else if(node.real[0]){
-                        r = node.real[0].r;
-                    }else{
-                        r = node.real.r;
-                    }
                     if(!quad.point.real){
-                        r=r+25;
-                    }else if(quad.point.real[0]){
-                        r = r+quad.point.real[0].r;
-                    }else{
-                        r = r+quad.point.real.r;
+                        r=r+50;
+                    }else if(quad.point.hubRadius){
+                        r = r+quad.point.hubRadius;
                     }
+//                    else{
+//                        console.log('here');
+//                        r = r+quad.point.real.r;
+//                    }
                     if (l < r) {
-                        l = (l - r) / l * .5;
+                        l = (l - r) / l * .25;
                         node.x -= x *= l;
                         node.y -= y *= l;
                         quad.point.x += x;
@@ -478,10 +523,28 @@ MC.personLayout = function () {
                     || y2 < ny1;
             };
         };
-
         // walk through iterations of convergence to final positions
         var maxBound = Number(d3.select("g.viz").attr('height'));
-        var allNodes = d3.values(surrogates).concat(d3.values(people));
+        var findHubs = function(){
+            var hubs = {};
+            for(var i in surrogates){
+                if(surrogates[i].type=='hub'){
+                    var pos = document.getElementById('hub'+surrogates[i].id).getBoundingClientRect();
+                    var radius;
+                    if(pos.width>pos.height){
+                        radius = pos.width/2;
+                    }else{
+                        radius = pos.height/2;
+                    }
+                    surrogates[i]['hubRadius']=radius;
+                    hubs[surrogates[i].id]=surrogates[i];
+                }
+            }
+            return hubs;
+        };
+        var hubNodes = findHubs();
+//        console.log(hubNodes);
+        var allNodes = d3.values(hubNodes).concat(d3.values(people));
 //        console.log(allNodes);
         force.on("tick", function (e) {
 
@@ -523,9 +586,9 @@ MC.personLayout = function () {
         vizRootSpinning();
 
     }
-    MC.options.register(pl, 'friction', 0.5);
-    MC.options.register(pl, 'gravity', 0.0015);
-    MC.options.register(pl, 'linkDistance', 50);
+    MC.options.register(pl, 'friction', 0.0);
+    MC.options.register(pl, 'gravity', 0.00015);
+    MC.options.register(pl, 'linkDistance', 150);
     MC.options.register(pl, 'peopleNodes', function () {
         throw('no people specified.')
     });
@@ -539,13 +602,11 @@ MC.personLayout = function () {
         //checks to see if it is a hub
 //        console.log(d);
         if (d.type == 'hub') {
-            return -10000;
+            return -20;
         } else if (d.type == 'person') {
-            return -2000;
+            return -20;
         } else if (d.type == 'leaf'){
-            return -2000;
-        } else {
-            return -100;
+            return -10;
         }
     });
 
