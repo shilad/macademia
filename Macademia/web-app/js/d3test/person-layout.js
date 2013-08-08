@@ -501,7 +501,7 @@ MC.personLayout = function () {
                         y = node.y - quad.point.y,
                         l = Math.sqrt(x * x + y * y);
                     if(!quad.point.real){
-                        r=r+50;
+                        r=r+10;
                     }else if(quad.point.hubRadius){
                         r = r+quad.point.hubRadius;
                     }
@@ -510,7 +510,7 @@ MC.personLayout = function () {
 //                        r = r+quad.point.real.r;
 //                    }
                     if (l < r) {
-                        l = (l - r) / l * 0.005;
+                        l = (l - r) / l * 0.001;
                         node.x -= x *= l;
                         node.y -= y *= l;
                         quad.point.x += x;
@@ -532,9 +532,9 @@ MC.personLayout = function () {
                     var pos = document.getElementById('hub'+surrogates[i].id).getBoundingClientRect();
                     var radius;
                     if(pos.width>pos.height){
-                        radius = pos.width/2;
+                        radius = pos.width/3;
                     }else{
-                        radius = pos.height/2;
+                        radius = pos.height/3;
                     }
                     surrogates[i]['hubRadius']=radius;
                     hubs[surrogates[i].id]=surrogates[i];
@@ -586,9 +586,9 @@ MC.personLayout = function () {
         vizRootSpinning();
 
     }
-    MC.options.register(pl, 'friction', 0.0);
+    MC.options.register(pl, 'friction', 0.5);
     MC.options.register(pl, 'gravity', 0.00015);
-    MC.options.register(pl, 'linkDistance', 150);
+    MC.options.register(pl, 'linkDistance', 20);
     MC.options.register(pl, 'peopleNodes', function () {
         throw('no people specified.')
     });
@@ -602,11 +602,11 @@ MC.personLayout = function () {
         //checks to see if it is a hub
 //        console.log(d);
         if (d.type == 'hub') {
-            return -0.05;
+            return -5000;
         } else if (d.type == 'person') {
-            return -0.05;
+            return -5000;
         } else if (d.type == 'leaf'){
-            return -0.05;
+            return -500;
         }
     });
 
