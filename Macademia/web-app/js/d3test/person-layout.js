@@ -1,6 +1,6 @@
 /**
  * Created with IntelliJ IDEA.
- * User: research
+ * User: Jesse, Zixiao, Marge, and Sam
  * Date: 7/3/13
  * Time: 12:48 PM
  * To change this template use File | Settings | File Templates.

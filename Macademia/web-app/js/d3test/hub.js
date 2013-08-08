@@ -1,6 +1,6 @@
 /**
  * Created with IntelliJ IDEA.
- * User: research
+ * User: Jesse and Zixiao and Rebbeca
  * Date: 7/16/13
  * Time: 10:41 AM
  * To change this template use File | Settings | File Templates.
@@ -73,8 +73,8 @@ MC.hub = function() {
             var distance = 40; //default distance
             if(data["distance"]){ //if the distance between the root and children is specified
                 distance = data["distance"];
-//                if(rootType=='person')
-//                    distance = 1.3*distance;
+                if(rootType=='interest'&&data.isVizRoot)
+                    distance = 1.2*distance;
             }
             var n = data.children.length;
 

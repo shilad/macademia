@@ -1,3 +1,8 @@
+/**
+ * Created with IntelliJ IDEA.
+ * User: Jesse and Zixiao
+ * To change this template use File | Settings | File Templates.
+ */
 package org.macademia.nbrviz
 
 import grails.converters.JSON
