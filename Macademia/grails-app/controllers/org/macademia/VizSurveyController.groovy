@@ -2,6 +2,7 @@ package org.macademia
 
 import org.macademia.vizSurvey.Question
 import org.macademia.vizSurvey.Survey
+import org.macademia.vizSurvey.SurveyInterest
 import org.macademia.vizSurvey.SurveyPerson
 
 class VizSurveyController {
@@ -55,7 +56,10 @@ class VizSurveyController {
         List<String> inputs = params.('interest')
         SurveyPerson p = session.person
         for (int i=1; i<inputs.size();i++) {
-            def interest = vizSurveyService.createInterest(inputs[i])
+            SurveyInterest interest = vizSurveyService.createInterest(inputs[i])
+            if (i==1) {
+                interest.setIsRoot(true)
+            }
             p.addToInterests(interest)
         }
         p.save(flush:true)
@@ -66,16 +70,20 @@ class VizSurveyController {
         render(view: 'instructions')
     }
 
-    def vizTask(){
+    def vizTask() {
         render(view: 'comparisonSurvey')
     }
 
     def vizTaskSave() {
         List<String> inputs = params.('people')
         Survey s = session.survey
-        System.out.println(params.('people'))
+        if (!(s.getQuestions()==null)) {
+            if (!s.getQuestions().isEmpty()) {
+                s.questions.clear()
+            }
+        }
         for (int i =1; i<inputs.size();i++) {
-            def question = vizSurveyService.createQuestion(inputs[i])
+            Question question = vizSurveyService.createQuestion(inputs[i])
             s.addToQuestions(question)
         }
         s.save(flush:true)
@@ -86,12 +94,12 @@ class VizSurveyController {
 
         Survey s = session.survey
 
-        List<Question> questions = s.getQuestions()
+        Set<Question> questions = s.getQuestions()
 
         List<String> people = new  ArrayList<>()
 
         for (question in questions) {
-            people.add(question.getText)
+            people.add(question.getText())
         }
 
 //        def people = ["bill", "bob", "joe", "sue"]
