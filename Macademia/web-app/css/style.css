@@ -766,7 +766,7 @@ footer #footerWrapper .footerBlock ul li a:hover { color: #0160a0; }
 .ttDesc { margin-bottom: 7px; }
 
 /* line 1, ../../src/stylesheets/partials/_survey.scss */
-.background { position: relative; width: 1024px; height: 800px; margin-left: auto; margin-right: auto; border-radius: 50px; background: #f3f4f4; }
+.background { position: relative; width: 1024px; height: auto; margin-left: auto; margin-right: auto; border-radius: 50px; background: #f3f4f4; }
 
 /* line 10, ../../src/stylesheets/partials/_survey.scss */
 h1 { margin-right: auto; font: 30px Georgia; font-weight: bold; }

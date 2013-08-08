@@ -151,6 +151,8 @@
         });
 
         $('#add-interest').on('submit', function(e){
+            var numCurrentInterests = $('.sortable-boxes');
+            if(numCurrentInterests.size() < 9){
             e.preventDefault();
             var newButton = $('#interestList li:first').clone(true);
             newButton.find('.name').text(input.val());
@@ -158,6 +160,8 @@
             $('#interestList').append(newButton);
             newButton.show('fast');
             $("#textBox").val("");
+            }
+
         });
 
         $(function() {
