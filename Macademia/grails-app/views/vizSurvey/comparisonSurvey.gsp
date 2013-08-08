@@ -166,30 +166,16 @@
     </style>
     <script>
 
-        $(function () {
-            $("#pink, #purple, #blue").slider({
-                orientation: "horizontal",
-                range: "min",
-                min: 1,
-                max: 10,
-                value: 2
-                // change: something
-            });
-            $("#pink").slider("value", 4);
-            $("#purple").slider("value", 2);
-            $("#blue").slider("value", 6);
 
-
-        });
     </script>
 
 </head>
 
 <body class="ui-widget-content" style="border: 0;">
-<table>
-    <tr>
-        <td style="border: 2px solid #d3d3d3;padding: 5px;background-color: #f3f4f4; width: 25%">
-            <table>
+<table style="height: 100%;width:100%;">
+    <tr style="height: 100%;width:100%;">
+        <td style="border: 2px solid #d3d3d3;padding: 5px;background-color: #f3f4f4; width: 25%;height: 100%;position: relative;">
+            <table style="height: 100%;width: 100%;">
                 %{--Sliders @ top of page--}%
                 <tr>
                     <td class="interest">
@@ -223,8 +209,8 @@
                 </tr>
                 <tr>
                     %{--sortable boxes--}%
-                    <td colspan="3">
-                    <g:form id='peopleList' url='vizTaskSave'>
+                <td colspan="3">
+                    <g:form id='peopleListForm' url='vizTaskSave'>
                         <ul id="peopleList">
                             <li class="sortable-boxa" name="sortable-box">
                                 <input type="hidden" name="people" value=""/>
@@ -242,7 +228,7 @@
                             </li>
                         </ul>
 
-                    </td>
+                        </td>
                     </g:form>
                 </tr>
                 <tr>
@@ -259,99 +245,6 @@
                             <input class="addButton" type="submit" value="Add Person" id="submitButton"/>
                         </form>
 
-                        <script>
-
-
-
-                            //   var sortableBoxTemplate = "<li class='sortable-boxa' name='sortable-box'><table><tr><td class='name' width=140mm></td><td><a class='removeButton' href='#'>remove</a></td></tr></table></li>";
-
-
-
-                            $(document).ready(function () {
-                                $("#peopleList").sortable();
-                                $("#peopleList li:first").hide(); //hides all the sortable boxes
-                                $("#peopleList li").each(function () {
-//                                    console.log(this)
-                                    $(this).find(".removeButton").click(function (e) {//id of the remove button
-                                        $(this).parents("#peopleList li").remove();       //id of the .sortable-box that is designated for removal
-                                    });
-                                });
-                                $('#doneButton').on('click', function(){
-                                    $('#peopleList').submit();
-                                });
-                                $('#add-person').on('submit', function(e){
-                                    var numCurrentPeople = $('.sortable-boxa'); //the number of people currently on the page
-                                    if(numCurrentPeople.size() < 6 ){
-                                        e.preventDefault();
-                                        var newButton = $('#peopleList li:first').clone(true);
-                                        newButton.find('.name').text(input.val());
-                                        newButton.find('input').val(input.val());
-                                        console.log($('#peopleList'));
-                                        $('#peopleList').append(newButton);
-                                        newButton.show('fast');
-                                        $("#textBox").val("");
-                                    }
-                                });
-
-                            $(function() {
-                                var availableTags = [
-                                    "Sam",
-                                    "Pedro",
-                                    "Napoleon",
-                                    "Marge",
-                                    "Shilad",
-                                    "Rebecca",
-                                    "Jesse",
-                                    "Ari",
-                                    "Matt",
-                                    "Ben",
-                                    "Yulun",
-                                    "Ken"
-
-
-                                ];
-                                $( "#textBox" ).autocomplete({
-                                    source: availableTags,
-//
-                                select: function(event, ui) {
-                                    $("#textBox").val(ui.item.value);
-                                    $("#add-person").submit();
-
-                                    return false;
-                                }
-
-
-                            });
-
-
-
-                            });
-
-//                                $(function() {
-//                                    $("#searchField").autocomplete({
-//                                        source: "values.json",
-//                                        select: function(event, ui) {
-//                                            $("#searchForm").submit(); }
-//                                    });
-//                                });
-//
-
-
-
-                                var input = $("form input:text");
-
-//                                $("#submitButton").click(function () {
-//                                    var newButton = $('#peopleList li:first').clone(true);
-//                                    newButton.find('.name').text(input.val());
-//                                    console.log($('#peopleList'));
-//                                    $('#peopleList').append(newButton);
-////                                    newButton.appendTo($('#peopleList'));
-//                                    newButton.show();
-//                                });
-                            });
-
-
-                        </script>
 
                     </td>
                 </tr>
@@ -361,11 +254,19 @@
                         <h1>Task Description</h1>
                     </td>
                 </tr>
-            </table>
-            <div id='doneButton' class="largeCircle" style="background: #f5a3d6; top:197mm;left:165.5mm ">
-                <div class ="insideCircle" style="top: 0.5mm; left: 0.5mm;"></div></div></div>
+                <tr style="width: 100%;">
+                    <td colspan="2" style="height: 100%;width: 100%;vertical-align: bottom;position: relative; text-align: right;">
+                        <div id='doneButton' class="largeCircle" style="background: #f5a3d6;position: relative;float:right;bottom: 0px;right: 0px;">
+                            <div class ="insideCircle" >
 
-            <p style ="position:absolute; top: 200mm;left: 166mm;">Done</p>
+                                <p  style="  margin-top: 13px;">Done</p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+
         </td>
         <td>
             %{--in the following div is where the viz needs to go--}%
@@ -376,7 +277,7 @@
     </tr>
     <td>
         %{--<FORM METHOD="LINK" ACTION="page1.htm">--}%
-            %{--<INPUT TYPE="submit" VALUE="Clickable Button">--}%
+        %{--<INPUT TYPE="submit" VALUE="Clickable Button">--}%
         %{--</FORM>    --}%
 
 
@@ -393,3 +294,110 @@
 </body>
 
 </html>
+
+<r:script>
+
+
+
+    $(document).ready(function () {
+
+        $(function () {
+            $("#pink, #purple, #blue").slider({
+                orientation: "horizontal",
+                range: "min",
+                min: 1,
+                max: 10,
+                value: 2
+                // change: something
+            });
+            $("#pink").slider("value", 4);
+            $("#purple").slider("value", 2);
+            $("#blue").slider("value", 6);
+
+
+        });
+
+        $("#peopleList").sortable();
+        $("#peopleList li:first").hide(); //hides all the sortable boxes
+        $("#peopleList li").each(function () {
+//                                    console.log(this)
+            $(this).find(".removeButton").click(function (e) {//id of the remove button
+                $(this).parents("#peopleList li").remove();       //id of the .sortable-box that is designated for removal
+            });
+        });
+        $('#doneButton').on('click', function(){
+            $('#peopleListForm').submit();
+        });
+        $('#add-person').on('submit', function(e){
+            var numCurrentPeople = $('.sortable-boxa'); //the number of people currently on the page
+            if(numCurrentPeople.size() < 6 ){
+                e.preventDefault();
+                var newButton = $('#peopleList li:first').clone(true);
+                newButton.find('.name').text(input.val());
+                newButton.find('input').val(input.val());
+                console.log($('#peopleList'));
+                $('#peopleList').append(newButton);
+                newButton.show('fast');
+                $("#textBox").val("");
+            }
+        });
+
+        $(function() {
+            var availableTags = [
+                "Sam",
+                "Pedro",
+                "Napoleon",
+                "Marge",
+                "Shilad",
+                "Rebecca",
+                "Jesse",
+                "Ari",
+                "Matt",
+                "Ben",
+                "Yulun",
+                "Ken"
+
+
+            ];
+            $( "#textBox" ).autocomplete({
+                source: availableTags,
+//
+                select: function(event, ui) {
+                    $("#textBox").val(ui.item.value);
+                    $("#add-person").submit();
+
+                    return false;
+                }
+
+
+            });
+
+
+
+        });
+
+//                                $(function() {
+//                                    $("#searchField").autocomplete({
+//                                        source: "values.json",
+//                                        select: function(event, ui) {
+//                                            $("#searchForm").submit(); }
+//                                    });
+//                                });
+//
+
+
+
+        var input = $("form input:text");
+
+//                                $("#submitButton").click(function () {
+//                                    var newButton = $('#peopleList li:first').clone(true);
+//                                    newButton.find('.name').text(input.val());
+//                                    console.log($('#peopleList'));
+//                                    $('#peopleList').append(newButton);
+////                                    newButton.appendTo($('#peopleList'));
+//                                    newButton.show();
+//                                });
+    });
+
+
+</r:script>
