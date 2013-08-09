@@ -16,11 +16,16 @@ class Survey {
     static hasMany = [questions: Question]
 
     static constraints = {
-        surveyPerson(nullable: true)
         task(nullable: true)
         visualization(nullable: true)
         root(nullable: true)
         recap(nullable: true)
         questions(nullable: true)
+    }
+
+    def Survey(SurveyPerson surveyPerson) {
+        this.surveyPerson = surveyPerson
+        this.consent = false
+        this.completedSurvey = false
     }
 }

@@ -29,7 +29,7 @@ class VizSurveyController {
         String email = params.email
         if (email != null) {
             SurveyPerson p = vizSurveyService.create(email)
-            session.person = p
+            session.person = p.id
         }
         render(view:'consent')
     }
@@ -39,12 +39,13 @@ class VizSurveyController {
             redirect(url: "/all" + this.getControllerUri() + '/consent')
             return
         }
-        Survey s = new Survey()
-        s.setSurveyPerson(session.person)
-        s.setConsent(params.get('consent'))
+        SurveyPerson p = SurveyPerson.findById(session.person)
+        print(p)
+        Survey s = new Survey(p)
+        s.setConsent(true)
         s.save(flush: true)
 
-        session.survey = s
+        session.survey = s.id
 
         redirect(url: "/all" + this.getControllerUri() + '/interest')
     }
@@ -56,7 +57,7 @@ class VizSurveyController {
 
     def interestSave() {
         List<String> inputs = params.('interest')
-        SurveyPerson p = session.person
+        SurveyPerson p = SurveyPerson.findById(session.person)
         for (int i=1; i<inputs.size();i++) {
             SurveyInterest interest = vizSurveyService.createInterest(inputs[i])
             if (i==1) {
@@ -78,7 +79,7 @@ class VizSurveyController {
 
     def vizTaskSave() {
         List<String> inputs = params.('people')
-        Survey s = session.survey
+        Survey s = Survey.findById(session.survey)
         if (!(s.getQuestions()==null)) {
             if (!s.getQuestions().isEmpty()) {
                 s.questions.clear()
@@ -94,7 +95,7 @@ class VizSurveyController {
 
     def recap() {
 
-        Survey s = session.survey
+        Survey s = Survey.findById(session.survey)
 
         Set<Question> questions = s.getQuestions()
 
@@ -111,11 +112,11 @@ class VizSurveyController {
     }
 
     def recapSave() {
-        Survey s = session.survey
+        Survey s = Survey.findById(session.survey)
         for(string in params.keySet()) {
             List<String> stringList = string.split("_")
             if (stringList.contains("radio")) {
-                Question q = Question.findAllBySurveyAndText(Survey.findById(s.id), stringList[1])
+                Question q = Question.findAllBySurveyAndText(s, stringList[1])
                 if (q == null) {
                     q = new Question(stringList[1])
                     s.addToQuestions(question)
