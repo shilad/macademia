@@ -95,14 +95,14 @@ MC.InterestViz = function(params) {
 
     this.svgWidth = this.svg.attr("width"); //container provides a padding
     this.svgHeight = this.svg.attr("height"); //container provides a padding
-    this.containerWidth = this.svgWidth * .95;
+    this.containerWidth = this.svgWidth;
     this.containerHeight = this.svgHeight * .9;
     this.container=this.svg
         .append("g")
         .attr("class","viz")
         .attr("width",this.containerWidth)
-        .attr("height",this.containerHeight)
-        .attr('transform','translate('+(this.svgHeight-this.containerHeight)/2+','+(this.svgWidth-this.containerWidth)/2+')');
+        .attr("height",this.containerHeight);
+//        .attr('transform','translate('+(this.svgHeight-this.containerHeight)/2+','+(this.svgWidth-this.containerWidth)/2+')');
     this.distance = 80;
     this.relatednessMap = params.relatednessMap;
     this.hubsDuration = 2500;
@@ -514,15 +514,22 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
         type=e[0].type;
     }
     ///////MAKE GET CALL TO RETRIEVE DATA FOR DIV
+    var svgLoc = $('#mainSvg').position();                              //Get location of svg in order to position the div relative to the svg
+    var posToolTip = pos;
+    posToolTip.top=pos.top-svgLoc.top,
+        posToolTip.bottom=pos.bottom-svgLoc.top,
+        posToolTip.left=pos.left-svgLoc.left,
+        posToolTip.right=pos.right-svgLoc.left;
+
     if(id in people && e.interests ||  type == "person" ){ //checks to see if it is a person
         this.xhr = jQuery.get('/Macademia/all/person/tooltip/' + id, function(data) {
             jQuery('#tooltipBox').html(data);
-            self.createTooltip(self,pos,div);     //Once the data is set into the div, start the tooltip
+            self.createTooltip(self,posToolTip,div);     //Once the data is set into the div, start the tooltip
         });}
     else {    //deals with interests
         this.xhr = jQuery.get('/Macademia/all/interest/tooltip/' + id, function(data) {
             jQuery('#tooltipBox').html(data);
-            self.createTooltip(self,pos,div);
+            self.createTooltip(self,posToolTip,div);
         });
     }
 
@@ -533,9 +540,10 @@ MC.InterestViz.prototype.createTooltip = function(self,pos,div){   //self = this
     var divBorderWidth = $('#tooltipBox').css('border-width').replace(/[^-\d\.]/g, '');   //Get div border width without 'px' at the end
     var divHeight = $('#tooltipBox').outerHeight()-divBorderWidth;
     var divWidth = $('#tooltipBox').outerWidth()-divBorderWidth;
-    var svgLoc = $('svg').position();                              //Get location of svg in order to position the div relative to the svg
-    console.log(svgLoc);
+    var svgLoc = $('#mainSvg').position();                              //Get location of svg in order to position the div relative to the svg
+
     var position = {'left':svgLoc.left,'top':svgLoc.top};
+
     var boundingBoxCenter = {'x':Math.floor((pos.right+pos.left)/2),'y':Math.floor((pos.top+pos.bottom)/2)};     //Get the center of the selection rounding down for equality checking purposes
 
     ///////SET DIV LOCATION

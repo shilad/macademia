@@ -22,3 +22,8 @@ path.tooltip{
 svg{
     border: 1px solid #000000;
 }
+#mainSvg{
+    position: absolute;
+    top:50px;
+    left: 50px;
+}

@@ -40,9 +40,9 @@
 
 
 </r:script>
-
+<div id='mainSvg'>
 <svg>
 </svg>
-
+</div>
 </body>
 </html>
