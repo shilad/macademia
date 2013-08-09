@@ -41,7 +41,7 @@ class SurveyQuestion implements Comparable {
         if (other instanceof SurveyQuestion) {
             return questionNumber.compareTo(other.questionNumber)
         } else {
-            throw new RuntimeException("Attempted to compare a SurveyQuestion to a nonSurveyQuestion object")
+            throw new RuntimeException("Attempted to compare a Question to a nonSurveyQuestion object")
         }
     }
 

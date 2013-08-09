@@ -10,6 +10,26 @@ class SurveyController {
     def subjectService
     def surveyService
 
+//    def index = {
+//        render(view : "${params.module}")
+//    }
+
+    def interest() {
+        render(view : 'interest')
+    }
+
+    def instructions() {
+        render(view : 'instructions')
+    }
+
+    def recap() {
+        render(view : 'recap')
+    }
+
+    def consent() {
+        render(view : 'consent')
+    }
+
     /**
      * Email link points here.
      */
@@ -120,5 +140,4 @@ class SurveyController {
         subject.completedSurvey = true
         return [subject: subject]
     }
-
 }
