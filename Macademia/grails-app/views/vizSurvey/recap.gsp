@@ -112,19 +112,19 @@
                     <td style="width: 42.5px">
                     </td>
                     <td style="width: 95px">
-                        <input type="radio" name="radioButtons" value="1"/>
+                        <input type="radio" name="radio_Appealing" value="1"/>
                     </td>
                     <td style="width: 95px">
-                        <input type="radio" name="radioButtons" value="2"/>
+                        <input type="radio" name="radio_Appealing" value="2"/>
                     </td>
                     <td style="width: 95px">
-                        <input type="radio" name="radioButtons" value="3"/>
+                        <input type="radio" name="radio_Appealing" value="3"/>
                     </td>
                     <td style="width: 95px">
-                        <input type="radio" name="radioButtons" value="4"/>
+                        <input type="radio" name="radio_Appealing" value="4"/>
                     </td>
                     <td style="width: 95px">
-                        <input type="radio" name="radioButtons" value="5"/>
+                        <input type="radio" name="radio_Appealing" value="5"/>
                     </td>
                 </tr>
             </table>
@@ -166,19 +166,19 @@
                     <td style="width: 42.5px">
                     </td>
                     <td style="width: 95px">
-                        <input type="radio" name="radioButtons1" value="1"/>
+                        <input type="radio" name="radio_Effective" value="1"/>
                     </td>
                     <td style="width: 95px">
-                        <input type="radio" name="radioButtons1" value="2"/>
+                        <input type="radio" name="radio_Effective" value="2"/>
                     </td>
                     <td style="width: 95px">
-                        <input type="radio" name="radioButtons1" value="3"/>
+                        <input type="radio" name="radio_Effective" value="3"/>
                     </td>
                     <td style="width: 95px">
-                        <input type="radio" name="radioButtons1" value="4"/>
+                        <input type="radio" name="radio_Effective" value="4"/>
                     </td>
                     <td style="width: 95px">
-                        <input type="radio" name="radioButtons1" value="5"/>
+                        <input type="radio" name="radio_Effective" value="5"/>
                     </td>
                 </tr>
             </table>

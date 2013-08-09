@@ -1,5 +1,7 @@
 package org.macademia
 
+import org.aspectj.weaver.patterns.TypePatternQuestions
+import org.macademia.nbrviz.SurveyQuestion
 import org.macademia.vizSurvey.Question
 import org.macademia.vizSurvey.Survey
 import org.macademia.vizSurvey.SurveyInterest
@@ -108,12 +110,27 @@ class VizSurveyController {
 
     }
 
-    def thankYou() {
-        render(view: 'thankYou')
+    def recapSave() {
+        Survey s = session.survey
+        for(string in params.keySet()) {
+            List<String> stringList = string.split("_")
+            if (stringList.contains("radio")) {
+                Question q = Question.findAllBySurveyAndText(Survey.findById(s.id), stringList[1])
+                if (q == null) {
+                    q = new Question(stringList[1])
+                    s.addToQuestions(question)
+                }
+                q.setScore(Integer.parseInt(params.get(string)))
+            }
+        }
+        s.save(flush: true)
     }
 
-    def index() {
-        render('Hello, world!')
+
+
+    def thankYou() {
+        recapSave() //Cooler Way To Save
+        render(view: 'thankYou')
     }
 
 }

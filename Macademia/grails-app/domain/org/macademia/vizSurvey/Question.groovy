@@ -9,6 +9,7 @@ class Question {
 
 
     static constraints = {
+        score(nullable: true)
     }
 
     Question(String text) {
