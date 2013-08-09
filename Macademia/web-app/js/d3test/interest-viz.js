@@ -89,12 +89,20 @@ MC.InterestViz = function(params) {
 //    this.circles = params.circles;
     this.interests = params.interests;
     this.colors = params.colors;
-    this.container=this.svg.append("g").attr("class","viz").attr("width",1000).attr("height",700);
+
     // construct the hubModel here based on other parameters
     this.currentColors = [];
 
-    this.svgWidth = this.container.attr("width"); //container provides a padding
-    this.svgHeight = this.container.attr("height"); //container provides a padding
+    this.svgWidth = this.svg.attr("width"); //container provides a padding
+    this.svgHeight = this.svg.attr("height"); //container provides a padding
+    this.containerWidth = this.svgWidth * .95;
+    this.containerHeight = this.svgHeight * .9;
+    this.container=this.svg
+        .append("g")
+        .attr("class","viz")
+        .attr("width",this.containerWidth)
+        .attr("height",this.containerHeight)
+        .attr('transform','translate('+(this.svgHeight-this.containerHeight)/2+','+(this.svgWidth-this.containerWidth)/2+')');
     this.distance = 80;
     this.relatednessMap = params.relatednessMap;
     this.hubsDuration = 2500;
@@ -145,14 +153,14 @@ MC.InterestViz.prototype.positionHubsGradientCircles = function(){
     var posRoot = coordinates[0];
 
     //Setting the root
-    this.root.cx = this.svgWidth * posRoot.x;
-    this.root.cy = this.svgHeight * posRoot.y;
+    this.root.cx = this.containerWidth * posRoot.x;
+    this.root.cy = this.containerHeight * posRoot.y;
 
     //Setting the hubs
     for(var i=0;i<this.hubs.length;i++){
         var pos = coordinates[i+1]; //start with 1 because 0 is root
-        this.hubs[i].cx = this.svgWidth * pos.x;
-        this.hubs[i].cy = this.svgHeight * pos.y;
+        this.hubs[i].cx = this.containerWidth * pos.x;
+        this.hubs[i].cy = this.containerHeight * pos.y;
 //        console.log(this.hubs[i]);
     }
 
@@ -160,9 +168,9 @@ MC.InterestViz.prototype.positionHubsGradientCircles = function(){
     var dist = this.distance; //use the distance between the root and child as padding
     var scale = 1.5;
     var padL = dist * scale; //left
-    var padR = this.svgWidth - dist * scale; //right
+    var padR = this.containerWidth - dist * scale; //right
     var padT = dist * scale; //top
-    var padB = this.svgHeight - dist * scale; //bottom
+    var padB = this.containerHeight - dist * scale; //bottom
 
     for(var i=0; i<n; i++){
 
@@ -526,6 +534,7 @@ MC.InterestViz.prototype.createTooltip = function(self,pos,div){   //self = this
     var divHeight = $('#tooltipBox').outerHeight()-divBorderWidth;
     var divWidth = $('#tooltipBox').outerWidth()-divBorderWidth;
     var svgLoc = $('svg').position();                              //Get location of svg in order to position the div relative to the svg
+    console.log(svgLoc);
     var position = {'left':svgLoc.left,'top':svgLoc.top};
     var boundingBoxCenter = {'x':Math.floor((pos.right+pos.left)/2),'y':Math.floor((pos.top+pos.bottom)/2)};     //Get the center of the selection rounding down for equality checking purposes
 
@@ -544,7 +553,7 @@ MC.InterestViz.prototype.createTooltip = function(self,pos,div){   //self = this
             position.left=svgLoc.left+75;         //set it to 50
         }
     }
-
+    console.log(position);
     ///////CREATE POINTER ARROW
     var lineFunction = d3.svg
         .line()
