@@ -108,8 +108,8 @@ class VizSurveyController {
 
     }
 
-    def complete() {
-        render(view: 'complete')
+    def thankYou() {
+        render(view: 'thankYou')
     }
 
     def index() {
