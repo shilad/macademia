@@ -20,7 +20,7 @@ MC.MainViz = function(params) {
         "#b4f5a3"
     ];
 
-    this.svg = d3.select('svg').attr('width', 1024).attr('height', 768);
+    this.svg = d3.select('svg').attr('width', params.width).attr('height', params.height);
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
     this.setEventHandlers();
 
