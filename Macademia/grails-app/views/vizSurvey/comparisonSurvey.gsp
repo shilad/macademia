@@ -13,7 +13,25 @@
     <meta name="layout" content="main"/>
 
     <style>
-
+    .largeCircle{
+        width:50px;
+        height:50px;
+        border-radius:50px;
+    /*//position:absolute;*/
+    }
+    .insideCircle{
+        width:44px;
+        border: 1px solid #ffffff;
+        height:44px;
+        border-radius:50px;
+        font-size:20px;
+        color: #ffffff;
+        line-height:100px;
+        text-align:center;
+        position:relative;
+        top: 0.5mm;
+        left: 0.5mm;
+    }
     a.removeButton {
         font: 12px Georgia;
         color: #848484;

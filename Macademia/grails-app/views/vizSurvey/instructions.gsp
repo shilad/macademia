@@ -13,6 +13,24 @@
     <meta name="layout" content="main"/>
 
   <title></title>
+    <style>
+    .largeCircle{
+        width:83px;
+        height:83px;
+        }
+    .insideCircle{
+        width:73px;
+        border: 1px solid #ffffff;
+        height:73px;
+        border-radius:50px;
+        font-size:20px;
+        color: #ffffff;
+        line-height:100px;
+        text-align:center;
+        position:relative;
+        top: 1mm;
+        left: 1mm;
+    }</style>
 </head>
 
 
@@ -23,7 +41,12 @@
 really did exist, much to little Sally's surprise. They had a light blue mail box and lived on Dreary Lane, sure,
 but it was all a front put up by the government to avoid taxes.</p>
 <g:link url="vizTask">
-    <div class="largeCircle" > <p style="font-size: 15px; top:4mm; left:3mm; position:absolute">Continue</p><div class = "insideCircle" "></div></div></div>
+        <div id='doneButton' class="largeCircle" style="background: #f5a3d6;position: relative;float:right;top: 424px;right: 30px">
+            <div class ="insideCircle" >
+
+                <p  style="  margin-top: 22px;">Continue</p>
+            </div>
+        </div>
 </g:link>
 </body>
 </html>
