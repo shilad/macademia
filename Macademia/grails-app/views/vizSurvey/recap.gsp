@@ -12,7 +12,24 @@
     <r:require modules="survey"/>
     <meta name="layout" content="main"/>
     <title></title>
-
+    <style>
+    .largeCircle{
+        width:83px;
+        height:83px;
+    }
+    .insideCircle{
+        width:73px;
+        border: 1px solid #ffffff;
+        height:73px;
+        border-radius:50px;
+        font-size:20px;
+        color: #ffffff;
+        line-height:100px;
+        text-align:center;
+        position:relative;
+        top: 1mm;
+        left: 1mm;
+    }</style>
 </head>
 
 <body>
@@ -191,6 +208,7 @@
 </table>
 </div>
   <div name="submit" >
+
     <input style="position:relative; margin-left:630px; margin-top: 500px" type="submit" value="Submit" id="submitButton"/>
    </div>
 </div>
