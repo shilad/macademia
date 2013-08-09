@@ -51,16 +51,16 @@ MC.HtmlViz = function(params) {
 //    }
 //};
 
-MC.HtmlViz.prototype.makeColorful = function(){
-    var color;
-    //the colors already on the page
-
-    for(var i = 0; i < this.colors.length; i++){
-        if(this.currentColors.indexOf(this.colors[i])<0){
-            color=this.colors[i];
-            this.currentColors.push(color);
-            return color;
-        };
-
-    };
-};
+//MC.HtmlViz.prototype.makeColorful = function(){
+//    var color;
+//    //the colors already on the page
+//
+//    for(var i = 0; i < this.colors.length; i++){
+//        if(this.currentColors.indexOf(this.colors[i])<0){
+//            color=this.colors[i];
+//            this.currentColors.push(color);
+//            return color;
+//        };
+//
+//    };
+//};

@@ -97,14 +97,13 @@ class HtmlVizController {
                     barPercents.put(key,100*(relevance.get(Long.parseLong(key,10))/maxRel));
                 }
             }
-//            print( 'barPercents')
-//            print( barPercents )
+
             formattedData.put(personID,barPercents);
             barPercents=null;
         }
 
         data["formattedData"] = formattedData;
-//        c.out.println(formattedData);
+//        System.out.println(data);
         render(view : 'personViz', model: data)
     }
 }

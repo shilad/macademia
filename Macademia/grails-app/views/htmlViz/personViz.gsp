@@ -28,32 +28,61 @@
             $("#orange").slider("value", 5);
         });
     });
-            var colors =[
-            "#f5a3d6",
-            "#b2a3f5",
-            "#a8c4e5",
-            "#b4f5a3"
-        ];
+
+    var colors =[
+        "#b4f5a3",  //green
+        "#b2a3f5",  //purple
+        "#a8c4e5",  //blue
+        "#f5a3d6"   //pink
+    ];
+
+    var circles = [
+        "${resource(dir:'images/hviz-images',file:'green-icon.png')}",
+        "${resource(dir:'images/hviz-images',file:'purple-icon.png')}",
+        "${resource(dir:'images/hviz-images',file:'blue-icon.png')}",
+        "${resource(dir:'images/hviz-images',file:'pink-icon.png')}"
+    ]
 
     var hubsToColors =  {};
     var hubs = ${clusterMap.keySet()};
-    for(var i=0; i<hubs.length-1; i++){
-           var c = Math.floor(Math.random() * 5);
-           while(colors[c] in hubsToColors) {
-              c = Math.floor(Math.random() * 5);
-           }
-           hubsToColors[hubs[i]] = colors[c];
+
+    for(var i=0; i<hubs.length; i++){
+        hubsToColors[hubs[i]] = colors[i];
     }
 
     for(var h in hubs){
-    $(".hub_"+hubs[h]).css("background-color",hubsToColors[hubs[h]]);
+        $(".hub_"+hubs[h]).css("background-color",hubsToColors[hubs[h]]);
     }
+
+    for(var h in hubs){
+        var c = circles[h];
+        console.log(c);
+        var img = $("img.h_"+hubs[h]).attr("src",c);
+    }
+
+
+%{--var interests = {};--}%
+%{--for(var p in ${people.values()}){--}%
+%{--if($(p.id).toString.equals((params.nodeID).substring(2))){--}%
+%{--interests = ${p.interests}--}%
+%{--}--}%
+%{--}--}%
+
+
 
 </r:script>
 
 <div class="mainContainer">
-    <h1><img style="max-height: 70px; max-width: 70px; border: 2px solid #ffffff;"
-             src="http://localhost:8080/Macademia/all/image/randomFake?top">&nbsp;Cersei Lannister</h1>
+    <h1>
+
+        <g:each status="i" in="${people.values()}" var="p">
+            <g:if test="${(p.id).toString() == (params.nodeId).substring(2)}">
+                <img style="max-height: 70px; max-width: 70px; border: 2px solid #ffffff;"
+                     src=${p.pic}>&nbsp;${p.name}
+            </g:if>
+        </g:each>
+
+    </h1>
 
 
     <table class="interest">
@@ -113,6 +142,7 @@
                     </td></tr>
                 </table>
             </td>
+
             <td style="vertical-align: middle">
                 <table class="slider" >
                     <tr>
@@ -154,11 +184,18 @@
                         <li><a href="#"><r:img dir="images/hviz-images" file="blue-icon.png"></r:img>Cultural Studies</a></li>
                     </ul>
                 </div>
-            </th>
+
             <th class="people"><r:img dir="images/hviz-images" file="orange-icon.png"></r:img><br/>Overall</th>
-            <th class="people"><r:img dir="images/hviz-images" file="green-icon.png"></r:img><br/>Political Science</th>
-            <th class="people"><r:img dir="images/hviz-images" file="purple-icon.png"></r:img><br/>Philosophy</th>
-            <th class="people"><r:img dir="images/hviz-images" file="blue-icon.png"></r:img><br/>Cultural Studies</th>
+
+            <g:each in="${clusterMap.keySet()}" var="h">
+                <g:each in="${interests.keySet()}" var="i">
+                    <g:if test="${h==i}">
+                        <th class="people"><img class="h_${h}"><br/>${interests[i].name}</th>
+                    </g:if>
+                </g:each>
+            </g:each>
+
+        </th>
         </tr>
 
 
@@ -181,42 +218,7 @@
             </g:if>
         </g:each>
 
-    %{--<tr class="people">--}%
-    %{--<td class="people" style="border-right: 2px solid #d3d3d3;"><a href="http://localhost:8080/Macademia/all/image/randomFake?1"><img class="person" src="http://localhost:8080/Macademia/all/image/randomFake?1"></a> Petyr Baelish</td>--}%
-    %{--<td class="people"><div class="rect" style="width: 90%;background-color:#f2b06e">&nbsp;</div><div class="rect" style="width: 10%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--<td class="people"><div class="rect" style="width: 80%;background-color:#b4f5a3">&nbsp;</div><div class="rect" style="width: 20%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--<td class="people"><div class="rect" style="width: 75%;background-color:#b2a3f5">&nbsp;</div><div class="rect" style="width: 25%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--<td class="people"><div class="rect" style="width: 82%;background-color:#A8C4E5">&nbsp;</div><div class="rect" style="width: 18%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--</tr>--}%
-    %{--<tr class="people">--}%
-    %{--<td class="people" style="border-right: 2px solid #d3d3d3;"><a href="http://localhost:8080/Macademia/all/image/randomFake?2"><img class="person" src="http://localhost:8080/Macademia/all/image/randomFake?2"></a> Lord Varys</td>--}%
-    %{--<td class="people"><div class="rect" style="width: 88%;background-color:#f2b06e">&nbsp;</div><div class="rect" style="width: 12%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--<td class="people"><div class="rect" style="width: 78%;background-color:#b4f5a3">&nbsp;</div><div class="rect" style="width: 22%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--<td class="people"><div class="rect" style="width: 65%;background-color:#b2a3f5">&nbsp;</div><div class="rect" style="width: 35%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--<td class="people"><div class="rect" style="width: 90%;background-color:#A8C4E5">&nbsp;</div><div class="rect" style="width: 10%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--</tr>--}%
-    %{--<tr class="people">--}%
-    %{--<td class="people" style="border-right: 2px solid #d3d3d3;"><a href="http://localhost:8080/Macademia/all/image/randomFake?3"><img class="person" src="http://localhost:8080/Macademia/all/image/randomFake?3"></a> Sansa Stark</td>--}%
-    %{--<td class="people"><div class="rect" style="width: 85%;background-color:#f2b06e">&nbsp;</div><div class="rect" style="width: 15%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--<td class="people"><div class="rect" style="width: 79%;background-color:#b4f5a3">&nbsp;</div><div class="rect" style="width: 21%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--<td class="people"><div class="rect" style="width: 50%;background-color:#b2a3f5">&nbsp;</div><div class="rect" style="width: 50%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--<td class="people"><div class="rect" style="width: 95%;background-color:#A8C4E5">&nbsp;</div><div class="rect" style="width: 5%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--</tr>--}%
-    %{--<tr class="people">--}%
-    %{--<td class="people" style="border-right: 2px solid #d3d3d3;"><a href="http://localhost:8080/Macademia/all/image/randomFake?4"><img class="person" src="http://localhost:8080/Macademia/all/image/randomFake?4"></a> Maester Pycelle</td>--}%
-    %{--<td class="people"><div class="rect" style="width: 80%;background-color:#f2b06e">&nbsp;</div><div class="rect" style="width: 20%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--<td class="people"><div class="rect" style="width: 83%;background-color:#b4f5a3">&nbsp;</div><div class="rect" style="width: 17%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--<td class="people"><div class="rect" style="width: 90%;background-color:#b2a3f5">&nbsp;</div><div class="rect" style="width: 10%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--<td class="people"><div class="rect" style="width: 45%;background-color:#A8C4E5">&nbsp;</div><div class="rect" style="width: 55%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--</tr>--}%
-    %{--<tr class="people" style="border-bottom: none">--}%
-    %{--<!--last row must have border-bottom: none because of the big boarder around everything-->--}%
-    %{--<td class="people" style="border-right: 2px solid #d3d3d3;"><a href="http://localhost:8080/Macademia/all/image/randomFake?5"><img class="person" src="http://localhost:8080/Macademia/all/image/randomFake?5"></a> Joffery Baratheon</td>--}%
-    %{--<td class="people"><div class="rect" style="width: 63%;background-color:#f2b06e">&nbsp;</div><div class="rect" style="width: 37%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--<td class="people"><div class="rect" style="width: 60%;background-color:#b4f5a3">&nbsp;</div><div class="rect" style="width: 40%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--<td class="people"><div class="rect" style="width: 30%;background-color:#b2a3f5">&nbsp;</div><div class="rect" style="width: 70%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--<td class="people"><div class="rect" style="width: 60%;background-color:#A8C4E5">&nbsp;</div><div class="rect" style="width: 40%;background-color:#d3d3d3">&nbsp;</div></td>--}%
-    %{--</tr>--}%
+
     </table>
 </div>
 
@@ -231,9 +233,10 @@
 
 <div class="tooltip" id="more4Tooltip" style="display: none;position: absolute;">
     <p>Gold <br/>
-        Royalty <br/>
-        Pretty Dresses <br/>
-        My Children <br/>
+        Meow <br/>
+        Cats <br/>
+        Bunnies <br/>
+        Rebecca designing stuff<br/>
     </p>
 </div>
 
