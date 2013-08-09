@@ -92,18 +92,18 @@ MC.InterestViz = function(params) {
 
     // construct the hubModel here based on other parameters
     this.currentColors = [];
-
+    this.scale = {width:.95,height:.9};
     this.svgWidth = this.svg.attr("width"); //container provides a padding
     this.svgHeight = this.svg.attr("height"); //container provides a padding
-    this.containerWidth = this.svgWidth;
-    this.containerHeight = this.svgHeight * .9;
+    this.containerWidth = this.svgWidth*this.scale.width;
+    this.containerHeight = this.svgHeight*this.scale.height;
     this.container=this.svg
         .append("g")
         .attr("class","viz")
         .attr("width",this.containerWidth)
         .attr("height",this.containerHeight);
 //        .attr('transform','translate('+(this.svgHeight-this.containerHeight)/2+','+(this.svgWidth-this.containerWidth)/2+')');
-    this.distance = 80;
+    this.distance = 80*this.scale.height;
     this.relatednessMap = params.relatednessMap;
     this.hubsDuration = 2500;
 
@@ -139,8 +139,8 @@ MC.InterestViz.prototype.getHubPositionMap = function(){
     var positions = [
         [{x:0.3,y:0.4},{x:0.7,y:0.65}], // 1 hub case
         [{x:0.5,y:0.3},{x:0.25,y:0.75},{x:0.75,y:0.75}], // 2 hub case
-        [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
-        [{x:0.5,y:0.55},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.25,y:0.2},{x:0.7,y:0.2}] // 4 hub case
+        [{x:0.5,y:0.575},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.5,y:0.2}], // 3 hub case (root, hub1, hub2, hub3)
+        [{x:0.5,y:0.575},{x:0.25,y:0.85},{x:0.75,y:0.85},{x:0.25,y:0.2},{x:0.7,y:0.2}] // 4 hub case
     ];
     return positions;
 };
@@ -515,12 +515,14 @@ MC.InterestViz.prototype.toolTipHover = function(e,pos){
     }
     ///////MAKE GET CALL TO RETRIEVE DATA FOR DIV
     var svgLoc = $('#mainSvg').position();                              //Get location of svg in order to position the div relative to the svg
-    var posToolTip = pos;
-    posToolTip.top=pos.top-svgLoc.top,
-        posToolTip.bottom=pos.bottom-svgLoc.top,
-        posToolTip.left=pos.left-svgLoc.left,
-        posToolTip.right=pos.right-svgLoc.left;
+//    console.log(pos);
+    var posToolTip={};
 
+    posToolTip['top']=pos.top-svgLoc.top;
+        posToolTip['bottom']=pos.bottom-svgLoc.top;
+        posToolTip['left']=pos.left-svgLoc.left;
+        posToolTip['right']=pos.right-svgLoc.left;
+//    console.log(posToolTip);
     if(id in people && e.interests ||  type == "person" ){ //checks to see if it is a person
         this.xhr = jQuery.get('/Macademia/all/person/tooltip/' + id, function(data) {
             jQuery('#tooltipBox').html(data);
@@ -561,14 +563,18 @@ MC.InterestViz.prototype.createTooltip = function(self,pos,div){   //self = this
             position.left=svgLoc.left+75;         //set it to 50
         }
     }
-    console.log(position);
+//    console.log(position);
     ///////CREATE POINTER ARROW
     var lineFunction = d3.svg
         .line()
         .x(function(d) { return d.x; })
         .y(function(d) { return d.y; })
         .interpolate("linear");
-    var polyPoints=self.createTooltipArrow(pos,position,divWidth,divHeight,boundingBoxCenter);
+    var positionArrow = {};
+    positionArrow.top=position.top-svgLoc.top;
+    positionArrow.left=position.left-svgLoc.left;
+    var polyPoints=self.createTooltipArrow(pos,positionArrow,divWidth,divHeight,boundingBoxCenter);
+
 
     ///////SET THE DIV AND POINTER ARROW TO THERE CALCULATED LOCATIONS
     self.container
@@ -592,6 +598,17 @@ MC.InterestViz.prototype.createTooltip = function(self,pos,div){   //self = this
         .style('z-index','auto');
 };
 MC.InterestViz.prototype.createTooltipArrow = function(pos,position,divWidth,divHeight,boundingBoxCenter){
+//    console.log("pos");
+//    console.log(pos);
+//    console.log("position");
+//    console.log(position);
+//    console.log("divWidth");
+//    console.log(divWidth);
+//    console.log("divHeight");
+//    console.log(divHeight);
+//    console.log("boundingBoxCenter");
+//    console.log(boundingBoxCenter);
+//    position.top=position.top-50;
     var cornerSize = 20;  //The distance away from the closest point to add to pointer points
     var corners = {       //The different cases to check for the closest distance between the div and the selection
         'topRight':{      //Corner keys refer to the location on the selection
