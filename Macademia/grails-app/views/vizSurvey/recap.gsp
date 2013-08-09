@@ -34,7 +34,7 @@
 <table style="position:absolute;margin-top: 100px; margin-left:50px">
 <tr><td colspan="4 " style="height: 30px" ><h5 >How well do these people relate to the task?</h5></td></tr>
 
-<g:form params="${[people: people]}">
+<g:form params="${[people: people]}" id="recap-form" url="thankYou">
     <g:each status="i" in="${people}" var="q">
         <tr>
             <td style="width: 105px">${q}</td>
@@ -195,15 +195,23 @@
    </div>
 </div>
 <script>
+
     var input = $("form textarea:text");
     $(document).ready(function () {
+
 
         $('#submit').click(function () {
 
             var text = $('textarea.rounded-corners').val();
             console.log(text);
 
+
             //send to server and process response
+        });
+
+        $('#submitButton').on('click', function(){
+            alert("hi");
+            $('#recap-form').submit();
         });
 
 
