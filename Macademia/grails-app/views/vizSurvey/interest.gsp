@@ -102,14 +102,13 @@
 <body>
 <div class= "background">
 
-    <h1 style="top: 9mm;left:14mm;">Please enter your interests placing your most central interest at the top of the list</h1>
+    <h1 >Enter your Interests</h1>
 
-    <div class="interestAdd">
+<p style="position:relative; margin-top: 40px; left:14mm;">Please enter your interests placing your most central interest at the top of the list</p>
+<div class="interestAdd">
     <form id='add-interest'>
-
-        <input id = "textBox" type="text" placeholder="interest name here"/>
-        <br/>
-        <input class="addButton" type="submit" value="Add Interest" id="submitButton"/>
+        <input style="margin-top:30px" id = "textBox" type="text" placeholder="interest name here"/>
+        <input style="margin-top:30px" class="addButton" type="submit" value="Add Interest" id="submitButton"/>
     </form>
     <g:form url="interestSave" id="interestListForm">
         <ul id="interestList">
@@ -129,9 +128,7 @@
             </li>
         </ul>
         </div>
-
-    </div>
-        <input style="position:relative; margin-top: 410px; margin-left:804px" type="submit" value="Submit" id="submitButton"/>
+        <input style="position:absolute; bottom: 44px; right:44px" type="submit" value="Submit" id="submitButton"/>
     </g:form>
 </div>
 

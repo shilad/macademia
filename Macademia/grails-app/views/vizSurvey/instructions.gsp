@@ -7,7 +7,7 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <r:require modules="survey"/>
     <meta name="layout" content="main"/>
@@ -17,6 +17,7 @@
     .largeCircle{
         width:83px;
         height:83px;
+        border-radius:50px;
         }
     .insideCircle{
         width:73px;
@@ -28,23 +29,23 @@
         line-height:100px;
         text-align:center;
         position:relative;
-        top: 1mm;
-        left: 1mm;
+        top: 4px;
+        left: 4px;
     }</style>
 </head>
 
 
 <body>
 <div class="background">
-<h1 style="top: 9mm;left:14mm;">Instructions</h1>
-<p style="top: 27mm;left:14mm;">Pete Bitzer and his wife Penelope
-really did exist, much to little Sally's surprise. They had a light blue mail box and lived on Dreary Lane, sure,
-but it was all a front put up by the government to avoid taxes.</p>
+<h1>Instructions</h1>
+    </br>
+<p style="margin-top:30px;margin-left:50px; width: 600px">Thanks for a great summer Shilad. </p>
 <g:link url="vizTask">
-        <div id='doneButton' class="largeCircle" style="background: #f5a3d6;position: relative;float:right;top: 424px;right: 30px">
+    %{--aligns with the bottom of the text placed in the above <p>--}%
+        <div id='doneButton' class="largeCircle" style="background: #f5a3d6;position: relative;float:right;bottom: 0px;right: 250px">
             <div class ="insideCircle" >
 
-                <p  style="  margin-top: 22px;">Continue</p>
+                <p  style="margin-top: 38%">Continue</p>
             </div>
         </div>
 </g:link>

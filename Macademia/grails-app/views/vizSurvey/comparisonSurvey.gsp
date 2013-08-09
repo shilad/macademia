@@ -158,12 +158,6 @@
         vertical-align: middle;
     }
 
-    h1 {
-        font: 20px Georgia;
-        font-weight:bold;
-        color: #848484;
-    }
-
     p {
         font: 15px Georgia;
         color: #848484;
@@ -219,7 +213,7 @@
                 </tr>
                 <tr>
                     <td colspan="3">
-                        <h1>Best matches:</h1>
+                        <h2>Best matches:</h2>
 
                         <p>List people in order from <b>top to bottom</b> who best match the task described below. Drag a person listed below to reorder them.</p>
                         <br/>
@@ -269,7 +263,7 @@
                 <tr>
                     <td colspan="3">
                         <br/>
-                        <h1>Task Description</h1>
+                        <h2>Task Description</h2>
                     </td>
                 </tr>
                 <tr style="width: 100%;">

@@ -7,23 +7,47 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <r:require modules="survey"/>
     <meta name="layout" content="main"/>
   <title></title>
+    <style>
+    .largeCircle{
+        width:50px;
+        height:50px;
+        border-radius:50px;
+        /*//position:absolute;*/
+    }
+    .insideCircle{
+        width:44px;
+        border: 1px solid #ffffff;
+        height:44px;
+        border-radius:50px;
+        font-size:20px;
+        color: #ffffff;
+        line-height:100px;
+        text-align:center;
+        position:relative;
+        top:2px;
+        left: 2px;
+
+    }
+        </style>
 </head>
 
 <body>
 <div class = "background">
 
-    <h1 style=" position:relative;top: 9mm;left:14mm;">Consent</h1>
+    <h1>Consent</h1>
+     </br>
+    <p style="margin-top:30px;margin-left:50px; width: 600px">Consent is Mac </p>
 
-    <p style=" position: relative; top: 27mm;left:14px;">Yes, I do believe Consent is MAC</p>
+    %{--<p style=" position: relative; top: 27mm;left:14px;">Yes, I do believe Consent is MAC</p>--}%
 
 <g:link url="consentSave" params='[consent: true]'>
     <div class="largeCircle" style="background: #f5a3d6; bottom: 90px;  position: absolute; left: 650px">
-    <div class ="insideCircle" style="top: 0.5mm; left: 0.5mm;"></div>
+    <div class ="insideCircle" ></div>
     <p style ="position:absolute; top: 14px;left: 55px; width: 300">Yes, I consent</p>
     </div>
     %{--<div style ="position: absolute; top:-100; left: 1025px">Yes, I consent </div>--}%
