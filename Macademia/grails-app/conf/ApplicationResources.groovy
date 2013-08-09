@@ -68,6 +68,8 @@ modules = {
         resource url: '/js/d3test/main-viz.js'
         resource url: '/js/d3test/inherit.js'
         resource url: '/js/d3test/vizModel.js'
+
+        resource url: '/css/tooltip.css'
     }
    survey {
         dependsOn 'consolelog'
