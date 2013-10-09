@@ -11,10 +11,10 @@ import org.semtag.model.Tag
 import org.semtag.model.TagApp
 import org.semtag.model.TagAppGroup
 import org.semtag.model.User
-import org.semtag.sim.ItemSimilarity
+import org.semtag.sim.ItemSimilar
 import org.semtag.sim.SimilarResult
 import org.semtag.sim.SimilarResultList
-import org.semtag.sim.TagAppSimilarity
+import org.semtag.sim.TagAppSimilar
 import org.wikapidia.conf.Configuration
 import org.wikapidia.conf.Configurator
 import org.wikapidia.core.dao.LocalPageDao
@@ -26,8 +26,8 @@ class WikAPIdiaService {
     LocalPageDao localPageDao
     ConceptMapper conceptMapper
     TagAppDao tagAppDao
-    ItemSimilarity itemSimilarity
-    TagAppSimilarity tagAppSimilarity
+    ItemSimilar itemSimilarity
+    TagAppSimilar tagAppSimilarity
     SaveHandler handler
 
     Map<String, Long> tagToId = [:]
@@ -38,12 +38,12 @@ class WikAPIdiaService {
         this.configurator = new Configurator(conf)
         localPageDao = configurator.get(LocalPageDao.class)
         tagAppDao = configurator.get(TagAppDao.class)
-        itemSimilarity = configurator.get(ItemSimilarity.class)
-        tagAppSimilarity = configurator.get(TagAppSimilarity.class)
+        itemSimilarity = configurator.get(ItemSimilar.class)
+        tagAppSimilarity = configurator.get(TagAppSimilar.class)
         conceptMapper = configurator.get(ConceptMapper.class)
         handler = configurator.get(SaveHandler.class)
 
-//        load()
+        load()
 
         for (Interest i : Interest.list()) {
             addInterest(i)
