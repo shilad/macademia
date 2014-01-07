@@ -12,6 +12,7 @@ class HtmlVizController {
     def interestService
 
     def index() {
+        render(view: '/html/person-viz.gsp')
     }
 
     def interestViz(){
