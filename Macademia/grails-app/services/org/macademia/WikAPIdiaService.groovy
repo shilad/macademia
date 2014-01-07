@@ -1,6 +1,5 @@
 package org.macademia
 
-import org.semtag.SemTagException
 import org.semtag.dao.DaoException
 import org.semtag.dao.DaoFilter
 import org.semtag.dao.SaveHandler
@@ -15,13 +14,15 @@ import org.semtag.sim.ItemSimilar
 import org.semtag.sim.SimilarResult
 import org.semtag.sim.SimilarResultList
 import org.semtag.sim.TagAppSimilar
-import org.wikapidia.conf.Configuration
 import org.wikapidia.conf.Configurator
+import org.wikapidia.core.cmd.Env
+import org.wikapidia.core.cmd.EnvBuilder
 import org.wikapidia.core.dao.LocalPageDao
 
 import java.sql.Timestamp
 
 class WikAPIdiaService {
+    Env env;
     Configurator configurator
     LocalPageDao localPageDao
     ConceptMapper conceptMapper
@@ -34,8 +35,8 @@ class WikAPIdiaService {
     Map<Long, String> idToTag = [:]
 
     def init() {
-        Configuration conf = new Configuration(new File("grails-app/conf/semtag.conf"))
-        this.configurator = new Configurator(conf)
+        env = new EnvBuilder().setConfigFile("grails-app/conf/semtag.conf").build();
+        this.configurator = env.configurator;
         localPageDao = configurator.get(LocalPageDao.class)
         tagAppDao = configurator.get(TagAppDao.class)
         itemSimilarity = configurator.get(ItemSimilar.class)
@@ -96,7 +97,7 @@ class WikAPIdiaService {
             log.warn("unresolveable interest id: $tag")
             return new SimilarInterestList()
         }
-        SimilarResultList tags = tagAppSimilarity.mostSimilar(new Tag(tag), maxResults)
+        SimilarResultList tags = tagAppSimilarity.mostSimilar(getTagAppForId(id), maxResults)
         List<SimilarInterest> result = []
         for (SimilarResult sr : tags) {
             Long interestId = getIdForInterest(sr.stringId)

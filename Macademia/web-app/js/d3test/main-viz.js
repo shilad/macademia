@@ -33,7 +33,6 @@ MC.MainViz = function(params) {
     macademia.history.onUpdate(jQuery.proxy(this.onLoad,this));
     this.setEventHandlers();
 
-
 };
 
 MC.MainViz.prototype.setEventHandlers = function(){
