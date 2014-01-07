@@ -1,3 +1,8 @@
+/**
+ * Created with IntelliJ IDEA.
+ * User: Jesse and Zixiao
+ * To change this template use File | Settings | File Templates.
+ */
 package org.macademia.nbrviz
 
 import grails.converters.JSON
@@ -22,7 +27,7 @@ class D3Controller {
     //for interest centric
     def interestData = {
         Long rootId = params.id as Long
-
+        int numPeople = params.numPeople as int
         Map<Long, Double> parentWeights = [:]
         if (params.parentIds && params.parentWeights) {
             List<Integer> parentIds = params.parentIds.split("_").collect({ it.toLong() })
@@ -35,7 +40,7 @@ class D3Controller {
         TimingAnalysis ta = new TimingAnalysis('ExpController.interestData')
         ta.startTime()
         InterestGraph graph = similarity2Service.calculateInterestNeighbors(
-                                          rootId, 20, 4, parentWeights)
+                                          rootId, numPeople, 4, parentWeights)
         ta.recordTime('sim2service')
         def data = json2Service.buildInterestCentricGraph(
                 graph,
@@ -48,7 +53,7 @@ class D3Controller {
     //for person centric
     def personData = {
         Long rootId = params.id as Long
-
+        int numPeople = params.numPeople as int
         Map<Long, Double> parentWeights = [:]
         if (params.parentIds && params.parentWeights) {
             List<Integer> parentIds = params.parentIds.split("_").collect({ it.toLong() })
@@ -62,7 +67,7 @@ class D3Controller {
         TimingAnalysis ta = new TimingAnalysis('ExpController.personData')
         ta.startTime()
         PersonGraph graph = similarity2Service.calculatePersonNeighbors(
-                                          rootId, 20, 3, parentWeights)
+                                          rootId, numPeople, 3, parentWeights)
         ta.recordTime('sim2service')
         def data = json2Service.buildPersonCentricGraph(
                 graph,

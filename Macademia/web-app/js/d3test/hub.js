@@ -1,6 +1,6 @@
 /**
  * Created with IntelliJ IDEA.
- * User: research
+ * User: Jesse and Zixiao and Rebbeca
  * Date: 7/16/13
  * Time: 10:41 AM
  * To change this template use File | Settings | File Templates.
@@ -73,8 +73,8 @@ MC.hub = function() {
             var distance = 40; //default distance
             if(data["distance"]){ //if the distance between the root and children is specified
                 distance = data["distance"];
-                if(rootType=='person')
-                    distance = 1.3*distance;
+                if(rootType=='interest'&&data.isVizRoot)
+                    distance = 1.2*distance;
             }
             var n = data.children.length;
 
@@ -83,6 +83,8 @@ MC.hub = function() {
 
             //drawing lines between person and their interests
             if(rootType == "person"){
+                distance = 1.3 * distance; //scale up the distance
+
                 var gradient = d3.select('defs')
                     .append("radialGradient")
                     .attr("id", "connection_gradient")
@@ -181,7 +183,7 @@ MC.hub = function() {
             //drawing root
             var rootType = data.root.type;
 
-            if(rootType == "interest"){
+            if(rootType == "interest"){ //if the root is an interest
                 var interestTemplate = MC.interest()
                     .setCssClass("hubRoot")
                     .setCx(cx).setCy(cy)
@@ -189,9 +191,14 @@ MC.hub = function() {
                     .setColor(function(d){
                         return d.color ? d.color : color;
                     });
+                if(data['isVizRoot']){ //we don't want the shortened name for vizRoot
+                    interestTemplate = interestTemplate.setLabelText(function(d){
+                        return d.name;
+                    })
+                }
                 d3Group.datum([data.root]).call(interestTemplate);
             }
-            else{
+            else{ //if the root is a person
                 var personRoot = MC.person()
                     .setCx(cx)
                     .setCy(cy)
@@ -209,7 +216,7 @@ MC.hub = function() {
                     .datum([data.root])
                     .call(personRoot);
             }
-            if(data['isVizRoot']){
+            if(data['isVizRoot']){ //if it is an vizRoot
                 d3Group
                     .select('g.hubRoot')
                     .attr("class","vizRoot");

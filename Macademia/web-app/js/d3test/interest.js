@@ -69,7 +69,7 @@ MC.interest = function() {
             newGs.append('circle').attr('class',klass+"Outer"); //Outer circle
             newGs.append('circle').attr('class',klass+"Inner"); //inner circle
             var l = MC.label()
-                .setText(interest.getCleanedText())
+                .setText(interest.getLabelText())
                 .setY(function (d, i) {
                     var r = interest.getOrCallR(d, i);
                     return "" + (r+11) + "px";
@@ -115,7 +115,12 @@ MC.interest = function() {
         });
     }
 
-    MC.options.register(interest, 'text', function (d) { return d.name; });
+    MC.options.register(interest, 'text', function (d) {
+        if(d[0]){ //if it is a hub
+            return d[0].name;
+        }
+        return d.name;
+    });
     MC.options.register(interest, 'htmlText', function (d) {
         if(d.name.length<15){
             return d.name;
@@ -131,13 +136,20 @@ MC.interest = function() {
         }
     });
     MC.options.register(interest, 'cleanedText', function (d) {
-        var cleanedText = d.name;
-//        console.log("here is the function");
+        var cleanedText;
+        if(d[0]){
+            cleanedText=d[0].name;
+        }
+        else{
+            cleanedText = d.name;
+        }
+
 //        console.log(d);
+//        console.log(d.name);
+
         if (cleanedText.length > 15){
              cleanedText = cleanedText.substr(0, 10) + " ...";
         }
-//        console.log(cleanedText)
         return cleanedText;
     });
     MC.options.register(interest, 'color', function (d) { return d.color; })
@@ -148,6 +160,7 @@ MC.interest = function() {
     MC.options.register(interest, 'opacity', 1.0);
     MC.options.register(interest, 'onHover', [], MC.options.TYPE_LIST);
     MC.options.register(interest, 'cssClass', 'interest');
+    MC.options.register(interest, 'labelText',interest.getCleanedText())
 //    MC.options.register(interest, 'enterTransition', function() { return this.attr('opacity', 1.0); });
 //    MC.options.register(interest, 'updateTransition', null);
     MC.options.register(interest, 'exitTransition', null);

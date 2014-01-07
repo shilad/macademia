@@ -17,32 +17,18 @@
 
 
 
-<r:script>
-    var viz = new MC.MainViz({
-//        hubs: hubs,
-//        root: root,
-//        interests: interests,
-//        people: peeps,
-//        svg : svg,
-//        colors: colors,
-//        relatednessMap:relatednessMap
-    });
 
-    //    var viz = new MC.MainViz({
-    //        hubs: hubs,
-    //        root: root,
-    //        interests: interests,
-    //        people: peeps,
-    //        svg : svg,
-    //        colors: colors,
-    //        relatednessMap:relatednessMap
-    //    });
-
-
-</r:script>
-
+<div id='mainSvg'>
 <svg>
 </svg>
+</div>
 
 </body>
 </html>
+<r:script>
+    var viz = new MC.MainViz({
+        height:769,
+        width: 1024
+    });
+
+</r:script>

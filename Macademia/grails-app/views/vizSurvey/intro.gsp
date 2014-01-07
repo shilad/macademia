@@ -21,9 +21,9 @@
           Some disclaimer information, and how their privacy will be handled.
         </p>
         <div>
-            <g:link controller="survey" action="applyConsent"
+            <g:link controller="newSurvey" action="applyConsent"
                 params='[consent: true, subToken: "${subject ? subject.token : null}"]'>Yes</g:link>
-            <g:link controller="survey" action="applyConsent"
+            <g:link controller="newSurvey" action="applyConsent"
                 params='[consent: false, subToken: "${subject ? subject.token : null}"]'>No</g:link>
         </div>
     </div>
