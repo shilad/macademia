@@ -1,167 +1,217 @@
 package org.macademia
 
-import org.semtag.dao.DaoException
-import org.semtag.dao.DaoFilter
-import org.semtag.dao.SaveHandler
-import org.semtag.dao.TagAppDao
-import org.semtag.mapper.ConceptMapper
-import org.semtag.model.Item
-import org.semtag.model.Tag
-import org.semtag.model.TagApp
-import org.semtag.model.TagAppGroup
-import org.semtag.model.User
-import org.semtag.sim.ItemSimilar
-import org.semtag.sim.SimilarResult
-import org.semtag.sim.SimilarResultList
-import org.semtag.sim.TagAppSimilar
+import gnu.trove.list.TIntList
+import gnu.trove.list.array.TIntArrayList
+import gnu.trove.map.TIntFloatMap
+import groovyx.gpars.GParsPool
+import org.sr.ItemModel
 import org.wikapidia.conf.Configurator
 import org.wikapidia.core.cmd.Env
 import org.wikapidia.core.cmd.EnvBuilder
 import org.wikapidia.core.dao.LocalPageDao
-
-import java.sql.Timestamp
+import org.wikapidia.core.lang.Language
+import org.wikapidia.core.lang.LocalId
+import org.wikapidia.core.lang.LocalString
+import org.wikapidia.core.model.LocalPage
+import org.wikapidia.sr.MonolingualSRMetric
+import org.wikapidia.sr.SRBuilder
+import org.wikapidia.sr.disambig.Disambiguator
+import org.wikapidia.sr.normalize.Normalizer
+import org.wikapidia.sr.normalize.PercentileNormalizer
+import org.wikapidia.sr.vector.VectorBasedMonoSRMetric
+import org.wikapidia.utils.WpIOUtils
 
 class WikAPIdiaService {
     Env env;
     Configurator configurator
-    LocalPageDao localPageDao
-    ConceptMapper conceptMapper
-    TagAppDao tagAppDao
-    ItemSimilar itemSimilarity
-    TagAppSimilar tagAppSimilarity
-    SaveHandler handler
-
-    Map<String, Long> tagToId = [:]
-    Map<Long, String> idToTag = [:]
+    VectorBasedMonoSRMetric metric
+    Language lang = Language.getByLangCode("simple");
+    int [] conceptSpace
+    ItemModel fastSr
 
     def init() {
-        env = new EnvBuilder().setConfigFile("grails-app/conf/semtag.conf").build();
+        this.env = new EnvBuilder().setConfigFile("grails-app/conf/macademia-wikapidia.conf").build();
         this.configurator = env.configurator;
-        localPageDao = configurator.get(LocalPageDao.class)
-        tagAppDao = configurator.get(TagAppDao.class)
-        itemSimilarity = configurator.get(ItemSimilar.class)
-        tagAppSimilarity = configurator.get(TagAppSimilar.class)
-        conceptMapper = configurator.get(ConceptMapper.class)
-        handler = configurator.get(SaveHandler.class)
+        this.metric = configurator.get(MonolingualSRMetric.class, "macademia", "language", lang.langCode) as VectorBasedMonoSRMetric
 
-        load()
+        TIntList conceptList = new TIntArrayList();
+        getConceptPath().eachLine { conceptList.add(it as int)}
+        conceptSpace = conceptList.toArray()
+        fastSr = new ItemModel(new File("fastSr"))
 
-        for (Interest i : Interest.list()) {
-            addInterest(i)
-        }
+        println("adding users")
+        Person.list().each({
+            Person p ->
+            fastSr.addUser(p.id, p.interests*.id)
+        })
+        fastSr.normalizeUsers()
+        println("finished adding users")
     }
 
-    def load() {
-        handler.clear()
-        handler.beginLoad()
+    /**
+     * This cannot be run while Macademia is running or this will fail!
+     */
+    def buildSr() {
+        this.env = new EnvBuilder().setConfigFile("grails-app/conf/macademia-wikapidia.conf").build();
+        this.configurator = this.env.configurator;
+        buildConcepts()
+        SRBuilder builder = new SRBuilder(this.env, "macademia")
+        builder.setDeleteExistingData(false)
+        builder.setSkipBuiltMetrics(true)
+        builder.build()
+    }
+
+    File getConceptPath() {
+        return new File(env.configuration.get().getString("sr.concepts.macademia"), lang.langCode + ".txt")
+    }
+
+    def buildConcepts() {
+        for (Interest i : Interest.all) {
+            resolveToPage(i)
+        }
+
+        Map<Integer, Integer> counts = new HashMap<Integer, Integer>()
         for (Person p : Person.list()) {
             for (Interest i : p.interests) {
-                Tag tag = new Tag(i.text);
-                if (tag.isValid()) {
-                    TagApp tagApp = conceptMapper.map(
-                            new User(p.id.toString()),
-                            tag,
-                            new Item(p.id.toString()),
-                            new Timestamp(System.currentTimeMillis()));
+                if (i.articleId != null) {
+                    counts[i.articleId as Integer] = counts.get(i.articleId as Integer, 0) + 1
+                }
+            }
+        }
+
+        getConceptPath().getParentFile().mkdirs()
+        FileWriter writer = new FileWriter(getConceptPath())
+        TIntList conceptList = new TIntArrayList()
+        for (int pageId : counts.keySet()) {
+            if (counts[pageId] >= 2) {
+                conceptList.add(pageId)
+                writer.write(pageId + "\n")
+            }
+        }
+        writer.close()
+
+        this.conceptSpace = conceptList.toArray()
+
+        log.info("Created concept space with " + conceptSpace.size() + " ids")
+    }
+
+
+    def buildInterests() {
+        GParsPool.withPool {
+            Interest.all*.id.eachParallel { Long id ->
+                Interest.withNewSession {
+                    Interest i = Interest.get(id)
                     try {
-                        handler.save(tagApp);
-                    } catch (DaoException e) {
-                        log.fatal("save of tag app for ${p.email}, ${i.text} failed: ", e)
+                        resolveToPage(i)
+                        updateSrVector(i)
+                    } catch (Exception e) {
+                        log.warn("processing of interest ${i} failed:", e)
                     }
                 }
             }
         }
-        handler.endLoad()
+    }
+
+    def buildSRCache() {
+        fastSr = new ItemModel()
+        for (Interest i : Interest.list()) {
+            addInterest(i)
+        }
+        fastSr.buildCache()
+        fastSr.summarize()
+        fastSr.write(new File("fastSr"))
+    }
+
+    def resolveToPage(Interest i) {
+        Disambiguator dab = env.getConfigurator().get(Disambiguator.class)
+        LocalPageDao lpDao = env.getConfigurator().get(LocalPageDao.class)
+
+        Set<LocalString> context = new HashSet<LocalString>()
+        for (Person p : i.people) {
+            for (Interest i2 : p.interests) {
+                context.add(new LocalString(lang, i2.text))
+            }
+        }
+
+        LocalId pageIdDumb = dab.disambiguateTop(new LocalString(lang, i.text), null)
+        LocalId pageId = dab.disambiguateTop(new LocalString(lang, i.text), context)
+        if (pageId != pageIdDumb) {
+            LocalPage page1 = lpDao.getById(lang, pageIdDumb.id)
+            LocalPage page2 = lpDao.getById(lang, pageId.id)
+            log.warn("for interest ${i.text} disagreement between ${page1?.title} and ${page2?.title}")
+        }
+
+        i.articleId = null
+        i.articleName = null
+        if (pageId != null) {
+            LocalPage page = lpDao.getById(lang, pageId.id)
+            if (page != null) {
+                i.articleId = pageId.id
+                i.articleName = page.title.canonicalTitle
+                log.warn("resolved ${i.text} to ${i.articleName}")
+            }
+        }
+        i.save(flush : true)
+    }
+
+    def updateSrVector(Interest i) {
+        TIntFloatMap vector = metric.getPhraseVector(i.text)
+        if (vector == null) {
+            i.vector = null
+        } else {
+            float [] denseVector = new float[conceptSpace.length];
+            for (int j = 0; j < conceptSpace.length; j++) {
+                int conceptId = conceptSpace[j];
+                if (vector.containsKey(conceptId)) {
+                    denseVector[j] = vector.get(conceptId)
+                }
+            }
+            i.vector = WpIOUtils.objectToBytes(denseVector)
+        }
+        i.save(flush:true)
     }
 
     def addInterest(Interest i) {
-        tagToId[i.text] = i.id
-        idToTag[i.id] = i.text
+        if (i.vector != null) {
+            try {
+                fastSr.addItemVector(i.id, (float [])WpIOUtils.bytesToObject(i.vector))
+            } catch (StreamCorruptedException e) {
+                log.warn("Invalid vector for interest ${i}" )
+            }
+        }
     }
 
-    def getIdForInterest(String interest) {
-        return tagToId[interest]
-    }
-
-    def getInterestForId(Long id) {
-        return idToTag[id]
-    }
-
-    Map<String, Double> getConcepts(String text) {
-
+    def trainNormalizer() {
+        Normalizer normalizer = new PercentileNormalizer()
+        Interest.list().each({
+            float [] sims = (float [])WpIOUtils.bytesToObject(it.vector)
+        })
     }
 
     SimilarInterestList getRelatedInterests(Long id, int maxResults) {
-        String tag = getInterestForId(id)
-        if (tag == null) {
-            log.warn("unresolveable interest id: $tag")
-            return new SimilarInterestList()
-        }
-        SimilarResultList tags = tagAppSimilarity.mostSimilar(getTagAppForId(id), maxResults)
-        List<SimilarInterest> result = []
-        for (SimilarResult sr : tags) {
-            Long interestId = getIdForInterest(sr.stringId)
-            if (interestId == null) {
-                log.warn("unresolveable interest string: ${sr.stringId}")
-            } else {
-                result.add(new SimilarInterest(interestId, sr.value))
-            }
-        }
-        return new SimilarInterestList(result)
+        return fastSr.mostSimilarItems(id, maxResults)
     }
 
     double similarity(Long id1, Long id2) {
-        TagApp app1 = getTagAppForId(id1)
-        TagApp app2 = getTagAppForId(id2)
-        if (app1 == null || app2 == null) {
-            return 0.0
-        }
-        return tagAppSimilarity.similarity(app1, app2)
-    }
-
-    TagApp getTagAppForId(Long id) {
-        String tag1 = getInterestForId(id)
-        if (tag1 == null) {
-            log.warn("unresolveable interest id: $id")
-            return null
-        }
-        TagAppGroup group1 = tagAppDao.getGroup(new DaoFilter().setTag(new Tag(tag1)))
-        if (group1.size() == 0) {
-            log.warn("no tag apps for tag: $tag1")
-            return null
-        }
-        return group1.iterator().next()
+        return fastSr.similarity(id1, id2)
     }
 
     float[][] cosimilarity(int [] interestIds) {
-        TagApp[] apps = new TagApp[interestIds.length]
-        for (int i = 0; i < interestIds.length; i++) {
-            apps[i] = getTagAppForId(interestIds[i])
-        }
-        double [][] cosim = tagAppSimilarity.cosimilarity(apps)
-        float [][] result = new float[apps.length][apps.length]
-        for (int i = 0; i < cosim.length; i++) {
-            for (int j = 0; j < cosim[i].length; j++) {
-                result[i][j] = cosim[i][j] as float
+        float [][] result = new float[interestIds.length][interestIds.length]
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result[i].length; j++) {
+                result[i][j] = fastSr.similarity(interestIds[i], interestIds[j])
             }
         }
+        System.out.println("result is " + result);
         return result
     }
 
     float[][] cosimilarity(int [] rowInterestIds, int [] colInterestIds) {
-        TagApp[] rowApps = new TagApp[rowInterestIds.length]
-        for (int i = 0; i < rowInterestIds.length; i++) {
-            rowApps[i] = getTagAppForId(rowInterestIds[i])
-        }
-        TagApp[] colApps = new TagApp[colInterestIds.length]
-        for (int i = 0; i < colInterestIds.length; i++) {
-            colApps[i] = getTagAppForId(colInterestIds[i])
-        }
-        double [][] cosim = tagAppSimilarity.cosimilarity(rowApps, colApps)
-        float [][] result = new float[rowApps.length][colApps.length]
-        for (int i = 0; i < cosim.length; i++) {
-            for (int j = 0; j < cosim[i].length; j++) {
-                result[i][j] = cosim[i][j] as float
+        float [][] result = new float[rowInterestIds.length][colInterestIds.length]
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result[i].length; j++) {
+                result[i][j] = fastSr.similarity(rowInterestIds[i], colInterestIds[j])
             }
         }
         return result

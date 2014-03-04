@@ -2,6 +2,10 @@ package org.macademia
 
 /**
  * A research interest denoted by a text field
+ *
+ * In order for the vector field to work, postgresql 9 servers will need to execute:
+ *
+ *      "alter database macademia_prod set bytea_output = 'escape'";
  */
 class Interest implements Comparable {
     String text
@@ -9,6 +13,7 @@ class Interest implements Comparable {
     Date lastAnalyzed
     String articleName
     Long articleId
+    byte [] vector;     // SR vector
 
 
     static constraints = {
@@ -18,6 +23,7 @@ class Interest implements Comparable {
         articleId(nullable : true)
         requests(nullable: true)
         people(nullable: true)
+        vector(nullable: true)
     }
 
     static belongsTo = [Person, CollaboratorRequest]

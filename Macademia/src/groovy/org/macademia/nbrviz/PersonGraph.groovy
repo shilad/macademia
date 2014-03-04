@@ -31,7 +31,6 @@ class PersonGraph extends NbrvizGraph {
     public void addRootPersonInterests(int [] interestIds, float [][] cosims) {
         this.cosims = cosims
         this.cosimInterestIds = interestIds as long[]
-
     }
 
     public void addRootPersonInterestSimilarities(Long interestId, SimilarInterestList sil) {
@@ -173,10 +172,11 @@ class PersonGraph extends NbrvizGraph {
                         }
                     }
 
-//                    double size_penalty = 1 + Math.log(1 + 0.5 * Math.log(c1.size() * c2.size()))
+//                    double size_penalty = 1 + Math.log(1 + 0.15 * Math.log(c1.size() * c2.size()))
                     double size_penalty = 1.0
                     sim /= (c1.size() * c2.size() * size_penalty)
 //                    System.out.println("considering ${cluster_desc(c1)} and ${cluster_desc(c2)} with sim $sim")
+
                     if (sim > closestSim) {
                         closestSim = sim
                         closestPair = [c1, c2]
@@ -188,15 +188,11 @@ class PersonGraph extends NbrvizGraph {
             TIntSet c2 = closestPair[1]
             println("joining ${cluster_desc(c1)} and ${cluster_desc(c2)} with sim $closestSim")
 
-
             // Not close enough, Period!
-            if (closestSim < MIN_SIMILARITY_THRESHOLD) { break }
+            if (closestSim < 0.70) { break }
 
             // We hit our goal, and want to retain detailed structure.
-            if (clusters.size() <= maxRoots && closestSim < 0.7) { break }
-
-            // Both clusters are bigger than 1, and the sim isn't particularly close
-            if (clusters.size() > maxRoots && c1.size() > 1 && c2.size() > 1 && closestSim < 0.35) { break }
+            if (clusters.size() <= maxRoots && closestSim < 0.85) { break }
 
             clusters.remove(c1)
             c2.addAll(c1)
@@ -258,7 +254,9 @@ class PersonGraph extends NbrvizGraph {
             println("$s)")
         }
 
-        for (Long pid: personClusterEdges.keySet()) {
+        List<Long> pids = personClusterEdges.keySet() as List
+        pids.sort(true, { pid1, pid2 -> -1 * personScores.get(pid1).compareTo(personScores.get(pid2))})
+        for (Long pid: pids) {
             println("person with similarity" + personScores[pid] + ":")
             for (PersonClusterEdge edge : personClusterEdges[pid]) {
                 String s = "\t" + edge.relevance + ", " + f(edge.clusterId) + ">> "
