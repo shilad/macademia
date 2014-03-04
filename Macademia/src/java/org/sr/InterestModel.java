@@ -10,10 +10,7 @@ import org.macademia.SimilarInterest;
 import org.macademia.SimilarInterestList;
 import org.wikapidia.sr.SRResult;
 import org.wikapidia.sr.SRResultList;
-import org.wikapidia.sr.normalize.Normalizer;
-import org.wikapidia.sr.normalize.PercentileNormalizer;
 import org.wikapidia.sr.utils.Leaderboard;
-import org.wikapidia.utils.MathUtils;
 import org.wikapidia.utils.ParallelForEach;
 import org.wikapidia.utils.Procedure;
 import org.wikapidia.utils.WpIOUtils;
@@ -29,8 +26,8 @@ import java.util.logging.Logger;
  *
  * @author Shilad Sen
  */
-public class ItemModel {
-    private static final Logger LOG = Logger.getLogger(ItemModel.class.getName());
+public class InterestModel {
+    private static final Logger LOG = Logger.getLogger(InterestModel.class.getName());
 
     /**
      * Number of columns in vector representation of users / interests
@@ -46,7 +43,8 @@ public class ItemModel {
     /**
      * Normalizer for similarity score for items
      */
-    private Normalizer normalizer = null;
+    private SimilarityScorer scorer = null;
+    private VectorNormalizer normalizer = null;
 
 
     /**
@@ -64,14 +62,14 @@ public class ItemModel {
     /**
      * Creates a new SR calculator
      */
-    public ItemModel() {
+    public InterestModel() {
         buildCosimilarity = false;
     }
 
     /**
      * Creates a new SR calculator and reads from a particular directory.
      */
-    public ItemModel(File dir) throws IOException {
+    public InterestModel(File dir) throws IOException {
         read(dir);
     }
 
@@ -92,12 +90,14 @@ public class ItemModel {
         File pathVectors = new File(dir, "itemVectors");
         File pathCosim = new File(dir, "cosim");
         File pathNormalizer = new File(dir, "itemNormalizer");
+        File pathScorer = new File(dir, "scorer");
         if (pathCosim.isFile() && pathIndexToId.isFile() && pathIdToIndex.isFile() && pathVectors.isFile() && pathNormalizer.exists()) {
             idToIndex = (TLongIntMap) WpIOUtils.readObjectFromFile(pathIdToIndex);
             indexToId = (TLongList) WpIOUtils.readObjectFromFile(pathIndexToId);
             cosim = (List<float[]>) WpIOUtils.readObjectFromFile(pathCosim);
             vectors = (List<float[]>) WpIOUtils.readObjectFromFile(pathVectors);
-            normalizer = (Normalizer) WpIOUtils.readObjectFromFile(pathNormalizer);
+            normalizer = new VectorNormalizer(pathNormalizer);
+            scorer = new SimilarityScorer(pathScorer);
             if (!vectors.isEmpty()) {
                 numCols = vectors.get(0).length;
             }
@@ -117,9 +117,10 @@ public class ItemModel {
         dir.mkdirs();
         WpIOUtils.writeObjectToFile(new File(dir, "idToIndex"), idToIndex);
         WpIOUtils.writeObjectToFile(new File(dir, "indexToId"), indexToId);
-        WpIOUtils.writeObjectToFile(new File(dir, "itemVectors"), vectors);
+        WpIOUtils.writeObjectToFile(new File(dir, "interestVectors"), vectors);
         WpIOUtils.writeObjectToFile(new File(dir, "cosim"), cosim);
-        WpIOUtils.writeObjectToFile(new File(dir, "itemNormalizer"), normalizer);
+        scorer.write(new File(dir, "scorer"));
+        normalizer.write(new File(dir, "interestNormalizer"));
     }
 
     /**
@@ -182,7 +183,7 @@ public class ItemModel {
         if (v1 == null || v2 == null) {
             return 0.0;
         } else {
-            return itemSimilarity(v1, v2);
+            return scorer.similarity(v1, v2);
         }
     }
 
@@ -196,13 +197,6 @@ public class ItemModel {
         } else {
             return null;
         }
-    }
-
-    private double itemSimilarity(float vector1[], float vector2[]) {
-        if (vector1.length != vector2.length) {
-            throw new IllegalArgumentException();
-        }
-        return normalize(VectorUtils.dot(vector1, vector2));
     }
 
     public SimilarInterestList mostSimilarItems(Long interestId, int numResults) {
@@ -221,7 +215,7 @@ public class ItemModel {
             float vector1[] = vectors.get(index);
             for (int i = 0; i < vectors.size(); i++) {
                 int id2 = (int)indexToId.get(i);
-                double sim = itemSimilarity(vector1, vectors.get(i));
+                double sim = scorer.similarity(vector1, vectors.get(i));
                 leaderboard.tallyScore(id2, sim);
             }
         }
@@ -246,7 +240,7 @@ public class ItemModel {
         float sims[] = new float[vectors.size()];
         for (int i = 0; i < vectors.size(); i++) {
             float v2[] = vectors.get(i);
-            sims[i] = (v2 == null) ? 0.0f : (float) itemSimilarity(v1, v2);
+            sims[i] = (v2 == null) ? 0.0f : (float) scorer.similarity(v1, v2);
         }
         synchronized (cosim) {
             while (cosim.size() <= index) {
@@ -257,19 +251,9 @@ public class ItemModel {
 
     }
 
-    private double normalize(double x) {
-        if (normalizer == null) {
-            return x;
-        } else if (MathUtils.isReal(x)) {
-            return Math.pow(normalizer.normalize(x), 3);
-        } else {
-            return 0.0;
-        }
-    }
-
     public void summarize() {
         if (vectors.isEmpty()) {
-            System.err.println("no itemVectors in fast sr cache");
+            System.err.println("no interestVectors in fast sr cache");
             return;
         }
 
@@ -292,103 +276,28 @@ public class ItemModel {
         System.err.println();
     }
 
-    public void normalizeCosimilarities() {
-        this.normalizer = null;
-        Normalizer normalizer = new PercentileNormalizer();
-        Random rand = new Random();
-        for (int i = 0; i < 50000; i++) {
-            float[] row = cosim.get(rand.nextInt(cosim.size()));
-            if (row != null && row.length > 0) {
-                double sim = row[rand.nextInt(row.length)];
-                if (MathUtils.isReal(sim)) {
-                    normalizer.observe(sim);
-                }
-            }
-        }
-        normalizer.observationsFinished();
-        LOG.info("itemNormalizer is " + normalizer.dump());
-        this.normalizer = normalizer;
-
-        for (float v [] : cosim) {
-            for (int i = 0; i < v.length; i++) {
-                v[i] = (float) normalize(v[i]);
-            }
-        }
-    }
-
-
-    private void normalizeVectors(Collection<float []> vectors) {
-        if (vectors.size() == 0) {
-            return;
-        }
-
-        // row makeUnitVector
-        for (float v[] : vectors) {
-            VectorUtils.makeUnitVector(v);
-        }
-
-        // mean adjust
-        double colMeans[] = new double[numCols];
-        for (float v[] : vectors) {
-            for (int i = 0; i < numCols; i++) {
-                colMeans[i] += v[i];
-            }
-        }
-        for (int i = 0; i < numCols; i++) {
-            colMeans[i] /= vectors.size();
-        }
-        for (float v[] : vectors) {
-            for (int i = 0; i < numCols; i++) {
-                v[i] -= colMeans[i];
-            }
-        }
-
-        // z-score adjust
-        double colDevs[] = new double[numCols];
-        for (float v[] : vectors) {
-            for (int i = 0; i < numCols; i++) {
-                colDevs[i] += v[i] * v[i];
-            }
-        }
-        for (int i = 0; i < numCols; i++) {
-            colDevs[i] = Math.sqrt(colDevs[i] / vectors.size());
-        }
-        for (float v[] : vectors) {
-            for (int i = 0; i < numCols; i++) {
-                v[i] /= colDevs[i];
-            }
-        }
-
-        // row makeUnitVector once more
-        for (float v[] : vectors) {
-            VectorUtils.makeUnitVector(v);
-        }
-    }
-
-    public void buildCache() {
+    public void rebuildModel() {
         if (vectors.isEmpty()) {
-            System.err.println("Cannot finalize itemVectors: There are none.");
+            System.err.println("Cannot finalize interestVectors: There are none.");
             return;
         }
-        buildCosimilarity = false;
-        LOG.info("normalizing itemVectors");
-        normalizeVectors(vectors);
+        LOG.info("normalizing interestVectors");
+        normalizer = new VectorNormalizer(vectors);
+        for (float [] v : vectors) {
+            normalizer.normalize(v);
+        }
 
-        this.normalizer = null;
-        cosim = new ArrayList<float[]>();
+        LOG.info("building similarity scorer");
+        this.scorer = new SimilarityScorer(vectors);
 
         LOG.info("building cosimilarities");
+        cosim = new ArrayList<float[]>();
         ParallelForEach.range(0, indexToId.size(), new Procedure<Integer>() {
             @Override
             public void call(Integer index) throws Exception {
-                cacheItemCosimilarities(indexToId.get(index));
+            cacheItemCosimilarities(indexToId.get(index));
             }
         });
-
-        LOG.info("normalizing cosimilarities");
-        normalizeCosimilarities();
-
-        buildCosimilarity = true;
     }
 
     public int getNumCols() {

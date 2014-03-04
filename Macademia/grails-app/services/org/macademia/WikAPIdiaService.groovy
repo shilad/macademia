@@ -4,7 +4,8 @@ import gnu.trove.list.TIntList
 import gnu.trove.list.array.TIntArrayList
 import gnu.trove.map.TIntFloatMap
 import groovyx.gpars.GParsPool
-import org.sr.ItemModel
+import org.sr.InterestModel
+import org.sr.UserModel
 import org.wikapidia.conf.Configurator
 import org.wikapidia.core.cmd.Env
 import org.wikapidia.core.cmd.EnvBuilder
@@ -27,7 +28,8 @@ class WikAPIdiaService {
     VectorBasedMonoSRMetric metric
     Language lang = Language.getByLangCode("simple");
     int [] conceptSpace
-    ItemModel fastSr
+    InterestModel interests
+    UserModel users
 
     def init() {
         this.env = new EnvBuilder().setConfigFile("grails-app/conf/macademia-wikapidia.conf").build();
@@ -37,14 +39,15 @@ class WikAPIdiaService {
         TIntList conceptList = new TIntArrayList();
         getConceptPath().eachLine { conceptList.add(it as int)}
         conceptSpace = conceptList.toArray()
-        fastSr = new ItemModel(new File("fastSr"))
+        interests = new InterestModel(new File("fastSr"))
+        users = new UserModel(interests, new File("fastSr"))
 
         println("adding users")
         Person.list().each({
             Person p ->
-            fastSr.addUser(p.id, p.interests*.id)
+                users.addUser(p.id, p.interests*.id)
         })
-        fastSr.normalizeUsers()
+        users.rebuildModel()
         println("finished adding users")
     }
 
@@ -113,13 +116,13 @@ class WikAPIdiaService {
     }
 
     def buildSRCache() {
-        fastSr = new ItemModel()
+        interests = new InterestModel()
         for (Interest i : Interest.list()) {
             addInterest(i)
         }
-        fastSr.buildCache()
-        fastSr.summarize()
-        fastSr.write(new File("fastSr"))
+        interests.rebuildModel()
+        interests.summarize()
+        interests.write(new File("fastSr"))
     }
 
     def resolveToPage(Interest i) {
@@ -174,33 +177,22 @@ class WikAPIdiaService {
     def addInterest(Interest i) {
         if (i.vector != null) {
             try {
-                fastSr.addItemVector(i.id, (float [])WpIOUtils.bytesToObject(i.vector))
+                interests.addItemVector(i.id, (float [])WpIOUtils.bytesToObject(i.vector))
             } catch (StreamCorruptedException e) {
                 log.warn("Invalid vector for interest ${i}" )
             }
         }
     }
 
-    def trainNormalizer() {
-        Normalizer normalizer = new PercentileNormalizer()
-        Interest.list().each({
-            float [] sims = (float [])WpIOUtils.bytesToObject(it.vector)
-        })
-    }
-
     SimilarInterestList getRelatedInterests(Long id, int maxResults) {
-        return fastSr.mostSimilarItems(id, maxResults)
-    }
-
-    double similarity(Long id1, Long id2) {
-        return fastSr.similarity(id1, id2)
+        return interests.mostSimilarItems(id, maxResults)
     }
 
     float[][] cosimilarity(int [] interestIds) {
         float [][] result = new float[interestIds.length][interestIds.length]
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[i].length; j++) {
-                result[i][j] = fastSr.similarity(interestIds[i], interestIds[j])
+                result[i][j] = interests.similarity(interestIds[i], interestIds[j])
             }
         }
         System.out.println("result is " + result);
@@ -211,7 +203,7 @@ class WikAPIdiaService {
         float [][] result = new float[rowInterestIds.length][colInterestIds.length]
         for (int i = 0; i < result.length; i++) {
             for (int j = 0; j < result[i].length; j++) {
-                result[i][j] = fastSr.similarity(rowInterestIds[i], colInterestIds[j])
+                result[i][j] = interests.similarity(rowInterestIds[i], colInterestIds[j])
             }
         }
         return result
