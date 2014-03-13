@@ -1,53 +1,21 @@
 package org.macademia.nbrviz
 
+import org.macademia.graph.InterestInfo
+import org.macademia.graph.InterestRole
 import org.macademia.SimilarInterestList
 
 /**
- * Created by IntelliJ IDEA.
- * User: shilad
- * Date: 3/6/12
- * Time: 3:37 PM
- * To change this template use File | Settings | File Templates.
+ * A data structure that holds information about a result graph
  */
 public abstract class NbrvizGraph {
-    public static final double CLUSTER_PENALTY = 0.5
-
-    public static final double MIN_SIMILARITY_THRESHOLD = 0.6
-
-    /**
-     * Size of neighborhood around root for
-     */
-    public static final int CLUSTER_ROOT_NEIGHBORHOOD = 200
-
-
-    public static final int SIMILAR_USER_INTEREST_NEIGHBORHOOD = 200
-
 
     Map<Long, Set<Long>> clusterMap = [:]
     Map<Long, InterestInfo> interestInfo = [:]
     Map<Long, Collection<PersonClusterEdge>> personClusterEdges = [:]
     Map<Long, Double> personScores = [:]
     Map<Long, Double> interestWeights = [:]
-    Map<Long, SimilarInterestList> interestSims = [:]
 
-
-    public void addSimilarInterests(Long interestId, SimilarInterestList sil) {
-        InterestInfo ii = interestInfo.get(interestId, new InterestInfo(interestId : interestId))
-        ii.addRole(InterestRole.RoleType.HIDDEN, interestId, 0.0)
-        interestSims[interestId] = sil
-    }
-
-    /**
-     * Child classes must define these methods:
-     */
-    public abstract void chooseClusterRoots(int maxRoots);
     public abstract void prettyPrint();
-
-    public void fillClusters() {
-        for (Long id : clusterMap.keySet()) {
-            pickClusterMembers(id)
-        }
-    }
 
     public Collection<Long> getPersonIds() {
         return personScores.keySet()
@@ -57,98 +25,22 @@ public abstract class NbrvizGraph {
         return personScores.containsKey(pid)
     }
 
-
-    public Set<Long> getInterestsNeedingSims() {
-        Set<Long> needed = new HashSet<Long>(clusterMap.keySet())
-        for (Long root : clusterMap.keySet()) {
-            needed.addAll(getTopIds(interestSims[root], CLUSTER_ROOT_NEIGHBORHOOD))
-        }
-        return needed
+    public void addClusterRoot(Long iid) {
+        clusterMap[iid] = []
     }
 
-    public Set<Long> getInterestsToFindUsers() {
-        Set<Long> arena = new HashSet<Long>()
-        arena.addAll(clusterMap.keySet())
-        for (Long rootId : clusterMap.keySet()) {
-            arena.addAll(getTopIds(interestSims[rootId], SIMILAR_USER_INTEREST_NEIGHBORHOOD))
+    public void addClusterMember(Long clusterId, Long memberId, double relevance) {
+        if (!clusterMap[clusterId].contains(memberId)) {
+            clusterMap[clusterId].add(memberId)
         }
-
-        // filter to close arena
-        Set<Long> closeArena = new HashSet<Long>()
-        for (Long id : arena) {
-            if (interestInfo.containsKey(id) && interestInfo[id].closestRelevance > MIN_SIMILARITY_THRESHOLD) {
-                closeArena.add(id)
-            }
-        }
-        return closeArena
+        interestInfo[clusterId].addRole(InterestRole.RoleType.CHILD_OF_RELATED, clusterId, relevance)
     }
 
-    /**
-     * Pick members of cluster
-     */
-    public Set<Long> pickClusterMembers(Long root) {
-        Set<Long> candidates = new HashSet<Long>()
-
-        // add candidates closest to the root cluster
-        for (Long id : getTopIds(interestSims[root], CLUSTER_ROOT_NEIGHBORHOOD)) {
-            InterestInfo ii = interestInfo[id]
-//            println("closest for $id is ${ii.closestParentId}")
-            if (id != root && ii.closestParentId == root) {
-                candidates.add(id)
-            }
+    public void addInterest(Long iid, Long clusterId, double relevance) {
+        if (!interestInfo.containsKey(iid)) {
+            interestInfo[iid] = new InterestInfo(interestId : iid)
         }
-        
-        // chose candidates
-        Set<Long> chosen = new HashSet<Long>()
-        while (candidates.size() > 0 && chosen.size() < 7) {
-            Long id = pickRepresentativeInterest(root, candidates, chosen, 2.0)
-            if (id == null) break
-            chosen.add(id)
-            candidates.remove(id)
-        }
-
-        // record role
-        for (Long id : chosen) {
-            interestInfo[id].addRole(InterestRole.RoleType.CHILD_OF_RELATED, root, interestSims[root].getSimilarityOfId(id))
-        }
-        clusterMap[root] = chosen
-
-        return chosen
-    }
-
-    protected Long pickRepresentativeInterest(Long root, Set<Long> candidates, Set<Long> chosen, double simExp) {
-        Set<Long> currentTop = new HashSet<Long>()
-
-        // Add top chosen and root interests
-        currentTop.addAll(getTopIds(interestSims[root], 15))
-        for (Long id : chosen) {
-            currentTop.addAll(getTopIds(interestSims[id], 30))
-        }
-        candidates.removeAll(chosen)
-        candidates.remove(root)
-
-        // choose the best one!
-        Long bestId = null
-        double bestScore = 0.0
-        for (Long id : candidates) {
-            if (!interestSims.containsKey(id)) {
-                continue
-            }
-            SimilarInterestList sil = interestSims[id]
-            Set<Long> candidateTop = getTopIds(sil, 15)
-            candidateTop.removeAll(currentTop)
-            int numNew = candidateTop.size()
-            double sim = interestSims[root].getSimilarityOfId(id)
-
-//            double score = Math.pow(sim, simExp) * Math.pow(numNew, 1.0) * Math.pow(Math.log(sil.count + 1), 1.0)
-            double score = Math.pow(sim, simExp) * numNew * Math.log(sil.count + 1)
-            if (score > bestScore) {
-                bestScore = score
-                bestId = id
-            }
-        }
-
-        return bestId
+        interestInfo[iid].addRole(InterestRole.RoleType.HIDDEN, clusterId, relevance)
     }
 
     public void addPerson(Long pid, Collection<Long> interests) {

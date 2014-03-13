@@ -60,8 +60,10 @@ grails.project.dependency.resolution = {
         //runtime ":zipped-resources:1.0"
         //runtime ":cached-resources:1.0"
         //runtime ":yui-minify-resources:0.1.4"
-        build ':tomcat:7.0.50'
-        runtime ':hibernate:3.6.10.7'
+        runtime ':hibernate:3.6.10.8'
+        if (System.getProperty("noTomcat") == null) {
+            build ':tomcat:7.0.50.1'
+        }
     }
 }
 

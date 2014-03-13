@@ -1,9 +1,10 @@
 package org.macademia.nbrviz
 
 import org.macademia.Interest
+import org.macademia.graph.InterestInfo
 import org.macademia.SimilarInterest
 import org.macademia.SimilarInterestList
-import org.macademia.nbrviz.InterestRole.RoleType
+import org.macademia.graph.InterestRole.RoleType
 import gnu.trove.set.TIntSet
 import gnu.trove.set.hash.TIntHashSet
 

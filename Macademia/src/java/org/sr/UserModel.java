@@ -48,7 +48,7 @@ public class UserModel {
     public boolean read(File dir) throws IOException {
         File pathVectors = new File(dir, "userVectors");
         File pathNormalizer = new File(dir, "userNormalizer");
-        File pathScorer = new File(dir, "scorer");
+        File pathScorer = new File(dir, "userScorer");
 
         if (dir.isDirectory() && pathVectors.isFile() && pathNormalizer.exists() && pathScorer.exists()) {
             LOG.warning("reading user model from " + dir);
@@ -71,7 +71,7 @@ public class UserModel {
         LOG.warning("writing superfast sr to " + dir);
         dir.mkdirs();
         WpIOUtils.writeObjectToFile(new File(dir, "userVectors"), vectors);
-        scorer.write(new File(dir, "scorer"));
+        scorer.write(new File(dir, "userScorer"));
         normalizer.write(new File(dir, "userNormalizer"));
     }
 

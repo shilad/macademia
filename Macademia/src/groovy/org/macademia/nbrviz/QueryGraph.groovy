@@ -1,9 +1,11 @@
 package org.macademia.nbrviz
 
+import org.macademia.graph.InterestInfo
+import org.macademia.graph.InterestRole
 import org.macademia.SimilarInterestList
 import org.macademia.SimilarInterest
 import org.macademia.Interest
-import org.macademia.nbrviz.InterestRole.RoleType
+import org.macademia.graph.InterestRole.RoleType
 
 /**
  * TODO: reconcile QueryGraph, InterestGraph, PersonGraph

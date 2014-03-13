@@ -1,6 +1,8 @@
 package org.macademia.nbrviz
 
 import org.macademia.*
+import org.macademia.graph.InterestInfo
+import org.macademia.graph.InterestRole
 
 /**
  * This Service supplies data in the JSON format for the construction

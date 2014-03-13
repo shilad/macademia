@@ -1,5 +1,7 @@
 package org.macademia;
 
+import gnu.trove.list.TIntList;
+
 import java.util.*;
 
 /**

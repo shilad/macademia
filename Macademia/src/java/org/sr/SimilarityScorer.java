@@ -23,7 +23,7 @@ public class SimilarityScorer {
 
     private static final Logger LOG = Logger.getLogger(SimilarityScorer.class.getName());
 
-    private double exponent = 4.0;
+    private double exponent = 3.0;
     private final Normalizer normalizer;
 
     /**
@@ -53,7 +53,7 @@ public class SimilarityScorer {
      * @throws IOException
      */
     public SimilarityScorer(File dir) throws IOException {
-        if (!dir.isDirectory() || !new File(dir, "normalizer").isFile()) {
+        if (dir.isDirectory() && new File(dir, "normalizer").isFile()) {
             normalizer = (Normalizer) WpIOUtils.readObjectFromFile(new File(dir, "normalizer"));
         } else {
             throw new IllegalArgumentException("directory " + dir.getAbsolutePath() + " does not contain a similarity scorer");

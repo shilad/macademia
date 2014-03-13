@@ -1,5 +1,10 @@
 package org.sr;
 
+import gnu.trove.list.TIntList;
+import gnu.trove.list.array.TIntArrayList;
+
+import java.util.Random;
+
 /**
  * @author Shilad Sen
  */
@@ -35,6 +40,37 @@ public class VectorUtils {
             for (int i = 0; i < vector.length; i++) {
                 vector[i] /= len;
             }
+        }
+    }
+
+    /**
+     * Returns the index with the maximum value. If two values are equal, randomly choose.
+     * @param vector
+     * @return
+     */
+    public static int maxIndex(float vector[]) {
+        if (vector.length == 0) {
+            throw new IllegalArgumentException();
+        }
+        TIntList maxIndexes = new TIntArrayList();
+        float maxValue = Float.NEGATIVE_INFINITY;
+        for (int i = 0; i < vector.length; i++) {
+            if (vector[i] == maxValue) {
+                maxIndexes.add(i);
+                maxValue = vector[i];
+            } else if (vector[i] > maxValue) {
+                maxIndexes.clear();
+                maxIndexes.add(i);
+                maxValue = vector[i];
+            }
+        }
+        if (maxIndexes.isEmpty()) {
+            throw new IllegalStateException();
+        } else if (maxIndexes.size() == 1) {
+            return maxIndexes.get(0);
+        } else {
+            Random random = new Random();
+            return maxIndexes.get(random.nextInt(maxIndexes.size()));
         }
     }
 }

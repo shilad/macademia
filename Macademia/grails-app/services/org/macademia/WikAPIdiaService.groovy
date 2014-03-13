@@ -4,6 +4,7 @@ import gnu.trove.list.TIntList
 import gnu.trove.list.array.TIntArrayList
 import gnu.trove.map.TIntFloatMap
 import groovyx.gpars.GParsPool
+import org.sr.ClusterMapBuilder
 import org.sr.InterestModel
 import org.sr.UserModel
 import org.wikapidia.conf.Configurator
@@ -17,8 +18,6 @@ import org.wikapidia.core.model.LocalPage
 import org.wikapidia.sr.MonolingualSRMetric
 import org.wikapidia.sr.SRBuilder
 import org.wikapidia.sr.disambig.Disambiguator
-import org.wikapidia.sr.normalize.Normalizer
-import org.wikapidia.sr.normalize.PercentileNormalizer
 import org.wikapidia.sr.vector.VectorBasedMonoSRMetric
 import org.wikapidia.utils.WpIOUtils
 
@@ -30,6 +29,7 @@ class WikAPIdiaService {
     int [] conceptSpace
     InterestModel interests
     UserModel users
+    ClusterMapBuilder clusterer
 
     def init() {
         this.env = new EnvBuilder().setConfigFile("grails-app/conf/macademia-wikapidia.conf").build();
@@ -41,6 +41,7 @@ class WikAPIdiaService {
         conceptSpace = conceptList.toArray()
         interests = new InterestModel(new File("fastSr"))
         users = new UserModel(interests, new File("fastSr"))
+        clusterer = new ClusterMapBuilder(interests, users)
 
         println("adding users")
         Person.list().each({
@@ -121,7 +122,13 @@ class WikAPIdiaService {
             addInterest(i)
         }
         interests.rebuildModel()
-        interests.summarize()
+        Person.list().each({
+            Person p ->
+                p.interests*.id.each( {
+                    interests.incrementCount(it)
+                })
+        })
+
         interests.write(new File("fastSr"))
     }
 
