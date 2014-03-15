@@ -3,6 +3,8 @@ package org.macademia
 import gnu.trove.list.TIntList
 import gnu.trove.list.array.TIntArrayList
 import gnu.trove.map.TIntFloatMap
+import gnu.trove.set.TIntSet
+import gnu.trove.set.hash.TIntHashSet
 import groovyx.gpars.GParsPool
 import org.sr.ClusterMapBuilder
 import org.sr.InterestModel
@@ -62,7 +64,14 @@ class WikAPIdiaService {
         SRBuilder builder = new SRBuilder(this.env, "macademia")
         builder.setDeleteExistingData(false)
         builder.setSkipBuiltMetrics(true)
+        builder.setValidMostSimilarIds(calculateValidMostSimilarIds())
         builder.build()
+    }
+
+    def calculateValidMostSimilarIds() {
+        TIntSet valid = new TIntHashSet()
+        Interest.all*.id.each { Long it ->  valid.add((int)it); }
+        return valid
     }
 
     File getConceptPath() {
