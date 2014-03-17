@@ -110,7 +110,11 @@ public class VectorNormalizer {
         }
         VectorUtils.makeUnitVector(vector);
         for (int i = 0; i < vector.length; i++) {
-            vector[i] = (float) ((vector[i] - means[i]) / devs[i]);
+            if (devs[i] == 0) {
+                vector[i] = 0.0f;       // TODO: what should we do here?
+            } else {
+                vector[i] = (float) ((vector[i] - means[i]) / devs[i]);
+            }
         }
         VectorUtils.makeUnitVector(vector);
     }

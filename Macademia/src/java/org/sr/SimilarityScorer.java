@@ -40,6 +40,7 @@ public class SimilarityScorer {
         for (int i = 0; i < NUM_SAMPLES; i++) {
             float v1[] = vectors.get(rand.nextInt(vectors.size()));
             float v2[] = vectors.get(rand.nextInt(vectors.size()));
+            System.err.println("observing " + VectorUtils.dot(v1, v2));
             normalizer.observe(VectorUtils.dot(v1, v2));
         }
         normalizer.observationsFinished();

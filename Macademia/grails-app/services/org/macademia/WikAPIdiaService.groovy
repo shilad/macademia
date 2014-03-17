@@ -193,6 +193,7 @@ class WikAPIdiaService {
     def addInterest(Interest i) {
         if (i.vector != null) {
             try {
+//                System.err.println("vector is " + (float [])WpIOUtils.bytesToObject(i.vector));
                 interests.addItemVector(i.id, (float [])WpIOUtils.bytesToObject(i.vector))
             } catch (StreamCorruptedException e) {
                 log.warn("Invalid vector for interest ${i}" )

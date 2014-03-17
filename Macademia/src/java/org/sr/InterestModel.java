@@ -15,6 +15,7 @@ import org.macademia.SimilarInterestList;
 import org.wikapidia.sr.SRResult;
 import org.wikapidia.sr.SRResultList;
 import org.wikapidia.sr.utils.Leaderboard;
+import org.wikapidia.utils.MathUtils;
 import org.wikapidia.utils.ParallelForEach;
 import org.wikapidia.utils.Procedure;
 import org.wikapidia.utils.WpIOUtils;
@@ -147,6 +148,11 @@ public class InterestModel {
         }
         if (vector.length != numCols) {
             throw new IllegalArgumentException();
+        }
+        for (int i = 0; i < vector.length; i++) {
+            if (Float.isInfinite(vector[i]) || Float.isNaN(vector[i])) {
+                vector[i] = 0.0f;
+            }
         }
         int index = 0;
         synchronized (idToIndex) {
@@ -305,6 +311,7 @@ public class InterestModel {
         normalizer = new VectorNormalizer(vectors);
         for (float [] v : vectors) {
             normalizer.normalize(v);
+//            System.err.println("normalized to " + Arrays.toString(v));
         }
 
         LOG.info("building similarity scorer");
