@@ -1,6 +1,6 @@
 #!/usr/bin/python -O
 
-import blist
+import sortedcontainers
 
 import multiprocessing
 import collections
@@ -65,7 +65,7 @@ def compute_neighbors(cat, ancestors, descendants):
     LOGGER.info('computing neighbors for %s', cat.name)
     beg = time.time()
     neighbors = {}
-    sorted_scores = blist.sortedset()
+    sorted_scores = sortedcontainers.SortedSet()
     furthest = 1000000000000000000
     if cat in ancestors:
         for (c1, n1) in ancestors[cat]:
